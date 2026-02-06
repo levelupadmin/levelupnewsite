@@ -8,6 +8,7 @@ import ForgeSection from "@/components/ForgeSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import FAQSection from "@/components/FAQSection";
 import StudentLogosSection from "@/components/StudentLogosSection";
+import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
@@ -22,6 +23,7 @@ const Index = () => {
       <StudentLogosSection />
       <TestimonialsSection />
       <FAQSection />
+      <Footer />
     </div>
   );
 };
