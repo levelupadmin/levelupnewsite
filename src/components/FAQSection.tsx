@@ -1,10 +1,4 @@
 import { motion } from "framer-motion";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 
 const faqs = [
   {
@@ -55,56 +49,59 @@ const FAQSection = () => {
       {/* Ambient glow */}
       <div className="absolute inset-0 bg-gradient-amber-glow pointer-events-none" />
 
-      <div className="relative max-w-3xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
+      <div className="relative max-w-6xl mx-auto px-6">
+        {/* Headline */}
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, ease: "easeOut" }}
+          className="font-serif-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-10 md:mb-12"
         >
-          {/* Thin separator */}
-          <div className="w-12 h-px bg-border mx-auto mb-10 md:mb-12" />
+          Frequently asked questions
+        </motion.h2>
 
-          {/* Headline */}
-          <h2 className="font-serif-display text-3xl md:text-4xl lg:text-5xl text-center text-foreground mb-10 md:mb-12">
-            Frequently asked questions
-          </h2>
-
-          {/* Accordion */}
-          <Accordion type="single" collapsible className="w-full">
-            {faqs.map((faq, index) => (
-              <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="border-b border-border"
-              >
-                <AccordionTrigger className="font-serif-display text-base md:text-lg text-foreground hover:no-underline py-5 md:py-6 text-left">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="font-sans-body text-sm md:text-base text-muted-foreground leading-relaxed pb-5 md:pb-6">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-
-          {/* Soft CTA */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-center mt-10 md:mt-14 font-sans-body text-sm text-muted-foreground"
-          >
-            Still have questions?{" "}
-            <a
-              href="mailto:hello@leveluplearning.com"
-              className="text-primary hover:underline underline-offset-4 transition-colors"
+        {/* Bento Card Grid */}
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-5">
+          {faqs.map((faq, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{
+                duration: 0.5,
+                ease: "easeOut",
+                delay: index * 0.06,
+              }}
+              className="break-inside-avoid mb-5 rounded-lg border border-border bg-card p-6"
             >
-              Reach out to us
-            </a>
-          </motion.p>
-        </motion.div>
+              <h3 className="font-serif-display text-base md:text-lg text-foreground mb-3">
+                {faq.question}
+              </h3>
+              <p className="font-sans-body text-sm md:text-base text-muted-foreground leading-relaxed">
+                {faq.answer}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Soft CTA */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-10 md:mt-14 font-sans-body text-sm text-muted-foreground"
+        >
+          Still have questions?{" "}
+          <a
+            href="mailto:hello@leveluplearning.com"
+            className="text-primary hover:underline underline-offset-4 transition-colors"
+          >
+            Reach out to us
+          </a>
+        </motion.p>
       </div>
     </section>
   );
