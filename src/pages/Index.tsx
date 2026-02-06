@@ -19,9 +19,9 @@ const Index = () => {
       <MasterclassSection />
       <LiveProgramsSection />
       <ForgeSection />
+      <StudentLogosSection />
       <TestimonialsSection />
       <FAQSection />
-      <StudentLogosSection />
     </div>
   );
 };
