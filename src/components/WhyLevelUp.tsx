@@ -50,7 +50,7 @@ const accentStyles = {
 
 const WhyLevelUp = () => {
   return (
-    <section className="relative bg-background py-28 md:py-36 lg:py-44">
+    <section className="relative bg-background py-16 md:py-20 lg:py-24">
       {/* Section headline */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
