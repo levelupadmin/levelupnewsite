@@ -57,7 +57,7 @@ const venues = [
 
 const ForgeSection = () => {
   return (
-    <section className="relative bg-background py-12 md:py-16 overflow-hidden">
+    <section id="forge" className="relative bg-background py-12 md:py-16 overflow-hidden">
       {/* Subtle top divider */}
       <div
         className="absolute top-0 left-0 right-0 h-px"
