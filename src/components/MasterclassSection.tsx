@@ -83,7 +83,7 @@ const MasterclassSection = () => {
       : masterclasses.filter((m) => m.category === activeCategory);
 
   return (
-    <section className="relative bg-background py-16 md:py-20 lg:py-24">
+    <section className="relative bg-background py-12 md:py-16">
       {/* Subtle top glow */}
       <div
         className="absolute top-0 left-0 right-0 h-64 pointer-events-none"
@@ -99,7 +99,7 @@ const MasterclassSection = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.8 }}
-        className="text-center px-6 md:px-12 mb-10 md:mb-14"
+        className="text-center px-6 md:px-12 mb-8 md:mb-10"
       >
         <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-hero-headline leading-[1.2] tracking-tight">
           Learn from the ones{" "}
@@ -116,7 +116,7 @@ const MasterclassSection = () => {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.6, delay: 0.3 }}
-        className="flex flex-wrap justify-center gap-2 md:gap-3 px-6 md:px-12 mb-14 md:mb-20"
+        className="flex flex-wrap justify-center gap-2 md:gap-3 px-6 md:px-12 mb-10 md:mb-12"
       >
         {categories.map((cat) => (
           <button
@@ -198,7 +198,7 @@ const MasterclassSection = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.6, delay: 0.4 }}
-        className="text-center mt-16 md:mt-24"
+        className="text-center mt-10 md:mt-14"
       >
         <a
           href="#"

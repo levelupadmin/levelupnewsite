@@ -94,7 +94,7 @@ const cardVariants = {
 
 const LiveProgramsSection = () => {
   return (
-    <section className="relative bg-background py-16 md:py-20 lg:py-24">
+    <section className="relative bg-background py-12 md:py-16">
       {/* Subtle divider glow */}
       <div
         className="absolute top-0 left-0 right-0 h-px"
@@ -110,7 +110,7 @@ const LiveProgramsSection = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.8 }}
-        className="text-center px-6 md:px-12 mb-16 md:mb-20"
+        className="text-center px-6 md:px-12 mb-10 md:mb-12"
       >
         <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-hero-headline leading-[1.2] tracking-tight">
           Your craft,{" "}
@@ -137,7 +137,7 @@ const LiveProgramsSection = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.6, delay: 0.4 }}
-        className="text-center mt-16 md:mt-24"
+        className="text-center mt-10 md:mt-14"
       >
         <a
           href="#"
