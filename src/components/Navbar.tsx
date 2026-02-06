@@ -14,7 +14,7 @@ const Navbar = () => {
         <img
           src={levelupLogo}
           alt="LevelUp Learning"
-          className="h-8 md:h-9 w-auto"
+          className="h-10 md:h-12 w-auto"
         />
       </a>
 
