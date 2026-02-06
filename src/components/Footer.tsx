@@ -43,7 +43,7 @@ const Footer = () => {
 
       <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-20 py-16 md:py-20">
         {/* Multi-column grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-8">
           {/* Brand pillar */}
           <div className="lg:col-span-1">
             <div className="mb-4">
