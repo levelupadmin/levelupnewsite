@@ -5,6 +5,7 @@ import WhyLevelUp from "@/components/WhyLevelUp";
 import MasterclassSection from "@/components/MasterclassSection";
 import LiveProgramsSection from "@/components/LiveProgramsSection";
 import ForgeSection from "@/components/ForgeSection";
+import StudentLogosSection from "@/components/StudentLogosSection";
 
 const Index = () => {
   return (
@@ -16,6 +17,7 @@ const Index = () => {
       <MasterclassSection />
       <LiveProgramsSection />
       <ForgeSection />
+      <StudentLogosSection />
     </div>
   );
 };

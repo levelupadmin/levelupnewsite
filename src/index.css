@@ -118,3 +118,18 @@
     display: none;
   }
 }
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@layer utilities {
+  .animate-scroll-left {
+    animation: scroll-left 35s linear infinite;
+  }
+}
