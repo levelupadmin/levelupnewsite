@@ -74,7 +74,7 @@ const MasterclassSection = () => {
       : masterclasses.filter((m) => m.category === activeCategory);
 
   return (
-    <section className="relative bg-background py-12 md:py-16">
+    <section id="masterclasses" className="relative bg-background py-12 md:py-16">
       {/* Subtle top glow */}
       <div
         className="absolute top-0 left-0 right-0 h-64 pointer-events-none"

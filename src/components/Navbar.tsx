@@ -4,10 +4,10 @@ import { Menu, X } from "lucide-react";
 import levelupLogo from "@/assets/levelup-logo.svg";
 
 const navLinks = [
-  { label: "Masterclasses", href: "#" },
-  { label: "The Forge", href: "#" },
+  { label: "Masterclasses", href: "#masterclasses" },
+  { label: "The Forge", href: "#forge" },
   { label: "StarDa", href: "#" },
-  { label: "About", href: "#" },
+  { label: "About", href: "#testimonials" },
 ];
 
 const Navbar = () => {

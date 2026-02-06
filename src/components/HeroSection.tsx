@@ -4,7 +4,7 @@ import HeroCarousel from "@/components/HeroCarousel";
 
 const HeroSection = () => {
   return (
-    <section className="relative flex flex-col bg-gradient-cinematic pb-8 md:pb-12">
+    <section id="hero" className="relative flex flex-col bg-gradient-cinematic pb-8 md:pb-12">
       {/* Subtle amber glow at top */}
       <div className="absolute inset-0 bg-gradient-amber-glow pointer-events-none" />
 
@@ -49,7 +49,7 @@ const HeroSection = () => {
           className="mt-6 md:mt-10"
         >
           <a
-            href="#"
+            href="#masterclasses"
             className="group inline-flex items-center gap-3 font-sans-body text-sm md:text-base text-foreground border border-border px-6 py-3 md:px-7 md:py-3.5 rounded-full hover:border-primary hover:text-primary transition-all duration-500"
           >
             Explore the ecosystem
