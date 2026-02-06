@@ -50,14 +50,14 @@ const accentStyles = {
 
 const WhyLevelUp = () => {
   return (
-    <section className="relative bg-background py-16 md:py-20 lg:py-24">
+    <section className="relative bg-background py-12 md:py-16">
       {/* Section headline */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.8 }}
-        className="text-center px-6 md:px-12 mb-16 md:mb-24"
+        className="text-center px-6 md:px-12 mb-10 md:mb-12"
       >
         <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-hero-headline leading-[1.2] tracking-tight">
           Why serious creators choose{" "}
@@ -89,24 +89,8 @@ const WhyLevelUp = () => {
               {/* Abstract decorative element */}
               <div className="absolute top-0 right-0 w-32 h-32 md:w-40 md:h-40 opacity-[0.03] pointer-events-none">
                 <svg viewBox="0 0 200 200" className="w-full h-full">
-                  <circle
-                    cx="160"
-                    cy="40"
-                    r="120"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="0.5"
-                    className="text-foreground"
-                  />
-                  <circle
-                    cx="160"
-                    cy="40"
-                    r="80"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="0.5"
-                    className="text-foreground"
-                  />
+                  <circle cx="160" cy="40" r="120" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-foreground" />
+                  <circle cx="160" cy="40" r="80" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-foreground" />
                 </svg>
               </div>
 
@@ -124,7 +108,7 @@ const WhyLevelUp = () => {
                 </p>
               </div>
 
-              {/* Bottom edge line — subtle visual weight */}
+              {/* Bottom edge line */}
               <div className={`h-[1px] ${style.line} opacity-20`} />
             </motion.div>
           );

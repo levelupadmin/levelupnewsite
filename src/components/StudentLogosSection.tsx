@@ -30,7 +30,7 @@ const MarqueeRow = () => (
 
 const StudentLogosSection = () => {
   return (
-    <section className="relative bg-background py-16 md:py-20 lg:py-24 overflow-hidden">
+    <section className="relative bg-background py-12 md:py-16 overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -38,10 +38,10 @@ const StudentLogosSection = () => {
         transition={{ duration: 0.7 }}
       >
         {/* Thin separator */}
-        <div className="w-12 h-px bg-border mx-auto mb-14 md:mb-20" />
+        <div className="w-12 h-px bg-border mx-auto mb-10 md:mb-12" />
 
         {/* Headline */}
-        <h2 className="font-serif-display text-2xl md:text-3xl lg:text-4xl text-center text-muted-foreground mb-14 md:mb-20 px-6">
+        <h2 className="font-serif-display text-2xl md:text-3xl lg:text-4xl text-center text-muted-foreground mb-10 md:mb-12 px-6">
           Our students are from
         </h2>
 
