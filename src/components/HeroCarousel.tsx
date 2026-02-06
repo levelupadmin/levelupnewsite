@@ -83,7 +83,7 @@ const HeroCarousel = () => {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.2, delay: 1.5, ease: "easeOut" }}
-      className="relative z-10 mt-8 md:mt-10 lg:mt-12"
+      className="relative z-10 mt-6 md:mt-8"
     >
       {/* Carousel with overlay dots */}
       <div className="relative">
@@ -92,7 +92,7 @@ const HeroCarousel = () => {
             {slides.map((slide, index) => (
               <div
                 key={index}
-                className="relative flex-none w-[85vw] sm:w-[45vw] md:w-[33.33vw] lg:w-[33.33vw] px-1 md:px-1.5"
+                className="relative flex-none w-[90vw] sm:w-[50vw] md:w-[45vw] lg:w-[45vw] px-1.5 md:px-2"
               >
                 <div className="relative group overflow-hidden rounded-sm cursor-pointer">
                   {/* Film grain overlay */}
@@ -143,7 +143,7 @@ const HeroCarousel = () => {
         </div>
 
         {/* Progress dots - overlaid on carousel */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
+        <div className="absolute top-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
           {slides.map((_, index) => (
             <button
               key={index}
