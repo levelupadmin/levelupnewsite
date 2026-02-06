@@ -1,43 +1,109 @@
 
 
-## Problem
+# Redesign "The Forge" Section to Match Reference Composition
 
-The carousel cards are landscape (16/9) as requested, but they're too small -- the entire carousel fits within the viewport. The reference shows that only the **top half** of the video cards should be visible on initial load, with the rest revealed by scrolling.
+## What Changes
 
-## Plan
+The current Forge section uses a centered-headline-over-collage layout. The reference shows a fundamentally different composition: a **split content layout** with text and feature points side by side at the top, and a **large, dominant visual showcase** floating below.
 
-### 1. Make the hero section exactly viewport height (HeroSection.tsx)
+---
 
-Set the hero section to `h-screen` so it acts as a fixed viewport container. The headline sits in the upper portion, and the carousel starts near the bottom -- but the carousel content itself overflows past the section, creating the "peek" effect.
+## New Layout Structure
 
-### 2. Make carousel cards much wider (HeroCarousel.tsx)
+```text
++------------------------------------------------------------------+
+|                                                                    |
+|  [Left Column ~50%]              [Right Column ~50%]              |
+|                                                                    |
+|  Small label tag                 Icon + Feature headline 1        |
+|  "The inner circle"              Supporting line                  |
+|                                                                    |
+|  Large bold headline:            Icon + Feature headline 2        |
+|  "Where you become"              Supporting line                  |
+|                                                                    |
+|  Supporting paragraph            Icon + Feature headline 3        |
+|  (one-liner about the            Supporting line                  |
+|   residency experience)                                           |
+|                                                                    |
++------------------------------------------------------------------+
+|                                                                    |
+|          +------------------------------------------+             |
+|          |                                          |             |
+|          |    Large floating cinematic visual        |             |
+|          |    (forge collage / composite image)      |             |
+|          |    with rounded corners, soft shadow,     |             |
+|          |    and subtle overlapping screenshots      |             |
+|          |    of Forge moments on left + right       |             |
+|          |                                          |             |
+|          +------------------------------------------+             |
+|                                                                    |
+|     [Left peek image]   [Center main]   [Right peek image]        |
+|                                                                    |
+|            "Invite-only"  "Limited cohorts"  "Offline"            |
+|                                                                    |
+|                      Enter The Forge -->                           |
+|                                                                    |
++------------------------------------------------------------------+
+```
 
-Increase the card widths significantly so each card is larger and more cinematic:
-- Mobile: `w-[90vw]` (nearly full width)
-- Tablet: `w-[50vw]` (2 cards visible)
-- Desktop: `w-[45vw]` (just over 2 cards visible)
+---
 
-With 16/9 aspect ratio at `45vw` width, each card will be roughly `25vw` tall -- that's about 25% of the viewport height. Starting from ~60% down the viewport, the cards will naturally extend well below the fold, showing only the top portion.
+## Detailed Plan
 
-### 3. Ensure no clipping on the section (HeroSection.tsx)
+### 1. Top Section: Split Two-Column Layout
 
-The section must NOT have `overflow-hidden` so the carousel visually bleeds past the viewport edge. It currently doesn't have it, which is correct.
+**Left column (text block):**
+- A small uppercase label/tag above the headline (e.g., "The inner circle" in primary/amber color, small tracked text)
+- The existing emotionally charged headline: "Where you *become*"
+- A supporting paragraph explaining the residency experience
 
-### 4. Move progress dots to overlay position (HeroCarousel.tsx)
+**Right column (feature points):**
+- 2-3 feature/benefit blocks, each containing:
+  - A subtle icon (from lucide-react, e.g., `Flame`, `Users`, `MapPin`)
+  - A bold, belief-driven headline (e.g., "Pressure that transforms", "Mentorship without filters", "Offline. Immersive. Real.")
+  - A one-line supporting description
+- These replace the current contextual cues ("Invite-only", "Limited cohorts", etc.) with richer, more descriptive blocks
 
-Since the bottom of the cards will be cut off by the viewport, the dots need to overlay on the visible portion of the carousel rather than sitting below it. Move them to the top or middle of the carousel area.
+**Responsive:** Stacks to single column on mobile.
+
+### 2. Bottom Section: Large Floating Visual Showcase
+
+Instead of the current 4-image asymmetric collage, create a **layered visual composition** inspired by the reference:
+
+- A **large, centered main image** (forge-1.jpg) displayed as a prominent card with rounded corners and a cinematic shadow
+- **Two flanking images** (forge-2.jpg on the left, forge-4.jpg on the right) partially visible/peeking from behind or beside the main image, creating depth
+- The third image (forge-3.jpg) can appear as a subtle overlay or caption card within the main visual
+- This creates a "floating product showcase" feel adapted to The Forge's documentary aesthetic
+
+**Alternative approach (simpler, still matching the reference hierarchy):** A single wide hero image (spanning ~80% width) with two smaller overlapping/offset images on the sides, creating a layered editorial look.
+
+### 3. Bottom Cues and CTA
+
+- Keep the contextual cues ("Invite-only", "Limited cohorts", "Offline, immersive") as subtle tracked uppercase text beneath the visual
+- Keep the quiet "Enter The Forge" CTA with arrow
+
+---
 
 ## Technical Details
 
-### File: `src/components/HeroSection.tsx`
-- Add `h-screen` to the section so headline + top of carousel = exactly one viewport
-- This naturally makes the large carousel cards overflow below
+### File Modified
+- `src/components/ForgeSection.tsx` -- complete rewrite of the component
 
-### File: `src/components/HeroCarousel.tsx`
-- Change slide widths from `w-[85vw] sm:w-[45vw] md:w-[33.33vw] lg:w-[33.33vw]` to `w-[90vw] sm:w-[50vw] md:w-[45vw] lg:w-[45vw]`
-- Keep `aspect-[16/9]` for landscape orientation
-- Move progress dots from `bottom-6` to `top-4` so they're visible above the fold
-- Reduce top margin to `mt-6 md:mt-8` so the carousel starts closer to the CTA
+### Implementation Notes
+- Continue using `framer-motion` for staggered entrance animations (consistent with all other sections)
+- Use `lucide-react` icons for the feature points (e.g., `Flame`, `Users`, `MapPin` or similar)
+- Maintain the existing image imports (`forge-1.jpg` through `forge-4.jpg`)
+- Use existing design tokens: `text-hero-headline`, `text-hero-subtext`, `text-primary`, `text-muted-foreground`, `bg-background`, `bg-card`, `font-serif-display`, `font-sans-body`
+- The main visual card will use `shadow-cinematic` and `rounded-sm` for the premium editorial feel
+- Feature point icons will use `text-primary` (amber) for warmth
+- Responsive breakpoints: single-column stacked on mobile, two-column split on `md:` and above
+- The layered image composition will use absolute positioning and negative margins/offsets for the flanking images, with `z-index` layering
 
-The math: at `45vw` wide with 16/9 ratio, each card is ~25vh tall. The headline area takes ~55-60% of the viewport. That leaves ~40-45% for the carousel peek -- meaning roughly half the card height is visible and the rest is below the fold, exactly matching the reference.
+### Content for Feature Points
+
+| Icon | Headline | Supporting Line |
+|------|----------|----------------|
+| Flame | Pressure that transforms | Not comfort. Not theory. Real creative intensity, shoulder to shoulder. |
+| Users | Mentorship without filters | Work directly with creators who've shaped the industry. No layers between you and the work. |
+| MapPin | Offline. Immersive. Real. | Step away from screens. Live, create, and break through — together, in one place. |
 
