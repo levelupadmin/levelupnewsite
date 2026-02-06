@@ -4,7 +4,7 @@ import HeroCarousel from "@/components/HeroCarousel";
 
 const HeroSection = () => {
   return (
-    <section className="relative flex flex-col min-h-screen bg-gradient-cinematic">
+    <section className="relative flex flex-col bg-gradient-cinematic pb-8 md:pb-12">
       {/* Subtle amber glow at top */}
       <div className="absolute inset-0 bg-gradient-amber-glow pointer-events-none" />
 
