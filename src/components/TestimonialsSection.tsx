@@ -1,11 +1,6 @@
 import { motion } from "framer-motion";
 import { Play, ArrowRight } from "lucide-react";
 
-import testimonial1 from "@/assets/testimonial-1.jpg";
-import testimonial2 from "@/assets/testimonial-2.jpg";
-import testimonial3 from "@/assets/testimonial-3.jpg";
-import testimonial4 from "@/assets/testimonial-4.jpg";
-
 interface Testimonial {
   image: string;
   name: string;
@@ -16,32 +11,46 @@ interface Testimonial {
 
 const testimonials: Testimonial[] = [
   {
-    image: testimonial1,
-    name: "Arjun Mehta",
+    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/652523b6662a5d2fad321caf_IMG_4947-1.jpg",
+    name: "Janani",
+    role: "Director",
+    context: "Enrolled in the Direction Masterclass",
+    pullQuote: "I was blown away by the depth of knowledge shared.",
+  },
+  {
+    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/652526a5ff187b8061736a2c_Craving-Summer-Pc-kishan-sh-peace-countryside-rail.jpg",
+    name: "Karthik",
     role: "Filmmaker",
-    context: "Was stuck between passion projects and client work",
-    pullQuote: "I stopped waiting for permission to make what I wanted.",
+    context: "Took the Filmmaking Masterclass",
+    pullQuote: "A game-changer. The course content is comprehensive, covering every aspect of filmmaking.",
   },
   {
-    image: testimonial2,
-    name: "Sneha Iyer",
-    role: "Editor & Colourist",
-    context: "Wanted to move beyond technical skill into creative voice",
-    pullQuote: "I found a language for the work I was already doing.",
+    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/65252678baf7cd7a2d9bfd54_photo.JPG",
+    name: "Neera",
+    role: "Editor",
+    context: "Completed the Editing Masterclass",
+    pullQuote: "I now feel confident in my editing abilities, thanks to LevelUp Learning.",
   },
   {
-    image: testimonial3,
-    name: "Rohan Kapoor",
-    role: "Writer & Director",
-    context: "Searching for structure without losing artistic freedom",
-    pullQuote: "The pressure didn't break me — it showed me what I had.",
+    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/652523987b775fea747ce609_(3).jpg",
+    name: "Kishore",
+    role: "Photographer",
+    context: "Enrolled in the Photography Masterclass",
+    pullQuote: "It elevated my skills to a professional level.",
   },
   {
-    image: testimonial4,
-    name: "Priya Sharma",
-    role: "Visual Designer",
-    context: "Transitioning from corporate design to independent storytelling",
-    pullQuote: "I came in as a designer. I left as a storyteller.",
+    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/6525232d1f84ff3af20ab3e4_Sparkle-every-single-day-photography-class-looks-a.jpg",
+    name: "Mithun",
+    role: "Music Composer",
+    context: "Took the Music Masterclass",
+    pullQuote: "Incredibly inspiring — they emphasised the emotional connection with the audience.",
+  },
+  {
+    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/6533a7e35661f381b62ee44c_User%203.jpg",
+    name: "Lokesh",
+    role: "Art Director",
+    context: "Completed the Art Direction Masterclass",
+    pullQuote: "A revelation. It helped me understand the importance of every element in a scene.",
   },
 ];
 
@@ -76,9 +85,8 @@ const TestimonialsSection = () => {
           className="mb-10 md:mb-12"
         >
           <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl font-medium text-hero-headline leading-[1.15] tracking-tight max-w-lg">
-            Journeys that{" "}
-            <em className="italic font-normal text-primary">speak</em> for
-            themselves
+            This makes our{" "}
+            <em className="italic font-normal text-primary">heart beat</em> faster
           </h2>
           <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-4 max-w-md leading-relaxed">
             Real creators. Real turning points. No scripts.
@@ -86,7 +94,7 @@ const TestimonialsSection = () => {
         </motion.div>
 
         {/* Testimonial Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
           {testimonials.map((testimonial, index) => (
             <TestimonialCard
               key={testimonial.name}

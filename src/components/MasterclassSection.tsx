@@ -2,66 +2,57 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
-import masterclass1 from "@/assets/masterclass-1.jpg";
-import masterclass2 from "@/assets/masterclass-2.jpg";
-import masterclass3 from "@/assets/masterclass-3.jpg";
-import masterclass4 from "@/assets/masterclass-4.jpg";
-import masterclass5 from "@/assets/masterclass-5.jpg";
-import masterclass6 from "@/assets/masterclass-6.jpg";
-
 const categories = [
   "All",
   "Filmmaking",
-  "Direction",
-  "Cinematography",
+  "Photography",
   "Editing",
-  "Writing",
+  "Art Direction",
   "Music",
-  "Acting",
 ];
 
 const masterclasses = [
   {
-    image: masterclass1,
-    name: "Arun Varma",
-    descriptor: "Directing with Intent",
-    format: "18 lessons",
-    category: "Direction",
+    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/650c1be5224f49f6432aaae6_1.Karthik_Subburaj%20course%20banner.png",
+    name: "Karthik Subbaraj",
+    descriptor: "Storytelling to editing to working with actors",
+    format: "Filmmaker",
+    category: "Filmmaking",
   },
   {
-    image: masterclass2,
-    name: "Meera Kapoor",
-    descriptor: "Seeing Light, Feeling Frame",
-    format: "14 lessons",
-    category: "Cinematography",
-  },
-  {
-    image: masterclass3,
-    name: "Vikram Desai",
-    descriptor: "The Craft of Storytelling",
-    format: "22 lessons",
-    category: "Writing",
-  },
-  {
-    image: masterclass4,
-    name: "Priya Nair",
-    descriptor: "Composing for Emotion",
-    format: "16 lessons",
-    category: "Music",
-  },
-  {
-    image: masterclass5,
-    name: "Rohan Mehta",
-    descriptor: "The Invisible Cut",
-    format: "12 lessons",
+    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64f60ddd91f67b7db8f6716b_3.Anthony_Gonsalvez.png",
+    name: "Anthony Gonsalvez",
+    descriptor: "An all-out practical editing experience",
+    format: "Film Editor",
     category: "Editing",
   },
   {
-    image: masterclass6,
-    name: "Ananya Sen",
-    descriptor: "Presence and Truth",
-    format: "20 lessons",
-    category: "Acting",
+    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64f2f14d67e5504737c57ea5_2.Venket_Ram.png",
+    name: "G Venket Ram",
+    descriptor: "Capturing the perfect image through diverse case studies",
+    format: "Photographer",
+    category: "Photography",
+  },
+  {
+    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64b79ef6d61b238747788c6c_kiran%20website%201.webp",
+    name: "DRK Kiran",
+    descriptor: "Set designing, creative problem-solving, and miniatures",
+    format: "Art Director",
+    category: "Art Direction",
+  },
+  {
+    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64b79ef642421ae3cbe004d9_ravi%20website%201.webp",
+    name: "Ravi Basrur",
+    descriptor: "From the village of Basrur to revolutionizing Sandalwood music",
+    format: "Music Director",
+    category: "Music",
+  },
+  {
+    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/6899f2de01c2b6f380973a82_Frame%20191%20LK.png",
+    name: "Lokesh Kanagaraj",
+    descriptor: "The art and craft of filmmaking",
+    format: "Filmmaker",
+    category: "Filmmaking",
   },
 ];
 
@@ -106,7 +97,7 @@ const MasterclassSection = () => {
           <em className="italic font-normal text-primary">who shaped the craft</em>
         </h2>
         <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-5 md:mt-6 max-w-lg mx-auto leading-relaxed">
-          Deep, reflective masterclasses on process, mindset, and creative decision-making.
+          High quality pre-recorded courses taught by India's finest.
         </p>
       </motion.div>
 

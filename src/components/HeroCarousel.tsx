@@ -4,42 +4,42 @@ import Autoplay from "embla-carousel-autoplay";
 import { motion } from "framer-motion";
 import { Play } from "lucide-react";
 
-import carousel1 from "@/assets/carousel-1.jpg";
-import carousel2 from "@/assets/carousel-2.jpg";
-import carousel3 from "@/assets/carousel-3.jpg";
-import carousel4 from "@/assets/carousel-4.jpg";
-import carousel5 from "@/assets/carousel-5.jpg";
-
 const slides = [
   {
-    image: carousel1,
-    label: "Cinematography Masterclass",
-    mentor: "Anil Mehta",
-    alt: "Filmmaker operating a professional camera on set with warm amber lighting",
+    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/6899f2de01c2b6f380973a82_Frame%20191%20LK.png",
+    label: "Filmmaking Masterclass",
+    mentor: "Lokesh Kanagaraj",
+    alt: "Lokesh Kanagaraj — Filmmaking Masterclass course banner",
   },
   {
-    image: carousel2,
-    label: "The Art of Editing",
-    mentor: "Sreekar Prasad",
-    alt: "Video editor working at a multi-monitor editing suite in a dark room",
+    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/650c1be5224f49f6432aaae6_1.Karthik_Subburaj%20course%20banner.png",
+    label: "Filmmaking Masterclass",
+    mentor: "Karthik Subbaraj",
+    alt: "Karthik Subbaraj — Filmmaking Masterclass course banner",
   },
   {
-    image: carousel3,
-    label: "The Forge — Creative Residency",
-    mentor: "Cohort 04",
-    alt: "Creative workshop with a mentor teaching young filmmakers",
+    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64f2f14d67e5504737c57ea5_2.Venket_Ram.png",
+    label: "Photography Masterclass",
+    mentor: "G Venket Ram",
+    alt: "G Venket Ram — Photography Masterclass course banner",
   },
   {
-    image: carousel4,
-    label: "Directing for Screen",
-    mentor: "Shoojit Sircar",
-    alt: "Director calling action on a film set with dramatic amber lighting",
+    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64f60ddd91f67b7db8f6716b_3.Anthony_Gonsalvez.png",
+    label: "Film Editing Masterclass",
+    mentor: "Anthony Gonsalvez",
+    alt: "Anthony Gonsalvez — Film Editing Masterclass course banner",
   },
   {
-    image: carousel5,
-    label: "Creator Essentials",
-    mentor: "Live Workshop",
-    alt: "Young content creator recording with professional camera setup",
+    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64b79ef6d61b238747788c6c_kiran%20website%201.webp",
+    label: "Art Direction Masterclass",
+    mentor: "DRK Kiran",
+    alt: "DRK Kiran — Art Direction Masterclass course banner",
+  },
+  {
+    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64b79ef642421ae3cbe004d9_ravi%20website%201.webp",
+    label: "Music Direction Masterclass",
+    mentor: "Ravi Basrur",
+    alt: "Ravi Basrur — Music Direction Masterclass course banner",
   },
 ];
 

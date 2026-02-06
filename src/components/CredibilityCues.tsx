@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 
 const cues = [
-  { value: "50,000+", label: "Creators learning" },
-  { value: "120+", label: "Masterclasses" },
-  { value: "35+", label: "Industry mentors" },
-  { value: "12", label: "Cities reached" },
+  { value: "57,660+", label: "Learners enrolled" },
+  { value: "4.85", label: "Rating (15,000+ reviews)" },
+  { value: "6+", label: "Masterclasses" },
+  { value: "20+", label: "Hours of content" },
 ];
 
 const CredibilityCues = () => {
