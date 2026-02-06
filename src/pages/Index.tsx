@@ -6,6 +6,7 @@ import MasterclassSection from "@/components/MasterclassSection";
 import LiveProgramsSection from "@/components/LiveProgramsSection";
 import ForgeSection from "@/components/ForgeSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import FAQSection from "@/components/FAQSection";
 import StudentLogosSection from "@/components/StudentLogosSection";
 
 const Index = () => {
@@ -19,6 +20,7 @@ const Index = () => {
       <LiveProgramsSection />
       <ForgeSection />
       <TestimonialsSection />
+      <FAQSection />
       <StudentLogosSection />
     </div>
   );
