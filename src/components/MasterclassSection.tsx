@@ -158,25 +158,6 @@ const MasterclassSection = () => {
                 <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 {/* Content pinned to bottom */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                  {/* Format tag */}
-                  <span className="font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase text-muted-foreground/70 mb-3 block">
-                    {mc.format}
-                  </span>
-
-                  {/* Creator name */}
-                  <h3 className="font-serif-display text-xl md:text-2xl font-medium text-hero-headline leading-tight tracking-tight mb-1.5">
-                    {mc.name}
-                  </h3>
-
-                  {/* Descriptor */}
-                  <p className="font-sans-body text-sm text-hero-subtext leading-relaxed">
-                    {mc.descriptor}
-                  </p>
-
-                  {/* Subtle accent line */}
-                  <div className="w-6 h-[1px] bg-primary/40 mt-5 transition-all duration-500 group-hover:w-10 group-hover:bg-primary/70" />
-                </div>
               </div>
             </motion.div>
           ))}
