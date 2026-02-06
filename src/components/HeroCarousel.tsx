@@ -1,37 +1,38 @@
-import { useEffect, useCallback, useState } from "react";
+import { useEffect, useCallback, useState, useRef } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { motion } from "framer-motion";
 
 const slides = [
   {
-    poster: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/6899f2de01c2b6f380973a82_Frame%20191%20LK.png",
-    alt: "Filmmaking Masterclass preview",
+    video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    alt: "Cinematic reel one",
   },
   {
-    poster: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/650c1be5224f49f6432aaae6_1.Karthik_Subburaj%20course%20banner.png",
-    alt: "Direction Masterclass preview",
+    video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+    alt: "Cinematic reel two",
   },
   {
-    poster: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64f2f14d67e5504737c57ea5_2.Venket_Ram.png",
-    alt: "Photography Masterclass preview",
+    video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+    alt: "Cinematic reel three",
   },
   {
-    poster: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64f60ddd91f67b7db8f6716b_3.Anthony_Gonsalvez.png",
-    alt: "Film Editing Masterclass preview",
+    video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+    alt: "Cinematic reel four",
   },
   {
-    poster: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64b79ef6d61b238747788c6c_kiran%20website%201.webp",
-    alt: "Art Direction Masterclass preview",
+    video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+    alt: "Cinematic reel five",
   },
   {
-    poster: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64b79ef642421ae3cbe004d9_ravi%20website%201.webp",
-    alt: "Music Direction Masterclass preview",
+    video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
+    alt: "Cinematic reel six",
   },
 ];
 
 const HeroCarousel = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
@@ -62,6 +63,15 @@ const HeroCarousel = () => {
     };
   }, [emblaApi, onSelect]);
 
+  // Ensure all videos play
+  useEffect(() => {
+    videoRefs.current.forEach((video) => {
+      if (video) {
+        video.play().catch(() => {});
+      }
+    });
+  }, [selectedIndex]);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -86,24 +96,16 @@ const HeroCarousel = () => {
                     }}
                   />
 
-                  {/* Video placeholder — uses poster image, ready for real video src */}
+                  {/* Autoplay video */}
                   <video
-                    poster={slide.poster}
+                    ref={(el) => { videoRefs.current[index] = el; }}
+                    src={slide.video}
                     autoPlay
                     muted
                     loop
                     playsInline
-                    className="w-full aspect-[16/9] object-cover object-center"
-                  >
-                    {/* Video source will be added when real videos are available */}
-                  </video>
-
-                  {/* Fallback image for when video has no src */}
-                  <img
-                    src={slide.poster}
-                    alt={slide.alt}
-                    className="absolute inset-0 w-full h-full object-cover object-center"
-                    loading={index < 3 ? "eager" : "lazy"}
+                    preload="auto"
+                    className="w-full aspect-[16/9] object-cover object-center bg-card"
                   />
                 </div>
               </div>
