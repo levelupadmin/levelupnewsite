@@ -108,4 +108,13 @@
   .shadow-cinematic {
     box-shadow: var(--shadow-cinematic);
   }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }

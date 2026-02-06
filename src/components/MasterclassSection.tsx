@@ -133,9 +133,14 @@ const MasterclassSection = () => {
         ))}
       </motion.div>
 
-      {/* Masterclass cards grid */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 lg:gap-8">
+      {/* Masterclass cards — horizontal scroll row */}
+      <div className="relative">
+        {/* Left fade edge */}
+        <div className="absolute left-0 top-0 bottom-0 w-12 md:w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+        {/* Right fade edge */}
+        <div className="absolute right-0 top-0 bottom-0 w-12 md:w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+
+        <div className="flex gap-5 md:gap-6 overflow-x-auto scrollbar-hide px-6 md:px-12 pb-4 snap-x snap-mandatory">
           {filtered.map((mc, index) => (
             <motion.div
               key={mc.name}
@@ -144,7 +149,7 @@ const MasterclassSection = () => {
               whileInView="visible"
               viewport={{ once: true, margin: "-60px" }}
               variants={cardVariants}
-              className="group relative cursor-pointer"
+              className="group relative cursor-pointer flex-shrink-0 w-[75vw] sm:w-[45vw] md:w-[35vw] lg:w-[28vw] xl:w-[22vw] snap-start"
             >
               {/* Image container */}
               <div className="relative aspect-[3/4] overflow-hidden rounded-sm bg-card">
