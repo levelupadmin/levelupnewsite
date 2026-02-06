@@ -4,6 +4,7 @@ import CredibilityCues from "@/components/CredibilityCues";
 import WhyLevelUp from "@/components/WhyLevelUp";
 import MasterclassSection from "@/components/MasterclassSection";
 import LiveProgramsSection from "@/components/LiveProgramsSection";
+import ForgeSection from "@/components/ForgeSection";
 
 const Index = () => {
   return (
@@ -14,6 +15,7 @@ const Index = () => {
       <WhyLevelUp />
       <MasterclassSection />
       <LiveProgramsSection />
+      <ForgeSection />
     </div>
   );
 };
