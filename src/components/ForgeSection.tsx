@@ -64,10 +64,9 @@ const ForgeSection = () => {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
-            <span className="font-sans-body text-[10px] md:text-xs tracking-[0.25em] uppercase text-primary mb-4 block">
-              The inner circle
-            </span>
             <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-hero-headline leading-[1.15] tracking-tight">
+              <span className="font-sans-body text-xs md:text-sm tracking-[0.2em] uppercase text-primary block mb-2">Forge</span>
+              <span className="text-muted-foreground font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase block mb-4">by LevelUp</span>
               Where you{" "}
               <em className="italic font-normal text-primary">become</em>
             </h2>
