@@ -208,7 +208,7 @@ const ForgeVisualShowcase = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.7, delay: 0.6 }}
-            className="absolute -bottom-6 -right-4 md:-bottom-8 md:-right-8 w-[35%] md:w-[30%] z-20"
+            className="absolute -bottom-4 -right-2 md:-bottom-8 md:-right-8 w-[30%] md:w-[30%] z-20"
           >
             <div className="relative aspect-[4/3] overflow-hidden rounded-sm shadow-cinematic border border-border/30">
               <img

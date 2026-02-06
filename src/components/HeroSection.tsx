@@ -37,7 +37,7 @@ const HeroSection = () => {
           transition={{ duration: 0.7, delay: 1.0 }}
           className="font-sans-body text-base md:text-lg text-hero-subtext text-center mt-6 md:mt-8 max-w-xl leading-relaxed"
         >
-          A place for those who believe the craft is the journey.
+          A place for those who believe the craft is the journey.{" "}
           <br className="hidden md:block" />
           Learn from India's finest. Find your voice.
         </motion.p>
