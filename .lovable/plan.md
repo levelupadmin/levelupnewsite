@@ -1,88 +1,56 @@
 
 
-# Add FAQ Section to LevelUp Learning Homepage
+# Redesign FAQ Section: Bento Card Grid Layout
 
-## What Already Exists
+## Current State
+The FAQ section uses a single-column accordion layout where only one answer is visible at a time. Questions must be clicked to expand.
 
-The homepage already has all six content sections built and styled consistently:
+## What Changes
+Replace the accordion-based FAQ with a **bento-style card grid** inspired by the reference image, where all questions and answers are always visible in a multi-column masonry-like layout.
 
-1. **Hero** (with carousel and credibility cues)
-2. **Why LevelUp** (3 belief-driven cards)
-3. **Masterclasses** (horizontal scroll row with category filters)
-4. **LevelUp Live** (program cards grid)
-5. **The Forge** (split-column with layered visuals)
-6. **Testimonials** (documentary-style portrait cards)
-7. **Student Logos** (infinite marquee)
+### Design Details
 
-The only missing section from your brief is **Section 7: FAQ**.
+**Layout:**
+- Left-aligned "Frequently asked questions" headline (no centered separator)
+- 3-column responsive grid (1 col on mobile, 2 on tablet, 3 on desktop)
+- Cards naturally vary in height based on content length, creating an organic bento feel
 
----
+**Card Style:**
+- Rounded corners with a subtle border (`border-border`)
+- Generous internal padding
+- Bold question in serif display font
+- Answer text in sans-serif body font, muted color
+- No hover effects or interactivity -- pure reading cards
 
-## What Will Be Built
+**Responsive Behavior:**
+- Mobile: single column stack
+- Tablet (sm): 2-column grid
+- Desktop (lg): 3-column grid
 
-### FAQ Section
+**Retained Elements:**
+- Same 8 FAQ items with identical copy
+- Same `py-12 md:py-16` section padding
+- Same ambient glow background
+- Framer Motion scroll-triggered fade-in (staggered per card)
+- "Still have questions? Reach out to us" CTA at the bottom
 
-A calm, clear FAQ section placed after the Testimonials section and before the Student Logos marquee. It will feel like a helpful, reassuring part of the experience -- not a legal appendix.
-
-**Structure:**
-- A centered headline: "Frequently asked questions" in the established serif display style
-- A single-column layout of expandable accordion items, centered on the page (max-width constrained for readability)
-- Each FAQ item uses a clean accordion pattern (click to expand/collapse) with smooth open/close animations
-- A subtle closing prompt at the bottom: "Still have questions? Reach out to us" with a soft contact link
-
-**Visual Style:**
-- Consistent `py-12 md:py-16` section padding
-- Subtle top divider gradient (matching other sections)
-- Accordion items separated by thin border lines
-- Questions in serif display font, answers in sans-serif body font
-- Muted foreground colors, calm and readable
-- Framer Motion fade-in entrance on scroll
-
-**FAQ Content (placeholder -- ready for your copy):**
-Since no specific FAQ copy was provided in this prompt, the section will include representative placeholder questions covering common topics:
-- What is LevelUp Learning?
-- Who are the masterclasses for?
-- How do live programs work?
-- What is The Forge?
-- Do I need prior experience?
-- How much does it cost?
-- Can I access content after the program ends?
-- How do I get invited to The Forge?
-
-These can be swapped with your final copy at any time.
+### What Gets Removed
+- The Radix accordion component (no longer needed)
+- The centered thin separator line
+- The centered headline alignment (moves to left-aligned)
 
 ---
 
 ## Technical Details
 
-### New File
-- `src/components/FAQSection.tsx` -- The FAQ accordion component
-
-### Modified Files
-- `src/pages/Index.tsx` -- Import and render the FAQ section between TestimonialsSection and StudentLogosSection
+### Modified File
+- `src/components/FAQSection.tsx` -- Complete rewrite from accordion to card grid
 
 ### Implementation Approach
-- Uses the existing Radix UI Accordion primitives (`@radix-ui/react-accordion`) already installed and configured in `src/components/ui/accordion.tsx`
-- Wraps the section in `framer-motion` for a consistent scroll-triggered fade-in entrance
-- Follows the established spacing system (`py-12 md:py-16`, `mb-10 md:mb-12` for headings)
-- Uses the same subtle top divider gradient pattern used in other sections
-- Accordion triggers styled with `font-serif-display`, content styled with `font-sans-body`
-- Single-item-at-a-time open behavior for a focused reading experience
-- Accordion animations use the existing `accordion-down` / `accordion-up` keyframes already in `tailwind.config.ts`
-- Optional soft contact CTA at the bottom using the same link style as other section CTAs
-
-### Section Order After Change
-
-```text
-Navbar
-Hero (full viewport)
-  Credibility Cues
-Why LevelUp
-Masterclasses
-LevelUp Live
-The Forge
-Testimonials
-FAQ  <-- NEW
-Student Logos (marquee)
-```
+- Remove `Accordion` imports, replace with a CSS grid of static cards
+- Use `columns-1 sm:columns-2 lg:columns-3 gap-4` CSS multi-column or a standard grid layout
+- Each card is a `div` with `rounded-lg border border-border p-6` styling
+- Staggered `framer-motion` entrance animations per card
+- Headline uses `text-left` alignment instead of `text-center`
+- Container expands from `max-w-3xl` to `max-w-6xl` to accommodate the wider grid
 
