@@ -92,7 +92,7 @@ const HeroCarousel = () => {
             {slides.map((slide, index) => (
               <div
                 key={index}
-                className="relative flex-none w-[92vw] sm:w-[70vw] md:w-[60vw] lg:w-[55vw] px-2 md:px-3"
+                className="relative flex-none w-[95vw] sm:w-[80vw] md:w-[70vw] lg:w-[65vw] px-2 md:px-3"
               >
                 <div className="relative group overflow-hidden rounded-sm cursor-pointer">
                   {/* Film grain overlay */}
