@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import levelupLogo from "@/assets/levelup-logo-white.jpg";
 
 const Navbar = () => {
   return (
@@ -9,14 +10,14 @@ const Navbar = () => {
       className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 lg:px-20 py-5"
       style={{ background: "linear-gradient(180deg, hsl(220 15% 6% / 0.9) 0%, transparent 100%)" }}
     >
-      <div className="flex items-center gap-2">
-        <span className="font-serif-display text-lg md:text-xl font-semibold tracking-tight text-foreground">
-          LevelUp
-        </span>
-        <span className="font-sans-body text-xs font-light tracking-widest uppercase text-muted-foreground">
-          Learning
-        </span>
-      </div>
+      <a href="#" className="flex items-center">
+        <img
+          src={levelupLogo}
+          alt="LevelUp Learning"
+          className="h-8 md:h-9 w-auto"
+          style={{ mixBlendMode: "lighten" }}
+        />
+      </a>
 
       <div className="hidden md:flex items-center gap-8">
         <a href="#" className="font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-300">
