@@ -5,6 +5,7 @@ const faqs = [
     question: "What is LevelUp Learning?",
     answer:
       "LevelUp is a creative education ecosystem built for serious creators. It brings together masterclasses, mentor-led live programs, and immersive residencies — all designed to deepen your craft, sharpen your voice, and connect you with a community that cares about the work as much as you do.",
+    featured: true,
   },
   {
     question: "Who are the masterclasses for?",
@@ -20,6 +21,7 @@ const faqs = [
     question: "What is The Forge?",
     answer:
       "The Forge is our most immersive format — an invite-only, offline creative residency. It's designed for creators ready to go deeper. Think of it as a focused, distraction-free space where your next body of work begins to take shape.",
+    featured: true,
   },
   {
     question: "Do I need prior experience?",
@@ -42,6 +44,21 @@ const faqs = [
       "The Forge is invite-only, but you can express interest through our site. We look for creators with a clear sense of direction and a genuine commitment to their craft — not credentials or follower counts.",
   },
 ];
+
+// Subtle tonal variations using HSL shifts within the dark palette
+const cardStyles = [
+  "bg-[hsl(220_12%_9%)] border-[hsl(220_10%_18%)]",        // base card
+  "bg-[hsl(225_14%_10%)] border-[hsl(225_12%_18%)]",        // cool shift
+  "bg-[hsl(215_10%_8%)] border-[hsl(215_8%_16%)]",          // deeper
+  "bg-[hsl(230_12%_11%)] border-[hsl(230_10%_19%)]",        // blue-tinted
+  "bg-[hsl(218_11%_9%)] border-[hsl(218_9%_17%)]",          // neutral-cool
+  "bg-[hsl(222_13%_10%)] border-[hsl(222_11%_18%)]",        // mid
+  "bg-[hsl(216_10%_8.5%)] border-[hsl(216_8%_16.5%)]",      // subtle deep
+  "bg-[hsl(228_12%_10.5%)] border-[hsl(228_10%_18.5%)]",    // cool-mid
+];
+
+// Featured cards get a warm amber-tinted background
+const featuredStyle = "bg-[hsl(35_12%_10%)] border-[hsl(38_15%_18%)]";
 
 const FAQSection = () => {
   return (
@@ -74,9 +91,17 @@ const FAQSection = () => {
                 ease: "easeOut",
                 delay: index * 0.06,
               }}
-              className="break-inside-avoid mb-5 rounded-lg border border-border bg-card p-6"
+              className={`break-inside-avoid mb-5 rounded-lg border p-6 md:p-7 ${
+                faq.featured ? featuredStyle : cardStyles[index % cardStyles.length]
+              }`}
             >
-              <h3 className="font-serif-display text-base md:text-lg text-foreground mb-3">
+              <h3
+                className={`font-serif-display text-foreground mb-3 ${
+                  faq.featured
+                    ? "text-lg md:text-xl"
+                    : "text-base md:text-lg"
+                }`}
+              >
                 {faq.question}
               </h3>
               <p className="font-sans-body text-sm md:text-base text-muted-foreground leading-relaxed">
