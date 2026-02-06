@@ -5,6 +5,7 @@ import WhyLevelUp from "@/components/WhyLevelUp";
 import MasterclassSection from "@/components/MasterclassSection";
 import LiveProgramsSection from "@/components/LiveProgramsSection";
 import ForgeSection from "@/components/ForgeSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import StudentLogosSection from "@/components/StudentLogosSection";
 
 const Index = () => {
@@ -17,6 +18,7 @@ const Index = () => {
       <MasterclassSection />
       <LiveProgramsSection />
       <ForgeSection />
+      <TestimonialsSection />
       <StudentLogosSection />
     </div>
   );
