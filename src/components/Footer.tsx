@@ -122,12 +122,12 @@ const Footer = () => {
       {/* Large brand watermark */}
       <div
         aria-hidden="true"
-        className="hidden md:block absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[35%] pointer-events-none select-none"
+        className="hidden md:block absolute bottom-0 left-0 right-0 translate-y-[35%] pointer-events-none select-none"
       >
         <img
           src={levelupLogo}
           alt=""
-          className="h-[12rem] md:h-[18rem] lg:h-[24rem] w-auto opacity-[0.03]"
+          className="w-full h-auto opacity-[0.03]"
         />
       </div>
     </motion.footer>
