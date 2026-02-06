@@ -1,55 +1,43 @@
 
 
-## Understanding the Reference
+## Problem
 
-The Wise.com reference screenshot shows a key layout pattern: the hero content (headline, subtitle, CTA) sits in the upper portion of the viewport, and below it a large visual block begins but is **deliberately cut off at the bottom of the viewport**. The user has to scroll down to see the full image. This creates a "peek" effect that invites scrolling.
-
-Currently, the carousel is fully contained within the hero section and the section has `min-h-screen`, but the carousel cards are relatively small. The goal is to make the carousel images large enough that they extend **beyond the bottom of the viewport**, so the initial view only shows the top portion of the carousel cards.
-
----
+The carousel cards are landscape (16/9) as requested, but they're too small -- the entire carousel fits within the viewport. The reference shows that only the **top half** of the video cards should be visible on initial load, with the rest revealed by scrolling.
 
 ## Plan
 
-### 1. Remove overflow-hidden from the hero section
+### 1. Make the hero section exactly viewport height (HeroSection.tsx)
 
-The `HeroSection` currently has `overflow-hidden` on the outer `<section>`. This clips the carousel at the section boundary. We need to allow the carousel to visually extend beyond the viewport fold.
+Set the hero section to `h-screen` so it acts as a fixed viewport container. The headline sits in the upper portion, and the carousel starts near the bottom -- but the carousel content itself overflows past the section, creating the "peek" effect.
 
-### 2. Position the carousel so it starts mid-viewport and extends below
+### 2. Make carousel cards much wider (HeroCarousel.tsx)
 
-Instead of the carousel fitting neatly within the hero, it should start roughly 60-70% down the viewport and its cards should be tall enough that only the top half is visible on initial load. The user scrolls to reveal the rest.
+Increase the card widths significantly so each card is larger and more cinematic:
+- Mobile: `w-[90vw]` (nearly full width)
+- Tablet: `w-[50vw]` (2 cards visible)
+- Desktop: `w-[45vw]` (just over 2 cards visible)
 
-To achieve this:
-- Keep the headline area vertically centered in the upper portion of the screen
-- Let the carousel sit at the bottom, with its content naturally overflowing below the viewport
+With 16/9 aspect ratio at `45vw` width, each card will be roughly `25vw` tall -- that's about 25% of the viewport height. Starting from ~60% down the viewport, the cards will naturally extend well below the fold, showing only the top portion.
 
-### 3. Make carousel cards much larger
+### 3. Ensure no clipping on the section (HeroSection.tsx)
 
-Increase the card size so each card is tall and immersive. On desktop, show about 3 cards with each taking roughly 33% of the viewport width. The images should use a taller aspect ratio (around 4:3 or even closer to square) so they extend well below the fold.
+The section must NOT have `overflow-hidden` so the carousel visually bleeds past the viewport edge. It currently doesn't have it, which is correct.
 
-### 4. Remove progress dots (or move them below the fold)
+### 4. Move progress dots to overlay position (HeroCarousel.tsx)
 
-Since the bottom of the carousel is cut off by the viewport, progress dots sitting below the carousel would be hidden on initial load. Move them to overlay on the carousel itself or remove them to keep the composition clean.
-
-### 5. Adjust hero section height
-
-Change from `min-h-screen` to allow natural height flow. The headline area should take up the top ~55-60% of the viewport, and the carousel begins immediately after, bleeding past the viewport edge.
-
----
+Since the bottom of the cards will be cut off by the viewport, the dots need to overlay on the visible portion of the carousel rather than sitting below it. Move them to the top or middle of the carousel area.
 
 ## Technical Details
 
 ### File: `src/components/HeroSection.tsx`
-
-- Remove `overflow-hidden` from the outer `<section>` so the carousel can extend beyond
-- Change `min-h-screen` to just `h-screen` or use a flex layout that positions the headline in the upper portion and lets the carousel flow naturally below
-- The section should not constrain the carousel height
+- Add `h-screen` to the section so headline + top of carousel = exactly one viewport
+- This naturally makes the large carousel cards overflow below
 
 ### File: `src/components/HeroCarousel.tsx`
+- Change slide widths from `w-[85vw] sm:w-[45vw] md:w-[33.33vw] lg:w-[33.33vw]` to `w-[90vw] sm:w-[50vw] md:w-[45vw] lg:w-[45vw]`
+- Keep `aspect-[16/9]` for landscape orientation
+- Move progress dots from `bottom-6` to `top-4` so they're visible above the fold
+- Reduce top margin to `mt-6 md:mt-8` so the carousel starts closer to the CTA
 
-- Increase card widths: mobile `w-[85vw]`, tablet `w-[45vw]`, desktop `w-[33.33vw]`
-- Change aspect ratio from `aspect-[16/9]` to `aspect-[3/4]` (tall portrait) so the cards are tall enough to bleed below the viewport
-- Move progress dots from below the carousel to an overlay position inside the carousel (e.g., absolutely positioned at the bottom-center of the carousel container)
-- Remove the bottom margin/padding that keeps everything contained
-
-The key insight: the combination of the headline taking up the top half of the viewport + tall portrait cards starting below the headline = cards naturally extend past the viewport bottom, creating the "half visible, scroll to see more" effect from the reference.
+The math: at `45vw` wide with 16/9 ratio, each card is ~25vh tall. The headline area takes ~55-60% of the viewport. That leaves ~40-45% for the carousel peek -- meaning roughly half the card height is visible and the rest is below the fold, exactly matching the reference.
 
