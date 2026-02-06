@@ -1,93 +1,74 @@
 
 
-# Add Footer Section to LevelUp Learning Homepage
+# Pull Real Assets from leveluplearning.in
 
-## Composition Reference
+## Overview
 
-The reference image shows a multi-column footer with:
-- A branded left column with a bold CTA or visual element
-- Multiple link columns organized by category with small category headers
-- Social media icons row
-- Bottom bar with legal links and copyright
+Your existing website at leveluplearning.in has real mentor images, course banners, testimonials, FAQs, and stats that should replace the placeholder content currently in the Lovable project. Here's how we'll bring everything across.
 
-We will adapt this composition for LevelUp Learning's cinematic, editorial brand.
+## What We'll Pull
 
-## What Will Be Built
+### 1. LevelUp Logo (SVG)
+Replace the current PNG logo with the crisp SVG version from your site. This will be used in both the Navbar and Footer.
+- Source: `leveluplogo 1.svg` from your Webflow CDN
 
-### Footer Structure (4 areas)
+### 2. Masterclass Mentor Images and Data
+Replace the 6 placeholder mentors with your real mentors and their course banner images:
+- **Lokesh Kanagaraj** -- Filmmaker
+- **Karthik Subbaraj** -- Filmmaker
+- **G Venket Ram** -- Photographer
+- **Anthony Gonsalvez** -- Film Editor
+- **DRK Kiran** -- Art Director
+- **Ravi Basrur** -- Music Director
+- Plus the new mentor banner (NM)
 
-**1. Top Footer -- Multi-Column Navigation**
+### 3. Hero Carousel
+Update the carousel slides with the real course banner images from your site, using the actual mentor names and course titles.
 
-A wide, generous footer grid with:
+### 4. Credibility Stats
+Update the numbers to match your live site:
+- "57,660+" Learners Enrolled
+- "4.85" Rating (15,000+ ratings)
 
-- **Left column (brand pillar):** The LevelUp wordmark (serif + sans, matching the Navbar), a short brand tagline ("A creative education ecosystem for serious creators"), and a subtle email CTA ("hello@leveluplearning.com")
-- **"Learn" column:** Links grouped under a muted category label -- Masterclasses, LevelUp Live, The Forge, StarDa
-- **"Company" column:** About, Careers, Press, Blog
-- **"Support" column:** FAQs, Contact Us, Terms, Privacy Policy
+### 5. Testimonials
+Replace the 4 placeholder testimonials with the real ones from your site:
+- **Janani** (Director)
+- **Karthik** (Filmmaker)
+- **Neera** (Editor)
+- **Kishore** (Photographer)
+- **Mithun** (Music Composer)
+- **Lokesh** (Art Director)
 
-Category labels styled in the `text-primary` amber accent, small caps. Links in `text-muted-foreground` with hover to `text-foreground`.
+### 6. FAQ Content
+Update the FAQ section with the real Q&A from your website (what is LevelUp, what do I get, which classes are right for me, timeframe, where to watch).
 
-**2. Social Icons Row**
+### 7. Movie Poster Marquee
+Replace the plain-text "Students are from" brand marquee with the actual movie poster images from "Our Mentors have Worked In" section (KGF, Jailer, Master, Bigil, Theri, etc.).
 
-A horizontal row of social media icons (Instagram, YouTube, X/Twitter, LinkedIn) using Lucide icons, spaced cleanly below the columns. Minimal circular outline style matching the reference.
+## Technical Approach
 
-**3. Bottom Bar**
+- All images will be referenced directly from your existing Webflow CDN URLs (`cdn.prod.website-files.com`), so no download/upload step is needed -- they're already hosted and publicly accessible.
+- The SVG logo will also be fetched from the CDN.
+- Component data arrays (mentors, testimonials, FAQs) will be updated to match the real content.
 
-A thin top border separating the legal strip:
-- Left: Copyright text ("2026 LevelUp Learning. All rights reserved.")
-- Right: Inline legal links (Terms, Privacy Policy, Cookies)
+## Files to Modify
 
-**4. Large Brand Watermark**
+| File | Changes |
+|------|---------|
+| `src/components/Navbar.tsx` | Update logo to use SVG from CDN |
+| `src/components/Footer.tsx` | Update logo to use SVG from CDN |
+| `src/components/HeroCarousel.tsx` | Replace slides with real course banners and mentor names |
+| `src/components/MasterclassSection.tsx` | Replace placeholder mentors with real mentors + CDN images |
+| `src/components/CredibilityCues.tsx` | Update stats to 57,660+ learners, 4.85 rating |
+| `src/components/TestimonialsSection.tsx` | Replace with real testimonials and photos from the site |
+| `src/components/FAQSection.tsx` | Update Q&A content to match the live site |
+| `src/components/StudentLogosSection.tsx` | Replace text brands with real movie poster images in marquee |
 
-A dramatic oversized "LevelUp" wordmark rendered in `font-serif-display` at a very large size with extremely low opacity, sitting behind the bottom of the footer -- mirroring the large brand name treatment visible in the reference image. This creates visual depth and a confident brand statement.
+## What Stays the Same
 
-### Visual Style
-- Dark background matching `bg-background` (same as the rest of the site)
-- Generous vertical padding (`py-16 md:py-20`)
-- Consistent `max-w-6xl` container width
-- Thin top border or subtle gradient separator
-- No ambient glow -- the footer is grounded and quiet
-- Framer Motion fade-in entrance on scroll
-
-### Responsive Behavior
-- Desktop (lg): 4-column grid (brand + 3 link columns)
-- Tablet (md): 2x2 grid
-- Mobile: Single column stack with brand on top, link groups stacked below
-- Large watermark hidden on mobile, visible on tablet and up
-
----
-
-## Technical Details
-
-### New File
-- `src/components/Footer.tsx` -- The complete footer component
-
-### Modified File
-- `src/pages/Index.tsx` -- Import and render Footer as the last element
-
-### Implementation Approach
-- Uses Lucide React icons for social media (Instagram, Youtube, Twitter, Linkedin)
-- Framer Motion for scroll-triggered entrance animation
-- Category headers use `text-primary font-sans-body text-xs uppercase tracking-widest`
-- Links use `font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors`
-- Brand wordmark in left column matches Navbar pattern (`font-serif-display` + `font-sans-body`)
-- Large watermark uses `font-serif-display text-[8rem] md:text-[12rem] lg:text-[16rem] opacity-[0.03]` with `overflow-hidden` on the section
-- Bottom bar separated by `border-t border-border`
-- All placeholder links use `href="#"` ready for real routes
-
-### Section Order After Change
-
-```text
-Navbar
-Hero
-  Credibility Cues
-Why LevelUp
-Masterclasses
-LevelUp Live
-The Forge
-Student Logos (marquee)
-Testimonials
-FAQ
-Footer  <-- NEW (last element)
-```
+- The overall design, layout, and cinematic visual identity of the new site
+- The Forge section (since this appears to be new/different from the live site)
+- The "Why LevelUp" section design
+- The Live Programs section structure
+- All animations and interaction patterns
 
