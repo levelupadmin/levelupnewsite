@@ -2,31 +2,67 @@ import { motion } from "framer-motion";
 
 const faqs = [
   {
-    question: "What is Level Up Learning?",
+    question: "What is LevelUp Learning?",
     answer:
-      "Level Up Learning is a streaming platform where you can have access to watch and learn from hundreds of video lessons taught by India's best. Be it filmmaking, singing, writing, cooking, cricket, comedy, acting, photography — even producing independent music. Video lessons are available anytime, anywhere on your smartphone, personal computer, and Smart TV.",
+      "LevelUp is a creative education ecosystem built for serious creators. It brings together masterclasses, mentor-led live programs, and immersive residencies — all designed to deepen your craft, sharpen your voice, and connect you with a community that cares about the work as much as you do.",
     featured: true,
   },
   {
-    question: "What do I get when I access a class?",
+    question: "Who are the masterclasses for?",
     answer:
-      "Each class is a learning experience that is around 2–6 hours long, broken down into 20+ video lessons that are 5–10 minutes long on average, along with an in-depth downloadable workbook and exclusive resources. You also get lifetime access to course content, a signed certificate of completion by your instructor, and our exclusive members-only newsletter.",
+      "Anyone who wants to learn from working professionals at the top of their craft. Whether you're a filmmaker, editor, writer, or visual storyteller — our masterclasses are built for people who want depth, not shortcuts.",
   },
   {
-    question: "Which classes are right for me?",
+    question: "How do live programs work?",
     answer:
-      "Every class has been designed to be accessible for people with little to no experience and advanced students alike. You can find classes that best align with your interests, passion and purpose. With new classes launching regularly, you can also learn practical skills, ignite new passions and expand your knowledge.",
+      "LevelUp Live programs are cohort-based, mentor-led experiences that run over a set number of weeks. You'll work alongside a small group, receive direct feedback from industry mentors, and build real projects throughout the program.",
+  },
+  {
+    question: "What is The Forge?",
+    answer:
+      "The Forge is our most immersive format — an invite-only, offline creative residency. It's designed for creators ready to go deeper. Think of it as a focused, distraction-free space where your next body of work begins to take shape.",
     featured: true,
   },
   {
-    question: "Do I have to complete a class within a specific timeframe?",
+    question: "Do I need prior experience?",
     answer:
-      "No. We believe that everyone learns differently — at different speeds and times. Which is why you can complete the class at your own pace. You can either binge-watch an entire class in a single sitting or watch a lesson a day, without any restriction.",
+      "It depends on the program. Some masterclasses are accessible to beginners, while live programs and The Forge are better suited for creators with some experience. Each listing clearly notes what level it's designed for.",
   },
   {
-    question: "Where can I watch these classes?",
+    question: "How much does it cost?",
     answer:
-      "You can access LevelUp Learning across various devices — Mobiles, Tablets, Desktops or Laptops. You can also access classes on mobile by downloading the LevelUp Learning App for Android and iOS devices.",
+      "Pricing varies by format and program. Masterclasses are individually priced, live programs have a cohort fee, and The Forge operates on an application basis. We believe in transparent pricing — you'll always know the cost before committing.",
+  },
+  {
+    question: "Can I access content after the program ends?",
+    answer:
+      "Yes. Masterclass content is available on-demand after purchase. For live programs, recorded sessions and materials remain accessible to you after the cohort wraps.",
+  },
+  {
+    question: "How do I get invited to The Forge?",
+    answer:
+      "The Forge is invite-only, but you can express interest through our site. We look for creators with a clear sense of direction and a genuine commitment to their craft — not credentials or follower counts.",
+  },
+  {
+    question: "What kind of support do I get during a program?",
+    answer:
+      "Every live program includes direct mentor feedback, peer collaboration, and access to our community channels. You're never learning in isolation — the experience is built around dialogue and shared growth.",
+  },
+  {
+    question: "Do you offer certificates?",
+    answer:
+      "Yes. All masterclasses and live programs come with a signed certificate of completion from your instructor. It's a recognition of the work you've put in — not just attendance.",
+    featured: true,
+  },
+  {
+    question: "Can I gift a masterclass to someone?",
+    answer:
+      "Absolutely. Gifting is available for all masterclasses. It's a thoughtful way to support a creator you believe in — whether they're just starting out or deep in their journey.",
+  },
+  {
+    question: "Is there a community I can join?",
+    answer:
+      "Yes. When you enrol in any program, you become part of the LevelUp community — a network of serious creators across disciplines. It's a space for honest feedback, collaboration, and long-term creative relationships.",
   },
 ];
 
@@ -37,6 +73,9 @@ const cardStyles = [
   "bg-[hsl(215_10%_8%)] border-[hsl(215_8%_16%)]",
   "bg-[hsl(230_12%_11%)] border-[hsl(230_10%_19%)]",
   "bg-[hsl(218_11%_9%)] border-[hsl(218_9%_17%)]",
+  "bg-[hsl(222_13%_10%)] border-[hsl(222_11%_18%)]",
+  "bg-[hsl(216_10%_8.5%)] border-[hsl(216_8%_16.5%)]",
+  "bg-[hsl(228_12%_10.5%)] border-[hsl(228_10%_18.5%)]",
 ];
 
 // Featured cards get a warm amber-tinted background
@@ -101,14 +140,12 @@ const FAQSection = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-10 md:mt-14 font-sans-body text-sm text-muted-foreground"
         >
-          Have a different question?{" "}
+          Still have questions?{" "}
           <a
-            href="https://api.whatsapp.com/send?phone=919791520177&text=Hi"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="mailto:hello@leveluplearning.com"
             className="text-primary hover:underline underline-offset-4 transition-colors"
           >
-            Contact us
+            Reach out to us
           </a>
         </motion.p>
       </div>
