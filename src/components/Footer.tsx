@@ -124,9 +124,11 @@ const Footer = () => {
         aria-hidden="true"
         className="hidden md:block absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[35%] pointer-events-none select-none"
       >
-        <span className="font-serif-display text-[8rem] md:text-[12rem] lg:text-[16rem] font-bold tracking-tight text-foreground opacity-[0.03] whitespace-nowrap">
-          LevelUp
-        </span>
+        <img
+          src={levelupLogo}
+          alt=""
+          className="h-[12rem] md:h-[18rem] lg:h-[24rem] w-auto opacity-[0.03]"
+        />
       </div>
     </motion.footer>
   );
