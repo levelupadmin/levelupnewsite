@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Instagram, Youtube, Twitter, Linkedin } from "lucide-react";
-import levelupLogo from "@/assets/levelup-logo-white.jpg";
+import levelupLogo from "@/assets/levelup-logo.png";
 const footerLinks = {
   Learn: [
     { label: "Masterclasses", href: "#" },
@@ -51,7 +51,6 @@ const Footer = () => {
                 src={levelupLogo}
                 alt="LevelUp Learning"
                 className="h-10 w-auto"
-                style={{ mixBlendMode: "lighten" }}
               />
             </div>
             <p className="font-sans-body text-sm text-muted-foreground leading-relaxed mb-6 max-w-[260px]">
