@@ -4,12 +4,12 @@ import HeroCarousel from "@/components/HeroCarousel";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex flex-col bg-gradient-cinematic overflow-hidden">
+    <section className="relative flex flex-col bg-gradient-cinematic">
       {/* Subtle amber glow at top */}
       <div className="absolute inset-0 bg-gradient-amber-glow pointer-events-none" />
 
       {/* Headline area */}
-      <div className="relative z-10 flex flex-col items-center justify-center pt-36 md:pt-44 lg:pt-48 px-6 md:px-12">
+      <div className="relative z-10 flex flex-col items-center justify-center pt-32 md:pt-40 lg:pt-44 px-6 md:px-12">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
