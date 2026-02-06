@@ -91,7 +91,7 @@ const HeroCarousel = () => {
           {slides.map((slide, index) => (
             <div
               key={index}
-              className="relative flex-none w-[80vw] sm:w-[45vw] md:w-[33.33vw] lg:w-[25vw] px-1 md:px-1.5"
+              className="relative flex-none w-[92vw] sm:w-[50vw] md:w-[50vw] lg:w-[33.5vw] px-1 md:px-1.5"
             >
               <div className="relative group overflow-hidden rounded-sm cursor-pointer">
                 {/* Film grain overlay */}
@@ -122,7 +122,7 @@ const HeroCarousel = () => {
                 <img
                   src={slide.image}
                   alt={slide.alt}
-                  className="w-full aspect-[3/4] object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                  className="w-full aspect-[16/9] object-cover object-center transition-transform duration-700 group-hover:scale-105"
                   loading={index < 3 ? "eager" : "lazy"}
                 />
 
