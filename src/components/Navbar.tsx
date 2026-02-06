@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import levelupLogo from "@/assets/levelup-logo-white.jpg";
+import levelupLogo from "@/assets/levelup-logo.png";
 
 const Navbar = () => {
   return (
@@ -15,7 +15,6 @@ const Navbar = () => {
           src={levelupLogo}
           alt="LevelUp Learning"
           className="h-8 md:h-9 w-auto"
-          style={{ mixBlendMode: "lighten" }}
         />
       </a>
 
