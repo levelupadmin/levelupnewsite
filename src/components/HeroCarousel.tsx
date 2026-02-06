@@ -49,7 +49,7 @@ const HeroCarousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       loop: true,
-      align: "start",
+      align: "center",
       slidesToScroll: 1,
       breakpoints: {
         "(min-width: 768px)": { slidesToScroll: 1 },
@@ -83,7 +83,7 @@ const HeroCarousel = () => {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.2, delay: 1.5, ease: "easeOut" }}
-      className="relative z-10 mt-16 md:mt-20 lg:mt-24"
+      className="relative z-10 mt-8 md:mt-12 lg:mt-14"
     >
       {/* Carousel */}
       <div ref={emblaRef} className="overflow-hidden">
@@ -91,9 +91,9 @@ const HeroCarousel = () => {
           {slides.map((slide, index) => (
             <div
               key={index}
-              className="relative flex-none w-[85vw] sm:w-[60vw] md:w-[45vw] lg:w-[35vw] pl-3 md:pl-5 first:pl-4 md:first:pl-10 lg:first:pl-20"
+              className="relative flex-none w-[80vw] sm:w-[45vw] md:w-[33.33vw] lg:w-[25vw] px-1 md:px-1.5"
             >
-              <div className="relative group overflow-hidden rounded-lg md:rounded-xl cursor-pointer">
+              <div className="relative group overflow-hidden rounded-sm cursor-pointer">
                 {/* Film grain overlay */}
                 <div
                   className="absolute inset-0 z-20 opacity-[0.04] mix-blend-overlay pointer-events-none"
@@ -122,7 +122,7 @@ const HeroCarousel = () => {
                 <img
                   src={slide.image}
                   alt={slide.alt}
-                  className="w-full aspect-[16/10] object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                  className="w-full aspect-[3/4] object-cover object-center transition-transform duration-700 group-hover:scale-105"
                   loading={index < 3 ? "eager" : "lazy"}
                 />
 
