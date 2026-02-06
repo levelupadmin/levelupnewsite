@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import CredibilityCues from "@/components/CredibilityCues";
 import WhyLevelUp from "@/components/WhyLevelUp";
+import MasterclassSection from "@/components/MasterclassSection";
 
 const Index = () => {
   return (
@@ -10,6 +11,7 @@ const Index = () => {
       <HeroSection />
       <CredibilityCues />
       <WhyLevelUp />
+      <MasterclassSection />
     </div>
   );
 };
