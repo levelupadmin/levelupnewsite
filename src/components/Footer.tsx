@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Instagram, Youtube, Twitter, Linkedin } from "lucide-react";
-
+import levelupLogo from "@/assets/levelup-logo-white.jpg";
 const footerLinks = {
   Learn: [
     { label: "Masterclasses", href: "#" },
@@ -46,13 +46,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           {/* Brand pillar */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="font-serif-display text-lg font-semibold tracking-tight text-foreground">
-                LevelUp
-              </span>
-              <span className="font-sans-body text-xs font-light tracking-widest uppercase text-muted-foreground">
-                Learning
-              </span>
+            <div className="mb-4">
+              <img
+                src={levelupLogo}
+                alt="LevelUp Learning"
+                className="h-10 w-auto"
+                style={{ mixBlendMode: "lighten" }}
+              />
             </div>
             <p className="font-sans-body text-sm text-muted-foreground leading-relaxed mb-6 max-w-[260px]">
               A creative education ecosystem for serious creators.
