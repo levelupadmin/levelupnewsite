@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import heroCinematic from "@/assets/hero-cinematic.jpg";
+import HeroCarousel from "@/components/HeroCarousel";
 
 const HeroSection = () => {
   return (
@@ -58,36 +58,8 @@ const HeroSection = () => {
         </motion.div>
       </div>
 
-      {/* Cinematic visual block */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.97 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.4, delay: 1.5, ease: "easeOut" }}
-        className="relative z-10 mt-16 md:mt-20 lg:mt-24 mx-4 md:mx-10 lg:mx-20"
-      >
-        <div className="relative overflow-hidden rounded-lg md:rounded-xl shadow-cinematic">
-          {/* Film grain overlay */}
-          <div className="absolute inset-0 z-10 opacity-[0.03] mix-blend-overlay pointer-events-none"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`,
-            }}
-          />
-
-          {/* Top/bottom vignette */}
-          <div className="absolute inset-0 z-10 pointer-events-none"
-            style={{
-              background: "linear-gradient(to bottom, hsl(220 15% 6% / 0.3) 0%, transparent 20%, transparent 80%, hsl(220 15% 6% / 0.6) 100%)"
-            }}
-          />
-
-          <img
-            src={heroCinematic}
-            alt="A filmmaker directing on set — warm cinematic lighting, creativity in motion"
-            className="w-full aspect-[16/9] md:aspect-[21/9] object-cover object-center"
-            loading="eager"
-          />
-        </div>
-      </motion.div>
+      {/* Cinematic video carousel */}
+      <HeroCarousel />
     </section>
   );
 };
