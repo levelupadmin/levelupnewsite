@@ -123,7 +123,7 @@ const HeroCarousel = () => {
                   <img
                     src={slide.image}
                     alt={slide.alt}
-                    className="w-full aspect-[3/4] object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                    className="w-full aspect-[16/9] object-cover object-center transition-transform duration-700 group-hover:scale-105"
                     loading={index < 3 ? "eager" : "lazy"}
                   />
 
