@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import levelupLogo from "@/assets/levelup-logo.png";
+import levelupLogo from "@/assets/levelup-logo.svg";
 
 const navLinks = [
   { label: "Masterclasses", href: "#" },

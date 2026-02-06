@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Instagram, Youtube, Twitter, Linkedin } from "lucide-react";
-import levelupLogo from "@/assets/levelup-logo.png";
+import levelupLogo from "@/assets/levelup-logo.svg";
 const footerLinks = {
   Learn: [
     { label: "Masterclasses", href: "#" },
