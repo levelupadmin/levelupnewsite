@@ -1,58 +1,88 @@
 
 
-# Add "Our Students Are From" Logo Carousel Section
+# Add FAQ Section to LevelUp Learning Homepage
 
-## Overview
+## What Already Exists
 
-A new trust-building section placed at the bottom of the page (after The Forge) featuring a headline and a continuously scrolling marquee of brand/institute logos. Since no logo files are available yet, we'll use styled text placeholders that look like logos.
+The homepage already has all six content sections built and styled consistently:
 
-## Design
+1. **Hero** (with carousel and credibility cues)
+2. **Why LevelUp** (3 belief-driven cards)
+3. **Masterclasses** (horizontal scroll row with category filters)
+4. **LevelUp Live** (program cards grid)
+5. **The Forge** (split-column with layered visuals)
+6. **Testimonials** (documentary-style portrait cards)
+7. **Student Logos** (infinite marquee)
 
-The section will have:
+The only missing section from your brief is **Section 7: FAQ**.
 
-1. **A centered headline** -- "Our students are from" in the existing editorial style (serif display font, muted tone)
-2. **An infinite-scrolling marquee** of brand/institution names displayed as styled text logos, scrolling left continuously
-3. **Fade edges** on both sides to create a seamless, cinematic look (matching the pattern used in the Masterclass scroll row)
+---
 
-The marquee will use a pure CSS `@keyframes` animation for smooth, performant infinite scrolling -- no JavaScript timers or libraries needed. The logos will be duplicated in the DOM to create a seamless loop.
+## What Will Be Built
 
-### Placeholder Brands/Institutes (text-styled)
+### FAQ Section
 
-A representative mix of film schools, studios, creative companies, and tech brands:
-- FTII
-- NID
-- Whistling Woods
-- YRF
-- Excel Entertainment
-- TVF
-- Google
-- Amazon Prime
-- Viacom18
-- Dharma
-- Red Chillies
-- Adobe
+A calm, clear FAQ section placed after the Testimonials section and before the Student Logos marquee. It will feel like a helpful, reassuring part of the experience -- not a legal appendix.
 
-### Visual Style
-- Dark background, consistent with the rest of the page
-- Logo text in muted foreground color, large and tracked-out for a clean editorial feel
-- A thin separator line above, matching the subtle dividers used elsewhere
-- Fade-in animation on scroll using `framer-motion` (consistent with all other sections)
-- Smooth, slow horizontal scroll speed for a calm, premium feel
+**Structure:**
+- A centered headline: "Frequently asked questions" in the established serif display style
+- A single-column layout of expandable accordion items, centered on the page (max-width constrained for readability)
+- Each FAQ item uses a clean accordion pattern (click to expand/collapse) with smooth open/close animations
+- A subtle closing prompt at the bottom: "Still have questions? Reach out to us" with a soft contact link
+
+**Visual Style:**
+- Consistent `py-12 md:py-16` section padding
+- Subtle top divider gradient (matching other sections)
+- Accordion items separated by thin border lines
+- Questions in serif display font, answers in sans-serif body font
+- Muted foreground colors, calm and readable
+- Framer Motion fade-in entrance on scroll
+
+**FAQ Content (placeholder -- ready for your copy):**
+Since no specific FAQ copy was provided in this prompt, the section will include representative placeholder questions covering common topics:
+- What is LevelUp Learning?
+- Who are the masterclasses for?
+- How do live programs work?
+- What is The Forge?
+- Do I need prior experience?
+- How much does it cost?
+- Can I access content after the program ends?
+- How do I get invited to The Forge?
+
+These can be swapped with your final copy at any time.
+
+---
 
 ## Technical Details
 
-### New Files
-- `src/components/StudentLogosSection.tsx` -- the new marquee component
+### New File
+- `src/components/FAQSection.tsx` -- The FAQ accordion component
 
 ### Modified Files
-- `src/pages/Index.tsx` -- import and render the new section after `ForgeSection`
-- `src/index.css` -- add the `@keyframes scroll-left` animation for the marquee
+- `src/pages/Index.tsx` -- Import and render the FAQ section between TestimonialsSection and StudentLogosSection
 
 ### Implementation Approach
-- Use a flex container with two identical sets of logo items side by side
-- Apply a CSS animation (`translate-x` from `0` to `-50%`) on the wrapper to create seamless infinite scrolling
-- Add `bg-gradient-to-r` / `bg-gradient-to-l` fade overlays on the left and right edges using `pointer-events-none` divs
-- Each "logo" is rendered as uppercase, tracked-out text in `font-sans-body` with `text-muted-foreground` styling
-- Logos separated by subtle dot or pipe dividers
-- The animation speed will be slow (around 30-40 seconds per full cycle) for a calm, non-distracting feel
-- `framer-motion` wraps the section for a fade-in entrance on scroll, consistent with all other sections
+- Uses the existing Radix UI Accordion primitives (`@radix-ui/react-accordion`) already installed and configured in `src/components/ui/accordion.tsx`
+- Wraps the section in `framer-motion` for a consistent scroll-triggered fade-in entrance
+- Follows the established spacing system (`py-12 md:py-16`, `mb-10 md:mb-12` for headings)
+- Uses the same subtle top divider gradient pattern used in other sections
+- Accordion triggers styled with `font-serif-display`, content styled with `font-sans-body`
+- Single-item-at-a-time open behavior for a focused reading experience
+- Accordion animations use the existing `accordion-down` / `accordion-up` keyframes already in `tailwind.config.ts`
+- Optional soft contact CTA at the bottom using the same link style as other section CTAs
+
+### Section Order After Change
+
+```text
+Navbar
+Hero (full viewport)
+  Credibility Cues
+Why LevelUp
+Masterclasses
+LevelUp Live
+The Forge
+Testimonials
+FAQ  <-- NEW
+Student Logos (marquee)
+```
+
