@@ -30,7 +30,7 @@ const MarqueeRow = () => (
 
 const StudentLogosSection = () => {
   return (
-    <section className="relative bg-background py-28 md:py-36 lg:py-44 overflow-hidden">
+    <section className="relative bg-background py-16 md:py-20 lg:py-24 overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
