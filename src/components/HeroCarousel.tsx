@@ -2,44 +2,31 @@ import { useEffect, useCallback, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { motion } from "framer-motion";
-import { Play } from "lucide-react";
 
 const slides = [
   {
-    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/6899f2de01c2b6f380973a82_Frame%20191%20LK.png",
-    label: "Filmmaking Masterclass",
-    mentor: "Lokesh Kanagaraj",
-    alt: "Lokesh Kanagaraj — Filmmaking Masterclass course banner",
+    poster: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/6899f2de01c2b6f380973a82_Frame%20191%20LK.png",
+    alt: "Filmmaking Masterclass preview",
   },
   {
-    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/650c1be5224f49f6432aaae6_1.Karthik_Subburaj%20course%20banner.png",
-    label: "Filmmaking Masterclass",
-    mentor: "Karthik Subbaraj",
-    alt: "Karthik Subbaraj — Filmmaking Masterclass course banner",
+    poster: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/650c1be5224f49f6432aaae6_1.Karthik_Subburaj%20course%20banner.png",
+    alt: "Direction Masterclass preview",
   },
   {
-    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64f2f14d67e5504737c57ea5_2.Venket_Ram.png",
-    label: "Photography Masterclass",
-    mentor: "G Venket Ram",
-    alt: "G Venket Ram — Photography Masterclass course banner",
+    poster: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64f2f14d67e5504737c57ea5_2.Venket_Ram.png",
+    alt: "Photography Masterclass preview",
   },
   {
-    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64f60ddd91f67b7db8f6716b_3.Anthony_Gonsalvez.png",
-    label: "Film Editing Masterclass",
-    mentor: "Anthony Gonsalvez",
-    alt: "Anthony Gonsalvez — Film Editing Masterclass course banner",
+    poster: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64f60ddd91f67b7db8f6716b_3.Anthony_Gonsalvez.png",
+    alt: "Film Editing Masterclass preview",
   },
   {
-    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64b79ef6d61b238747788c6c_kiran%20website%201.webp",
-    label: "Art Direction Masterclass",
-    mentor: "DRK Kiran",
-    alt: "DRK Kiran — Art Direction Masterclass course banner",
+    poster: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64b79ef6d61b238747788c6c_kiran%20website%201.webp",
+    alt: "Art Direction Masterclass preview",
   },
   {
-    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64b79ef642421ae3cbe004d9_ravi%20website%201.webp",
-    label: "Music Direction Masterclass",
-    mentor: "Ravi Basrur",
-    alt: "Ravi Basrur — Music Direction Masterclass course banner",
+    poster: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64b79ef642421ae3cbe004d9_ravi%20website%201.webp",
+    alt: "Music Direction Masterclass preview",
   },
 ];
 
@@ -51,15 +38,12 @@ const HeroCarousel = () => {
       loop: true,
       align: "center",
       slidesToScroll: 1,
-      breakpoints: {
-        "(min-width: 768px)": { slidesToScroll: 1 },
-      },
     },
     [
       Autoplay({
-        delay: 4000,
+        delay: 8000,
         stopOnInteraction: false,
-        stopOnMouseEnter: true,
+        stopOnMouseEnter: false,
       }),
     ]
   );
@@ -83,18 +67,17 @@ const HeroCarousel = () => {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.2, delay: 1.5, ease: "easeOut" }}
-      className="relative z-10 mt-6 md:mt-8"
+      className="relative z-10 mt-4 md:mt-6"
     >
-      {/* Carousel with overlay dots */}
       <div className="relative">
         <div ref={emblaRef} className="overflow-hidden">
           <div className="flex">
             {slides.map((slide, index) => (
               <div
                 key={index}
-                className="relative flex-none w-[95vw] sm:w-[80vw] md:w-[70vw] lg:w-[65vw] px-2 md:px-3"
+                className="relative flex-none w-[92vw] sm:w-[80vw] md:w-[70vw] lg:w-[65vw] px-1.5 md:px-3"
               >
-                <div className="relative group overflow-hidden rounded-sm cursor-pointer">
+                <div className="relative overflow-hidden rounded-sm">
                   {/* Film grain overlay */}
                   <div
                     className="absolute inset-0 z-20 opacity-[0.04] mix-blend-overlay pointer-events-none"
@@ -103,47 +86,33 @@ const HeroCarousel = () => {
                     }}
                   />
 
-                  {/* Bottom gradient for text readability */}
-                  <div
-                    className="absolute inset-0 z-10 pointer-events-none"
-                    style={{
-                      background:
-                        "linear-gradient(to bottom, transparent 40%, hsl(220 15% 6% / 0.85) 100%)",
-                    }}
-                  />
+                  {/* Video placeholder — uses poster image, ready for real video src */}
+                  <video
+                    poster={slide.poster}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full aspect-[16/9] object-cover object-center"
+                  >
+                    {/* Video source will be added when real videos are available */}
+                  </video>
 
-                  {/* Play button indicator */}
-                  <div className="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className="w-14 h-14 rounded-full bg-primary/20 backdrop-blur-sm border border-primary/30 flex items-center justify-center">
-                      <Play className="w-5 h-5 text-primary fill-primary ml-0.5" />
-                    </div>
-                  </div>
-
-                  {/* Image */}
+                  {/* Fallback image for when video has no src */}
                   <img
-                    src={slide.image}
+                    src={slide.poster}
                     alt={slide.alt}
-                    className="w-full aspect-[16/9] object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                    className="absolute inset-0 w-full h-full object-cover object-center"
                     loading={index < 3 ? "eager" : "lazy"}
                   />
-
-                  {/* Text overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 z-20 p-4 md:p-5">
-                    <p className="font-sans-body text-[10px] md:text-xs tracking-[0.2em] uppercase text-primary/80 mb-1">
-                      {slide.mentor}
-                    </p>
-                    <h3 className="font-serif-display text-sm md:text-base lg:text-lg text-hero-headline leading-snug">
-                      {slide.label}
-                    </h3>
-                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Progress dots - overlaid on carousel */}
-        <div className="absolute top-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
+        {/* Progress dots */}
+        <div className="absolute top-3 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
           {slides.map((_, index) => (
             <button
               key={index}

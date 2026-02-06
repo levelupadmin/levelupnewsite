@@ -1,11 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Flame, Users, MapPin } from "lucide-react";
 
-import forgeImage1 from "@/assets/forge-1.jpg";
-import forgeImage2 from "@/assets/forge-2.jpg";
-import forgeImage3 from "@/assets/forge-3.jpg";
-import forgeImage4 from "@/assets/forge-4.jpg";
-
 const featurePoints = [
   {
     Icon: Flame,
@@ -27,10 +22,37 @@ const featurePoints = [
   },
 ];
 
-const contextualCues = [
-  "Invite-only",
-  "Limited cohorts",
-  "Offline, immersive",
+const stats = [
+  { value: "7", label: "Cities" },
+  { value: "11", label: "Editions" },
+  { value: "248", label: "Shortfilms" },
+];
+
+const venues = [
+  {
+    image: "https://framerusercontent.com/images/q8kQgstUtOgpZS50rx4LwGwcfQ.png?scale-down-to=1024",
+    name: "Dhun, Jaipur",
+  },
+  {
+    image: "https://framerusercontent.com/images/Ttd5KYWdlay28z3ukn6CspawQ.png?width=1555&height=1047",
+    name: "La Valencia, Goa",
+  },
+  {
+    image: "https://framerusercontent.com/images/O1hvIgdtPX3FBsWkwVRWm4wqk.png?width=1554&height=1047",
+    name: "Casa Colvale, Goa",
+  },
+  {
+    image: "https://framerusercontent.com/images/xKORmm4qaUwvN9TFEO2xJlv39I.png?width=1554&height=1047",
+    name: "Sealine Villa, Kochi",
+  },
+  {
+    image: "https://framerusercontent.com/images/mouKPkMovGCuUZ2dNaDCL5pXF0.png?width=1554&height=1047",
+    name: "Saipura Bagh, Jaipur",
+  },
+  {
+    image: "https://framerusercontent.com/images/4Jh8tGDdTozQqKOAuveX6jw0.png?width=1555&height=1047",
+    name: "Millennia Village, Kuala Lumpur",
+  },
 ];
 
 const ForgeSection = () => {
@@ -55,8 +77,8 @@ const ForgeSection = () => {
       />
 
       {/* ─── Top: Split Two-Column Layout ─── */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-10 md:mb-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
+      <div className="max-w-7xl mx-auto px-5 md:px-12 mb-10 md:mb-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
           {/* Left Column — Text Block */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -70,14 +92,29 @@ const ForgeSection = () => {
               Where you{" "}
               <em className="italic font-normal text-primary">become</em>
             </h2>
-            <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-5 md:mt-6 max-w-md leading-relaxed">
-              An immersive, in-person creative residency. No screens between you
-              and the work. Just pressure, mentorship, and transformation.
+            <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-4 md:mt-6 max-w-md leading-relaxed">
+              A filmmaking bootcamp for aspiring filmmakers, writers, creators, and
+              storytellers — where in 12 days we teach you filmmaking hands-on and
+              you create your very own short film.
             </p>
+
+            {/* Stats row */}
+            <div className="flex gap-8 md:gap-10 mt-6 md:mt-8">
+              {stats.map((stat) => (
+                <div key={stat.label}>
+                  <p className="font-serif-display text-2xl md:text-3xl font-medium text-hero-headline">
+                    {stat.value}
+                  </p>
+                  <p className="font-sans-body text-xs text-muted-foreground mt-1 tracking-wide">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
           </motion.div>
 
           {/* Right Column — Feature Points */}
-          <div className="flex flex-col gap-8 md:gap-10 md:pt-2">
+          <div className="flex flex-col gap-6 md:gap-10 md:pt-2">
             {featurePoints.map((point, index) => (
               <motion.div
                 key={point.headline}
@@ -108,42 +145,26 @@ const ForgeSection = () => {
         </div>
       </div>
 
-      {/* ─── Bottom: Layered Visual Showcase ─── */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <ForgeVisualShowcase />
+      {/* ─── Bottom: Venue Visual Showcase ─── */}
+      <div className="max-w-7xl mx-auto px-5 md:px-12">
+        <ForgeVenueShowcase />
       </div>
-
-      {/* Contextual cues */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 0.8, delay: 0.6 }}
-        className="flex justify-center gap-6 md:gap-10 mt-8 md:mt-10 px-6"
-      >
-        {contextualCues.map((cue) => (
-          <span
-            key={cue}
-            className="font-sans-body text-[10px] md:text-xs tracking-[0.2em] uppercase text-muted-foreground"
-          >
-            {cue}
-          </span>
-        ))}
-      </motion.div>
 
       {/* Quiet CTA */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 0.6, delay: 0.8 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
         className="text-center mt-10 md:mt-14"
       >
         <a
-          href="#"
+          href="https://tally.so/r/nPJydd"
+          target="_blank"
+          rel="noopener noreferrer"
           className="group inline-flex items-center gap-3 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-400"
         >
-          Enter The Forge
+          Request an Invite
           <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
         </a>
       </motion.div>
@@ -151,95 +172,41 @@ const ForgeSection = () => {
   );
 };
 
-/* ─── Layered Visual Showcase ────────────────────────────── */
+/* ─── Venue Visual Showcase ────────────────────────────── */
 
-const ForgeVisualShowcase = () => {
+const ForgeVenueShowcase = () => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-      className="relative"
     >
-      {/* Layered composition container */}
-      <div className="relative mx-auto max-w-5xl">
-        {/* Left flanking image */}
-        <div className="hidden md:block absolute -left-8 lg:-left-12 top-1/2 -translate-y-1/2 w-[28%] z-0">
+      {/* Venue grid */}
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+        {venues.map((venue, index) => (
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.9, delay: 0.4 }}
-            className="relative aspect-[3/4] overflow-hidden rounded-sm shadow-cinematic"
-          >
-            <img
-              src={forgeImage2}
-              alt="Hands on camera during a Forge shoot"
-              className="absolute inset-0 w-full h-full object-cover"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-background/30 to-transparent" />
-          </motion.div>
-        </div>
-
-        {/* Center main image — dominant */}
-        <div className="relative z-10 mx-auto w-full md:w-[70%]">
-          <div className="relative aspect-[16/10] overflow-hidden rounded-sm shadow-cinematic">
-            <img
-              src={forgeImage1}
-              alt="Late night creative discussion at The Forge"
-              className="absolute inset-0 w-full h-full object-cover"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-background/10" />
-
-            {/* Subtle caption overlay */}
-            <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8">
-              <span className="font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase text-foreground/60">
-                Goa · Edition III · 2025
-              </span>
-            </div>
-          </div>
-
-          {/* Small overlay card — forge-3 as an inset detail */}
-          <motion.div
+            key={venue.name}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.7, delay: 0.6 }}
-            className="absolute -bottom-4 -right-2 md:-bottom-8 md:-right-8 w-[30%] md:w-[30%] z-20"
-          >
-            <div className="relative aspect-[4/3] overflow-hidden rounded-sm shadow-cinematic border border-border/30">
-              <img
-                src={forgeImage3}
-                alt="Creators collaborating at dusk outside The Forge"
-                className="absolute inset-0 w-full h-full object-cover"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/50 to-transparent" />
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Right flanking image */}
-        <div className="hidden md:block absolute -right-8 lg:-right-12 top-1/2 -translate-y-1/2 w-[28%] z-0">
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.9, delay: 0.5 }}
-            className="relative aspect-[3/4] overflow-hidden rounded-sm shadow-cinematic"
+            transition={{ duration: 0.7, delay: 0.1 + index * 0.08 }}
+            className="group relative aspect-[3/2] overflow-hidden rounded-sm"
           >
             <img
-              src={forgeImage4}
-              alt="Filmmaker editing deep into the night"
-              className="absolute inset-0 w-full h-full object-cover"
+              src={venue.image}
+              alt={venue.name}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-l from-background/30 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4">
+              <span className="font-sans-body text-[10px] md:text-xs tracking-[0.1em] text-foreground/70">
+                {venue.name}
+              </span>
+            </div>
           </motion.div>
-        </div>
+        ))}
       </div>
     </motion.div>
   );
