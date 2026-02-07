@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
-import { useParallax } from "@/hooks/use-parallax";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
 
 const categories = [
   "All",
@@ -67,6 +66,78 @@ const imageRevealVariants = {
   }),
 };
 
+const MasterclassCard = ({ mc, index }: { mc: typeof masterclasses[0]; index: number }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const el = cardRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setTilt({ rotateX: -y * 8, rotateY: x * 8 });
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setTilt({ rotateX: 0, rotateY: 0 });
+  }, []);
+
+  return (
+    <motion.div
+      key={mc.name}
+      custom={index}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-60px" }}
+      variants={imageRevealVariants}
+      className="group relative cursor-pointer"
+      data-cursor="view"
+      style={{ perspective: 600 }}
+    >
+      <div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className="relative aspect-[3/4] overflow-hidden rounded-sm bg-card transition-transform duration-300 ease-out will-change-transform"
+        style={{
+          transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
+          transformStyle: "preserve-3d",
+        }}
+      >
+        <img
+          src={mc.image}
+          alt={`${mc.name} — ${mc.descriptor}`}
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          loading="lazy"
+        />
+
+        {/* Default gradient overlay — shifts up on hover */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-all duration-500 group-hover:from-black/90 group-hover:via-black/50 group-hover:to-black/10" />
+
+        {/* Hover info — revealed from bottom */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out">
+          <p className="font-serif-display text-base md:text-lg font-medium text-white leading-tight tracking-tight">
+            {mc.name}
+          </p>
+          <p className="font-sans-body text-xs text-white/60 mt-1">{mc.format}</p>
+          <div className="flex items-center gap-2 mt-3">
+            <span className="flex items-center justify-center w-6 h-6 rounded-full bg-white/15 backdrop-blur-sm">
+              <Play className="w-3 h-3 text-white fill-white" />
+            </span>
+            <span className="font-sans-body text-[11px] tracking-wide uppercase text-white/70">
+              Watch Preview
+            </span>
+          </div>
+        </div>
+
+        {/* Hover glow overlay */}
+        <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      </div>
+    </motion.div>
+  );
+};
+
 const MasterclassSection = () => {
   const [activeCategory, setActiveCategory] = useState("All");
 
@@ -103,7 +174,6 @@ const MasterclassSection = () => {
         transition={{ duration: 0.8 }}
         className="text-center px-6 md:px-12 mb-8 md:mb-10"
       >
-        {/* Format tag */}
         <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border border-primary/30 text-primary bg-primary/5 mb-4">
           On-demand
         </span>
@@ -143,31 +213,7 @@ const MasterclassSection = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-5 md:gap-6">
           {filtered.map((mc, index) => (
-            <motion.div
-              key={mc.name}
-              custom={index}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-60px" }}
-              variants={imageRevealVariants}
-              className="group relative cursor-pointer" data-cursor="view"
-            >
-              {/* Image container */}
-              <div className="relative aspect-[3/4] overflow-hidden rounded-sm bg-card">
-                <img
-                  src={mc.image}
-                  alt={`${mc.name} — ${mc.descriptor}`}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  loading="lazy"
-                />
-
-                {/* Dark gradient overlay from bottom */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-
-                {/* Hover glow overlay */}
-                <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </div>
-            </motion.div>
+            <MasterclassCard key={mc.name} mc={mc} index={index} />
           ))}
         </div>
       </div>
