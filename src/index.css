@@ -44,7 +44,9 @@
     --cue-value: 40 20% 85%;
     --gradient-cinematic: linear-gradient(180deg, hsl(220 15% 6%) 0%, hsl(220 12% 4%) 100%);
     --gradient-amber-glow: radial-gradient(ellipse at 50% 0%, hsl(38 75% 55% / 0.06) 0%, transparent 60%);
+    --gradient-amber-gold: linear-gradient(135deg, hsl(38 75% 55%) 0%, hsl(45 85% 65%) 50%, hsl(32 70% 50%) 100%);
     --shadow-cinematic: 0 20px 60px -15px hsl(0 0% 0% / 0.5);
+    --text-shadow-hero: 0 2px 20px hsl(0 0% 0% / 0.5), 0 1px 4px hsl(0 0% 0% / 0.3);
 
     /* Section-specific backgrounds */
     --bg-live-programs: 210 18% 9%;
@@ -81,6 +83,11 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', Georgia, serif;
+    letter-spacing: -0.02em;
+  }
+  
+  p, span, a, li, label {
+    letter-spacing: 0.01em;
   }
 }
 
@@ -119,6 +126,17 @@
 
   .shadow-cinematic {
     box-shadow: var(--shadow-cinematic);
+  }
+
+  .text-gradient-amber {
+    background: var(--gradient-amber-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-shadow-hero {
+    text-shadow: var(--text-shadow-hero);
   }
 
   .scrollbar-hide {
