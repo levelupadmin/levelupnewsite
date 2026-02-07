@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Flame, Users, MapPin } from "lucide-react";
+import ForgeCarousel from "./ForgeCarousel";
 
 const featurePoints = [
   {
@@ -28,32 +29,6 @@ const stats = [
   { value: "248", label: "Shortfilms" },
 ];
 
-const venues = [
-  {
-    image: "https://framerusercontent.com/images/q8kQgstUtOgpZS50rx4LwGwcfQ.png?scale-down-to=1024",
-    name: "Dhun, Jaipur",
-  },
-  {
-    image: "https://framerusercontent.com/images/Ttd5KYWdlay28z3ukn6CspawQ.png?width=1555&height=1047",
-    name: "La Valencia, Goa",
-  },
-  {
-    image: "https://framerusercontent.com/images/O1hvIgdtPX3FBsWkwVRWm4wqk.png?width=1554&height=1047",
-    name: "Casa Colvale, Goa",
-  },
-  {
-    image: "https://framerusercontent.com/images/xKORmm4qaUwvN9TFEO2xJlv39I.png?width=1554&height=1047",
-    name: "Sealine Villa, Kochi",
-  },
-  {
-    image: "https://framerusercontent.com/images/mouKPkMovGCuUZ2dNaDCL5pXF0.png?width=1554&height=1047",
-    name: "Saipura Bagh, Jaipur",
-  },
-  {
-    image: "https://framerusercontent.com/images/4Jh8tGDdTozQqKOAuveX6jw0.png?width=1555&height=1047",
-    name: "Millennia Village, Kuala Lumpur",
-  },
-];
 
 const ForgeSection = () => {
   return (
@@ -145,9 +120,9 @@ const ForgeSection = () => {
         </div>
       </div>
 
-      {/* ─── Bottom: Venue Visual Showcase ─── */}
+      {/* ─── Bottom: Forge Retreat Carousel ─── */}
       <div className="max-w-7xl mx-auto px-5 md:px-12">
-        <ForgeVenueShowcase />
+        <ForgeCarousel />
       </div>
 
       {/* Quiet CTA */}
@@ -169,46 +144,6 @@ const ForgeSection = () => {
         </a>
       </motion.div>
     </section>
-  );
-};
-
-/* ─── Venue Visual Showcase ────────────────────────────── */
-
-const ForgeVenueShowcase = () => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-    >
-      {/* Venue grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-        {venues.map((venue, index) => (
-          <motion.div
-            key={venue.name}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.7, delay: 0.1 + index * 0.08 }}
-            className="group relative aspect-[3/2] overflow-hidden rounded-sm"
-          >
-            <img
-              src={venue.image}
-              alt={venue.name}
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4">
-              <span className="font-sans-body text-[10px] md:text-xs tracking-[0.1em] text-foreground/70">
-                {venue.name}
-              </span>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-    </motion.div>
   );
 };
 
