@@ -36,6 +36,7 @@ const Navbar = () => {
             <a
               key={link.label}
               href={link.href}
+              data-cursor="arrow"
               className="font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-300"
             >
               {link.label}
@@ -46,6 +47,7 @@ const Navbar = () => {
         <div className="flex items-center gap-3">
           <a
             href="#"
+            data-cursor="arrow"
             className="font-sans-body text-xs md:text-sm text-foreground border border-border px-4 md:px-5 py-2 rounded-full hover:border-primary hover:text-primary transition-all duration-300"
           >
             Sign In
