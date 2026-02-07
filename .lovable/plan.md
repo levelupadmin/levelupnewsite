@@ -1,57 +1,39 @@
 
 
-# Differentiate Each Section's Visual Identity (Option C)
+## Craft.do-Style Floating Pill Navbar
 
-## Goal
-Make Masterclasses, Live Programs, and The Forge each look and feel visually distinct so that on mobile (and desktop), a user instinctively recognizes they've entered a new "chapter" of the LevelUp ecosystem as they scroll.
+Transform the current full-width navbar into a floating, pill-shaped navigation bar inspired by Craft.do's design -- a contained, centered bar that floats above the content with rounded corners and a polished, elevated look.
 
-## What Changes
+### What Changes
 
-### 1. Masterclasses Section -- Warm Amber Identity
-- Add a **thin amber accent line** at the top of the section (2px, primary color, fading from edges)
-- Add a **section label** above the headline: a small uppercase tag reading **"On-demand"** in a muted amber chip/badge style
-- Keep the existing dark background as-is -- this is the "baseline" visual language
+**From:** A full-width sticky navbar that spans edge-to-edge with a gradient background, transitioning to a blurred bar on scroll.
 
-### 2. Live Programs Section -- Cool Blue-Teal Identity
-- Shift the background to a **subtly different dark tone** using a cool-charcoal color (e.g., `hsl(215 15% 7%)`) instead of the default `bg-background`, creating a visible but non-jarring contrast
-- Replace the top divider with a **cool-toned accent line** (muted blue/teal, `hsl(200 30% 40%)`) instead of the current border color
-- Add a **section label** above the headline: **"Live + Mentor-led"** in a muted teal chip
-- Swap the radial glow from amber to a **subtle cool blue glow** at the top of the section
+**To:** A floating, rounded-pill navbar centered at the top of the page with a semi-transparent glassmorphic background, subtle shadow, and compact layout -- adapted to the site's dark cinematic theme.
 
-### 3. The Forge Section -- Warm Ember/Red-Orange Identity
-- Shift the background to a **warm-tinted dark tone** (e.g., `hsl(15 12% 7%)`) -- slightly warm/reddish charcoal
-- Replace the top divider with an **ember-toned accent line** (muted red-orange, `hsl(15 60% 45%)`)
-- Add a **section label** above the headline: **"In-person Bootcamp"** in a muted ember chip
-- Adjust the ambient glow to a **warm ember radial** instead of amber
-- Add a subtle **noise/grain texture overlay** (CSS-only, using a pseudo-element with a tiny repeating SVG or gradient pattern) to reinforce the "physical, tactile" feel of an offline bootcamp
+### Design Details
 
----
+- **Shape**: Rounded-full pill container (not full-width), centered horizontally with auto margins and a max-width constraint
+- **Spacing**: Small top margin (~`mt-4`) so it floats away from the browser edge
+- **Background**: Dark glassmorphic surface (`bg-card/70 backdrop-blur-xl`) with a subtle border and shadow, consistent with the cinematic palette
+- **Layout**: Logo left, nav links center, Sign In button right -- all inside the pill
+- **Scroll behavior**: On scroll, the pill slightly tightens its padding and the shadow intensifies, but it remains a floating pill (no full-width takeover)
+- **Mobile**: The pill shrinks to just logo + hamburger; the full-screen overlay menu stays the same
 
-## Technical Details
+### Technical Details
 
-### Files to Modify
+**File: `src/components/Navbar.tsx`**
 
-**`src/index.css`**
-- Add two new CSS custom properties for the section-specific background tones:
-  - `--bg-live-programs: 215 15% 7%`
-  - `--bg-forge: 15 12% 7%`
-
-**`src/components/MasterclassSection.tsx`**
-- Add a small format tag/badge above the `<h2>` heading: `"On-demand"` styled as a rounded pill with `border-primary/30 text-primary bg-primary/5`
-- Keep the existing amber radial glow and dark background
-
-**`src/components/LiveProgramsSection.tsx`**
-- Change the section's `bg-background` to inline style `background: hsl(215 15% 7%)` for the cool charcoal tone
-- Update the top divider line to use a teal-blue color: `hsl(200 30% 40%)`
-- Add a cool-toned radial glow at top (replacing the current neutral border glow)
-- Add a format tag above the heading: `"Live + Mentor-led"` in a teal-tinted pill
-
-**`src/components/ForgeSection.tsx`**
-- Change background to inline style `background: hsl(15 12% 7%)` for the warm ember tone
-- Update top divider to ember color: `hsl(15 60% 45%)`
-- Adjust the ambient radial glow to ember tones
-- Add a format tag above the heading: `"In-person Bootcamp"` in an ember-tinted pill
-- Add a CSS-only grain texture overlay using a pseudo-element approach (a div with a subtle noise gradient pattern at very low opacity)
-
-No new files are created. No new dependencies needed.
+1. Add an outer wrapper `div` that is `fixed top-0 left-0 right-0 z-50` with flex centering and top padding
+2. Move the pill styling to an inner container with:
+   - `mx-auto max-w-4xl w-[95%]` for centered, contained width
+   - `rounded-full` for the pill shape
+   - `bg-card/60 backdrop-blur-xl border border-border/30` for dark glass effect
+   - `shadow-lg` / `shadow-xl` for floating depth
+   - `px-4 md:px-6 py-2 md:py-2.5` for compact internal padding
+3. On scroll (`scrolled` state):
+   - Reduce outer top padding slightly
+   - Intensify the background opacity and shadow
+   - Shrink logo slightly (keeping existing behavior)
+4. Keep existing `data-cursor` attributes, mobile hamburger, and `AnimatePresence` mobile overlay unchanged
+5. The nav links and Sign In button remain structurally the same but with tightened spacing to fit the pill form factor
 
