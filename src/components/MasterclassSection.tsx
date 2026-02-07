@@ -75,6 +75,15 @@ const MasterclassSection = () => {
 
   return (
     <section id="masterclasses" className="relative bg-background py-12 md:py-16">
+      {/* Amber accent line at top */}
+      <div
+        className="absolute top-0 left-0 right-0 h-[2px]"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent 10%, hsl(38 75% 55% / 0.5) 50%, transparent 90%)",
+        }}
+      />
+
       {/* Subtle top glow */}
       <div
         className="absolute top-0 left-0 right-0 h-64 pointer-events-none"
@@ -92,6 +101,10 @@ const MasterclassSection = () => {
         transition={{ duration: 0.8 }}
         className="text-center px-6 md:px-12 mb-8 md:mb-10"
       >
+        {/* Format tag */}
+        <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border border-primary/30 text-primary bg-primary/5 mb-4">
+          On-demand
+        </span>
         <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-hero-headline leading-[1.2] tracking-tight">
           Learn from the ones{" "}
           <em className="italic font-normal text-primary">who shaped the craft</em>

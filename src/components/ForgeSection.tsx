@@ -32,22 +32,32 @@ const stats = [
 
 const ForgeSection = () => {
   return (
-    <section id="forge" className="relative bg-background py-12 md:py-16 overflow-hidden">
-      {/* Subtle top divider */}
+    <section id="forge" className="relative py-12 md:py-16 overflow-hidden" style={{ background: "hsl(var(--bg-forge))" }}>
+      {/* Ember accent line at top */}
       <div
-        className="absolute top-0 left-0 right-0 h-px"
+        className="absolute top-0 left-0 right-0 h-[2px]"
         style={{
           background:
-            "linear-gradient(90deg, transparent 10%, hsl(var(--border)) 50%, transparent 90%)",
+            "linear-gradient(90deg, transparent 10%, hsl(var(--accent-forge)) 50%, transparent 90%)",
         }}
       />
 
-      {/* Ambient glow */}
+      {/* Ember ambient glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 80% 50% at 50% 30%, hsl(38 75% 55% / 0.03) 0%, transparent 70%)",
+            "radial-gradient(ellipse 80% 50% at 50% 30%, hsl(15 60% 45% / 0.04) 0%, transparent 70%)",
+        }}
+      />
+
+      {/* Grain texture overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.03]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          backgroundRepeat: "repeat",
+          backgroundSize: "128px 128px",
         }}
       />
 
@@ -61,6 +71,12 @@ const ForgeSection = () => {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
+            {/* Format tag */}
+            <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border mb-4"
+              style={{ borderColor: "hsl(15 60% 45% / 0.3)", color: "hsl(15 60% 55%)", background: "hsl(15 60% 45% / 0.05)" }}
+            >
+              In-person Bootcamp
+            </span>
             <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-hero-headline leading-[1.15] tracking-tight">
               <span className="font-sans-body text-xs md:text-sm tracking-[0.2em] uppercase text-primary block mb-2">Forge</span>
               <span className="text-muted-foreground font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase block mb-4">by LevelUp</span>
