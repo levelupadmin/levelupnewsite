@@ -94,13 +94,22 @@ const cardVariants = {
 
 const LiveProgramsSection = () => {
   return (
-    <section className="relative bg-background py-12 md:py-16">
-      {/* Subtle divider glow */}
+    <section className="relative py-12 md:py-16" style={{ background: "hsl(var(--bg-live-programs))" }}>
+      {/* Cool teal accent line at top */}
       <div
-        className="absolute top-0 left-0 right-0 h-px"
+        className="absolute top-0 left-0 right-0 h-[2px]"
         style={{
           background:
-            "linear-gradient(90deg, transparent 10%, hsl(var(--border)) 50%, transparent 90%)",
+            "linear-gradient(90deg, transparent 10%, hsl(var(--accent-live)) 50%, transparent 90%)",
+        }}
+      />
+
+      {/* Cool blue glow */}
+      <div
+        className="absolute top-0 left-0 right-0 h-64 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at 50% 0%, hsl(200 30% 50% / 0.04) 0%, transparent 70%)",
         }}
       />
 
@@ -112,6 +121,12 @@ const LiveProgramsSection = () => {
         transition={{ duration: 0.8 }}
         className="text-center px-6 md:px-12 mb-10 md:mb-12"
       >
+        {/* Format tag */}
+        <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border mb-4"
+          style={{ borderColor: "hsl(200 30% 40% / 0.3)", color: "hsl(200 30% 55%)", background: "hsl(200 30% 40% / 0.05)" }}
+        >
+          Live + Mentor-led
+        </span>
         <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-hero-headline leading-[1.2] tracking-tight">
           Your craft,{" "}
           <em className="italic font-normal text-primary">guided live</em>
