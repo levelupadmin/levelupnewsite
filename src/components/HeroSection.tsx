@@ -15,18 +15,18 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="font-sans-body text-xs md:text-sm tracking-[0.3em] uppercase text-muted-foreground mb-4 md:mb-6"
+          className="font-sans-body text-xs md:text-sm tracking-[0.3em] uppercase text-muted-foreground mb-4 md:mb-6 text-shadow-hero"
         >
           India's Creative Education Ecosystem
         </motion.p>
 
-        <h1 className="font-serif-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-medium text-hero-headline text-center leading-[1.1] tracking-tight max-w-5xl">
+        <h1 className="font-serif-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-medium text-hero-headline text-center leading-[1.1] tracking-[-0.03em] max-w-5xl text-shadow-hero">
           <SplitTextReveal
             startDelay={0.6}
             stagger={0.12}
             renderWord={(word) =>
               word === "become" ? (
-                <em className="font-serif-display italic font-normal text-primary">
+                <em className="font-serif-display italic font-normal text-gradient-amber">
                   {word}
                 </em>
               ) : (
@@ -42,7 +42,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.7, delay: 1.2 }}
-          className="font-sans-body text-sm md:text-lg text-hero-subtext text-center mt-4 md:mt-6 max-w-xl leading-relaxed"
+          className="font-sans-body text-sm md:text-lg text-hero-subtext text-center mt-4 md:mt-6 max-w-xl leading-relaxed tracking-[0.015em] text-shadow-hero"
         >
           A place for those who believe the craft is the journey.{" "}
           <br className="hidden md:block" />
