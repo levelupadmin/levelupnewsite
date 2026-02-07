@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Play, ArrowRight } from "lucide-react";
+import { useParallax } from "@/hooks/use-parallax";
 
 import testimonial1 from "@/assets/testimonial-1.jpg";
 import testimonial2 from "@/assets/testimonial-2.jpg";
@@ -67,12 +68,12 @@ const TestimonialsSection = () => {
       />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* Section Header */}
+        {/* Section Header — horizontal reveal */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.9, ease: "easeOut" }}
+          transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
           className="mb-10 md:mb-12"
         >
           <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl font-medium text-hero-headline leading-[1.15] tracking-tight max-w-lg">
@@ -85,7 +86,7 @@ const TestimonialsSection = () => {
           </p>
         </motion.div>
 
-        {/* Testimonial Cards Grid */}
+        {/* Testimonial Cards Grid — staggered from alternating directions */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
           {testimonials.map((testimonial, index) => (
             <TestimonialCard
@@ -117,7 +118,7 @@ const TestimonialsSection = () => {
   );
 };
 
-/* ─── Testimonial Card ────────────────────────────── */
+/* ─── Testimonial Card with parallax image ────────── */
 
 const TestimonialCard = ({
   testimonial,
@@ -126,25 +127,30 @@ const TestimonialCard = ({
   testimonial: Testimonial;
   index: number;
 }) => {
+  const { ref, y: imageY } = useParallax<HTMLDivElement>({ speed: -0.1 });
+  // Alternate entrance: even from left, odd from right
+  const enterX = index % 2 === 0 ? -30 : 30;
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, x: enterX, y: 20 }}
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{
         duration: 0.8,
         delay: 0.1 + index * 0.12,
-        ease: "easeOut",
+        ease: [0.25, 0.1, 0.25, 1],
       }}
       className="group cursor-pointer"
     >
-      {/* Portrait Image Container */}
-      <div className="relative aspect-[4/5] overflow-hidden rounded-sm mb-4">
-        <img
+      {/* Portrait Image Container with parallax */}
+      <div ref={ref} className="relative aspect-[4/5] overflow-hidden rounded-sm mb-4">
+        <motion.img
           src={testimonial.image}
           alt={`${testimonial.name}, ${testimonial.role}`}
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           loading="lazy"
+          style={{ y: imageY }}
         />
 
         {/* Gradient overlay */}

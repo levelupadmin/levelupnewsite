@@ -64,12 +64,12 @@ const ForgeSection = () => {
       {/* ─── Top: Split Two-Column Layout ─── */}
       <div className="max-w-7xl mx-auto px-5 md:px-12 mb-10 md:mb-14">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
-          {/* Left Column — Text Block */}
+          {/* Left Column — Text Block with horizontal reveal */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 1, ease: "easeOut" }}
+            transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
           >
             {/* Format tag */}
             <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border mb-4"
@@ -109,13 +109,13 @@ const ForgeSection = () => {
             {featurePoints.map((point, index) => (
               <motion.div
                 key={point.headline}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{
                   duration: 0.8,
                   delay: 0.15 + index * 0.12,
-                  ease: "easeOut",
+                  ease: [0.25, 0.1, 0.25, 1],
                 }}
                 className="flex gap-4 items-start"
               >
