@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useParallax } from "@/hooks/use-parallax";
 import { ArrowRight } from "lucide-react";
 
 const categories = [
@@ -56,12 +57,13 @@ const masterclasses = [
   },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 50 },
+// Clip-path reveal for images
+const imageRevealVariants = {
+  hidden: { clipPath: "inset(100% 0% 0% 0%)", opacity: 0 },
   visible: (i: number) => ({
+    clipPath: "inset(0% 0% 0% 0%)",
     opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, delay: 0.2 + i * 0.1, ease: "easeOut" as const },
+    transition: { duration: 0.9, delay: 0.15 + i * 0.1, ease: [0.25, 0.1, 0.25, 1] as const },
   }),
 };
 
@@ -147,7 +149,7 @@ const MasterclassSection = () => {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-60px" }}
-              variants={cardVariants}
+              variants={imageRevealVariants}
               className="group relative cursor-pointer"
             >
               {/* Image container */}

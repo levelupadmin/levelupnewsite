@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { useParallax } from "@/hooks/use-parallax";
+import SplitTextReveal from "@/components/SplitTextReveal";
 
 const reasons = [
   {
@@ -21,14 +23,12 @@ const reasons = [
   },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, delay: 0.3 + i * 0.15, ease: "easeOut" as const },
-  }),
-};
+// Each card enters from a different direction for visual variety
+const cardDirections = [
+  { x: -40, y: 30, rotate: -1 },
+  { x: 0, y: 50, rotate: 0 },
+  { x: 40, y: 30, rotate: 1 },
+];
 
 const accentStyles = {
   warm: {
@@ -49,35 +49,46 @@ const accentStyles = {
 };
 
 const WhyLevelUp = () => {
-  return (
-    <section className="relative bg-background py-12 md:py-16">
-      {/* Section headline */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.8 }}
-        className="text-center px-6 md:px-12 mb-10 md:mb-12"
-      >
-        <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-hero-headline leading-[1.2] tracking-tight">
-          Why serious creators choose{" "}
-          <em className="italic font-normal text-primary">LevelUp</em>
-        </h2>
-      </motion.div>
+  const { ref: sectionRef, y: parallaxY } = useParallax({ speed: -0.08 });
 
-      {/* 3-column cards */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 lg:gap-8">
+  return (
+    <section ref={sectionRef} className="relative bg-background py-12 md:py-16">
+      {/* Section headline with split text reveal */}
+      <div className="text-center px-6 md:px-12 mb-10 md:mb-12">
+        <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-hero-headline leading-[1.2] tracking-tight">
+          <SplitTextReveal triggerOnView startDelay={0.1} stagger={0.07}>
+            Why serious creators choose LevelUp
+          </SplitTextReveal>
+        </h2>
+      </div>
+
+      {/* 3-column cards — each enters from a different direction */}
+      <motion.div style={{ y: parallaxY }} className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 lg:gap-8">
         {reasons.map((reason, index) => {
           const style = accentStyles[reason.accentToken];
+          const direction = cardDirections[index];
 
           return (
             <motion.div
               key={reason.headline}
-              custom={index}
-              initial="hidden"
-              whileInView="visible"
+              initial={{
+                opacity: 0,
+                x: direction.x,
+                y: direction.y,
+                rotate: direction.rotate,
+              }}
+              whileInView={{
+                opacity: 1,
+                x: 0,
+                y: 0,
+                rotate: 0,
+              }}
               viewport={{ once: true, margin: "-60px" }}
-              variants={cardVariants}
+              transition={{
+                duration: 0.9,
+                delay: 0.2 + index * 0.15,
+                ease: [0.25, 0.1, 0.25, 1],
+              }}
               className={`relative ${style.bg} rounded-sm overflow-hidden group`}
             >
               {/* Subtle glow */}
@@ -96,8 +107,14 @@ const WhyLevelUp = () => {
 
               {/* Content */}
               <div className="relative z-10 p-8 md:p-10 lg:p-12 min-h-[320px] md:min-h-[380px] lg:min-h-[420px] flex flex-col justify-end">
-                {/* Accent line */}
-                <div className={`w-8 h-[2px] ${style.line} mb-6 md:mb-8 opacity-60`} />
+                {/* Accent line — animates width */}
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileInView={{ width: 32 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.5 + index * 0.15 }}
+                  className={`h-[2px] ${style.line} mb-6 md:mb-8 opacity-60`}
+                />
 
                 <h3 className="font-serif-display text-xl md:text-2xl lg:text-[1.75rem] font-medium text-hero-headline leading-[1.25] tracking-tight whitespace-pre-line mb-4 md:mb-5">
                   {reason.headline}
@@ -113,7 +130,7 @@ const WhyLevelUp = () => {
             </motion.div>
           );
         })}
-      </div>
+      </motion.div>
     </section>
   );
 };
