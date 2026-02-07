@@ -1,3 +1,4 @@
+import { useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Clock, Radio, CalendarDays, ArrowRight } from "lucide-react";
 
@@ -121,7 +122,6 @@ const LiveProgramsSection = () => {
         transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
         className="text-center px-6 md:px-12 mb-10 md:mb-12"
       >
-        {/* Format tag */}
         <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border mb-4"
           style={{ borderColor: "hsl(200 30% 40% / 0.3)", color: "hsl(200 30% 55%)", background: "hsl(200 30% 40% / 0.05)" }}
         >
@@ -173,6 +173,22 @@ interface ProgramCardProps {
 }
 
 const ProgramCard = ({ program, index }: ProgramCardProps) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const el = cardRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setTilt({ rotateX: -y * 6, rotateY: x * 6 });
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setTilt({ rotateX: 0, rotateY: 0 });
+  }, []);
+
   return (
     <motion.div
       custom={index}
@@ -180,59 +196,76 @@ const ProgramCard = ({ program, index }: ProgramCardProps) => {
       whileInView="visible"
       viewport={{ once: true, margin: "-60px" }}
       variants={cardVariants}
-      className="group relative cursor-pointer rounded-lg overflow-hidden bg-card border border-border hover:border-primary/20 transition-all duration-500"
+      className="group relative cursor-pointer"
       data-cursor="view"
+      style={{ perspective: 800 }}
     >
-      {/* Image header */}
-      <div className="relative aspect-[16/9] overflow-hidden">
-        <img
-          src={program.image}
-          alt={program.title}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-          loading="lazy"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
+      <div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className="relative rounded-lg overflow-hidden bg-card border border-border transition-all duration-300 ease-out will-change-transform group-hover:border-primary/30"
+        style={{
+          transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
+          transformStyle: "preserve-3d",
+        }}
+      >
+        {/* Image header */}
+        <div className="relative aspect-[16/9] overflow-hidden">
+          <img
+            src={program.image}
+            alt={program.title}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
 
-        {/* Status badge */}
-        <div className="absolute top-4 left-4">
-          <span
-            className={`font-sans-body text-[10px] md:text-xs tracking-wide uppercase px-3 py-1 rounded-full border ${statusStyles[program.status]}`}
-          >
-            {program.status}
-          </span>
+          {/* Status badge — pulses on hover for "Enrolling" */}
+          <div className="absolute top-4 left-4">
+            <span
+              className={[
+                "font-sans-body text-[10px] md:text-xs tracking-wide uppercase px-3 py-1 rounded-full border transition-all duration-300",
+                statusStyles[program.status],
+                program.status === "Enrolling"
+                  ? "group-hover:animate-[pulse_2s_ease-in-out_infinite] group-hover:shadow-[0_0_12px_hsl(var(--primary)/0.3)]"
+                  : "",
+              ].join(" ")}
+            >
+              {program.status}
+            </span>
+          </div>
+        </div>
+
+        {/* Card body */}
+        <div className="p-5 md:p-6">
+          <h3 className="font-serif-display text-lg md:text-xl font-medium text-hero-headline leading-tight tracking-tight mb-2">
+            {program.title}
+          </h3>
+          <p className="font-sans-body text-sm text-muted-foreground leading-relaxed mb-5">
+            {program.description}
+          </p>
+
+          {/* Metadata row */}
+          <div className="flex flex-wrap items-center gap-4 mb-5">
+            <MetaItem icon={<Clock className="w-3.5 h-3.5" />} label={program.duration} />
+            <MetaItem icon={<Radio className="w-3.5 h-3.5" />} label={program.format} />
+          </div>
+
+          {/* Mentor line */}
+          <div className="flex items-center gap-2 pt-4 border-t border-border">
+            <CalendarDays className="w-3.5 h-3.5 text-muted-foreground" />
+            <span className="font-sans-body text-xs text-muted-foreground">
+              Led by{" "}
+              <span className="text-hero-subtext font-medium">{program.mentor}</span>
+            </span>
+          </div>
+        </div>
+
+        {/* Animated accent line — slides in from left on hover */}
+        <div className="absolute bottom-0 left-0 right-0 h-[2px] overflow-hidden">
+          <div className="h-full w-full bg-primary/50 -translate-x-full group-hover:translate-x-0 transition-transform duration-600 ease-out" />
         </div>
       </div>
-
-      {/* Card body */}
-      <div className="p-5 md:p-6">
-        {/* Title */}
-        <h3 className="font-serif-display text-lg md:text-xl font-medium text-hero-headline leading-tight tracking-tight mb-2">
-          {program.title}
-        </h3>
-
-        {/* Description */}
-        <p className="font-sans-body text-sm text-muted-foreground leading-relaxed mb-5">
-          {program.description}
-        </p>
-
-        {/* Metadata row */}
-        <div className="flex flex-wrap items-center gap-4 mb-5">
-          <MetaItem icon={<Clock className="w-3.5 h-3.5" />} label={program.duration} />
-          <MetaItem icon={<Radio className="w-3.5 h-3.5" />} label={program.format} />
-        </div>
-
-        {/* Mentor line */}
-        <div className="flex items-center gap-2 pt-4 border-t border-border">
-          <CalendarDays className="w-3.5 h-3.5 text-muted-foreground" />
-          <span className="font-sans-body text-xs text-muted-foreground">
-            Led by{" "}
-            <span className="text-hero-subtext font-medium">{program.mentor}</span>
-          </span>
-        </div>
-      </div>
-
-      {/* Hover accent line at bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary/0 group-hover:bg-primary/40 transition-all duration-500" />
     </motion.div>
   );
 };
