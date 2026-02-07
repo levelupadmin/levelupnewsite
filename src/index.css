@@ -47,12 +47,12 @@
     --shadow-cinematic: 0 20px 60px -15px hsl(0 0% 0% / 0.5);
 
     /* Section-specific backgrounds */
-    --bg-live-programs: 215 15% 7%;
-    --bg-forge: 15 12% 7%;
+    --bg-live-programs: 210 18% 9%;
+    --bg-forge: 12 15% 9%;
 
     /* Section accent colors */
-    --accent-live: 200 30% 40%;
-    --accent-forge: 15 60% 45%;
+    --accent-live: 200 35% 45%;
+    --accent-forge: 15 65% 48%;
 
     --sidebar-background: 220 12% 9%;
     --sidebar-foreground: 40 20% 90%;

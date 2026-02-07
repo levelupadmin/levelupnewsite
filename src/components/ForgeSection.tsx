@@ -47,7 +47,7 @@ const ForgeSection = () => {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 80% 50% at 50% 30%, hsl(15 60% 45% / 0.04) 0%, transparent 70%)",
+            "radial-gradient(ellipse 80% 50% at 50% 30%, hsl(15 65% 48% / 0.07) 0%, transparent 70%)",
         }}
       />
 

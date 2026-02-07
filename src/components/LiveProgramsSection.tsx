@@ -109,7 +109,7 @@ const LiveProgramsSection = () => {
         className="absolute top-0 left-0 right-0 h-64 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 0%, hsl(200 30% 50% / 0.04) 0%, transparent 70%)",
+            "radial-gradient(ellipse at 50% 0%, hsl(200 35% 50% / 0.07) 0%, transparent 70%)",
         }}
       />
 
