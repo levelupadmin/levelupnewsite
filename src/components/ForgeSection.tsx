@@ -153,6 +153,7 @@ const ForgeSection = () => {
           href="https://tally.so/r/nPJydd"
           target="_blank"
           rel="noopener noreferrer"
+          data-cursor="arrow"
           className="group inline-flex items-center gap-3 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-400"
         >
           Request an Invite

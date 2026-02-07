@@ -150,7 +150,7 @@ const MasterclassSection = () => {
               whileInView="visible"
               viewport={{ once: true, margin: "-60px" }}
               variants={imageRevealVariants}
-              className="group relative cursor-pointer"
+              className="group relative cursor-pointer" data-cursor="view"
             >
               {/* Image container */}
               <div className="relative aspect-[3/4] overflow-hidden rounded-sm bg-card">
@@ -182,6 +182,7 @@ const MasterclassSection = () => {
       >
         <a
           href="#"
+          data-cursor="arrow"
           className="group inline-flex items-center gap-3 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-400"
         >
           Explore the full library
