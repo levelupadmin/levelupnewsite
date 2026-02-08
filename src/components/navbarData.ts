@@ -20,6 +20,8 @@ export interface NavLink {
   href: string;
   description: string;
   items: NavItem[];
+  accent?: string;
+  formatBadge?: string;
 }
 
 export const navLinks: NavLink[] = [
@@ -27,6 +29,8 @@ export const navLinks: NavLink[] = [
     label: "Masterclasses",
     href: "https://www.leveluplearning.in/#masterclasses",
     description: "High quality pre-recorded courses taught by India's finest.",
+    accent: "hsl(38 75% 55%)",
+    formatBadge: "On-demand",
     items: [
       {
         image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/650c1be5224f49f6432aaae6_1.Karthik_Subburaj%20course%20banner.png",
@@ -70,6 +74,8 @@ export const navLinks: NavLink[] = [
     label: "LevelUp Live",
     href: "https://www.leveluplearning.live",
     description: "Live mentor-led programs to accelerate your creative career.",
+    accent: "hsl(200 35% 55%)",
+    formatBadge: "Live",
     items: [
       {
         image: liveProgram1,
@@ -95,6 +101,8 @@ export const navLinks: NavLink[] = [
     label: "The Forge",
     href: "#forge",
     description: "India's first residency for filmmakers and storytellers.",
+    accent: "hsl(15 65% 55%)",
+    formatBadge: "In-person",
     items: [
       {
         image: forge1,

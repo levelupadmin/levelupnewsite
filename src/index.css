@@ -137,6 +137,15 @@
     text-shadow: var(--text-shadow-hero);
   }
 
+  /* Nav card accent hover */
+  .nav-card-accent:hover .nav-card-title {
+    color: var(--card-accent);
+  }
+
+  .nav-card-accent:hover {
+    background-color: var(--card-accent-bg);
+  }
+
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;

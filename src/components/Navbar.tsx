@@ -1,9 +1,12 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useMemo } from "react";
 import { motion, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import levelupLogo from "@/assets/levelup-logo.svg";
 import type { NavLink, NavItem } from "./navbarData";
+
+// Default accent fallback (amber/primary)
+const DEFAULT_ACCENT = "hsl(38 75% 55%)";
 
 // Minimal nav labels for initial render (before data chunk loads)
 const navLabels = [
@@ -62,8 +65,16 @@ const Navbar = () => {
 
   const expanded = activeIndex !== null && links[activeIndex]?.items.length > 0;
 
+  // Active link accent color
+  const activeAccent = useMemo(() => {
+    if (activeIndex === null) return DEFAULT_ACCENT;
+    const link = links[activeIndex] as NavLink;
+    return link.accent || DEFAULT_ACCENT;
+  }, [activeIndex, links]);
+
   // Determine grid columns based on number of items
   const activeItems = activeIndex !== null ? links[activeIndex].items : [];
+  const activeFormatBadge = activeIndex !== null ? (links[activeIndex] as NavLink).formatBadge : undefined;
   const gridCols =
     activeItems.length <= 3
       ? "grid-cols-3"
@@ -130,32 +141,46 @@ const Navbar = () => {
 
             {/* Desktop nav links — visible in pill */}
             <div className="hidden md:flex items-center gap-1">
-              {links.map((link, index) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target={link.href.startsWith("http") ? "_blank" : undefined}
-                  rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  onMouseEnter={() => handleLinkEnter(index)}
-                  className={[
-                    "relative px-3 py-1.5 font-sans-body text-sm transition-colors duration-300",
-                    activeIndex === index
-                      ? "text-foreground"
-                      : "text-muted-foreground hover:text-foreground",
-                  ].join(" ")}
-                >
-                  <span className="relative z-10">{link.label}</span>
-                  {activeIndex === index && (
-                    <motion.div
-                      layoutId="nav-active-bg"
-                      className="absolute inset-0 bg-white/10 rounded-full"
-                      transition={{
-                        layout: { type: "spring", stiffness: 400, damping: 30 },
-                      }}
-                    />
-                  )}
-                </a>
-              ))}
+              {links.map((link, index) => {
+                const linkAccent = (link as NavLink).accent || DEFAULT_ACCENT;
+                const isActive = activeIndex === index;
+
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target={link.href.startsWith("http") ? "_blank" : undefined}
+                    rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    onMouseEnter={() => handleLinkEnter(index)}
+                    className={[
+                      "relative px-3 py-1.5 font-sans-body text-sm transition-colors duration-300 flex flex-col items-center",
+                      isActive
+                        ? "text-foreground"
+                        : "text-muted-foreground hover:text-foreground",
+                    ].join(" ")}
+                    style={isActive ? { color: linkAccent } : undefined}
+                  >
+                    <span className="relative z-10">{link.label}</span>
+                    {/* Accent dot indicator */}
+                    <AnimatePresence>
+                      {isActive && (
+                        <motion.span
+                          layoutId="nav-accent-dot"
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          exit={{ scale: 0, opacity: 0 }}
+                          transition={{
+                            layout: { type: "spring", stiffness: 400, damping: 30 },
+                            scale: { duration: 0.2 },
+                          }}
+                          className="absolute -bottom-0.5 w-1 h-1 rounded-full"
+                          style={{ backgroundColor: linkAccent }}
+                        />
+                      )}
+                    </AnimatePresence>
+                  </a>
+                );
+              })}
             </div>
 
             {/* Right side */}
@@ -200,13 +225,22 @@ const Navbar = () => {
                 }}
                 className="overflow-hidden"
               >
-                <div className="px-6 md:px-8 pb-5 pt-1">
+                {/* Accent line at top of dropdown */}
+                <div
+                  className="h-px mx-6 md:mx-8"
+                  style={{
+                    background: `linear-gradient(90deg, transparent 0%, ${activeAccent} 50%, transparent 100%)`,
+                  }}
+                />
+
+                <div className="px-6 md:px-8 pb-5 pt-3">
                   {/* Category description */}
                   <motion.p
                     initial={{ opacity: 0, y: 4 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.25, delay: 0.05 }}
-                    className="font-sans-body text-xs text-muted-foreground mb-3 tracking-wide"
+                    className="font-sans-body text-xs mb-3 tracking-wide"
+                    style={{ color: activeAccent, opacity: 0.6 }}
                   >
                     {links[activeIndex!].description}
                   </motion.p>
@@ -226,24 +260,41 @@ const Navbar = () => {
                           delay: 0.08 * i,
                           ease: "easeOut",
                         }}
-                        className="group/card block rounded-lg overflow-hidden bg-white/5 hover:bg-white/10 transition-colors duration-200"
+                        className="nav-card-accent block rounded-lg overflow-hidden bg-white/5 transition-all duration-200"
+                        style={{
+                          "--card-accent": activeAccent,
+                          "--card-accent-bg": activeAccent.replace(")", " / 0.1)").replace("hsl(", "hsl("),
+                        } as React.CSSProperties}
                       >
                         <div className="aspect-[16/10] overflow-hidden">
                           <img
                             src={item.image}
                             alt={item.title}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105"
+                            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                             loading="lazy"
                             decoding="async"
                           />
                         </div>
                         <div className="px-3 py-2.5">
-                          <p className="font-serif-display text-sm text-foreground leading-tight group-hover/card:text-primary transition-colors duration-200">
+                          <p className="nav-card-title font-serif-display text-sm text-foreground leading-tight transition-colors duration-200">
                             {item.title}
                           </p>
-                          <p className="font-sans-body text-[11px] text-muted-foreground mt-0.5">
-                            {item.subtitle}
-                          </p>
+                          <div className="flex items-center gap-1.5 mt-0.5">
+                            <p className="font-sans-body text-[11px] text-muted-foreground">
+                              {item.subtitle}
+                            </p>
+                            {activeFormatBadge && (
+                              <span
+                                className="font-sans-body text-[9px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded-full"
+                                style={{
+                                  color: activeAccent,
+                                  backgroundColor: activeAccent.replace(")", " / 0.12)").replace("hsl(", "hsl("),
+                                }}
+                              >
+                                {activeFormatBadge}
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </motion.a>
                     ))}
@@ -273,6 +324,8 @@ const Navbar = () => {
               {links.map((link, index) => {
                 const hasItems = link.items.length > 0;
                 const isExpanded = mobileExpandedIndex === index;
+                const linkAccent = (link as NavLink).accent || DEFAULT_ACCENT;
+                const badge = (link as NavLink).formatBadge;
 
                 return (
                   <motion.div
@@ -288,13 +341,15 @@ const Navbar = () => {
                           onClick={() =>
                             setMobileExpandedIndex(isExpanded ? null : index)
                           }
-                          className="w-full flex items-center justify-between py-4 font-serif-display text-xl text-foreground"
+                          className="w-full flex items-center justify-between py-4 font-serif-display text-xl transition-colors duration-200"
+                          style={{ color: isExpanded ? linkAccent : undefined }}
                         >
                           <span>{link.label}</span>
                           <motion.span
                             animate={{ rotate: isExpanded ? 45 : 0 }}
                             transition={{ duration: 0.2 }}
-                            className="text-muted-foreground text-2xl leading-none"
+                            className="text-2xl leading-none transition-colors duration-200"
+                            style={{ color: isExpanded ? linkAccent : undefined }}
                           >
                             +
                           </motion.span>
@@ -314,11 +369,17 @@ const Navbar = () => {
                               className="overflow-hidden"
                             >
                               {link.description && (
-                                <p className="font-sans-body text-xs text-muted-foreground mb-3 px-1">
+                                <p
+                                  className="font-sans-body text-xs mb-3 px-1"
+                                  style={{ color: linkAccent, opacity: 0.6 }}
+                                >
                                   {link.description}
                                 </p>
                               )}
-                              <div className="grid grid-cols-2 gap-2.5 pb-4">
+                              <div
+                                className="grid grid-cols-2 gap-2.5 pb-4 pl-3 border-l-2"
+                                style={{ borderColor: linkAccent + "33" }}
+                              >
                                 {link.items.map((item, i) => (
                                   <motion.a
                                     key={item.title}
@@ -355,9 +416,22 @@ const Navbar = () => {
                                       <p className="font-serif-display text-sm text-foreground leading-tight">
                                         {item.title}
                                       </p>
-                                      <p className="font-sans-body text-[10px] text-muted-foreground mt-0.5">
-                                        {item.subtitle}
-                                      </p>
+                                      <div className="flex items-center gap-1 mt-0.5">
+                                        <p className="font-sans-body text-[10px] text-muted-foreground">
+                                          {item.subtitle}
+                                        </p>
+                                        {badge && (
+                                          <span
+                                            className="font-sans-body text-[8px] font-semibold uppercase tracking-wider px-1 py-0.5 rounded-full"
+                                            style={{
+                                              color: linkAccent,
+                                              backgroundColor: linkAccent.replace(")", " / 0.12)").replace("hsl(", "hsl("),
+                                            }}
+                                          >
+                                            {badge}
+                                          </span>
+                                        )}
+                                      </div>
                                     </div>
                                   </motion.a>
                                 ))}
