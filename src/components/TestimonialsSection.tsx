@@ -48,7 +48,7 @@ const testimonials: Testimonial[] = [
 
 const TestimonialsSection = () => {
   return (
-    <section id="testimonials" className="relative bg-background py-12 md:py-16 overflow-hidden">
+    <section id="testimonials" aria-label="Creator testimonials" className="relative bg-background py-12 md:py-16 overflow-hidden">
       {/* Top divider */}
       <div
         className="absolute top-0 left-0 right-0 h-px"

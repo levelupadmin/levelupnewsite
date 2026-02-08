@@ -32,7 +32,7 @@ const stats = [
 
 const ForgeSection = () => {
   return (
-    <section id="forge" className="relative py-12 md:py-16 overflow-hidden" style={{ background: "hsl(var(--bg-forge))" }}>
+    <section id="forge" aria-label="The Forge residency" className="relative py-12 md:py-16 overflow-hidden" style={{ background: "hsl(var(--bg-forge))" }}>
       {/* Ember accent line at top */}
       <div
         className="absolute top-0 left-0 right-0 h-[2px]"

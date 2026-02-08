@@ -105,7 +105,7 @@ const cardVariants = {
 
 const LiveProgramsSection = () => {
   return (
-    <section id="live-programs" className="relative py-12 md:py-16" style={{ background: "hsl(var(--bg-live-programs))" }}>
+    <section id="live-programs" aria-label="Live programs" className="relative py-12 md:py-16" style={{ background: "hsl(var(--bg-live-programs))" }}>
       {/* Cool teal accent line at top */}
       <div
         className="absolute top-0 left-0 right-0 h-[2px]"

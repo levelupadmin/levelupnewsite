@@ -52,7 +52,7 @@ const WhyLevelUp = () => {
   const { ref: sectionRef, y: parallaxY } = useParallax({ speed: -0.08 });
 
   return (
-    <section ref={sectionRef} className="relative bg-background py-12 md:py-16">
+    <section ref={sectionRef} aria-label="Why choose LevelUp" className="relative bg-background py-12 md:py-16">
       {/* Section headline with split text reveal */}
       <div className="text-center px-6 md:px-12 mb-10 md:mb-12">
         <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-hero-headline leading-[1.2] tracking-tight">

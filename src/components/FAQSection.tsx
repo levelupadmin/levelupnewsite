@@ -83,7 +83,7 @@ const featuredStyle = "bg-[hsl(35_12%_10%)] border-[hsl(38_15%_18%)]";
 
 const FAQSection = () => {
   return (
-    <section id="faq" className="relative bg-background py-12 md:py-16">
+    <section id="faq" aria-label="Frequently asked questions" className="relative bg-background py-12 md:py-16">
       {/* Ambient glow */}
       <div className="absolute inset-0 bg-gradient-amber-glow pointer-events-none" />
 
