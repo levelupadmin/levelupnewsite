@@ -13,6 +13,7 @@ const navLinks = [
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -55,15 +56,34 @@ const Navbar = () => {
           </a>
 
           {/* Desktop nav links — centered */}
-          <div className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
+          <div
+            className="hidden md:flex items-center gap-1"
+            onMouseLeave={() => setHoveredIndex(null)}
+          >
+            {navLinks.map((link, index) => (
               <a
                 key={link.label}
                 href={link.href}
                 data-cursor="arrow"
-                className="font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-300"
+                onMouseEnter={() => setHoveredIndex(index)}
+                className="relative px-3 py-1.5 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-300"
               >
-                {link.label}
+                <AnimatePresence>
+                  {hoveredIndex === index && (
+                    <motion.div
+                      layoutId="nav-highlight"
+                      className="absolute inset-0 bg-white/10 rounded-full"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{
+                        layout: { type: "spring", stiffness: 350, damping: 30 },
+                        opacity: { duration: 0.2 },
+                      }}
+                    />
+                  )}
+                </AnimatePresence>
+                <span className="relative z-10">{link.label}</span>
               </a>
             ))}
           </div>
