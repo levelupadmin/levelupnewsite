@@ -19,6 +19,8 @@ interface Program {
   format: string;
   status: ProgramStatus;
   mentor: string;
+  startDate?: string;
+  spotsLeft?: number;
 }
 
 const programs: Program[] = [
@@ -30,6 +32,8 @@ const programs: Program[] = [
     format: "Live",
     status: "Enrolling",
     mentor: "Arun Varma",
+    startDate: "Mar 3",
+    spotsLeft: 6,
   },
   {
     image: liveProgram2,
@@ -39,6 +43,7 @@ const programs: Program[] = [
     format: "Live + Recorded",
     status: "Upcoming",
     mentor: "Meera Kapoor",
+    startDate: "Apr 14",
   },
   {
     image: liveProgram3,
@@ -48,6 +53,8 @@ const programs: Program[] = [
     format: "Live",
     status: "Enrolling",
     mentor: "Vikram Desai",
+    startDate: "Feb 24",
+    spotsLeft: 3,
   },
   {
     image: liveProgram4,
@@ -66,6 +73,7 @@ const programs: Program[] = [
     format: "Live",
     status: "Upcoming",
     mentor: "Rohan Mehta",
+    startDate: "May 5",
   },
   {
     image: liveProgram6,
@@ -75,6 +83,8 @@ const programs: Program[] = [
     format: "Live + Recorded",
     status: "Enrolling",
     mentor: "Ananya Sen",
+    startDate: "Mar 10",
+    spotsLeft: 9,
   },
 ];
 
@@ -222,7 +232,7 @@ const ProgramCard = ({ program, index }: ProgramCardProps) => {
           <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
 
           {/* Status badge — pulses on hover for "Enrolling" */}
-          <div className="absolute top-4 left-4">
+          <div className="absolute top-4 left-4 flex items-center gap-2">
             <span
               className={[
                 "font-sans-body text-[10px] md:text-xs tracking-wide uppercase px-3 py-1 rounded-full border transition-all duration-300",
@@ -235,6 +245,29 @@ const ProgramCard = ({ program, index }: ProgramCardProps) => {
               {program.status}
             </span>
           </div>
+
+          {/* Urgency indicators */}
+          {(program.startDate || program.spotsLeft) && (
+            <div className="absolute top-4 right-4 flex flex-col items-end gap-1.5">
+              {program.startDate && (
+                <span className="font-sans-body text-[10px] md:text-xs tracking-wide px-2.5 py-1 rounded-full bg-card/80 backdrop-blur-sm border border-border text-hero-subtext">
+                  Starts {program.startDate}
+                </span>
+              )}
+              {program.spotsLeft && program.spotsLeft <= 10 && (
+                <span
+                  className={[
+                    "font-sans-body text-[10px] md:text-xs font-medium tracking-wide px-2.5 py-1 rounded-full border",
+                    program.spotsLeft <= 5
+                      ? "bg-destructive/10 text-destructive border-destructive/20 animate-[pulse_2.5s_ease-in-out_infinite]"
+                      : "bg-primary/10 text-primary border-primary/20",
+                  ].join(" ")}
+                >
+                  {program.spotsLeft} spots left
+                </span>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Card body */}
