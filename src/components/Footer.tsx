@@ -88,13 +88,13 @@ const Footer = () => {
         </div>
 
         {/* Social icons row */}
-        <div className="flex items-center gap-4 mt-14">
+        <div className="flex items-center justify-center md:justify-start gap-5 md:gap-4 mt-14">
           {socialLinks.map((social) => (
             <a
               key={social.label}
               href={social.href}
               aria-label={social.label}
-              className="flex items-center justify-center w-10 h-10 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all duration-300"
+              className="flex items-center justify-center w-11 h-11 md:w-10 md:h-10 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all duration-300"
             >
               <social.icon size={18} strokeWidth={1.5} />
             </a>
@@ -106,7 +106,7 @@ const Footer = () => {
           <p className="font-sans-body text-xs text-muted-foreground">
             © 2026 LevelUp Learning. All rights reserved.
           </p>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-8 md:gap-6">
             <a href="#" className="font-sans-body text-xs text-muted-foreground hover:text-foreground transition-colors duration-300">
               Terms
             </a>

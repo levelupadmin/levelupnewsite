@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import SectionLabel from "@/components/SectionLabel";
 
 // Lazy-load all below-fold sections to minimize initial JS bundle
 const CredibilityCues = lazy(() => import("@/components/CredibilityCues"));
@@ -18,6 +19,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <HeroSection />
+      <SectionLabel />
       <Suspense fallback={null}>
         <CredibilityCues />
         <WhyLevelUp />

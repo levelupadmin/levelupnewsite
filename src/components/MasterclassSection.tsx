@@ -212,7 +212,7 @@ const MasterclassSection = () => {
 
       {/* Masterclass cards — grid layout */}
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-5 md:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-6 md:gap-6">
           {filtered.map((mc, index) => (
             <MasterclassCard key={mc.name} mc={mc} index={index} />
           ))}
@@ -230,7 +230,7 @@ const MasterclassSection = () => {
         <a
           href="#"
           
-          className="group inline-flex items-center gap-3 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-400"
+          className="cta-underline group inline-flex items-center gap-3 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-400"
         >
           Explore the full library
           <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
