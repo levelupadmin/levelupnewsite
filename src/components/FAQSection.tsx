@@ -87,7 +87,7 @@ const FAQSection = () => {
       {/* Ambient glow */}
       <div className="absolute inset-0 bg-gradient-amber-glow pointer-events-none" />
 
-      <div className="relative max-w-6xl mx-auto px-6">
+      <div className="relative max-w-6xl mx-auto px-5 md:px-6">
         {/* Headline */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

@@ -95,7 +95,7 @@ const cardVariants = {
 
 const LiveProgramsSection = () => {
   return (
-    <section className="relative py-12 md:py-16" style={{ background: "hsl(var(--bg-live-programs))" }}>
+    <section id="live-programs" className="relative py-12 md:py-16" style={{ background: "hsl(var(--bg-live-programs))" }}>
       {/* Cool teal accent line at top */}
       <div
         className="absolute top-0 left-0 right-0 h-[2px]"
@@ -139,7 +139,7 @@ const LiveProgramsSection = () => {
 
       {/* Program cards grid */}
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-6 lg:gap-8">
           {programs.map((program, index) => (
             <ProgramCard key={program.title} program={program} index={index} />
           ))}
@@ -157,7 +157,7 @@ const LiveProgramsSection = () => {
         <a
           href="#"
           
-          className="group inline-flex items-center gap-3 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-400"
+          className="cta-underline group inline-flex items-center gap-3 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-400"
         >
           See all upcoming programs
           <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />

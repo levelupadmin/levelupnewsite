@@ -53,12 +53,12 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.5 }}
-          className="mt-6 md:mt-10"
+          className="mt-8 md:mt-10"
         >
           <a
             href="#masterclasses"
             
-            className="group inline-flex items-center gap-3 font-sans-body text-sm md:text-base text-foreground border border-border px-6 py-3 md:px-7 md:py-3.5 rounded-full hover:border-primary hover:text-primary transition-all duration-500"
+            className="cta-sweep cta-glow group inline-flex items-center gap-3 font-sans-body text-sm md:text-base text-foreground border border-border px-6 py-3 md:px-7 md:py-3.5 rounded-full hover:border-primary hover:text-primary transition-all duration-500"
           >
             Explore the ecosystem
             <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />

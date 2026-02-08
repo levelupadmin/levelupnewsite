@@ -108,9 +108,9 @@ const TestimonialsSection = () => {
           <a
             href="#"
             
-            className="group inline-flex items-center gap-3 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-400"
-          >
-            Watch more stories
+          className="cta-underline group inline-flex items-center gap-3 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-400"
+        >
+          Watch more stories
             <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
           </a>
         </motion.div>

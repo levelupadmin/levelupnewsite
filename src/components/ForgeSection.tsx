@@ -154,7 +154,7 @@ const ForgeSection = () => {
           target="_blank"
           rel="noopener noreferrer"
           
-          className="group inline-flex items-center gap-3 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-400"
+          className="cta-underline group inline-flex items-center gap-3 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-400"
         >
           Request an Invite
           <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
