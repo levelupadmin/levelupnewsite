@@ -107,7 +107,7 @@ const TestimonialsSection = () => {
         >
           <a
             href="#"
-            data-cursor="arrow"
+            
             className="group inline-flex items-center gap-3 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-400"
           >
             Watch more stories
@@ -143,7 +143,7 @@ const TestimonialCard = ({
         ease: [0.25, 0.1, 0.25, 1],
       }}
       className="group cursor-pointer"
-      data-cursor="play"
+      
     >
       {/* Portrait Image Container with parallax */}
       <div ref={ref} className="relative aspect-[4/5] overflow-hidden rounded-sm mb-4">

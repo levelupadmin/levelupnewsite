@@ -57,7 +57,7 @@ const HeroSection = () => {
         >
           <a
             href="#masterclasses"
-            data-cursor="explore"
+            
             className="group inline-flex items-center gap-3 font-sans-body text-sm md:text-base text-foreground border border-border px-6 py-3 md:px-7 md:py-3.5 rounded-full hover:border-primary hover:text-primary transition-all duration-500"
           >
             Explore the ecosystem

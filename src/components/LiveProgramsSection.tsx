@@ -156,7 +156,7 @@ const LiveProgramsSection = () => {
       >
         <a
           href="#"
-          data-cursor="arrow"
+          
           className="group inline-flex items-center gap-3 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-400"
         >
           See all upcoming programs
@@ -197,7 +197,7 @@ const ProgramCard = ({ program, index }: ProgramCardProps) => {
       viewport={{ once: true, margin: "-60px" }}
       variants={cardVariants}
       className="group relative cursor-pointer"
-      data-cursor="view"
+      
       style={{ perspective: 800 }}
     >
       <div

@@ -92,7 +92,7 @@ const MasterclassCard = ({ mc, index }: { mc: typeof masterclasses[0]; index: nu
       viewport={{ once: true, margin: "-60px" }}
       variants={imageRevealVariants}
       className="group relative cursor-pointer"
-      data-cursor="view"
+      
       style={{ perspective: 600 }}
     >
       <div
@@ -228,7 +228,7 @@ const MasterclassSection = () => {
       >
         <a
           href="#"
-          data-cursor="arrow"
+          
           className="group inline-flex items-center gap-3 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-400"
         >
           Explore the full library
