@@ -3,29 +3,42 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { motion } from "framer-motion";
 
+import heroPoster1 from "@/assets/hero-poster-1.jpg";
+import heroPoster2 from "@/assets/hero-poster-2.jpg";
+import heroPoster3 from "@/assets/hero-poster-3.jpg";
+import heroPoster4 from "@/assets/hero-poster-4.jpg";
+import heroPoster5 from "@/assets/hero-poster-5.jpg";
+import heroPoster6 from "@/assets/hero-poster-6.jpg";
+
 const slides = [
   {
     video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    poster: heroPoster1,
     alt: "Cinematic reel one",
   },
   {
     video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+    poster: heroPoster2,
     alt: "Cinematic reel two",
   },
   {
     video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+    poster: heroPoster3,
     alt: "Cinematic reel three",
   },
   {
     video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+    poster: heroPoster4,
     alt: "Cinematic reel four",
   },
   {
     video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+    poster: heroPoster5,
     alt: "Cinematic reel five",
   },
   {
     video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
+    poster: heroPoster6,
     alt: "Cinematic reel six",
   },
 ];
@@ -112,6 +125,7 @@ const HeroCarousel = () => {
                   <video
                     ref={(el) => { videoRefs.current[index] = el; }}
                     src={slide.video}
+                    poster={slide.poster}
                     autoPlay={index === 0}
                     muted
                     loop
