@@ -1,85 +1,98 @@
 
 
-## Ultra-Fast Load Time: Performance Optimization Plan
+# Design Enhancements: Animated CTAs, Sticky Section Labels, and Mobile Polish
 
-We already fixed the duplicate Google Fonts loading. Here are the remaining high-impact optimizations, ordered from biggest win to smallest.
-
----
-
-### 1. Defer Hero Carousel Videos (Biggest Win)
-
-Right now, all **6 videos** load simultaneously with `preload="auto"` and `autoPlay`. This is by far the heaviest payload on the page -- each video is several MB.
-
-**What changes in `HeroCarousel.tsx`:**
-- Set `preload="none"` on all videos by default
-- Only set `preload="auto"` and trigger `.play()` on the **active slide** and the **next slide** (for seamless transitions)
-- Pause videos that are more than 1 slide away to free up bandwidth and memory
-- Add a solid `bg-card` background so slides don't flash white while loading
+Three targeted improvements to elevate the site's interaction quality and mobile experience.
 
 ---
 
-### 2. Lazy-Load Below-the-Fold Sections (Big Win)
+## 1. Animated CTA Button Upgrade
 
-Every section component is eagerly imported and rendered. The browser must download, parse, and execute **all** component JS before anything appears -- even though only the Navbar and Hero are visible on first load.
+Upgrade the hero CTA ("Explore the ecosystem") and section-level CTAs with a more cinematic hover interaction.
 
-**What changes in `Index.tsx`:**
-- Use `React.lazy()` for all sections below the hero:
-  - CredibilityCues, WhyLevelUp, MasterclassSection, LiveProgramsSection, ForgeSection, StudentLogosSection, TestimonialsSection, FAQSection, Footer
-- Wrap them in `<Suspense fallback={null}>` so the hero renders instantly while the rest loads in the background
-- This also defers the Framer Motion code bundled inside each lazy section, shrinking the critical JS path
+**Hero CTA changes (`HeroSection.tsx`):**
+- Add a background sweep animation: a gradient slides left-to-right behind the button text on hover
+- Add a subtle ambient glow/shadow on hover using `box-shadow` with the primary amber color
+- Keep the existing arrow translate animation
+- Implementation: use a `::before` pseudo-element (via Tailwind's `before:` utilities and a custom keyframe) or an inner `<span>` with `translateX` transition for the sweep effect
 
----
+**Section CTAs (Masterclass, Live Programs, Forge, Testimonials):**
+- Add a subtle underline-grow effect: a thin line grows from left-to-right beneath the text on hover
+- This uses the existing `.story-link` pattern already defined in the Tailwind config
+- Alternatively, add a small `before:` pseudo-element that scales from `scaleX(0)` to `scaleX(1)` on hover
 
-### 3. Defer Lenis Smooth Scroll (Medium Win)
-
-The Lenis library starts a perpetual `requestAnimationFrame` loop immediately on mount, competing with the browser's initial paint for CPU time.
-
-**What changes in `use-lenis.tsx`:**
-- Wrap Lenis initialization in a `requestIdleCallback` (with a `setTimeout` fallback) so the browser finishes rendering above-fold content first
-- The scroll loop starts a fraction of a second later -- imperceptible to the user, but gives the browser breathing room for first paint
-
----
-
-### 4. Add Resource Hints (Small Win)
-
-Help the browser discover critical external resources earlier.
-
-**What changes in `index.html`:**
-- Add `<link rel="preload" as="image">` for the LevelUp logo SVG (used in the Navbar, always above fold)
-- Add `<link rel="dns-prefetch">` for `cdn.prod.website-files.com` (masterclass images)
-- Add `<link rel="dns-prefetch">` for `commondatastorage.googleapis.com` (hero videos)
+**New CSS in `index.css`:**
+- A `.cta-sweep` utility class with a pseudo-element gradient background that translates on hover
+- A `.cta-glow` utility class for the hero button's ambient box-shadow
 
 ---
 
-### 5. Add Image Optimization Attributes (Small Win)
+## 2. Sticky Section Labels
 
-Images in below-fold sections already use `loading="lazy"`, which is good. But they're missing attributes that prevent layout shift and improve decode performance.
+A small, floating label that pins to the top-left corner of the viewport as you scroll through each major section, providing wayfinding context.
 
-**What changes across section components:**
-- Add `decoding="async"` to all `<img>` tags in MasterclassSection, LiveProgramsSection, TestimonialsSection, ForgeCarousel, and Footer
-- Add explicit `width` and `height` attributes where possible to prevent Cumulative Layout Shift (CLS)
+**New component: `SectionLabel.tsx`**
+- Uses Framer Motion's `useScroll` and `useMotionValueEvent` to track which section is currently in view
+- Renders a small label (e.g., "Masterclasses", "Live Programs", "The Forge", "Stories", "FAQs") that fades in/out based on the active section
+- Positioned `fixed top-20 left-6` (below the navbar) with `z-50`
+- Uses each section's accent color for the label text (amber for Masterclasses, teal for Live Programs, ember for The Forge)
+- Hidden on mobile to avoid clutter -- only visible at `md` breakpoint and above
+- Requires reading section `id` attributes to determine which section is active via `IntersectionObserver` or scroll position calculation
+
+**Integration in `Index.tsx`:**
+- Add `<SectionLabel />` as a sibling to the other components, outside the `<Suspense>` boundary since it needs to be always present
+
+**Section data structure:**
+```text
+sections = [
+  { id: "masterclasses", label: "Masterclasses", color: primary/amber },
+  { id: "live-programs",  label: "Live Programs",  color: teal },
+  { id: "forge",          label: "The Forge",      color: ember },
+  { id: "testimonials",   label: "Stories",        color: primary/amber },
+  { id: "faq",            label: "FAQs",           color: primary/amber },
+]
+```
+
+Note: The Live Programs section currently lacks an `id` attribute -- one will be added (`id="live-programs"`).
 
 ---
 
-### Summary of Files Changed
+## 3. Mobile-Specific Polish
 
-| File | Change |
-|---|---|
-| `index.html` | Add preload and dns-prefetch hints |
-| `src/pages/Index.tsx` | Lazy-load 9 below-fold sections |
-| `src/components/HeroCarousel.tsx` | Defer video loading to active + next slide only |
-| `src/hooks/use-lenis.tsx` | Defer initialization until after first paint |
-| `src/components/MasterclassSection.tsx` | Add `decoding="async"` to images |
-| `src/components/LiveProgramsSection.tsx` | Add `decoding="async"` to images |
-| `src/components/TestimonialsSection.tsx` | Add `decoding="async"` to images |
-| `src/components/ForgeCarousel.tsx` | Add `decoding="async"` to images |
-| `src/components/Footer.tsx` | Add `decoding="async"` to logo images |
+Targeted spacing, sizing, and usability fixes for screens below the `md` breakpoint (768px).
 
-### Expected Impact
+**Hero CTA spacing (`HeroSection.tsx`):**
+- Increase `mt-6` to `mt-8` on mobile for the CTA wrapper so there's more breathing room between the subheadline and the button
 
-- **Initial network payload**: Drops dramatically -- from 6 simultaneous video downloads to 1-2
-- **Largest Contentful Paint (LCP)**: Hero text and navbar appear without waiting for videos or below-fold JS
-- **Total Blocking Time (TBT)**: Reduced by deferring Framer Motion parsing for 9 lazy sections
-- **Time to Interactive (TTI)**: Faster -- Lenis deferred, below-fold code split out
-- **Cumulative Layout Shift (CLS)**: Improved with `decoding="async"` on images
+**Card grid gaps (`MasterclassSection.tsx`, `LiveProgramsSection.tsx`):**
+- Increase mobile grid gap from `gap-5` to `gap-6` for better visual separation between cards on small screens
 
+**FAQ section padding (`FAQSection.tsx`):**
+- Increase card padding from `p-6` to `p-5` on mobile (already fine) but ensure the outer container has at least `px-5` instead of `px-6` for consistent edge spacing, and add `pr-1` inside cards if text is getting clipped
+
+**Footer touch targets (`Footer.tsx`):**
+- Increase social icon button size from `w-10 h-10` to `w-11 h-11` on mobile (meeting the 44x44px minimum touch target)
+- Center the social icons row on mobile with `justify-center`
+- Increase gap between social icons from `gap-4` to `gap-5` on mobile for easier tapping
+- Increase bottom bar link gaps from `gap-6` to `gap-8` on mobile
+
+---
+
+## Technical Details
+
+### Files to Create
+- `src/components/SectionLabel.tsx` -- Sticky floating section indicator (desktop only)
+
+### Files to Modify
+- `src/index.css` -- Add `.cta-sweep` and `.cta-glow` utility classes with keyframes
+- `src/pages/Index.tsx` -- Import and render `SectionLabel`
+- `src/components/HeroSection.tsx` -- CTA button upgrade with sweep + glow, mobile spacing increase
+- `src/components/MasterclassSection.tsx` -- Section CTA underline effect, mobile grid gap
+- `src/components/LiveProgramsSection.tsx` -- Add `id="live-programs"`, section CTA underline, mobile grid gap
+- `src/components/ForgeSection.tsx` -- Section CTA underline effect
+- `src/components/TestimonialsSection.tsx` -- Section CTA underline effect
+- `src/components/FAQSection.tsx` -- Mobile card padding check
+- `src/components/Footer.tsx` -- Larger social icon touch targets, centered on mobile
+
+### No New Dependencies
+All changes use existing Framer Motion and Tailwind CSS capabilities.
