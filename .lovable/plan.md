@@ -1,103 +1,110 @@
 
 
-# Accessibility: ARIA Landmarks, Floating Support Button, and Improved Alt Text
+# Redesign: "Why LevelUp" Section (TripleTen-Inspired)
 
-## 1. ARIA Landmarks and Labels (all sections)
+## What Changes
 
-Add proper semantic landmarks so screen readers can navigate between sections:
+The current "Why serious creators choose LevelUp" section (simple 3 dark cards with text) will be completely replaced with an interactive, expandable card layout inspired by TripleTen's design -- adapted to LevelUp's dark cinematic aesthetic.
 
-**`src/pages/Index.tsx`**
-- Add a visually hidden "Skip to main content" link as the first element
-- Wrap all content below Navbar in a `<main id="main-content">` element
+## New Layout Structure
 
-**`src/components/Navbar.tsx`**
-- Add `aria-label="Main navigation"` to the `<nav>` element (currently `<motion.nav>`)
+### Top: Asymmetric Headline Block
+Instead of the current centered headline, the new layout uses a staggered/offset arrangement:
+- **Left side**: Large serif headline -- "The most intentional way to learn **the craft.**" (bold on the last words, matching TripleTen's style)
+- **Right side (offset lower)**: Supporting paragraph explaining LevelUp's philosophy
 
-**`src/components/HeroSection.tsx`**
-- Add `aria-label="Hero"` to the section
+### Bottom: 3 Expandable Feature Cards
+Three cards in a row, each with a distinct visual treatment. Each card:
+- Shows a **headline** (with key words in bold) and an **expand icon** in the top-right corner
+- Has unique background styling to differentiate it visually
+- On click, **expands** to fill more width and reveals detailed content (description, bullet points, a quote or stat)
+- Uses `framer-motion` `AnimatePresence` and `layout` animations for smooth expand/collapse transitions
 
-**`src/components/CredibilityCues.tsx`**
-- Add `aria-label="Key stats and credibility"` to the section
+### Card Details
 
-**`src/components/WhyLevelUp.tsx`**
-- Add `aria-label="Why choose LevelUp"` to the section
+| Card | Headline | Collapsed Style | Expanded Content |
+|------|----------|----------------|-----------------|
+| 1 | "Mentors who've **lived the craft**" | Dark background (matches site bg), subtle amber glow | Description of mentors, 3 bullet points (e.g., "Award-winning filmmakers", "Decades of industry experience", "Direct feedback on your work"), a mentor quote |
+| 2 | "Practice that **feels real**" | Warm accent background (muted amber/gold tone, similar to TripleTen's peach card) | Description of hands-on approach, 3 bullet points (e.g., "Real sets and equipment", "Deadlines that matter", "Your work gets published"), a stat like "248 short films created" |
+| 3 | "A community that **stays**" | Dark background with a subtle background image overlay (one of the existing forge/carousel images at very low opacity) | Description of the ecosystem, 3 bullet points (e.g., "Alumni network across cities", "Ongoing collaborations", "Career support beyond the program"), a stat like "7 cities, 11 editions" |
 
-**`src/components/MasterclassSection.tsx`**
-- Add `aria-label="Masterclasses"` to the section
+### Interaction Behavior
+- Only one card can be expanded at a time (clicking another collapses the current one)
+- On mobile: cards stack vertically, expand inline (full width)
+- On desktop: the expanded card takes roughly 50-60% of the row width while the others shrink
+- A close (X) button appears in the top-right of the expanded card (replacing the expand icon)
+- Navigation arrows at the bottom-right to cycle through expanded cards (desktop only)
 
-**`src/components/LiveProgramsSection.tsx`**
-- Add `aria-label="Live programs"` to the section
+## Technical Approach
 
-**`src/components/ForgeSection.tsx`**
-- Add `aria-label="The Forge residency"` to the section
+### Files Modified
+- **`src/components/WhyLevelUp.tsx`** -- Complete rewrite of this single component
 
-**`src/components/StudentLogosSection.tsx`**
-- Add `aria-label="Our students are from"` to the section
+### No New Files or Dependencies
+Everything uses existing tools: `framer-motion` (layout animations, AnimatePresence), Lucide icons (Maximize2, X, ChevronLeft, ChevronRight), and the existing Tailwind design tokens.
 
-**`src/components/TestimonialsSection.tsx`**
-- Add `aria-label="Creator testimonials"` to the section
+### Key Implementation Details
 
-**`src/components/FAQSection.tsx`**
-- Add `aria-label="Frequently asked questions"` to the section
+**State Management**:
+- `expandedIndex: number | null` -- tracks which card is expanded (null = all collapsed)
 
-**`src/components/Footer.tsx`**
-- Add `aria-label="Site footer"` to the footer element
+**Layout Animation**:
+- Uses `motion.div` with `layout` prop for smooth width/height transitions when a card expands
+- `AnimatePresence` wraps the expanded content so it fades in/out cleanly
 
----
+**Responsive Behavior**:
+- Desktop (md+): 3-column grid where the expanded card spans wider via CSS grid `col-span` or flex-basis changes
+- Mobile: Single column stack, cards expand to show content below the headline
 
-## 2. Floating Support Button
+**Styling Tokens** (all from existing palette):
+- Card 1 dark bg: `bg-card` or `bg-[hsl(220_12%_9%)]`
+- Card 2 warm bg: `bg-[hsl(30_30%_18%)]` with amber tint (adapted from TripleTen's peach to fit dark theme)
+- Card 3 dark bg with image: uses an existing asset as a low-opacity background
 
-Create a new `FloatingSupport.tsx` component:
+**Accessibility**:
+- `aria-label="Why choose LevelUp"` preserved on the section
+- Each card uses `role="button"` and `aria-expanded` attributes
+- Expand/collapse is keyboard-accessible (Enter/Space to toggle)
+- Expanded content uses `aria-live="polite"` so screen readers announce it
 
-- A small pill-shaped button fixed to the bottom-right corner
-- Uses a chat/message icon (from Lucide) with "Need help?" label
-- Links to WhatsApp with a pre-filled message (e.g., `https://wa.me/919876543210?text=Hi...`) -- using a placeholder number the user can swap
-- Only appears after scrolling 600px past the hero (uses framer-motion for a smooth slide-up entry)
-- Styled in the dark cinematic theme: dark card background, primary accent border, subtle glow on hover
-- Includes `aria-label="Chat with us on WhatsApp"` for screen reader accessibility
-- On mobile: slightly smaller to avoid blocking content
+**Animation Timing**:
+- Cards enter with staggered scroll-triggered animations (matching existing site patterns)
+- Expand/collapse transitions use `duration: 0.5s` with the site's standard easing `[0.25, 0.1, 0.25, 1]`
 
-**`src/pages/Index.tsx`**
-- Import and render `FloatingSupport` inside the Suspense boundary
+## Visual Summary
 
----
+```text
+Collapsed state:
++--------------------------------------------------+
+|                                                    |
+|  The most intentional way        We changed how    |
+|  to learn the craft.             creators learn.   |
+|                                  Build real skills  |
+|                                  with mentors who   |
+|                                  built careers.     |
+|                                                    |
+|  +---------------+ +---------------+ +-----------+ |
+|  | Mentors who've| | Practice that | | A community| |
+|  | lived the     | | feels real    | | that stays | |
+|  | craft    [->] | |          [->] | |       [->] | |
+|  |               | |               | |            | |
+|  |               | |               | |            | |
+|  | (dark)        | | (warm amber)  | | (dark+img) | |
+|  +---------------+ +---------------+ +-----------+ |
++--------------------------------------------------+
 
-## 3. Improved Alt Text (Hero Carousel)
-
-**`src/components/HeroCarousel.tsx`**
-
-Update the generic `alt` text on each slide from "Cinematic reel one/two/..." to descriptive content:
-
-| Current | Proposed |
-|---|---|
-| "Cinematic reel one" | "Behind the scenes of a LevelUp filmmaking session" |
-| "Cinematic reel two" | "Students collaborating on a short film set" |
-| "Cinematic reel three" | "A creator reviewing footage during an editing workshop" |
-| "Cinematic reel four" | "Live mentoring session with a working filmmaker" |
-| "Cinematic reel five" | "Camera and lighting setup for a practical exercise" |
-| "Cinematic reel six" | "Storytelling workshop in progress at a LevelUp retreat" |
-
-Also add `aria-label="Go to slide X: [description]"` to the progress dot buttons for better screen reader context.
-
----
-
-## Files Summary
-
-| File | Change |
-|---|---|
-| `src/pages/Index.tsx` | Skip-to-content link, `<main>` landmark, add FloatingSupport |
-| `src/components/FloatingSupport.tsx` | New -- floating WhatsApp/contact button |
-| `src/components/Navbar.tsx` | Add `aria-label` to nav |
-| `src/components/HeroSection.tsx` | Add `aria-label` to section |
-| `src/components/HeroCarousel.tsx` | Descriptive alt text, better aria-labels on dots |
-| `src/components/CredibilityCues.tsx` | Add `aria-label` to section |
-| `src/components/WhyLevelUp.tsx` | Add `aria-label` to section |
-| `src/components/MasterclassSection.tsx` | Add `aria-label` to section |
-| `src/components/LiveProgramsSection.tsx` | Add `aria-label` to section |
-| `src/components/ForgeSection.tsx` | Add `aria-label` to section |
-| `src/components/StudentLogosSection.tsx` | Add `aria-label` to section |
-| `src/components/TestimonialsSection.tsx` | Add `aria-label` to section |
-| `src/components/FAQSection.tsx` | Add `aria-label` to section |
-| `src/components/Footer.tsx` | Add `aria-label` to footer |
-| `src/index.css` | Add `.sr-only` utility class for the skip link |
-
+Expanded state (card 2 open):
++--------------------------------------------------+
+|  +------+ +-----------------------------+ +-----+ |
+|  |Card 1| | Practice that feels real [X]| |Card3| |
+|  |(small)| |                             | |(sm) | |
+|  |      | | Description text...         | |     | |
+|  |      | | * Real sets and equipment   | |     | |
+|  |      | | * Deadlines that matter     | |     | |
+|  |      | | * Your work gets published  | |     | |
+|  |      | |                      248    | |     | |
+|  |      | |                  short films | |     | |
+|  +------+ +-----------------------------+ +-----+ |
+|                                    [<-] [->]       |
++--------------------------------------------------+
+```
