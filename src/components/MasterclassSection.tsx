@@ -119,7 +119,7 @@ const MasterclassSection = () => {
       : masterclasses.filter((m) => m.category === activeCategory);
 
   return (
-    <section id="masterclasses" className="relative bg-background py-12 md:py-16">
+    <section id="masterclasses" aria-label="Masterclasses" className="relative bg-background py-12 md:py-16">
       {/* Amber accent line at top */}
       <div
         className="absolute top-0 left-0 right-0 h-[2px]"

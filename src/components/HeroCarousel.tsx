@@ -14,32 +14,32 @@ const slides = [
   {
     video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
     poster: heroPoster1,
-    alt: "Cinematic reel one",
+    alt: "Behind the scenes of a LevelUp filmmaking session",
   },
   {
     video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
     poster: heroPoster2,
-    alt: "Cinematic reel two",
+    alt: "Students collaborating on a short film set",
   },
   {
     video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
     poster: heroPoster3,
-    alt: "Cinematic reel three",
+    alt: "A creator reviewing footage during an editing workshop",
   },
   {
     video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
     poster: heroPoster4,
-    alt: "Cinematic reel four",
+    alt: "Live mentoring session with a working filmmaker",
   },
   {
     video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
     poster: heroPoster5,
-    alt: "Cinematic reel five",
+    alt: "Camera and lighting setup for a practical exercise",
   },
   {
     video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
     poster: heroPoster6,
-    alt: "Cinematic reel six",
+    alt: "Storytelling workshop in progress at a LevelUp retreat",
   },
 ];
 
@@ -150,7 +150,7 @@ const HeroCarousel = () => {
                   ? "w-8 bg-primary"
                   : "w-2 bg-white/30 hover:bg-white/50"
               }`}
-              aria-label={`Go to slide ${index + 1}`}
+              aria-label={`Go to slide ${index + 1}: ${slides[index].alt}`}
             />
           ))}
         </div>

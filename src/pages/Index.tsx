@@ -13,24 +13,37 @@ const StudentLogosSection = lazy(() => import("@/components/StudentLogosSection"
 const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection"));
 const FAQSection = lazy(() => import("@/components/FAQSection"));
 const Footer = lazy(() => import("@/components/Footer"));
+const FloatingSupport = lazy(() => import("@/components/FloatingSupport"));
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      {/* Skip-to-content link for keyboard users */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:px-4 focus:py-2 focus:rounded-md focus:bg-primary focus:text-primary-foreground focus:font-sans-body focus:text-sm"
+      >
+        Skip to main content
+      </a>
+
       <Navbar />
-      <HeroSection />
-      <SectionLabel />
-      <Suspense fallback={null}>
-        <CredibilityCues />
-        <WhyLevelUp />
-        <MasterclassSection />
-        <LiveProgramsSection />
-        <ForgeSection />
-        <StudentLogosSection />
-        <TestimonialsSection />
-        <FAQSection />
-        <Footer />
-      </Suspense>
+
+      <main id="main-content">
+        <HeroSection />
+        <SectionLabel />
+        <Suspense fallback={null}>
+          <CredibilityCues />
+          <WhyLevelUp />
+          <MasterclassSection />
+          <LiveProgramsSection />
+          <ForgeSection />
+          <StudentLogosSection />
+          <TestimonialsSection />
+          <FAQSection />
+          <Footer />
+          <FloatingSupport />
+        </Suspense>
+      </main>
     </div>
   );
 };

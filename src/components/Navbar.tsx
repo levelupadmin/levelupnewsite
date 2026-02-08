@@ -95,6 +95,7 @@ const Navbar = () => {
       >
         {/* Pill container */}
         <motion.nav
+          aria-label="Main navigation"
           onMouseLeave={handleNavLeave}
           onPointerEnter={loadNavData}
           initial={{ opacity: 0, y: -20 }}

@@ -5,7 +5,7 @@ import SplitTextReveal from "@/components/SplitTextReveal";
 
 const HeroSection = () => {
   return (
-    <section id="hero" className="relative flex flex-col bg-gradient-cinematic pb-8 md:pb-12">
+    <section id="hero" aria-label="Hero" className="relative flex flex-col bg-gradient-cinematic pb-8 md:pb-12">
       {/* Subtle amber glow at top */}
       <div className="absolute inset-0 bg-gradient-amber-glow pointer-events-none" />
 

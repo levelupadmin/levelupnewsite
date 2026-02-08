@@ -64,7 +64,7 @@ const CredibilityCues = () => {
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
-    <section className="relative bg-background py-12 md:py-16">
+    <section aria-label="Key stats and credibility" className="relative bg-background py-12 md:py-16">
       <div className="max-w-5xl mx-auto px-6 md:px-12">
         {/* Thin separator — animates width */}
         <motion.div
