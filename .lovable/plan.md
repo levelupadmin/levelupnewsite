@@ -1,76 +1,85 @@
 
 
-## Craft.do-Style Expanded Navbar Panel
+## Ultra-Fast Load Time: Performance Optimization Plan
 
-Redesign the expanded dropdown panel inside the navbar to match the Craft.do reference layout. The interaction model (per-link hover, pill expands downward) stays the same -- only the content layout and card styling inside the expanded panel changes.
+We already fixed the duplicate Google Fonts loading. Here are the remaining high-impact optimizations, ordered from biggest win to smallest.
 
-### What Changes
+---
 
-**1. Card layout switches to Craft-style tiles**
+### 1. Defer Hero Carousel Videos (Biggest Win)
 
-Instead of image-heavy course cards with thumbnails, each item becomes a rounded rectangular tile with:
-- A subtle semi-transparent background (`bg-white/5` or similar)
-- Generous rounded corners (`rounded-xl`)
-- The course/item title in bold
-- A short description below in muted text
-- Hover state that slightly brightens the background
+Right now, all **6 videos** load simultaneously with `preload="auto"` and `autoPlay`. This is by far the heaviest payload on the page -- each video is several MB.
 
-**2. Grid layout becomes a 2+1 column structure**
+**What changes in `HeroCarousel.tsx`:**
+- Set `preload="none"` on all videos by default
+- Only set `preload="auto"` and trigger `.play()` on the **active slide** and the **next slide** (for seamless transitions)
+- Pause videos that are more than 1 slide away to free up bandwidth and memory
+- Add a solid `bg-card` background so slides don't flash white while loading
 
-Inspired by the Craft reference:
-- **Left 2 columns**: Larger feature cards (2 columns, 2 rows) — each with title and description
-- **Right column**: Narrower, stacked smaller link items (title-only or title + icon)
-- This gives a visual hierarchy where the main offerings are prominent, and secondary links are accessible but compact
+---
 
-For categories like Masterclasses with 3 course items, the layout would be:
-```text
-+------------------------------+------------------+
-|  Karthik Subbaraj            |  View All        |
-|  Storytelling & directing    |  Masterclasses   |
-+------------------------------+                  |
-|  Anthony Gonsalvez           |  Browse by       |
-|  Film editing                |  Genre           |
-+------------------------------+------------------+
-|  Lokesh Kanagaraj            |
-|  Art of filmmaking           |
-+------------------------------+
-```
+### 2. Lazy-Load Below-the-Fold Sections (Big Win)
 
-**3. Data structure update**
+Every section component is eagerly imported and rendered. The browser must download, parse, and execute **all** component JS before anything appears -- even though only the Navbar and Hero are visible on first load.
 
-Add a `sideLinks` array to each nav category for the right-column items:
-- Masterclasses: "View All Masterclasses", "Browse by Genre"
-- The Forge: "Apply Now", "See Schedule"
-- Live Programs: "Upcoming Sessions", "Past Programs"
+**What changes in `Index.tsx`:**
+- Use `React.lazy()` for all sections below the hero:
+  - CredibilityCues, WhyLevelUp, MasterclassSection, LiveProgramsSection, ForgeSection, StudentLogosSection, TestimonialsSection, FAQSection, Footer
+- Wrap them in `<Suspense fallback={null}>` so the hero renders instantly while the rest loads in the background
+- This also defers the Framer Motion code bundled inside each lazy section, shrinking the critical JS path
 
-**4. Image thumbnails become optional/subtle**
+---
 
-Rather than large 16:10 thumbnail images dominating each card, the cards prioritize text. A small thumbnail or icon can optionally appear inside the card, but the visual weight shifts to typography — matching Craft's clean, text-forward style.
+### 3. Defer Lenis Smooth Scroll (Medium Win)
 
-### What Stays the Same
+The Lenis library starts a perpetual `requestAnimationFrame` loop immediately on mount, competing with the browser's initial paint for CPU time.
 
-- Per-link hover expansion mechanics (activeIndex, onMouseEnter/onMouseLeave)
-- Pill morph animation (rounded-full to rounded-2xl, height transition)
-- Glassmorphism styling (backdrop-blur, semi-transparent background)
-- Scroll-based compaction (scrolled state)
-- Mobile full-screen overlay menu
-- Staggered entrance animations for card items
-- AnimatePresence for expand/collapse
+**What changes in `use-lenis.tsx`:**
+- Wrap Lenis initialization in a `requestIdleCallback` (with a `setTimeout` fallback) so the browser finishes rendering above-fold content first
+- The scroll loop starts a fraction of a second later -- imperceptible to the user, but gives the browser breathing room for first paint
 
-### Technical Details
+---
 
-**File: `src/components/Navbar.tsx`**
+### 4. Add Resource Hints (Small Win)
 
-- Update the `NavItem` interface to make `image` optional and add an optional `icon` field
-- Add a `sideLinks` array (label + href) to the `NavLink` interface for the right column
-- Replace the current 3-column equal grid (`grid-cols-3`) with a `grid` layout using `grid-cols-[2fr_1fr]` (main area + sidebar)
-- Main area uses `grid-cols-2` for the larger feature cards
-- Sidebar stacks link items vertically with smaller, compact styling
-- Card styling changes from image-first to text-first:
-  - Remove the `aspect-[16/10]` image container
-  - Add `rounded-xl bg-white/[0.04] hover:bg-white/[0.08]` for the subtle tile look
-  - Title uses `font-serif-display text-sm font-medium`
-  - Description uses `font-sans-body text-xs text-muted-foreground`
-  - Padding increases to `px-4 py-3.5` for breathing room
-- Category description text above the grid is removed (redundant with card descriptions)
-- Each side link is a simple `a` tag with title text, styled as a compact row with hover highlight
+Help the browser discover critical external resources earlier.
+
+**What changes in `index.html`:**
+- Add `<link rel="preload" as="image">` for the LevelUp logo SVG (used in the Navbar, always above fold)
+- Add `<link rel="dns-prefetch">` for `cdn.prod.website-files.com` (masterclass images)
+- Add `<link rel="dns-prefetch">` for `commondatastorage.googleapis.com` (hero videos)
+
+---
+
+### 5. Add Image Optimization Attributes (Small Win)
+
+Images in below-fold sections already use `loading="lazy"`, which is good. But they're missing attributes that prevent layout shift and improve decode performance.
+
+**What changes across section components:**
+- Add `decoding="async"` to all `<img>` tags in MasterclassSection, LiveProgramsSection, TestimonialsSection, ForgeCarousel, and Footer
+- Add explicit `width` and `height` attributes where possible to prevent Cumulative Layout Shift (CLS)
+
+---
+
+### Summary of Files Changed
+
+| File | Change |
+|---|---|
+| `index.html` | Add preload and dns-prefetch hints |
+| `src/pages/Index.tsx` | Lazy-load 9 below-fold sections |
+| `src/components/HeroCarousel.tsx` | Defer video loading to active + next slide only |
+| `src/hooks/use-lenis.tsx` | Defer initialization until after first paint |
+| `src/components/MasterclassSection.tsx` | Add `decoding="async"` to images |
+| `src/components/LiveProgramsSection.tsx` | Add `decoding="async"` to images |
+| `src/components/TestimonialsSection.tsx` | Add `decoding="async"` to images |
+| `src/components/ForgeCarousel.tsx` | Add `decoding="async"` to images |
+| `src/components/Footer.tsx` | Add `decoding="async"` to logo images |
+
+### Expected Impact
+
+- **Initial network payload**: Drops dramatically -- from 6 simultaneous video downloads to 1-2
+- **Largest Contentful Paint (LCP)**: Hero text and navbar appear without waiting for videos or below-fold JS
+- **Total Blocking Time (TBT)**: Reduced by deferring Framer Motion parsing for 9 lazy sections
+- **Time to Interactive (TTI)**: Faster -- Lenis deferred, below-fold code split out
+- **Cumulative Layout Shift (CLS)**: Improved with `decoding="async"` on images
+
