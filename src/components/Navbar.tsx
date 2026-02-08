@@ -160,6 +160,7 @@ const navLinks: NavLink[] = [
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileExpandedIndex, setMobileExpandedIndex] = useState<number | null>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
@@ -378,41 +379,145 @@ const Navbar = () => {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="fixed inset-0 z-40 md:hidden"
           >
             <div
-              className="absolute inset-0 bg-background/95 backdrop-blur-sm"
+              className="absolute inset-0 bg-background/95 backdrop-blur-md"
               onClick={() => setMobileOpen(false)}
             />
-            <div className="relative z-10 flex flex-col items-center justify-center h-full gap-8">
-              {navLinks.map((link, index) => (
-                <motion.a
-                  key={link.label}
-                  href={link.href}
-                  target={link.href.startsWith("http") ? "_blank" : undefined}
-                  rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.1 + index * 0.06 }}
-                  onClick={() => setMobileOpen(false)}
-                  className="font-serif-display text-2xl text-foreground hover:text-primary transition-colors duration-300"
-                >
-                  {link.label}
-                </motion.a>
-              ))}
+            <div className="relative z-10 flex flex-col h-full pt-20 pb-8 px-5 overflow-y-auto">
+              {navLinks.map((link, index) => {
+                const hasItems = link.items.length > 0;
+                const isExpanded = mobileExpandedIndex === index;
+
+                return (
+                  <motion.div
+                    key={link.label}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35, delay: 0.05 + index * 0.05 }}
+                    className="border-b border-border/20"
+                  >
+                    {hasItems ? (
+                      <>
+                        <button
+                          onClick={() =>
+                            setMobileExpandedIndex(isExpanded ? null : index)
+                          }
+                          className="w-full flex items-center justify-between py-4 font-serif-display text-xl text-foreground"
+                        >
+                          <span>{link.label}</span>
+                          <motion.span
+                            animate={{ rotate: isExpanded ? 45 : 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="text-muted-foreground text-2xl leading-none"
+                          >
+                            +
+                          </motion.span>
+                        </button>
+
+                        <AnimatePresence>
+                          {isExpanded && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{
+                                height: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
+                                opacity: { duration: 0.2 },
+                              }}
+                              className="overflow-hidden"
+                            >
+                              {link.description && (
+                                <p className="font-sans-body text-xs text-muted-foreground mb-3 px-1">
+                                  {link.description}
+                                </p>
+                              )}
+                              <div className="grid grid-cols-2 gap-2.5 pb-4">
+                                {link.items.map((item, i) => (
+                                  <motion.a
+                                    key={item.title}
+                                    href={item.href}
+                                    target={
+                                      item.href.startsWith("http")
+                                        ? "_blank"
+                                        : undefined
+                                    }
+                                    rel={
+                                      item.href.startsWith("http")
+                                        ? "noopener noreferrer"
+                                        : undefined
+                                    }
+                                    initial={{ opacity: 0, y: 8 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{
+                                      duration: 0.25,
+                                      delay: 0.04 * i,
+                                    }}
+                                    onClick={() => setMobileOpen(false)}
+                                    className="block rounded-lg overflow-hidden bg-white/5 active:bg-white/10 transition-colors"
+                                  >
+                                    <div className="aspect-[16/10] overflow-hidden">
+                                      <img
+                                        src={item.image}
+                                        alt={item.title}
+                                        className="w-full h-full object-cover"
+                                        loading="lazy"
+                                        decoding="async"
+                                      />
+                                    </div>
+                                    <div className="px-2.5 py-2">
+                                      <p className="font-serif-display text-sm text-foreground leading-tight">
+                                        {item.title}
+                                      </p>
+                                      <p className="font-sans-body text-[10px] text-muted-foreground mt-0.5">
+                                        {item.subtitle}
+                                      </p>
+                                    </div>
+                                  </motion.a>
+                                ))}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </>
+                    ) : (
+                      <a
+                        href={link.href}
+                        target={
+                          link.href.startsWith("http") ? "_blank" : undefined
+                        }
+                        rel={
+                          link.href.startsWith("http")
+                            ? "noopener noreferrer"
+                            : undefined
+                        }
+                        onClick={() => setMobileOpen(false)}
+                        className="block py-4 font-serif-display text-xl text-foreground"
+                      >
+                        {link.label}
+                      </a>
+                    )}
+                  </motion.div>
+                );
+              })}
+
               <motion.a
                 href="https://www.leveluplearning.in"
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.1 + navLinks.length * 0.06 }}
+                transition={{
+                  duration: 0.35,
+                  delay: 0.05 + navLinks.length * 0.05,
+                }}
                 onClick={() => setMobileOpen(false)}
-                className="font-sans-body text-lg text-primary border border-primary/30 rounded-full px-6 py-2 hover:bg-primary/10 transition-colors duration-300"
+                className="mt-6 self-center font-sans-body text-base text-primary border border-primary/30 rounded-full px-6 py-2.5 active:bg-primary/10 transition-colors"
               >
                 Sign In
               </motion.a>
