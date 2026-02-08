@@ -1,68 +1,106 @@
 
 
-# Lazy-Load Navbar Dropdown Images
+# Make Masterclasses, Live Programs, and The Forge More Distinct
 
-## Current Behavior
+## The Problem
 
-The `Navbar.tsx` component statically imports 9 local images at the top of the file (lines 7-18: `masterclass-3.jpg`, `masterclass-4.jpg`, `masterclass-5.jpg`, `liveProgram1-3.jpg`, `forge1-3.jpg`). Even though the dropdown panels are conditionally rendered (only when hovered/tapped), these static imports mean:
+Right now, the three product verticals already have distinct **section** treatments on the page (different backgrounds, accent lines, and glow colors). But the **navbar dropdowns** are visually identical — same white/10 card backgrounds, same `text-primary` hover color, same layout. There's no visual signal telling the user which "world" they're browsing when the dropdown opens.
 
-- The image URL references are bundled into the main Navbar JavaScript chunk
-- The browser may prefetch these assets via Vite's `modulepreload` hints
-- The Navbar module is heavier than it needs to be on first load
-
-The Masterclasses category uses CDN URLs (not local images), so those are already fine.
+Additionally, the nav link labels themselves all look the same — no color coding or visual hint.
 
 ---
 
-## Approach
+## What Changes
 
-Extract the navigation data and its image imports into a **separate file** that is **dynamically imported** on first interaction. This code-splits the image references out of the critical Navbar bundle entirely.
+### 1. Add per-category accent theming to the navbar data
+
+Extend the `NavLink` interface in `navbarData.ts` with an `accent` color string (matching the section colors already defined in CSS):
+
+- **Masterclasses**: amber (`hsl(38 75% 55%)`) -- matches the existing primary
+- **LevelUp Live**: teal (`hsl(200 35% 55%)`) -- matches `--accent-live`
+- **The Forge**: ember (`hsl(15 65% 55%)`) -- matches `--accent-forge`
+- **Workshops / About**: no accent (defaults to primary amber)
+
+### 2. Accent-tinted dropdown panels (desktop)
+
+When a category dropdown expands, apply its accent color to:
+
+- **Accent line**: A thin 1px colored line at the top of the dropdown panel, matching the section's gradient accent (amber / teal / ember)
+- **Card hover state**: Instead of generic `bg-white/10`, cards will glow with a faint tint of the accent color on hover (e.g., `bg-[hsl(200_35%_55%_/_0.08)]` for Live)
+- **Title hover color**: Card titles shift to the accent color on hover, not the global primary
+- **Description text color**: The category description text uses the accent color at reduced opacity
+
+### 3. Accent dot on the active nav link (desktop)
+
+When hovering a category link, show a small colored dot (matching the accent) below or beside the label, similar to how the `SectionLabel` component already uses a colored dot. This replaces the current generic `bg-white/10` pill background with a more distinctive treatment:
+
+- A tiny animated dot appears below the active label, colored with the category's accent
+- The label text itself tints toward the accent color
+
+### 4. Accent-colored expand indicator on mobile
+
+In the mobile menu overlay:
+
+- The `+` toggle icon for expandable categories uses the accent color
+- The mobile card grid gets a subtle left-border accent line per category
+- Category labels tint toward their accent on tap/expand
+
+### 5. Minimal format badge in dropdown cards
+
+Add a small, styled badge/tag next to the subtitle in each dropdown card showing the format:
+
+- Masterclasses: "On-demand" in amber
+- Live Programs: "Live" in teal  
+- The Forge: "In-person" in ember
+
+This reinforces what kind of experience each card represents, even within the nav.
 
 ---
 
-## Step 1: Create a new `navbarData.ts` file
+## Files to Modify
 
-Move the entire `navLinks` array (lines 34-159) and all 9 local image imports (lines 7-18) into a new file at `src/components/navbarData.ts`. Export the `navLinks` array, the `NavItem` and `NavLink` interfaces.
+### `src/components/navbarData.ts`
+- Add `accent?: string` and `formatBadge?: string` fields to the `NavLink` interface
+- Add accent color and format badge values to each nav link entry
+
+### `src/components/Navbar.tsx`
+- Read `accent` from the active link
+- Apply accent color to: dropdown accent line, card hover backgrounds, title hover color, description tint
+- Add accent dot under active desktop nav label
+- Apply accent theming to mobile expand toggles and category labels
+- Render the format badge on dropdown cards when available
 
 ---
 
-## Step 2: Update `Navbar.tsx` to dynamically import
-
-- Remove the 9 image `import` statements and the `navLinks` constant from `Navbar.tsx`
-- Keep the `NavItem` and `NavLink` interfaces (or import them from the new file)
-- Add a `useState` for the loaded nav data and a `useRef` to track if loading has started
-- On **first hover** (desktop) or **first menu open** (mobile), trigger `import('./navbarData')` to load the data
-- While loading (brief moment, typically under 50ms since it's a local chunk), show the nav link labels without dropdown content
-- Once loaded, store the data in state and render dropdowns as before
-
-The flow looks like this:
+## Visual Summary
 
 ```text
-Page loads --> Navbar renders with link labels only (no image data loaded)
-User hovers a category --> dynamic import fires --> navbarData chunk loads (~1 frame)
-Data arrives --> state updates --> dropdown renders with images
-Subsequent hovers --> data already in state, instant
+BEFORE (all dropdowns identical):
++------------------------------------------+
+| Masterclasses  LevelUp Live  The Forge   |
+|------------------------------------------|
+| [card] [card] [card]  (white/10 hover)   |
+| titles go primary-amber on hover         |
++------------------------------------------+
+
+AFTER (each dropdown gets its own accent):
++------------------------------------------+
+| Masterclasses  LevelUp Live  The Forge   |
+|     *amber        *teal        *ember    |
+|------------------------------------------|
+| ─── amber accent line ───────────────    |
+| [card] [card] [card]  (amber tint hover) |
+| titles go amber on hover                 |
+| "On-demand" badge on each card           |
++------------------------------------------+
 ```
 
 ---
 
-## Step 3: Preload on pointer proximity (optional enhancement)
+## What Stays the Same
 
-To eliminate any perceived delay, add an `onPointerEnter` handler on the entire nav bar area (not individual links) that triggers the dynamic import. This way, the chunk starts loading as soon as the cursor approaches the nav, well before the user actually hovers a specific category.
-
----
-
-## Technical Details
-
-### Files to Create
-- `src/components/navbarData.ts` -- Contains all 9 image imports + the `navLinks` array + type exports
-
-### Files to Modify
-- `src/components/Navbar.tsx` -- Remove static image imports and `navLinks` constant; add dynamic import with state management
-
-### What Gets Code-Split
-The 9 local image imports (`liveProgram1-3`, `forge1-3`, `masterclass3-5`) and the `navLinks` data array move into their own chunk. The Navbar's initial JS bundle shrinks by the size of those resolved image URLs and the data structure.
-
-### No Visual Changes
-The dropdown behavior, animations, and layout remain identical. The only difference is a sub-frame delay on the very first hover interaction while the data chunk loads.
-
+- The glassmorphic pill shape and expand/collapse animation
+- The overall card grid layout and image aspect ratios
+- The lazy-load / code-split architecture
+- Section styling on the main page (already distinct)
+- All external links and navigation behavior
