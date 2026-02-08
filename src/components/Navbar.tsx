@@ -64,7 +64,6 @@ const Navbar = () => {
               <a
                 key={link.label}
                 href={link.href}
-                data-cursor="arrow"
                 onMouseEnter={() => setHoveredIndex(index)}
                 className="relative px-3 py-1.5 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-300"
               >
@@ -92,7 +91,7 @@ const Navbar = () => {
           <div className="flex items-center gap-2.5">
             <a
               href="#"
-              data-cursor="arrow"
+              
               className={[
                 "font-sans-body text-foreground border border-border rounded-full hover:border-primary hover:text-primary transition-all duration-500",
                 scrolled
