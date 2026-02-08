@@ -168,6 +168,10 @@ const Navbar = () => {
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 40);
+    if (mobileOpen) {
+      setMobileOpen(false);
+      setMobileExpandedIndex(null);
+    }
   });
 
   const handleLinkEnter = useCallback(
