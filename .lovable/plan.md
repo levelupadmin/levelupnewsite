@@ -1,106 +1,103 @@
 
 
-# Make Masterclasses, Live Programs, and The Forge More Distinct
+# Accessibility: ARIA Landmarks, Floating Support Button, and Improved Alt Text
 
-## The Problem
+## 1. ARIA Landmarks and Labels (all sections)
 
-Right now, the three product verticals already have distinct **section** treatments on the page (different backgrounds, accent lines, and glow colors). But the **navbar dropdowns** are visually identical — same white/10 card backgrounds, same `text-primary` hover color, same layout. There's no visual signal telling the user which "world" they're browsing when the dropdown opens.
+Add proper semantic landmarks so screen readers can navigate between sections:
 
-Additionally, the nav link labels themselves all look the same — no color coding or visual hint.
+**`src/pages/Index.tsx`**
+- Add a visually hidden "Skip to main content" link as the first element
+- Wrap all content below Navbar in a `<main id="main-content">` element
 
----
+**`src/components/Navbar.tsx`**
+- Add `aria-label="Main navigation"` to the `<nav>` element (currently `<motion.nav>`)
 
-## What Changes
+**`src/components/HeroSection.tsx`**
+- Add `aria-label="Hero"` to the section
 
-### 1. Add per-category accent theming to the navbar data
+**`src/components/CredibilityCues.tsx`**
+- Add `aria-label="Key stats and credibility"` to the section
 
-Extend the `NavLink` interface in `navbarData.ts` with an `accent` color string (matching the section colors already defined in CSS):
+**`src/components/WhyLevelUp.tsx`**
+- Add `aria-label="Why choose LevelUp"` to the section
 
-- **Masterclasses**: amber (`hsl(38 75% 55%)`) -- matches the existing primary
-- **LevelUp Live**: teal (`hsl(200 35% 55%)`) -- matches `--accent-live`
-- **The Forge**: ember (`hsl(15 65% 55%)`) -- matches `--accent-forge`
-- **Workshops / About**: no accent (defaults to primary amber)
+**`src/components/MasterclassSection.tsx`**
+- Add `aria-label="Masterclasses"` to the section
 
-### 2. Accent-tinted dropdown panels (desktop)
+**`src/components/LiveProgramsSection.tsx`**
+- Add `aria-label="Live programs"` to the section
 
-When a category dropdown expands, apply its accent color to:
+**`src/components/ForgeSection.tsx`**
+- Add `aria-label="The Forge residency"` to the section
 
-- **Accent line**: A thin 1px colored line at the top of the dropdown panel, matching the section's gradient accent (amber / teal / ember)
-- **Card hover state**: Instead of generic `bg-white/10`, cards will glow with a faint tint of the accent color on hover (e.g., `bg-[hsl(200_35%_55%_/_0.08)]` for Live)
-- **Title hover color**: Card titles shift to the accent color on hover, not the global primary
-- **Description text color**: The category description text uses the accent color at reduced opacity
+**`src/components/StudentLogosSection.tsx`**
+- Add `aria-label="Our students are from"` to the section
 
-### 3. Accent dot on the active nav link (desktop)
+**`src/components/TestimonialsSection.tsx`**
+- Add `aria-label="Creator testimonials"` to the section
 
-When hovering a category link, show a small colored dot (matching the accent) below or beside the label, similar to how the `SectionLabel` component already uses a colored dot. This replaces the current generic `bg-white/10` pill background with a more distinctive treatment:
+**`src/components/FAQSection.tsx`**
+- Add `aria-label="Frequently asked questions"` to the section
 
-- A tiny animated dot appears below the active label, colored with the category's accent
-- The label text itself tints toward the accent color
-
-### 4. Accent-colored expand indicator on mobile
-
-In the mobile menu overlay:
-
-- The `+` toggle icon for expandable categories uses the accent color
-- The mobile card grid gets a subtle left-border accent line per category
-- Category labels tint toward their accent on tap/expand
-
-### 5. Minimal format badge in dropdown cards
-
-Add a small, styled badge/tag next to the subtitle in each dropdown card showing the format:
-
-- Masterclasses: "On-demand" in amber
-- Live Programs: "Live" in teal  
-- The Forge: "In-person" in ember
-
-This reinforces what kind of experience each card represents, even within the nav.
+**`src/components/Footer.tsx`**
+- Add `aria-label="Site footer"` to the footer element
 
 ---
 
-## Files to Modify
+## 2. Floating Support Button
 
-### `src/components/navbarData.ts`
-- Add `accent?: string` and `formatBadge?: string` fields to the `NavLink` interface
-- Add accent color and format badge values to each nav link entry
+Create a new `FloatingSupport.tsx` component:
 
-### `src/components/Navbar.tsx`
-- Read `accent` from the active link
-- Apply accent color to: dropdown accent line, card hover backgrounds, title hover color, description tint
-- Add accent dot under active desktop nav label
-- Apply accent theming to mobile expand toggles and category labels
-- Render the format badge on dropdown cards when available
+- A small pill-shaped button fixed to the bottom-right corner
+- Uses a chat/message icon (from Lucide) with "Need help?" label
+- Links to WhatsApp with a pre-filled message (e.g., `https://wa.me/919876543210?text=Hi...`) -- using a placeholder number the user can swap
+- Only appears after scrolling 600px past the hero (uses framer-motion for a smooth slide-up entry)
+- Styled in the dark cinematic theme: dark card background, primary accent border, subtle glow on hover
+- Includes `aria-label="Chat with us on WhatsApp"` for screen reader accessibility
+- On mobile: slightly smaller to avoid blocking content
 
----
-
-## Visual Summary
-
-```text
-BEFORE (all dropdowns identical):
-+------------------------------------------+
-| Masterclasses  LevelUp Live  The Forge   |
-|------------------------------------------|
-| [card] [card] [card]  (white/10 hover)   |
-| titles go primary-amber on hover         |
-+------------------------------------------+
-
-AFTER (each dropdown gets its own accent):
-+------------------------------------------+
-| Masterclasses  LevelUp Live  The Forge   |
-|     *amber        *teal        *ember    |
-|------------------------------------------|
-| ─── amber accent line ───────────────    |
-| [card] [card] [card]  (amber tint hover) |
-| titles go amber on hover                 |
-| "On-demand" badge on each card           |
-+------------------------------------------+
-```
+**`src/pages/Index.tsx`**
+- Import and render `FloatingSupport` inside the Suspense boundary
 
 ---
 
-## What Stays the Same
+## 3. Improved Alt Text (Hero Carousel)
 
-- The glassmorphic pill shape and expand/collapse animation
-- The overall card grid layout and image aspect ratios
-- The lazy-load / code-split architecture
-- Section styling on the main page (already distinct)
-- All external links and navigation behavior
+**`src/components/HeroCarousel.tsx`**
+
+Update the generic `alt` text on each slide from "Cinematic reel one/two/..." to descriptive content:
+
+| Current | Proposed |
+|---|---|
+| "Cinematic reel one" | "Behind the scenes of a LevelUp filmmaking session" |
+| "Cinematic reel two" | "Students collaborating on a short film set" |
+| "Cinematic reel three" | "A creator reviewing footage during an editing workshop" |
+| "Cinematic reel four" | "Live mentoring session with a working filmmaker" |
+| "Cinematic reel five" | "Camera and lighting setup for a practical exercise" |
+| "Cinematic reel six" | "Storytelling workshop in progress at a LevelUp retreat" |
+
+Also add `aria-label="Go to slide X: [description]"` to the progress dot buttons for better screen reader context.
+
+---
+
+## Files Summary
+
+| File | Change |
+|---|---|
+| `src/pages/Index.tsx` | Skip-to-content link, `<main>` landmark, add FloatingSupport |
+| `src/components/FloatingSupport.tsx` | New -- floating WhatsApp/contact button |
+| `src/components/Navbar.tsx` | Add `aria-label` to nav |
+| `src/components/HeroSection.tsx` | Add `aria-label` to section |
+| `src/components/HeroCarousel.tsx` | Descriptive alt text, better aria-labels on dots |
+| `src/components/CredibilityCues.tsx` | Add `aria-label` to section |
+| `src/components/WhyLevelUp.tsx` | Add `aria-label` to section |
+| `src/components/MasterclassSection.tsx` | Add `aria-label` to section |
+| `src/components/LiveProgramsSection.tsx` | Add `aria-label` to section |
+| `src/components/ForgeSection.tsx` | Add `aria-label` to section |
+| `src/components/StudentLogosSection.tsx` | Add `aria-label` to section |
+| `src/components/TestimonialsSection.tsx` | Add `aria-label` to section |
+| `src/components/FAQSection.tsx` | Add `aria-label` to section |
+| `src/components/Footer.tsx` | Add `aria-label` to footer |
+| `src/index.css` | Add `.sr-only` utility class for the skip link |
+
