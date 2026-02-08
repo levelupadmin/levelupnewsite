@@ -22,7 +22,7 @@ const slides = [
     alt: "Cinematic reel two",
   },
   {
-    video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+    video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
     poster: heroPoster3,
     alt: "Cinematic reel three",
   },
@@ -37,7 +37,7 @@ const slides = [
     alt: "Cinematic reel five",
   },
   {
-    video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
+    video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
     poster: heroPoster6,
     alt: "Cinematic reel six",
   },
