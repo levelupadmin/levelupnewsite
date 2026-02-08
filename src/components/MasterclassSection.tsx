@@ -110,6 +110,7 @@ const MasterclassCard = ({ mc, index }: { mc: typeof masterclasses[0]; index: nu
           alt={`${mc.name} — ${mc.descriptor}`}
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           loading="lazy"
+          decoding="async"
         />
 
         {/* Default gradient overlay — shifts up on hover */}

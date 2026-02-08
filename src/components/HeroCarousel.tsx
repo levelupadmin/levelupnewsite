@@ -63,11 +63,23 @@ const HeroCarousel = () => {
     };
   }, [emblaApi, onSelect]);
 
-  // Ensure all videos play
+  // Only play active + next slide, pause all others
   useEffect(() => {
-    videoRefs.current.forEach((video) => {
-      if (video) {
+    const total = slides.length;
+    const nextIndex = (selectedIndex + 1) % total;
+
+    videoRefs.current.forEach((video, index) => {
+      if (!video) return;
+
+      if (index === selectedIndex || index === nextIndex) {
+        // Load and play active + next
+        if (video.preload !== "auto") {
+          video.preload = "auto";
+        }
         video.play().catch(() => {});
+      } else {
+        // Pause and free bandwidth for distant slides
+        video.pause();
       }
     });
   }, [selectedIndex]);
@@ -96,15 +108,15 @@ const HeroCarousel = () => {
                     }}
                   />
 
-                  {/* Autoplay video */}
+                  {/* Deferred video — preload="none" by default, upgraded for active+next */}
                   <video
                     ref={(el) => { videoRefs.current[index] = el; }}
                     src={slide.video}
-                    autoPlay
+                    autoPlay={index === 0}
                     muted
                     loop
                     playsInline
-                    preload="auto"
+                    preload="none"
                     className="w-full aspect-[16/9] object-cover object-center bg-card"
                   />
                 </div>

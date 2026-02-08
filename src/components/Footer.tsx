@@ -51,6 +51,7 @@ const Footer = () => {
                 src={levelupLogo}
                 alt="LevelUp Learning"
                 className="h-16 w-auto"
+                decoding="async"
               />
             </div>
             <p className="font-sans-body text-sm text-muted-foreground leading-relaxed mb-6 max-w-[260px]">
@@ -128,6 +129,7 @@ const Footer = () => {
           src={levelupLogo}
           alt=""
           className="w-full h-auto opacity-[0.03]"
+          decoding="async"
         />
       </div>
     </motion.footer>

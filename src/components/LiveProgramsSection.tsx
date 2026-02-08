@@ -217,6 +217,7 @@ const ProgramCard = ({ program, index }: ProgramCardProps) => {
             alt={program.title}
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             loading="lazy"
+            decoding="async"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
 

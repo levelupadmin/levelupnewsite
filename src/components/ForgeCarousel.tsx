@@ -91,6 +91,7 @@ const ForgeCarousel = () => {
                       alt={slide.alt}
                       className="w-full aspect-[21/9] object-cover object-center"
                       loading="lazy"
+                      decoding="async"
                     />
 
                     {/* Gradient overlay */}

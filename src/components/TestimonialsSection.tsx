@@ -152,6 +152,7 @@ const TestimonialCard = ({
           alt={`${testimonial.name}, ${testimonial.role}`}
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           loading="lazy"
+          decoding="async"
           style={{ y: imageY }}
         />
 
