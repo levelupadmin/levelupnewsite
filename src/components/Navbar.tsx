@@ -4,6 +4,12 @@ import { Menu, X } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import levelupLogo from "@/assets/levelup-logo.svg";
 
+import masterclass1 from "@/assets/masterclass-1.jpg";
+import masterclass2 from "@/assets/masterclass-2.jpg";
+import masterclass3 from "@/assets/masterclass-3.jpg";
+import masterclass4 from "@/assets/masterclass-4.jpg";
+import masterclass5 from "@/assets/masterclass-5.jpg";
+import masterclass6 from "@/assets/masterclass-6.jpg";
 import liveProgram1 from "@/assets/live-program-1.jpg";
 import liveProgram2 from "@/assets/live-program-2.jpg";
 import liveProgram3 from "@/assets/live-program-3.jpg";
@@ -15,6 +21,7 @@ interface NavItem {
   image: string;
   title: string;
   subtitle: string;
+  href: string;
 }
 
 interface NavLink {
@@ -27,50 +34,126 @@ interface NavLink {
 const navLinks: NavLink[] = [
   {
     label: "Masterclasses",
-    href: "#masterclasses",
-    description: "Learn from world-class mentors",
+    href: "https://www.leveluplearning.in/#masterclasses",
+    description: "High quality pre-recorded courses taught by India's finest.",
     items: [
       {
         image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/650c1be5224f49f6432aaae6_1.Karthik_Subburaj%20course%20banner.png",
         title: "Karthik Subbaraj",
-        subtitle: "Storytelling & directing",
+        subtitle: "Filmmaking",
+        href: "https://www.leveluplearning.in/karthik-subbaraj",
       },
       {
         image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64f60ddd91f67b7db8f6716b_3.Anthony_Gonsalvez.png",
         title: "Anthony Gonsalvez",
-        subtitle: "Film editing",
+        subtitle: "Film Editing",
+        href: "https://www.leveluplearning.in/anthony",
+      },
+      {
+        image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64f2f14d67e5504737c57ea5_2.Venket_Ram.png",
+        title: "G Venket Ram",
+        subtitle: "Photography",
+        href: "https://www.leveluplearning.in/g-venket-ram",
+      },
+      {
+        image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64b79ef6d61b238747788c6c_kiran%20website%201.webp",
+        title: "DRK Kiran",
+        subtitle: "Art Direction",
+        href: "https://www.leveluplearning.in/kiran",
+      },
+      {
+        image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64b79ef642421ae3cbe004d9_ravi%20website%201.webp",
+        title: "Ravi Basrur",
+        subtitle: "Music Composition",
+        href: "https://www.leveluplearning.in/ravi-basrur-1",
       },
       {
         image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/6899f2de01c2b6f380973a82_Frame%20191%20LK.png",
         title: "Lokesh Kanagaraj",
-        subtitle: "Art of filmmaking",
+        subtitle: "Filmmaking",
+        href: "https://masterclass.leveluplearning.in/lokesh-kanagaraj-3",
+      },
+    ],
+  },
+  {
+    label: "LevelUp Live",
+    href: "https://www.leveluplearning.live",
+    description: "Live mentor-led programs to accelerate your creative career.",
+    items: [
+      {
+        image: liveProgram1,
+        title: "Breakthrough Filmmakers' Program",
+        subtitle: "12-week live program",
+        href: "https://www.leveluplearning.live/bfp",
+      },
+      {
+        image: liveProgram2,
+        title: "Advanced Direction Program",
+        subtitle: "4-week intensive",
+        href: "https://www.leveluplearning.live/adp",
+      },
+      {
+        image: liveProgram3,
+        title: "Video Editing Academy",
+        subtitle: "12-week cohort",
+        href: "https://www.leveluplearning.live/ve",
       },
     ],
   },
   {
     label: "The Forge",
     href: "#forge",
-    description: "Intensive creator accelerator",
+    description: "India's first residency for filmmakers and storytellers.",
     items: [
-      { image: forge1, title: "Filmmaking Bootcamp", subtitle: "12-day immersive program" },
-      { image: forge2, title: "Writing Retreat", subtitle: "Craft your screenplay" },
-      { image: forge3, title: "Creator Residency", subtitle: "Build with mentors" },
+      {
+        image: forge1,
+        title: "Filmmaking Residency",
+        subtitle: "10 days · 20 filmmakers · 1 location",
+        href: "#forge",
+      },
+      {
+        image: forge2,
+        title: "Writing Retreat",
+        subtitle: "Immersive screenwriting intensive",
+        href: "#forge",
+      },
+      {
+        image: forge3,
+        title: "Creator Residency",
+        subtitle: "Build and ship creative work",
+        href: "#forge",
+      },
     ],
   },
   {
-    label: "Live Programs",
-    href: "#",
-    description: "Mentor-led structured courses",
+    label: "Workshops",
+    href: "https://study.leveluplearning.in",
+    description: "Short, focused workshops to build specific creative skills.",
     items: [
-      { image: liveProgram1, title: "Directing Intensive", subtitle: "8 weeks · Live" },
-      { image: liveProgram2, title: "Camera & Light Lab", subtitle: "6 weeks · Live" },
-      { image: liveProgram3, title: "Screenwriting Cohort", subtitle: "10 weeks · Live" },
+      {
+        image: masterclass5,
+        title: "Storytelling Masterclass",
+        subtitle: "15+ hours · By Rahul Srinivas",
+        href: "https://study.leveluplearning.in/services/tsmwebsite",
+      },
+      {
+        image: masterclass3,
+        title: "Breakthrough Photography",
+        subtitle: "20+ hours · Live + Recorded",
+        href: "https://study.leveluplearning.in/services/bppw",
+      },
+      {
+        image: masterclass4,
+        title: "Short Filmmaking 101",
+        subtitle: "2-hour live workshop",
+        href: "https://www.leveluplearning.live/sf",
+      },
     ],
   },
   {
     label: "About",
-    href: "#testimonials",
-    description: "Our story and mission",
+    href: "https://www.leveluplearning.in/contact-us",
+    description: "",
     items: [],
   },
 ];
@@ -99,6 +182,17 @@ const Navbar = () => {
 
   const expanded = activeIndex !== null && navLinks[activeIndex]?.items.length > 0;
 
+  // Determine grid columns based on number of items
+  const activeItems = activeIndex !== null ? navLinks[activeIndex].items : [];
+  const gridCols =
+    activeItems.length <= 3
+      ? "grid-cols-3"
+      : activeItems.length <= 4
+      ? "grid-cols-4"
+      : activeItems.length <= 6
+      ? "grid-cols-3 sm:grid-cols-6"
+      : "grid-cols-3";
+
   return (
     <>
       {/* Outer fixed wrapper */}
@@ -123,7 +217,7 @@ const Navbar = () => {
             borderRadius: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
           }}
           className={[
-            "mx-auto w-[95%] max-w-4xl flex flex-col overflow-hidden",
+            "mx-auto w-[95%] max-w-5xl flex flex-col overflow-hidden",
             "transition-colors transition-shadow duration-500 ease-out",
             "border backdrop-blur-xl",
             scrolled
@@ -141,10 +235,11 @@ const Navbar = () => {
             ].join(" ")}
           >
             {/* Logo */}
-            <a href="#" className="flex items-center">
+            <a href="https://www.leveluplearning.in" className="flex items-center">
               <img
                 src={levelupLogo}
                 alt="LevelUp Learning"
+                decoding="async"
                 className={[
                   "w-auto transition-all duration-500 ease-out",
                   scrolled ? "h-5 md:h-6" : "h-6 md:h-8",
@@ -158,6 +253,8 @@ const Navbar = () => {
                 <a
                   key={link.label}
                   href={link.href}
+                  target={link.href.startsWith("http") ? "_blank" : undefined}
+                  rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                   onMouseEnter={() => handleLinkEnter(index)}
                   className={[
                     "relative px-3 py-1.5 font-sans-body text-sm transition-colors duration-300",
@@ -182,9 +279,11 @@ const Navbar = () => {
 
             {/* Right side */}
             <div className="flex items-center gap-2.5">
-              {/* Sign In — visible in compact state on desktop */}
+              {/* Sign In */}
               <a
-                href="#"
+                href="https://www.leveluplearning.in"
+                target="_blank"
+                rel="noopener noreferrer"
                 className={[
                   "hidden md:inline-flex font-sans-body text-foreground border border-border rounded-full hover:border-primary hover:text-primary transition-all duration-500",
                   scrolled
@@ -232,11 +331,13 @@ const Navbar = () => {
                   </motion.p>
 
                   {/* Course/item cards */}
-                  <div className="grid grid-cols-3 gap-3">
-                    {navLinks[activeIndex!].items.map((item, i) => (
+                  <div className={`grid ${gridCols} gap-3`}>
+                    {activeItems.map((item, i) => (
                       <motion.a
                         key={item.title}
-                        href={navLinks[activeIndex!].href}
+                        href={item.href}
+                        target={item.href.startsWith("http") ? "_blank" : undefined}
+                        rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{
@@ -252,6 +353,7 @@ const Navbar = () => {
                             alt={item.title}
                             className="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105"
                             loading="lazy"
+                            decoding="async"
                           />
                         </div>
                         <div className="px-3 py-2.5">
@@ -291,6 +393,8 @@ const Navbar = () => {
                 <motion.a
                   key={link.label}
                   href={link.href}
+                  target={link.href.startsWith("http") ? "_blank" : undefined}
+                  rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.1 + index * 0.06 }}
@@ -300,6 +404,18 @@ const Navbar = () => {
                   {link.label}
                 </motion.a>
               ))}
+              <motion.a
+                href="https://www.leveluplearning.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.1 + navLinks.length * 0.06 }}
+                onClick={() => setMobileOpen(false)}
+                className="font-sans-body text-lg text-primary border border-primary/30 rounded-full px-6 py-2 hover:bg-primary/10 transition-colors duration-300"
+              >
+                Sign In
+              </motion.a>
             </div>
           </motion.div>
         )}
