@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { useParallax } from "@/hooks/use-parallax";
 
 const categories = [
   "All",
@@ -67,21 +68,7 @@ const imageRevealVariants = {
 };
 
 const MasterclassCard = ({ mc, index }: { mc: typeof masterclasses[0]; index: number }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
-
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    const el = cardRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setTilt({ rotateX: -y * 8, rotateY: x * 8 });
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    setTilt({ rotateX: 0, rotateY: 0 });
-  }, []);
+  const { ref: parallaxRef, y: imageY } = useParallax<HTMLDivElement>({ speed: -0.08 });
 
   return (
     <motion.div
@@ -92,48 +79,32 @@ const MasterclassCard = ({ mc, index }: { mc: typeof masterclasses[0]; index: nu
       viewport={{ once: true, margin: "-60px" }}
       variants={imageRevealVariants}
       className="group relative cursor-pointer"
-      
-      style={{ perspective: 600 }}
     >
       <div
-        ref={cardRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        className="relative aspect-[3/4] overflow-hidden rounded-sm bg-card transition-transform duration-300 ease-out will-change-transform"
-        style={{
-          transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
-          transformStyle: "preserve-3d",
-        }}
+        ref={parallaxRef}
+        className="relative aspect-[3/4] overflow-hidden rounded-sm bg-card"
       >
-        <img
+        <motion.img
           src={mc.image}
           alt={`${mc.name} — ${mc.descriptor}`}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
           loading="lazy"
           decoding="async"
+          style={{ y: imageY }}
         />
 
-        {/* Default gradient overlay — shifts up on hover */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-all duration-500 group-hover:from-black/90 group-hover:via-black/50 group-hover:to-black/10" />
+        {/* Minimal bottom gradient for name legibility */}
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
 
-        {/* Hover info — revealed from bottom */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out">
-          <p className="font-serif-display text-base md:text-lg font-medium text-white leading-tight tracking-tight">
+        {/* Name — always visible at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
+          <p className="font-serif-display text-sm md:text-base font-medium text-white leading-tight tracking-tight">
             {mc.name}
           </p>
-          <p className="font-sans-body text-xs text-white/60 mt-1">{mc.format}</p>
-          <div className="flex items-center gap-2 mt-3">
-            <span className="flex items-center justify-center w-6 h-6 rounded-full bg-white/15 backdrop-blur-sm">
-              <Play className="w-3 h-3 text-white fill-white" />
-            </span>
-            <span className="font-sans-body text-[11px] tracking-wide uppercase text-white/70">
-              Watch Preview
-            </span>
-          </div>
         </div>
 
-        {/* Hover glow overlay */}
-        <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        {/* Hover glow ring */}
+        <div className="absolute inset-0 rounded-sm ring-1 ring-inset ring-white/0 group-hover:ring-white/20 transition-all duration-500 pointer-events-none" />
       </div>
     </motion.div>
   );
