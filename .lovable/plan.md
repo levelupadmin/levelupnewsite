@@ -1,39 +1,60 @@
 
 
-## Craft.do-Style Floating Pill Navbar
+## Craft.do-Style Sliding Hover Highlight on Navbar Links
 
-Transform the current full-width navbar into a floating, pill-shaped navigation bar inspired by Craft.do's design -- a contained, centered bar that floats above the content with rounded corners and a polished, elevated look.
+Add the signature Craft.do hover interaction to the navbar: a soft, rounded background capsule that appears behind whichever nav link you hover, and **smoothly slides between links** as you move your mouse across them. When your mouse leaves the nav area entirely, the highlight fades out.
 
-### What Changes
+### How It Looks
 
-**From:** A full-width sticky navbar that spans edge-to-edge with a gradient background, transitioning to a blurred bar on scroll.
+- **No hover**: Just the plain text links (current look)
+- **Hover a link**: A subtle, semi-transparent pill/capsule background fades in behind that link
+- **Move to another link**: The pill **slides horizontally** to the new link, morphing its width to fit -- this is the magic that makes it feel premium
+- **Leave the nav area**: The pill fades out smoothly
 
-**To:** A floating, rounded-pill navbar centered at the top of the page with a semi-transparent glassmorphic background, subtle shadow, and compact layout -- adapted to the site's dark cinematic theme.
-
-### Design Details
-
-- **Shape**: Rounded-full pill container (not full-width), centered horizontally with auto margins and a max-width constraint
-- **Spacing**: Small top margin (~`mt-4`) so it floats away from the browser edge
-- **Background**: Dark glassmorphic surface (`bg-card/70 backdrop-blur-xl`) with a subtle border and shadow, consistent with the cinematic palette
-- **Layout**: Logo left, nav links center, Sign In button right -- all inside the pill
-- **Scroll behavior**: On scroll, the pill slightly tightens its padding and the shadow intensifies, but it remains a floating pill (no full-width takeover)
-- **Mobile**: The pill shrinks to just logo + hamburger; the full-screen overlay menu stays the same
-
-### Technical Details
+### Technical Approach
 
 **File: `src/components/Navbar.tsx`**
 
-1. Add an outer wrapper `div` that is `fixed top-0 left-0 right-0 z-50` with flex centering and top padding
-2. Move the pill styling to an inner container with:
-   - `mx-auto max-w-4xl w-[95%]` for centered, contained width
-   - `rounded-full` for the pill shape
-   - `bg-card/60 backdrop-blur-xl border border-border/30` for dark glass effect
-   - `shadow-lg` / `shadow-xl` for floating depth
-   - `px-4 md:px-6 py-2 md:py-2.5` for compact internal padding
-3. On scroll (`scrolled` state):
-   - Reduce outer top padding slightly
-   - Intensify the background opacity and shadow
-   - Shrink logo slightly (keeping existing behavior)
-4. Keep existing `data-cursor` attributes, mobile hamburger, and `AnimatePresence` mobile overlay unchanged
-5. The nav links and Sign In button remain structurally the same but with tightened spacing to fit the pill form factor
+1. **Track hovered link index** -- Add a `hoveredIndex` state (`number | null`) to know which link the cursor is over
+
+2. **Use Framer Motion's `layoutId`** -- Render a `motion.div` with a shared `layoutId="nav-highlight"` inside whichever link is hovered. Framer Motion automatically animates the position and size of this element as it "moves" between links -- this creates the sliding effect with zero manual position calculations
+
+3. **Highlight styling** -- The sliding pill uses:
+   - `bg-white/10` (subtle light wash on dark background)
+   - `rounded-full` to match the pill navbar aesthetic
+   - `absolute inset-0` positioning within each link (links need `relative` and some padding)
+   - Fade in/out via `AnimatePresence` with `initial={{ opacity: 0 }}` and `exit={{ opacity: 0 }}`
+
+4. **Link padding adjustment** -- Each nav link gets `px-3 py-1.5 relative` so the highlight pill has room to breathe around the text
+
+5. **Mouse event handlers**:
+   - `onMouseEnter` on each link sets `hoveredIndex` to that link's index
+   - `onMouseLeave` on the links container (not individual links) sets `hoveredIndex` to `null`
+   - This prevents flickering when moving between links
+
+6. **No changes needed** to the custom cursor -- the `data-cursor="arrow"` attributes stay, and both systems work independently
+
+### Visual Summary
+
+```text
+Before hover:
+  [ Masterclasses   The Forge   StarDa   About ]
+
+Hovering "The Forge":
+  [ Masterclasses  [The Forge]  StarDa   About ]
+                    ^^^^^^^^^^
+                    soft pill bg slides here
+
+Moving to "About":
+  [ Masterclasses   The Forge   StarDa  [About] ]
+                    pill slides -------> ^^^^^^
+```
+
+### What Stays the Same
+
+- Pill navbar shape, glassmorphism, and scroll behavior
+- Logo, Sign In button, and mobile hamburger
+- Custom cursor interactions
+- Mobile overlay menu
+- All existing transitions and animations
 
