@@ -1,6 +1,6 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, ArrowRight, Maximize2 } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ChevronDown, ArrowRight, Maximize2 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import carouselImg from "@/assets/carousel-3.jpg";
 
@@ -102,25 +102,32 @@ interface MobileOverlayProps {
   onClose: () => void;
 }
 
-const SWIPE_CLOSE_THRESHOLD = 120;
-
 const MobileOverlay = ({ card, cardIndex, onClose }: MobileOverlayProps) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Close when user scrolls past the bottom of content
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = el;
+      // If scrolled to the very bottom (with a small buffer), close
+      if (scrollTop + clientHeight >= scrollHeight - 2) {
+        onClose();
+      }
+    };
+    el.addEventListener("scroll", handleScroll, { passive: true });
+    return () => el.removeEventListener("scroll", handleScroll);
+  }, [onClose]);
+
   return (
     <motion.div
+      ref={scrollRef}
       key={`overlay-${cardIndex}`}
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       transition={{ duration: 0.4, ease: EASE }}
-      drag="y"
-      dragConstraints={{ top: 0, bottom: 0 }}
-      dragElastic={{ top: 0, bottom: 0.6 }}
-      onDragEnd={(_e, info) => {
-        if (info.offset.y > SWIPE_CLOSE_THRESHOLD) {
-          onClose();
-        }
-      }}
-      style={{ touchAction: "pan-x" }}
       className={`fixed inset-0 z-50 ${cardBgClasses[cardIndex]} overflow-y-auto`}
     >
       {/* Top gradient bar */}
@@ -159,8 +166,8 @@ const MobileOverlay = ({ card, cardIndex, onClose }: MobileOverlayProps) => {
         <X size={16} />
       </button>
 
-      {/* Content */}
-      <div className="relative z-10 px-6 pt-16 pb-10 flex flex-col min-h-screen">
+      {/* Content — extra bottom padding so user can scroll past to close */}
+      <div className="relative z-10 px-6 pt-16 pb-10 flex flex-col" style={{ minHeight: "calc(100vh + 60px)" }}>
         {/* Headline */}
         <h3 className="font-serif-display text-2xl font-normal text-hero-headline leading-[1.3] tracking-tight mb-5">
           {card.headline}
@@ -202,6 +209,17 @@ const MobileOverlay = ({ card, cardIndex, onClose }: MobileOverlayProps) => {
               {card.highlight.label}
             </span>
           </div>
+        </div>
+
+        {/* Scroll-to-close hint */}
+        <div className="mt-10 flex flex-col items-center gap-2 text-muted-foreground/50">
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <ChevronDown size={20} />
+          </motion.div>
+          <span className="font-sans-body text-xs tracking-wide">Scroll down to close</span>
         </div>
       </div>
     </motion.div>
@@ -373,6 +391,17 @@ const WhyLevelUp = () => {
                     {/* Expand/close icon */}
                     <motion.div
                       layout="position"
+                      initial={{ scale: 1 }}
+                      animate={{
+                        scale: [1, 1.2, 1],
+                        opacity: [0.6, 1, 0.6],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: 2,
+                        ease: "easeInOut",
+                        delay: 0.8 + i * 0.15,
+                      }}
                       className="shrink-0 mt-1 w-8 h-8 rounded-full border border-border/40 flex items-center justify-center text-muted-foreground group-hover:text-foreground transition-colors"
                     >
                       {isExpanded && !isMobile ? (
