@@ -1,68 +1,70 @@
 
 
-# Recreate Mindly Template Branding and Theme
+# Dark-to-Light Section Flipping
 
-Based on the screenshot, the Mindly template uses a distinct visual identity that differs from the current cinematic amber aesthetic. Here's what will change:
+Adapt the alternating dark/light section pattern from the reference image. Currently, every section sits on the same pure black background. This change introduces an off-white/cream light mode for alternating sections, creating strong visual rhythm and contrast.
 
-## Visual Changes Summary
+## Section Assignment
 
-### Color Palette Overhaul
-- **Background**: Shift from warm charcoal (220 15% 6%) to pure black (0 0% 4%) for a starker, more modern feel
-- **Accent color**: Move from warm amber (38 75% 55%) to bright saturated orange (24 95% 53%) -- punchier and more energetic
-- **Foreground text**: Slightly cooler white tones
-- **Cards/surfaces**: Near-black with subtle borders instead of warm charcoal
-- **Muted text**: Cooler gray tones to complement the pure black base
+The sections will alternate between dark and light backgrounds:
 
-### Typography
-- **Headlines**: Switch from Playfair Display (serif) to a clean sans-serif throughout -- the Mindly template uses sans-serif for everything
-- **Body**: Keep Inter but adjust weights and tracking for the cleaner aesthetic
-- **Gradient text**: Orange-to-warm-orange gradient instead of amber-to-gold
+| Section | Background | Text Colors |
+|---|---|---|
+| Hero | Dark (black) | White text, orange accents |
+| Credibility Cues | Dark | White text |
+| Why LevelUp | **Light (off-white)** | Dark text, orange accents |
+| Masterclasses | Dark | White text |
+| Live Programs | **Light (off-white)** | Dark text |
+| The Forge | Dark | White text |
+| Student Logos | **Light (off-white)** | Dark text |
+| Testimonials | Dark | White text |
+| FAQ | **Light (off-white)** | Dark text |
+| Footer | Dark | White text |
 
-### Section Theming
-- Remove the per-section background color shifts (Live Programs teal, Forge ember). Unify all dark sections on the same pure black base
-- Keep subtle section differentiation through content and spacing rather than background color changes
+## Visual Style for Light Sections
 
-### Interaction Effects
-- **CTAs**: Update sweep/glow effects to use the new orange instead of amber
-- **Borders/dividers**: Slightly more visible borders for a cleaner, more structured feel
-- **Ambient glows**: Update radial glows from amber to orange tones
-
-### Specific Component Updates
-- **Navbar**: Update accent dot, hover states, and Sign In button to orange
-- **Hero**: Update gradient text, glow, and CTA styling
-- **Credibility Cues**: Orange accent on values
-- **All sections**: Orange badges, labels, and accent elements
-- **Footer**: Orange category headers, updated glow line
+Based on the reference image, light sections use:
+- Background: warm off-white / cream (~`40 20% 96%`)
+- Text: near-black headings, dark gray body text
+- Cards: white with subtle gray borders
+- Accent color: same orange, works on both backgrounds
+- Smooth transitions between dark and light via subtle gradient fades at edges
 
 ## Technical Details
 
-### Files to modify:
+### 1. Add light section CSS variables (`src/index.css`)
 
-1. **`src/index.css`** -- Core CSS variable overhaul:
-   - Update all HSL custom properties (--primary, --background, --card, --accent, etc.)
-   - Update gradient definitions (--gradient-cinematic, --gradient-amber-glow, --gradient-amber-gold)
-   - Update shadow and text-shadow tokens
-   - Remove section-specific background variables (--bg-live-programs, --bg-forge) or unify them
-   - Update CTA sweep/glow colors from amber to orange
+Add a new set of CSS custom properties for the light theme context:
+- `--section-light-bg`, `--section-light-fg`, `--section-light-card`, `--section-light-muted`, `--section-light-border`
+- Add utility classes: `.section-light` that overrides `--background`, `--foreground`, `--card`, `--muted-foreground`, `--border` locally so all child components automatically adapt
 
-2. **`tailwind.config.ts`** -- Typography update:
-   - Change `fontFamily.serif` to a clean sans-serif (e.g., keep Inter for everything, or add a geometric sans like the template uses)
+### 2. Create light section wrapper
 
-3. **`src/index.css`** (base layer) -- Remove serif heading rule:
-   - Update the `h1-h6` font-family from Playfair Display to the sans-serif stack
+Either use a CSS class `.section-light` that sets scoped CSS variables, or create a simple wrapper component. The class approach is simpler and avoids refactoring component internals.
 
-4. **`src/components/HeroSection.tsx`** -- Update hero styling references if any inline color values exist
+The `.section-light` class will scope-override the relevant CSS variables so that existing `bg-background`, `text-foreground`, `bg-card`, `text-muted-foreground`, `border-border` classes automatically render in light mode within those sections.
 
-5. **`src/components/Navbar.tsx`** -- Update `DEFAULT_ACCENT` from amber HSL to orange HSL
+### 3. Update section components
 
-6. **`src/components/LiveProgramsSection.tsx`** and **`src/components/ForgeSection.tsx`** -- Remove or unify section-specific background colors to match the single dark base
+Apply the `.section-light` class to the `<section>` element in:
+- **WhyLevelUp.tsx** -- add `section-light` class
+- **LiveProgramsSection.tsx** -- add `section-light` class, update accent line/glow colors for light bg
+- **StudentLogosSection.tsx** -- add `section-light` class
+- **FAQSection.tsx** -- add `section-light` class, update card background styles for light context
 
-7. **`index.html`** -- Update Google Fonts link if switching away from Playfair Display
+### 4. Update component-specific hardcoded colors
 
-### What stays the same:
-- All layout structure and component architecture
-- Animation patterns (Framer Motion, scroll triggers, parallax)
-- Responsive behavior and mobile overlays
-- Content and copy
-- Logo and brand identity assets
+- **WhyLevelUp.tsx**: Update `cardBgClasses` to use light-appropriate card backgrounds (white/near-white with subtle borders)
+- **FAQSection.tsx**: Update `cardStyles` and `featuredStyle` arrays to use light-friendly card colors (white cards with light gray borders, featured cards with light amber tint)
+- **LiveProgramsSection.tsx**: Remove/adapt the dark-specific accent line and glow overlays for light background
+- **StudentLogosSection.tsx**: Ensure marquee brand names and stats render in dark text
+
+### 5. Navbar and SectionLabel adaptation
+
+- **SectionLabel.tsx**: Update label colors to ensure visibility on both dark and light sections (may need to detect current section background)
+- **Navbar.tsx**: The navbar is fixed/sticky, so it stays dark with blur backdrop -- no changes needed
+
+### 6. Transition polish
+
+Add subtle gradient transitions at the boundary of dark-to-light sections to avoid hard cuts -- a small `h-16` gradient div fading from one background to the other between sections, or apply gradient top/bottom padding within section components.
 
