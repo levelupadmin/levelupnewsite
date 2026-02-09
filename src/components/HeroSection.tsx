@@ -105,6 +105,14 @@ const HeroSection = () => {
 
       {/* Cinematic video carousel */}
       <HeroCarousel />
+
+      {/* Bottom fade overlay for smooth transition */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-[200px] pointer-events-none z-10"
+        style={{
+          background: `linear-gradient(to bottom, transparent, hsl(220 12% 7%))`,
+        }}
+      />
     </section>
   );
 };
