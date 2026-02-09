@@ -64,7 +64,13 @@ const CredibilityCues = () => {
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
-    <section aria-label="Key stats and credibility" className="relative bg-background py-12 md:py-16">
+    <section
+      aria-label="Key stats and credibility"
+      className="relative py-20 md:py-28"
+      style={{
+        background: `linear-gradient(to bottom, hsl(220 12% 7%) 0%, hsl(220 8% 15%) 30%, hsl(30 10% 50%) 55%, hsl(35 15% 80%) 80%, hsl(40 20% 96%) 100%)`,
+      }}
+    >
       <div className="max-w-5xl mx-auto px-6 md:px-12">
         {/* Thin separator — animates width */}
         <motion.div
@@ -72,7 +78,7 @@ const CredibilityCues = () => {
           whileInView={{ width: 48 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-          className="h-px bg-border mx-auto mb-10 md:mb-12"
+          className="h-px bg-white/20 mx-auto mb-10 md:mb-12"
         />
 
         <div ref={ref} className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8">
@@ -89,7 +95,7 @@ const CredibilityCues = () => {
               }}
               className="text-center"
             >
-              <p className="font-serif-display text-2xl md:text-3xl lg:text-4xl font-medium text-cue-value tracking-tight tabular-nums">
+              <p className="font-serif-display text-2xl md:text-3xl lg:text-4xl font-medium text-white tracking-tight tabular-nums">
                 <AnimatedCounter
                   target={cue.numericValue}
                   suffix={cue.suffix}
@@ -98,7 +104,7 @@ const CredibilityCues = () => {
                   isInView={isInView}
                 />
               </p>
-              <p className="font-sans-body text-xs md:text-sm text-cue mt-2 tracking-wide">
+              <p className="font-sans-body text-xs md:text-sm text-white/60 mt-2 tracking-wide">
                 {cue.label}
               </p>
             </motion.div>
@@ -111,7 +117,7 @@ const CredibilityCues = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="font-sans-body text-sm text-muted-foreground text-center mt-10 md:mt-12 max-w-md mx-auto leading-relaxed"
+          className="font-sans-body text-sm text-white/40 text-center mt-10 md:mt-12 max-w-md mx-auto leading-relaxed"
         >
           From masterclasses to residencies, from community to career —
           <br className="hidden md:block" />
