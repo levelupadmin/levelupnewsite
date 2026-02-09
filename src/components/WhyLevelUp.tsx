@@ -104,31 +104,63 @@ interface MobileOverlayProps {
 
 const MobileOverlay = ({ card, cardIndex, onClose }: MobileOverlayProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [dragY, setDragY] = useState(0);
+  const isAtTop = useRef(true);
 
-  // Close when user scrolls past the bottom of content
+  // Track whether the overlay is scrolled to the top
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
+
     const handleScroll = () => {
       const { scrollTop, scrollHeight, clientHeight } = el;
+      isAtTop.current = scrollTop <= 1;
+      // Close when user scrolls past the bottom of content
       if (scrollTop + clientHeight >= scrollHeight - 2) {
         onClose();
       }
     };
+
     el.addEventListener("scroll", handleScroll, { passive: true });
     return () => el.removeEventListener("scroll", handleScroll);
   }, [onClose]);
+
+  // Handle swipe-down gesture
+  const handleDrag = (_: any, info: { offset: { y: number } }) => {
+    if (isAtTop.current && info.offset.y > 0) {
+      setDragY(info.offset.y);
+    }
+  };
+
+  const handleDragEnd = (_: any, info: { offset: { y: number }; velocity: { y: number } }) => {
+    // Dismiss if dragged down far enough or with enough velocity
+    if (isAtTop.current && (info.offset.y > 120 || info.velocity.y > 500)) {
+      onClose();
+    }
+    setDragY(0);
+  };
 
   return (
     <motion.div
       ref={scrollRef}
       key={`overlay-${cardIndex}`}
       initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 20 }}
-      transition={{ duration: 0.4, ease: EASE }}
+      animate={{ opacity: 1, y: Math.max(0, dragY * 0.4), scale: 1 - Math.min(dragY * 0.0003, 0.05) }}
+      exit={{ opacity: 0, y: 100 }}
+      transition={dragY > 0 ? { duration: 0 } : { duration: 0.4, ease: EASE }}
+      drag="y"
+      dragConstraints={{ top: 0, bottom: 0 }}
+      dragElastic={{ top: 0, bottom: 0.6 }}
+      onDrag={handleDrag}
+      onDragEnd={handleDragEnd}
+      style={{ touchAction: "pan-x" }}
       className={`fixed inset-0 z-[60] ${cardBgClasses[cardIndex]} overflow-y-auto`}
     >
+      {/* Swipe indicator handle */}
+      <div className="flex justify-center pt-3 pb-1">
+        <div className="w-10 h-1 rounded-full bg-foreground/20" />
+      </div>
+
       {/* Top gradient bar */}
       <div
         className="absolute top-0 left-0 right-0 h-[2px] pointer-events-none"
