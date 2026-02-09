@@ -6,7 +6,15 @@ import SplitTextReveal from "@/components/SplitTextReveal";
 const HeroSection = () => {
   return (
     <section id="hero" aria-label="Hero" className="relative flex flex-col bg-[hsl(220_12%_7%)] pb-8 md:pb-12">
-      {/* Random scattered star dots */}
+      {/* Layer 1: Faint grid lines */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `linear-gradient(hsla(0,0%,100%,0.06) 0.5px, transparent 0.5px), linear-gradient(90deg, hsla(0,0%,100%,0.06) 0.5px, transparent 0.5px)`,
+          backgroundSize: '48px 48px',
+        }}
+      />
+      {/* Layer 2: Random scattered star dots */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -24,26 +32,33 @@ const HeroSection = () => {
           backgroundPosition: '7px 13px, 137px 59px, 47px 191px, 211px 23px, 89px 127px, 173px 241px, 31px 83px, 251px 167px',
         }}
       />
-      {/* Grain/noise texture */}
+      {/* Layer 3: Grain/noise texture */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.35] mix-blend-soft-light"
+        className="absolute inset-0 pointer-events-none opacity-[0.55] mix-blend-soft-light"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-          backgroundSize: "200px 200px",
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+          backgroundSize: "256px 256px",
         }}
       />
-      {/* Subtle warm center glow */}
+      {/* Layer 4: Primary center bloom */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.12]"
+        className="absolute inset-0 pointer-events-none opacity-[0.35]"
         style={{
-          background: `radial-gradient(ellipse 70% 50% at 50% 30%, hsl(220 10% 20%) 0%, transparent 70%)`,
+          background: `radial-gradient(ellipse 100% 80% at 50% 30%, hsl(220 6% 40%) 0%, transparent 80%)`,
         }}
       />
-      {/* Soft radial vignette */}
+      {/* Layer 5: Secondary warm atmospheric haze */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `radial-gradient(ellipse 85% 75% at 50% 45%, transparent 35%, hsl(220 12% 5%) 100%)`,
+          background: `radial-gradient(ellipse 130% 90% at 50% 25%, hsla(30,8%,35%,0.18) 0%, transparent 55%)`,
+        }}
+      />
+      {/* Layer 6: Vignette */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(ellipse 85% 75% at 50% 45%, transparent 20%, hsl(220 12% 3%) 100%)`,
         }}
       />
 
