@@ -1,32 +1,23 @@
 
 
-# Hero Section Background Refinement
+# Fix Hero Section Background Visibility
 
-Update the hero section background to match the reference image (image-7.png) -- a deep charcoal, matte, cinematic feel with scattered star-like dots, subtle grid lines, grain texture, and a soft radial vignette. No glossy gradients.
+## Problem
+The background texture layers were applied correctly but with extremely low opacity values, making them invisible on screen:
+- Grid lines at 3% opacity -- invisible
+- Star dots at 8% opacity -- barely visible
+- Grain at 5% opacity -- invisible
+- Warm glow at 5% opacity -- invisible
 
-## What Changes
+## Solution
+Increase opacity values to make the textures actually visible while keeping the matte, cinematic feel.
 
-Only the background layers in `HeroSection.tsx` will be updated. All content (headline, subtext, CTA, carousel) stays exactly as-is.
+## Changes (single file: `src/components/HeroSection.tsx`)
 
-## Background Layers (bottom to top)
+1. **Faint grid lines**: Increase opacity from `0.03` to `0.12` (12%) so the grid is subtly visible
+2. **Scattered star dots**: Increase opacity from `0.08` to `0.20` (20%) and bump dot size from `0.6px` to `1px` for visibility
+3. **Grain/noise texture**: Increase opacity from `0.05` to `0.10` (10%) for visible matte texture
+4. **Warm center glow**: Increase opacity from `0.05` to `0.12` (12%) for subtle depth
+5. **Vignette**: Keep as-is since it's already at full opacity with transparent center
 
-1. **Base color**: Deep charcoal `hsl(220 12% 7%)` -- not pure black, slightly warm/blue-tinted
-2. **Faint grid lines**: Very low opacity (~3%) thin grid lines at ~60px intervals, subtle gray
-3. **Scattered star dots**: Tiny white dots at random-feeling intervals (~0.6px), very low opacity (~8-10%) to mimic the sparse starfield in the reference -- distinct from a uniform grid
-4. **Grain/noise texture**: SVG fractal noise overlay at ~5% opacity with `mix-blend-overlay` for that matte film texture
-5. **Soft radial vignette**: Elliptical gradient darkening edges, keeping the center slightly brighter -- matte, not glossy
-6. **Subtle warm center glow**: Very faint warm-toned radial from center-top (~5% opacity) for depth without looking like a spotlight
-
-## Technical Details
-
-**File**: `src/components/HeroSection.tsx`
-
-- Replace the current `radial-gradient` dot grid (28px uniform dots at 25% opacity) with a much sparser, smaller dot pattern (~1px dots, ~40px spacing, ~8% opacity) to look like scattered stars rather than a grid
-- Add a separate faint line grid layer (~60px, ~3% opacity) using `linear-gradient` for the subtle grid overlay
-- Keep the existing noise/grain layer but lower opacity slightly to ~5%
-- Adjust the vignette to be softer and more gradual -- fading from ~35% center transparency to edges
-- Keep the warm glow but reduce to ~5% opacity for subtlety
-- Change base bg from `hsl(220 15% 6%)` to `hsl(220 12% 7%)` for a slightly warmer charcoal
-
-No other files are modified.
-
+No other files are modified. All content (headline, subtext, CTA, carousel) remains unchanged.
