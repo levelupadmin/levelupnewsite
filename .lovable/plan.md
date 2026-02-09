@@ -1,95 +1,41 @@
 
 
-# Redesign: Student Logos Section (TripleTen-Inspired)
+# Replace Forge Text Labels with Official Logo
 
 ## What Changes
 
-The current `StudentLogosSection` -- an auto-scrolling text marquee with a simple "Our students are from" headline -- will be completely replaced with a static, editorial-style credibility section inspired by the TripleTen screenshot. The new design is bolder, more informative, and eliminates the continuous animation in favor of a composed, high-impact layout.
+The two text-based labels on lines 81-82 of `ForgeSection.tsx` -- the "Forge" heading and "by LevelUp" subtext -- will be replaced with the uploaded Forge logo image. This is the official brand logo showing "the Forge by LevelUp Learning" with the distinctive amber/gold wave graphic.
 
-## New Layout Structure
+## Steps
 
-### Top: Bold Impact Headline
-A large, centered serif headline with strategic bold emphasis -- adapted for LevelUp's creative education context:
+1. **Copy the uploaded logo** into `src/assets/forge-logo.png` so it can be imported as an ES module in the React component.
 
-> "The creative industry is competitive. **Your growth doesn't have to wait.**"
+2. **Update `ForgeSection.tsx`**:
+   - Add an import at the top: `import forgeLogo from "@/assets/forge-logo.png"`
+   - Replace lines 81-82 (the two `<span>` elements for "Forge" and "by LevelUp") with a single `<img>` tag displaying the logo
+   - The logo will be sized appropriately (roughly `h-16 md:h-20 lg:h-24`) and have `alt="The Forge by LevelUp Learning"`
+   - Since the logo has a black background in the uploaded file, it will blend naturally with the dark Forge section background
+   - The logo sits inside the existing `<h2>` tag, above the "Where you *become*" headline text
 
-### Middle: Two Large Stat Callouts
-Two prominent statistics displayed side-by-side (centered), using animated counters (reusing the existing `AnimatedCounter` pattern from `CredibilityCues`):
+## Visual Result
 
-| Stat | Value | Description |
-|------|-------|-------------|
-| Left | **57,600+** | learners have enrolled across masterclasses, live programs, and residencies |
-| Right | **11** | editions of The Forge across 7 cities |
-
-### CTA Link
-A centered underline-style link below the stats:
-> "See what our alumni are building" with an external-link icon -- uses the existing `cta-underline` utility class
-
-### Bottom: Brand/Institute Grid
-- Subheadline: **"Our students come from top studios, institutes, and platforms"**
-- A responsive grid of brand names (3 columns on mobile, 6 on desktop) displayed as styled text
-- Each brand name is rendered in uppercase with wide tracking, consistent with the existing aesthetic but laid out in a clean grid instead of a scrolling marquee
-- Brands are grouped into visual rows with subtle opacity variation for depth
-
-## Visual Layout
-
-```text
-+------------------------------------------------------+
-|                                                        |
-|     The creative industry is competitive.              |
-|     Your growth doesn't have to wait.                  |
-|                                                        |
-|         57,600+                11                      |
-|     learners enrolled    editions of The Forge         |
-|                          across 7 cities               |
-|                                                        |
-|        See what our alumni are building [->]           |
-|                                                        |
-|   Our students come from top studios, institutes,      |
-|               and platforms                            |
-|                                                        |
-|   FTII       NID        Whistling    YRF       Excel   |
-|                         Woods                  Ent.    |
-|   TVF        Google     Amazon       Viacom18  Dharma  |
-|                         Prime                          |
-|   Red        Adobe                                     |
-|   Chillies                                             |
-+------------------------------------------------------+
+Before:
+```
+  FORGE              (small uppercase text)
+  by LevelUp         (smaller muted text)
+  Where you become   (large serif headline)
 ```
 
-## Technical Details
+After:
+```
+  [The Forge logo]   (official brand logo image)
+  Where you become   (large serif headline)
+```
 
-### File Modified
-- **`src/components/StudentLogosSection.tsx`** -- Complete rewrite of this single component
+## Files Changed
 
-### No New Dependencies
-Reuses `framer-motion` (already installed) for scroll-triggered fade-in and animated counters. Uses the existing `cta-underline` CSS utility and Tailwind design tokens.
-
-### Key Implementation Details
-
-**Animated Counters**: A simplified counter component (similar to the one in `CredibilityCues.tsx`) will animate the two stat values when they scroll into view, using `useInView` from Framer Motion.
-
-**Responsive Grid for Brands**:
-- Mobile: 3-column grid with centered text
-- Tablet: 4-column grid
-- Desktop: 6-column grid
-- Each brand name uses the existing `font-sans-body uppercase tracking-[0.15em] text-muted-foreground` styling
-
-**Scroll Animations**:
-- Headline fades in first
-- Stats animate in with a slight stagger (0.15s delay between left and right)
-- CTA link fades in after stats
-- Brand grid rows enter with staggered delays per row
-
-**Accessibility**:
-- Section `aria-label` updated to reflect the new content
-- CTA link includes proper `aria-label` for the external link icon
-- Stats use `tabular-nums` for aligned number rendering
-
-### Styling Approach
-- Background remains `bg-background` to match the surrounding sections
-- Headline uses `font-serif-display` with the bold portion wrapped in a `<strong>` tag
-- Stats use a large `text-4xl md:text-6xl` serif font for the values, matching the TripleTen reference's dramatic sizing
-- Brand grid items have a subtle `hover:text-foreground` transition for interactivity
-- A thin `h-px bg-border` separator sits above and below the section for visual separation
+| File | Change |
+|------|--------|
+| `src/assets/forge-logo.png` | New file -- copied from user upload |
+| `src/components/ForgeSection.tsx` | Import logo, replace two text spans with `<img>` tag |
 
