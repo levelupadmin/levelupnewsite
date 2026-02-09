@@ -5,35 +5,44 @@ import SplitTextReveal from "@/components/SplitTextReveal";
 
 const HeroSection = () => {
   return (
-    <section id="hero" aria-label="Hero" className="relative flex flex-col bg-[hsl(220_15%_6%)] pb-8 md:pb-12">
-      {/* Starfield dot grid */}
+    <section id="hero" aria-label="Hero" className="relative flex flex-col bg-[hsl(220_12%_7%)] pb-8 md:pb-12">
+      {/* Faint grid lines */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.25]"
+        className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{
-          backgroundImage: `radial-gradient(circle, hsl(0 0% 55%) 0.8px, transparent 0.8px)`,
-          backgroundSize: "28px 28px",
+          backgroundImage: `linear-gradient(hsl(0 0% 40%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 40%) 1px, transparent 1px)`,
+          backgroundSize: "60px 60px",
         }}
       />
-      {/* Noise/grain texture */}
+      {/* Scattered star dots */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.06] mix-blend-overlay"
+        className="absolute inset-0 pointer-events-none opacity-[0.08]"
+        style={{
+          backgroundImage: `radial-gradient(circle, hsl(0 0% 70%) 0.6px, transparent 0.6px)`,
+          backgroundSize: "40px 40px",
+          backgroundPosition: "13px 17px",
+        }}
+      />
+      {/* Grain/noise texture */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.05] mix-blend-overlay"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
           backgroundSize: "128px 128px",
         }}
       />
-      {/* Subtle warm glow from center-top */}
+      {/* Subtle warm center glow */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.08]"
+        className="absolute inset-0 pointer-events-none opacity-[0.05]"
         style={{
           background: `radial-gradient(ellipse 70% 50% at 50% 30%, hsl(220 10% 20%) 0%, transparent 70%)`,
         }}
       />
-      {/* Edge vignette */}
+      {/* Soft radial vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `radial-gradient(ellipse 80% 70% at 50% 40%, transparent 30%, hsl(220 15% 4%) 100%)`,
+          background: `radial-gradient(ellipse 85% 75% at 50% 45%, transparent 35%, hsl(220 12% 5%) 100%)`,
         }}
       />
 
