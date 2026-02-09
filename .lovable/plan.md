@@ -1,47 +1,61 @@
 
 
-# Hero Background Overhaul and Smoother Gradient Transition
+# Hero Background — Exact Reference Match (Final Tuned Version)
 
-## Summary
-Three changes: (1) Replace the hero background layers with proper grain texture and random white star dots (no grid lines), (2) Remove the thick separator line in CredibilityCues, (3) Extend and smooth the gradient transition below the numbers into the next section.
+## What the reference image shows (precise breakdown)
+The reference has a very specific look: a dark base with a **large, prominent smoky/foggy bloom** in the center-upper area, **clearly visible film grain** across everything, **faint thin grid lines**, and **tiny scattered white dots**. The center bloom is the most defining feature — it's a large, soft, lighter area that makes the middle significantly brighter than the edges.
 
-## Changes
+## Changes (single file: `src/components/HeroSection.tsx`)
 
-### 1. HeroSection.tsx -- Replace background layers
+### Layer 1: Faint grid lines (NEW — add before star dots)
+Add a thin crosshatch grid with very fine lines. These are barely visible but add texture depth.
+- Line width: `0.5px`
+- Color: `hsla(0,0%,100%,0.06)` (6% white — extremely subtle)
+- Spacing: `48px`
 
-**Remove:** The grid lines layer (lines 10-16) -- completely remove it.
+### Layer 2: Star dots (KEEP current — already good)
+The 8-layer scattered radial-gradient dots stay exactly as they are.
 
-**Replace star dots layer (lines 17-25):** Instead of a repeating radial-gradient pattern (which creates uniform dots), use multiple layered `radial-gradient` backgrounds with different sizes, positions, and opacities to create randomly scattered white star dots. This involves stacking ~8-10 radial-gradient layers each with different `backgroundSize` and `backgroundPosition` values so dots appear scattered and random rather than on a grid. Dots will be small (1-2px), white, at varying opacities (15-40%).
+### Layer 3: Grain texture (MODIFY — boost significantly)
+The reference has very prominent, clearly visible grain. Current `0.35` opacity is not enough.
+- Increase opacity from `0.35` to `0.55`
+- Keep `mix-blend-soft-light`
+- Reduce `baseFrequency` from `0.65` to `0.55` for coarser, more visible grain particles
+- Keep `numOctaves='4'`
+- Increase `backgroundSize` from `200px` to `256px` for less tiling repetition
 
-**Keep grain layer (lines 26-33):** Keep the current grain with `opacity-[0.35]` and `mix-blend-soft-light` -- this is already configured well.
+### Layer 4: Primary center bloom (MODIFY — dramatic boost)
+This is the key layer that makes or breaks the reference match. Currently way too subtle.
+- Change opacity from `0.12` to `0.35`
+- Change color from `hsl(220 10% 20%)` to `hsl(220 6% 40%)` (much lighter, more visible)
+- Change ellipse from `70% 50% at 50% 30%` to `100% 80% at 50% 30%` (much larger, fills more of the center)
+- Change transparent stop from `70%` to `80%` (softer falloff)
 
-**Keep** the warm glow and vignette layers as-is.
+### Layer 5: Secondary warm atmospheric haze (NEW)
+The reference has a warm, slightly brownish tone in the bloom. Add a second glow layer:
+- `radial-gradient(ellipse 130% 90% at 50% 25%, hsla(30,8%,35%,0.18) 0%, transparent 55%)`
+- This adds the warm cloudy/foggy quality seen in the reference
 
-### 2. CredibilityCues.tsx -- Remove separator and extend gradient
+### Layer 6: Vignette (MODIFY — darken edges more)
+The reference has very dark corners. Tighten the vignette:
+- Change transparent stop from `35%` to `20%`
+- Change dark color from `hsl(220 12% 5%)` to `hsl(220 12% 3%)` (nearly black)
 
-**Remove the separator line** (lines 76-82): Delete the animated `motion.div` with `h-px bg-white/20` that creates the thick straight line above the numbers.
+## Summary of all values (final tuned)
 
-**Extend the gradient below the stats**: Increase bottom padding significantly from `py-20 md:py-28` to `pt-20 pb-40 md:pt-28 md:pb-52` so the gradient has much more room to transition smoothly below the numbers into the off-white of the next section.
+| Layer | Opacity | Key params |
+|-------|---------|------------|
+| Grid | 6% white | 0.5px lines, 48px spacing |
+| Star dots | 15-40% per dot | 8 layers, varied sizes (unchanged) |
+| Grain | 55%, soft-light | baseFrequency 0.55, 256px tiles |
+| Primary bloom | 35% | hsl(220 6% 40%), 100% x 80% ellipse |
+| Warm haze | 18% | hsla(30,8%,35%), 130% x 90% ellipse |
+| Vignette | full | transparent at 20%, fades to hsl(220 12% 3%) |
 
-**Adjust gradient stops** for a smoother, more gradual transition:
-- 0%: `hsl(220 12% 7%)` (charcoal, matches hero)
-- 20%: `hsl(220 10% 12%)` (dark gray -- where stats sit)
-- 45%: `hsl(25 8% 35%)` (warm mid-tone)
-- 65%: `hsl(30 12% 55%)` (warm tan)
-- 80%: `hsl(35 15% 78%)` (light warm)
-- 100%: `hsl(40 20% 96%)` (off-white, matches WhyLevelUp)
+## Why this will match
+- The **primary bloom at 35% opacity with a much lighter color** creates the prominent smoky center that defines the reference
+- The **secondary warm haze** adds the brownish warmth visible in the reference
+- **Grain at 55%** with coarser frequency makes it clearly visible like the reference
+- **Tight vignette at 20%** darkens corners aggressively to match
+- The grid and dots add the subtle texture detail layer
 
-This creates a longer, smoother gradient below the numbers matching the reference images.
-
-## Technical Details
-
-**Files modified:**
-- `src/components/HeroSection.tsx`:
-  - Delete grid lines div (lines 10-16)
-  - Replace star dots div with multiple stacked radial-gradients using varied sizes/positions for random placement
-  - Keep grain, glow, and vignette layers unchanged
-
-- `src/components/CredibilityCues.tsx`:
-  - Delete the `motion.div` separator (lines 76-82)
-  - Change padding from `py-20 md:py-28` to `pt-20 pb-40 md:pt-28 md:pb-52`
-  - Update gradient stops to 6 stops for smoother transition with more room below stats
