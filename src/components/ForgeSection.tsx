@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Flame, Users, MapPin } from "lucide-react";
 import ForgeCarousel from "./ForgeCarousel";
+import forgeLogo from "@/assets/forge-logo.png";
 
 const featurePoints = [
   {
@@ -78,8 +79,7 @@ const ForgeSection = () => {
               In-person Bootcamp
             </span>
             <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-hero-headline leading-[1.15] tracking-tight">
-              <span className="font-sans-body text-xs md:text-sm tracking-[0.2em] uppercase text-primary block mb-2">Forge</span>
-              <span className="text-muted-foreground font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase block mb-4">by LevelUp</span>
+              <img src={forgeLogo} alt="The Forge by LevelUp Learning" className="h-16 md:h-20 lg:h-24 w-auto mb-2" />
               Where you{" "}
               <em className="italic font-normal text-primary">become</em>
             </h2>
