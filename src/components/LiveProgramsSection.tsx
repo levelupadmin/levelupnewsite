@@ -105,8 +105,8 @@ const cardVariants = {
 
 const LiveProgramsSection = () => {
   return (
-    <section id="live-programs" aria-label="Live programs" className="relative py-12 md:py-16" style={{ background: "hsl(var(--bg-live-programs))" }}>
-      {/* Cool teal accent line at top */}
+    <section id="live-programs" aria-label="Live programs" className="relative py-12 md:py-16 bg-background">
+      {/* Accent line at top */}
       <div
         className="absolute top-0 left-0 right-0 h-[2px]"
         style={{
@@ -115,12 +115,12 @@ const LiveProgramsSection = () => {
         }}
       />
 
-      {/* Cool blue glow */}
+      {/* Orange glow */}
       <div
         className="absolute top-0 left-0 right-0 h-64 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 0%, hsl(200 35% 50% / 0.07) 0%, transparent 70%)",
+            "radial-gradient(ellipse at 50% 0%, hsl(24 95% 53% / 0.05) 0%, transparent 70%)",
         }}
       />
 
@@ -132,8 +132,7 @@ const LiveProgramsSection = () => {
         transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
         className="text-center px-6 md:px-12 mb-10 md:mb-12"
       >
-        <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border mb-4"
-          style={{ borderColor: "hsl(200 30% 40% / 0.3)", color: "hsl(200 30% 55%)", background: "hsl(200 30% 40% / 0.05)" }}
+        <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border border-primary/30 text-primary bg-primary/5 mb-4"
         >
           Live + Mentor-led
         </span>

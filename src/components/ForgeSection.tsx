@@ -33,8 +33,8 @@ const stats = [
 
 const ForgeSection = () => {
   return (
-    <section id="forge" aria-label="The Forge residency" className="relative py-12 md:py-16 overflow-hidden" style={{ background: "hsl(var(--bg-forge))" }}>
-      {/* Ember accent line at top */}
+    <section id="forge" aria-label="The Forge residency" className="relative py-12 md:py-16 overflow-hidden bg-background">
+      {/* Accent line at top */}
       <div
         className="absolute top-0 left-0 right-0 h-[2px]"
         style={{
@@ -43,12 +43,12 @@ const ForgeSection = () => {
         }}
       />
 
-      {/* Ember ambient glow */}
+      {/* Orange ambient glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 80% 50% at 50% 30%, hsl(15 65% 48% / 0.07) 0%, transparent 70%)",
+            "radial-gradient(ellipse 80% 50% at 50% 30%, hsl(24 95% 53% / 0.05) 0%, transparent 70%)",
         }}
       />
 
@@ -73,8 +73,7 @@ const ForgeSection = () => {
             transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
           >
             {/* Format tag */}
-            <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border mb-4"
-              style={{ borderColor: "hsl(15 60% 45% / 0.3)", color: "hsl(15 60% 55%)", background: "hsl(15 60% 45% / 0.05)" }}
+            <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border border-primary/30 text-primary bg-primary/5 mb-4"
             >
               In-person Bootcamp
             </span>
