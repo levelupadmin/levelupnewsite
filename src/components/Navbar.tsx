@@ -6,7 +6,7 @@ import levelupLogo from "@/assets/levelup-logo.svg";
 import type { NavLink, NavItem } from "./navbarData";
 
 // Default accent fallback (amber/primary)
-const DEFAULT_ACCENT = "hsl(38 75% 55%)";
+const DEFAULT_ACCENT = "hsl(24 95% 53%)";
 
 // Minimal nav labels for initial render (before data chunk loads)
 const navLabels = [
