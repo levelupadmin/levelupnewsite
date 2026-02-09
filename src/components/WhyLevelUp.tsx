@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ArrowRight, Maximize2 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import carouselImg from "@/assets/carousel-3.jpg";
 
@@ -370,19 +370,17 @@ const WhyLevelUp = () => {
                       {card.headline}
                     </motion.h3>
 
-                    {/* Desktop: show expand/close icon */}
-                    {!isMobile && (
-                      <motion.div
-                        layout="position"
-                        className="shrink-0 mt-1 w-8 h-8 rounded-full border border-border/40 flex items-center justify-center text-muted-foreground group-hover:text-foreground transition-colors"
-                      >
-                        {isExpanded ? (
-                          <X size={14} />
-                        ) : (
-                          <ArrowRight size={14} />
-                        )}
-                      </motion.div>
-                    )}
+                    {/* Expand/close icon */}
+                    <motion.div
+                      layout="position"
+                      className="shrink-0 mt-1 w-8 h-8 rounded-full border border-border/40 flex items-center justify-center text-muted-foreground group-hover:text-foreground transition-colors"
+                    >
+                      {isExpanded && !isMobile ? (
+                        <X size={14} />
+                      ) : (
+                        <Maximize2 size={14} />
+                      )}
+                    </motion.div>
                   </div>
 
                   {/* Mobile: show description in collapsed state */}
@@ -444,13 +442,10 @@ const WhyLevelUp = () => {
                     </AnimatePresence>
                   )}
 
-                  {/* Bottom — mobile: "Learn more" button; desktop: collapsed hint */}
+                  {/* Bottom — mobile: subtle line; desktop: collapsed hint */}
                   {isMobile ? (
                     <motion.div layout="position" className="mt-auto pt-6">
-                      <span className="inline-flex items-center gap-2 font-sans-body text-sm text-foreground/70 group-hover:text-foreground transition-colors">
-                        Learn more
-                        <ArrowRight size={14} />
-                      </span>
+                      <div className="h-[1px] bg-border/30 w-8" />
                     </motion.div>
                   ) : (
                     !isExpanded && (
