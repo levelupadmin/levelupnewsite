@@ -2,79 +2,25 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import HeroCarousel from "@/components/HeroCarousel";
 import SplitTextReveal from "@/components/SplitTextReveal";
+import heroBg from "@/assets/hero-bg.png";
 
 const HeroSection = () => {
   return (
-    <section id="hero" aria-label="Hero" className="relative flex flex-col bg-[hsl(220_12%_7%)] pb-8 md:pb-12">
-      {/* Layer 1: Faint grid lines */}
+    <section
+      id="hero"
+      aria-label="Hero"
+      className="relative flex flex-col pb-8 md:pb-12"
+      style={{
+        backgroundImage: `url(${heroBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center top',
+      }}
+    >
+      {/* Bottom fade overlay for smooth transition */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-[200px] pointer-events-none z-10"
         style={{
-          backgroundImage: `linear-gradient(hsla(0,0%,100%,0.06) 0.5px, transparent 0.5px), linear-gradient(90deg, hsla(0,0%,100%,0.06) 0.5px, transparent 0.5px)`,
-          backgroundSize: '48px 48px',
-        }}
-      />
-      {/* Layer 2: Random scattered star dots */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: [
-            `radial-gradient(circle, hsla(0,0%,100%,0.35) 1px, transparent 1px)`,
-            `radial-gradient(circle, hsla(0,0%,100%,0.20) 1px, transparent 1px)`,
-            `radial-gradient(circle, hsla(0,0%,100%,0.30) 1px, transparent 1px)`,
-            `radial-gradient(circle, hsla(0,0%,100%,0.15) 1px, transparent 1px)`,
-            `radial-gradient(circle, hsla(0,0%,100%,0.25) 1px, transparent 1px)`,
-            `radial-gradient(circle, hsla(0,0%,100%,0.40) 1px, transparent 1px)`,
-            `radial-gradient(circle, hsla(0,0%,100%,0.18) 1px, transparent 1px)`,
-            `radial-gradient(circle, hsla(0,0%,100%,0.32) 1px, transparent 1px)`,
-          ].join(', '),
-          backgroundSize: '197px 213px, 301px 287px, 157px 349px, 419px 173px, 263px 401px, 347px 151px, 223px 317px, 181px 269px',
-          backgroundPosition: '7px 13px, 137px 59px, 47px 191px, 211px 23px, 89px 127px, 173px 241px, 31px 83px, 251px 167px',
-        }}
-      />
-      {/* Layer 3a: Coarse grain (overlay, chunky) */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.50] mix-blend-overlay"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.45' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-          backgroundSize: "256px 256px",
-        }}
-      />
-      {/* Layer 3b: Fine grain (soft-light, dense) */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.30] mix-blend-soft-light"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.80' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E")`,
-          backgroundSize: "200px 200px",
-        }}
-      />
-      {/* Layer 3c: Micro-texture static (overlay, fine) */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.15] mix-blend-overlay"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 128 128' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)'/%3E%3C/svg%3E")`,
-          backgroundSize: "128px 128px",
-        }}
-      />
-      {/* Layer 4: Primary center bloom */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.35]"
-        style={{
-          background: `radial-gradient(ellipse 100% 80% at 50% 30%, hsl(220 6% 40%) 0%, transparent 80%)`,
-        }}
-      />
-      {/* Layer 5: Secondary warm atmospheric haze */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `radial-gradient(ellipse 130% 90% at 50% 25%, hsla(30,8%,35%,0.18) 0%, transparent 55%)`,
-        }}
-      />
-      {/* Layer 6: Vignette */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `radial-gradient(ellipse 85% 75% at 50% 45%, transparent 20%, hsl(220 12% 3%) 100%)`,
+          background: `linear-gradient(to bottom, transparent, hsl(220 12% 7%))`,
         }}
       />
 
@@ -126,7 +72,6 @@ const HeroSection = () => {
         >
           <a
             href="#masterclasses"
-            
             className="cta-sweep cta-glow group inline-flex items-center gap-3 font-sans-body text-sm md:text-base text-foreground border border-border px-6 py-3 md:px-7 md:py-3.5 rounded-full hover:border-primary hover:text-primary transition-all duration-500"
           >
             Explore the ecosystem
@@ -137,14 +82,6 @@ const HeroSection = () => {
 
       {/* Cinematic video carousel */}
       <HeroCarousel />
-
-      {/* Bottom fade overlay for smooth transition */}
-      <div
-        className="absolute bottom-0 left-0 right-0 h-[200px] pointer-events-none z-10"
-        style={{
-          background: `linear-gradient(to bottom, transparent, hsl(220 12% 7%))`,
-        }}
-      />
     </section>
   );
 };
