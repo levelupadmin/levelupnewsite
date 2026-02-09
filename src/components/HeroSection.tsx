@@ -6,21 +6,22 @@ import SplitTextReveal from "@/components/SplitTextReveal";
 const HeroSection = () => {
   return (
     <section id="hero" aria-label="Hero" className="relative flex flex-col bg-[hsl(220_12%_7%)] pb-8 md:pb-12">
-      {/* Faint grid lines */}
+      {/* Random scattered star dots */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.12]"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: `linear-gradient(hsl(0 0% 40%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 40%) 1px, transparent 1px)`,
-          backgroundSize: "60px 60px",
-        }}
-      />
-      {/* Scattered star dots */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.20]"
-        style={{
-          backgroundImage: `radial-gradient(circle, hsl(0 0% 70%) 1px, transparent 1px)`,
-          backgroundSize: "40px 40px",
-          backgroundPosition: "13px 17px",
+          backgroundImage: [
+            `radial-gradient(circle, hsla(0,0%,100%,0.35) 1px, transparent 1px)`,
+            `radial-gradient(circle, hsla(0,0%,100%,0.20) 1px, transparent 1px)`,
+            `radial-gradient(circle, hsla(0,0%,100%,0.30) 1px, transparent 1px)`,
+            `radial-gradient(circle, hsla(0,0%,100%,0.15) 1px, transparent 1px)`,
+            `radial-gradient(circle, hsla(0,0%,100%,0.25) 1px, transparent 1px)`,
+            `radial-gradient(circle, hsla(0,0%,100%,0.40) 1px, transparent 1px)`,
+            `radial-gradient(circle, hsla(0,0%,100%,0.18) 1px, transparent 1px)`,
+            `radial-gradient(circle, hsla(0,0%,100%,0.32) 1px, transparent 1px)`,
+          ].join(', '),
+          backgroundSize: '197px 213px, 301px 287px, 157px 349px, 419px 173px, 263px 401px, 347px 151px, 223px 317px, 181px 269px',
+          backgroundPosition: '7px 13px, 137px 59px, 47px 191px, 211px 23px, 89px 127px, 173px 241px, 31px 83px, 251px 167px',
         }}
       />
       {/* Grain/noise texture */}

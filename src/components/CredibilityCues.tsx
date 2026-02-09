@@ -66,21 +66,12 @@ const CredibilityCues = () => {
   return (
     <section
       aria-label="Key stats and credibility"
-      className="relative py-20 md:py-28"
+      className="relative pt-20 pb-40 md:pt-28 md:pb-52"
       style={{
-        background: `linear-gradient(to bottom, hsl(220 12% 7%) 0%, hsl(220 8% 15%) 30%, hsl(30 10% 50%) 55%, hsl(35 15% 80%) 80%, hsl(40 20% 96%) 100%)`,
+        background: `linear-gradient(to bottom, hsl(220 12% 7%) 0%, hsl(220 10% 12%) 20%, hsl(25 8% 35%) 45%, hsl(30 12% 55%) 65%, hsl(35 15% 78%) 80%, hsl(40 20% 96%) 100%)`,
       }}
     >
       <div className="max-w-5xl mx-auto px-6 md:px-12">
-        {/* Thin separator — animates width */}
-        <motion.div
-          initial={{ width: 0 }}
-          whileInView={{ width: 48 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-          className="h-px bg-white/20 mx-auto mb-10 md:mb-12"
-        />
-
         <div ref={ref} className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8">
           {cues.map((cue, index) => (
             <motion.div
