@@ -1,97 +1,107 @@
 
 
-# Improve Testimonials Carousel: Bigger Cards and Polish
+# Fix "Why LevelUp" Section for Mobile
 
-## What Changes
+## The Problem
 
-The testimonial cards will be significantly enlarged and refined to create a more impactful, editorial feel. The current `680px` desktop width feels cramped -- the photo and quote panels don't have enough breathing room. Here's the full set of improvements:
+The "Why LevelUp" section with its three expandable cards currently looks cramped and unpolished on mobile. The cards are small, the expanded content feels squeezed, and the overall experience doesn't match the editorial quality of the rest of the site.
 
-## 1. Larger Card Dimensions
+## Reference: TripleTen Mobile Pattern
 
-- **Desktop slide width**: Increase from `680px` to `820px`, giving each panel more horizontal space
-- **Mobile slide width**: Keep at `85vw` (already fills the screen well)
-- **Photo panel height**: Set a minimum height of `420px` on desktop (currently relies on content, which can feel short)
-- **Quote panel padding**: Increase from `p-5 md:p-7` to `p-6 md:p-10` for more whitespace around the quote
+From the screenshots you shared, TripleTen uses a very different approach on mobile:
 
-## 2. Bigger Quote Typography
+- **Collapsed cards** are tall, full-width blocks with a bold headline, supporting description, and a "Learn more" CTA button at the bottom -- they feel like standalone content panels, not just expandable triggers
+- **Expanded cards** take over nearly the full screen as an overlay/modal -- large headline at the top with a close (X) button, then a scrollable content area with description, bullet items (styled as bordered list cards), and a stat+quote section at the bottom
+- The overall feel is spacious, with generous padding and clear visual hierarchy
 
-- **Pull quote text**: Scale up from `text-lg md:text-xl lg:text-2xl` to `text-xl md:text-2xl lg:text-3xl` so the quote feels like a real editorial headline
-- **Line height**: Adjust leading to `leading-[1.25]` for the larger text to stay legible
+## Proposed Solution
 
-## 3. Better Visual Separation Between Cards
+Redesign the mobile experience of the "Why LevelUp" section to follow a similar pattern, while keeping the desktop expandable card behavior as-is.
 
-- **Gap between slides**: Increase from `pr-4 md:pr-6` to `pr-5 md:pr-8` so cards don't feel crowded together
-- **Card border**: Add a subtle `border border-border/50` to each card so they visually separate from the dark background
-- **Quote panel background**: Add a very subtle left border accent (`border-l-2 border-primary/20`) on the quote panel to tie it to the brand color
+### Mobile Collapsed State (New Design)
 
-## 4. Photo Panel Improvements
+Each card becomes a full-width, taller panel:
 
-- **Hover zoom**: Add a subtle `group-hover:scale-105` transform on the image for interactivity
-- **Aspect ratio on mobile**: Change from `aspect-[3/4]` to `aspect-[4/5]` on mobile for a slightly less tall crop that fits better on small screens
-- **Name typography**: Bump name text from `text-base md:text-lg` to `text-lg md:text-xl` for stronger presence
+- **Height**: Minimum ~280px to feel substantial (up from ~220px)
+- **Background**: Keep the existing card backgrounds with their gradient overlays
+- **Content**: Show the headline, the description text (currently hidden when collapsed), and a "Learn more" button at the bottom
+- **Remove**: The small expand icon in the corner -- replace with a clear "Learn more" text button with an arrow
 
-## 5. Quote Panel Refinements
+### Mobile Expanded State (Full-Screen Overlay)
 
-- **Decorative quote mark**: Add a large, semi-transparent opening quotation mark (using CSS or a styled span) above the quote text as a visual flourish
-- **"Read the story" link**: Push to the bottom of the panel using `justify-between` (already done) and increase spacing
+When tapped on mobile, the card expands into a full-screen overlay:
 
-## 6. Navigation Improvements
+- **Overlay style**: Fixed position, full viewport, same card background color, with a close (X) button in the top-right corner
+- **Scrollable content**: If the content exceeds the viewport, it scrolls naturally within the overlay
+- **Content layout from top to bottom**:
+  1. Headline (large serif, same as collapsed)
+  2. Description paragraph
+  3. Bullet items styled as bordered list cards (like TripleTen's "Theory - 15 min" cards) -- each bullet gets its own bordered row
+  4. Stat highlight section at the bottom: large serif number on the left with a supporting label
 
-- **Arrow buttons**: Increase from `w-10 h-10` to `w-11 h-11` with slightly larger icons for better touch targets
-- **Counter text**: Add a small "01 / 10" style counter between the dots and arrows showing current position
+### Desktop Behavior (Unchanged)
 
-## Visual Before/After
-
-```text
-BEFORE (680px wide, cramped):
-+-------------+-------------+
-| [Photo]     | "Quote..."  |
-| Small text  |  small text |
-| tight pad   |  tight pad  |
-+-------------+-------------+
-
-AFTER (820px wide, spacious):
-+----------------+------------------+
-|                |                  |
-|   [Photo]      |   "             |
-|                |   Quote text    |
-|                |   much bigger   |
-|   Name         |   and bolder    |
-|   Role         |                 |
-|   Context      |  Read story ->  |
-+----------------+------------------+
-```
+The desktop expandable card row with flex basis animation stays exactly the same.
 
 ## Technical Details
 
 ### File Modified
-- **`src/components/TestimonialsSection.tsx`** -- adjustments to sizing, typography, and styling
+- **`src/components/WhyLevelUp.tsx`** -- mobile-specific restructuring
 
-### Specific Code Changes
+### Key Changes
 
-**Slide container (line 185)**:
-- Change `md:w-[680px]` to `md:w-[820px]`
-- Change `pr-4 md:pr-6` to `pr-5 md:pr-8`
+**1. Collapsed mobile cards** (lines 183-320 area):
+- Increase `minHeight` from 220 to 280 on mobile collapsed
+- Show `card.description` text even in collapsed state (mobile only)
+- Replace the `Maximize2` icon with a styled "Learn more" text button with arrow icon
+- Add more bottom padding so the "Learn more" button has breathing room
 
-**Card wrapper (line 239)**:
-- Add `border border-border/50` and `group` class for hover effects
-- Set `min-h-[380px] md:min-h-[420px]` to prevent overly short cards
+**2. Expanded mobile cards** -- switch from inline expand to full-screen overlay:
+- When `isExpanded && isMobile`, render a `motion.div` with `fixed inset-0 z-50` (full-screen overlay)
+- Background matches the card's `cardBgClasses[i]` so it feels like the card grew to fill the screen
+- Close button (X) in top-right corner: `absolute top-6 right-6`, same circular border style
+- Content inside the overlay:
+  - Top section: headline + description with generous padding (`px-6 pt-16 pb-8`)
+  - Bullet items: Each rendered as a bordered card row (`border border-border/30 rounded-sm p-4`) stacked vertically with small gaps, instead of plain dot-prefixed list items
+  - Bottom section: Stat highlight with the large number and label, with a top border separator
+- Overlay scrolls via `overflow-y-auto` if content exceeds the viewport
+- Entry animation: `initial={{ opacity: 0, y: 40 }}` to `animate={{ opacity: 1, y: 0 }}`
+- Backdrop: Optional subtle dark overlay behind (since the card bg is already dark, this may not be needed)
 
-**Photo panel (lines 241-267)**:
-- Add `group-hover:scale-105 transition-transform duration-700` on the `<img>` tag
-- Change mobile aspect from `aspect-[3/4]` to `aspect-[4/5]`
-- Increase name text to `text-lg md:text-xl`
+**3. Body scroll lock** (when overlay is open on mobile):
+- Add `useEffect` that sets `document.body.style.overflow = 'hidden'` when a card is expanded on mobile
+- Resets on close
 
-**Quote panel (lines 269-282)**:
-- Increase padding to `p-6 md:p-10`
-- Add a decorative large quote mark: `<span className="font-serif-display text-5xl md:text-6xl text-primary/15 leading-none select-none block mb-3">"</span>`
-- Scale quote text to `text-xl md:text-2xl lg:text-3xl`
-- Add `border-l-2 border-primary/20` for visual accent
+### Card Content for Bullet Rows
 
-**Navigation (lines 194-229)**:
-- Arrow buttons: change `w-10 h-10` to `w-11 h-11`
-- Add a slide counter span between dots and arrows: `<span className="font-sans-body text-xs text-muted-foreground tabular-nums">{String(selectedIndex + 1).padStart(2, '0')} / {String(testimonials.length).padStart(2, '0')}</span>`
+Each bullet will be styled like a content card row (inspired by TripleTen's "Theory - 15 min" cards):
+
+```
++----------------------------------------+
+| Award-winning filmmakers and editors   |
++----------------------------------------+
+| Decades of industry experience         |
++----------------------------------------+
+| Direct, honest feedback on your work   |
++----------------------------------------+
+```
+
+Each row: `border border-border/30 rounded-sm px-4 py-3.5`, with `font-sans-body text-sm text-foreground/80`.
+
+### Stat + Highlight Section
+
+At the bottom of the overlay, a section with:
+- Large serif stat value (e.g., "40+") on the left
+- Label text ("industry mentors") beneath or beside it
+- Separated from bullets by a `border-t border-border/30` with `pt-6 mt-6`
+
+### Animation Details
+
+- **Overlay enter**: `opacity: 0, y: 40` to `opacity: 1, y: 0` over 0.4s
+- **Overlay exit**: `opacity: 0, y: 20` over 0.3s
+- **Bullet rows stagger**: Each row animates in with a 0.08s stagger delay (same as current)
+- **Desktop behavior**: Completely unchanged -- the `isMobile` check gates all overlay logic
 
 ### No New Dependencies
-All changes are CSS/Tailwind adjustments and minor JSX additions within the existing component.
+All changes use existing Framer Motion and Tailwind utilities.
 
