@@ -1,110 +1,95 @@
 
 
-# Redesign: "Why LevelUp" Section (TripleTen-Inspired)
+# Redesign: Student Logos Section (TripleTen-Inspired)
 
 ## What Changes
 
-The current "Why serious creators choose LevelUp" section (simple 3 dark cards with text) will be completely replaced with an interactive, expandable card layout inspired by TripleTen's design -- adapted to LevelUp's dark cinematic aesthetic.
+The current `StudentLogosSection` -- an auto-scrolling text marquee with a simple "Our students are from" headline -- will be completely replaced with a static, editorial-style credibility section inspired by the TripleTen screenshot. The new design is bolder, more informative, and eliminates the continuous animation in favor of a composed, high-impact layout.
 
 ## New Layout Structure
 
-### Top: Asymmetric Headline Block
-Instead of the current centered headline, the new layout uses a staggered/offset arrangement:
-- **Left side**: Large serif headline -- "The most intentional way to learn **the craft.**" (bold on the last words, matching TripleTen's style)
-- **Right side (offset lower)**: Supporting paragraph explaining LevelUp's philosophy
+### Top: Bold Impact Headline
+A large, centered serif headline with strategic bold emphasis -- adapted for LevelUp's creative education context:
 
-### Bottom: 3 Expandable Feature Cards
-Three cards in a row, each with a distinct visual treatment. Each card:
-- Shows a **headline** (with key words in bold) and an **expand icon** in the top-right corner
-- Has unique background styling to differentiate it visually
-- On click, **expands** to fill more width and reveals detailed content (description, bullet points, a quote or stat)
-- Uses `framer-motion` `AnimatePresence` and `layout` animations for smooth expand/collapse transitions
+> "The creative industry is competitive. **Your growth doesn't have to wait.**"
 
-### Card Details
+### Middle: Two Large Stat Callouts
+Two prominent statistics displayed side-by-side (centered), using animated counters (reusing the existing `AnimatedCounter` pattern from `CredibilityCues`):
 
-| Card | Headline | Collapsed Style | Expanded Content |
-|------|----------|----------------|-----------------|
-| 1 | "Mentors who've **lived the craft**" | Dark background (matches site bg), subtle amber glow | Description of mentors, 3 bullet points (e.g., "Award-winning filmmakers", "Decades of industry experience", "Direct feedback on your work"), a mentor quote |
-| 2 | "Practice that **feels real**" | Warm accent background (muted amber/gold tone, similar to TripleTen's peach card) | Description of hands-on approach, 3 bullet points (e.g., "Real sets and equipment", "Deadlines that matter", "Your work gets published"), a stat like "248 short films created" |
-| 3 | "A community that **stays**" | Dark background with a subtle background image overlay (one of the existing forge/carousel images at very low opacity) | Description of the ecosystem, 3 bullet points (e.g., "Alumni network across cities", "Ongoing collaborations", "Career support beyond the program"), a stat like "7 cities, 11 editions" |
+| Stat | Value | Description |
+|------|-------|-------------|
+| Left | **57,600+** | learners have enrolled across masterclasses, live programs, and residencies |
+| Right | **11** | editions of The Forge across 7 cities |
 
-### Interaction Behavior
-- Only one card can be expanded at a time (clicking another collapses the current one)
-- On mobile: cards stack vertically, expand inline (full width)
-- On desktop: the expanded card takes roughly 50-60% of the row width while the others shrink
-- A close (X) button appears in the top-right of the expanded card (replacing the expand icon)
-- Navigation arrows at the bottom-right to cycle through expanded cards (desktop only)
+### CTA Link
+A centered underline-style link below the stats:
+> "See what our alumni are building" with an external-link icon -- uses the existing `cta-underline` utility class
 
-## Technical Approach
+### Bottom: Brand/Institute Grid
+- Subheadline: **"Our students come from top studios, institutes, and platforms"**
+- A responsive grid of brand names (3 columns on mobile, 6 on desktop) displayed as styled text
+- Each brand name is rendered in uppercase with wide tracking, consistent with the existing aesthetic but laid out in a clean grid instead of a scrolling marquee
+- Brands are grouped into visual rows with subtle opacity variation for depth
 
-### Files Modified
-- **`src/components/WhyLevelUp.tsx`** -- Complete rewrite of this single component
+## Visual Layout
 
-### No New Files or Dependencies
-Everything uses existing tools: `framer-motion` (layout animations, AnimatePresence), Lucide icons (Maximize2, X, ChevronLeft, ChevronRight), and the existing Tailwind design tokens.
+```text
++------------------------------------------------------+
+|                                                        |
+|     The creative industry is competitive.              |
+|     Your growth doesn't have to wait.                  |
+|                                                        |
+|         57,600+                11                      |
+|     learners enrolled    editions of The Forge         |
+|                          across 7 cities               |
+|                                                        |
+|        See what our alumni are building [->]           |
+|                                                        |
+|   Our students come from top studios, institutes,      |
+|               and platforms                            |
+|                                                        |
+|   FTII       NID        Whistling    YRF       Excel   |
+|                         Woods                  Ent.    |
+|   TVF        Google     Amazon       Viacom18  Dharma  |
+|                         Prime                          |
+|   Red        Adobe                                     |
+|   Chillies                                             |
++------------------------------------------------------+
+```
+
+## Technical Details
+
+### File Modified
+- **`src/components/StudentLogosSection.tsx`** -- Complete rewrite of this single component
+
+### No New Dependencies
+Reuses `framer-motion` (already installed) for scroll-triggered fade-in and animated counters. Uses the existing `cta-underline` CSS utility and Tailwind design tokens.
 
 ### Key Implementation Details
 
-**State Management**:
-- `expandedIndex: number | null` -- tracks which card is expanded (null = all collapsed)
+**Animated Counters**: A simplified counter component (similar to the one in `CredibilityCues.tsx`) will animate the two stat values when they scroll into view, using `useInView` from Framer Motion.
 
-**Layout Animation**:
-- Uses `motion.div` with `layout` prop for smooth width/height transitions when a card expands
-- `AnimatePresence` wraps the expanded content so it fades in/out cleanly
+**Responsive Grid for Brands**:
+- Mobile: 3-column grid with centered text
+- Tablet: 4-column grid
+- Desktop: 6-column grid
+- Each brand name uses the existing `font-sans-body uppercase tracking-[0.15em] text-muted-foreground` styling
 
-**Responsive Behavior**:
-- Desktop (md+): 3-column grid where the expanded card spans wider via CSS grid `col-span` or flex-basis changes
-- Mobile: Single column stack, cards expand to show content below the headline
-
-**Styling Tokens** (all from existing palette):
-- Card 1 dark bg: `bg-card` or `bg-[hsl(220_12%_9%)]`
-- Card 2 warm bg: `bg-[hsl(30_30%_18%)]` with amber tint (adapted from TripleTen's peach to fit dark theme)
-- Card 3 dark bg with image: uses an existing asset as a low-opacity background
+**Scroll Animations**:
+- Headline fades in first
+- Stats animate in with a slight stagger (0.15s delay between left and right)
+- CTA link fades in after stats
+- Brand grid rows enter with staggered delays per row
 
 **Accessibility**:
-- `aria-label="Why choose LevelUp"` preserved on the section
-- Each card uses `role="button"` and `aria-expanded` attributes
-- Expand/collapse is keyboard-accessible (Enter/Space to toggle)
-- Expanded content uses `aria-live="polite"` so screen readers announce it
+- Section `aria-label` updated to reflect the new content
+- CTA link includes proper `aria-label` for the external link icon
+- Stats use `tabular-nums` for aligned number rendering
 
-**Animation Timing**:
-- Cards enter with staggered scroll-triggered animations (matching existing site patterns)
-- Expand/collapse transitions use `duration: 0.5s` with the site's standard easing `[0.25, 0.1, 0.25, 1]`
+### Styling Approach
+- Background remains `bg-background` to match the surrounding sections
+- Headline uses `font-serif-display` with the bold portion wrapped in a `<strong>` tag
+- Stats use a large `text-4xl md:text-6xl` serif font for the values, matching the TripleTen reference's dramatic sizing
+- Brand grid items have a subtle `hover:text-foreground` transition for interactivity
+- A thin `h-px bg-border` separator sits above and below the section for visual separation
 
-## Visual Summary
-
-```text
-Collapsed state:
-+--------------------------------------------------+
-|                                                    |
-|  The most intentional way        We changed how    |
-|  to learn the craft.             creators learn.   |
-|                                  Build real skills  |
-|                                  with mentors who   |
-|                                  built careers.     |
-|                                                    |
-|  +---------------+ +---------------+ +-----------+ |
-|  | Mentors who've| | Practice that | | A community| |
-|  | lived the     | | feels real    | | that stays | |
-|  | craft    [->] | |          [->] | |       [->] | |
-|  |               | |               | |            | |
-|  |               | |               | |            | |
-|  | (dark)        | | (warm amber)  | | (dark+img) | |
-|  +---------------+ +---------------+ +-----------+ |
-+--------------------------------------------------+
-
-Expanded state (card 2 open):
-+--------------------------------------------------+
-|  +------+ +-----------------------------+ +-----+ |
-|  |Card 1| | Practice that feels real [X]| |Card3| |
-|  |(small)| |                             | |(sm) | |
-|  |      | | Description text...         | |     | |
-|  |      | | * Real sets and equipment   | |     | |
-|  |      | | * Deadlines that matter     | |     | |
-|  |      | | * Your work gets published  | |     | |
-|  |      | |                      248    | |     | |
-|  |      | |                  short films | |     | |
-|  +------+ +-----------------------------+ +-----+ |
-|                                    [<-] [->]       |
-+--------------------------------------------------+
-```
