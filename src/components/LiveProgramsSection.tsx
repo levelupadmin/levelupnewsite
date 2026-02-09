@@ -105,24 +105,7 @@ const cardVariants = {
 
 const LiveProgramsSection = () => {
   return (
-    <section id="live-programs" aria-label="Live programs" className="relative py-12 md:py-16 bg-background">
-      {/* Accent line at top */}
-      <div
-        className="absolute top-0 left-0 right-0 h-[2px]"
-        style={{
-          background:
-            "linear-gradient(90deg, transparent 10%, hsl(var(--accent-live)) 50%, transparent 90%)",
-        }}
-      />
-
-      {/* Orange glow */}
-      <div
-        className="absolute top-0 left-0 right-0 h-64 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 0%, hsl(24 95% 53% / 0.05) 0%, transparent 70%)",
-        }}
-      />
+    <section id="live-programs" aria-label="Live programs" className="relative py-12 md:py-16 section-light">
 
       {/* Section header */}
       <motion.div

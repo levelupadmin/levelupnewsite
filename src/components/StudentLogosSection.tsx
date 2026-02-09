@@ -87,7 +87,7 @@ const StudentLogosSection = () => {
   return (
     <section
       aria-label="LevelUp credibility and community"
-      className="relative bg-background py-12 md:py-16"
+      className="relative section-light py-12 md:py-16"
     >
       <div className="max-w-4xl mx-auto px-6 md:px-12">
         {/* Top separator */}
