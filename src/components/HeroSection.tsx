@@ -32,12 +32,28 @@ const HeroSection = () => {
           backgroundPosition: '7px 13px, 137px 59px, 47px 191px, 211px 23px, 89px 127px, 173px 241px, 31px 83px, 251px 167px',
         }}
       />
-      {/* Layer 3: Grain/noise texture */}
+      {/* Layer 3a: Coarse grain (overlay, chunky) */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.55] mix-blend-soft-light"
+        className="absolute inset-0 pointer-events-none opacity-[0.50] mix-blend-overlay"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.45' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
           backgroundSize: "256px 256px",
+        }}
+      />
+      {/* Layer 3b: Fine grain (soft-light, dense) */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.30] mix-blend-soft-light"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.80' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E")`,
+          backgroundSize: "200px 200px",
+        }}
+      />
+      {/* Layer 3c: Micro-texture static (overlay, fine) */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.15] mix-blend-overlay"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 128 128' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)'/%3E%3C/svg%3E")`,
+          backgroundSize: "128px 128px",
         }}
       />
       {/* Layer 4: Primary center bloom */}
