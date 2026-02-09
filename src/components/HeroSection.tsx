@@ -6,42 +6,41 @@ import SplitTextReveal from "@/components/SplitTextReveal";
 const HeroSection = () => {
   return (
     <section id="hero" aria-label="Hero" className="relative flex flex-col bg-background pb-8 md:pb-12">
-      {/* Noise/grain texture overlay */}
+      {/* Subtle grid lines */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.06] mix-blend-overlay"
+        className="absolute inset-0 pointer-events-none opacity-[0.04]"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+          backgroundImage: `
+            linear-gradient(to right, hsl(0 0% 50%) 1px, transparent 1px),
+            linear-gradient(to bottom, hsl(0 0% 50%) 1px, transparent 1px)
+          `,
+          backgroundSize: "80px 80px",
+        }}
+      />
+      {/* Noise/grain texture */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.05] mix-blend-overlay"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
           backgroundSize: "128px 128px",
         }}
       />
-      {/* Light streaks radiating from center-top */}
+      {/* Smoky/cloudy center diffusion */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.07]"
+        className="absolute inset-0 pointer-events-none opacity-[0.12]"
         style={{
           background: `
-            conic-gradient(
-              from 180deg at 50% 0%,
-              transparent 30%,
-              hsl(0 0% 40% / 0.5) 35%,
-              transparent 40%,
-              transparent 44%,
-              hsl(0 0% 35% / 0.4) 46%,
-              transparent 48%,
-              transparent 52%,
-              hsl(0 0% 40% / 0.3) 54%,
-              transparent 56%,
-              transparent 60%,
-              hsl(0 0% 35% / 0.5) 65%,
-              transparent 70%
-            )
+            radial-gradient(ellipse 90% 50% at 50% 40%, hsl(0 0% 25%) 0%, transparent 70%),
+            radial-gradient(ellipse 60% 40% at 30% 30%, hsl(0 0% 20% / 0.5) 0%, transparent 60%),
+            radial-gradient(ellipse 50% 35% at 70% 50%, hsl(0 0% 18% / 0.4) 0%, transparent 55%)
           `,
         }}
       />
-      {/* Radial fade / vignette */}
+      {/* Edge vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `radial-gradient(ellipse 80% 60% at 50% 0%, transparent 30%, hsl(0 0% 4%) 100%)`,
+          background: `radial-gradient(ellipse 80% 70% at 50% 40%, transparent 20%, hsl(0 0% 4%) 100%)`,
         }}
       />
 
