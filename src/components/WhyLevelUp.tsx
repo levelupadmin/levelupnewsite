@@ -68,12 +68,15 @@ const cards: CardData[] = [
 /* ------------------------------------------------------------------ */
 
 const cardBgClasses = [
-  // Card 1 — dark with amber glow
   "bg-card",
-  // Card 2 — warm amber tone
   "bg-[hsl(30_30%_15%)]",
-  // Card 3 — dark with image overlay
   "bg-card",
+];
+
+const cardTopGradients = [
+  "linear-gradient(90deg, hsl(38 75% 55%) 0%, hsl(38 75% 55% / 0) 100%)",
+  "linear-gradient(90deg, hsl(35 60% 50%) 0%, hsl(30 40% 35% / 0) 100%)",
+  "linear-gradient(90deg, hsl(220 40% 50%) 0%, hsl(220 30% 45% / 0) 100%)",
 ];
 
 const cardGlows = [
@@ -165,7 +168,7 @@ const WhyLevelUp = () => {
           className={`flex ${
             isMobile ? "flex-col gap-4" : "flex-row gap-3 lg:gap-4"
           }`}
-          style={{ minHeight: isMobile ? undefined : 420 }}
+          style={{ minHeight: isMobile ? undefined : 460 }}
         >
           {cards.map((card, i) => {
             const isExpanded = expandedIndex === i;
@@ -181,13 +184,16 @@ const WhyLevelUp = () => {
               <motion.div
                 key={i}
                 layout
-                transition={TRANSITION}
                 role="button"
                 tabIndex={0}
                 aria-expanded={isExpanded}
                 onClick={() => toggle(i)}
                 onKeyDown={(e) => handleKeyDown(e, i)}
-                className={`relative ${cardBgClasses[i]} rounded-sm overflow-hidden cursor-pointer group focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary`}
+                className={`relative ${cardBgClasses[i]} rounded-sm overflow-hidden cursor-pointer group focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary transition-all duration-300 ${
+                  !isExpanded
+                    ? "hover:ring-1 hover:ring-white/10 hover:-translate-y-0.5 hover:brightness-110"
+                    : ""
+                }`}
                 style={{
                   flexBasis: isMobile ? "auto" : flexBasis,
                   flexShrink: 0,
@@ -196,7 +202,13 @@ const WhyLevelUp = () => {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
+                transition={{ ...TRANSITION, delay: i * 0.1 }}
               >
+                <div
+                  className="absolute top-0 left-0 right-0 h-[2px] pointer-events-none"
+                  style={{ background: cardTopGradients[i] }}
+                />
+
                 {/* Subtle glow */}
                 <div
                   className="absolute inset-0 pointer-events-none"
@@ -220,7 +232,7 @@ const WhyLevelUp = () => {
                   layout
                   className="relative z-10 p-6 md:p-8 lg:p-10 flex flex-col justify-between h-full"
                   style={{
-                    minHeight: isMobile ? (isExpanded ? "auto" : 200) : 420,
+                    minHeight: isMobile ? (isExpanded ? "auto" : 220) : 460,
                   }}
                 >
                   {/* Top row: headline + icon */}
@@ -281,11 +293,11 @@ const WhyLevelUp = () => {
                           </ul>
 
                           {/* Stat highlight */}
-                          <div className="pt-4 border-t border-border/30">
-                            <span className="font-serif-display text-3xl md:text-4xl font-medium text-gradient-amber">
+                          <div className="pt-5 border-t border-border/30 flex items-end gap-3">
+                            <span className="font-serif-display text-4xl md:text-5xl font-medium text-gradient-amber leading-none">
                               {card.highlight.value}
                             </span>
-                            <span className="block font-sans-body text-xs text-muted-foreground mt-1 tracking-wide uppercase">
+                            <span className="font-sans-body text-xs md:text-sm text-muted-foreground tracking-wide uppercase pb-1">
                               {card.highlight.label}
                             </span>
                           </div>
