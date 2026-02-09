@@ -111,7 +111,6 @@ const MobileOverlay = ({ card, cardIndex, onClose }: MobileOverlayProps) => {
     if (!el) return;
     const handleScroll = () => {
       const { scrollTop, scrollHeight, clientHeight } = el;
-      // If scrolled to the very bottom (with a small buffer), close
       if (scrollTop + clientHeight >= scrollHeight - 2) {
         onClose();
       }
@@ -128,7 +127,7 @@ const MobileOverlay = ({ card, cardIndex, onClose }: MobileOverlayProps) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       transition={{ duration: 0.4, ease: EASE }}
-      className={`fixed inset-0 z-50 ${cardBgClasses[cardIndex]} overflow-y-auto`}
+      className={`fixed inset-0 z-[60] ${cardBgClasses[cardIndex]} overflow-y-auto`}
     >
       {/* Top gradient bar */}
       <div
@@ -154,20 +153,22 @@ const MobileOverlay = ({ card, cardIndex, onClose }: MobileOverlayProps) => {
         />
       )}
 
-      {/* Close button */}
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          onClose();
-        }}
-        aria-label="Close"
-        className="absolute top-6 right-6 z-10 w-10 h-10 rounded-full border border-border/40 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
-      >
-        <X size={16} />
-      </button>
+      {/* Close button — sticky so it's always visible when scrolling */}
+      <div className="sticky top-0 z-20 flex justify-end px-5 pt-5">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onClose();
+          }}
+          aria-label="Close"
+          className="w-11 h-11 rounded-full bg-card/80 backdrop-blur-sm border border-border/40 flex items-center justify-center text-foreground/80 active:scale-95 transition-all"
+        >
+          <X size={18} />
+        </button>
+      </div>
 
       {/* Content — extra bottom padding so user can scroll past to close */}
-      <div className="relative z-10 px-6 pt-16 pb-10 flex flex-col" style={{ minHeight: "calc(100vh + 60px)" }}>
+      <div className="relative z-10 px-7 pt-6 pb-10 flex flex-col" style={{ minHeight: "calc(100vh + 60px)" }}>
         {/* Headline */}
         <h3 className="font-serif-display text-2xl font-normal text-hero-headline leading-[1.3] tracking-tight mb-5">
           {card.headline}
