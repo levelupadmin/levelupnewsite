@@ -310,7 +310,7 @@ const WhyLevelUp = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div
           className={`flex ${
-            isMobile ? "flex-col gap-4" : "flex-row gap-3 lg:gap-4"
+            isMobile ? "flex-col gap-5" : "flex-row gap-3 lg:gap-4"
           }`}
           style={{ minHeight: isMobile ? undefined : 460 }}
         >
@@ -374,16 +374,24 @@ const WhyLevelUp = () => {
                 {/* Card content wrapper */}
                 <motion.div
                   layout
-                  className="relative z-10 p-6 md:p-8 lg:p-10 flex flex-col justify-between h-full"
+                  className={`relative z-10 flex flex-col justify-between h-full ${
+                    isMobile
+                      ? "px-7 py-8"
+                      : "p-6 md:p-8 lg:p-10"
+                  }`}
                   style={{
-                    minHeight: isMobile ? 280 : 460,
+                    minHeight: isMobile ? 340 : 460,
                   }}
                 >
-                  {/* Top row: headline + icon (desktop only icon) */}
+                  {/* Top row: headline + icon */}
                   <div className="flex items-start justify-between gap-4">
                     <motion.h3
                       layout="position"
-                      className="font-serif-display text-lg md:text-xl lg:text-2xl font-normal text-hero-headline leading-[1.3] tracking-tight"
+                      className={`font-serif-display font-normal text-hero-headline leading-[1.25] tracking-tight ${
+                        isMobile
+                          ? "text-[1.45rem]"
+                          : "text-lg md:text-xl lg:text-2xl"
+                      }`}
                     >
                       {card.headline}
                     </motion.h3>
@@ -402,21 +410,35 @@ const WhyLevelUp = () => {
                         ease: "easeInOut",
                         delay: 0.8 + i * 0.15,
                       }}
-                      className="shrink-0 mt-1 w-8 h-8 rounded-full border border-border/40 flex items-center justify-center text-muted-foreground group-hover:text-foreground transition-colors"
+                      className={`shrink-0 mt-1 rounded-full border border-border/40 flex items-center justify-center text-muted-foreground group-hover:text-foreground transition-colors ${
+                        isMobile ? "w-10 h-10" : "w-8 h-8"
+                      }`}
                     >
                       {isExpanded && !isMobile ? (
                         <X size={14} />
                       ) : (
-                        <Maximize2 size={14} />
+                        <Maximize2 size={isMobile ? 16 : 14} />
                       )}
                     </motion.div>
                   </div>
 
-                  {/* Mobile: show description in collapsed state */}
+                  {/* Mobile: show description + stat preview in collapsed state */}
                   {isMobile && (
-                    <p className="font-sans-body text-sm text-hero-subtext/70 leading-relaxed mt-4 line-clamp-3">
-                      {card.description}
-                    </p>
+                    <div className="flex flex-col flex-1 justify-between mt-5">
+                      <p className="font-sans-body text-[0.9rem] text-hero-subtext/70 leading-[1.7] max-w-[85%]">
+                        {card.description}
+                      </p>
+
+                      {/* Stat preview at bottom */}
+                      <div className="mt-6 pt-5 border-t border-border/20 flex items-end gap-3">
+                        <span className="font-serif-display text-3xl font-medium text-gradient-amber leading-none">
+                          {card.highlight.value}
+                        </span>
+                        <span className="font-sans-body text-xs text-muted-foreground/60 tracking-wide uppercase pb-0.5">
+                          {card.highlight.label}
+                        </span>
+                      </div>
+                    </div>
                   )}
 
                   {/* Desktop expanded content (inline) */}
@@ -471,17 +493,11 @@ const WhyLevelUp = () => {
                     </AnimatePresence>
                   )}
 
-                  {/* Bottom — mobile: subtle line; desktop: collapsed hint */}
-                  {isMobile ? (
-                    <motion.div layout="position" className="mt-auto pt-6">
+                  {/* Desktop: collapsed hint line */}
+                  {!isMobile && !isExpanded && (
+                    <motion.div layout="position" className="mt-auto pt-8">
                       <div className="h-[1px] bg-border/30 w-8" />
                     </motion.div>
-                  ) : (
-                    !isExpanded && (
-                      <motion.div layout="position" className="mt-auto pt-8">
-                        <div className="h-[1px] bg-border/30 w-8" />
-                      </motion.div>
-                    )
                   )}
                 </motion.div>
               </motion.div>
