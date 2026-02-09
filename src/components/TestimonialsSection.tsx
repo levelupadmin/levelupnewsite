@@ -182,7 +182,7 @@ const TestimonialsSection = () => {
               {testimonials.map((t, index) => (
                 <div
                   key={`${t.name}-${index}`}
-                  className="flex-none w-[85vw] sm:w-[75vw] md:w-[680px] pr-4 md:pr-6"
+                  className="flex-none w-[85vw] sm:w-[75vw] md:w-[820px] pr-5 md:pr-8"
                 >
                   <TestimonialSlide testimonial={t} />
                 </div>
@@ -211,16 +211,19 @@ const TestimonialsSection = () => {
 
           {/* Arrow buttons */}
           <div className="flex items-center gap-2">
+            <span className="font-sans-body text-xs text-muted-foreground tabular-nums">
+              {String(selectedIndex + 1).padStart(2, '0')} / {String(testimonials.length).padStart(2, '0')}
+            </span>
             <button
               onClick={() => emblaApi?.scrollPrev()}
-              className="w-10 h-10 border border-border rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
+              className="w-11 h-11 border border-border rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={() => emblaApi?.scrollNext()}
-              className="w-10 h-10 border border-border rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
+              className="w-11 h-11 border border-border rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
               aria-label="Next testimonial"
             >
               <ChevronRight className="w-5 h-5" />
@@ -236,14 +239,14 @@ const TestimonialsSection = () => {
 
 const TestimonialSlide = ({ testimonial }: { testimonial: Testimonial }) => {
   return (
-    <div className="flex flex-col md:flex-row rounded-sm overflow-hidden h-full">
+    <div className="group flex flex-col md:flex-row rounded-sm overflow-hidden h-full border border-border/50 min-h-[380px] md:min-h-[420px]">
       {/* Photo panel */}
       <div className="relative md:w-1/2 shrink-0">
-        <div className="relative aspect-[3/4] md:aspect-auto md:h-full overflow-hidden">
+        <div className="relative aspect-[4/5] md:aspect-auto md:h-full overflow-hidden">
           <img
             src={testimonial.image}
             alt={`${testimonial.name}, ${testimonial.role}`}
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             loading="lazy"
             decoding="async"
           />
@@ -253,7 +256,7 @@ const TestimonialSlide = ({ testimonial }: { testimonial: Testimonial }) => {
 
           {/* Name / role overlay */}
           <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
-            <p className="font-serif-display text-base md:text-lg font-medium text-hero-headline leading-snug">
+            <p className="font-serif-display text-lg md:text-xl font-medium text-hero-headline leading-snug">
               {testimonial.name}
             </p>
             <p className="font-sans-body text-[11px] md:text-xs tracking-[0.15em] uppercase text-foreground/50 mt-1">
@@ -267,10 +270,13 @@ const TestimonialSlide = ({ testimonial }: { testimonial: Testimonial }) => {
       </div>
 
       {/* Quote panel */}
-      <div className="md:w-1/2 bg-card flex flex-col justify-between p-5 md:p-7">
-        <blockquote className="font-serif-display text-lg md:text-xl lg:text-2xl text-hero-headline leading-snug md:leading-[1.3] italic">
-          "{testimonial.pullQuote}"
-        </blockquote>
+      <div className="md:w-1/2 bg-card flex flex-col justify-between p-6 md:p-10 border-l-0 md:border-l-2 border-primary/20">
+        <div>
+          <span className="font-serif-display text-5xl md:text-6xl text-primary/15 leading-none select-none block mb-3">"</span>
+          <blockquote className="font-serif-display text-xl md:text-2xl lg:text-3xl text-hero-headline leading-[1.25] italic">
+            {testimonial.pullQuote}
+          </blockquote>
+        </div>
 
         <a
           href="#"
