@@ -1,4 +1,6 @@
-import { motion } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 
 const brands = [
   "FTII",
@@ -15,53 +17,200 @@ const brands = [
   "Adobe",
 ];
 
-const MarqueeRow = () => (
-  <div className="flex items-center gap-12 md:gap-16">
-    {brands.map((brand) => (
-      <span
-        key={brand}
-        className="font-sans-body text-lg md:text-xl lg:text-2xl font-medium uppercase tracking-[0.2em] text-muted-foreground whitespace-nowrap select-none"
-      >
-        {brand}
-      </span>
-    ))}
-  </div>
-);
+const stats = [
+  {
+    value: 57600,
+    suffix: "+",
+    hasComma: true,
+    label: "learners have enrolled across masterclasses, live programs, and residencies",
+  },
+  {
+    value: 11,
+    suffix: "",
+    hasComma: false,
+    label: "editions of The Forge across 7 cities",
+  },
+];
+
+function formatNumber(num: number, hasComma?: boolean): string {
+  if (hasComma) return Math.floor(num).toLocaleString();
+  return Math.floor(num).toString();
+}
+
+const AnimatedCounter = ({
+  target,
+  suffix = "",
+  hasComma = false,
+  isInView,
+}: {
+  target: number;
+  suffix: string;
+  hasComma?: boolean;
+  isInView: boolean;
+}) => {
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    if (!isInView) return;
+
+    const duration = 1800;
+    const startTime = performance.now();
+
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(eased * target);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [isInView, target]);
+
+  return (
+    <span>
+      {formatNumber(value, hasComma)}
+      {suffix}
+    </span>
+  );
+};
+
+const ease = [0.25, 0.1, 0.25, 1] as const;
 
 const StudentLogosSection = () => {
+  const statsRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(statsRef, { once: true, margin: "-50px" });
+
   return (
-    <section aria-label="Our students are from" className="relative bg-background py-12 md:py-16 overflow-hidden">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.7 }}
-      >
-        {/* Thin separator */}
-        <div className="w-12 h-px bg-border mx-auto mb-10 md:mb-12" />
+    <section
+      aria-label="LevelUp credibility and community"
+      className="relative bg-background py-12 md:py-16"
+    >
+      <div className="max-w-4xl mx-auto px-6 md:px-12">
+        {/* Top separator */}
+        <motion.div
+          initial={{ width: 0 }}
+          whileInView={{ width: 48 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease }}
+          className="h-px bg-border mx-auto mb-10 md:mb-12"
+        />
 
         {/* Headline */}
-        <h2 className="font-serif-display text-2xl md:text-3xl lg:text-4xl text-center text-muted-foreground mb-10 md:mb-12 px-6">
-          Our students are from
-        </h2>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.7, ease }}
+          className="font-serif-display text-2xl md:text-3xl lg:text-[2.5rem] lg:leading-[1.25] text-center text-foreground max-w-2xl mx-auto mb-12 md:mb-16"
+        >
+          The creative industry is competitive.{" "}
+          <strong className="text-gradient-amber">
+            Your growth doesn't have to wait.
+          </strong>
+        </motion.h2>
 
-        {/* Marquee container */}
-        <div className="relative">
-          {/* Fade left */}
-          <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 z-10 bg-gradient-to-r from-background to-transparent pointer-events-none" />
-
-          {/* Fade right */}
-          <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 z-10 bg-gradient-to-l from-background to-transparent pointer-events-none" />
-
-          {/* Scrolling track */}
-          <div className="flex animate-scroll-left">
-            <MarqueeRow />
-            <div className="w-12 md:w-16 shrink-0" />
-            <MarqueeRow />
-            <div className="w-12 md:w-16 shrink-0" />
-          </div>
+        {/* Stats */}
+        <div
+          ref={statsRef}
+          className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 mb-10 md:mb-14 max-w-xl mx-auto"
+        >
+          {stats.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: i * 0.15, ease }}
+              className="text-center"
+            >
+              <p className="font-serif-display text-4xl md:text-5xl lg:text-6xl font-medium text-cue-value tracking-tight tabular-nums">
+                <AnimatedCounter
+                  target={stat.value}
+                  suffix={stat.suffix}
+                  hasComma={stat.hasComma}
+                  isInView={isInView}
+                />
+              </p>
+              <p className="font-sans-body text-xs md:text-sm text-muted-foreground mt-3 leading-relaxed max-w-[220px] mx-auto">
+                {stat.label}
+              </p>
+            </motion.div>
+          ))}
         </div>
-      </motion.div>
+
+        {/* CTA Link */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.35, ease }}
+          className="text-center mb-12 md:mb-16"
+        >
+          <a
+            href="#testimonials"
+            className="cta-underline font-sans-body text-sm text-primary inline-flex items-center gap-1.5 transition-colors hover:text-primary/80"
+            aria-label="See what our alumni are building"
+          >
+            See what our alumni are building
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </a>
+        </motion.div>
+
+        {/* Brand grid separator */}
+        <motion.div
+          initial={{ width: 0 }}
+          whileInView={{ width: 48 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease }}
+          className="h-px bg-border mx-auto mb-8 md:mb-10"
+        />
+
+        {/* Brand grid headline */}
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease }}
+          className="font-sans-body text-sm text-muted-foreground text-center mb-8 md:mb-10"
+        >
+          Our students come from top studios, institutes, and platforms
+        </motion.p>
+
+        {/* Brand grid */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-30px" }}
+          transition={{ duration: 0.8, delay: 0.1, ease }}
+          className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-y-5 gap-x-4 md:gap-y-6 max-w-3xl mx-auto"
+        >
+          {brands.map((brand, i) => (
+            <motion.span
+              key={brand}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.05 * i, ease }}
+              className="font-sans-body text-xs md:text-sm uppercase tracking-[0.15em] text-muted-foreground text-center select-none transition-colors duration-300 hover:text-foreground"
+            >
+              {brand}
+            </motion.span>
+          ))}
+        </motion.div>
+
+        {/* Bottom separator */}
+        <motion.div
+          initial={{ width: 0 }}
+          whileInView={{ width: 48 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease }}
+          className="h-px bg-border mx-auto mt-10 md:mt-12"
+        />
+      </div>
     </section>
   );
 };
