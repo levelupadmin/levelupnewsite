@@ -6,16 +6,44 @@ import SplitTextReveal from "@/components/SplitTextReveal";
 const HeroSection = () => {
   return (
     <section id="hero" aria-label="Hero" className="relative flex flex-col bg-background pb-8 md:pb-12">
-      {/* Dot grid pattern overlay */}
+      {/* Noise/grain texture overlay */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.35]"
+        className="absolute inset-0 pointer-events-none opacity-[0.06] mix-blend-overlay"
         style={{
-          backgroundImage: `radial-gradient(circle, hsl(0 0% 30%) 1px, transparent 1px)`,
-          backgroundSize: "24px 24px",
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+          backgroundSize: "128px 128px",
         }}
       />
-      {/* Subtle vignette fade at edges */}
-      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_40%,hsl(0_0%_4%)_100%)]" />
+      {/* Light streaks radiating from center-top */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.07]"
+        style={{
+          background: `
+            conic-gradient(
+              from 180deg at 50% 0%,
+              transparent 30%,
+              hsl(0 0% 40% / 0.5) 35%,
+              transparent 40%,
+              transparent 44%,
+              hsl(0 0% 35% / 0.4) 46%,
+              transparent 48%,
+              transparent 52%,
+              hsl(0 0% 40% / 0.3) 54%,
+              transparent 56%,
+              transparent 60%,
+              hsl(0 0% 35% / 0.5) 65%,
+              transparent 70%
+            )
+          `,
+        }}
+      />
+      {/* Radial fade / vignette */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(ellipse 80% 60% at 50% 0%, transparent 30%, hsl(0 0% 4%) 100%)`,
+        }}
+      />
 
       {/* Headline area */}
       <div className="relative z-10 flex flex-col items-center justify-center pt-24 md:pt-36 lg:pt-40 px-5 md:px-12">
