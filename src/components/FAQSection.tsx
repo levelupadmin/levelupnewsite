@@ -68,24 +68,22 @@ const faqs = [
 
 // Subtle tonal variations using HSL shifts within the dark palette
 const cardStyles = [
-  "bg-[hsl(220_12%_9%)] border-[hsl(220_10%_18%)]",
-  "bg-[hsl(225_14%_10%)] border-[hsl(225_12%_18%)]",
-  "bg-[hsl(215_10%_8%)] border-[hsl(215_8%_16%)]",
-  "bg-[hsl(230_12%_11%)] border-[hsl(230_10%_19%)]",
-  "bg-[hsl(218_11%_9%)] border-[hsl(218_9%_17%)]",
-  "bg-[hsl(222_13%_10%)] border-[hsl(222_11%_18%)]",
-  "bg-[hsl(216_10%_8.5%)] border-[hsl(216_8%_16.5%)]",
-  "bg-[hsl(228_12%_10.5%)] border-[hsl(228_10%_18.5%)]",
+  "bg-card border-border",
+  "bg-[hsl(0_0%_99%)] border-[hsl(0_0%_90%)]",
+  "bg-card border-border",
+  "bg-[hsl(40_20%_98%)] border-[hsl(40_15%_90%)]",
+  "bg-card border-border",
+  "bg-[hsl(0_0%_99%)] border-[hsl(0_0%_90%)]",
+  "bg-card border-border",
+  "bg-[hsl(40_20%_98%)] border-[hsl(40_15%_90%)]",
 ];
 
-// Featured cards get a warm amber-tinted background
-const featuredStyle = "bg-[hsl(35_12%_10%)] border-[hsl(38_15%_18%)]";
+// Featured cards get a warm amber-tinted background on light
+const featuredStyle = "bg-[hsl(35_40%_96%)] border-[hsl(35_30%_85%)]";
 
 const FAQSection = () => {
   return (
-    <section id="faq" aria-label="Frequently asked questions" className="relative bg-background py-12 md:py-16">
-      {/* Ambient glow */}
-      <div className="absolute inset-0 bg-gradient-amber-glow pointer-events-none" />
+    <section id="faq" aria-label="Frequently asked questions" className="relative section-light py-12 md:py-16">
 
       <div className="relative max-w-6xl mx-auto px-5 md:px-6">
         {/* Headline */}
