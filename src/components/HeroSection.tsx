@@ -5,9 +5,17 @@ import SplitTextReveal from "@/components/SplitTextReveal";
 
 const HeroSection = () => {
   return (
-    <section id="hero" aria-label="Hero" className="relative flex flex-col bg-gradient-cinematic pb-8 md:pb-12">
-      {/* Subtle amber glow at top */}
-      <div className="absolute inset-0 bg-gradient-amber-glow pointer-events-none" />
+    <section id="hero" aria-label="Hero" className="relative flex flex-col bg-background pb-8 md:pb-12">
+      {/* Dot grid pattern overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.35]"
+        style={{
+          backgroundImage: `radial-gradient(circle, hsl(0 0% 30%) 1px, transparent 1px)`,
+          backgroundSize: "24px 24px",
+        }}
+      />
+      {/* Subtle vignette fade at edges */}
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_40%,hsl(0_0%_4%)_100%)]" />
 
       {/* Headline area */}
       <div className="relative z-10 flex flex-col items-center justify-center pt-24 md:pt-36 lg:pt-40 px-5 md:px-12">
