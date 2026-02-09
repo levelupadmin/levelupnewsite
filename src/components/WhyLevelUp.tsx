@@ -1,6 +1,6 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Maximize2, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import carouselImg from "@/assets/carousel-3.jpg";
 
@@ -93,6 +93,111 @@ const EASE = [0.25, 0.1, 0.25, 1] as const;
 const TRANSITION = { duration: 0.5, ease: EASE };
 
 /* ------------------------------------------------------------------ */
+/*  Mobile Overlay Component                                           */
+/* ------------------------------------------------------------------ */
+
+interface MobileOverlayProps {
+  card: CardData;
+  cardIndex: number;
+  onClose: () => void;
+}
+
+const MobileOverlay = ({ card, cardIndex, onClose }: MobileOverlayProps) => {
+  return (
+    <motion.div
+      key={`overlay-${cardIndex}`}
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.4, ease: EASE }}
+      className={`fixed inset-0 z-50 ${cardBgClasses[cardIndex]} overflow-y-auto`}
+    >
+      {/* Top gradient bar */}
+      <div
+        className="absolute top-0 left-0 right-0 h-[2px] pointer-events-none"
+        style={{ background: cardTopGradients[cardIndex] }}
+      />
+
+      {/* Subtle glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: cardGlows[cardIndex] }}
+      />
+
+      {/* Card 3 — background image overlay */}
+      {cardIndex === 2 && (
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.07]"
+          style={{
+            backgroundImage: `url(${carouselImg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+      )}
+
+      {/* Close button */}
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onClose();
+        }}
+        aria-label="Close"
+        className="absolute top-6 right-6 z-10 w-10 h-10 rounded-full border border-border/40 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+      >
+        <X size={16} />
+      </button>
+
+      {/* Content */}
+      <div className="relative z-10 px-6 pt-16 pb-10 flex flex-col min-h-screen">
+        {/* Headline */}
+        <h3 className="font-serif-display text-2xl font-normal text-hero-headline leading-[1.3] tracking-tight mb-5">
+          {card.headline}
+        </h3>
+
+        {/* Description */}
+        <p className="font-sans-body text-sm text-hero-subtext leading-relaxed mb-8 max-w-sm">
+          {card.description}
+        </p>
+
+        {/* Bullet items as bordered cards */}
+        <div className="space-y-2.5 mb-8">
+          {card.bullets.map((bullet, bi) => (
+            <motion.div
+              key={bi}
+              initial={{ opacity: 0, x: -12 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                duration: 0.35,
+                delay: 0.15 + bi * 0.08,
+                ease: EASE,
+              }}
+              className="border border-border/30 rounded-sm px-4 py-3.5"
+            >
+              <span className="font-sans-body text-sm text-foreground/80">
+                {bullet}
+              </span>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Stat highlight */}
+        <div className="mt-auto pt-6 border-t border-border/30">
+          <div className="flex items-end gap-3">
+            <span className="font-serif-display text-5xl font-medium text-gradient-amber leading-none">
+              {card.highlight.value}
+            </span>
+            <span className="font-sans-body text-sm text-muted-foreground tracking-wide uppercase pb-1">
+              {card.highlight.label}
+            </span>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+/* ------------------------------------------------------------------ */
 /*  Component                                                          */
 /* ------------------------------------------------------------------ */
 
@@ -127,6 +232,16 @@ const WhyLevelUp = () => {
     },
     [toggle]
   );
+
+  // Body scroll lock when mobile overlay is open
+  useEffect(() => {
+    if (isMobile && expandedIndex !== null) {
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = "";
+      };
+    }
+  }, [isMobile, expandedIndex]);
 
   return (
     <section
@@ -232,10 +347,10 @@ const WhyLevelUp = () => {
                   layout
                   className="relative z-10 p-6 md:p-8 lg:p-10 flex flex-col justify-between h-full"
                   style={{
-                    minHeight: isMobile ? (isExpanded ? "auto" : 220) : 460,
+                    minHeight: isMobile ? 280 : 460,
                   }}
                 >
-                  {/* Top row: headline + icon */}
+                  {/* Top row: headline + icon (desktop only icon) */}
                   <div className="flex items-start justify-between gap-4">
                     <motion.h3
                       layout="position"
@@ -244,76 +359,94 @@ const WhyLevelUp = () => {
                       {card.headline}
                     </motion.h3>
 
-                    <motion.div
-                      layout="position"
-                      className="shrink-0 mt-1 w-8 h-8 rounded-full border border-border/40 flex items-center justify-center text-muted-foreground group-hover:text-foreground transition-colors"
-                    >
-                      {isExpanded ? (
-                        <X size={14} />
-                      ) : (
-                        <Maximize2 size={14} />
-                      )}
-                    </motion.div>
-                  </div>
-
-                  {/* Expanded content */}
-                  <AnimatePresence mode="wait">
-                    {isExpanded && (
+                    {/* Desktop: show expand/close icon */}
+                    {!isMobile && (
                       <motion.div
-                        key={`expanded-${i}`}
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.4, ease: EASE }}
-                        className="overflow-hidden"
-                        aria-live="polite"
+                        layout="position"
+                        className="shrink-0 mt-1 w-8 h-8 rounded-full border border-border/40 flex items-center justify-center text-muted-foreground group-hover:text-foreground transition-colors"
                       >
-                        <div className="pt-6 md:pt-8 space-y-5">
-                          <p className="font-sans-body text-sm md:text-[0.9rem] text-hero-subtext leading-relaxed max-w-md">
-                            {card.description}
-                          </p>
-
-                          <ul className="space-y-2.5">
-                            {card.bullets.map((bullet, bi) => (
-                              <motion.li
-                                key={bi}
-                                initial={{ opacity: 0, x: -12 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{
-                                  duration: 0.35,
-                                  delay: 0.15 + bi * 0.08,
-                                  ease: EASE,
-                                }}
-                                className="flex items-start gap-3 font-sans-body text-sm text-foreground/80"
-                              >
-                                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary/60 shrink-0" />
-                                {bullet}
-                              </motion.li>
-                            ))}
-                          </ul>
-
-                          {/* Stat highlight */}
-                          <div className="pt-5 border-t border-border/30 flex items-end gap-3">
-                            <span className="font-serif-display text-4xl md:text-5xl font-medium text-gradient-amber leading-none">
-                              {card.highlight.value}
-                            </span>
-                            <span className="font-sans-body text-xs md:text-sm text-muted-foreground tracking-wide uppercase pb-1">
-                              {card.highlight.label}
-                            </span>
-                          </div>
-                        </div>
+                        {isExpanded ? (
+                          <X size={14} />
+                        ) : (
+                          <ArrowRight size={14} />
+                        )}
                       </motion.div>
                     )}
-                  </AnimatePresence>
+                  </div>
 
-                  {/* Bottom — collapsed hint (visible when not expanded) */}
-                  {!isExpanded && (
-                    <motion.div
-                      layout="position"
-                      className="mt-auto pt-8"
-                    >
-                      <div className="h-[1px] bg-border/30 w-8" />
+                  {/* Mobile: show description in collapsed state */}
+                  {isMobile && (
+                    <p className="font-sans-body text-sm text-hero-subtext/70 leading-relaxed mt-4 line-clamp-3">
+                      {card.description}
+                    </p>
+                  )}
+
+                  {/* Desktop expanded content (inline) */}
+                  {!isMobile && (
+                    <AnimatePresence mode="wait">
+                      {isExpanded && (
+                        <motion.div
+                          key={`expanded-${i}`}
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.4, ease: EASE }}
+                          className="overflow-hidden"
+                          aria-live="polite"
+                        >
+                          <div className="pt-6 md:pt-8 space-y-5">
+                            <p className="font-sans-body text-sm md:text-[0.9rem] text-hero-subtext leading-relaxed max-w-md">
+                              {card.description}
+                            </p>
+
+                            <ul className="space-y-2.5">
+                              {card.bullets.map((bullet, bi) => (
+                                <motion.li
+                                  key={bi}
+                                  initial={{ opacity: 0, x: -12 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{
+                                    duration: 0.35,
+                                    delay: 0.15 + bi * 0.08,
+                                    ease: EASE,
+                                  }}
+                                  className="flex items-start gap-3 font-sans-body text-sm text-foreground/80"
+                                >
+                                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary/60 shrink-0" />
+                                  {bullet}
+                                </motion.li>
+                              ))}
+                            </ul>
+
+                            {/* Stat highlight */}
+                            <div className="pt-5 border-t border-border/30 flex items-end gap-3">
+                              <span className="font-serif-display text-4xl md:text-5xl font-medium text-gradient-amber leading-none">
+                                {card.highlight.value}
+                              </span>
+                              <span className="font-sans-body text-xs md:text-sm text-muted-foreground tracking-wide uppercase pb-1">
+                                {card.highlight.label}
+                              </span>
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  )}
+
+                  {/* Bottom — mobile: "Learn more" button; desktop: collapsed hint */}
+                  {isMobile ? (
+                    <motion.div layout="position" className="mt-auto pt-6">
+                      <span className="inline-flex items-center gap-2 font-sans-body text-sm text-foreground/70 group-hover:text-foreground transition-colors">
+                        Learn more
+                        <ArrowRight size={14} />
+                      </span>
                     </motion.div>
+                  ) : (
+                    !isExpanded && (
+                      <motion.div layout="position" className="mt-auto pt-8">
+                        <div className="h-[1px] bg-border/30 w-8" />
+                      </motion.div>
+                    )
                   )}
                 </motion.div>
               </motion.div>
@@ -347,6 +480,17 @@ const WhyLevelUp = () => {
           </motion.div>
         )}
       </div>
+
+      {/* ── Mobile full-screen overlay ── */}
+      <AnimatePresence>
+        {isMobile && expandedIndex !== null && (
+          <MobileOverlay
+            card={cards[expandedIndex]}
+            cardIndex={expandedIndex}
+            onClose={() => setExpandedIndex(null)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 };
