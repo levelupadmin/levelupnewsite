@@ -102,6 +102,8 @@ interface MobileOverlayProps {
   onClose: () => void;
 }
 
+const SWIPE_CLOSE_THRESHOLD = 120;
+
 const MobileOverlay = ({ card, cardIndex, onClose }: MobileOverlayProps) => {
   return (
     <motion.div
@@ -110,6 +112,15 @@ const MobileOverlay = ({ card, cardIndex, onClose }: MobileOverlayProps) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       transition={{ duration: 0.4, ease: EASE }}
+      drag="y"
+      dragConstraints={{ top: 0, bottom: 0 }}
+      dragElastic={{ top: 0, bottom: 0.6 }}
+      onDragEnd={(_e, info) => {
+        if (info.offset.y > SWIPE_CLOSE_THRESHOLD) {
+          onClose();
+        }
+      }}
+      style={{ touchAction: "pan-x" }}
       className={`fixed inset-0 z-50 ${cardBgClasses[cardIndex]} overflow-y-auto`}
     >
       {/* Top gradient bar */}
