@@ -144,10 +144,10 @@ const MobileOverlay = ({ card, cardIndex, onClose }: MobileOverlayProps) => {
     <motion.div
       ref={scrollRef}
       key={`overlay-${cardIndex}`}
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: Math.max(0, dragY * 0.4), scale: 1 - Math.min(dragY * 0.0003, 0.05) }}
-      exit={{ opacity: 0, y: 100 }}
-      transition={dragY > 0 ? { duration: 0 } : { duration: 0.4, ease: EASE }}
+      initial={{ opacity: 0, y: 40, scale: 0.92 }}
+      animate={{ opacity: 1, y: Math.max(0, dragY * 0.4), scale: dragY > 0 ? 1 - Math.min(dragY * 0.0003, 0.05) : 1 }}
+      exit={{ opacity: 0, y: 100, scale: 0.95 }}
+      transition={dragY > 0 ? { duration: 0 } : { duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
       drag="y"
       dragConstraints={{ top: 0, bottom: 0 }}
       dragElastic={{ top: 0, bottom: 0.6 }}
