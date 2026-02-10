@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Flame, Users, MapPin } from "lucide-react";
-import ForgeCarousel from "./ForgeCarousel";
 import forgeLogo from "@/assets/forge-logo.png";
+import forgeFilmmakingBanner from "@/assets/forge-filmmaking-banner.jpg";
+import forgeCreatorsBanner from "@/assets/forge-creators-banner.jpg";
+import forgeWritingBanner from "@/assets/forge-writing-banner.jpg";
 
 const featurePoints = [
   {
@@ -135,30 +137,72 @@ const ForgeSection = () => {
         </div>
       </div>
 
-      {/* ─── Bottom: Forge Retreat Carousel ─── */}
-      <div className="max-w-7xl mx-auto px-5 md:px-12">
-        <ForgeCarousel />
+      {/* ─── Bottom: Forge Program Cards ─── */}
+      <div className="max-w-7xl mx-auto px-5 md:px-12 flex flex-col gap-6 md:gap-8">
+        {[
+          {
+            image: forgeFilmmakingBanner,
+            title: "Forge Filmmaking",
+            subtitle: "12-day bootcamp. Make your own short film.",
+            alt: "Forge Filmmaking program",
+          },
+          {
+            image: forgeWritingBanner,
+            title: "Forge Writers",
+            subtitle: "Immersive retreat for writers and storytellers.",
+            alt: "Forge Writers program",
+          },
+          {
+            image: forgeCreatorsBanner,
+            title: "Forge Creators",
+            subtitle: "Build, collaborate, and ship creative work.",
+            alt: "Forge Creators program",
+          },
+        ].map((card, index) => (
+          <motion.div
+            key={card.title}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8, delay: index * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+            className="relative rounded-lg overflow-hidden aspect-[16/9] group"
+          >
+            <img
+              src={card.image}
+              alt={card.alt}
+              className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+              decoding="async"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
+              <h3 className="font-serif-display text-2xl sm:text-3xl md:text-4xl font-medium text-foreground leading-tight">
+                {card.title}
+              </h3>
+              <p className="font-sans-body text-sm md:text-base text-muted-foreground mt-2 max-w-lg">
+                {card.subtitle}
+              </p>
+              <div className="flex gap-3 mt-4 md:mt-6">
+                <a
+                  href="https://tally.so/r/nPJydd"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-primary text-primary-foreground font-sans-body text-sm font-medium hover:bg-primary/90 transition-colors"
+                >
+                  Apply Now
+                </a>
+                <a
+                  href="#"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md border border-border text-foreground font-sans-body text-sm font-medium hover:bg-accent/10 transition-colors"
+                >
+                  Learn More
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        ))}
       </div>
-
-      {/* Quiet CTA */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-        className="text-center mt-10 md:mt-14"
-      >
-        <a
-          href="https://tally.so/r/nPJydd"
-          target="_blank"
-          rel="noopener noreferrer"
-          
-          className="cta-underline group inline-flex items-center gap-3 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-400"
-        >
-          Request an Invite
-          <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-        </a>
-      </motion.div>
     </section>
   );
 };
