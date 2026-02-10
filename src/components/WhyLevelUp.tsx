@@ -173,7 +173,7 @@ const MobileOverlay = ({ card, cardIndex, onClose }: MobileOverlayProps) => {
       )}
 
       <div
-        className="absolute inset-0 pointer-events-none opacity-80"
+        className="absolute inset-0 pointer-events-none opacity-30"
         style={{
           backgroundImage: `url(${cardBgImages[cardIndex]})`,
           backgroundSize: "cover",
@@ -356,7 +356,7 @@ const WhyLevelUp = () => {
                 )}
 
                 <div
-                  className="absolute inset-0 pointer-events-none opacity-80"
+                  className="absolute inset-0 pointer-events-none opacity-30"
                   style={{
                     backgroundImage: `url(${cardBgImages[i]})`,
                     backgroundSize: "cover",
