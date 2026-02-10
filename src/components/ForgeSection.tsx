@@ -120,7 +120,7 @@ const ForgeSection = () => {
       />
 
       {/* ─── Top: Split Two-Column Layout ─── */}
-      <div className="max-w-7xl mx-auto px-5 md:px-12 mb-10 md:mb-14">
+      <div className="max-w-7xl mx-auto px-5 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
           {/* Left Column — Text Block */}
           <div>
@@ -185,15 +185,8 @@ const ForgeSection = () => {
         </div>
       </div>
 
-      {/* ─── EXPLORE VERTICALS Label ─── */}
-      <div className="max-w-7xl mx-auto px-5 md:px-12 mb-6">
-        <p className="font-sans-body text-[10px] md:text-xs tracking-[0.2em] uppercase text-muted-foreground">
-          Explore Verticals
-        </p>
-      </div>
-
       {/* ─── Horizontal Embla Carousel ─── */}
-      <div className="max-w-7xl mx-auto px-5 md:px-12">
+      <div className="max-w-7xl mx-auto px-5 md:px-12 mt-6 md:mt-8">
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex gap-4 md:gap-6">
             {forgeCards.map((card, index) => (
