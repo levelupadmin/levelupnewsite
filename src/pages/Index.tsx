@@ -9,6 +9,7 @@ const WhyLevelUp = lazy(() => import("@/components/WhyLevelUp"));
 const MasterclassSection = lazy(() => import("@/components/MasterclassSection"));
 const LiveProgramsSection = lazy(() => import("@/components/LiveProgramsSection"));
 const ForgeSection = lazy(() => import("@/components/ForgeSection"));
+const ProgramsTabsSection = lazy(() => import("@/components/ProgramsTabsSection"));
 const StudentLogosSection = lazy(() => import("@/components/StudentLogosSection"));
 const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection"));
 const FAQSection = lazy(() => import("@/components/FAQSection"));
@@ -37,6 +38,7 @@ const Index = () => {
           <MasterclassSection />
           <LiveProgramsSection />
           <ForgeSection />
+          <ProgramsTabsSection />
           <StudentLogosSection />
           <TestimonialsSection />
           <FAQSection />
