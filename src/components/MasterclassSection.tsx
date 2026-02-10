@@ -1,16 +1,8 @@
-import { useState, useRef, useCallback } from "react";
+import { useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useParallax } from "@/hooks/use-parallax";
 
-const categories = [
-  "All",
-  "Filmmaking",
-  "Photography",
-  "Editing",
-  "Art Direction",
-  "Music",
-];
 
 const masterclasses = [
   {
@@ -111,13 +103,6 @@ const MasterclassCard = ({ mc, index }: { mc: typeof masterclasses[0]; index: nu
 };
 
 const MasterclassSection = () => {
-  const [activeCategory, setActiveCategory] = useState("All");
-
-  const filtered =
-    activeCategory === "All"
-      ? masterclasses
-      : masterclasses.filter((m) => m.category === activeCategory);
-
   return (
     <section id="masterclasses" aria-label="Masterclasses" className="relative bg-background py-12 md:py-16">
       {/* Amber accent line at top */}
@@ -158,33 +143,10 @@ const MasterclassSection = () => {
         </p>
       </motion.div>
 
-      {/* Category chips */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-        className="flex flex-wrap justify-center gap-2 md:gap-3 px-6 md:px-12 mb-10 md:mb-12"
-      >
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setActiveCategory(cat)}
-            className={`font-sans-body text-xs md:text-sm px-4 py-2 rounded-full border transition-all duration-300 ${
-              activeCategory === cat
-                ? "border-primary text-primary bg-primary/5"
-                : "border-border text-muted-foreground hover:border-muted-foreground/40 hover:text-foreground"
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </motion.div>
-
       {/* Masterclass cards — grid layout */}
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-6 md:gap-6">
-          {filtered.map((mc, index) => (
+          {masterclasses.map((mc, index) => (
             <MasterclassCard key={mc.name} mc={mc} index={index} />
           ))}
         </div>
