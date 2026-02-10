@@ -1,14 +1,12 @@
 
 
-# Remove Category Filter Chips from Masterclass Section
+# Remove Name Tags from Masterclass Cards
 
 ## What changes
-In `src/components/MasterclassSection.tsx`, remove the category filter chips (All, Filmmaking, Photography, Editing, Art Direction, Music) and the filtering logic. All masterclasses will always be shown.
+In `src/components/MasterclassSection.tsx`, remove the name overlay and bottom gradient from each masterclass card in the `MasterclassCard` component.
 
 ## Details
-- Remove the `categories` array
-- Remove the `activeCategory` state
-- Remove the category chips `motion.div` block (the flex-wrap container with buttons)
-- Remove the filtering logic — just render `masterclasses` directly instead of `filtered`
-- Keep everything else (heading, cards grid, CTA) exactly as-is
+- Remove the bottom gradient div (`h-1/3 bg-gradient-to-t from-black/60`)
+- Remove the name text div (`mc.name` paragraph at the bottom of each card)
+- Keep everything else (parallax, hover effects, ring glow, image) as-is
 
