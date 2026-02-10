@@ -1,5 +1,3 @@
-import { motion } from "framer-motion";
-
 const faqs = [
   {
     question: "What is LevelUp Learning?",
@@ -66,7 +64,6 @@ const faqs = [
   },
 ];
 
-// Subtle tonal variations using HSL shifts within the dark palette
 const cardStyles = [
   "bg-card border-border",
   "bg-[hsl(0_0%_9%)] border-border",
@@ -78,38 +75,20 @@ const cardStyles = [
   "bg-[hsl(0_0%_9%)] border-border",
 ];
 
-// Featured cards get a subtle accent-tinted dark background
 const featuredStyle = "bg-[hsl(24_10%_8%)] border-primary/20";
 
 const FAQSection = () => {
   return (
     <section id="faq" aria-label="Frequently asked questions" className="relative py-12 md:py-16">
-
       <div className="relative max-w-6xl mx-auto px-5 md:px-6">
-        {/* Headline */}
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="font-serif-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-10 md:mb-12"
-        >
+        <h2 className="font-serif-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-10 md:mb-12">
           Frequently asked questions
-        </motion.h2>
+        </h2>
 
-        {/* Bento Card Grid */}
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-5">
           {faqs.map((faq, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{
-                duration: 0.5,
-                ease: "easeOut",
-                delay: index * 0.06,
-              }}
               className={`break-inside-avoid mb-5 rounded-lg border p-6 md:p-7 ${
                 faq.featured ? featuredStyle : cardStyles[index % cardStyles.length]
               }`}
@@ -126,18 +105,11 @@ const FAQSection = () => {
               <p className="font-sans-body text-sm md:text-base text-muted-foreground leading-relaxed">
                 {faq.answer}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        {/* Soft CTA */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-10 md:mt-14 font-sans-body text-sm text-muted-foreground"
-        >
+        <p className="mt-10 md:mt-14 font-sans-body text-sm text-muted-foreground">
           Still have questions?{" "}
           <a
             href="mailto:hello@leveluplearning.com"
@@ -145,7 +117,7 @@ const FAQSection = () => {
           >
             Reach out to us
           </a>
-        </motion.p>
+        </p>
       </div>
     </section>
   );

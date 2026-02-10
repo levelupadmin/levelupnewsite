@@ -90,7 +90,6 @@ const cardGlows = [
 /* ------------------------------------------------------------------ */
 
 const EASE = [0.25, 0.1, 0.25, 1] as const;
-const TRANSITION = { duration: 0.5, ease: EASE };
 
 /* ------------------------------------------------------------------ */
 /*  Mobile Overlay Component                                           */
@@ -107,7 +106,6 @@ const MobileOverlay = ({ card, cardIndex, onClose }: MobileOverlayProps) => {
   const [dragY, setDragY] = useState(0);
   const isAtTop = useRef(true);
 
-  // Track whether the overlay is scrolled to the top
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
@@ -115,7 +113,6 @@ const MobileOverlay = ({ card, cardIndex, onClose }: MobileOverlayProps) => {
     const handleScroll = () => {
       const { scrollTop, scrollHeight, clientHeight } = el;
       isAtTop.current = scrollTop <= 1;
-      // Close when user scrolls past the bottom of content
       if (scrollTop + clientHeight >= scrollHeight - 2) {
         onClose();
       }
@@ -125,7 +122,6 @@ const MobileOverlay = ({ card, cardIndex, onClose }: MobileOverlayProps) => {
     return () => el.removeEventListener("scroll", handleScroll);
   }, [onClose]);
 
-  // Handle swipe-down gesture
   const handleDrag = (_: any, info: { offset: { y: number } }) => {
     if (isAtTop.current && info.offset.y > 0) {
       setDragY(info.offset.y);
@@ -133,7 +129,6 @@ const MobileOverlay = ({ card, cardIndex, onClose }: MobileOverlayProps) => {
   };
 
   const handleDragEnd = (_: any, info: { offset: { y: number }; velocity: { y: number } }) => {
-    // Dismiss if dragged down far enough or with enough velocity
     if (isAtTop.current && (info.offset.y > 120 || info.velocity.y > 500)) {
       onClose();
     }
@@ -156,24 +151,20 @@ const MobileOverlay = ({ card, cardIndex, onClose }: MobileOverlayProps) => {
       style={{ touchAction: "pan-x" }}
       className={`fixed inset-0 z-[60] ${cardBgClasses[cardIndex]} overflow-y-auto`}
     >
-      {/* Swipe indicator handle */}
       <div className="flex justify-center pt-3 pb-1">
         <div className="w-10 h-1 rounded-full bg-foreground/20" />
       </div>
 
-      {/* Top gradient bar */}
       <div
         className="absolute top-0 left-0 right-0 h-[2px] pointer-events-none"
         style={{ background: cardTopGradients[cardIndex] }}
       />
 
-      {/* Subtle glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ background: cardGlows[cardIndex] }}
       />
 
-      {/* Card 3 — background image overlay */}
       {cardIndex === 2 && (
         <div
           className="absolute inset-0 pointer-events-none opacity-[0.07]"
@@ -185,7 +176,6 @@ const MobileOverlay = ({ card, cardIndex, onClose }: MobileOverlayProps) => {
         />
       )}
 
-      {/* Close button — sticky so it's always visible when scrolling */}
       <div className="sticky top-0 z-20 flex justify-end px-5 pt-5">
         <button
           onClick={(e) => {
@@ -199,40 +189,28 @@ const MobileOverlay = ({ card, cardIndex, onClose }: MobileOverlayProps) => {
         </button>
       </div>
 
-      {/* Content — extra bottom padding so user can scroll past to close */}
       <div className="relative z-10 px-7 pt-6 pb-10 flex flex-col" style={{ minHeight: "calc(100vh + 60px)" }}>
-        {/* Headline */}
         <h3 className="font-serif-display text-2xl font-normal text-hero-headline leading-[1.3] tracking-tight mb-5">
           {card.headline}
         </h3>
 
-        {/* Description */}
         <p className="font-sans-body text-sm text-hero-subtext leading-relaxed mb-8 max-w-sm">
           {card.description}
         </p>
 
-        {/* Bullet items as bordered cards */}
         <div className="space-y-2.5 mb-8">
           {card.bullets.map((bullet, bi) => (
-            <motion.div
+            <div
               key={bi}
-              initial={{ opacity: 0, x: -12 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{
-                duration: 0.35,
-                delay: 0.15 + bi * 0.08,
-                ease: EASE,
-              }}
               className="border border-border/30 rounded-sm px-4 py-3.5"
             >
               <span className="font-sans-body text-sm text-foreground/80">
                 {bullet}
               </span>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        {/* Stat highlight */}
         <div className="mt-auto pt-6 border-t border-border/30">
           <div className="flex items-end gap-3">
             <span className="font-serif-display text-5xl font-medium text-gradient-amber leading-none">
@@ -244,7 +222,6 @@ const MobileOverlay = ({ card, cardIndex, onClose }: MobileOverlayProps) => {
           </div>
         </div>
 
-        {/* Scroll-to-close hint */}
         <div className="mt-10 flex flex-col items-center gap-2 text-muted-foreground/50">
           <motion.div
             animate={{ y: [0, 6, 0] }}
@@ -295,7 +272,6 @@ const WhyLevelUp = () => {
     [toggle]
   );
 
-  // Body scroll lock when mobile overlay is open
   useEffect(() => {
     if (isMobile && expandedIndex !== null) {
       document.body.style.overflow = "hidden";
@@ -313,29 +289,15 @@ const WhyLevelUp = () => {
       {/* ── Asymmetric headline block ── */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 mb-10 md:mb-14">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 md:gap-12">
-          {/* Left — big headline */}
-          <motion.h2
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.7, ease: EASE }}
-            className="font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-medium text-hero-headline leading-[1.15] tracking-tight max-w-lg"
-          >
+          <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-medium text-hero-headline leading-[1.15] tracking-tight max-w-lg">
             The most intentional way to learn{" "}
             <span className="text-gradient-amber">the craft.</span>
-          </motion.h2>
+          </h2>
 
-          {/* Right — supporting text */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
-            className="font-sans-body text-sm md:text-base text-hero-subtext leading-relaxed max-w-sm md:pb-2"
-          >
+          <p className="font-sans-body text-sm md:text-base text-hero-subtext leading-relaxed max-w-sm md:pb-2">
             We changed how creators learn. Build real skills with mentors who
             built careers — not PowerPoint decks.
-          </motion.p>
+          </p>
         </div>
       </div>
 
@@ -351,7 +313,6 @@ const WhyLevelUp = () => {
             const isExpanded = expandedIndex === i;
             const hasExpanded = expandedIndex !== null;
 
-            // Desktop flex basis
             let flexBasis = "33.333%";
             if (!isMobile && hasExpanded) {
               flexBasis = isExpanded ? "58%" : "21%";
@@ -376,23 +337,17 @@ const WhyLevelUp = () => {
                   flexShrink: 0,
                   flexGrow: 0,
                 }}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ ...TRANSITION, delay: i * 0.1 }}
               >
                 <div
                   className="absolute top-0 left-0 right-0 h-[2px] pointer-events-none"
                   style={{ background: cardTopGradients[i] }}
                 />
 
-                {/* Subtle glow */}
                 <div
                   className="absolute inset-0 pointer-events-none"
                   style={{ background: cardGlows[i] }}
                 />
 
-                {/* Card 3 — background image overlay */}
                 {i === 2 && (
                   <div
                     className="absolute inset-0 pointer-events-none opacity-[0.07]"
@@ -404,7 +359,6 @@ const WhyLevelUp = () => {
                   />
                 )}
 
-                {/* Card content wrapper */}
                 <motion.div
                   layout
                   className={`relative z-10 flex flex-col justify-between h-full ${
@@ -416,7 +370,6 @@ const WhyLevelUp = () => {
                     minHeight: isMobile ? 340 : 460,
                   }}
                 >
-                  {/* Top row: headline + icon */}
                   <div className="flex items-start justify-between gap-4">
                     <motion.h3
                       layout="position"
@@ -429,20 +382,8 @@ const WhyLevelUp = () => {
                       {card.headline}
                     </motion.h3>
 
-                    {/* Expand/close icon */}
                     <motion.div
                       layout="position"
-                      initial={{ scale: 1 }}
-                      animate={{
-                        scale: [1, 1.2, 1],
-                        opacity: [0.6, 1, 0.6],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: 2,
-                        ease: "easeInOut",
-                        delay: 0.8 + i * 0.15,
-                      }}
                       className={`shrink-0 mt-1 rounded-full border border-border/40 flex items-center justify-center text-muted-foreground group-hover:text-foreground transition-colors ${
                         isMobile ? "w-10 h-10" : "w-8 h-8"
                       }`}
@@ -455,14 +396,12 @@ const WhyLevelUp = () => {
                     </motion.div>
                   </div>
 
-                  {/* Mobile: show description + stat preview in collapsed state */}
                   {isMobile && (
                     <div className="flex flex-col flex-1 justify-between mt-5">
                       <p className="font-sans-body text-[0.9rem] text-hero-subtext/70 leading-[1.7] max-w-[85%]">
                         {card.description}
                       </p>
 
-                      {/* Stat preview at bottom */}
                       <div className="mt-6 pt-5 border-t border-border/20 flex items-end gap-3">
                         <span className="font-serif-display text-3xl font-medium text-gradient-amber leading-none">
                           {card.highlight.value}
@@ -474,63 +413,59 @@ const WhyLevelUp = () => {
                     </div>
                   )}
 
-                  {/* Desktop expanded content (inline) */}
                   {!isMobile && (
                     <AnimatePresence mode="wait">
-                      {isExpanded && (
+                      {isExpanded ? (
                         <motion.div
-                          key={`expanded-${i}`}
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.4, ease: EASE }}
-                          className="overflow-hidden"
-                          aria-live="polite"
+                          key="expanded"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -5 }}
+                          transition={{ duration: 0.35, ease: EASE }}
+                          className="flex flex-col flex-1 justify-between mt-6"
                         >
-                          <div className="pt-6 md:pt-8 space-y-5">
-                            <p className="font-sans-body text-sm md:text-[0.9rem] text-hero-subtext leading-relaxed max-w-md">
+                          <div>
+                            <p className="font-sans-body text-sm text-hero-subtext leading-relaxed mb-6 max-w-sm">
                               {card.description}
                             </p>
-
-                            <ul className="space-y-2.5">
+                            <div className="space-y-2">
                               {card.bullets.map((bullet, bi) => (
-                                <motion.li
+                                <div
                                   key={bi}
-                                  initial={{ opacity: 0, x: -12 }}
-                                  animate={{ opacity: 1, x: 0 }}
-                                  transition={{
-                                    duration: 0.35,
-                                    delay: 0.15 + bi * 0.08,
-                                    ease: EASE,
-                                  }}
-                                  className="flex items-start gap-3 font-sans-body text-sm text-foreground/80"
+                                  className="border border-border/30 rounded-sm px-4 py-3"
                                 >
-                                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary/60 shrink-0" />
-                                  {bullet}
-                                </motion.li>
+                                  <span className="font-sans-body text-sm text-foreground/80">
+                                    {bullet}
+                                  </span>
+                                </div>
                               ))}
-                            </ul>
-
-                            {/* Stat highlight */}
-                            <div className="pt-5 border-t border-border/30 flex items-end gap-3">
-                              <span className="font-serif-display text-4xl md:text-5xl font-medium text-gradient-amber leading-none">
-                                {card.highlight.value}
-                              </span>
-                              <span className="font-sans-body text-xs md:text-sm text-muted-foreground tracking-wide uppercase pb-1">
-                                {card.highlight.label}
-                              </span>
                             </div>
                           </div>
+
+                          <div className="mt-6 pt-5 border-t border-border/30 flex items-end gap-3">
+                            <span className="font-serif-display text-4xl font-medium text-gradient-amber leading-none">
+                              {card.highlight.value}
+                            </span>
+                            <span className="font-sans-body text-sm text-muted-foreground tracking-wide uppercase pb-1">
+                              {card.highlight.label}
+                            </span>
+                          </div>
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="collapsed"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.25 }}
+                          className="mt-auto"
+                        >
+                          <p className="font-sans-body text-sm text-muted-foreground leading-relaxed line-clamp-2">
+                            {card.description}
+                          </p>
                         </motion.div>
                       )}
                     </AnimatePresence>
-                  )}
-
-                  {/* Desktop: collapsed hint line */}
-                  {!isMobile && !isExpanded && (
-                    <motion.div layout="position" className="mt-auto pt-8">
-                      <div className="h-[1px] bg-border/30 w-8" />
-                    </motion.div>
                   )}
                 </motion.div>
               </motion.div>
@@ -538,34 +473,31 @@ const WhyLevelUp = () => {
           })}
         </div>
 
-        {/* Navigation arrows — desktop only */}
-        {!isMobile && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
-            className="flex justify-end gap-2 mt-5"
-          >
+        {/* Desktop navigation arrows */}
+        {!isMobile && expandedIndex !== null && (
+          <div className="flex items-center justify-center gap-3 mt-5">
             <button
               onClick={() => navigate(-1)}
+              className="w-10 h-10 border border-border rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
               aria-label="Previous card"
-              className="w-10 h-10 rounded-full border border-border/40 flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
             >
-              <ChevronLeft size={16} />
+              <ChevronLeft className="w-5 h-5" />
             </button>
+            <span className="font-sans-body text-xs text-muted-foreground tabular-nums">
+              {String((expandedIndex ?? 0) + 1).padStart(2, "0")} / 03
+            </span>
             <button
               onClick={() => navigate(1)}
+              className="w-10 h-10 border border-border rounded-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
               aria-label="Next card"
-              className="w-10 h-10 rounded-full border border-border/40 flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
             >
-              <ChevronRight size={16} />
+              <ChevronRight className="w-5 h-5" />
             </button>
-          </motion.div>
+          </div>
         )}
       </div>
 
-      {/* ── Mobile full-screen overlay ── */}
+      {/* Mobile Overlay */}
       <AnimatePresence>
         {isMobile && expandedIndex !== null && (
           <MobileOverlay

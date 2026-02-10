@@ -1,5 +1,4 @@
 import { useRef, useState, useCallback } from "react";
-import { motion } from "framer-motion";
 import { Clock, Radio, CalendarDays, ArrowRight } from "lucide-react";
 
 import liveProgram1 from "@/assets/live-program-1.jpg";
@@ -94,29 +93,12 @@ const statusStyles: Record<ProgramStatus, string> = {
   "Coming Soon": "bg-muted text-muted-foreground border-border",
 };
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, delay: 0.15 + i * 0.1, ease: "easeOut" as const },
-  }),
-};
-
 const LiveProgramsSection = () => {
   return (
     <section id="live-programs" aria-label="Live programs" className="relative py-12 md:py-16">
-
       {/* Section header */}
-      <motion.div
-        initial={{ opacity: 0, x: 30 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
-        className="text-center px-6 md:px-12 mb-10 md:mb-12"
-      >
-        <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border border-primary/30 text-primary bg-primary/5 mb-4"
-        >
+      <div className="text-center px-6 md:px-12 mb-10 md:mb-12">
+        <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border border-primary/30 text-primary bg-primary/5 mb-4">
           Live + Mentor-led
         </span>
         <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-hero-headline leading-[1.2] tracking-tight">
@@ -127,44 +109,36 @@ const LiveProgramsSection = () => {
           Structured programs led by working professionals. Live sessions,
           real practice, honest feedback.
         </p>
-      </motion.div>
+      </div>
 
       {/* Program cards grid */}
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-6 lg:gap-8">
-          {programs.map((program, index) => (
-            <ProgramCard key={program.title} program={program} index={index} />
+          {programs.map((program) => (
+            <ProgramCard key={program.title} program={program} />
           ))}
         </div>
       </div>
 
       {/* Soft CTA */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-        className="text-center mt-10 md:mt-14"
-      >
+      <div className="text-center mt-10 md:mt-14">
         <a
           href="#"
-          
           className="cta-underline group inline-flex items-center gap-3 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-400"
         >
           See all upcoming programs
           <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
         </a>
-      </motion.div>
+      </div>
     </section>
   );
 };
 
 interface ProgramCardProps {
   program: Program;
-  index: number;
 }
 
-const ProgramCard = ({ program, index }: ProgramCardProps) => {
+const ProgramCard = ({ program }: ProgramCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
 
@@ -182,16 +156,7 @@ const ProgramCard = ({ program, index }: ProgramCardProps) => {
   }, []);
 
   return (
-    <motion.div
-      custom={index}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-60px" }}
-      variants={cardVariants}
-      className="group relative cursor-pointer"
-      
-      style={{ perspective: 800 }}
-    >
+    <div className="group relative cursor-pointer" style={{ perspective: 800 }}>
       <div
         ref={cardRef}
         onMouseMove={handleMouseMove}
@@ -213,7 +178,7 @@ const ProgramCard = ({ program, index }: ProgramCardProps) => {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
 
-          {/* Status badge — pulses on hover for "Enrolling" */}
+          {/* Status badge */}
           <div className="absolute top-4 left-4 flex items-center gap-2">
             <span
               className={[
@@ -277,12 +242,12 @@ const ProgramCard = ({ program, index }: ProgramCardProps) => {
           </div>
         </div>
 
-        {/* Animated accent line — slides in from left on hover */}
+        {/* Animated accent line */}
         <div className="absolute bottom-0 left-0 right-0 h-[2px] overflow-hidden">
           <div className="h-full w-full bg-primary/50 -translate-x-full group-hover:translate-x-0 transition-transform duration-600 ease-out" />
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

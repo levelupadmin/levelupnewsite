@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { ArrowRight, Flame, Users, MapPin } from "lucide-react";
 import ForgeCarousel from "./ForgeCarousel";
 import forgeLogo from "@/assets/forge-logo.png";
@@ -29,7 +28,6 @@ const stats = [
   { value: "11", label: "Editions" },
   { value: "248", label: "Shortfilms" },
 ];
-
 
 const ForgeSection = () => {
   return (
@@ -65,16 +63,9 @@ const ForgeSection = () => {
       {/* ─── Top: Split Two-Column Layout ─── */}
       <div className="max-w-7xl mx-auto px-5 md:px-12 mb-10 md:mb-14">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
-          {/* Left Column — Text Block with horizontal reveal */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
-          >
-            {/* Format tag */}
-            <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border border-primary/30 text-primary bg-primary/5 mb-4"
-            >
+          {/* Left Column — Text Block */}
+          <div>
+            <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border border-primary/30 text-primary bg-primary/5 mb-4">
               In-person Bootcamp
             </span>
             <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-hero-headline leading-[1.15] tracking-tight">
@@ -101,21 +92,13 @@ const ForgeSection = () => {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Right Column — Feature Points */}
           <div className="flex flex-col gap-6 md:gap-10 md:pt-2">
-            {featurePoints.map((point, index) => (
-              <motion.div
+            {featurePoints.map((point) => (
+              <div
                 key={point.headline}
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{
-                  duration: 0.8,
-                  delay: 0.15 + index * 0.12,
-                  ease: [0.25, 0.1, 0.25, 1],
-                }}
                 className="flex gap-4 items-start"
               >
                 <div className="flex-shrink-0 mt-1">
@@ -129,7 +112,7 @@ const ForgeSection = () => {
                     {point.description}
                   </p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -141,24 +124,17 @@ const ForgeSection = () => {
       </div>
 
       {/* Quiet CTA */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-        className="text-center mt-10 md:mt-14"
-      >
+      <div className="text-center mt-10 md:mt-14">
         <a
           href="https://tally.so/r/nPJydd"
           target="_blank"
           rel="noopener noreferrer"
-          
           className="cta-underline group inline-flex items-center gap-3 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-400"
         >
           Request an Invite
           <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
         </a>
-      </motion.div>
+      </div>
     </section>
   );
 };

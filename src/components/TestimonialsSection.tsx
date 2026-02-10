@@ -1,7 +1,6 @@
 import { useEffect, useCallback, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, ArrowRight, ArrowUpRight } from "lucide-react";
 
 import testimonial1 from "@/assets/testimonial-1.jpg";
@@ -146,14 +145,8 @@ const TestimonialsSection = () => {
       />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* Section Header — headline left, CTA right */}
-        <motion.div
-          initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
-          className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 md:mb-12"
-        >
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 md:mb-12">
           <div>
             <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl font-medium text-hero-headline leading-[1.15] tracking-tight max-w-xl">
               Real transformations. No scripts, no exaggeration — just{" "}
@@ -170,16 +163,11 @@ const TestimonialsSection = () => {
             Read all stories
             <ArrowRight className="w-4 h-4" />
           </a>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Carousel — full width, overflows right */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.8, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
-      >
+      {/* Carousel */}
+      <div>
         <div className="pl-6 md:pl-12 lg:pl-[calc((100vw-80rem)/2+3rem)]">
           <div ref={emblaRef} className="overflow-hidden">
             <div className="flex">
@@ -195,9 +183,8 @@ const TestimonialsSection = () => {
           </div>
         </div>
 
-        {/* Navigation: dots + arrows */}
+        {/* Navigation */}
         <div className="max-w-7xl mx-auto px-6 md:px-12 mt-6 md:mt-8 flex items-center justify-between">
-          {/* Progress dots */}
           <div className="flex items-center gap-1.5">
             {scrollSnaps.map((_, index) => (
               <button
@@ -213,7 +200,6 @@ const TestimonialsSection = () => {
             ))}
           </div>
 
-          {/* Arrow buttons */}
           <div className="flex items-center gap-2">
             <span className="font-sans-body text-xs text-muted-foreground tabular-nums">
               {String(selectedIndex + 1).padStart(2, '0')} / {String(testimonials.length).padStart(2, '0')}
@@ -234,7 +220,7 @@ const TestimonialsSection = () => {
             </button>
           </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };
@@ -244,7 +230,6 @@ const TestimonialsSection = () => {
 const TestimonialSlide = ({ testimonial }: { testimonial: Testimonial }) => {
   return (
     <div className="group flex flex-col md:flex-row rounded-sm overflow-hidden h-full border border-border/50 min-h-[380px] md:min-h-[420px]">
-      {/* Photo panel */}
       <div className="relative md:w-1/2 shrink-0">
         <div className="relative aspect-[4/5] md:aspect-auto md:h-full overflow-hidden">
           <img
@@ -254,11 +239,7 @@ const TestimonialSlide = ({ testimonial }: { testimonial: Testimonial }) => {
             loading="lazy"
             decoding="async"
           />
-
-          {/* Gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent" />
-
-          {/* Name / role overlay */}
           <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
             <p className="font-serif-display text-lg md:text-xl font-medium text-hero-headline leading-snug">
               {testimonial.name}
@@ -273,7 +254,6 @@ const TestimonialSlide = ({ testimonial }: { testimonial: Testimonial }) => {
         </div>
       </div>
 
-      {/* Quote panel */}
       <div className="md:w-1/2 bg-card flex flex-col justify-between p-6 md:p-10 border-l-0 md:border-l-2 border-primary/20">
         <div>
           <span className="font-serif-display text-5xl md:text-6xl text-primary/15 leading-none select-none block mb-3">"</span>

@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
 import { Instagram, Youtube, Twitter, Linkedin } from "lucide-react";
 import levelupLogo from "@/assets/levelup-logo.svg";
+
 const footerLinks = {
   Learn: [
     { label: "Masterclasses", href: "#" },
@@ -31,21 +31,15 @@ const socialLinks = [
 
 const Footer = () => {
   return (
-    <motion.footer
+    <footer
       aria-label="Site footer"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
       className="relative overflow-hidden border-t border-border"
     >
       {/* Amber glow at top */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
 
       <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-20 py-16 md:py-20">
-        {/* Multi-column grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-8">
-          {/* Brand pillar */}
           <div className="lg:col-span-1">
             <div className="mb-4">
               <img
@@ -66,7 +60,6 @@ const Footer = () => {
             </a>
           </div>
 
-          {/* Link columns */}
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
               <h4 className="font-sans-body text-xs font-medium uppercase tracking-widest text-primary mb-5">
@@ -88,7 +81,6 @@ const Footer = () => {
           ))}
         </div>
 
-        {/* Social icons row */}
         <div className="flex items-center justify-center md:justify-start gap-5 md:gap-4 mt-14">
           {socialLinks.map((social) => (
             <a
@@ -102,7 +94,6 @@ const Footer = () => {
           ))}
         </div>
 
-        {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-12 pt-8 border-t border-border">
           <p className="font-sans-body text-xs text-muted-foreground">
             © 2026 LevelUp Learning. All rights reserved.
@@ -121,7 +112,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Large brand watermark */}
       <div
         aria-hidden="true"
         className="hidden md:block absolute bottom-0 left-0 right-0 translate-y-[35%] pointer-events-none select-none"
@@ -133,7 +123,7 @@ const Footer = () => {
           decoding="async"
         />
       </div>
-    </motion.footer>
+    </footer>
   );
 };
 
