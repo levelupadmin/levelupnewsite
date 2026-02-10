@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Flame, Users, MapPin } from "lucide-react";
-import ForgeCarousel from "./ForgeCarousel";
 import forgeLogo from "@/assets/forge-logo.png";
 
 const featurePoints = [
@@ -135,10 +134,6 @@ const ForgeSection = () => {
         </div>
       </div>
 
-      {/* ─── Bottom: Forge Retreat Carousel ─── */}
-      <div className="max-w-7xl mx-auto px-5 md:px-12">
-        <ForgeCarousel />
-      </div>
 
       {/* Quiet CTA */}
       <motion.div
