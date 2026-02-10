@@ -1,22 +1,22 @@
-import { ArrowRight, Flame, Users, MapPin } from "lucide-react";
-import ForgeCarousel from "./ForgeCarousel";
-import forgeLogo from "@/assets/forge-logo.png";
+import { PlusCircle, ArrowRight } from "lucide-react";
+import useEmblaCarousel from "embla-carousel-react";
+import { useCallback, useEffect, useState } from "react";
+import forgeFilmmaking from "@/assets/forge-filmmaking-banner.jpg";
+import forgeWriting from "@/assets/forge-writing-banner.jpg";
+import forgeCreators from "@/assets/forge-creators-banner.jpg";
 
 const featurePoints = [
   {
-    Icon: Flame,
     headline: "Pressure that transforms",
     description:
       "Not comfort. Not theory. Real creative intensity, shoulder to shoulder.",
   },
   {
-    Icon: Users,
     headline: "Mentorship without filters",
     description:
       "Work directly with creators who've shaped the industry. No layers between you and the work.",
   },
   {
-    Icon: MapPin,
     headline: "Offline. Immersive. Real.",
     description:
       "Step away from screens. Live, create, and break through — together, in one place.",
@@ -29,9 +29,69 @@ const stats = [
   { value: "248", label: "Shortfilms" },
 ];
 
+const forgeCards = [
+  {
+    title: "Forge Filmmaking",
+    tag: "10-DAY WORKSHOP",
+    location: "Delhi · Bangalore",
+    subtitle:
+      "Shape raw footage into compelling stories. Learn rhythm, pacing, and the art of emotional beats from working editors.",
+    cohort: "Dec 2025",
+    image: forgeFilmmaking,
+  },
+  {
+    title: "Forge Writers",
+    tag: "12-DAY RETREAT",
+    location: "Goa",
+    subtitle:
+      "Immersive retreat for writers and storytellers. Develop your voice and craft your narrative.",
+    cohort: "Jan 2026",
+    image: forgeWriting,
+  },
+  {
+    title: "Forge Creators",
+    tag: "10-DAY BOOTCAMP",
+    location: "Mumbai · Delhi",
+    subtitle:
+      "Build, collaborate, and ship creative work with fellow creators.",
+    cohort: "Feb 2026",
+    image: forgeCreators,
+  },
+];
+
 const ForgeSection = () => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: "start",
+    containScroll: "trimSnaps",
+    slidesToScroll: 1,
+  });
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on("select", onSelect);
+    return () => {
+      emblaApi.off("select", onSelect);
+    };
+  }, [emblaApi, onSelect]);
+
+  const scrollTo = useCallback(
+    (index: number) => emblaApi && emblaApi.scrollTo(index),
+    [emblaApi]
+  );
+
   return (
-    <section id="forge" aria-label="The Forge residency" className="relative py-12 md:py-16 overflow-hidden bg-background">
+    <section
+      id="forge"
+      aria-label="The Forge residency"
+      className="relative py-12 md:py-16 overflow-hidden bg-background"
+    >
       {/* Accent line at top */}
       <div
         className="absolute top-0 left-0 right-0 h-[2px]"
@@ -50,16 +110,6 @@ const ForgeSection = () => {
         }}
       />
 
-      {/* Grain texture overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.03]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-          backgroundRepeat: "repeat",
-          backgroundSize: "128px 128px",
-        }}
-      />
-
       {/* ─── Top: Split Two-Column Layout ─── */}
       <div className="max-w-7xl mx-auto px-5 md:px-12 mb-10 md:mb-14">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
@@ -68,15 +118,23 @@ const ForgeSection = () => {
             <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border border-primary/30 text-primary bg-primary/5 mb-4">
               In-person Bootcamp
             </span>
+
             <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-hero-headline leading-[1.15] tracking-tight">
-              <img src={forgeLogo} alt="The Forge by LevelUp Learning" className="h-16 md:h-20 lg:h-24 w-auto mb-2" />
+              <span className="text-primary text-xl sm:text-2xl md:text-3xl block mb-1">
+                The
+              </span>
+              <span className="block">Forge</span>
+            </h2>
+
+            <p className="font-serif-display text-lg md:text-xl text-hero-headline mt-2">
               Where you{" "}
               <em className="italic font-normal text-primary">become</em>
-            </h2>
+            </p>
+
             <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-4 md:mt-6 max-w-md leading-relaxed">
-              A filmmaking bootcamp for aspiring filmmakers, writers, creators, and
-              storytellers — where in 12 days we teach you filmmaking hands-on and
-              you create your very own short film.
+              A filmmaking bootcamp for aspiring filmmakers, writers, creators,
+              and storytellers — where in 12 days we teach you filmmaking
+              hands-on and you create your very own short film.
             </p>
 
             {/* Stats row */}
@@ -97,12 +155,12 @@ const ForgeSection = () => {
           {/* Right Column — Feature Points */}
           <div className="flex flex-col gap-6 md:gap-10 md:pt-2">
             {featurePoints.map((point) => (
-              <div
-                key={point.headline}
-                className="flex gap-4 items-start"
-              >
+              <div key={point.headline} className="flex gap-4 items-start">
                 <div className="flex-shrink-0 mt-1">
-                  <point.Icon className="w-5 h-5 text-primary" strokeWidth={1.5} />
+                  <PlusCircle
+                    className="w-5 h-5 text-primary"
+                    strokeWidth={1.5}
+                  />
                 </div>
                 <div>
                   <h3 className="font-serif-display text-base md:text-lg font-medium text-hero-headline leading-snug">
@@ -118,22 +176,91 @@ const ForgeSection = () => {
         </div>
       </div>
 
-      {/* ─── Bottom: Forge Retreat Carousel ─── */}
-      <div className="max-w-7xl mx-auto px-5 md:px-12">
-        <ForgeCarousel />
+      {/* ─── EXPLORE VERTICALS Label ─── */}
+      <div className="max-w-7xl mx-auto px-5 md:px-12 mb-6">
+        <p className="font-sans-body text-[10px] md:text-xs tracking-[0.2em] uppercase text-muted-foreground">
+          Explore Verticals
+        </p>
       </div>
 
-      {/* Quiet CTA */}
-      <div className="text-center mt-10 md:mt-14">
-        <a
-          href="https://tally.so/r/nPJydd"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="cta-underline group inline-flex items-center gap-3 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-400"
-        >
-          Request an Invite
-          <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-        </a>
+      {/* ─── Horizontal Embla Carousel ─── */}
+      <div className="max-w-7xl mx-auto px-5 md:px-12">
+        <div className="overflow-hidden" ref={emblaRef}>
+          <div className="flex gap-4 md:gap-6">
+            {forgeCards.map((card, index) => (
+              <div
+                key={index}
+                className="flex-[0_0_85%] md:flex-[0_0_65%] min-w-0"
+              >
+                <div className="relative aspect-[16/10] rounded-lg overflow-hidden group">
+                  {/* Background Image */}
+                  <img
+                    src={card.image}
+                    alt={card.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    loading="lazy"
+                  />
+
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+
+                  {/* Cohort Badge */}
+                  <div className="absolute top-4 right-4 md:top-6 md:right-6">
+                    <span className="inline-block bg-background/80 backdrop-blur-sm text-foreground text-[10px] md:text-xs font-sans-body tracking-wide px-3 py-1.5 rounded-full">
+                      Next Cohort — {card.cohort}
+                    </span>
+                  </div>
+
+                  {/* Bottom Content */}
+                  <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8">
+                    <p className="font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase text-primary mb-1">
+                      {card.tag}
+                    </p>
+                    <p className="font-sans-body text-[10px] md:text-xs text-muted-foreground mb-2">
+                      {card.location}
+                    </p>
+                    <h3 className="font-serif-display text-xl md:text-2xl lg:text-3xl font-medium text-white mb-2">
+                      {card.title}
+                    </h3>
+                    <p className="font-sans-body text-xs md:text-sm text-white/70 max-w-md leading-relaxed mb-4">
+                      {card.subtitle}
+                    </p>
+                    <div className="flex gap-3">
+                      <a
+                        href="https://tally.so/r/nPJydd"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-sans-body text-xs md:text-sm px-4 py-2 rounded-full hover:bg-primary/90 transition-colors"
+                      >
+                        Apply Now
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </a>
+                      <button className="inline-flex items-center font-sans-body text-xs md:text-sm px-4 py-2 rounded-full border border-white/30 text-white hover:border-white/60 transition-colors">
+                        Learn More
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Progress Dots */}
+        <div className="flex justify-center gap-2 mt-6">
+          {forgeCards.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => scrollTo(index)}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                index === selectedIndex
+                  ? "w-8 bg-primary"
+                  : "w-2 bg-muted-foreground/30"
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
