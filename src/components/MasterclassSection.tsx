@@ -1,8 +1,4 @@
-import { useRef, useCallback } from "react";
-import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { useParallax } from "@/hooks/use-parallax";
-
 
 const masterclasses = [
   {
@@ -49,47 +45,20 @@ const masterclasses = [
   },
 ];
 
-// Clip-path reveal for images
-const imageRevealVariants = {
-  hidden: { clipPath: "inset(100% 0% 0% 0%)", opacity: 0 },
-  visible: (i: number) => ({
-    clipPath: "inset(0% 0% 0% 0%)",
-    opacity: 1,
-    transition: { duration: 0.9, delay: 0.15 + i * 0.1, ease: [0.25, 0.1, 0.25, 1] as const },
-  }),
-};
-
-const MasterclassCard = ({ mc, index }: { mc: typeof masterclasses[0]; index: number }) => {
-  const { ref: parallaxRef, y: imageY } = useParallax<HTMLDivElement>({ speed: -0.08 });
-
+const MasterclassCard = ({ mc }: { mc: typeof masterclasses[0] }) => {
   return (
-    <motion.div
-      key={mc.name}
-      custom={index}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-60px" }}
-      variants={imageRevealVariants}
-      className="group relative cursor-pointer"
-    >
-      <div
-        ref={parallaxRef}
-        className="relative aspect-[3/4] overflow-hidden rounded-sm bg-card"
-      >
-        <motion.img
+    <div className="group relative cursor-pointer">
+      <div className="relative aspect-[3/4] overflow-hidden rounded-sm bg-card">
+        <img
           src={mc.image}
           alt={`${mc.name} — ${mc.descriptor}`}
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
           loading="lazy"
           decoding="async"
-          style={{ y: imageY }}
         />
-
-
-        {/* Hover glow ring */}
         <div className="absolute inset-0 rounded-sm ring-1 ring-inset ring-white/0 group-hover:ring-white/20 transition-all duration-500 pointer-events-none" />
       </div>
-    </motion.div>
+    </div>
   );
 };
 
@@ -115,13 +84,7 @@ const MasterclassSection = () => {
       />
 
       {/* Section headline */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.8 }}
-        className="text-center px-6 md:px-12 mb-8 md:mb-10"
-      >
+      <div className="text-center px-6 md:px-12 mb-8 md:mb-10">
         <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border border-primary/30 text-primary bg-primary/5 mb-4">
           On-demand
         </span>
@@ -132,34 +95,27 @@ const MasterclassSection = () => {
         <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-5 md:mt-6 max-w-lg mx-auto leading-relaxed">
           High quality pre-recorded courses taught by India's finest.
         </p>
-      </motion.div>
+      </div>
 
       {/* Masterclass cards — grid layout */}
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-6 md:gap-6">
-          {masterclasses.map((mc, index) => (
-            <MasterclassCard key={mc.name} mc={mc} index={index} />
+          {masterclasses.map((mc) => (
+            <MasterclassCard key={mc.name} mc={mc} />
           ))}
         </div>
       </div>
 
       {/* Soft CTA */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-        className="text-center mt-10 md:mt-14"
-      >
+      <div className="text-center mt-10 md:mt-14">
         <a
           href="#"
-          
           className="cta-underline group inline-flex items-center gap-3 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-400"
         >
           Explore the full library
           <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
         </a>
-      </motion.div>
+      </div>
     </section>
   );
 };

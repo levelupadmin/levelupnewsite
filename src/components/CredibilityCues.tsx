@@ -1,5 +1,4 @@
 import { useRef, useEffect, useState } from "react";
-import { motion, useInView } from "framer-motion";
 
 const cues = [
   { value: "57,660+", numericValue: 57660, label: "Learners enrolled", suffix: "+", hasComma: true },
@@ -19,18 +18,18 @@ const AnimatedCounter = ({
   suffix = "",
   hasComma = false,
   decimals,
-  isInView,
 }: {
   target: number;
   suffix: string;
   hasComma?: boolean;
   decimals?: number;
-  isInView: boolean;
 }) => {
   const [value, setValue] = useState(0);
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
-    if (!isInView) return;
+    if (hasAnimated.current) return;
+    hasAnimated.current = true;
 
     const duration = 1800;
     const startTime = performance.now();
@@ -38,8 +37,6 @@ const AnimatedCounter = ({
     const animate = (currentTime: number) => {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
-
-      // Ease out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
       setValue(eased * target);
 
@@ -49,7 +46,7 @@ const AnimatedCounter = ({
     };
 
     requestAnimationFrame(animate);
-  }, [isInView, target]);
+  }, [target]);
 
   return (
     <span>
@@ -60,9 +57,6 @@ const AnimatedCounter = ({
 };
 
 const CredibilityCues = () => {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
   return (
     <section
       aria-label="Key stats and credibility"
@@ -72,48 +66,29 @@ const CredibilityCues = () => {
       }}
     >
       <div className="max-w-5xl mx-auto px-6 md:px-12">
-        <div ref={ref} className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8">
-          {cues.map((cue, index) => (
-            <motion.div
-              key={cue.label}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.1,
-                ease: [0.25, 0.1, 0.25, 1],
-              }}
-              className="text-center"
-            >
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8">
+          {cues.map((cue) => (
+            <div key={cue.label} className="text-center">
               <p className="font-serif-display text-2xl md:text-3xl lg:text-4xl font-medium text-white tracking-tight tabular-nums">
                 <AnimatedCounter
                   target={cue.numericValue}
                   suffix={cue.suffix}
                   hasComma={cue.hasComma}
                   decimals={cue.decimals}
-                  isInView={isInView}
                 />
               </p>
               <p className="font-sans-body text-xs md:text-sm text-white/60 mt-2 tracking-wide">
                 {cue.label}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        {/* Closing thought */}
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="font-sans-body text-sm text-white/40 text-center mt-10 md:mt-12 max-w-md mx-auto leading-relaxed"
-        >
+        <p className="font-sans-body text-sm text-white/40 text-center mt-10 md:mt-12 max-w-md mx-auto leading-relaxed">
           From masterclasses to residencies, from community to career —
           <br className="hidden md:block" />
           every layer designed for the serious creator.
-        </motion.p>
+        </p>
       </div>
     </section>
   );

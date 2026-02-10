@@ -1,7 +1,6 @@
 import { useEffect, useCallback, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { motion } from "framer-motion";
 
 import forgeFilmmakingBanner from "@/assets/forge-filmmaking-banner.jpg";
 import forgeCreatorsBanner from "@/assets/forge-creators-banner.jpg";
@@ -61,12 +60,7 @@ const ForgeCarousel = () => {
   }, [emblaApi, onSelect]);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-    >
+    <div>
       <div className="relative">
         <div ref={emblaRef} className="overflow-hidden">
           <div className="flex items-center">
@@ -94,10 +88,8 @@ const ForgeCarousel = () => {
                       decoding="async"
                     />
 
-                    {/* Gradient overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
 
-                    {/* Text overlay — only on active slide */}
                     <div
                       className={`absolute bottom-0 left-0 right-0 p-4 md:p-8 transition-opacity duration-500 ${
                         isActive ? "opacity-100" : "opacity-0"
@@ -133,7 +125,7 @@ const ForgeCarousel = () => {
           ))}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

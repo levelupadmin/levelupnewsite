@@ -1,5 +1,4 @@
 import { useRef, useEffect, useState } from "react";
-import { motion, useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
 const BrandIcon = ({ name }: { name: string }) => {
@@ -45,18 +44,8 @@ const BrandIcon = ({ name }: { name: string }) => {
 };
 
 const brands = [
-  "FTII",
-  "NID",
-  "Whistling Woods",
-  "YRF",
-  "Excel Entertainment",
-  "TVF",
-  "Google",
-  "Amazon Prime",
-  "Viacom18",
-  "Dharma",
-  "Red Chillies",
-  "Adobe",
+  "FTII", "NID", "Whistling Woods", "YRF", "Excel Entertainment", "TVF",
+  "Google", "Amazon Prime", "Viacom18", "Dharma", "Red Chillies", "Adobe",
 ];
 
 const stats = [
@@ -83,17 +72,17 @@ const AnimatedCounter = ({
   target,
   suffix = "",
   hasComma = false,
-  isInView,
 }: {
   target: number;
   suffix: string;
   hasComma?: boolean;
-  isInView: boolean;
 }) => {
   const [value, setValue] = useState(0);
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
-    if (!isInView) return;
+    if (hasAnimated.current) return;
+    hasAnimated.current = true;
 
     const duration = 1800;
     const startTime = performance.now();
@@ -110,7 +99,7 @@ const AnimatedCounter = ({
     };
 
     requestAnimationFrame(animate);
-  }, [isInView, target]);
+  }, [target]);
 
   return (
     <span>
@@ -120,102 +109,61 @@ const AnimatedCounter = ({
   );
 };
 
-const ease = [0.25, 0.1, 0.25, 1] as const;
-
 const StudentLogosSection = () => {
-  const statsRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(statsRef, { once: true, margin: "-50px" });
-
   return (
     <section
       aria-label="LevelUp credibility and community"
       className="relative"
     >
       <div className="py-12 md:py-16">
-      <div className="max-w-4xl mx-auto px-6 md:px-12">
-        {/* Top separator */}
-        <motion.div
-          initial={{ width: 0 }}
-          whileInView={{ width: 48 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease }}
-          className="h-px bg-border mx-auto mb-10 md:mb-12"
-        />
+        <div className="max-w-4xl mx-auto px-6 md:px-12">
+          {/* Top separator */}
+          <div className="h-px bg-border mx-auto mb-10 md:mb-12 w-12" />
 
-        {/* Headline */}
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.7, ease }}
-          className="font-serif-display text-2xl md:text-3xl lg:text-[2.5rem] lg:leading-[1.25] text-center text-foreground max-w-2xl mx-auto mb-12 md:mb-16"
-        >
-          The creative industry is competitive.{" "}
-          <strong className="text-gradient-amber">
-            Your growth doesn't have to wait.
-          </strong>
-        </motion.h2>
+          {/* Headline */}
+          <h2 className="font-serif-display text-2xl md:text-3xl lg:text-[2.5rem] lg:leading-[1.25] text-center text-foreground max-w-2xl mx-auto mb-12 md:mb-16">
+            The creative industry is competitive.{" "}
+            <strong className="text-gradient-amber">
+              Your growth doesn't have to wait.
+            </strong>
+          </h2>
 
-        {/* Stats */}
-        <div
-          ref={statsRef}
-          className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 mb-10 md:mb-14 max-w-xl mx-auto"
-        >
-          {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: i * 0.15, ease }}
-              className="text-center"
+          {/* Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 mb-10 md:mb-14 max-w-xl mx-auto">
+            {stats.map((stat) => (
+              <div key={stat.label} className="text-center">
+                <p className="font-serif-display text-4xl md:text-5xl lg:text-6xl font-medium text-cue-value tracking-tight tabular-nums">
+                  <AnimatedCounter
+                    target={stat.value}
+                    suffix={stat.suffix}
+                    hasComma={stat.hasComma}
+                  />
+                </p>
+                <p className="font-sans-body text-xs md:text-sm text-muted-foreground mt-3 leading-relaxed max-w-[220px] mx-auto">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA Link */}
+          <div className="text-center mb-12 md:mb-16">
+            <a
+              href="#testimonials"
+              className="cta-underline font-sans-body text-sm text-primary inline-flex items-center gap-1.5 transition-colors hover:text-primary/80"
+              aria-label="See what our alumni are building"
             >
-              <p className="font-serif-display text-4xl md:text-5xl lg:text-6xl font-medium text-cue-value tracking-tight tabular-nums">
-                <AnimatedCounter
-                  target={stat.value}
-                  suffix={stat.suffix}
-                  hasComma={stat.hasComma}
-                  isInView={isInView}
-                />
-              </p>
-              <p className="font-sans-body text-xs md:text-sm text-muted-foreground mt-3 leading-relaxed max-w-[220px] mx-auto">
-                {stat.label}
-              </p>
-            </motion.div>
-          ))}
+              See what our alumni are building
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
         </div>
-
-        {/* CTA Link */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.35, ease }}
-          className="text-center mb-12 md:mb-16"
-        >
-          <a
-            href="#testimonials"
-            className="cta-underline font-sans-body text-sm text-primary inline-flex items-center gap-1.5 transition-colors hover:text-primary/80"
-            aria-label="See what our alumni are building"
-          >
-            See what our alumni are building
-            <ArrowUpRight className="w-3.5 h-3.5" />
-          </a>
-        </motion.div>
-
-      </div>
       </div>
 
       <div className="bg-background py-10 md:py-14">
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease }}
-          className="font-serif-display text-2xl md:text-3xl text-foreground text-center mb-10 md:mb-12"
-        >
+        <p className="font-serif-display text-2xl md:text-3xl text-foreground text-center mb-10 md:mb-12">
           Our students come from:
-        </motion.p>
+        </p>
 
         <div className="space-y-6 md:space-y-8">
           {[brands.slice(0, 6), brands.slice(6)].map((row, rowIdx) => (
