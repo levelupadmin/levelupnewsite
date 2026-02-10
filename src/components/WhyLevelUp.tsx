@@ -3,7 +3,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, ChevronDown, ArrowRight, Maximize2 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import carouselImg from "@/assets/carousel-3.jpg";
-import cardGradientBg from "@/assets/card-gradient-bg.png";
+import whyBg1 from "@/assets/why-bg-1.png";
+import whyBg2 from "@/assets/why-bg-2.png";
+import whyBg3 from "@/assets/why-bg-3.png";
+
+const cardBgImages = [whyBg1, whyBg2, whyBg3];
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -81,9 +85,9 @@ const cardTopGradients = [
 ];
 
 const cardGlows = [
-  "", // Card 0 uses image background instead
-  "radial-gradient(ellipse 60% 40% at 50% 20%, hsl(24 80% 45% / 0.25) 0%, hsl(24 80% 40% / 0.08) 40%, transparent 70%)",
-  "radial-gradient(ellipse 60% 40% at 50% 20%, hsl(24 80% 45% / 0.25) 0%, hsl(24 80% 40% / 0.08) 40%, transparent 70%)",
+  "",
+  "",
+  "",
 ];
 
 /* ------------------------------------------------------------------ */
@@ -168,27 +172,14 @@ const MobileOverlay = ({ card, cardIndex, onClose }: MobileOverlayProps) => {
         />
       )}
 
-      {cardIndex === 0 && (
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: `url(${cardGradientBg})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center top",
-          }}
-        />
-      )}
-
-      {cardIndex === 2 && (
-        <div
-          className="absolute inset-0 pointer-events-none opacity-[0.07]"
-          style={{
-            backgroundImage: `url(${carouselImg})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-      )}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-50"
+        style={{
+          backgroundImage: `url(${cardBgImages[cardIndex]})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
 
       <div className="sticky top-0 z-20 flex justify-end px-5 pt-5">
         <button
@@ -364,27 +355,14 @@ const WhyLevelUp = () => {
                   />
                 )}
 
-                {i === 0 && (
-                  <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                      backgroundImage: `url(${cardGradientBg})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center top",
-                    }}
-                  />
-                )}
-
-                {i === 2 && (
-                  <div
-                    className="absolute inset-0 pointer-events-none opacity-[0.07]"
-                    style={{
-                      backgroundImage: `url(${carouselImg})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                    }}
-                  />
-                )}
+                <div
+                  className="absolute inset-0 pointer-events-none opacity-50"
+                  style={{
+                    backgroundImage: `url(${cardBgImages[i]})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                />
 
                 <motion.div
                   layout
