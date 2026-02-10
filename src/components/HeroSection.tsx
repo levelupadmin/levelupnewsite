@@ -30,7 +30,7 @@ const HeroSection = () => {
 
         <h1 className="font-serif-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-medium text-hero-headline text-center leading-[1.1] tracking-[-0.03em] max-w-5xl text-shadow-hero">
           Where creators{" "}
-          <em className="font-serif-display italic font-normal text-gradient-amber">
+          <em className="font-serif-display italic font-normal" style={{ color: "#E6681D" }}>
             become
           </em>
         </h1>
