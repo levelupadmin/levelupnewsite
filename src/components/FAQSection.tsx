@@ -69,21 +69,21 @@ const faqs = [
 // Subtle tonal variations using HSL shifts within the dark palette
 const cardStyles = [
   "bg-card border-border",
-  "bg-[hsl(0_0%_99%)] border-[hsl(0_0%_90%)]",
+  "bg-[hsl(0_0%_9%)] border-border",
   "bg-card border-border",
-  "bg-[hsl(40_20%_98%)] border-[hsl(40_15%_90%)]",
+  "bg-[hsl(0_0%_9%)] border-border",
   "bg-card border-border",
-  "bg-[hsl(0_0%_99%)] border-[hsl(0_0%_90%)]",
+  "bg-[hsl(0_0%_9%)] border-border",
   "bg-card border-border",
-  "bg-[hsl(40_20%_98%)] border-[hsl(40_15%_90%)]",
+  "bg-[hsl(0_0%_9%)] border-border",
 ];
 
-// Featured cards get a warm amber-tinted background on light
-const featuredStyle = "bg-[hsl(35_40%_96%)] border-[hsl(35_30%_85%)]";
+// Featured cards get a subtle accent-tinted dark background
+const featuredStyle = "bg-[hsl(24_10%_8%)] border-primary/20";
 
 const FAQSection = () => {
   return (
-    <section id="faq" aria-label="Frequently asked questions" className="relative section-light py-12 md:py-16">
+    <section id="faq" aria-label="Frequently asked questions" className="relative py-12 md:py-16">
 
       <div className="relative max-w-6xl mx-auto px-5 md:px-6">
         {/* Headline */}

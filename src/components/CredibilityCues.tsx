@@ -68,7 +68,7 @@ const CredibilityCues = () => {
       aria-label="Key stats and credibility"
       className="relative pt-20 pb-40 md:pt-28 md:pb-52"
       style={{
-        background: `linear-gradient(to bottom, hsl(220 12% 7%) 0%, hsl(220 10% 12%) 20%, hsl(25 8% 35%) 45%, hsl(30 12% 55%) 65%, hsl(35 15% 78%) 80%, hsl(40 20% 96%) 100%)`,
+        background: `linear-gradient(to bottom, hsl(220 12% 7%) 0%, hsl(0 0% 4%) 100%)`,
       }}
     >
       <div className="max-w-5xl mx-auto px-6 md:px-12">
