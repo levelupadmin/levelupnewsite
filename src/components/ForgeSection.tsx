@@ -192,7 +192,9 @@ const ForgeSection = () => {
             {forgeCards.map((card, index) => (
               <div
                 key={index}
-                className="flex-[0_0_85%] md:flex-[0_0_65%] min-w-0"
+                className={`flex-[0_0_85%] md:flex-[0_0_65%] min-w-0 transition-opacity duration-500 ${
+                  index === selectedIndex ? "opacity-100" : "opacity-40"
+                }`}
               >
                 <div className="relative aspect-[16/10] rounded-lg overflow-hidden group">
                   {/* Background Image */}
