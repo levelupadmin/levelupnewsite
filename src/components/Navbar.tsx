@@ -192,7 +192,8 @@ const Navbar = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={[
-                  "hidden md:inline-flex font-sans-body text-foreground border border-border rounded-full hover:border-primary hover:text-primary transition-all duration-500",
+                  "hidden md:inline-flex font-sans-body text-foreground rounded-full hover:border-primary hover:text-primary transition-all duration-500",
+                  `border border-[#5c5c5c]`,
                   scrolled
                     ? "text-xs px-3 py-1.5"
                     : "text-xs md:text-sm px-3.5 md:px-4 py-1.5",
