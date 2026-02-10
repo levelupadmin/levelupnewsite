@@ -186,7 +186,7 @@ const StudentLogosSection = () => {
                 {[...row, ...row, ...row, ...row].map((brand, i) => (
                   <span
                     key={`${brand}-${i}`}
-                    className="font-sans-body text-xs md:text-sm uppercase tracking-[0.12em] text-foreground/70 select-none border border-border rounded-full px-5 py-2 transition-colors duration-300 hover:text-foreground hover:border-primary/50"
+                    className="font-sans-body text-sm md:text-base lg:text-lg font-bold uppercase tracking-[0.12em] text-foreground/90 select-none transition-colors duration-300 hover:text-foreground"
                   >
                     {brand}
                   </span>
