@@ -1,25 +1,18 @@
 
 
-# Convert Brand Grid to Dual-Row Scrolling Marquee
+# Restyle Brand Names in Scrolling Marquee
 
 ## What changes
-Replace the static 3x4 / 6-column brand grid in `StudentLogosSection.tsx` with two horizontally scrolling rows that move in opposite directions and pause on hover -- matching the reference image style.
+Make the brand names bolder, larger, and remove the pill/border styling so they appear as strong standalone text that pops against the dark background.
 
 ## Details
+- Remove `border border-border rounded-full px-5 py-2` (pill outline and padding)
+- Increase font size from `text-xs md:text-sm` to `text-sm md:text-base lg:text-lg`
+- Add `font-bold` or `font-semibold` for heavier weight
+- Change text color from `text-foreground/70` to `text-foreground/90` for more contrast
+- Keep hover effect (brighten to full `text-foreground`) and uppercase tracking
+- Adjust gap between items to account for removed pill padding
 
-- Split the 12 brands into two rows of 6
-- Each row is a CSS-animated infinite marquee (using `@keyframes` translateX loop)
-- Row 1 scrolls left-to-right, Row 2 scrolls right-to-left
-- Both rows pause on hover (`animation-play-state: paused`)
-- Brands are duplicated (rendered twice) to create a seamless loop
-- Remove the existing static grid markup
-- Keep the headline ("Our students come from..."), separators, and all other content unchanged
-
-## Technical approach
-
-- Add two keyframes in `src/index.css`: `scroll-left` (translateX 0 to -50%) and `scroll-right` (translateX -50% to 0)
-- Each row is `overflow: hidden` with a flex container inside that has the animation applied
-- On hover of each row container, set `animation-play-state: paused`
-- Speed: ~30s per loop for a slow, elegant scroll
-- Brand items styled as uppercase tracking-wide text (same as current)
+## File
+- `src/components/StudentLogosSection.tsx` — update the `<span>` className for brand items
 
