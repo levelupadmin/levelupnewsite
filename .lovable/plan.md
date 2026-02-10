@@ -1,46 +1,25 @@
 
 
-# New Tabbed Programs Section
+# Restyle ProgramsTabsSection Tabs to Match Reference
 
-## Overview
-Create a new `ProgramsTabsSection` component with three tabs (Filmmaking, Writing, Creators), each displaying a split-layout card inspired by the reference image. The section will sit between the existing ForgeSection and StudentLogosSection.
+## What changes
+The tab navigation in `ProgramsTabsSection.tsx` needs minor styling tweaks to exactly match the reference image's tab format:
 
-## Layout per tab
-Each tab content area is a large rounded dark card (`bg-[hsl(0_0%_7%)]`) with a two-column split:
-- **Left (40-50%)**: Heading, description paragraph, and a "Learn more" button (white bg, dark text, rounded-full -- matching the reference)
-- **Right (50-60%)**: An image carousel using the existing Embla setup, showing 2-3 images per tab with dot indicators
-
-## Tab navigation
-- Horizontal tab bar centered above the card
-- Inactive tabs: `text-muted-foreground`, active tab: `text-foreground font-bold` with a subtle bottom border/underline in primary orange
-- Uses Radix Tabs primitives (already installed)
-
-## Content for each tab
-- **Filmmaking**: Heading about the filmmaking bootcamp, description about hands-on short film creation, carousel using `forge-filmmaking-banner.jpg` and existing forge images
-- **Writing**: Heading about writing retreats, description about storytelling craft, carousel using `forge-writing-banner.jpg` and existing assets
-- **Creators**: Heading about creator workshops, description about building and shipping creative work, carousel using `forge-creators-banner.jpg` and existing assets
-
-## Placement
-Insert between ForgeSection and StudentLogosSection in `Index.tsx`, lazy-loaded like other sections.
+1. **Active tab underline**: Make the bottom border thicker (3px) and use the primary orange color, matching the reference's bold underline style
+2. **Tab spacing**: Increase horizontal gap between tabs for a more spread-out look like the reference
+3. **Tab text sizing**: Slightly larger text to match the reference's more prominent tab labels
+4. **Separation**: Add more margin between the tab bar and the content card below
 
 ## Technical details
 
-### New file: `src/components/ProgramsTabsSection.tsx`
-- Import Radix `Tabs`, `TabsList`, `TabsTrigger`, `TabsContent` from `@/components/ui/tabs`
-- Import `useEmblaCarousel` and `Autoplay` for each tab's image carousel
-- Import existing forge banner images as placeholders
-- Use `framer-motion` for entrance animation (fade-in on scroll)
-- Each tab content renders a flex/grid row: left text block + right carousel
-- "Learn more" button styled as `bg-white text-background rounded-full px-6 py-3 font-medium`
-- Mobile: stack vertically (image carousel above or below text)
+### File: `src/components/ProgramsTabsSection.tsx`
 
-### Modified file: `src/pages/Index.tsx`
-- Add lazy import for `ProgramsTabsSection`
-- Place it after `ForgeSection` and before `StudentLogosSection`
+**Tab trigger styling changes:**
+- Increase gap between tabs from `gap-1 md:gap-2` to `gap-4 md:gap-8`
+- Increase bottom margin from `mb-6 md:mb-8` to `mb-8 md:mb-10`
+- Change active border from `border-b-2` to `border-b-[3px]` for a thicker underline
+- Bump text size to `text-base md:text-lg`
+- Add more horizontal padding `px-5 md:px-8`
 
-### Styling
-- Section: `py-12 md:py-16` matching existing spacing
-- Card: `bg-[hsl(0_0%_7%)] rounded-2xl p-8 md:p-12`
-- Tab bar: custom styled with `bg-transparent` list, triggers with hover/active states using primary color
-- Carousel dots: orange active dot, muted inactive dots (same pattern as ForgeCarousel)
-- All fonts use existing `font-serif-display` for headings, `font-sans-body` for body text
+These are purely CSS class adjustments -- no structural or logic changes needed.
+
