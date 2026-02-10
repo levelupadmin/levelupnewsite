@@ -1,25 +1,32 @@
 
 
-# Restyle ProgramsTabsSection Tabs to Match Reference
+# Revert to Full Black Background Site-Wide
 
-## What changes
-The tab navigation in `ProgramsTabsSection.tsx` needs minor styling tweaks to exactly match the reference image's tab format:
+## Overview
+Remove all light-themed sections so the entire site uses the dark black background consistently. Adjust text colors in those sections to ensure readability on the dark background.
 
-1. **Active tab underline**: Make the bottom border thicker (3px) and use the primary orange color, matching the reference's bold underline style
-2. **Tab spacing**: Increase horizontal gap between tabs for a more spread-out look like the reference
-3. **Tab text sizing**: Slightly larger text to match the reference's more prominent tab labels
-4. **Separation**: Add more margin between the tab bar and the content card below
+## Changes
 
-## Technical details
+### 1. CSS: Remove or disable `section-light` class (src/index.css)
+- Remove the `.section-light` block (lines 67-83) that overrides background to warm off-white and text to dark colors
 
-### File: `src/components/ProgramsTabsSection.tsx`
+### 2. Remove `section-light` class from components
+These files currently apply `section-light` and need it removed:
 
-**Tab trigger styling changes:**
-- Increase gap between tabs from `gap-1 md:gap-2` to `gap-4 md:gap-8`
-- Increase bottom margin from `mb-6 md:mb-8` to `mb-8 md:mb-10`
-- Change active border from `border-b-2` to `border-b-[3px]` for a thicker underline
-- Bump text size to `text-base md:text-lg`
-- Add more horizontal padding `px-5 md:px-8`
+- **src/components/WhyLevelUp.tsx** -- remove `section-light` from the section className
+- **src/components/LiveProgramsSection.tsx** -- remove `section-light` from the section className
+- **src/components/FAQSection.tsx** -- remove `section-light` from the section className
+- **src/components/StudentLogosSection.tsx** -- remove `section-light` from the stats wrapper div
 
-These are purely CSS class adjustments -- no structural or logic changes needed.
+### 3. Fix text colors in affected sections
+With the dark background, some text that was styled for light mode (e.g., dark text colors, white cards) may need adjusting:
 
+- Card backgrounds that were `bg-white` or `bg-card` (which resolved to white in light mode) should use the dark card color (`bg-card` or `bg-[hsl(0_0%_7%)]`)
+- Any hardcoded light-mode text colors (like `text-black`, `text-gray-900`, etc.) should be switched to use theme tokens (`text-foreground`, `text-muted-foreground`)
+- Borders that were dark-on-light should use the standard `border-border` token
+
+### 4. Credibility Cues bridge gradient
+The gradient bridge between hero and the previously-light WhyLevelUp section may need simplification since both sections will now be the same dark color.
+
+## Result
+The entire website will have a consistent pure black (hsl(0 0% 4%)) background with light text throughout, matching the dark cinematic aesthetic.
