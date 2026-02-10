@@ -85,15 +85,6 @@ const MasterclassCard = ({ mc, index }: { mc: typeof masterclasses[0]; index: nu
           style={{ y: imageY }}
         />
 
-        {/* Minimal bottom gradient for name legibility */}
-        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
-
-        {/* Name — always visible at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
-          <p className="font-serif-display text-sm md:text-base font-medium text-white leading-tight tracking-tight">
-            {mc.name}
-          </p>
-        </div>
 
         {/* Hover glow ring */}
         <div className="absolute inset-0 rounded-sm ring-1 ring-inset ring-white/0 group-hover:ring-white/20 transition-all duration-500 pointer-events-none" />
