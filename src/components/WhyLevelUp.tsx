@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, ChevronDown, ArrowRight, Maximize2 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import carouselImg from "@/assets/carousel-3.jpg";
+import cardGradientBg from "@/assets/card-gradient-bg.png";
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -80,7 +81,7 @@ const cardTopGradients = [
 ];
 
 const cardGlows = [
-  "radial-gradient(ellipse 50% 35% at 50% 0%, hsl(24 85% 50% / 0.35) 0%, hsl(24 80% 40% / 0.12) 50%, transparent 80%)",
+  "", // Card 0 uses image background instead
   "radial-gradient(ellipse 60% 40% at 50% 20%, hsl(24 80% 45% / 0.25) 0%, hsl(24 80% 40% / 0.08) 40%, transparent 70%)",
   "radial-gradient(ellipse 60% 40% at 50% 20%, hsl(24 80% 45% / 0.25) 0%, hsl(24 80% 40% / 0.08) 40%, transparent 70%)",
 ];
@@ -160,10 +161,23 @@ const MobileOverlay = ({ card, cardIndex, onClose }: MobileOverlayProps) => {
         style={{ background: cardTopGradients[cardIndex] }}
       />
 
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: cardGlows[cardIndex] }}
-      />
+      {cardGlows[cardIndex] && (
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: cardGlows[cardIndex] }}
+        />
+      )}
+
+      {cardIndex === 0 && (
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: `url(${cardGradientBg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center top",
+          }}
+        />
+      )}
 
       {cardIndex === 2 && (
         <div
@@ -343,10 +357,23 @@ const WhyLevelUp = () => {
                   style={{ background: cardTopGradients[i] }}
                 />
 
-                <div
-                  className="absolute inset-0 pointer-events-none"
-                  style={{ background: cardGlows[i] }}
-                />
+                {cardGlows[i] && (
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{ background: cardGlows[i] }}
+                  />
+                )}
+
+                {i === 0 && (
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      backgroundImage: `url(${cardGradientBg})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center top",
+                    }}
+                  />
+                )}
 
                 {i === 2 && (
                   <div
