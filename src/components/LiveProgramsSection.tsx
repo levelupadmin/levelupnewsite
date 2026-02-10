@@ -105,7 +105,7 @@ const cardVariants = {
 
 const LiveProgramsSection = () => {
   return (
-    <section id="live-programs" aria-label="Live programs" className="relative py-12 md:py-16 section-light">
+    <section id="live-programs" aria-label="Live programs" className="relative py-12 md:py-16">
 
       {/* Section header */}
       <motion.div

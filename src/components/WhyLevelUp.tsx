@@ -69,7 +69,7 @@ const cards: CardData[] = [
 
 const cardBgClasses = [
   "bg-card border border-border",
-  "bg-[hsl(40_30%_97%)] border border-[hsl(35_20%_88%)]",
+  "bg-[hsl(0_0%_9%)] border border-border",
   "bg-card border border-border",
 ];
 
@@ -308,7 +308,7 @@ const WhyLevelUp = () => {
   return (
     <section
       aria-label="Why choose LevelUp"
-      className="relative section-light py-12 md:py-16 overflow-hidden"
+      className="relative py-12 md:py-16 overflow-hidden"
     >
       {/* ── Asymmetric headline block ── */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 mb-10 md:mb-14">
