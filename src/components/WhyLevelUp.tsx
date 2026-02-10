@@ -80,9 +80,9 @@ const cardTopGradients = [
 ];
 
 const cardGlows = [
-  "radial-gradient(ellipse at 30% 80%, hsl(38 75% 55% / 0.07) 0%, transparent 60%)",
-  "radial-gradient(ellipse at 50% 80%, hsl(30 60% 50% / 0.08) 0%, transparent 60%)",
-  "radial-gradient(ellipse at 70% 80%, hsl(220 30% 45% / 0.06) 0%, transparent 60%)",
+  "radial-gradient(ellipse 60% 40% at 50% 20%, hsl(24 80% 45% / 0.25) 0%, hsl(24 80% 40% / 0.08) 40%, transparent 70%)",
+  "radial-gradient(ellipse 60% 40% at 50% 20%, hsl(24 80% 45% / 0.25) 0%, hsl(24 80% 40% / 0.08) 40%, transparent 70%)",
+  "radial-gradient(ellipse 60% 40% at 50% 20%, hsl(24 80% 45% / 0.25) 0%, hsl(24 80% 40% / 0.08) 40%, transparent 70%)",
 ];
 
 /* ------------------------------------------------------------------ */
