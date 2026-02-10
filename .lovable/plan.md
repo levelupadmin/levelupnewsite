@@ -1,32 +1,39 @@
 
-
-# Revert to Full Black Background Site-Wide
+# Replace Forge Carousel with 3 Large Scroll Cards
 
 ## Overview
-Remove all light-themed sections so the entire site uses the dark black background consistently. Adjust text colors in those sections to ensure readability on the dark background.
+Replace the current Embla carousel in the Forge section with 3 large, static scroll cards — one each for Forge Filmmaking, Forge Writers, and Forge Creators. Each card features a background image, title, one line of subtext, and two buttons.
 
-## Changes
+## Card Design
+Each card will be a tall, full-width (within max-w-7xl) image card with:
+- Background image (using existing forge banner assets)
+- Bottom gradient overlay for text readability
+- Title (e.g. "Forge Filmmaking")
+- One-line subtitle (e.g. "12-day bootcamp. Make your own short film.")
+- Two buttons: a primary CTA ("Apply Now") and a secondary/outline CTA ("Learn More")
+- Rounded corners, vertical stacking with gap between cards
+- Scroll-triggered entrance animation (fade + slide up)
 
-### 1. CSS: Remove or disable `section-light` class (src/index.css)
-- Remove the `.section-light` block (lines 67-83) that overrides background to warm off-white and text to dark colors
+## Card Data
+1. **Forge Filmmaking** — image: `forge-filmmaking-banner.jpg`, subtitle: "12-day bootcamp. Make your own short film.", buttons: "Apply Now" + "Learn More"
+2. **Forge Writers** — image: `forge-writing-banner.jpg`, subtitle: "Immersive retreat for writers and storytellers.", buttons: "Apply Now" + "Learn More"
+3. **Forge Creators** — image: `forge-creators-banner.jpg`, subtitle: "Build, collaborate, and ship creative work.", buttons: "Apply Now" + "Learn More"
 
-### 2. Remove `section-light` class from components
-These files currently apply `section-light` and need it removed:
+## Technical Changes
 
-- **src/components/WhyLevelUp.tsx** -- remove `section-light` from the section className
-- **src/components/LiveProgramsSection.tsx** -- remove `section-light` from the section className
-- **src/components/FAQSection.tsx** -- remove `section-light` from the section className
-- **src/components/StudentLogosSection.tsx** -- remove `section-light` from the stats wrapper div
+### `src/components/ForgeSection.tsx`
+- Remove the `<ForgeCarousel />` import and usage
+- Replace the carousel block with 3 vertically stacked cards
+- Each card: `aspect-[16/9]` or similar tall ratio, background image via `<img>` + absolute overlay, title + subtitle + two buttons at the bottom-left
+- Cards animate in on scroll with staggered Framer Motion
+- Buttons use existing styling: primary filled button + outline/ghost secondary button
 
-### 3. Fix text colors in affected sections
-With the dark background, some text that was styled for light mode (e.g., dark text colors, white cards) may need adjusting:
+### `src/components/ForgeCarousel.tsx`
+- No longer imported; can be left as-is or removed (will leave it since it's unused but harmless)
 
-- Card backgrounds that were `bg-white` or `bg-card` (which resolved to white in light mode) should use the dark card color (`bg-card` or `bg-[hsl(0_0%_7%)]`)
-- Any hardcoded light-mode text colors (like `text-black`, `text-gray-900`, etc.) should be switched to use theme tokens (`text-foreground`, `text-muted-foreground`)
-- Borders that were dark-on-light should use the standard `border-border` token
-
-### 4. Credibility Cues bridge gradient
-The gradient bridge between hero and the previously-light WhyLevelUp section may need simplification since both sections will now be the same dark color.
-
-## Result
-The entire website will have a consistent pure black (hsl(0 0% 4%)) background with light text throughout, matching the dark cinematic aesthetic.
+## Layout Spec
+- Cards stacked vertically with `gap-6 md:gap-8`
+- Each card: `rounded-lg overflow-hidden` with `aspect-[16/9]` for a large cinematic feel
+- Image covers entire card, gradient overlay from bottom
+- Text + buttons positioned `absolute bottom-0 left-0 p-6 md:p-10`
+- Primary button: filled orange (bg-primary), secondary: outline/ghost style
