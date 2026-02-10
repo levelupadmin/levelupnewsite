@@ -1,6 +1,7 @@
 import { PlusCircle, ArrowRight } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
-import { useCallback, useEffect, useState } from "react";
+import Autoplay from "embla-carousel-autoplay";
+import { useCallback, useEffect, useState, useRef } from "react";
 import forgeFilmmaking from "@/assets/forge-filmmaking-banner.jpg";
 import forgeWriting from "@/assets/forge-writing-banner.jpg";
 import forgeCreators from "@/assets/forge-creators-banner.jpg";
@@ -60,11 +61,19 @@ const forgeCards = [
 ];
 
 const ForgeSection = () => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "start",
-    containScroll: "trimSnaps",
-    slidesToScroll: 1,
-  });
+  const autoplayPlugin = useRef(
+    Autoplay({ delay: 3000, stopOnInteraction: false })
+  );
+
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      align: "start",
+      containScroll: "trimSnaps",
+      slidesToScroll: 1,
+      loop: true,
+    },
+    [autoplayPlugin.current]
+  );
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const onSelect = useCallback(() => {
