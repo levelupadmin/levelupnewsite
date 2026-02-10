@@ -117,7 +117,7 @@ const TabCarousel = ({ images }: { images: { src: string; alt: string }[] }) => 
 
 const ProgramsTabsSection = () => {
   return (
-    <section className="py-12 md:py-16 px-4 md:px-8 lg:px-12">
+    <section className="py-12 md:py-16 px-4 md:px-8 lg:px-12 bg-white">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -126,12 +126,12 @@ const ProgramsTabsSection = () => {
         className="max-w-6xl mx-auto"
       >
         <Tabs defaultValue="filmmaking" className="w-full">
-          <TabsList className="bg-transparent w-full justify-center gap-4 md:gap-8 mb-8 md:mb-10 h-auto p-0">
+          <TabsList className="bg-transparent w-full justify-center gap-6 md:gap-12 mb-8 md:mb-10 h-auto p-0">
             {tabsData.map((tab) => (
               <TabsTrigger
                 key={tab.value}
                 value={tab.value}
-                className="font-sans-body text-base md:text-lg px-5 md:px-8 py-2.5 rounded-none bg-transparent text-muted-foreground border-b-[3px] border-transparent transition-all duration-300 data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:font-bold data-[state=active]:border-b-[3px] data-[state=active]:border-primary data-[state=active]:shadow-none hover:text-foreground/80"
+                className="font-sans-body text-base md:text-lg px-2 md:px-4 py-3 rounded-none bg-transparent text-[hsl(0_0%_40%)] border-b-[3px] border-transparent transition-all duration-300 data-[state=active]:bg-transparent data-[state=active]:text-[hsl(0_0%_10%)] data-[state=active]:font-bold data-[state=active]:border-b-[3px] data-[state=active]:border-primary data-[state=active]:shadow-none hover:text-[hsl(0_0%_20%)]"
               >
                 {tab.label}
               </TabsTrigger>
