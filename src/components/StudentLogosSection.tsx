@@ -2,45 +2,46 @@ import { useRef, useEffect, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 
 const BrandIcon = ({ name }: { name: string }) => {
+  const s = 40;
   const icons: Record<string, JSX.Element> = {
     FTII: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="12" stroke="currentColor" strokeWidth="2"/><path d="M10 10h8M10 14h5M10 18h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+      <svg width={s} height={s} viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="12" stroke="currentColor" strokeWidth="2"/><path d="M10 10h8M10 14h5M10 18h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
     ),
     NID: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="4" y="4" width="20" height="20" rx="3" stroke="currentColor" strokeWidth="2"/><path d="M10 18V10l8 8V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+      <svg width={s} height={s} viewBox="0 0 28 28" fill="none"><rect x="4" y="4" width="20" height="20" rx="3" stroke="currentColor" strokeWidth="2"/><path d="M10 18V10l8 8V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
     ),
     "Whistling Woods": (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 3l3 7h7l-5.5 4.5 2 7L14 17l-6.5 4.5 2-7L4 10h7l3-7z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/></svg>
+      <svg width={s} height={s} viewBox="0 0 28 28" fill="none"><path d="M14 3l3 7h7l-5.5 4.5 2 7L14 17l-6.5 4.5 2-7L4 10h7l3-7z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/></svg>
     ),
     YRF: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M4 6l10 8L4 22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 14h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+      <svg width={s} height={s} viewBox="0 0 28 28" fill="none"><path d="M4 6l10 8L4 22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 14h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
     ),
     "Excel Entertainment": (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,9 26,19 14,26 2,19 2,9" stroke="currentColor" strokeWidth="1.5" fill="none"/><path d="M10 10l8 8M18 10l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+      <svg width={s} height={s} viewBox="0 0 28 28" fill="none"><polygon points="14,2 26,9 26,19 14,26 2,19 2,9" stroke="currentColor" strokeWidth="1.5" fill="none"/><path d="M10 10l8 8M18 10l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
     ),
     TVF: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="3" y="6" width="22" height="16" rx="2" stroke="currentColor" strokeWidth="2"/><path d="M11 12l6 3-6 3V12z" fill="currentColor"/></svg>
+      <svg width={s} height={s} viewBox="0 0 28 28" fill="none"><rect x="3" y="6" width="22" height="16" rx="2" stroke="currentColor" strokeWidth="2"/><path d="M11 12l6 3-6 3V12z" fill="currentColor"/></svg>
     ),
     Google: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" stroke="currentColor" strokeWidth="2"/><path d="M14 8a6 6 0 014.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><path d="M14 14h7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+      <svg width={s} height={s} viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" stroke="currentColor" strokeWidth="2"/><path d="M14 8a6 6 0 014.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><path d="M14 14h7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
     ),
     "Amazon Prime": (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M4 18c4 4 16 4 20 0" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><path d="M20 16l4 2-4 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M8 6h12v10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+      <svg width={s} height={s} viewBox="0 0 28 28" fill="none"><path d="M4 18c4 4 16 4 20 0" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><path d="M20 16l4 2-4 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M8 6h12v10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
     ),
     Viacom18: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M4 8l10 14L24 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+      <svg width={s} height={s} viewBox="0 0 28 28" fill="none"><path d="M4 8l10 14L24 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
     ),
     Dharma: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 2v24M2 14h24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><circle cx="14" cy="14" r="6" stroke="currentColor" strokeWidth="1.5"/><circle cx="14" cy="14" r="11" stroke="currentColor" strokeWidth="1.5"/></svg>
+      <svg width={s} height={s} viewBox="0 0 28 28" fill="none"><path d="M14 2v24M2 14h24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><circle cx="14" cy="14" r="6" stroke="currentColor" strokeWidth="1.5"/><circle cx="14" cy="14" r="11" stroke="currentColor" strokeWidth="1.5"/></svg>
     ),
     "Red Chillies": (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 4c-4 0-8 4-8 10s4 10 8 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><path d="M14 4c4 0 8 4 8 10s-4 10-8 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><path d="M14 4v20" stroke="currentColor" strokeWidth="1.5"/></svg>
+      <svg width={s} height={s} viewBox="0 0 28 28" fill="none"><path d="M14 4c-4 0-8 4-8 10s4 10 8 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><path d="M14 4c4 0 8 4 8 10s-4 10-8 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><path d="M14 4v20" stroke="currentColor" strokeWidth="1.5"/></svg>
     ),
     Adobe: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M4 24L14 4l10 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 17h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+      <svg width={s} height={s} viewBox="0 0 28 28" fill="none"><path d="M4 24L14 4l10 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 17h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
     ),
   };
-  return icons[name] || <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" stroke="currentColor" strokeWidth="2"/></svg>;
+  return icons[name] || <svg width={s} height={s} viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" stroke="currentColor" strokeWidth="2"/></svg>;
 };
 
 const brands = [
@@ -176,14 +177,14 @@ const StudentLogosSection = () => {
               }}
             >
               <div
-                className={`flex whitespace-nowrap items-center gap-8 md:gap-12 w-max ${
+                className={`flex whitespace-nowrap items-center gap-12 md:gap-16 lg:gap-20 w-max ${
                   rowIdx === 0 ? "animate-scroll-left" : "animate-scroll-right"
                 } pause-on-hover`}
               >
                 {[...row, ...row, ...row, ...row].map((brand, i) => (
                   <span
                     key={`${brand}-${i}`}
-                    className="inline-flex items-center gap-2.5 font-sans-body text-lg md:text-xl lg:text-2xl font-extrabold text-foreground/90 select-none transition-colors duration-300 hover:text-foreground"
+                    className="inline-flex items-center gap-3 md:gap-4 font-sans-body text-xl md:text-2xl lg:text-3xl font-extrabold text-foreground/90 select-none transition-colors duration-300 hover:text-foreground"
                   >
                     <BrandIcon name={brand} />
                     {brand}
