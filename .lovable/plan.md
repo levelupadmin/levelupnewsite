@@ -1,32 +1,46 @@
 
 
-# Revert to Full Black Background Site-Wide
+# New Tabbed Programs Section
 
 ## Overview
-Remove all light-themed sections so the entire site uses the dark black background consistently. Adjust text colors in those sections to ensure readability on the dark background.
+Create a new `ProgramsTabsSection` component with three tabs (Filmmaking, Writing, Creators), each displaying a split-layout card inspired by the reference image. The section will sit between the existing ForgeSection and StudentLogosSection.
 
-## Changes
+## Layout per tab
+Each tab content area is a large rounded dark card (`bg-[hsl(0_0%_7%)]`) with a two-column split:
+- **Left (40-50%)**: Heading, description paragraph, and a "Learn more" button (white bg, dark text, rounded-full -- matching the reference)
+- **Right (50-60%)**: An image carousel using the existing Embla setup, showing 2-3 images per tab with dot indicators
 
-### 1. CSS: Remove or disable `section-light` class (src/index.css)
-- Remove the `.section-light` block (lines 67-83) that overrides background to warm off-white and text to dark colors
+## Tab navigation
+- Horizontal tab bar centered above the card
+- Inactive tabs: `text-muted-foreground`, active tab: `text-foreground font-bold` with a subtle bottom border/underline in primary orange
+- Uses Radix Tabs primitives (already installed)
 
-### 2. Remove `section-light` class from components
-These files currently apply `section-light` and need it removed:
+## Content for each tab
+- **Filmmaking**: Heading about the filmmaking bootcamp, description about hands-on short film creation, carousel using `forge-filmmaking-banner.jpg` and existing forge images
+- **Writing**: Heading about writing retreats, description about storytelling craft, carousel using `forge-writing-banner.jpg` and existing assets
+- **Creators**: Heading about creator workshops, description about building and shipping creative work, carousel using `forge-creators-banner.jpg` and existing assets
 
-- **src/components/WhyLevelUp.tsx** -- remove `section-light` from the section className
-- **src/components/LiveProgramsSection.tsx** -- remove `section-light` from the section className
-- **src/components/FAQSection.tsx** -- remove `section-light` from the section className
-- **src/components/StudentLogosSection.tsx** -- remove `section-light` from the stats wrapper div
+## Placement
+Insert between ForgeSection and StudentLogosSection in `Index.tsx`, lazy-loaded like other sections.
 
-### 3. Fix text colors in affected sections
-With the dark background, some text that was styled for light mode (e.g., dark text colors, white cards) may need adjusting:
+## Technical details
 
-- Card backgrounds that were `bg-white` or `bg-card` (which resolved to white in light mode) should use the dark card color (`bg-card` or `bg-[hsl(0_0%_7%)]`)
-- Any hardcoded light-mode text colors (like `text-black`, `text-gray-900`, etc.) should be switched to use theme tokens (`text-foreground`, `text-muted-foreground`)
-- Borders that were dark-on-light should use the standard `border-border` token
+### New file: `src/components/ProgramsTabsSection.tsx`
+- Import Radix `Tabs`, `TabsList`, `TabsTrigger`, `TabsContent` from `@/components/ui/tabs`
+- Import `useEmblaCarousel` and `Autoplay` for each tab's image carousel
+- Import existing forge banner images as placeholders
+- Use `framer-motion` for entrance animation (fade-in on scroll)
+- Each tab content renders a flex/grid row: left text block + right carousel
+- "Learn more" button styled as `bg-white text-background rounded-full px-6 py-3 font-medium`
+- Mobile: stack vertically (image carousel above or below text)
 
-### 4. Credibility Cues bridge gradient
-The gradient bridge between hero and the previously-light WhyLevelUp section may need simplification since both sections will now be the same dark color.
+### Modified file: `src/pages/Index.tsx`
+- Add lazy import for `ProgramsTabsSection`
+- Place it after `ForgeSection` and before `StudentLogosSection`
 
-## Result
-The entire website will have a consistent pure black (hsl(0 0% 4%)) background with light text throughout, matching the dark cinematic aesthetic.
+### Styling
+- Section: `py-12 md:py-16` matching existing spacing
+- Card: `bg-[hsl(0_0%_7%)] rounded-2xl p-8 md:p-12`
+- Tab bar: custom styled with `bg-transparent` list, triggers with hover/active states using primary color
+- Carousel dots: orange active dot, muted inactive dots (same pattern as ForgeCarousel)
+- All fonts use existing `font-serif-display` for headings, `font-sans-body` for body text
