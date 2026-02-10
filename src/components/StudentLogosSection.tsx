@@ -180,27 +180,27 @@ const StudentLogosSection = () => {
           Our students come from top studios, institutes, and platforms
         </motion.p>
 
-        {/* Brand grid */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-30px" }}
-          transition={{ duration: 0.8, delay: 0.1, ease }}
-          className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-y-5 gap-x-4 md:gap-y-6 max-w-3xl mx-auto"
-        >
-          {brands.map((brand, i) => (
-            <motion.span
-              key={brand}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.05 * i, ease }}
-              className="font-sans-body text-xs md:text-sm uppercase tracking-[0.15em] text-muted-foreground text-center select-none transition-colors duration-300 hover:text-foreground"
-            >
-              {brand}
-            </motion.span>
+        {/* Brand marquee rows */}
+        <div className="space-y-4 max-w-3xl mx-auto">
+          {[brands.slice(0, 6), brands.slice(6)].map((row, rowIdx) => (
+            <div key={rowIdx} className="overflow-hidden">
+              <div
+                className={`flex whitespace-nowrap gap-8 md:gap-12 w-max ${
+                  rowIdx === 0 ? "animate-scroll-left" : "animate-scroll-right"
+                } pause-on-hover`}
+              >
+                {[...row, ...row].map((brand, i) => (
+                  <span
+                    key={`${brand}-${i}`}
+                    className="font-sans-body text-xs md:text-sm uppercase tracking-[0.15em] text-muted-foreground select-none transition-colors duration-300 hover:text-foreground px-2"
+                  >
+                    {brand}
+                  </span>
+                ))}
+              </div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Bottom separator */}
         <motion.div
