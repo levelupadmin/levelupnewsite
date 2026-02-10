@@ -171,8 +171,8 @@ const StudentLogosSection = () => {
               key={rowIdx}
               className="overflow-hidden"
               style={{
-                maskImage: "linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)",
-                WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)",
+                maskImage: "linear-gradient(to right, transparent 0%, black 30%, black 70%, transparent 100%)",
+                WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 30%, black 70%, transparent 100%)",
               }}
             >
               <div
