@@ -167,11 +167,14 @@ const StudentLogosSection = () => {
 
         <div className="space-y-6 md:space-y-8">
           {[brands.slice(0, 6), brands.slice(6)].map((row, rowIdx) => (
-            <div key={rowIdx} className="overflow-hidden relative">
-              {/* Left fade */}
-              <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-              {/* Right fade */}
-              <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+            <div
+              key={rowIdx}
+              className="overflow-hidden"
+              style={{
+                maskImage: "linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)",
+                WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)",
+              }}
+            >
               <div
                 className={`flex whitespace-nowrap items-center gap-8 md:gap-12 w-max ${
                   rowIdx === 0 ? "animate-scroll-left" : "animate-scroll-right"
