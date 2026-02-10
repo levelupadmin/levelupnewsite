@@ -134,26 +134,6 @@ const ForgeSection = () => {
         </div>
       </div>
 
-
-      {/* Quiet CTA */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-        className="text-center mt-10 md:mt-14"
-      >
-        <a
-          href="https://tally.so/r/nPJydd"
-          target="_blank"
-          rel="noopener noreferrer"
-          
-          className="cta-underline group inline-flex items-center gap-3 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-400"
-        >
-          Request an Invite
-          <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-        </a>
-      </motion.div>
     </section>
   );
 };
