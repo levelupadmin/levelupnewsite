@@ -173,7 +173,7 @@ const MobileOverlay = ({ card, cardIndex, onClose }: MobileOverlayProps) => {
       )}
 
       <div
-        className="absolute inset-0 pointer-events-none opacity-50"
+        className="absolute inset-0 pointer-events-none opacity-80"
         style={{
           backgroundImage: `url(${cardBgImages[cardIndex]})`,
           backgroundSize: "cover",
@@ -356,7 +356,7 @@ const WhyLevelUp = () => {
                 )}
 
                 <div
-                  className="absolute inset-0 pointer-events-none opacity-50"
+                  className="absolute inset-0 pointer-events-none opacity-80"
                   style={{
                     backgroundImage: `url(${cardBgImages[i]})`,
                     backgroundSize: "cover",
@@ -378,7 +378,7 @@ const WhyLevelUp = () => {
                   <div className="flex items-start justify-between gap-4">
                     <motion.h3
                       layout="position"
-                      className={`font-serif-display font-normal text-hero-headline leading-[1.25] tracking-tight ${
+                      className={`font-serif-display font-normal text-white leading-[1.25] tracking-tight ${
                         isMobile
                           ? "text-[1.45rem]"
                           : "text-lg md:text-xl lg:text-2xl"
@@ -403,7 +403,7 @@ const WhyLevelUp = () => {
 
                   {isMobile && (
                     <div className="flex flex-col flex-1 justify-between mt-5">
-                      <p className="font-sans-body text-[0.9rem] text-hero-subtext/70 leading-[1.7] max-w-[85%]">
+                      <p className="font-sans-body text-[0.9rem] text-white/70 leading-[1.7] max-w-[85%]">
                         {card.description}
                       </p>
 
@@ -430,7 +430,7 @@ const WhyLevelUp = () => {
                           className="flex flex-col flex-1 justify-between mt-6"
                         >
                           <div>
-                            <p className="font-sans-body text-sm text-hero-subtext leading-relaxed mb-6 max-w-sm">
+                            <p className="font-sans-body text-sm text-white/80 leading-relaxed mb-6 max-w-sm">
                               {card.description}
                             </p>
                             <div className="space-y-2">
@@ -465,7 +465,7 @@ const WhyLevelUp = () => {
                           transition={{ duration: 0.25 }}
                           className="mt-auto"
                         >
-                          <p className="font-sans-body text-sm text-muted-foreground leading-relaxed line-clamp-2">
+                          <p className="font-sans-body text-sm text-white/70 leading-relaxed line-clamp-2">
                             {card.description}
                           </p>
                         </motion.div>
