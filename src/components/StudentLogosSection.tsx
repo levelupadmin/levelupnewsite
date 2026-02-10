@@ -87,8 +87,9 @@ const StudentLogosSection = () => {
   return (
     <section
       aria-label="LevelUp credibility and community"
-      className="relative section-light py-12 md:py-16"
+      className="relative"
     >
+      <div className="section-light py-12 md:py-16">
       <div className="max-w-4xl mx-auto px-6 md:px-12">
         {/* Top separator */}
         <motion.div
@@ -160,16 +161,10 @@ const StudentLogosSection = () => {
           </a>
         </motion.div>
 
-        {/* Brand grid separator */}
-        <motion.div
-          initial={{ width: 0 }}
-          whileInView={{ width: 48 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease }}
-          className="h-px bg-border mx-auto mb-8 md:mb-10"
-        />
+      </div>
+      </div>
 
-        {/* Brand grid headline */}
+      <div className="bg-background py-10 md:py-14">
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -180,19 +175,18 @@ const StudentLogosSection = () => {
           Our students come from top studios, institutes, and platforms
         </motion.p>
 
-        {/* Brand marquee rows */}
-        <div className="space-y-4 max-w-3xl mx-auto">
+        <div className="space-y-3 md:space-y-4">
           {[brands.slice(0, 6), brands.slice(6)].map((row, rowIdx) => (
             <div key={rowIdx} className="overflow-hidden">
               <div
-                className={`flex whitespace-nowrap gap-8 md:gap-12 w-max ${
+                className={`flex whitespace-nowrap gap-3 md:gap-4 w-max ${
                   rowIdx === 0 ? "animate-scroll-left" : "animate-scroll-right"
                 } pause-on-hover`}
               >
-                {[...row, ...row].map((brand, i) => (
+                {[...row, ...row, ...row, ...row].map((brand, i) => (
                   <span
                     key={`${brand}-${i}`}
-                    className="font-sans-body text-xs md:text-sm uppercase tracking-[0.15em] text-muted-foreground select-none transition-colors duration-300 hover:text-foreground px-2"
+                    className="font-sans-body text-xs md:text-sm uppercase tracking-[0.12em] text-foreground/70 select-none border border-border rounded-full px-5 py-2 transition-colors duration-300 hover:text-foreground hover:border-primary/50"
                   >
                     {brand}
                   </span>
@@ -201,15 +195,6 @@ const StudentLogosSection = () => {
             </div>
           ))}
         </div>
-
-        {/* Bottom separator */}
-        <motion.div
-          initial={{ width: 0 }}
-          whileInView={{ width: 48 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease }}
-          className="h-px bg-border mx-auto mt-10 md:mt-12"
-        />
       </div>
     </section>
   );
