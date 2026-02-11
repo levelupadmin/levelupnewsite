@@ -88,27 +88,29 @@ const LiveProgramsSection = () => {
             ))}
 
             {/* Mini CTA Banner */}
-            <div className="hidden md:block mt-auto p-4" style={{ maskImage: 'linear-gradient(to left, black, transparent)', WebkitMaskImage: 'linear-gradient(to left, black, transparent)' }}>
+            <div className="hidden md:block mt-auto p-4">
               <div className="relative rounded-lg overflow-hidden border-2 border-primary">
-                <img
-                  src={careerQuizBanner}
-                  alt="Career quiz"
-                  className="absolute inset-0 w-full h-full object-cover"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
-                <div className="relative p-4">
-                  <p className="font-sans-body text-xs text-muted-foreground leading-snug mb-2">
-                    Not sure which creator<br />path fits you?
-                  </p>
-                  <a
-                    href="https://www.leveluplearning.live/bfp"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 font-sans-body text-xs text-primary hover:text-primary/80 transition-colors"
-                  >
-                    Book a free call <ArrowRight className="w-3 h-3" />
-                  </a>
+                <div style={{ maskImage: 'linear-gradient(to left, black, transparent)', WebkitMaskImage: 'linear-gradient(to left, black, transparent)' }}>
+                  <img
+                    src={careerQuizBanner}
+                    alt="Career quiz"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
+                  <div className="relative p-4">
+                    <p className="font-sans-body text-xs text-muted-foreground leading-snug mb-2">
+                      Not sure which creator<br />path fits you?
+                    </p>
+                    <a
+                      href="https://www.leveluplearning.live/bfp"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 font-sans-body text-xs text-primary hover:text-primary/80 transition-colors"
+                    >
+                      Book a free call <ArrowRight className="w-3 h-3" />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
