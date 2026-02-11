@@ -176,12 +176,12 @@ const LiveProgramsSection = () => {
                 </span>
               </div>
 
-              <div className="flex gap-3">
+              <div className="flex gap-3 flex-nowrap">
                 <a
                   href="https://www.leveluplearning.live/bfp"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="cta-sweep cta-glow inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-sans-body text-sm font-medium tracking-wide transition-colors hover:bg-primary/90"
+                  className="cta-sweep cta-glow inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-sans-body text-sm font-medium tracking-wide transition-colors hover:bg-primary/90 whitespace-nowrap"
                 >
                   {activeProgram.status === "Enrolling" ? "Enroll Now" : "Join Waitlist"}
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -190,7 +190,7 @@ const LiveProgramsSection = () => {
                   href="https://www.leveluplearning.live/bfp"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center font-sans-body text-sm px-5 py-2.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
+                  className="inline-flex items-center font-sans-body text-sm px-5 py-2.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors whitespace-nowrap"
                 >
                   Learn More
                 </a>
