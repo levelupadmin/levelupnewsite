@@ -26,21 +26,6 @@ const slides = [
     poster: heroPoster3,
     alt: "A creator reviewing footage during an editing workshop",
   },
-  {
-    video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
-    poster: heroPoster4,
-    alt: "Live mentoring session with a working filmmaker",
-  },
-  {
-    video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
-    poster: heroPoster5,
-    alt: "Camera and lighting setup for a practical exercise",
-  },
-  {
-    video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
-    poster: heroPoster6,
-    alt: "Storytelling workshop in progress at a LevelUp retreat",
-  },
 ];
 
 const HeroCarousel = () => {
