@@ -59,7 +59,7 @@ const forgeCards = [
       "Build, collaborate, and ship creative work with fellow creators.",
     cohort: "Feb 2026",
     image: forgeCreators,
-    cta: "https://tally.so/r/nPJydd",
+    cta: "https://creators.forgebylevelup.com/",
   },
 ];
 
