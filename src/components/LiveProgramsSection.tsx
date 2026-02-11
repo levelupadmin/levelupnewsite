@@ -23,7 +23,7 @@ const LiveProgramsSection = () => {
   const activeProgram = showcasePrograms[activeShowcase];
 
   return (
-    <section id="live-programs" aria-label="Live programs" className="relative py-12 md:py-16">
+    <section id="live-programs" aria-label="Live programs" className="relative py-14 md:py-20">
       {/* Amber accent line at top */}
       <div
         className="absolute top-0 left-0 right-0 h-[2px]"
@@ -58,7 +58,7 @@ const LiveProgramsSection = () => {
       </div>
 
       {/* Showcase: Sidebar | Image | Details */}
-      <div className="max-w-7xl mx-auto px-5 md:px-12">
+      <div className="max-w-[1400px] mx-auto px-5 md:px-12">
         <div className="flex flex-col md:flex-row rounded-sm overflow-hidden border border-border bg-card">
 
           {/* Left sidebar */}
