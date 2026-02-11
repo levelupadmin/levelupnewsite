@@ -38,7 +38,7 @@ const LiveProgramsSection = () => {
               <button
                 key={prog.id}
                 onClick={() => setActiveShowcase(i)}
-                className={`group flex w-full items-center justify-between px-5 py-5 md:py-6 text-left text-sm md:text-base transition-all border-b border-border/40 last:border-b-0 ${
+                className={`group flex w-full items-center justify-between px-5 py-4 md:py-5 text-left text-sm md:text-base transition-all border-b border-border/40 last:border-b-0 ${
                   activeShowcase === i
                     ? "bg-secondary font-medium text-foreground"
                     : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
@@ -55,7 +55,7 @@ const LiveProgramsSection = () => {
           {/* Featured Card */}
           <div className="flex-1 flex flex-col md:flex-row">
             {/* Image */}
-            <div className="relative md:w-[45%] md:min-h-[420px] lg:min-h-[480px] aspect-[16/10] md:aspect-auto overflow-hidden">
+            <div className="relative md:w-1/2 aspect-[16/10] md:aspect-auto overflow-hidden">
               <img
                 src={activeProgram.image}
                 alt={activeProgram.title}
@@ -66,7 +66,7 @@ const LiveProgramsSection = () => {
             </div>
 
             {/* Content */}
-            <div className="flex-1 p-6 md:p-10 lg:p-12 flex flex-col justify-center">
+            <div className="flex-1 p-6 md:p-8 lg:p-10 flex flex-col justify-center">
               {/* Meta badges */}
               <div className="flex flex-wrap items-center gap-2 mb-4">
                 <span className="inline-flex items-center gap-1.5 font-sans-body text-[10px] md:text-xs tracking-wide px-2.5 py-1 rounded-full bg-secondary border border-border text-muted-foreground">
