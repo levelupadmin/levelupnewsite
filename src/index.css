@@ -77,11 +77,11 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Sora', system-ui, sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Sora', system-ui, sans-serif;
     font-weight: 600;
     letter-spacing: -0.02em;
   }
@@ -93,12 +93,12 @@
 
 @layer utilities {
   .font-serif-display {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Sora', system-ui, sans-serif;
     font-weight: 600;
   }
 
   .font-sans-body {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Sora', system-ui, sans-serif;
   }
 
   .text-hero-headline {
