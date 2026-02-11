@@ -268,23 +268,23 @@ const Navbar = () => {
                           "--card-accent-bg": activeAccent.replace(")", " / 0.1)").replace("hsl(", "hsl("),
                         } as React.CSSProperties}
                       >
-                        <div className="aspect-[16/10] overflow-hidden">
+                        <div className="aspect-[3/2] overflow-hidden">
                           <img
                             src={item.image}
                             alt={item.title}
-                            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                            className="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105"
                             loading="lazy"
                             decoding="async"
                           />
                         </div>
-                        <div className="px-3 py-2.5">
-                          <p className="nav-card-title font-serif-display text-sm text-foreground leading-tight transition-colors duration-200">
+                        <div className="px-2.5 py-2">
+                          <p className="nav-card-title font-sans-body text-xs font-medium text-foreground leading-snug transition-colors duration-200 truncate">
                             {item.title}
                           </p>
-                          <div className="flex items-center gap-1.5 mt-0.5">
-                            <p className="font-sans-body text-[11px] text-muted-foreground">
-                              {item.subtitle}
-                            </p>
+                          <p className="font-sans-body text-[10px] text-muted-foreground mt-0.5 truncate">
+                            {item.subtitle}
+                          </p>
+                          <div className="flex items-center gap-1.5 mt-1">
                             {activeFormatBadge && (
                               <span
                                 className="font-sans-body text-[9px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded-full"
