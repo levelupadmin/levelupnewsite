@@ -98,7 +98,7 @@ const LiveProgramsSection = () => {
                 />
                 <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
                 <div className="relative p-4">
-                  <p className="font-sans-body text-xs text-muted-foreground leading-snug mb-2" style={{ WebkitTextStroke: '2px currentColor' }}>
+                  <p className="font-sans-body text-xs text-muted-foreground leading-snug mb-2">
                     Not sure which creator<br />path fits you?
                   </p>
                   <a
