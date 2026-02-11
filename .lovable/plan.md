@@ -1,20 +1,20 @@
 
 
-## Add Amber Accent Line + Glow to Live + Mentor-Led Section
+## Replace Inter with Sora Font Family
 
-Copy the same amber accent line and radial glow treatment from the Masterclass section (lines 74-90 of `MasterclassSection.tsx`) into the Live Programs section for visual consistency.
+Swap the entire site's typography from Inter to Sora across three files.
 
-### What changes
+### Changes
 
-**File: `src/components/LiveProgramsSection.tsx`**
+**1. `index.html`**
+- Replace all Inter font references (preload, stylesheet links) with Sora
+- Update the Google Fonts URL to: `https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap`
 
-Add two decorative elements right after the opening `<section>` tag (line 17), before the section header:
+**2. `src/index.css`**
+- Replace every `'Inter'` reference in `font-family` declarations with `'Sora'` (body, headings, `.font-serif-display`, `.font-sans-body`)
 
-1. **Amber accent line** -- A 2px horizontal line at the top with a centered amber gradient that fades out on both edges
-2. **Subtle radial glow** -- A tall, soft amber radial glow emanating from the top center, creating depth
+**3. `tailwind.config.ts`**
+- Update `fontFamily.serif` and `fontFamily.sans` arrays from `'"Inter"'` to `'"Sora"'`
 
-Both use the exact same HSL values and gradient structure as the Masterclass section:
-- Line: `linear-gradient(90deg, transparent 10%, hsl(38 75% 55% / 0.5) 50%, transparent 90%)`
-- Glow: `radial-gradient(ellipse at 50% 0%, hsl(38 75% 55% / 0.03) 0%, transparent 70%)`
+No new dependencies needed -- Sora is loaded from Google Fonts the same way Inter currently is.
 
-No new dependencies, no CSS changes -- just two absolutely-positioned `<div>` elements.
