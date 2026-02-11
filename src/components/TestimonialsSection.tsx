@@ -157,7 +157,7 @@ const TestimonialsSection = () => {
           </div>
 
           <a
-            href="#"
+            href="#testimonials"
             className="cta-sweep cta-glow inline-flex items-center gap-2.5 px-6 py-3 rounded-sm bg-primary text-primary-foreground font-sans-body text-sm font-medium tracking-wide whitespace-nowrap transition-colors hover:bg-primary/90 shrink-0"
           >
             Read all stories
@@ -263,7 +263,7 @@ const TestimonialSlide = ({ testimonial }: { testimonial: Testimonial }) => {
         </div>
 
         <a
-          href="#"
+          href="#testimonials"
           className="cta-underline group inline-flex items-center gap-2 font-sans-body text-xs md:text-sm text-muted-foreground hover:text-foreground transition-colors duration-300 mt-6 md:mt-8"
         >
           Read the story

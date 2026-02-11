@@ -1,7 +1,7 @@
 import { MessageCircle } from "lucide-react";
 
 const WHATSAPP_URL =
-  "https://wa.me/919876543210?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20LevelUp%20programs.";
+  "https://api.whatsapp.com/send?phone=919791520177&text=Hi";
 
 const FloatingSupport = () => {
   return (
