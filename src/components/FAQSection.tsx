@@ -1,15 +1,9 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-
 const faqs = [
   {
     question: "What is LevelUp Learning?",
     answer:
       "LevelUp is a creative education ecosystem built for serious creators. It brings together masterclasses, mentor-led live programs, and immersive residencies — all designed to deepen your craft, sharpen your voice, and connect you with a community that cares about the work as much as you do.",
+    featured: true,
   },
   {
     question: "Who are the masterclasses for?",
@@ -25,6 +19,7 @@ const faqs = [
     question: "What is The Forge?",
     answer:
       "The Forge is our most immersive format — an invite-only, offline creative residency. It's designed for creators ready to go deeper. Think of it as a focused, distraction-free space where your next body of work begins to take shape.",
+    featured: true,
   },
   {
     question: "Do I need prior experience?",
@@ -55,6 +50,7 @@ const faqs = [
     question: "Do you offer certificates?",
     answer:
       "Yes. All masterclasses and live programs come with a signed certificate of completion from your instructor. It's a recognition of the work you've put in — not just attendance.",
+    featured: true,
   },
   {
     question: "Can I gift a masterclass to someone?",
@@ -68,26 +64,50 @@ const faqs = [
   },
 ];
 
+const cardStyles = [
+  "bg-card border-border",
+  "bg-[hsl(0_0%_9%)] border-border",
+  "bg-card border-border",
+  "bg-[hsl(0_0%_9%)] border-border",
+  "bg-card border-border",
+  "bg-[hsl(0_0%_9%)] border-border",
+  "bg-card border-border",
+  "bg-[hsl(0_0%_9%)] border-border",
+];
+
+const featuredStyle = "bg-[hsl(24_10%_8%)] border-primary/20";
+
 const FAQSection = () => {
   return (
     <section id="faq" aria-label="Frequently asked questions" className="relative py-12 md:py-16">
-      <div className="relative max-w-3xl mx-auto px-5 md:px-6">
+      <div className="relative max-w-6xl mx-auto px-5 md:px-6">
         <h2 className="font-serif-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-10 md:mb-12">
           Frequently asked questions
         </h2>
 
-        <Accordion type="single" collapsible className="w-full">
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-5">
           {faqs.map((faq, index) => (
-            <AccordionItem key={index} value={`faq-${index}`} className="border-border">
-              <AccordionTrigger className="font-sans-body text-base md:text-lg font-semibold text-foreground hover:no-underline py-5">
+            <div
+              key={index}
+              className={`break-inside-avoid mb-5 rounded-sm border p-6 md:p-7 ${
+                faq.featured ? featuredStyle : cardStyles[index % cardStyles.length]
+              }`}
+            >
+              <h3
+                className={`font-serif-display text-foreground mb-3 ${
+                  faq.featured
+                    ? "text-lg md:text-xl"
+                    : "text-base md:text-lg"
+                }`}
+              >
                 {faq.question}
-              </AccordionTrigger>
-              <AccordionContent className="font-sans-body text-sm md:text-base text-muted-foreground leading-relaxed">
+              </h3>
+              <p className="font-sans-body text-sm md:text-base text-muted-foreground leading-relaxed">
                 {faq.answer}
-              </AccordionContent>
-            </AccordionItem>
+              </p>
+            </div>
           ))}
-        </Accordion>
+        </div>
 
         <p className="mt-10 md:mt-14 font-sans-body text-sm text-muted-foreground">
           Still have questions?{" "}
