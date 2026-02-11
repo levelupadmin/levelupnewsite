@@ -23,7 +23,7 @@ const BrandIcon = ({ name }: { name: string }) => {
       <svg width={s} height={s} viewBox="0 0 28 28" fill="none"><rect x="3" y="6" width="22" height="16" rx="2" stroke="currentColor" strokeWidth="2"/><path d="M11 12l6 3-6 3V12z" fill="currentColor"/></svg>
     ),
     Google: (
-      <svg width={s} height={s} viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" stroke="currentColor" strokeWidth="2"/><path d="M14 8a6 6 0 014.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><path d="M14 14h7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+      <svg width={s} height={s} viewBox="0 0 28 28" fill="none"><path d="M14 4C8.48 4 4 8.48 4 14s4.48 10 10 10c5.52 0 10-4.48 10-10h-10v3.5h6.09C19.27 20.57 16.91 22 14 22c-4.42 0-8-3.58-8-8s3.58-8 8-8c1.96 0 3.74.72 5.13 1.89l2.55-2.55C19.68 3.46 17 2.5 14 2.5" fill="currentColor"/><rect x="14" y="12.5" width="10" height="3.5" fill="currentColor"/></svg>
     ),
     "Amazon Prime": (
       <svg width={s} height={s} viewBox="0 0 28 28" fill="none"><path d="M4 18c4 4 16 4 20 0" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><path d="M20 16l4 2-4 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M8 6h12v10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
