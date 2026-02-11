@@ -131,7 +131,7 @@ const HeroCarousel = () => {
                     loop
                     playsInline
                     preload="none"
-                    className="w-full aspect-[16/9] object-cover object-center bg-card"
+                    className="w-full aspect-[16/9] object-cover object-center bg-card scale-[1.3]"
                   />
                 </div>
               </div>
