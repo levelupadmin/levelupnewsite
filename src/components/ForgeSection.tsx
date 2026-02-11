@@ -240,7 +240,7 @@ const ForgeSection = () => {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-sans-body text-xs md:text-sm px-4 py-2 rounded-full hover:bg-primary/90 transition-colors"
                       >
-                        Apply Now
+                        Request an Invite
                         <ArrowRight className="w-3.5 h-3.5" />
                       </a>
                       <button className="inline-flex items-center font-sans-body text-xs md:text-sm px-4 py-2 rounded-full border border-white/30 text-white hover:border-white/60 transition-colors">
