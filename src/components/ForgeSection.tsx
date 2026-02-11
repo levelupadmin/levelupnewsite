@@ -196,7 +196,7 @@ const ForgeSection = () => {
                   index === selectedIndex ? "opacity-100" : "opacity-40"
                 }`}
               >
-                <div className="relative aspect-[3/4] md:aspect-[16/10] rounded-lg overflow-hidden group">
+                <div className="relative aspect-[3/4] md:aspect-[16/10] rounded-sm overflow-hidden group">
                   {/* Background Image */}
                   <img
                     src={card.image}

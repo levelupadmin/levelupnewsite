@@ -262,7 +262,7 @@ const Navbar = () => {
                           delay: 0.08 * i,
                           ease: "easeOut",
                         }}
-                        className="nav-card-accent block rounded-lg overflow-hidden bg-white/5 transition-all duration-200"
+                        className="nav-card-accent block rounded-sm overflow-hidden bg-white/5 transition-all duration-200"
                         style={{
                           "--card-accent": activeAccent,
                           "--card-accent-bg": activeAccent.replace(")", " / 0.1)").replace("hsl(", "hsl("),
@@ -403,7 +403,7 @@ const Navbar = () => {
                                       delay: 0.04 * i,
                                     }}
                                     onClick={() => setMobileOpen(false)}
-                                    className="block rounded-lg overflow-hidden bg-white/5 active:bg-white/10 transition-colors"
+                                    className="block rounded-sm overflow-hidden bg-white/5 active:bg-white/10 transition-colors"
                                   >
                                     <div className="aspect-[16/10] overflow-hidden">
                                       <img
