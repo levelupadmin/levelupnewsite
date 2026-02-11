@@ -12,9 +12,9 @@ import heroPoster6 from "@/assets/hero-poster-6.jpg";
 
 const slides = [
   {
-    video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    video: "/videos/pvr-trailer.mp4",
     poster: heroPoster1,
-    alt: "Behind the scenes of a LevelUp filmmaking session",
+    alt: "PVR Trailer - LevelUp filmmaking showcase",
   },
   {
     video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
