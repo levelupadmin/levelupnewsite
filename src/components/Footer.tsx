@@ -6,6 +6,7 @@ const footerLinks = {
     { label: "Masterclasses", href: "#masterclasses" },
     { label: "LevelUp Live", href: "https://www.leveluplearning.live" },
     { label: "The Forge", href: "#forge" },
+    { label: "StarDa", href: "#" },
   ],
   Company: [
     { label: "About", href: "https://www.leveluplearning.in/contact-us" },
