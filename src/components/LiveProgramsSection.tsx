@@ -15,6 +15,24 @@ const LiveProgramsSection = () => {
 
   return (
     <section id="live-programs" aria-label="Live programs" className="relative py-12 md:py-16">
+      {/* Amber accent line at top */}
+      <div
+        className="absolute top-0 left-0 right-0 h-[2px]"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent 10%, hsl(38 75% 55% / 0.5) 50%, transparent 90%)",
+        }}
+      />
+
+      {/* Subtle top glow */}
+      <div
+        className="absolute top-0 left-0 right-0 h-64 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at 50% 0%, hsl(38 75% 55% / 0.03) 0%, transparent 70%)",
+        }}
+      />
+
       {/* Section header */}
       <div className="text-center px-6 md:px-12 mb-10 md:mb-12">
         <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border border-primary/30 text-primary bg-primary/5 mb-4">
