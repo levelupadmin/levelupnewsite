@@ -105,10 +105,10 @@ const Navbar = () => {
           className={[
             "mx-auto w-[95%] max-w-5xl flex flex-col overflow-hidden",
             "transition-colors transition-shadow duration-500 ease-out",
-            "border backdrop-blur-xl",
+            "border backdrop-blur-md",
             scrolled
-              ? "bg-card/80 border-border/40 shadow-[0_8px_32px_hsl(0_0%_0%/0.4)]"
-              : "bg-card/50 border-border/20 shadow-[0_4px_20px_hsl(0_0%_0%/0.25)]",
+              ? "bg-card/70 border-border/40 shadow-[0_8px_32px_hsl(0_0%_0%/0.4)]"
+              : "bg-card/40 border-border/20 shadow-[0_4px_20px_hsl(0_0%_0%/0.25)]",
           ].join(" ")}
         >
           {/* Top bar — logo + nav links + menu icon */}
