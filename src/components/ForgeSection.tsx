@@ -39,6 +39,7 @@ const forgeCards = [
       "Shape raw footage into compelling stories. Learn rhythm, pacing, and the art of emotional beats from working editors.",
     cohort: "Dec 2025",
     image: forgeFilmmaking,
+    cta: "https://www.forgebylevelup.com/",
   },
   {
     title: "Forge Writers",
@@ -48,6 +49,7 @@ const forgeCards = [
       "Immersive retreat for writers and storytellers. Develop your voice and craft your narrative.",
     cohort: "Jan 2026",
     image: forgeWriting,
+    cta: "https://tally.so/r/nPJydd",
   },
   {
     title: "Forge Creators",
@@ -57,6 +59,7 @@ const forgeCards = [
       "Build, collaborate, and ship creative work with fellow creators.",
     cohort: "Feb 2026",
     image: forgeCreators,
+    cta: "https://tally.so/r/nPJydd",
   },
 ];
 
@@ -232,7 +235,7 @@ const ForgeSection = () => {
                     </p>
                     <div className="flex gap-3">
                       <a
-                        href="https://tally.so/r/nPJydd"
+                        href={card.cta}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-sans-body text-xs md:text-sm px-4 py-2 rounded-full hover:bg-primary/90 transition-colors"
