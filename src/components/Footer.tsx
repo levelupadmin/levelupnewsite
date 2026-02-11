@@ -3,30 +3,29 @@ import levelupLogo from "@/assets/levelup-logo.svg";
 
 const footerLinks = {
   Learn: [
-    { label: "Masterclasses", href: "#" },
-    { label: "LevelUp Live", href: "#" },
-    { label: "The Forge", href: "#" },
-    { label: "StarDa", href: "#" },
+    { label: "Masterclasses", href: "#masterclasses" },
+    { label: "LevelUp Live", href: "https://www.leveluplearning.live" },
+    { label: "The Forge", href: "#forge" },
   ],
   Company: [
-    { label: "About", href: "#" },
-    { label: "Careers", href: "#" },
-    { label: "Press", href: "#" },
-    { label: "Blog", href: "#" },
+    { label: "About", href: "https://www.leveluplearning.in/contact-us" },
+    { label: "Careers", href: "https://www.leveluplearning.in/contact-us" },
+    { label: "Press", href: "https://www.leveluplearning.in/contact-us" },
+    { label: "Blog", href: "https://www.leveluplearning.in/contact-us" },
   ],
   Support: [
-    { label: "FAQs", href: "#" },
-    { label: "Contact Us", href: "#" },
-    { label: "Terms", href: "#" },
-    { label: "Privacy Policy", href: "#" },
+    { label: "FAQs", href: "#faq" },
+    { label: "Contact Us", href: "https://api.whatsapp.com/send?phone=919791520177&text=Hi" },
+    { label: "Terms", href: "https://www.leveluplearning.in/terms-and-conditions" },
+    { label: "Privacy Policy", href: "https://www.leveluplearning.in/privacy-policy" },
   ],
 };
 
 const socialLinks = [
-  { icon: Instagram, label: "Instagram", href: "#" },
-  { icon: Youtube, label: "YouTube", href: "#" },
-  { icon: Twitter, label: "X / Twitter", href: "#" },
-  { icon: Linkedin, label: "LinkedIn", href: "#" },
+  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/leveluplearning.in/" },
+  { icon: Youtube, label: "YouTube", href: "https://www.youtube.com/@leveluplearning" },
+  { icon: Twitter, label: "X / Twitter", href: "https://twitter.com/levelup_Lrng" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/company/levelup-learning-india/" },
 ];
 
 const Footer = () => {
@@ -99,13 +98,13 @@ const Footer = () => {
             © 2026 LevelUp Learning. All rights reserved.
           </p>
           <div className="flex items-center gap-8 md:gap-6">
-            <a href="#" className="font-sans-body text-xs text-muted-foreground hover:text-foreground transition-colors duration-300">
+            <a href="https://www.leveluplearning.in/terms-and-conditions" target="_blank" rel="noopener noreferrer" className="font-sans-body text-xs text-muted-foreground hover:text-foreground transition-colors duration-300">
               Terms
             </a>
-            <a href="#" className="font-sans-body text-xs text-muted-foreground hover:text-foreground transition-colors duration-300">
+            <a href="https://www.leveluplearning.in/privacy-policy" target="_blank" rel="noopener noreferrer" className="font-sans-body text-xs text-muted-foreground hover:text-foreground transition-colors duration-300">
               Privacy Policy
             </a>
-            <a href="#" className="font-sans-body text-xs text-muted-foreground hover:text-foreground transition-colors duration-300">
+            <a href="https://www.leveluplearning.in/privacy-policy" target="_blank" rel="noopener noreferrer" className="font-sans-body text-xs text-muted-foreground hover:text-foreground transition-colors duration-300">
               Cookies
             </a>
           </div>

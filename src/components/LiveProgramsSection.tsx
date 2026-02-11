@@ -106,14 +106,18 @@ const LiveProgramsSection = () => {
               </div>
               <div className="flex gap-3 mt-5">
                 <a
-                  href="#"
+                  href="https://www.leveluplearning.live/bfp"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="cta-sweep cta-glow inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-sans-body text-sm font-medium tracking-wide transition-colors hover:bg-primary/90"
                 >
                   {activeProgram.status === "Enrolling" ? "Enroll Now" : "Join Waitlist"}
                   <ArrowRight className="w-3.5 h-3.5" />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.leveluplearning.live/bfp"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center font-sans-body text-sm px-5 py-2.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
                 >
                   Learn More
@@ -171,14 +175,18 @@ const LiveProgramsSection = () => {
                 </div>
                 <div className="flex gap-3 mt-4">
                   <a
-                    href="#"
+                    href="https://www.leveluplearning.live/bfp"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="cta-sweep cta-glow inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground font-sans-body text-xs font-medium tracking-wide transition-colors hover:bg-primary/90"
                   >
                     {prog.status === "Enrolling" ? "Enroll Now" : "Join Waitlist"}
                     <ArrowRight className="w-3 h-3" />
                   </a>
                   <a
-                    href="#"
+                    href="https://www.leveluplearning.live/bfp"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center font-sans-body text-xs px-4 py-2 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
                   >
                     Learn More
@@ -193,7 +201,9 @@ const LiveProgramsSection = () => {
       {/* Soft CTA */}
       <div className="text-center mt-10 md:mt-14">
         <a
-          href="#"
+          href="https://www.leveluplearning.live"
+          target="_blank"
+          rel="noopener noreferrer"
           className="cta-underline group inline-flex items-center gap-3 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-400"
         >
           See all upcoming programs

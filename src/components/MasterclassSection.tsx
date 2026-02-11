@@ -7,6 +7,7 @@ const masterclasses = [
     descriptor: "Storytelling to editing to working with actors",
     format: "Filmmaker",
     category: "Filmmaking",
+    href: "https://masterclass.leveluplearning.in/karthik-subbaraj",
   },
   {
     image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64f60ddd91f67b7db8f6716b_3.Anthony_Gonsalvez.png",
@@ -14,6 +15,7 @@ const masterclasses = [
     descriptor: "An all-out practical editing experience",
     format: "Film Editor",
     category: "Editing",
+    href: "https://masterclass.leveluplearning.in/anthony",
   },
   {
     image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64f2f14d67e5504737c57ea5_2.Venket_Ram.png",
@@ -21,6 +23,7 @@ const masterclasses = [
     descriptor: "Capturing the perfect image through diverse case studies",
     format: "Photographer",
     category: "Photography",
+    href: "https://masterclass.leveluplearning.in/g-venket-ram",
   },
   {
     image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64b79ef6d61b238747788c6c_kiran%20website%201.webp",
@@ -28,6 +31,7 @@ const masterclasses = [
     descriptor: "Set designing, creative problem-solving, and miniatures",
     format: "Art Director",
     category: "Art Direction",
+    href: "https://masterclass.leveluplearning.in/kiran",
   },
   {
     image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64b79ef642421ae3cbe004d9_ravi%20website%201.webp",
@@ -35,6 +39,7 @@ const masterclasses = [
     descriptor: "From the village of Basrur to revolutionizing Sandalwood music",
     format: "Music Director",
     category: "Music",
+    href: "https://masterclass.leveluplearning.in/ravi-basrur",
   },
   {
     image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/6899f2de01c2b6f380973a82_Frame%20191%20LK.png",
@@ -42,12 +47,13 @@ const masterclasses = [
     descriptor: "The art and craft of filmmaking",
     format: "Filmmaker",
     category: "Filmmaking",
+    href: "https://masterclass.leveluplearning.in/lokesh-kanagaraj",
   },
 ];
 
 const MasterclassCard = ({ mc }: { mc: typeof masterclasses[0] }) => {
   return (
-    <div className="group relative cursor-pointer">
+    <a href={mc.href} target="_blank" rel="noopener noreferrer" className="group relative cursor-pointer block">
       <div className="relative aspect-[3/4] overflow-hidden rounded-sm bg-card">
         <img
           src={mc.image}
@@ -58,7 +64,7 @@ const MasterclassCard = ({ mc }: { mc: typeof masterclasses[0] }) => {
         />
         <div className="absolute inset-0 rounded-sm ring-1 ring-inset ring-white/0 group-hover:ring-white/20 transition-all duration-500 pointer-events-none" />
       </div>
-    </div>
+    </a>
   );
 };
 
@@ -109,7 +115,9 @@ const MasterclassSection = () => {
       {/* Soft CTA */}
       <div className="text-center mt-10 md:mt-14">
         <a
-          href="#"
+          href="https://masterclass.leveluplearning.in/"
+          target="_blank"
+          rel="noopener noreferrer"
           className="cta-underline group inline-flex items-center gap-3 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-400"
         >
           Explore the full library
