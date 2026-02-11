@@ -89,7 +89,7 @@ const LiveProgramsSection = () => {
 
             {/* Mini CTA Banner */}
             <div className="hidden md:block mt-auto p-4" style={{ maskImage: 'linear-gradient(to left, black, transparent)', WebkitMaskImage: 'linear-gradient(to left, black, transparent)' }}>
-              <div className="relative rounded-lg overflow-hidden border-2 border-border">
+              <div className="relative rounded-lg overflow-hidden border-2 border-primary">
                 <img
                   src={careerQuizBanner}
                   alt="Career quiz"
