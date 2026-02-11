@@ -89,7 +89,7 @@ const FAQSection = () => {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className={`break-inside-avoid mb-5 rounded-lg border p-6 md:p-7 ${
+              className={`break-inside-avoid mb-5 rounded-sm border p-6 md:p-7 ${
                 faq.featured ? featuredStyle : cardStyles[index % cardStyles.length]
               }`}
             >

@@ -33,7 +33,7 @@ const LiveProgramsSection = () => {
       {/* Sidebar + Featured Card */}
       {/* Desktop layout */}
       <div className="max-w-7xl mx-auto px-5 md:px-12 hidden md:block">
-        <div className="flex flex-row rounded-lg overflow-hidden border border-border bg-card">
+        <div className="flex flex-row rounded-sm overflow-hidden border border-border bg-card">
           {/* Sidebar */}
           <div className="md:w-[260px] lg:w-[300px] flex-shrink-0 md:border-r border-border">
             {showcasePrograms.map((prog, i) => (
@@ -111,7 +111,7 @@ const LiveProgramsSection = () => {
 
       {/* Mobile accordion */}
       <div className="md:hidden px-5">
-        <Accordion type="single" collapsible defaultValue="directing-intensive" className="rounded-lg border border-border bg-card overflow-hidden">
+        <Accordion type="single" collapsible defaultValue="directing-intensive" className="rounded-sm border border-border bg-card overflow-hidden">
           {showcasePrograms.map((prog) => (
             <AccordionItem key={prog.id} value={prog.id} className="border-b border-border/40 last:border-b-0">
               <AccordionTrigger className="px-4 py-4 text-sm font-medium text-foreground hover:no-underline">
