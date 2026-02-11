@@ -1,20 +1,22 @@
 
 
-## Replace Inter with Sora Font Family
+## Convert FAQ Section to Accordion Style
 
-Swap the entire site's typography from Inter to Sora across three files.
+Replace the current bento-style card grid with a clean accordion layout using the existing Radix UI Accordion component.
 
 ### Changes
 
-**1. `index.html`**
-- Replace all Inter font references (preload, stylesheet links) with Sora
-- Update the Google Fonts URL to: `https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap`
+**File: `src/components/FAQSection.tsx`**
 
-**2. `src/index.css`**
-- Replace every `'Inter'` reference in `font-family` declarations with `'Sora'` (body, headings, `.font-serif-display`, `.font-sans-body`)
+1. Import `Accordion, AccordionItem, AccordionTrigger, AccordionContent` from `@/components/ui/accordion`
+2. Remove the masonry grid layout (`columns-1 sm:columns-2 lg:columns-3`)
+3. Remove the `cardStyles`, `featuredStyle` variables and per-card styling
+4. Replace the card-based layout with a single `<Accordion type="single" collapsible>` containing `AccordionItem` for each FAQ
+5. Style the accordion to match the dark premium aesthetic:
+   - Dark border colors using existing theme tokens
+   - Sora font for questions (semi-bold) and answers (regular weight, muted color)
+   - Comfortable padding and spacing
+6. Keep the section header and "Still have questions?" footer unchanged
 
-**3. `tailwind.config.ts`**
-- Update `fontFamily.serif` and `fontFamily.sans` arrays from `'"Inter"'` to `'"Sora"'`
-
-No new dependencies needed -- Sora is loaded from Google Fonts the same way Inter currently is.
+No new dependencies -- the Accordion component from Radix is already installed and configured.
 
