@@ -104,6 +104,21 @@ const LiveProgramsSection = () => {
                   </span>
                 )}
               </div>
+              <div className="flex gap-3 mt-5">
+                <a
+                  href="#"
+                  className="cta-sweep cta-glow inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-sans-body text-sm font-medium tracking-wide transition-colors hover:bg-primary/90"
+                >
+                  {activeProgram.status === "Enrolling" ? "Enroll Now" : "Join Waitlist"}
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
+                <a
+                  href="#"
+                  className="inline-flex items-center font-sans-body text-sm px-5 py-2.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
+                >
+                  Learn More
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -153,6 +168,21 @@ const LiveProgramsSection = () => {
                       {prog.spotsLeft} spots left
                     </span>
                   )}
+                </div>
+                <div className="flex gap-3 mt-4">
+                  <a
+                    href="#"
+                    className="cta-sweep cta-glow inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground font-sans-body text-xs font-medium tracking-wide transition-colors hover:bg-primary/90"
+                  >
+                    {prog.status === "Enrolling" ? "Enroll Now" : "Join Waitlist"}
+                    <ArrowRight className="w-3 h-3" />
+                  </a>
+                  <a
+                    href="#"
+                    className="inline-flex items-center font-sans-body text-xs px-4 py-2 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
+                  >
+                    Learn More
+                  </a>
                 </div>
               </AccordionContent>
             </AccordionItem>
