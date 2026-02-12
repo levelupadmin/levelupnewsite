@@ -4,12 +4,12 @@ import careerQuizBanner from "@/assets/career-quiz-banner.jpg";
 import { showcasePrograms } from "@/data/programs";
 
 const activeGradients = [
-  { active: "from-orange-600 to-orange-600/0", hoverBg: "linear-gradient(to right, rgba(234,88,12,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(234,88,12,0.15) 0%, transparent 60%)" },
-  { active: "from-blue-600 to-blue-600/0", hoverBg: "linear-gradient(to right, rgba(37,99,235,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(37,99,235,0.15) 0%, transparent 60%)" },
-  { active: "from-purple-600 to-purple-600/0", hoverBg: "linear-gradient(to right, rgba(147,51,234,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(147,51,234,0.15) 0%, transparent 60%)" },
-  { active: "from-emerald-600 to-emerald-600/0", hoverBg: "linear-gradient(to right, rgba(5,150,105,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(5,150,105,0.15) 0%, transparent 60%)" },
-  { active: "from-rose-600 to-rose-600/0", hoverBg: "linear-gradient(to right, rgba(225,29,72,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(225,29,72,0.15) 0%, transparent 60%)" },
-  { active: "from-indigo-600 to-indigo-600/0", hoverBg: "linear-gradient(to right, rgba(79,70,229,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(79,70,229,0.15) 0%, transparent 60%)" },
+  { active: "bg-transparent", activeBg: "linear-gradient(to right, transparent 30%, rgba(234,88,12,0.45))", hoverBg: "linear-gradient(to right, transparent 40%, rgba(234,88,12,0.2))", detailBg: "linear-gradient(135deg, rgba(234,88,12,0.15) 0%, transparent 60%)" },
+  { active: "bg-transparent", activeBg: "linear-gradient(to right, transparent 30%, rgba(37,99,235,0.45))", hoverBg: "linear-gradient(to right, transparent 40%, rgba(37,99,235,0.2))", detailBg: "linear-gradient(135deg, rgba(37,99,235,0.15) 0%, transparent 60%)" },
+  { active: "bg-transparent", activeBg: "linear-gradient(to right, transparent 30%, rgba(147,51,234,0.45))", hoverBg: "linear-gradient(to right, transparent 40%, rgba(147,51,234,0.2))", detailBg: "linear-gradient(135deg, rgba(147,51,234,0.15) 0%, transparent 60%)" },
+  { active: "bg-transparent", activeBg: "linear-gradient(to right, transparent 30%, rgba(5,150,105,0.45))", hoverBg: "linear-gradient(to right, transparent 40%, rgba(5,150,105,0.2))", detailBg: "linear-gradient(135deg, rgba(5,150,105,0.15) 0%, transparent 60%)" },
+  { active: "bg-transparent", activeBg: "linear-gradient(to right, transparent 30%, rgba(225,29,72,0.45))", hoverBg: "linear-gradient(to right, transparent 40%, rgba(225,29,72,0.2))", detailBg: "linear-gradient(135deg, rgba(225,29,72,0.15) 0%, transparent 60%)" },
+  { active: "bg-transparent", activeBg: "linear-gradient(to right, transparent 30%, rgba(79,70,229,0.45))", hoverBg: "linear-gradient(to right, transparent 40%, rgba(79,70,229,0.2))", detailBg: "linear-gradient(135deg, rgba(79,70,229,0.15) 0%, transparent 60%)" },
 ];
 
 const statusStyles: Record<string, string> = {
@@ -70,10 +70,12 @@ const LiveProgramsSection = () => {
                   onClick={() => setActiveShowcase(i)}
                   className={`group relative flex w-full items-center justify-between whitespace-nowrap rounded-lg pl-7 pr-5 py-4 text-left text-sm transition-all overflow-hidden ${
                     activeShowcase === i
-                      ? `bg-gradient-to-r ${activeGradients[i].active} font-semibold text-foreground noise-overlay`
+                      ? `font-semibold text-foreground noise-overlay`
                       : "text-muted-foreground hover:text-foreground"
                   }`}
-                  style={activeShowcase !== i ? { backgroundImage: "none" } : undefined}
+                  style={{
+                    backgroundImage: activeShowcase === i ? activeGradients[i].activeBg : "none",
+                  }}
                   onMouseEnter={(e) => {
                     if (activeShowcase !== i) e.currentTarget.style.backgroundImage = activeGradients[i].hoverBg;
                   }}
