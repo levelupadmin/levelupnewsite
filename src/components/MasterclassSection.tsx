@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import nelsonImg from "@/assets/nelson-dilipkumar.png";
+import comingSoonImg from "@/assets/coming-soon-silhouette.jpg";
 
 const masterclasses = [
   {
@@ -99,23 +100,23 @@ const MasterclassCard = ({ mc }: { mc: typeof masterclasses[0] }) => {
 
 const ComingSoonCard = () => (
   <div className="group relative block">
-    <div
-      className="relative aspect-[3/4] overflow-hidden rounded-sm shadow-md flex flex-col items-center justify-center text-center px-6"
-      style={{
-        background: "linear-gradient(135deg, hsl(0 0% 15% / 0.6) 0%, hsl(0 0% 8% / 0.8) 100%)",
-        border: "1px solid hsl(0 0% 100% / 0.08)",
-        backdropFilter: "blur(8px)",
-      }}
-    >
-      <div className="w-12 h-12 rounded-full border border-muted-foreground/20 flex items-center justify-center mb-4">
-        <span className="text-muted-foreground text-lg">?</span>
+    <div className="relative aspect-[3/4] overflow-hidden rounded-sm shadow-md transition-shadow duration-500 group-hover:shadow-[0_0_20px_2px_hsl(38_75%_55%/0.35)]">
+      <img
+        src={comingSoonImg}
+        alt="Coming soon masterclass"
+        className="absolute inset-0 w-full h-full object-cover opacity-60"
+        loading="lazy"
+        decoding="async"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+        <span className="font-serif-display text-lg md:text-xl font-medium text-white/80 leading-tight">
+          Coming Soon
+        </span>
+        <p className="font-sans-body text-xs text-white/50 mt-2 leading-relaxed">
+          New masterclass dropping soon
+        </p>
       </div>
-      <span className="font-serif-display text-lg md:text-xl font-medium text-muted-foreground/70 leading-tight mb-2">
-        Coming Soon
-      </span>
-      <p className="font-sans-body text-xs text-muted-foreground/50 leading-relaxed">
-        New masterclass dropping soon
-      </p>
     </div>
   </div>
 );
