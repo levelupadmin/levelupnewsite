@@ -185,7 +185,7 @@ const LiveProgramsSection = () => {
                   rel="noopener noreferrer"
                   className="cta-sweep cta-glow inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-sans-body text-sm font-medium tracking-wide transition-colors hover:bg-primary/90 whitespace-nowrap"
                 >
-                  {activeProgram.status === "Enrolling" ? "Enroll Now" : "Join Waitlist"}
+                  Request Invite
                   <ArrowRight className="w-3.5 h-3.5" />
                 </a>
                 <a
