@@ -79,6 +79,16 @@ const CredibilityCues = () => {
         background: `linear-gradient(to bottom, hsl(220 12% 7%) 0%, hsl(0 0% 4%) 100%)`,
       }}
     >
+      {/* Subtle dot grid overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)',
+          backgroundSize: '30px 30px',
+          maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 75%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 75%)',
+        }}
+      />
       <div className="max-w-5xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8">
           {cues.map((cue) => (
