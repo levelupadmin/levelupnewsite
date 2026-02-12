@@ -103,14 +103,15 @@ const Navbar = () => {
             y: { duration: 0.8, delay: 0.2 },
             borderRadius: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
           }}
-          className={[
-            "mx-auto w-[95%] max-w-5xl flex flex-col overflow-hidden",
-            "transition-colors transition-shadow duration-500 ease-out",
-            "border backdrop-blur-md",
-            scrolled
-              ? "bg-card/70 border-border/40 shadow-[0_8px_32px_hsl(0_0%_0%/0.4)]"
-              : "bg-card/40 border-border/20 shadow-[0_4px_20px_hsl(0_0%_0%/0.25)]",
-          ].join(" ")}
+          className="mx-auto w-[95%] max-w-5xl flex flex-col overflow-hidden border backdrop-blur-md"
+          style={{
+            backgroundColor: scrolled ? "hsl(var(--card) / 0.7)" : "hsl(var(--card) / 0.4)",
+            borderColor: scrolled ? "hsl(var(--border) / 0.4)" : "hsl(var(--border) / 0.2)",
+            boxShadow: scrolled
+              ? "0 8px 32px hsl(0 0% 0% / 0.4)"
+              : "0 4px 20px hsl(0 0% 0% / 0.25)",
+            transition: "background-color 0.5s ease-out, border-color 0.5s ease-out, box-shadow 0.5s ease-out",
+          }}
         >
           {/* Top bar — logo + nav links + menu icon */}
           <div
@@ -160,14 +161,10 @@ const Navbar = () => {
                     <AnimatePresence>
                       {isActive && (
                         <motion.span
-                          layoutId="nav-accent-dot"
                           initial={{ scale: 0, opacity: 0 }}
                           animate={{ scale: 1, opacity: 1 }}
                           exit={{ scale: 0, opacity: 0 }}
-                          transition={{
-                            layout: { type: "spring", stiffness: 400, damping: 30 },
-                            scale: { duration: 0.2 },
-                          }}
+                          transition={{ duration: 0.2 }}
                           className="absolute -bottom-0.5 w-1 h-1 rounded-full"
                           style={{ backgroundColor: linkAccent }}
                         />
@@ -220,6 +217,7 @@ const Navbar = () => {
                   opacity: { duration: 0.2, ease: "easeOut" },
                 }}
                 className="overflow-hidden"
+                style={{ willChange: "height, opacity" }}
               >
                 {/* Accent line at top of dropdown */}
                 <div
