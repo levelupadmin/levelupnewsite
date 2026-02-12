@@ -58,11 +58,11 @@ const LiveProgramsSection = () => {
       </div>
 
       {/* Showcase: Sidebar | Image | Details */}
-      <div className="max-w-[1400px] mx-auto px-5 md:px-12">
-        <div className="flex flex-col md:flex-row rounded-sm overflow-hidden border border-border bg-card">
+      <div className="max-w-[1700px] mx-auto px-5 md:px-12">
+        <div className="flex flex-col md:flex-row rounded-sm overflow-hidden border border-border bg-card md:min-h-[520px] lg:min-h-[580px]">
 
           {/* Left sidebar */}
-          <div className="md:w-[260px] lg:w-[300px] flex-shrink-0 md:border-r border-border flex flex-col">
+          <div className="md:w-[300px] lg:w-[340px] flex-shrink-0 md:border-r border-border flex flex-col">
             {showcasePrograms.map((prog, i) => (
               <div key={prog.id}>
                 {i > 0 && <div className="h-px bg-border/40" />}
@@ -117,7 +117,7 @@ const LiveProgramsSection = () => {
           </div>
 
           {/* Center image */}
-          <div className="relative aspect-[16/10] md:aspect-auto md:w-[40%] overflow-hidden">
+          <div className="relative aspect-[16/10] md:aspect-auto md:w-[45%] overflow-hidden">
             <img
               src={activeProgram.image}
               alt={activeProgram.title}
@@ -128,7 +128,7 @@ const LiveProgramsSection = () => {
 
           {/* Right details */}
           <div
-            className="flex-1 flex flex-col justify-between p-6 lg:p-8"
+            className="flex-1 flex flex-col justify-between p-8 lg:p-10"
             style={{ backgroundImage: activeGradients[activeShowcase].detailBg }}
           >
             <div>
@@ -150,7 +150,7 @@ const LiveProgramsSection = () => {
                 )}
               </div>
 
-              <h3 className="font-serif-display text-2xl lg:text-3xl font-medium text-hero-headline leading-tight tracking-tight mb-3">
+              <h3 className="font-serif-display text-2xl lg:text-4xl font-medium text-hero-headline leading-tight tracking-tight mb-3">
                 {activeProgram.title}
               </h3>
 
