@@ -1,22 +1,35 @@
 
+## Add "View All Masterclasses" CTA Card to 4th Grid Slot
 
-## Add Nelson Dilipkumar Masterclass + 4-3 Grid Layout
+### Overview
+Add a promotional CTA card in the empty 4th position of the second row (after 7 masterclass posters with a 4-3 layout) that directs users to the full masterclass library.
 
 ### Changes
 
-**1. Copy uploaded image to project**
-- Copy `user-uploads://image-42.png` to `src/assets/nelson-dilipkumar.png`
+**File: `src/components/MasterclassSection.tsx`**
 
-**2. Update `src/components/MasterclassSection.tsx`**
-- Add a 7th entry to the `masterclasses` array for Nelson Dilipkumar (Filmmaker, Filmmaking, linking to `https://masterclass.leveluplearning.in/nelson-dilipkumar`), using the imported image
-- Change the grid from `grid-cols-2 sm:grid-cols-3 lg:grid-cols-3` to `grid-cols-2 sm:grid-cols-3 lg:grid-cols-4` so the first row shows 4 cards and the remaining 3 fill the second row on large screens
+1. **Create `MasterclassCTACard` component**
+   - New component that renders as a 3/4 aspect ratio card (matching masterclass card dimensions)
+   - Gradient background: amber/primary color with subtle opacity (similar to premium feel)
+   - Centered content: "View All Masterclasses" heading + subtext + ArrowRight icon
+   - Links to `https://masterclass.leveluplearning.in/`
+   - Hover effects: shadow glow and scale slightly to match the interactive feel of masterclass cards
+   - Uses `group` and hover classes for consistency
 
-**3. Update `src/components/navbarData.ts`**
-- Add Nelson Dilipkumar as a new entry in the Masterclasses nav items array so the dropdown data stays in sync
+2. **Update grid rendering logic**
+   - After mapping all 7 masterclass cards, conditionally add the CTA card
+   - On `lg:grid-cols-4`, this will place it in the 4th slot of the second row
+   - On smaller screens (mobile/tablet), it wraps naturally with existing cards
 
-### Technical Details
+### Design Details
 
-- Nelson's entry will be added as the 7th item in the array (last position), meaning on large screens: row 1 = cards 1-4, row 2 = cards 5-7
-- The grid naturally handles the 4-3 split since CSS grid wraps after 4 columns
-- On mobile (2 cols) and tablet (3 cols) the cards will wrap naturally
+- **Styling**: Matches the poster aesthetic with 3/4 aspect ratio, rounded corners, shadow, and hover interactions (similar glow effect)
+- **Colors**: Use primary/amber gradient background with adjusted opacity for a premium, distinctive look (different from the poster style but cohesive)
+- **Typography**: Heading + supporting text centered within the card
+- **Icon**: ArrowRight icon from lucide-react (consistent with existing CTA)
+- **Hover states**: Amber glow shadow + subtle scale effect (similar to masterclass cards for consistency)
 
+### Responsive Behavior
+- Desktop (lg): Card lands in 4th position, creating clean 4-3 layout
+- Tablet (sm): Card wraps naturally with 3-column grid
+- Mobile: Wraps with 2-column grid
