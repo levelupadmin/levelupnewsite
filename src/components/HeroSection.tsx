@@ -41,22 +41,24 @@ const HeroSection = () => {
           India's Creative Education Ecosystem
         </p>
 
-        <h1 className="font-serif-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-medium text-hero-headline text-center leading-[1.1] tracking-[-0.03em] max-w-5xl text-shadow-hero">
-          Where{" "}
-          <span className="inline-block relative align-bottom overflow-hidden" style={{ minWidth: "2ch" }}>
+        <h1 className="font-serif-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-medium text-hero-headline text-center leading-[1.1] tracking-[-0.03em] max-w-5xl text-shadow-hero flex items-baseline justify-center flex-wrap gap-x-[0.3em]">
+          <span>Where</span>
+          <span className="relative inline-flex justify-start overflow-visible" style={{ width: "5.5ch" }}>
             <AnimatePresence mode="wait">
               <motion.span
                 key={rotatingWords[wordIndex]}
-                initial={{ y: "100%", opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: "-100%", opacity: 0 }}
-                transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
-                className="inline-block text-white"
+                initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                exit={{ opacity: 0, y: -20, filter: "blur(4px)" }}
+                transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+                className="absolute left-0 whitespace-nowrap text-white"
               >
                 {rotatingWords[wordIndex]}
               </motion.span>
             </AnimatePresence>
-          </span>{" "}
+            {/* Invisible sizer to maintain line height */}
+            <span className="invisible">W</span>
+          </span>
           <em className="font-serif-display italic font-normal" style={{ color: "#E6681D" }}>
             become
           </em>
