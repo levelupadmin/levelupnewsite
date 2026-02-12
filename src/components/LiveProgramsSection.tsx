@@ -82,7 +82,7 @@ const LiveProgramsSection = () => {
                   }}
                 >
                   {prog.title}
-                  {activeShowcase === i && <ArrowRight className="w-4 h-4 flex-shrink-0 ml-2 text-primary" />}
+                  {activeShowcase === i && <ArrowRight className="w-4 h-4 flex-shrink-0 ml-2 text-white" />}
                 </button>
               </div>
             ))}
