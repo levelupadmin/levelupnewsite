@@ -68,7 +68,7 @@ const LiveProgramsSection = () => {
                 {i > 0 && <div className="h-px bg-border/40" />}
                 <button
                   onClick={() => setActiveShowcase(i)}
-                  className={`group relative flex w-full items-center justify-between whitespace-nowrap rounded-lg px-5 py-4 text-left text-sm transition-all overflow-hidden ${
+                  className={`group relative flex w-full items-center justify-between whitespace-nowrap rounded-lg pl-7 pr-5 py-4 text-left text-sm transition-all overflow-hidden ${
                     activeShowcase === i
                       ? `bg-gradient-to-r ${activeGradients[i].active} font-semibold text-foreground noise-overlay`
                       : "text-muted-foreground hover:text-foreground"
