@@ -58,7 +58,7 @@ const LiveProgramsSection = () => {
       </div>
 
       {/* Showcase: Sidebar | Image | Details */}
-      <div className="max-w-[1700px] mx-auto px-5 md:px-12">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="flex flex-col md:flex-row rounded-sm overflow-hidden border border-border bg-card md:min-h-[520px] lg:min-h-[580px]">
 
           {/* Left sidebar */}
