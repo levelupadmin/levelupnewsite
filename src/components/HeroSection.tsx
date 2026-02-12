@@ -1,8 +1,21 @@
+import { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import HeroCarousel from "@/components/HeroCarousel";
 import heroBg from "@/assets/hero-bg.png";
 
+const rotatingWords = ["filmmakers", "editors", "storytellers", "artists", "writers"];
+
 const HeroSection = () => {
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % rotatingWords.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section
       id="hero"
@@ -29,7 +42,22 @@ const HeroSection = () => {
         </p>
 
         <h1 className="font-serif-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-medium text-hero-headline text-center leading-[1.1] tracking-[-0.03em] max-w-5xl text-shadow-hero">
-          Where creators{" "}
+          Where{" "}
+          <span className="inline-block relative align-bottom overflow-hidden" style={{ width: "auto", minWidth: "2ch" }}>
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={rotatingWords[wordIndex]}
+                initial={{ y: "100%", opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: "-100%", opacity: 0 }}
+                transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
+                className="inline-block"
+                style={{ color: "#E6681D" }}
+              >
+                {rotatingWords[wordIndex]}
+              </motion.span>
+            </AnimatePresence>
+          </span>{" "}
           <em className="font-serif-display italic font-normal" style={{ color: "#E6681D" }}>
             become
           </em>
