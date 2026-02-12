@@ -58,11 +58,11 @@ const LiveProgramsSection = () => {
       </div>
 
       {/* Showcase: Sidebar | Image | Details */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="flex flex-col md:flex-row rounded-sm overflow-hidden border border-border bg-card md:min-h-[520px] lg:min-h-[580px]">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-12">
+        <div className="flex flex-col md:flex-row rounded-sm overflow-hidden border border-border bg-card md:min-h-[640px] lg:min-h-[720px]">
 
           {/* Left sidebar */}
-          <div className="md:w-[300px] lg:w-[340px] flex-shrink-0 md:border-r border-border flex flex-col">
+          <div className="md:w-[340px] lg:w-[400px] flex-shrink-0 md:border-r border-border flex flex-col">
             {showcasePrograms.map((prog, i) => (
               <div key={prog.id}>
                 {i > 0 && <div className="h-px bg-border/40" />}
