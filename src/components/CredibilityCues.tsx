@@ -98,7 +98,7 @@ const CredibilityCues = () => {
           ))}
         </div>
 
-        <p className="font-sans-body text-sm text-white/40 text-center mt-10 md:mt-12 max-w-md mx-auto leading-relaxed">
+        <p className="font-sans-body text-base text-white/40 text-center mt-10 md:mt-12 max-w-lg mx-auto leading-relaxed">
           From masterclasses to residencies, from community to career —
           <br className="hidden md:block" />
           every layer designed for the serious creator.
