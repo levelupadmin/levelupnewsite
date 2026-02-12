@@ -1,24 +1,31 @@
 
+## Add Horizontal Arrow Animation to Mini CTA Banner
 
-## Resize the Mini CTA Banner to Fill Sidebar Space
+The arrow inside the "Take our quiz" link in the Mini CTA banner needs an animated horizontal movement to draw attention and create a dynamic, interactive feel.
 
-The Mini CTA banner at the bottom of the sidebar has a lot of empty space above it. The fix is to make it grow to fill that available space and increase its internal size.
+### Technical Approach
 
-### Changes (single file: `src/components/LiveProgramsSection.tsx`)
+**Animation Method**: Use Tailwind CSS with a custom keyframe animation for horizontal movement, similar to the existing animations in the tailwind config.
 
-**1. Make the banner container fill available space**
-- Change `mt-auto p-4` to `mt-auto p-4 flex-1 flex flex-col justify-end` so the banner wrapper stretches into the empty area
+**Why this approach**:
+- Consistent with the existing animation patterns in the project (fade-up, scale-reveal, etc.)
+- No need for additional dependencies (framer-motion is already available but Tailwind is simpler here)
+- The arrow is a simple icon that benefits from a straightforward translate animation
 
-**2. Make the inner card taller**
-- Add `flex-1` to the inner bordered card so it expands to fill the wrapper
-- Change the inner layout to use flex-col with justify-end so content sits at the bottom while the image fills the space above
+### Changes Required
 
-**3. Increase internal padding**
-- Bump inner padding from `p-4` to `p-5` for a roomier feel
+**1. Add new keyframe to tailwind.config.ts**
+- Add `"slide-right"` keyframe that translates the arrow horizontally:
+  - `0%`: `translateX(0)`
+  - `50%`: `translateX(4px)` (slides right)
+  - `100%`: `translateX(0)` (returns to original position)
+- Add animation duration: `slide-right 1.5s ease-in-out infinite`
 
-**4. Slightly larger text**
-- Increase the question text from `text-xs` to `text-sm`
-- Increase the CTA link from `text-xs` to `text-sm`
+**2. Update LiveProgramsSection.tsx**
+- Wrap the arrow icon in a `<span>` or apply the animation class directly to the `ArrowRight` component
+- Add `animate-slide-right` class to create the continuous horizontal sliding effect
+- Keep the existing hover and transition styles intact
 
-This keeps the same visual design but stretches the banner vertically to use the dead space between the last program item and the bottom of the sidebar.
+### Expected Result
+The arrow will continuously slide left-right (4px movement) in an infinite loop at 1.5 second intervals, creating a subtle "pull" effect that encourages users to click the "Take our quiz" link.
 
