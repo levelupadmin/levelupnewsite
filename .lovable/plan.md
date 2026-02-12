@@ -1,28 +1,24 @@
 
 
-## Make the Live Programs Card Larger and More Immersive
+## Resize the Mini CTA Banner to Fill Sidebar Space
 
-The program showcase card (containing the sidebar, image, and details panel) will be scaled up to feel more prominent while preserving the three-column layout.
+The Mini CTA banner at the bottom of the sidebar has a lot of empty space above it. The fix is to make it grow to fill that available space and increase its internal size.
 
 ### Changes (single file: `src/components/LiveProgramsSection.tsx`)
 
-**1. Increase container max-width**
-- Change `max-w-[1400px]` to `max-w-[1700px]` (~21% wider)
+**1. Make the banner container fill available space**
+- Change `mt-auto p-4` to `mt-auto p-4 flex-1 flex flex-col justify-end` so the banner wrapper stretches into the empty area
 
-**2. Set a minimum height on the card**
-- Add `md:min-h-[520px] lg:min-h-[580px]` to the main flex container to give the card more vertical presence
+**2. Make the inner card taller**
+- Add `flex-1` to the inner bordered card so it expands to fill the wrapper
+- Change the inner layout to use flex-col with justify-end so content sits at the bottom while the image fills the space above
 
-**3. Widen the sidebar**
-- Change `md:w-[260px] lg:w-[300px]` to `md:w-[300px] lg:w-[340px]`
+**3. Increase internal padding**
+- Bump inner padding from `p-4` to `p-5` for a roomier feel
 
-**4. Increase the center image width**
-- Change `md:w-[40%]` to `md:w-[45%]`
+**4. Slightly larger text**
+- Increase the question text from `text-xs` to `text-sm`
+- Increase the CTA link from `text-xs` to `text-sm`
 
-**5. Scale up details panel padding**
-- Change `p-6 lg:p-8` to `p-8 lg:p-10`
-
-**6. Bump up the program title size in details**
-- Change `text-2xl lg:text-3xl` to `text-2xl lg:text-4xl`
-
-All internal spacing, button sizes, and text readability remain unchanged. Mobile layout is unaffected since these are `md:` and `lg:` prefixed values.
+This keeps the same visual design but stretches the banner vertically to use the dead space between the last program item and the bottom of the sidebar.
 
