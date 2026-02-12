@@ -108,7 +108,7 @@ const LiveProgramsSection = () => {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 font-sans-body text-sm text-primary hover:text-primary/80 transition-colors"
                     >
-                      Take our quiz <ArrowRight className="w-3 h-3" />
+                      Take our quiz <ArrowRight className="w-3 h-3 animate-slide-right" />
                     </a>
                   </div>
                 </div>
