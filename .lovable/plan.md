@@ -1,16 +1,29 @@
 
 
-## Add Subtle Background Grid to the Credibility Stats Section
+## Fix Navbar Hover Animation Glitch
 
-Add a CSS-based dot grid pattern behind the CredibilityCues section, similar to the subtle grid visible in the first reference image.
+### Problem
+The navbar has two animation systems fighting over the same element:
+1. **CSS transitions** (`transition-colors transition-shadow duration-500`) on the `motion.nav` container
+2. **Framer Motion** `animate` prop controlling `borderRadius` on the same element
 
-### Changes (single file: `src/components/CredibilityCues.tsx`)
+When hovering between nav items, these systems conflict and cause visual stuttering. The `layoutId="nav-accent-dot"` indicator also triggers costly layout recalculations during panel transitions.
 
-**1. Add a CSS dot-grid overlay using a pseudo-element approach**
-- Insert an absolutely positioned div behind the content with a `radial-gradient` repeating pattern to create a subtle dot grid
-- Grid specs: small dots (~1px) spaced ~30px apart, using `white` at very low opacity (~0.04-0.06) to keep it subtle against the dark background
-- The grid will cover the full section but fade out at the edges using a mask gradient for a smooth blend
+### Solution
 
-### Technical Detail
+#### 1. Remove CSS transition conflicts on `motion.nav` (Navbar.tsx ~line 106-113)
+- Remove `transition-colors transition-shadow duration-500 ease-out` from the `motion.nav` className
+- Move `backgroundColor`, `borderColor`, and `boxShadow` into Framer Motion's `animate` prop so a single system controls all animated properties
+- This eliminates the dual-animation conflict
 
-The grid is created purely with CSS using `background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)` with `background-size: 30px 30px`. A CSS mask with radial-gradient fades the edges so the grid doesn't have hard cutoffs.
+#### 2. Stabilize the accent dot indicator (Navbar.tsx ~line 160-175)
+- Remove `layoutId="nav-accent-dot"` to prevent layout thrashing during hover transitions
+- Use a simpler opacity/scale animation without layout projection
+- This prevents the dot from triggering expensive layout recalculations while the dropdown panel is also animating
+
+#### 3. Add `will-change` hint for the dropdown panel (Navbar.tsx ~line 213)
+- Add `will-change: height, opacity` to the expandable panel's motion div to hint the browser to optimize compositing for that element
+
+### Files Changed
+- `src/components/Navbar.tsx` -- all 3 fixes in one file
+
