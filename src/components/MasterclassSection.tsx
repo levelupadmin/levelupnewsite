@@ -97,31 +97,27 @@ const MasterclassCard = ({ mc }: { mc: typeof masterclasses[0] }) => {
   );
 };
 
-const MasterclassCTACard = () => (
-  <a
-    href="https://masterclass.leveluplearning.in/"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="group relative block"
-  >
-    <div className="relative aspect-[3/4] overflow-hidden rounded-sm shadow-md transition-all duration-500 group-hover:shadow-[0_0_20px_2px_hsl(38_75%_55%/0.35)] group-hover:scale-[1.02] flex flex-col items-center justify-center text-center px-6"
+const ComingSoonCard = () => (
+  <div className="group relative block">
+    <div
+      className="relative aspect-[3/4] overflow-hidden rounded-sm shadow-md flex flex-col items-center justify-center text-center px-6"
       style={{
-        background: "linear-gradient(135deg, hsl(38 75% 55% / 0.15) 0%, hsl(38 75% 45% / 0.08) 100%)",
-        border: "1px solid hsl(38 75% 55% / 0.2)",
+        background: "linear-gradient(135deg, hsl(0 0% 15% / 0.6) 0%, hsl(0 0% 8% / 0.8) 100%)",
+        border: "1px solid hsl(0 0% 100% / 0.08)",
+        backdropFilter: "blur(8px)",
       }}
     >
-      <span className="font-serif-display text-lg md:text-xl font-medium text-foreground leading-tight mb-3">
-        View All<br />Masterclasses
-      </span>
-      <p className="font-sans-body text-xs text-muted-foreground mb-5 leading-relaxed">
-        Explore the full library
-      </p>
-      <div className="w-10 h-10 rounded-full border border-primary/40 flex items-center justify-center transition-colors duration-300 group-hover:bg-primary/10">
-        <ArrowRight className="w-4 h-4 text-primary transition-transform duration-300 group-hover:translate-x-0.5" />
+      <div className="w-12 h-12 rounded-full border border-muted-foreground/20 flex items-center justify-center mb-4">
+        <span className="text-muted-foreground text-lg">?</span>
       </div>
-      <div className="absolute inset-0 rounded-sm ring-1 ring-inset ring-white/0 group-hover:ring-primary/40 transition-all duration-500 pointer-events-none" />
+      <span className="font-serif-display text-lg md:text-xl font-medium text-muted-foreground/70 leading-tight mb-2">
+        Coming Soon
+      </span>
+      <p className="font-sans-body text-xs text-muted-foreground/50 leading-relaxed">
+        New masterclass dropping soon
+      </p>
     </div>
-  </a>
+  </div>
 );
 
 const MasterclassSection = () => {
@@ -165,7 +161,7 @@ const MasterclassSection = () => {
           {masterclasses.map((mc) => (
             <MasterclassCard key={mc.name} mc={mc} />
           ))}
-          <MasterclassCTACard />
+          <ComingSoonCard />
         </div>
       </div>
 
