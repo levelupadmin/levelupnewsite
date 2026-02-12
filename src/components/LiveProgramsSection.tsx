@@ -88,9 +88,9 @@ const LiveProgramsSection = () => {
             ))}
 
             {/* Mini CTA Banner */}
-            <div className="hidden md:block mt-auto p-4">
-              <div className="relative rounded-lg overflow-hidden border border-primary/50">
-                <div style={{ maskImage: 'linear-gradient(to left, black, transparent)', WebkitMaskImage: 'linear-gradient(to left, black, transparent)' }}>
+            <div className="hidden md:flex mt-auto p-4 flex-1 flex-col justify-end">
+              <div className="relative rounded-lg overflow-hidden border border-primary/50 flex-1 flex flex-col">
+                <div className="flex-1 flex flex-col justify-end relative" style={{ maskImage: 'linear-gradient(to left, black, transparent)', WebkitMaskImage: 'linear-gradient(to left, black, transparent)' }}>
                   <img
                     src={careerQuizBanner}
                     alt="Career quiz"
@@ -98,15 +98,15 @@ const LiveProgramsSection = () => {
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
-                  <div className="relative p-4">
-                    <p className="font-sans-body text-xs text-muted-foreground leading-snug mb-2">
+                  <div className="relative p-5">
+                    <p className="font-sans-body text-sm text-muted-foreground leading-snug mb-2">
                       Not sure which creator<br />path fits you?
                     </p>
                     <a
                       href="https://www.leveluplearning.live/bfp"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 font-sans-body text-xs text-primary hover:text-primary/80 transition-colors"
+                      className="inline-flex items-center gap-1 font-sans-body text-sm text-primary hover:text-primary/80 transition-colors"
                     >
                       Take our quiz <ArrowRight className="w-3 h-3" />
                     </a>
