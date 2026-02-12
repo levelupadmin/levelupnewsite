@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import nelsonImg from "@/assets/nelson-dilipkumar.png";
 
 const masterclasses = [
   {
@@ -48,6 +49,14 @@ const masterclasses = [
     format: "Filmmaker",
     category: "Filmmaking",
     href: "https://masterclass.leveluplearning.in/lokesh-kanagaraj",
+  },
+  {
+    image: nelsonImg,
+    name: "Nelson Dilipkumar",
+    descriptor: "The art of commercial filmmaking",
+    format: "Filmmaker",
+    category: "Filmmaking",
+    href: "https://masterclass.leveluplearning.in/nelson-dilipkumar",
   },
 ];
 
@@ -105,7 +114,7 @@ const MasterclassSection = () => {
 
       {/* Masterclass cards — grid layout */}
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-6 md:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-6">
           {masterclasses.map((mc) => (
             <MasterclassCard key={mc.name} mc={mc} />
           ))}
