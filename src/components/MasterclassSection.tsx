@@ -100,7 +100,7 @@ const MasterclassCard = ({ mc }: { mc: typeof masterclasses[0] }) => {
 
 const ComingSoonCard = () => (
   <div className="group relative block">
-    <div className="relative aspect-[3/4] overflow-hidden rounded-sm shadow-md transition-shadow duration-500 group-hover:shadow-[0_0_20px_2px_hsl(38_75%_55%/0.35)]">
+    <div className="relative aspect-[3/4] overflow-hidden rounded-sm shadow-md transition-shadow duration-500 group-hover:shadow-[0_0_20px_2px_hsl(38_75%_55%/0.35)]" style={{ backgroundColor: "#1C1208" }}>
       <img
         src={comingSoonImg}
         alt="Coming soon masterclass"
