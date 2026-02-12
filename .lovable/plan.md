@@ -1,35 +1,28 @@
 
-## Add "View All Masterclasses" CTA Card to 4th Grid Slot
 
-### Overview
-Add a promotional CTA card in the empty 4th position of the second row (after 7 masterclass posters with a 4-3 layout) that directs users to the full masterclass library.
+## Make the Live Programs Card Larger and More Immersive
 
-### Changes
+The program showcase card (containing the sidebar, image, and details panel) will be scaled up to feel more prominent while preserving the three-column layout.
 
-**File: `src/components/MasterclassSection.tsx`**
+### Changes (single file: `src/components/LiveProgramsSection.tsx`)
 
-1. **Create `MasterclassCTACard` component**
-   - New component that renders as a 3/4 aspect ratio card (matching masterclass card dimensions)
-   - Gradient background: amber/primary color with subtle opacity (similar to premium feel)
-   - Centered content: "View All Masterclasses" heading + subtext + ArrowRight icon
-   - Links to `https://masterclass.leveluplearning.in/`
-   - Hover effects: shadow glow and scale slightly to match the interactive feel of masterclass cards
-   - Uses `group` and hover classes for consistency
+**1. Increase container max-width**
+- Change `max-w-[1400px]` to `max-w-[1700px]` (~21% wider)
 
-2. **Update grid rendering logic**
-   - After mapping all 7 masterclass cards, conditionally add the CTA card
-   - On `lg:grid-cols-4`, this will place it in the 4th slot of the second row
-   - On smaller screens (mobile/tablet), it wraps naturally with existing cards
+**2. Set a minimum height on the card**
+- Add `md:min-h-[520px] lg:min-h-[580px]` to the main flex container to give the card more vertical presence
 
-### Design Details
+**3. Widen the sidebar**
+- Change `md:w-[260px] lg:w-[300px]` to `md:w-[300px] lg:w-[340px]`
 
-- **Styling**: Matches the poster aesthetic with 3/4 aspect ratio, rounded corners, shadow, and hover interactions (similar glow effect)
-- **Colors**: Use primary/amber gradient background with adjusted opacity for a premium, distinctive look (different from the poster style but cohesive)
-- **Typography**: Heading + supporting text centered within the card
-- **Icon**: ArrowRight icon from lucide-react (consistent with existing CTA)
-- **Hover states**: Amber glow shadow + subtle scale effect (similar to masterclass cards for consistency)
+**4. Increase the center image width**
+- Change `md:w-[40%]` to `md:w-[45%]`
 
-### Responsive Behavior
-- Desktop (lg): Card lands in 4th position, creating clean 4-3 layout
-- Tablet (sm): Card wraps naturally with 3-column grid
-- Mobile: Wraps with 2-column grid
+**5. Scale up details panel padding**
+- Change `p-6 lg:p-8` to `p-8 lg:p-10`
+
+**6. Bump up the program title size in details**
+- Change `text-2xl lg:text-3xl` to `text-2xl lg:text-4xl`
+
+All internal spacing, button sizes, and text readability remain unchanged. Mobile layout is unaffected since these are `md:` and `lg:` prefixed values.
+
