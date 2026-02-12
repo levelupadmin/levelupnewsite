@@ -35,6 +35,7 @@ const Navbar = () => {
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 40);
+    setActiveIndex(null);
     if (mobileOpen) {
       setMobileOpen(false);
       setMobileExpandedIndex(null);
@@ -242,7 +243,7 @@ const Navbar = () => {
 
                   {/* Course/item cards */}
                   <div className={`grid ${gridCols} gap-3`}>
-                    {activeItems.map((item, i) => (
+                    {(activeIndex === 0 ? activeItems.slice(0, 3) : activeItems).map((item, i) => (
                       <motion.a
                         key={item.title}
                         href={item.href}
@@ -294,6 +295,26 @@ const Navbar = () => {
                       </motion.a>
                     ))}
                   </div>
+
+                  {/* "See all" link for Masterclasses */}
+                  {activeIndex === 0 && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3, delay: 0.25 }}
+                      className="mt-3 text-center"
+                    >
+                      <a
+                        href="https://masterclass.leveluplearning.in/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-sans-body text-xs transition-colors duration-200 hover:opacity-80"
+                        style={{ color: activeAccent }}
+                      >
+                        See all masterclasses →
+                      </a>
+                    </motion.div>
+                  )}
                 </div>
               </motion.div>
             )}

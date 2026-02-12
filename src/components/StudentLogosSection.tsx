@@ -38,30 +38,44 @@ const AnimatedCounter = ({
 }) => {
   const [value, setValue] = useState(0);
   const hasAnimated = useRef(false);
+  const elRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    if (hasAnimated.current) return;
-    hasAnimated.current = true;
+    const el = elRef.current;
+    if (!el) return;
 
-    const duration = 1800;
-    const startTime = performance.now();
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          observer.disconnect();
 
-    const animate = (currentTime: number) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setValue(eased * target);
+          const duration = 1800;
+          const startTime = performance.now();
 
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
-    };
+          const animate = (currentTime: number) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setValue(eased * target);
 
-    requestAnimationFrame(animate);
+            if (progress < 1) {
+              requestAnimationFrame(animate);
+            }
+          };
+
+          requestAnimationFrame(animate);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
   }, [target]);
 
   return (
-    <span>
+    <span ref={elRef}>
       {formatNumber(value, hasComma)}
       {suffix}
     </span>
