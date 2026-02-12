@@ -43,7 +43,7 @@ const HeroSection = () => {
 
         <h1 className="font-serif-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-medium text-hero-headline text-center leading-[1.1] tracking-[-0.03em] max-w-5xl text-shadow-hero">
           Where{" "}
-          <span className="inline-block relative align-bottom overflow-hidden" style={{ width: "auto", minWidth: "2ch" }}>
+          <span className="inline-block relative align-bottom overflow-hidden" style={{ minWidth: "2ch" }}>
             <AnimatePresence mode="wait">
               <motion.span
                 key={rotatingWords[wordIndex]}
@@ -51,8 +51,7 @@ const HeroSection = () => {
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: "-100%", opacity: 0 }}
                 transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
-                className="inline-block"
-                style={{ color: "#E6681D" }}
+                className="inline-block text-white"
               >
                 {rotatingWords[wordIndex]}
               </motion.span>
