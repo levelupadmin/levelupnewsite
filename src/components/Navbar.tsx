@@ -305,9 +305,8 @@ const Navbar = () => {
                       className="mt-3 text-center"
                     >
                       <a
-                        href="https://masterclass.leveluplearning.in/"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        href="#masterclasses"
+                        onClick={() => setActiveIndex(null)}
                         className="font-sans-body text-xs transition-colors duration-200 hover:opacity-80"
                         style={{ color: activeAccent }}
                       >
