@@ -61,9 +61,29 @@ const masterclasses = [
 ];
 
 const MasterclassCard = ({ mc }: { mc: typeof masterclasses[0] }) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    card.style.transform = `perspective(600px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) scale(1.02)`;
+  };
+
+  const handleMouseLeave = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.currentTarget.style.transform = '';
+  };
+
   return (
-    <a href={mc.href} target="_blank" rel="noopener noreferrer" className="group relative cursor-pointer block">
-      <div className="relative aspect-[3/4] overflow-hidden rounded-sm bg-card">
+    <a
+      href={mc.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group relative cursor-pointer block transition-transform duration-500 ease-out"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ willChange: 'transform' }}
+    >
+      <div className="relative aspect-[3/4] overflow-hidden rounded-sm bg-card shadow-md transition-shadow duration-500 group-hover:shadow-[0_0_20px_2px_hsl(38_75%_55%/0.35)]">
         <img
           src={mc.image}
           alt={`${mc.name} — ${mc.descriptor}`}
@@ -71,7 +91,7 @@ const MasterclassCard = ({ mc }: { mc: typeof masterclasses[0] }) => {
           loading="lazy"
           decoding="async"
         />
-        <div className="absolute inset-0 rounded-sm ring-1 ring-inset ring-white/0 group-hover:ring-white/20 transition-all duration-500 pointer-events-none" />
+        <div className="absolute inset-0 rounded-sm ring-1 ring-inset ring-white/0 group-hover:ring-primary/40 transition-all duration-500 pointer-events-none" />
       </div>
     </a>
   );
