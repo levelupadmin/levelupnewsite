@@ -79,7 +79,7 @@ const WhyLevelUp = () => {
                 key={index}
                 layout
                 onClick={() => setExpandedIndex(isExpanded ? null : index)}
-                className={`group relative bg-[#0a0a0a] border border-border/40 rounded-xl overflow-hidden cursor-pointer transition-colors hover:border-border/60`}
+                className={`group relative bg-[#0a0a0a] border border-border/40 rounded-xl overflow-hidden cursor-pointer transition-all duration-500 hover:border-primary/40 hover:shadow-[0_0_20px_2px_hsl(38_75%_55%/0.35)]`}
                 style={{ minHeight: 420 }}
               >
                 <AnimatePresence mode="wait">
