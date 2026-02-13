@@ -82,9 +82,9 @@ const FAQSection = () => {
     <section id="faq" aria-label="Frequently asked questions" className="relative py-12 md:py-16 overflow-hidden">
       {/* Warm gradient overlay at the bottom */}
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[50%]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[80%]"
         style={{
-          background: "linear-gradient(to bottom, transparent 0%, hsl(24 15% 8%) 70%, hsl(20 20% 6%) 100%)",
+          background: "linear-gradient(to bottom, transparent 0%, hsl(24 20% 8%) 40%, hsl(20 30% 7%) 70%, hsl(18 35% 6%) 100%)",
         }}
         aria-hidden="true"
       />
