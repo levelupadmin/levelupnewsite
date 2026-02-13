@@ -26,6 +26,8 @@ const features = [
       "Industry-standard equipment & sets",
       "Portfolio-ready deliverables",
     ],
+    stat: "60+",
+    statLabel: "WORKSHOPS",
     image: shapePracticeGlow,
   },
   {
