@@ -77,10 +77,9 @@ const WhyLevelUp = () => {
             return (
               <motion.div
                 key={index}
-                layout
                 onClick={() => setExpandedIndex(isExpanded ? null : index)}
                 className={`group relative bg-[#0a0a0a] border border-border/40 rounded-xl overflow-hidden cursor-pointer transition-all duration-500 hover:border-primary/40 hover:shadow-[0_0_20px_2px_hsl(38_75%_55%/0.35)]`}
-                style={{ minHeight: 420 }}
+                style={{ height: 420 }}
               >
                 <AnimatePresence mode="wait">
                   {isExpanded ? (
@@ -91,7 +90,6 @@ const WhyLevelUp = () => {
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.3 }}
                       className="flex flex-col justify-between h-full p-6 md:p-8"
-                      style={{ minHeight: 420 }}
                     >
                       {/* Header */}
                       <div className="flex items-start justify-between gap-4">
@@ -143,7 +141,6 @@ const WhyLevelUp = () => {
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.3 }}
                       className="flex flex-col justify-between h-full p-6 md:p-8"
-                      style={{ minHeight: 420 }}
                     >
                       {/* Title + expand icon */}
                       <div className="flex items-start justify-between gap-4">
@@ -154,12 +151,9 @@ const WhyLevelUp = () => {
                       </div>
 
                       {/* Image centered - only show when no card is expanded */}
-                      {expandedIndex === null && (
-                        <div className="flex-1 flex items-center justify-center py-6">
-                          <img src={feature.image} alt="" className="w-64 h-64 object-contain opacity-90 transition-transform duration-300 group-hover:scale-110" />
-                        </div>
-                      )}
-                      {expandedIndex !== null && <div className="flex-1" />}
+                      <div className="flex-1 flex items-center justify-center py-6">
+                        <img src={feature.image} alt="" className="w-64 h-64 object-contain opacity-90 transition-transform duration-300 group-hover:scale-110" />
+                      </div>
 
                       {/* Description truncated */}
                       <div className="mt-auto">
