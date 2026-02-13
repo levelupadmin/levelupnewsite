@@ -79,7 +79,15 @@ const featuredStyle = "bg-[hsl(24_10%_8%)] border-primary/20";
 
 const FAQSection = () => {
   return (
-    <section id="faq" aria-label="Frequently asked questions" className="relative py-12 md:py-16">
+    <section id="faq" aria-label="Frequently asked questions" className="relative py-12 md:py-16 overflow-hidden">
+      {/* Warm gradient overlay at the bottom */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[50%]"
+        style={{
+          background: "linear-gradient(to bottom, transparent 0%, hsl(24 15% 8%) 70%, hsl(20 20% 6%) 100%)",
+        }}
+        aria-hidden="true"
+      />
       <div className="relative max-w-6xl mx-auto px-5 md:px-6">
         <h2 className="font-serif-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-10 md:mb-12">
           Frequently asked questions
