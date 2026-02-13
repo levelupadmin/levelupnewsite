@@ -1,11 +1,20 @@
 
 
-## Replace Header Video
-
-The recently uploaded hero carousel video (`/videos/forge.mov`, used in slide 2) will be replaced with the new file `forge_2_1.mov`.
+## Update FAQ Section Background Gradient
 
 ### What will change
 
-1. Copy `user-uploads://forge_2_1.mov` to `public/videos/forge.mov` (overwriting the existing file)
-2. No code changes needed since the component already references `/videos/forge.mov`
+The existing bottom gradient overlay in the FAQ section will be replaced with a fuller vertical gradient that incorporates the site's orange/amber tones, matching the reference image. The gradient will span the entire section height, going from the dark background at the top to a warm orange-brown at the bottom.
+
+### Technical details
+
+**File: `src/components/FAQSection.tsx`**
+
+- Update the existing gradient overlay div to cover a larger portion of the section (from ~50% to ~70-80%)
+- Adjust the gradient colors to include a more visible warm orange tone, using multi-stop gradients:
+  - `transparent` at top
+  - `hsl(24 20% 8%)` mid-way (subtle warm tint)
+  - `hsl(20 30% 7%)` near bottom (deeper orange-brown)
+  - `hsl(18 35% 6%)` at bottom (rich warm dark)
+- All FAQ cards, text, layout, and functionality remain completely unchanged
 
