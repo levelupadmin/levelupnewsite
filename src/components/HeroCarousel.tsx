@@ -1,7 +1,8 @@
-import { useEffect, useCallback, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { motion } from "framer-motion";
+import { useEmblaSelect } from "@/hooks/useEmblaSelect";
 
 import heroPoster1 from "@/assets/hero-poster-1.jpg";
 import heroPoster2 from "@/assets/hero-poster-2.jpg";
@@ -29,7 +30,6 @@ const slides = [
 ];
 
 const HeroCarousel = () => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
@@ -47,19 +47,7 @@ const HeroCarousel = () => {
     ]
   );
 
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-  }, [emblaApi]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    onSelect();
-    emblaApi.on("select", onSelect);
-    return () => {
-      emblaApi.off("select", onSelect);
-    };
-  }, [emblaApi, onSelect]);
+  const selectedIndex = useEmblaSelect(emblaApi);
 
   // Only play active + next slide, pause all others
   useEffect(() => {
