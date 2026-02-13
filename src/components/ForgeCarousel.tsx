@@ -1,6 +1,6 @@
-import { useEffect, useCallback, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
+import { useEmblaSelect } from "@/hooks/useEmblaSelect";
 
 import forgeFilmmakingBanner from "@/assets/forge-filmmaking-banner.jpg";
 import forgeCreatorsBanner from "@/assets/forge-creators-banner.jpg";
@@ -28,8 +28,6 @@ const forgeSlides = [
 ];
 
 const ForgeCarousel = () => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
-
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       loop: true,
@@ -45,19 +43,7 @@ const ForgeCarousel = () => {
     ]
   );
 
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-  }, [emblaApi]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    onSelect();
-    emblaApi.on("select", onSelect);
-    return () => {
-      emblaApi.off("select", onSelect);
-    };
-  }, [emblaApi, onSelect]);
+  const selectedIndex = useEmblaSelect(emblaApi);
 
   return (
     <div>
