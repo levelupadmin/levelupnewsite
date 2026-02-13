@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { motion } from "framer-motion";
@@ -31,6 +31,20 @@ const slides = [
 
 const HeroCarousel = () => {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Only initialize carousel when visible
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setIsVisible(true); obs.disconnect(); } },
+      { rootMargin: "200px" }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
@@ -51,6 +65,7 @@ const HeroCarousel = () => {
 
   // Only play active + next slide, pause all others
   useEffect(() => {
+    if (!isVisible) return;
     const total = slides.length;
     const nextIndex = (selectedIndex + 1) % total;
 
@@ -58,20 +73,19 @@ const HeroCarousel = () => {
       if (!video) return;
 
       if (index === selectedIndex || index === nextIndex) {
-        // Load and play active + next
         if (video.preload !== "auto") {
           video.preload = "auto";
         }
         video.play().catch(() => {});
       } else {
-        // Pause and free bandwidth for distant slides
         video.pause();
       }
     });
-  }, [selectedIndex]);
+  }, [selectedIndex, isVisible]);
 
   return (
     <motion.div
+      ref={containerRef}
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.2, delay: 1.5, ease: "easeOut" }}
@@ -94,18 +108,25 @@ const HeroCarousel = () => {
                     }}
                   />
 
-                  {/* Deferred video — preload="none" by default, upgraded for active+next */}
-                  <video
-                    ref={(el) => { videoRefs.current[index] = el; }}
-                    src={slide.video}
-                    poster={slide.poster}
-                    autoPlay={index === 0}
-                    muted
-                    loop
-                    playsInline
-                    preload="none"
-                    className="w-full aspect-[16/9] object-cover object-center bg-card scale-[1.3]"
-                  />
+                  {/* Only render videos when carousel is visible */}
+                  {isVisible ? (
+                    <video
+                      ref={(el) => { videoRefs.current[index] = el; }}
+                      src={slide.video}
+                      poster={slide.poster}
+                      muted
+                      loop
+                      playsInline
+                      preload="none"
+                      className="w-full aspect-[16/9] object-cover object-center bg-card scale-[1.3]"
+                    />
+                  ) : (
+                    <img
+                      src={slide.poster}
+                      alt={slide.alt}
+                      className="w-full aspect-[16/9] object-cover object-center bg-card scale-[1.3]"
+                    />
+                  )}
                 </div>
               </div>
             ))}

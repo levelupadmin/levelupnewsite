@@ -105,6 +105,8 @@ const WhyLevelUp = () => {
                           src={feature.image}
                           alt=""
                           className="w-44 h-44 md:w-48 md:h-48 object-contain opacity-90 shrink-0"
+                          loading="lazy"
+                          decoding="async"
                         />
                       </div>
 
