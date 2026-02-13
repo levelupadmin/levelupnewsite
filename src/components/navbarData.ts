@@ -33,37 +33,37 @@ export const navLinks: NavLink[] = [
     formatBadge: "On-demand",
     items: [
       {
-        image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/650c1be5224f49f6432aaae6_1.Karthik_Subburaj%20course%20banner.png",
+        image: "/images/karthik-subbaraj.png",
         title: "Karthik Subbaraj",
         subtitle: "Filmmaking",
         href: "https://masterclass.leveluplearning.in/karthik-subbaraj",
       },
       {
-        image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64f60ddd91f67b7db8f6716b_3.Anthony_Gonsalvez.png",
+        image: "/images/anthony-gonsalvez.png",
         title: "Anthony Gonsalvez",
         subtitle: "Film Editing",
         href: "https://masterclass.leveluplearning.in/anthony",
       },
       {
-        image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64f2f14d67e5504737c57ea5_2.Venket_Ram.png",
+        image: "/images/venket-ram.png",
         title: "G Venket Ram",
         subtitle: "Photography",
         href: "https://masterclass.leveluplearning.in/g-venket-ram",
       },
       {
-        image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64b79ef6d61b238747788c6c_kiran%20website%201.webp",
+        image: "/images/drk-kiran.webp",
         title: "DRK Kiran",
         subtitle: "Art Direction",
         href: "https://masterclass.leveluplearning.in/kiran",
       },
       {
-        image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64b79ef642421ae3cbe004d9_ravi%20website%201.webp",
+        image: "/images/ravi-basrur.webp",
         title: "Ravi Basrur",
         subtitle: "Music Composition",
         href: "https://masterclass.leveluplearning.in/ravi-basrur",
       },
       {
-        image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/6899f2de01c2b6f380973a82_Frame%20191%20LK.png",
+        image: "/images/lokesh-kanagaraj.png",
         title: "Lokesh Kanagaraj",
         subtitle: "Filmmaking",
         href: "https://masterclass.leveluplearning.in/lokesh-kanagaraj",
