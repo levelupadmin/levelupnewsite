@@ -78,10 +78,8 @@ const WhyLevelUp = () => {
               <motion.div
                 key={index}
                 layout
-                onClick={() => !isExpanded && setExpandedIndex(index)}
-                className={`relative bg-[#0a0a0a] border border-border/40 rounded-xl overflow-hidden cursor-pointer transition-colors hover:border-border/60 ${
-                  isExpanded ? "cursor-default" : ""
-                }`}
+                onClick={() => setExpandedIndex(isExpanded ? null : index)}
+                className={`relative bg-[#0a0a0a] border border-border/40 rounded-xl overflow-hidden cursor-pointer transition-colors hover:border-border/60`}
                 style={{ minHeight: 420 }}
               >
                 <AnimatePresence mode="wait">
@@ -102,7 +100,7 @@ const WhyLevelUp = () => {
                         </h3>
                         <button
                           onClick={(e) => { e.stopPropagation(); setExpandedIndex(null); }}
-                          className="text-muted-foreground hover:text-foreground transition-colors p-1"
+                          className="text-muted-foreground hover:text-foreground transition-colors p-1 shrink-0"
                         >
                           <X size={18} />
                         </button>
