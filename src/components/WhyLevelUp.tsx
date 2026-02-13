@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { X, Maximize2 } from "lucide-react";
 import shapeMentorsGlow from "@/assets/shape-mentors-glow.png";
 import shapePracticeGlow from "@/assets/shape-practice-unique.png";
 import shapeCommunityGlow from "@/assets/shape-community-unique.png";
@@ -46,7 +44,7 @@ const features = [
 ];
 
 const WhyLevelUp = () => {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
 
   return (
     <section
@@ -72,44 +70,68 @@ const WhyLevelUp = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-4">
           {features.map((feature, index) => {
-            const isExpanded = expandedIndex === index;
+            const isFlipped = flippedIndex === index;
 
             return (
-              <motion.div
+              <div
                 key={index}
-                onClick={() => setExpandedIndex(isExpanded ? null : index)}
-                className={`group relative bg-[#0a0a0a] border border-border/40 rounded-xl overflow-hidden cursor-pointer transition-all duration-500 hover:border-primary/40 hover:shadow-[0_0_20px_2px_hsl(38_75%_55%/0.35)]`}
-                style={{ height: 420 }}
+                className="cursor-pointer"
+                style={{ perspective: 1200, height: 420 }}
+                onClick={() => setFlippedIndex(isFlipped ? null : index)}
               >
-                <AnimatePresence mode="wait">
-                  {isExpanded ? (
-                    <motion.div
-                      key="expanded"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="flex flex-col justify-between h-full p-6 md:p-8"
-                    >
-                      {/* Header */}
-                      <div className="flex items-start justify-between gap-4">
+                <div
+                  className="relative w-full h-full transition-transform duration-700"
+                  style={{
+                    transformStyle: "preserve-3d",
+                    transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+                  }}
+                >
+                  {/* FRONT */}
+                  <div
+                    className="absolute inset-0 bg-[#0a0a0a] border border-border/40 rounded-xl overflow-hidden hover:border-primary/40 hover:shadow-[0_0_20px_2px_hsl(38_75%_55%/0.35)] transition-all duration-300"
+                    style={{ backfaceVisibility: "hidden" }}
+                  >
+                    <div className="flex flex-col justify-between h-full p-6 md:p-8">
+                      <div>
                         <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight">
                           {feature.title}
                         </h3>
-                        <button
-                          onClick={(e) => { e.stopPropagation(); setExpandedIndex(null); }}
-                          className="text-muted-foreground hover:text-foreground transition-colors p-1 shrink-0"
-                        >
-                          <X size={18} />
-                        </button>
                       </div>
 
-                      {/* Description */}
-                      <p className="font-sans-body text-sm text-muted-foreground leading-relaxed mt-4">
-                        {feature.expandedDescription}
-                      </p>
+                      <div className="flex-1 flex items-center justify-center py-2 min-h-0 overflow-hidden">
+                        <img
+                          src={feature.image}
+                          alt=""
+                          className="w-44 h-44 md:w-48 md:h-48 object-contain opacity-90 shrink-0"
+                        />
+                      </div>
 
-                      {/* Bullets */}
+                      <div className="shrink-0 pt-2">
+                        <p className="font-sans-body text-sm text-muted-foreground leading-relaxed line-clamp-2">
+                          {feature.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* BACK */}
+                  <div
+                    className="absolute inset-0 bg-[#0a0a0a] border border-primary/40 rounded-xl overflow-hidden shadow-[0_0_20px_2px_hsl(38_75%_55%/0.25)]"
+                    style={{
+                      backfaceVisibility: "hidden",
+                      transform: "rotateY(180deg)",
+                    }}
+                  >
+                    <div className="flex flex-col justify-between h-full p-6 md:p-8">
+                      <div>
+                        <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight">
+                          {feature.title}
+                        </h3>
+                        <p className="font-sans-body text-sm text-muted-foreground leading-relaxed mt-4">
+                          {feature.expandedDescription}
+                        </p>
+                      </div>
+
                       <div className="space-y-2 mt-5">
                         {feature.bullets.map((bullet, i) => (
                           <div key={i} className="flex items-start gap-2.5">
@@ -121,7 +143,6 @@ const WhyLevelUp = () => {
                         ))}
                       </div>
 
-                      {/* Stat at bottom */}
                       {feature.stat && (
                         <div className="mt-auto pt-6">
                           <span className="font-serif-display text-4xl font-bold text-gradient-amber">
@@ -132,39 +153,10 @@ const WhyLevelUp = () => {
                           </span>
                         </div>
                       )}
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="collapsed"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="flex flex-col justify-between h-full p-6 md:p-8"
-                    >
-                      {/* Title + expand icon */}
-                      <div className="flex items-start justify-between gap-4">
-                        <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight">
-                          {feature.title}
-                        </h3>
-                        <Maximize2 size={16} className="text-muted-foreground shrink-0 mt-1" />
-                      </div>
-
-                      {/* Image centered */}
-                      <div className="flex-1 flex items-center justify-center py-2 min-h-0 overflow-hidden">
-                        <img src={feature.image} alt="" className="w-44 h-44 md:w-48 md:h-48 object-contain opacity-90 transition-transform duration-300 group-hover:scale-110 shrink-0" />
-                      </div>
-
-                      {/* Description truncated */}
-                      <div className="shrink-0 pt-2">
-                        <p className="font-sans-body text-sm text-muted-foreground leading-relaxed line-clamp-2">
-                          {feature.description}
-                        </p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             );
           })}
         </div>
