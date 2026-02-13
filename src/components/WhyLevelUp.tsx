@@ -158,7 +158,7 @@ const WhyLevelUp = () => {
                       {/* Image centered - only show when no card is expanded */}
                       {expandedIndex === null && (
                         <div className="flex-1 flex items-center justify-center py-6">
-                          <img src={feature.image} alt="" className="w-32 h-32 object-contain opacity-80" />
+                          <img src={feature.image} alt="" className="w-48 h-48 object-contain opacity-90" />
                         </div>
                       )}
                       {expandedIndex !== null && <div className="flex-1" />}
