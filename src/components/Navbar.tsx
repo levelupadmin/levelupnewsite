@@ -89,7 +89,7 @@ const Navbar = () => {
             borderColor: { duration: 0.5, ease: "easeOut" },
             boxShadow: { duration: 0.5, ease: "easeOut" },
           }}
-          className="relative mx-auto w-[95%] max-w-5xl flex flex-col overflow-hidden border backdrop-blur-md"
+          className="relative mx-auto w-[95%] max-w-5xl flex flex-col border backdrop-blur-md"
         >
           <div
             className={[
