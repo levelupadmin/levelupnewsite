@@ -150,13 +150,13 @@ const WhyLevelUp = () => {
                         <Maximize2 size={16} className="text-muted-foreground shrink-0 mt-1" />
                       </div>
 
-                      {/* Image centered - only show when no card is expanded */}
-                      <div className="flex-1 flex items-center justify-center py-6">
-                        <img src={feature.image} alt="" className="w-64 h-64 object-contain opacity-90 transition-transform duration-300 group-hover:scale-110" />
+                      {/* Image centered */}
+                      <div className="flex-1 flex items-center justify-center py-2 min-h-0 overflow-hidden">
+                        <img src={feature.image} alt="" className="w-44 h-44 md:w-48 md:h-48 object-contain opacity-90 transition-transform duration-300 group-hover:scale-110 shrink-0" />
                       </div>
 
                       {/* Description truncated */}
-                      <div className="mt-auto">
+                      <div className="shrink-0 pt-2">
                         <p className="font-sans-body text-sm text-muted-foreground leading-relaxed line-clamp-2">
                           {feature.description}
                         </p>
