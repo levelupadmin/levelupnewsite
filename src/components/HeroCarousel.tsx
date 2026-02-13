@@ -17,9 +17,9 @@ const slides = [
     alt: "PVR Trailer - LevelUp filmmaking showcase",
   },
   {
-    video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+    video: "/videos/forge.mov",
     poster: heroPoster2,
-    alt: "Students collaborating on a short film set",
+    alt: "Forge program showcase",
   },
   {
     video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
