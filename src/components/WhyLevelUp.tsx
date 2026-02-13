@@ -79,7 +79,7 @@ const WhyLevelUp = () => {
                 key={index}
                 layout
                 onClick={() => setExpandedIndex(isExpanded ? null : index)}
-                className={`relative bg-[#0a0a0a] border border-border/40 rounded-xl overflow-hidden cursor-pointer transition-colors hover:border-border/60`}
+                className={`group relative bg-[#0a0a0a] border border-border/40 rounded-xl overflow-hidden cursor-pointer transition-colors hover:border-border/60`}
                 style={{ minHeight: 420 }}
               >
                 <AnimatePresence mode="wait">
@@ -156,7 +156,7 @@ const WhyLevelUp = () => {
                       {/* Image centered - only show when no card is expanded */}
                       {expandedIndex === null && (
                         <div className="flex-1 flex items-center justify-center py-6">
-                          <img src={feature.image} alt="" className="w-48 h-48 object-contain opacity-90" />
+                          <img src={feature.image} alt="" className="w-64 h-64 object-contain opacity-90 transition-transform duration-300 group-hover:scale-110" />
                         </div>
                       )}
                       {expandedIndex !== null && <div className="flex-1" />}
