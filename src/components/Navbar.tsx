@@ -97,21 +97,21 @@ const Navbar = () => {
             opacity: 1,
             y: 0,
             borderRadius: expanded ? 16 : 9999,
+            backgroundColor: scrolled ? "hsla(0, 0%, 7%, 0.7)" : "hsla(0, 0%, 7%, 0.4)",
+            borderColor: scrolled ? "hsla(0, 0%, 15%, 0.4)" : "hsla(0, 0%, 15%, 0.2)",
+            boxShadow: scrolled
+              ? "0 8px 32px hsla(0, 0%, 0%, 0.4)"
+              : "0 4px 20px hsla(0, 0%, 0%, 0.25)",
           }}
           transition={{
             opacity: { duration: 0.8, delay: 0.2 },
             y: { duration: 0.8, delay: 0.2 },
             borderRadius: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
+            backgroundColor: { duration: 0.5, ease: "easeOut" },
+            borderColor: { duration: 0.5, ease: "easeOut" },
+            boxShadow: { duration: 0.5, ease: "easeOut" },
           }}
           className="mx-auto w-[95%] max-w-5xl flex flex-col overflow-hidden border backdrop-blur-md"
-          style={{
-            backgroundColor: scrolled ? "hsl(var(--card) / 0.7)" : "hsl(var(--card) / 0.4)",
-            borderColor: scrolled ? "hsl(var(--border) / 0.4)" : "hsl(var(--border) / 0.2)",
-            boxShadow: scrolled
-              ? "0 8px 32px hsl(0 0% 0% / 0.4)"
-              : "0 4px 20px hsl(0 0% 0% / 0.25)",
-            transition: "background-color 0.5s ease-out, border-color 0.5s ease-out, box-shadow 0.5s ease-out",
-          }}
         >
           {/* Top bar — logo + nav links + menu icon */}
           <div
