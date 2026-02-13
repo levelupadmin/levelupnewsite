@@ -64,18 +64,19 @@ const faqs = [
   },
 ];
 
-const cardStyles = [
-  "bg-card border-border",
-  "bg-[hsl(0_0%_9%)] border-border",
-  "bg-card border-border",
-  "bg-[hsl(0_0%_9%)] border-border",
-  "bg-card border-border",
-  "bg-[hsl(0_0%_9%)] border-border",
-  "bg-card border-border",
-  "bg-[hsl(0_0%_9%)] border-border",
-];
+interface FAQCardProps {
+  question: string;
+  answer: string;
+}
 
-const featuredStyle = "bg-[hsl(24_10%_8%)] border-primary/20";
+const FAQCard = ({ question, answer }: FAQCardProps) => {
+  return (
+    <div className="rounded-xl border border-white/10 bg-white/[0.03] p-6 h-full flex flex-col justify-start">
+      <h3 className="text-lg font-semibold text-foreground mb-3">{question}</h3>
+      <p className="text-sm leading-relaxed text-muted-foreground">{answer}</p>
+    </div>
+  );
+};
 
 const FAQSection = () => {
   return (
@@ -93,27 +94,9 @@ const FAQSection = () => {
           Frequently asked questions
         </h2>
 
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {faqs.map((faq, index) => (
-            <div
-              key={index}
-              className={`break-inside-avoid mb-5 rounded-sm border p-6 md:p-7 ${
-                faq.featured ? featuredStyle : cardStyles[index % cardStyles.length]
-              }`}
-            >
-              <h3
-                className={`font-serif-display text-foreground mb-3 ${
-                  faq.featured
-                    ? "text-lg md:text-xl"
-                    : "text-base md:text-lg"
-                }`}
-              >
-                {faq.question}
-              </h3>
-              <p className="font-sans-body text-sm md:text-base text-muted-foreground leading-relaxed">
-                {faq.answer}
-              </p>
-            </div>
+            <FAQCard key={index} question={faq.question} answer={faq.answer} />
           ))}
         </div>
 
