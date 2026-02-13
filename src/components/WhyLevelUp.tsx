@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Maximize2 } from "lucide-react";
-import shapeMentorsGlow from "@/assets/why-bg-1.png";
-import shapePracticeGlow from "@/assets/why-bg-2.png";
-import shapeCommunityGlow from "@/assets/why-bg-3.png";
+import shapeMentorsGlow from "@/assets/shape-mentors-glow.png";
+import shapePracticeGlow from "@/assets/shape-practice-unique.png";
+import shapeCommunityGlow from "@/assets/shape-community-unique.png";
 
 const features = [
   {
