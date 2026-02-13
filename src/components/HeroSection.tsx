@@ -21,12 +21,16 @@ const HeroSection = () => {
       id="hero"
       aria-label="Hero"
       className="relative flex flex-col pb-8 md:pb-12"
-      style={{
-        backgroundImage: `url(${heroBg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center top',
-      }}
     >
+      {/* LCP background image — rendered as <img> for discoverability */}
+      <img
+        src={heroBg}
+        alt=""
+        aria-hidden="true"
+        fetchPriority="high"
+        decoding="async"
+        className="absolute inset-0 w-full h-full object-cover object-top pointer-events-none"
+      />
       {/* Bottom fade overlay for smooth transition */}
       <div
         className="absolute bottom-0 left-0 right-0 h-[200px] pointer-events-none z-10"
