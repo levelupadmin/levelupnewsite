@@ -70,7 +70,7 @@ const WhyLevelUp = () => {
 
       {/* Feature Cards */}
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-4">
+        <div className="grid grid-cols-3 gap-4">
           {features.map((feature, index) => {
             const isFlipped = flippedIndex === index;
 
