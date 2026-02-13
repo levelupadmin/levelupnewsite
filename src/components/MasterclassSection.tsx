@@ -4,7 +4,7 @@ import comingSoonImg from "@/assets/coming-soon-silhouette.jpg";
 
 const masterclasses = [
   {
-    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/650c1be5224f49f6432aaae6_1.Karthik_Subburaj%20course%20banner.png",
+    image: "/images/karthik-subbaraj.png",
     name: "Karthik Subbaraj",
     descriptor: "Storytelling to editing to working with actors",
     format: "Filmmaker",
@@ -12,7 +12,7 @@ const masterclasses = [
     href: "https://masterclass.leveluplearning.in/karthik-subbaraj",
   },
   {
-    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64f60ddd91f67b7db8f6716b_3.Anthony_Gonsalvez.png",
+    image: "/images/anthony-gonsalvez.png",
     name: "Anthony Gonsalvez",
     descriptor: "An all-out practical editing experience",
     format: "Film Editor",
@@ -20,7 +20,7 @@ const masterclasses = [
     href: "https://masterclass.leveluplearning.in/anthony",
   },
   {
-    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64f2f14d67e5504737c57ea5_2.Venket_Ram.png",
+    image: "/images/venket-ram.png",
     name: "G Venket Ram",
     descriptor: "Capturing the perfect image through diverse case studies",
     format: "Photographer",
@@ -28,7 +28,7 @@ const masterclasses = [
     href: "https://masterclass.leveluplearning.in/g-venket-ram",
   },
   {
-    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64b79ef6d61b238747788c6c_kiran%20website%201.webp",
+    image: "/images/drk-kiran.webp",
     name: "DRK Kiran",
     descriptor: "Set designing, creative problem-solving, and miniatures",
     format: "Art Director",
@@ -36,7 +36,7 @@ const masterclasses = [
     href: "https://masterclass.leveluplearning.in/kiran",
   },
   {
-    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64b79ef642421ae3cbe004d9_ravi%20website%201.webp",
+    image: "/images/ravi-basrur.webp",
     name: "Ravi Basrur",
     descriptor: "From the village of Basrur to revolutionizing Sandalwood music",
     format: "Music Director",
@@ -44,7 +44,7 @@ const masterclasses = [
     href: "https://masterclass.leveluplearning.in/ravi-basrur",
   },
   {
-    image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/6899f2de01c2b6f380973a82_Frame%20191%20LK.png",
+    image: "/images/lokesh-kanagaraj.png",
     name: "Lokesh Kanagaraj",
     descriptor: "The art and craft of filmmaking",
     format: "Filmmaker",
@@ -88,6 +88,8 @@ const MasterclassCard = ({ mc }: { mc: typeof masterclasses[0] }) => {
         <img
           src={mc.image}
           alt={`${mc.name} — ${mc.descriptor}`}
+          width={400}
+          height={533}
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
           loading="lazy"
           decoding="async"
@@ -104,6 +106,8 @@ const ComingSoonCard = () => (
       <img
         src={comingSoonImg}
         alt="Coming soon masterclass"
+        width={400}
+        height={533}
         className="absolute inset-0 w-full h-full object-cover opacity-60"
         loading="lazy"
         decoding="async"
