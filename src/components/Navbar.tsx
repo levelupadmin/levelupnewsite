@@ -92,7 +92,7 @@ const Navbar = () => {
           aria-label="Main navigation"
           onMouseLeave={handleNavLeave}
           onPointerEnter={loadNavData}
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -20, borderRadius: 9999 }}
           animate={{
             opacity: 1,
             y: 0,
