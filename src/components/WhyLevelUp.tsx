@@ -77,9 +77,18 @@ const WhyLevelUp = () => {
             return (
               <div
                 key={index}
+                role="button"
+                tabIndex={0}
+                aria-expanded={isFlipped}
                 className="cursor-pointer"
                 style={{ perspective: 1200, height: 420 }}
                 onClick={() => setFlippedIndex(isFlipped ? null : index)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setFlippedIndex(isFlipped ? null : index);
+                  }
+                }}
               >
                 <div
                   className="relative w-full h-full transition-transform duration-700"
