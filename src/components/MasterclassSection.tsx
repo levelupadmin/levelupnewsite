@@ -167,17 +167,6 @@ const MasterclassSection = () => {
       </div>
 
       {/* Soft CTA */}
-      <div className="text-center mt-10 md:mt-14">
-        <a
-          href="https://masterclass.leveluplearning.in/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="cta-underline group inline-flex items-center gap-3 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-400"
-        >
-          Explore the full library
-          <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-        </a>
-      </div>
     </section>
   );
 };
