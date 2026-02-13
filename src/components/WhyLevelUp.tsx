@@ -21,7 +21,7 @@ const features = [
   },
   {
     title: "Practice that feels real",
-    description: "Residencies, real sets, and deadlines that matter. Your work lives in the world — not in a folder.",
+    description: "Residencies, real sets, and deadlines that matter.",
     expandedDescription: "We put you in real creative environments with actual stakes. No simulations, no pretend briefs — just meaningful work that matters.",
     bullets: [
       "Real-world production residencies",
@@ -32,7 +32,7 @@ const features = [
   },
   {
     title: "A community that stays",
-    description: "Not a cohort you forget. A creative ecosystem that keeps growing with you — for life.",
+    description: "A creative ecosystem that keeps growing.",
     expandedDescription: "A living network of creators who collaborate, hire each other, and keep pushing the craft forward together.",
     bullets: [
       "Lifetime access to the network",
