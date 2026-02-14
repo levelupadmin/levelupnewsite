@@ -70,7 +70,7 @@ const WhyLevelUp = () => {
 
       {/* Feature Cards */}
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-6">
           {features.map((feature, index) => {
             const isFlipped = flippedIndex === index;
             const Illustration = feature.illustration;
@@ -78,8 +78,8 @@ const WhyLevelUp = () => {
             return (
               <div
                 key={index}
-                className="cursor-pointer"
-                style={{ perspective: 1200, height: 420 }}
+                className="cursor-pointer group"
+                style={{ perspective: 1200, height: 440 }}
                 onClick={() => setFlippedIndex(isFlipped ? null : index)}
               >
                 <div
@@ -91,11 +91,14 @@ const WhyLevelUp = () => {
                 >
                   {/* FRONT */}
                   <div
-                    className="absolute inset-0 bg-[#0a0a0a] border border-border/40 rounded-xl overflow-hidden hover:border-primary/40 hover:shadow-[0_0_20px_2px_hsl(38_75%_55%/0.35)] transition-all duration-300"
-                    style={{ backfaceVisibility: "hidden" }}
+                    className="absolute inset-0 rounded-2xl overflow-hidden border border-primary/20 hover:border-primary/40 transition-all duration-500 hover:shadow-[0_0_30px_4px_hsl(30_80%_45%/0.25)]"
+                    style={{
+                      backfaceVisibility: "hidden",
+                      background: "linear-gradient(160deg, hsl(30 40% 12%) 0%, hsl(0 0% 4%) 50%, hsl(0 0% 2%) 100%)",
+                    }}
                   >
-                    <div className="flex flex-col h-full p-6 md:p-8">
-                      <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-4">
+                    <div className="flex flex-col h-full p-7 md:p-10">
+                      <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-5">
                         {feature.title}
                       </h3>
                       <div className="flex-1 min-h-0">
@@ -106,13 +109,14 @@ const WhyLevelUp = () => {
 
                   {/* BACK */}
                   <div
-                    className="absolute inset-0 bg-[#0a0a0a] border border-primary/40 rounded-xl overflow-hidden shadow-[0_0_20px_2px_hsl(38_75%_55%/0.25)]"
+                    className="absolute inset-0 rounded-2xl overflow-hidden border border-primary/30 shadow-[0_0_30px_4px_hsl(30_80%_45%/0.2)]"
                     style={{
                       backfaceVisibility: "hidden",
                       transform: "rotateY(180deg)",
+                      background: "linear-gradient(160deg, hsl(30 40% 12%) 0%, hsl(0 0% 4%) 50%, hsl(0 0% 2%) 100%)",
                     }}
                   >
-                    <div className="flex flex-col justify-between h-full p-6 md:p-8">
+                    <div className="flex flex-col justify-between h-full p-7 md:p-10">
                       <div>
                         <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight">
                           {feature.title}
