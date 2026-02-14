@@ -1,11 +1,11 @@
 import { useState } from "react";
-import shapeMentorsGlow from "@/assets/shape-mentors-glow.png";
-import shapePracticeGlow from "@/assets/shape-practice-unique.png";
-import shapeCommunityGlow from "@/assets/shape-community-unique.png";
+import ExpertMembershipCard from "./why-levelup/ExpertMembershipCard";
+import LiveProjectsCard from "./why-levelup/LiveProjectsCard";
+import CommunityCard from "./why-levelup/CommunityCard";
 
 const features = [
   {
-    title: "Mentors who've lived the craft",
+    title: "Expert Membership",
     description: "Learn directly from industry experts with years of real-world experience.",
     expandedDescription: "Not theorists — filmmakers, editors, and writers who built careers through decades of real work. They give you the unfiltered truth.",
     bullets: [
@@ -15,10 +15,10 @@ const features = [
     ],
     stat: "40+",
     statLabel: "INDUSTRY MENTORS",
-    image: shapeMentorsGlow,
+    illustration: ExpertMembershipCard,
   },
   {
-    title: "Practice that feels real",
+    title: "Live Projects",
     description: "Residencies, real sets, and deadlines that matter.",
     expandedDescription: "We put you in real creative environments with actual stakes. No simulations, no pretend briefs — just meaningful work that matters.",
     bullets: [
@@ -28,10 +28,10 @@ const features = [
     ],
     stat: "60+",
     statLabel: "WORKSHOPS",
-    image: shapePracticeGlow,
+    illustration: LiveProjectsCard,
   },
   {
-    title: "A community that stays",
+    title: "Community",
     description: "A creative ecosystem that keeps growing.",
     expandedDescription: "A living network of creators who collaborate, hire each other, and keep pushing the craft forward together.",
     bullets: [
@@ -41,7 +41,7 @@ const features = [
     ],
     stat: "2K+",
     statLabel: "ACTIVE MEMBERS",
-    image: shapeCommunityGlow,
+    illustration: CommunityCard,
   },
 ];
 
@@ -73,6 +73,7 @@ const WhyLevelUp = () => {
         <div className="grid grid-cols-3 gap-4">
           {features.map((feature, index) => {
             const isFlipped = flippedIndex === index;
+            const Illustration = feature.illustration;
 
             return (
               <div
@@ -93,27 +94,12 @@ const WhyLevelUp = () => {
                     className="absolute inset-0 bg-[#0a0a0a] border border-border/40 rounded-xl overflow-hidden hover:border-primary/40 hover:shadow-[0_0_20px_2px_hsl(38_75%_55%/0.35)] transition-all duration-300"
                     style={{ backfaceVisibility: "hidden" }}
                   >
-                    <div className="flex flex-col justify-between h-full p-6 md:p-8">
-                      <div>
-                        <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight">
-                          {feature.title}
-                        </h3>
-                      </div>
-
-                      <div className="flex-1 flex items-center justify-center py-2 min-h-0 overflow-hidden">
-                        <img
-                          src={feature.image}
-                          alt=""
-                          className="w-44 h-44 md:w-48 md:h-48 object-contain opacity-90 shrink-0"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </div>
-
-                      <div className="shrink-0 pt-2">
-                        <p className="font-sans-body text-sm text-muted-foreground leading-relaxed line-clamp-2">
-                          {feature.description}
-                        </p>
+                    <div className="flex flex-col h-full p-6 md:p-8">
+                      <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-4">
+                        {feature.title}
+                      </h3>
+                      <div className="flex-1 min-h-0">
+                        <Illustration />
                       </div>
                     </div>
                   </div>
