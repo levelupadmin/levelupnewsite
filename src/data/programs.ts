@@ -11,6 +11,8 @@ export interface ShowcaseProgram {
   spotsLeft?: number;
   status: ProgramStatus;
   image: string;
+  previewVideo: string;
+  youtubeId: string;
   ctaLink: string;
 }
 
@@ -31,6 +33,8 @@ export const showcasePrograms: ShowcaseProgram[] = [
     startDate: "",
     status: "Enrolling",
     image: liveBfp,
+    previewVideo: "/videos/pvr-trailer.mp4",
+    youtubeId: "dQw4w9WgXcQ",
     ctaLink: "https://www.leveluplearning.live/bfp-cta",
   },
   {
@@ -44,6 +48,8 @@ export const showcasePrograms: ShowcaseProgram[] = [
     startDate: "",
     status: "Enrolling",
     image: liveVe,
+    previewVideo: "/videos/pvr-trailer.mp4",
+    youtubeId: "dQw4w9WgXcQ",
     ctaLink: "https://www.leveluplearning.live/ve-cta",
   },
   {
@@ -57,6 +63,8 @@ export const showcasePrograms: ShowcaseProgram[] = [
     startDate: "",
     status: "Enrolling",
     image: liveUiux,
+    previewVideo: "/videos/pvr-trailer.mp4",
+    youtubeId: "dQw4w9WgXcQ",
     ctaLink: "https://tally.so/r/wd7eqN",
   },
   {
@@ -70,6 +78,8 @@ export const showcasePrograms: ShowcaseProgram[] = [
     startDate: "",
     status: "Enrolling",
     image: liveSw,
+    previewVideo: "/videos/pvr-trailer.mp4",
+    youtubeId: "dQw4w9WgXcQ",
     ctaLink: "https://tally.so/r/mOd4ek",
   },
 ];
