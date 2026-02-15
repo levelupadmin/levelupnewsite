@@ -1,18 +1,26 @@
 
-# Mobile Optimization for Logos Section
+
+# Fix Rotating Word Spacing in Hero Headline
 
 ## Problem
-On mobile (390px wide), logos at `h-14` (56px) are oversized, and the `gap-16` (64px) spacing between them is too generous. The vertical gap between the stats CTA and "Our students come from" heading is also excessive.
+The spacing between the rotating word (e.g., "filmmakers", "editors") and "become" feels inconsistent because:
+1. The rotating word container has a fixed `width: "7ch"` -- this is too wide for short words (creating a visible gap) and too narrow for long words (which visually overflow)
+2. There is **double spacing**: `gap-x-[0.3em]` on the flex parent AND `mr-[0.15em]` on the rotating container, stacking up unevenly
 
-## Changes
+## Solution
+- **Remove** the `mr-[0.15em]` from the rotating word container to eliminate double spacing
+- **Adjust the container width** from `7ch` to `8.5ch` -- this better accommodates the range of word lengths while keeping the gap to "become" visually consistent
+- **Keep** the flex `gap-x-[0.3em]` as the single source of spacing between all three words ("Where", rotating word, "become")
 
-### File: `src/components/StudentLogosSection.tsx`
+## Technical Details
 
-1. **Reduce mobile logo size**: Change `h-14` to `h-10` (40px) -- keeps them readable but less dominant on small screens
-2. **Reduce mobile gap**: Change `gap-16` to `gap-10` so logos sit more comfortably within the marquee at mobile widths
-3. **Tighten vertical spacing**: Reduce the padding between the stats/CTA area and the "Our students come from" heading (currently there are two separate `<div>` blocks with independent padding that stack up)
+### File: `src/components/HeroSection.tsx`
 
-### Specific line changes
-- Line 123: `h-14 md:h-20 lg:h-24` becomes `h-10 md:h-20 lg:h-24`
-- Line 114: `gap-16 md:gap-24 lg:gap-32` becomes `gap-10 md:gap-24 lg:gap-32`
-- Line 96 (heading): Reduce `mb-12 md:mb-16` to `mb-8 md:mb-16` for tighter mobile spacing
+**Line 48** (h1 tag): No change -- keep `gap-x-[0.3em]`
+
+**Line 50** (rotating word container):
+- Change `className="relative inline-flex justify-start overflow-visible mr-[0.15em]"` to `className="relative inline-flex justify-start overflow-visible"`
+- Change `style={{ width: "7ch" }}` to `style={{ width: "8.5ch" }}`
+
+This ensures the gap between the rotating word and "become" is consistent and controlled by a single spacing value (`gap-x-[0.3em]`), while the wider container better fits longer words like "screenwriters" and "cinematographers".
+
