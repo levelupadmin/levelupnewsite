@@ -7,6 +7,10 @@ import testimonial1 from "@/assets/testimonial-1.jpg";
 import testimonial2 from "@/assets/testimonial-2.jpg";
 import testimonial3 from "@/assets/testimonial-3.jpg";
 import testimonial4 from "@/assets/testimonial-4.jpg";
+import testimonial5 from "@/assets/testimonial-5.jpg";
+import testimonial6 from "@/assets/testimonial-6.jpg";
+import testimonial7 from "@/assets/testimonial-7.jpg";
+import testimonial8 from "@/assets/testimonial-8.jpg";
 
 interface Testimonial {
   image: string;
@@ -19,73 +23,83 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     image: testimonial1,
-    name: "Arjun Mehta",
+    name: "Janani",
+    role: "Director",
+    context: "Enrolled in the Direction Masterclass",
+    pullQuote:
+      "I was blown away by the depth of knowledge shared. The instructors were passionate and experienced, providing valuable insights into the art of filmmaking.",
+  },
+  {
+    image: testimonial2,
+    name: "Karthik",
     role: "Filmmaker",
-    context: "Was stuck between passion projects and client work",
-    pullQuote: "I stopped waiting for permission to make what I wanted.",
-  },
-  {
-    image: testimonial2,
-    name: "Sneha Iyer",
-    role: "Editor & Colourist",
-    context: "Wanted to move beyond technical skill into creative voice",
-    pullQuote: "I found a language for the work I was already doing.",
+    context: "Took the Filmmaking Masterclass",
+    pullQuote:
+      "LevelUp Learning's Filmmaking Masterclass is a game-changer. The course content is comprehensive, covering every aspect of filmmaking.",
   },
   {
     image: testimonial3,
-    name: "Rohan Kapoor",
-    role: "Writer & Director",
-    context: "Searching for structure without losing artistic freedom",
-    pullQuote: "The pressure didn't break me — it showed me what I had.",
+    name: "Neera",
+    role: "Editor",
+    context: "Completed the Editing Masterclass",
+    pullQuote:
+      "The feedback from mentors was invaluable, helping me improve my editing techniques significantly. I now feel confident in my editing abilities.",
   },
   {
     image: testimonial4,
-    name: "Priya Sharma",
-    role: "Visual Designer",
-    context: "Transitioning from corporate design to independent storytelling",
-    pullQuote: "I came in as a designer. I left as a storyteller.",
+    name: "Kishore",
+    role: "Photographer",
+    context: "Enrolled in the Photography Masterclass",
+    pullQuote:
+      "LevelUp elevated my skills to a professional level. I particularly liked the emphasis on storytelling through photographs.",
+  },
+  {
+    image: testimonial5,
+    name: "Mithun",
+    role: "Music Composer",
+    context: "Took the Music Masterclass",
+    pullQuote:
+      "The instructors not only taught the technical aspects of music but also emphasized the emotional connection with the audience.",
+  },
+  {
+    image: testimonial6,
+    name: "Lokesh",
+    role: "Art Director",
+    context: "Completed the Art Direction Masterclass",
+    pullQuote:
+      "The course delved into the nuances of visual storytelling, helping me understand the importance of every element in a scene.",
+  },
+  {
+    image: testimonial7,
+    name: "Suraj Suresh",
+    role: "Software Engineer → Filmmaker",
+    context: "Forge Graduate, Hyderabad",
+    pullQuote:
+      "The Forge taught me guerrilla filmmaking — I wrote, directed, and edited my very own short film in just 10 days.",
   },
   {
     image: testimonial1,
-    name: "Vikram Desai",
-    role: "Cinematographer",
-    context: "Felt technically proficient but creatively stuck",
-    pullQuote: "They didn't teach me how to shoot — they taught me how to see.",
+    name: "Neeraj Mohan",
+    role: "IT Professional → Filmmaker",
+    context: "Breakthrough Filmmakers' Program graduate",
+    pullQuote:
+      "The most valuable information is the insider current-day knowledge on how things work — something that isn't available online anywhere.",
   },
   {
-    image: testimonial2,
-    name: "Ananya Nair",
-    role: "Screenwriter",
-    context: "Had dozens of unfinished scripts and no clear process",
-    pullQuote: "I finally learned to finish what I start — and mean every word.",
-  },
-  {
-    image: testimonial3,
-    name: "Kabir Malhotra",
-    role: "Sound Designer",
-    context: "Working in isolation without creative peers or feedback",
-    pullQuote: "I found my people. The loneliness of creating alone just vanished.",
+    image: testimonial8,
+    name: "Avantika Sharma",
+    role: "Filmmaker",
+    context: "BFP Live Program participant",
+    pullQuote:
+      "Dedicated and focused teachers, present in the moment. This really blurs the online/offline divide and makes it feel like a community.",
   },
   {
     image: testimonial4,
-    name: "Meera Joshi",
-    role: "Documentary Filmmaker",
-    context: "Struggled to bridge personal stories with universal themes",
-    pullQuote: "They showed me that my story was enough — I just had to trust it.",
-  },
-  {
-    image: testimonial1,
-    name: "Siddharth Rao",
-    role: "Motion Graphics Artist",
-    context: "Wanted to move from commercial work to personal expression",
-    pullQuote: "I went from executing briefs to owning my creative direction.",
-  },
-  {
-    image: testimonial2,
-    name: "Tara Menon",
-    role: "Photographer & Director",
-    context: "Looking for mentorship that respected her existing craft",
-    pullQuote: "No one told me to start over. They helped me go deeper.",
+    name: "Michael V",
+    role: "Engineering Student",
+    context: "BFP Live Program participant",
+    pullQuote:
+      "It was great learning filmmaking from the scratch. Many processes of films make more sense now after the sessions with industry mentors.",
   },
 ];
 
