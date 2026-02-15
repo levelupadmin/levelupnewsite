@@ -70,7 +70,7 @@ const WhyLevelUp = () => {
 
       {/* Feature Cards */}
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
           {features.map((feature, index) => {
             const isFlipped = flippedIndex === index;
             const Illustration = feature.illustration;
@@ -78,8 +78,8 @@ const WhyLevelUp = () => {
             return (
               <div
                 key={index}
-                className="cursor-pointer group"
-                style={{ perspective: 1200, height: 440 }}
+                className="cursor-pointer group h-[360px] md:h-[440px]"
+                style={{ perspective: 1200 }}
                 onClick={() => setFlippedIndex(isFlipped ? null : index)}
               >
                 <div
