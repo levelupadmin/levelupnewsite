@@ -1,35 +1,17 @@
 
 
-# Hero Section: Faster Rotating Words, More Professions, and Better Spacing
+# Improve Logo Visibility on Dark Background
 
-## Changes
+## Problem
+Some logos (e.g., NID, TVF, Google) use dark colors that blend into the pure black background, making them hard to see.
 
-### 1. Expand the rotating words list (5 to 13 words)
-Current list: filmmakers, editors, storytellers, artists, writers
+## Solution
+Apply a CSS `brightness` and `invert` filter to make all logos appear as white/light versions, ensuring consistent visibility on the dark background.
 
-New list: **filmmakers, editors, storytellers, artists, writers, creators, animators, screenwriters, cinematographers, designers, producers, directors, musicians**
+### File: `src/components/StudentLogosSection.tsx`
+- Add `brightness(0) invert(1)` CSS filter to all logo images, converting them to white silhouettes
+- Keep the existing `hover:opacity-80` transition so hover still feels interactive
+- Add `opacity-70` base opacity with `hover:opacity-100` for a subtle hover brightening effect
 
-### 2. Speed up the rotation
-- Reduce interval from **2000ms to 1400ms** so words cycle faster and feel more energetic
-- Reduce animation duration from **0.4s to 0.25s** for snappier transitions
-
-### 3. Fix spacing between rotating word and "become"
-- Increase the fixed-width container from `5.5ch` to `7ch` to accommodate longer words like "cinematographers"
-- Add a right margin to the rotating word container (`mr-[0.15em]`) for breathing room before "become"
-- This eliminates the cramped feel between the dynamic word and the italic "become"
-
-### 4. Suggestions for making the section even better
-Here are ideas to consider for future improvements:
-- **Add a subtle underline or highlight on the rotating word** -- a thin animated orange underline that slides in with each word to draw the eye
-- **Stagger the subheadline** -- use the existing `SplitTextReveal` component on the subtitle text for a polished entrance
-- **Add a second CTA** -- e.g., a ghost-style "Watch the reel" button next to the primary CTA for users who want a quick preview
-- **Typing cursor effect** -- add a blinking cursor after the rotating word for a typewriter feel
-
-## Technical Details
-
-### File: `src/components/HeroSection.tsx`
-- Line 7: Expand `rotatingWords` array to 13 entries
-- Line 14: Change `setInterval` delay from `2000` to `1400`
-- Line 50: Update container width from `5.5ch` to `7ch` and add spacing class
-- Line 57: Reduce `duration` from `0.4` to `0.25`
+This is a common pattern for displaying mixed-color brand logos on dark backgrounds -- converting them all to white ensures uniform visibility without needing to source white versions of each logo.
 
