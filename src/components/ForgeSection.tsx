@@ -123,14 +123,18 @@ const ForgeSection = () => {
         }}
       />
 
+      {/* Section header — centered, matching other sections */}
+      <div className="text-center px-6 md:px-12 mb-10 md:mb-12">
+        <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border border-primary/30 text-primary bg-primary/5 mb-4">
+          In-person Bootcamp
+        </span>
+      </div>
+
       {/* ─── Top: Split Two-Column Layout ─── */}
       <div className="max-w-[1600px] mx-auto px-5 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
           {/* Left Column — Text Block */}
           <div>
-            <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border border-primary/30 text-primary bg-primary/5 mb-4">
-              In-person Bootcamp
-            </span>
 
             <img
               src={forgeLogo}
