@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { ArrowRight } from "lucide-react";
 import nelsonImg from "@/assets/nelson-dilipkumar.png";
 import comingSoonImg from "@/assets/coming-soon-silhouette.jpg";
@@ -62,15 +63,24 @@ const masterclasses = [
 ];
 
 const MasterclassCard = ({ mc }: { mc: typeof masterclasses[0] }) => {
+  const rafId = useRef<number | null>(null);
+
   const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (rafId.current) return;
     const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    card.style.transform = `perspective(600px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) scale(1.02)`;
+    const clientX = e.clientX;
+    const clientY = e.clientY;
+    rafId.current = requestAnimationFrame(() => {
+      const rect = card.getBoundingClientRect();
+      const x = (clientX - rect.left) / rect.width - 0.5;
+      const y = (clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `perspective(600px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) scale(1.02)`;
+      rafId.current = null;
+    });
   };
 
   const handleMouseLeave = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (rafId.current) { cancelAnimationFrame(rafId.current); rafId.current = null; }
     e.currentTarget.style.transform = '';
   };
 

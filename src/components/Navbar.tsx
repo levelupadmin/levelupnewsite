@@ -1,5 +1,5 @@
-import { useState, useCallback, useRef, useMemo } from "react";
-import { motion, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
+import { useState, useCallback, useRef, useMemo, useEffect } from "react";
+import { m, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import levelupLogo from "@/assets/levelup-logo.svg";
@@ -33,9 +33,20 @@ const Navbar = () => {
     import("./navbarData").then((mod) => setNavData(mod.navLinks));
   }, []);
 
+  const scrolledRef = useRef(false);
+  const lastScrollY = useRef(0);
+
   useMotionValueEvent(scrollY, "change", (latest) => {
-    setScrolled(latest > 40);
-    setActiveIndex(null);
+    const newScrolled = latest > 40;
+    if (newScrolled !== scrolledRef.current) {
+      scrolledRef.current = newScrolled;
+      setScrolled(newScrolled);
+    }
+    // Only close dropdown on significant scroll (>80px delta)
+    if (Math.abs(latest - lastScrollY.current) > 80) {
+      setActiveIndex(null);
+      lastScrollY.current = latest;
+    }
     if (mobileOpen) {
       setMobileOpen(false);
       setMobileExpandedIndex(null);
@@ -88,7 +99,7 @@ const Navbar = () => {
         ].join(" ")}
       >
         {/* Pill container */}
-        <motion.nav
+        <m.nav
           aria-label="Main navigation"
           onMouseLeave={handleNavLeave}
           onPointerEnter={loadNavData}
@@ -160,7 +171,7 @@ const Navbar = () => {
                     {/* Accent dot indicator */}
                     <AnimatePresence>
                       {isActive && (
-                        <motion.span
+                        <m.span
                           initial={{ scale: 0, opacity: 0 }}
                           animate={{ scale: 1, opacity: 1 }}
                           exit={{ scale: 0, opacity: 0 }}
@@ -207,7 +218,7 @@ const Navbar = () => {
           {/* Expandable panel — desktop only, per-link */}
           <AnimatePresence>
             {expanded && !isMobile && (
-              <motion.div
+              <m.div
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
@@ -219,7 +230,7 @@ const Navbar = () => {
                 style={{ willChange: "height, opacity" }}
               >
                 {/* Accent line at top of dropdown */}
-                <motion.div
+                <m.div
                   className="h-px mx-6 md:mx-8"
                   animate={{
                     background: `linear-gradient(90deg, transparent 0%, ${activeAccent} 50%, transparent 100%)`,
@@ -230,7 +241,7 @@ const Navbar = () => {
                 <div className="px-6 md:px-8 pb-5 pt-3">
                   {/* Category description — crossfade via key */}
                   <AnimatePresence mode="wait">
-                    <motion.div
+                    <m.div
                       key={activeIndex}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -247,7 +258,7 @@ const Navbar = () => {
                       {/* Course/item cards */}
                       <div className={`grid ${gridCols} gap-3`}>
                         {(activeIndex === 0 ? activeItems.slice(0, 3) : activeItems).map((item, i) => (
-                          <motion.a
+                          <m.a
                             key={item.title}
                             href={item.href}
                             target={item.href.startsWith("http") ? "_blank" : undefined}
@@ -295,7 +306,7 @@ const Navbar = () => {
                                 )}
                               </div>
                             </div>
-                          </motion.a>
+                          </m.a>
                         ))}
                       </div>
 
@@ -312,19 +323,19 @@ const Navbar = () => {
                           </a>
                         </div>
                       )}
-                    </motion.div>
+                    </m.div>
                   </AnimatePresence>
                 </div>
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
-        </motion.nav>
+        </m.nav>
       </div>
 
       {/* Mobile menu overlay */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -343,7 +354,7 @@ const Navbar = () => {
                 const badge = (link as NavLink).formatBadge;
 
                 return (
-                  <motion.div
+                  <m.div
                     key={link.label}
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -360,19 +371,19 @@ const Navbar = () => {
                           style={{ color: isExpanded ? linkAccent : undefined }}
                         >
                           <span>{link.label}</span>
-                          <motion.span
+                          <m.span
                             animate={{ rotate: isExpanded ? 45 : 0 }}
                             transition={{ duration: 0.2 }}
                             className="text-2xl leading-none transition-colors duration-200"
                             style={{ color: isExpanded ? linkAccent : undefined }}
                           >
                             +
-                          </motion.span>
+                          </m.span>
                         </button>
 
                         <AnimatePresence initial={false} mode="wait">
                           {isExpanded && (
-                            <motion.div
+                            <m.div
                               key={`mobile-expand-${index}`}
                               initial={{ height: 0, opacity: 0 }}
                               animate={{ height: "auto", opacity: 1 }}
@@ -396,7 +407,7 @@ const Navbar = () => {
                                 style={{ borderColor: linkAccent + "33" }}
                               >
                                 {link.items.map((item, i) => (
-                                  <motion.a
+                                  <m.a
                                     key={item.title}
                                     href={item.href}
                                     target={
@@ -448,10 +459,10 @@ const Navbar = () => {
                                         )}
                                       </div>
                                     </div>
-                                  </motion.a>
+                                  </m.a>
                                 ))}
                               </div>
-                            </motion.div>
+                            </m.div>
                           )}
                         </AnimatePresence>
                       </>
@@ -472,11 +483,11 @@ const Navbar = () => {
                         {link.label}
                       </a>
                     )}
-                  </motion.div>
+                  </m.div>
                 );
               })}
 
-              <motion.a
+              <m.a
                 href="https://www.leveluplearning.in"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -490,9 +501,9 @@ const Navbar = () => {
                 className="mt-6 self-center font-sans-body text-base text-primary border border-primary/30 rounded-full px-6 py-2.5 active:bg-primary/10 transition-colors"
               >
                 Sign In
-              </motion.a>
+              </m.a>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

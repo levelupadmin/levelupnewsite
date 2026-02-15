@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 interface SplitTextRevealProps {
   children: string;
@@ -47,7 +47,7 @@ const SplitTextReveal = ({
   };
 
   return (
-    <motion.span
+    <m.span
       className={`inline ${className}`}
       variants={containerVariants}
       initial="hidden"
@@ -56,7 +56,7 @@ const SplitTextReveal = ({
         : { animate: "visible" })}
     >
       {words.map((word, i) => (
-        <motion.span
+        <m.span
           key={`${word}-${i}`}
           variants={wordVariants}
           transition={{
@@ -67,9 +67,9 @@ const SplitTextReveal = ({
           style={{ willChange: "transform, opacity, filter" }}
         >
           {renderWord ? renderWord(word, i) : word}
-        </motion.span>
+        </m.span>
       ))}
-    </motion.span>
+    </m.span>
   );
 };
 

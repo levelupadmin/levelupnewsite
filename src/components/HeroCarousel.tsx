@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useEmblaSelect } from "@/hooks/useEmblaSelect";
 
 import heroPoster1 from "@/assets/hero-poster-1.jpg";
@@ -23,7 +23,7 @@ const slides = [
     alt: "Forge program showcase",
   },
   {
-    video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+    video: "/videos/ve-preview.mp4",
     poster: heroPoster3,
     alt: "A creator reviewing footage during an editing workshop",
   },
@@ -84,7 +84,7 @@ const HeroCarousel = () => {
   }, [selectedIndex, isVisible]);
 
   return (
-    <motion.div
+    <m.div
       ref={containerRef}
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
@@ -149,7 +149,7 @@ const HeroCarousel = () => {
           ))}
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 
