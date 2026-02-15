@@ -1,4 +1,5 @@
 import { PlusCircle, ArrowRight } from "lucide-react";
+import forgeLogo from "@/assets/forge-logo.png";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { useCallback, useEffect, useState, useRef } from "react";
@@ -131,12 +132,11 @@ const ForgeSection = () => {
               In-person Bootcamp
             </span>
 
-            <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-hero-headline leading-[1.15] tracking-tight">
-              <span className="text-primary text-xl sm:text-2xl md:text-3xl block mb-1">
-                The
-              </span>
-              <span className="block">Forge</span>
-            </h2>
+            <img
+              src={forgeLogo}
+              alt="The Forge"
+              className="h-16 sm:h-20 md:h-28 lg:h-32 w-auto object-contain"
+            />
 
             <p className="font-serif-display text-lg md:text-xl text-hero-headline mt-2">
               Where you{" "}
