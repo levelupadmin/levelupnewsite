@@ -78,7 +78,7 @@ export const showcasePrograms: ShowcaseProgram[] = [
     startDate: "",
     status: "Enrolling",
     image: liveSw,
-    previewVideo: "https://framerusercontent.com/assets/UpsK8V70L30DIM3DIgHXj2FXDY.mp4",
+    previewVideo: "/videos/sw-preview.mp4",
     youtubeId: "dQw4w9WgXcQ",
     ctaLink: "https://tally.so/r/mOd4ek",
   },
