@@ -1,6 +1,3 @@
-import masterclass3 from "@/assets/masterclass-3.jpg";
-import masterclass4 from "@/assets/masterclass-4.jpg";
-import masterclass5 from "@/assets/masterclass-5.jpg";
 import liveProgram1 from "@/assets/live-program-1.jpg";
 import navVe from "@/assets/nav-ve.png";
 import navUiux from "@/assets/nav-uiux.png";
@@ -136,31 +133,6 @@ export const navLinks: NavLink[] = [
         title: "Creator Residency",
         subtitle: "Build and ship creative work",
         href: "#forge",
-      },
-    ],
-  },
-  {
-    label: "Workshops",
-    href: "https://study.leveluplearning.in",
-    description: "Short, focused workshops to build specific creative skills.",
-    items: [
-      {
-        image: masterclass5,
-        title: "Storytelling Masterclass",
-        subtitle: "15+ hours · By Rahul Srinivas",
-        href: "https://study.leveluplearning.in/services/tsmwebsite",
-      },
-      {
-        image: masterclass3,
-        title: "Breakthrough Photography",
-        subtitle: "20+ hours · Live + Recorded",
-        href: "https://study.leveluplearning.in/services/bppw",
-      },
-      {
-        image: masterclass4,
-        title: "Short Filmmaking 101",
-        subtitle: "2-hour live workshop",
-        href: "https://www.leveluplearning.live/sf",
       },
     ],
   },
