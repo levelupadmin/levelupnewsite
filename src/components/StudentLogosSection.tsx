@@ -121,7 +121,7 @@ const StudentLogosSection = () => {
                     src={brand.logo}
                     alt={brand.name}
                     className="h-10 md:h-20 lg:h-24 w-auto object-contain select-none opacity-70 hover:opacity-100 transition-all duration-300"
-                    style={{ filter: "brightness(0) invert(1)" }}
+                    style={{ filter: "grayscale(1) brightness(1.5)", mixBlendMode: "screen" }}
                     loading="lazy"
                   />
                 ))}
