@@ -1,35 +1,35 @@
 
+# Fix "Why LevelUp" Section on Mobile
 
-# Hero Headline Layout Fix
+## The Problem
+The section forces a 3-column grid with 440px fixed-height flip cards on all screen sizes. On mobile (390px), each card is only ~110px wide, causing:
+- Truncated titles ("Expert Membe...", "Comm...")
+- Unreadable body text wrapping one word per line
+- Squished SVG illustrations
+- Flip interaction is awkward on touch devices at that size
 
-## What changes
+## The Solution
+Switch to a **vertical stack on mobile** (1 column) with a reduced card height, then restore the 3-column layout on tablets and up (`md:` breakpoint).
 
-Two adjustments to the hero headline in `HeroSection.tsx`:
+### Layout Changes
+- **Grid**: `grid-cols-1 md:grid-cols-3` instead of `grid-cols-3`
+- **Card height**: 360px on mobile, 440px on desktop (via responsive style)
+- **Gap**: `gap-5 md:gap-6` for tighter mobile spacing
 
-1. **Keep "Where India's next big" on a single line**: Remove the `<br />` between the static text and the rotating word container. Instead, use `white-space: nowrap` on the first line wrapper so it never wraps, even on smaller screens.
+### Headline Changes
+- Stack heading and subtext vertically on mobile (already `flex-col` default, just needs spacing refinement)
 
-2. **Center the rotating word**: Since the rotating word now sits on its own visual line, remove the `justify-start` and `left-0` positioning. Instead, center the container and the animated word within it. Remove the fixed `8.5ch` width and let the container use `text-center` with inline-block sizing. The longest word ("cinematographers") is ~16ch, so the container width will be set to `auto` with the word itself centered.
+## Technical Details
 
-## Visual result
+### File: `src/components/WhyLevelUp.tsx`
 
-```text
-Line 1:  Where India's next big
-Line 2:       cinematographers      (centered, rotating)
-Line 3:          become             (centered, italic orange)
-```
+1. **Line 73** -- Change grid from `grid-cols-3` to `grid-cols-1 md:grid-cols-3`
 
-## Technical details
+2. **Line 82** -- Make the card container height responsive using a className approach instead of inline style:
+   - Remove `style={{ perspective: 1200, height: 440 }}`
+   - Add `style={{ perspective: 1200 }}` and className `h-[360px] md:h-[440px]`
 
-### File: `src/components/HeroSection.tsx`
-
-**Line 47**: Wrap "Where India's next big" in a `whitespace-nowrap` span to prevent wrapping on any screen size.
-
-**Lines 49-63**: Update the rotating word container:
-- Remove `style={{ width: "8.5ch" }}`
-- Change `justify-start` to `justify-center`
-- Change the inner `m.span` from `absolute left-0` to `absolute left-1/2 -translate-x-1/2` for centering
-- Set container width to `16ch` (length of "cinematographers", the longest word) to prevent layout shift
-- The invisible sizer span stays to maintain line height
-
-**Line 57**: Update animated word class from `absolute left-0` to `absolute left-1/2 -translate-x-1/2 text-center`
-
+These two changes ensure:
+- Cards stack vertically and fill the width on mobile, so all text and illustrations are readable
+- The flip animation still works identically on all sizes
+- Desktop layout remains completely unchanged
