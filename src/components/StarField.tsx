@@ -6,7 +6,7 @@ interface Star {
   z: number;
 }
 
-const STAR_COUNT = 200;
+const STAR_COUNT = 250;
 const MAX_DEPTH = 1000;
 const SPEED = 0.3;
 
@@ -89,8 +89,8 @@ const StarField = () => {
 
         if (sx < -10 || sx > w + 10 || sy < -10 || sy > h + 10) continue;
 
-        const size = Math.max(0.3, (1 - star.z / MAX_DEPTH) * 2.2);
-        const opacity = Math.max(0.05, (1 - star.z / MAX_DEPTH) * 0.8);
+        const size = Math.max(0.5, (1 - star.z / MAX_DEPTH) * 3.5);
+        const opacity = Math.max(0.1, (1 - star.z / MAX_DEPTH) * 1);
 
         ctx.beginPath();
         ctx.arc(sx, sy, size, 0, Math.PI * 2);
@@ -99,9 +99,9 @@ const StarField = () => {
       }
 
       // Vignette
-      const vg = ctx.createRadialGradient(cx, cy, w * 0.2, cx, cy, w * 0.75);
+      const vg = ctx.createRadialGradient(cx, cy, w * 0.3, cx, cy, w * 0.85);
       vg.addColorStop(0, "transparent");
-      vg.addColorStop(1, "rgba(0, 0, 0, 0.6)");
+      vg.addColorStop(1, "rgba(0, 0, 0, 0.4)");
       ctx.fillStyle = vg;
       ctx.fillRect(0, 0, w, h);
 
