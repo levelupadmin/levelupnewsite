@@ -18,12 +18,12 @@ const slides = [
     alt: "PVR Trailer - LevelUp filmmaking showcase",
   },
   {
-    video: "/videos/forge.mov",
+    video: "/videos/ve-preview.mp4",
     poster: heroPoster2,
     alt: "Forge program showcase",
   },
   {
-    video: "/videos/ve-preview.mp4",
+    video: "/videos/ve-trailer.mp4",
     poster: heroPoster3,
     alt: "A creator reviewing footage during an editing workshop",
   },
@@ -76,7 +76,13 @@ const HeroCarousel = () => {
         if (video.preload !== "auto") {
           video.preload = "auto";
         }
-        video.play().catch(() => {});
+        // Ensure muted for mobile autoplay compliance
+        video.muted = true;
+        video.play().catch(() => {
+          // Retry muted if blocked
+          video.muted = true;
+          video.play().catch(() => {});
+        });
       } else {
         video.pause();
       }
