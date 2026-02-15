@@ -92,9 +92,15 @@ const StarField = () => {
         const size = Math.max(0.5, (1 - star.z / MAX_DEPTH) * 3.5);
         const opacity = Math.max(0.1, (1 - star.z / MAX_DEPTH) * 1);
 
+        // ~20% of stars get an amber tint
+        const isAmber = star.x * star.y % 5 < 1;
+        const color = isAmber
+          ? `rgba(230, 104, 29, ${opacity})`
+          : `rgba(255, 255, 255, ${opacity})`;
+
         ctx.beginPath();
         ctx.arc(sx, sy, size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+        ctx.fillStyle = color;
         ctx.fill();
       }
 
