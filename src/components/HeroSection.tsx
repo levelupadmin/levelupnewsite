@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { AnimatePresence, m } from "framer-motion";
 import HeroCarousel from "@/components/HeroCarousel";
-import heroBg from "@/assets/hero-bg.png";
 
 const rotatingWords = ["filmmakers", "editors", "storytellers", "artists", "writers", "creators", "animators", "screenwriters", "cinematographers", "designers", "producers", "directors", "musicians"];
 
@@ -22,14 +21,13 @@ const HeroSection = () => {
       aria-label="Hero"
       className="relative flex flex-col pb-8 md:pb-12"
     >
-      {/* LCP background image — rendered as <img> for discoverability */}
-      <img
-        src={heroBg}
-        alt=""
+      {/* Cinematic gradient background */}
+      <div
         aria-hidden="true"
-        fetchPriority="high"
-        decoding="async"
-        className="absolute inset-0 w-full h-full object-cover object-top pointer-events-none"
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(ellipse 80% 50% at 50% 0%, hsl(24 95% 53% / 0.05) 0%, transparent 70%), linear-gradient(to bottom, hsl(0 0% 6%) 0%, hsl(0 0% 4%) 40%, hsl(0 0% 3%) 100%)`,
+        }}
       />
       {/* Bottom fade overlay for smooth transition */}
       <div
