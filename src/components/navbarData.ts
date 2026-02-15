@@ -5,9 +5,9 @@ import liveProgram1 from "@/assets/live-program-1.jpg";
 import navVe from "@/assets/nav-ve.png";
 import navUiux from "@/assets/nav-uiux.png";
 import navSw from "@/assets/nav-sw.png";
-import forge1 from "@/assets/forge-1.jpg";
-import forge2 from "@/assets/forge-2.jpg";
-import forge3 from "@/assets/forge-3.jpg";
+import navForgeFilmmaking from "@/assets/nav-forge-filmmaking.jpg";
+import navForgeWriting from "@/assets/nav-forge-writing.jpg";
+import navForgeCreators from "@/assets/nav-forge-creators.jpg";
 
 export interface NavItem {
   image: string;
@@ -120,19 +120,19 @@ export const navLinks: NavLink[] = [
     formatBadge: "In-person",
     items: [
       {
-        image: forge1,
+        image: navForgeFilmmaking,
         title: "Filmmaking Residency",
         subtitle: "10 days · 20 filmmakers · 1 location",
         href: "#forge",
       },
       {
-        image: forge2,
+        image: navForgeWriting,
         title: "Writing Retreat",
         subtitle: "Immersive screenwriting intensive",
         href: "#forge",
       },
       {
-        image: forge3,
+        image: navForgeCreators,
         title: "Creator Residency",
         subtitle: "Build and ship creative work",
         href: "#forge",
