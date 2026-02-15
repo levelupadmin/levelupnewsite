@@ -1,26 +1,33 @@
 
+# Cinematic Gradient Hero Background
 
-# Fix Rotating Word Spacing in Hero Headline
+## What changes
+Replace the current starfield particle image (`hero-bg.png`) with a CSS-only cinematic gradient background. This creates a warm, theatrical atmosphere — like a darkened theater before the curtain rises — using deep charcoal tones and a faint amber light leak at the top center.
 
-## Problem
-The spacing between the rotating word (e.g., "filmmakers", "editors") and "become" feels inconsistent because:
-1. The rotating word container has a fixed `width: "7ch"` -- this is too wide for short words (creating a visible gap) and too narrow for long words (which visually overflow)
-2. There is **double spacing**: `gap-x-[0.3em]` on the flex parent AND `mr-[0.15em]` on the rotating container, stacking up unevenly
+## Why this is better
+- The starfield feels generic and disconnected from the filmmaking/creative brand
+- A CSS gradient loads instantly (no image to fetch), improving LCP performance
+- Warm amber tones tie directly into the brand's primary orange accent
+- The "light leak" effect evokes cinema without being literal
 
-## Solution
-- **Remove** the `mr-[0.15em]` from the rotating word container to eliminate double spacing
-- **Adjust the container width** from `7ch` to `8.5ch` -- this better accommodates the range of word lengths while keeping the gap to "become" visually consistent
-- **Keep** the flex `gap-x-[0.3em]` as the single source of spacing between all three words ("Where", rotating word, "become")
+## Visual description
+- Base: deep charcoal-to-black vertical gradient
+- Top center: a soft, wide amber/orange radial glow (very low opacity, ~4-6%) simulating a warm overhead light leak
+- The bottom fade overlay stays as-is for the smooth transition into content below
 
-## Technical Details
+## Technical details
 
 ### File: `src/components/HeroSection.tsx`
 
-**Line 48** (h1 tag): No change -- keep `gap-x-[0.3em]`
+1. **Remove** the `heroBg` image import (line 5)
+2. **Replace** the `<img>` tag (lines 26-33) with a `<div>` using layered CSS gradients:
+   - A radial amber glow: `radial-gradient(ellipse 80% 50% at 50% 0%, hsl(24 95% 53% / 0.05) 0%, transparent 70%)`
+   - A vertical base gradient: `linear-gradient(to bottom, hsl(0 0% 6%) 0%, hsl(0 0% 4%) 40%, hsl(0 0% 3%) 100%)`
+3. No new dependencies or images required — pure CSS
 
-**Line 50** (rotating word container):
-- Change `className="relative inline-flex justify-start overflow-visible mr-[0.15em]"` to `className="relative inline-flex justify-start overflow-visible"`
-- Change `style={{ width: "7ch" }}` to `style={{ width: "8.5ch" }}`
+### Optional cleanup
+- The `hero-bg.png` asset can be deleted later if no longer needed elsewhere
 
-This ensures the gap between the rotating word and "become" is consistent and controlled by a single spacing value (`gap-x-[0.3em]`), while the wider container better fits longer words like "screenwriters" and "cinematographers".
-
+### Performance benefit
+- Removes a large image from the critical rendering path
+- No fetch required — the gradient renders immediately with the first paint
