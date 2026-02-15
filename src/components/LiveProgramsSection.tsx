@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { ArrowRight, Clock, Radio, CalendarDays, Play, X } from "lucide-react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { ArrowRight, Clock, Radio, CalendarDays, Play } from "lucide-react";
 import careerQuizBanner from "@/assets/career-quiz-banner.jpg";
 import { showcasePrograms } from "@/data/programs";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
@@ -20,10 +20,43 @@ const statusStyles: Record<string, string> = {
 const LiveProgramsSection = () => {
   const [activeShowcase, setActiveShowcase] = useState(0);
   const [youtubeOpen, setYoutubeOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const activeProgram = showcasePrograms[activeShowcase];
 
+  // Lazy-load videos only when section is in viewport
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // Play active video, pause others
+  useEffect(() => {
+    if (!isVisible) return;
+    videoRefs.current.forEach((v, i) => {
+      if (!v) return;
+      if (i === activeShowcase) {
+        v.play().catch(() => {});
+      } else {
+        v.pause();
+      }
+    });
+  }, [activeShowcase, isVisible]);
+
   return (
-    <section id="live-programs" aria-label="Live programs" className="relative py-14 md:py-20">
+    <section ref={sectionRef} id="live-programs" aria-label="Live programs" className="relative py-14 md:py-20">
       {/* Amber accent line at top */}
       <div
         className="absolute top-0 left-0 right-0 h-[2px]"
@@ -120,16 +153,28 @@ const LiveProgramsSection = () => {
           <div className="flex-1 flex flex-col">
             {/* 16:9 Video Preview */}
             <div className="relative aspect-video w-full overflow-hidden bg-black/50 group">
-              <video
-                key={activeProgram.id}
-                src={activeProgram.previewVideo}
-                poster={activeProgram.image}
-                autoPlay
-                muted
-                loop
-                playsInline
+              {/* Poster fallback shown until videos load */}
+              <img
+                src={activeProgram.image}
+                alt=""
                 className="absolute inset-0 w-full h-full object-cover"
               />
+              {/* All videos rendered, only active one visible — no remount flicker */}
+              {isVisible && showcasePrograms.map((prog, i) => (
+                <video
+                  key={prog.id}
+                  ref={(el) => { videoRefs.current[i] = el; }}
+                  src={prog.previewVideo}
+                  poster={prog.image}
+                  muted
+                  loop
+                  playsInline
+                  preload="none"
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+                    i === activeShowcase ? "opacity-100" : "opacity-0 pointer-events-none"
+                  }`}
+                />
+              ))}
               {/* Play Full Trailer button */}
               <button
                 onClick={() => setYoutubeOpen(true)}
