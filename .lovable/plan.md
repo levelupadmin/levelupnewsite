@@ -1,50 +1,35 @@
 
 
-# Replace Brand Logos with High-Quality, Full-Color Versions
+# Hero Section: Faster Rotating Words, More Professions, and Better Spacing
 
-## What We're Doing
+## Changes
 
-Replacing all 12 brand logos in the "Our Students Come From" section with high-quality, full-color, properly scaled PNG images. The current logos appear to be low-resolution or improperly formatted.
+### 1. Expand the rotating words list (5 to 13 words)
+Current list: filmmakers, editors, storytellers, artists, writers
 
-## Brands to Update (all 12)
+New list: **filmmakers, editors, storytellers, artists, writers, creators, animators, screenwriters, cinematographers, designers, producers, directors, musicians**
 
-1. FTII (Film and Television Institute of India)
-2. NID (National Institute of Design)
-3. Whistling Woods International
-4. YRF (Yash Raj Films)
-5. Excel Entertainment
-6. TVF (The Viral Fever)
-7. Google
-8. Amazon Prime Video
-9. Viacom18
-10. Dharma Productions
-11. Red Chillies Entertainment
-12. Adobe
+### 2. Speed up the rotation
+- Reduce interval from **2000ms to 1400ms** so words cycle faster and feel more energetic
+- Reduce animation duration from **0.4s to 0.25s** for snappier transitions
 
-## Technical Changes
+### 3. Fix spacing between rotating word and "become"
+- Increase the fixed-width container from `5.5ch` to `7ch` to accommodate longer words like "cinematographers"
+- Add a right margin to the rotating word container (`mr-[0.15em]`) for breathing room before "become"
+- This eliminates the cramped feel between the dynamic word and the italic "become"
 
-### 1. Source and download high-quality colored logos
-- For each brand, source a clean, full-color PNG logo from official or high-quality web sources
-- Save them to `src/assets/logos/` replacing the existing files
-- Target resolution: at least 400px wide for crisp rendering at all responsive sizes
+### 4. Suggestions for making the section even better
+Here are ideas to consider for future improvements:
+- **Add a subtle underline or highlight on the rotating word** -- a thin animated orange underline that slides in with each word to draw the eye
+- **Stagger the subheadline** -- use the existing `SplitTextReveal` component on the subtitle text for a polished entrance
+- **Add a second CTA** -- e.g., a ghost-style "Watch the reel" button next to the primary CTA for users who want a quick preview
+- **Typing cursor effect** -- add a blinking cursor after the rotating word for a typewriter feel
 
-### 2. Update `StudentLogosSection.tsx` styling
-- Remove `opacity-90` class so logos display at full color intensity
-- Increase responsive sizing from `h-8 md:h-10 lg:h-12` to `h-10 md:h-14 lg:h-16` for fuller display
-- Keep `object-contain` and `w-auto` for proper aspect ratio scaling
+## Technical Details
 
-### 3. Files affected
-- `src/assets/logos/ftii.png` (replaced)
-- `src/assets/logos/nid.png` (replaced)
-- `src/assets/logos/whistling-woods.png` (replaced)
-- `src/assets/logos/yrf.png` (replaced)
-- `src/assets/logos/excel-entertainment.png` (replaced)
-- `src/assets/logos/tvf.png` (replaced)
-- `src/assets/logos/google.png` (replaced)
-- `src/assets/logos/amazon-prime.png` (replaced)
-- `src/assets/logos/viacom18.png` (replaced)
-- `src/assets/logos/dharma.png` (replaced)
-- `src/assets/logos/red-chillies.png` (replaced)
-- `src/assets/logos/adobe.png` (replaced)
-- `src/components/StudentLogosSection.tsx` (styling update)
+### File: `src/components/HeroSection.tsx`
+- Line 7: Expand `rotatingWords` array to 13 entries
+- Line 14: Change `setInterval` delay from `2000` to `1400`
+- Line 50: Update container width from `5.5ch` to `7ch` and add spacing class
+- Line 57: Reduce `duration` from `0.4` to `0.25`
 
