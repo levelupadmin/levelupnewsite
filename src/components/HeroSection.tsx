@@ -4,7 +4,7 @@ import { AnimatePresence, m } from "framer-motion";
 import HeroCarousel from "@/components/HeroCarousel";
 import heroBg from "@/assets/hero-bg.png";
 
-const rotatingWords = ["filmmakers", "editors", "storytellers", "artists", "writers"];
+const rotatingWords = ["filmmakers", "editors", "storytellers", "artists", "writers", "creators", "animators", "screenwriters", "cinematographers", "designers", "producers", "directors", "musicians"];
 
 const HeroSection = () => {
   const [wordIndex, setWordIndex] = useState(0);
@@ -12,7 +12,7 @@ const HeroSection = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setWordIndex((prev) => (prev + 1) % rotatingWords.length);
-    }, 2000);
+    }, 1400);
     return () => clearInterval(interval);
   }, []);
 
@@ -47,14 +47,14 @@ const HeroSection = () => {
 
         <h1 className="font-serif-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-medium text-hero-headline text-center leading-[1.1] tracking-[-0.03em] max-w-5xl text-shadow-hero flex items-baseline justify-center flex-wrap gap-x-[0.3em]">
           <span>Where</span>
-          <span className="relative inline-flex justify-start overflow-visible" style={{ width: "5.5ch" }}>
+          <span className="relative inline-flex justify-start overflow-visible mr-[0.15em]" style={{ width: "7ch" }}>
             <AnimatePresence mode="wait">
               <m.span
                 key={rotatingWords[wordIndex]}
                 initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 exit={{ opacity: 0, y: -20, filter: "blur(4px)" }}
-                transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+                transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
                 className="absolute left-0 whitespace-nowrap text-white"
               >
                 {rotatingWords[wordIndex]}
