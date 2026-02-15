@@ -11,83 +11,65 @@ export interface ShowcaseProgram {
   spotsLeft?: number;
   status: ProgramStatus;
   image: string;
+  ctaLink: string;
 }
 
-import liveProgram1 from "@/assets/live-program-1.jpg";
-import liveProgram2 from "@/assets/live-program-2.jpg";
-import liveProgram3 from "@/assets/live-program-3.jpg";
-import liveProgram4 from "@/assets/live-program-4.jpg";
-import liveProgram5 from "@/assets/live-program-5.jpg";
-import liveProgram6 from "@/assets/live-program-6.jpg";
+import liveBfp from "@/assets/live-bfp.png";
+import liveVe from "@/assets/live-ve.png";
+import liveUiux from "@/assets/live-uiux.png";
+import liveSw from "@/assets/live-sw.png";
 
 export const showcasePrograms: ShowcaseProgram[] = [
   {
-    id: "directing-intensive",
-    title: "Directing Intensive",
-    description: "Build a directorial voice through scene work, blocking, and guided critique.",
-    duration: "8 weeks",
-    format: "Live",
-    instructor: "Arun Varma",
-    startDate: "Mar 3",
-    spotsLeft: 6,
-    status: "Enrolling",
-    image: liveProgram1,
-  },
-  {
-    id: "camera-light-lab",
-    title: "Camera & Light Lab",
-    description: "Master cinematic lighting and camera movement with hands-on shooting exercises.",
-    duration: "6 weeks",
-    format: "Live + Recorded",
-    instructor: "Meera Kapoor",
-    startDate: "Apr 14",
-    status: "Upcoming",
-    image: liveProgram2,
-  },
-  {
-    id: "screenwriting-cohort",
-    title: "Screenwriting Cohort",
-    description: "Develop a short screenplay from concept to final draft with weekly feedback.",
-    duration: "10 weeks",
-    format: "Live",
-    instructor: "Vikram Desai",
-    startDate: "Feb 24",
-    spotsLeft: 5,
-    status: "Enrolling",
-    image: liveProgram3,
-  },
-  {
-    id: "sound-score-workshop",
-    title: "Sound & Score Workshop",
-    description: "Explore sound design and music scoring for narrative film in a studio setting.",
-    duration: "4 weeks",
-    format: "Live + Recorded",
-    instructor: "Priya Nair",
+    id: "bfp",
+    title: "Breakthrough Filmmakers' Program",
+    description:
+      "A 12-week online learning experience covering every aspect of filmmaking — from storytelling and screenwriting to direction, cinematography, and post-production. Master filmmaking with live weekend classes, industry mentors, and hands-on projects.",
+    duration: "12 weeks",
+    format: "Live · Weekends",
+    instructor: "Industry Mentors",
     startDate: "",
-    status: "Coming Soon",
-    image: liveProgram4,
-  },
-  {
-    id: "editorial-craft-track",
-    title: "Editorial Craft Track",
-    description: "Sharpen your editing instinct through daily cuts, rhythm exercises, and critique.",
-    duration: "6 weeks",
-    format: "Live",
-    instructor: "Rohan Mehta",
-    startDate: "May 5",
-    status: "Upcoming",
-    image: liveProgram5,
-  },
-  {
-    id: "documentary-intensive",
-    title: "Documentary Intensive",
-    description: "Learn to find, shape, and tell non-fiction stories with clarity and empathy.",
-    duration: "8 weeks",
-    format: "Live + Recorded",
-    instructor: "Ananya Sen",
-    startDate: "Mar 10",
-    spotsLeft: 3,
     status: "Enrolling",
-    image: liveProgram6,
+    image: liveBfp,
+    ctaLink: "https://www.leveluplearning.live/bfp-cta",
+  },
+  {
+    id: "ve",
+    title: "Video Editing Academy",
+    description:
+      "India's most exclusive Video Editing cohort. Turn your passion for video editing into a high-paying career in just 12 weeks. Learn from mentors who've worked with creators like Ali Abdaal, Ankur Warikoo, and Sharan Hegde.",
+    duration: "12 weeks",
+    format: "Live · Cohort",
+    instructor: "Industry Editors",
+    startDate: "",
+    status: "Enrolling",
+    image: liveVe,
+    ctaLink: "https://www.leveluplearning.live/ve-cta",
+  },
+  {
+    id: "uiux",
+    title: "UI/UX Design Academy",
+    description:
+      "India's most exclusive AI-first Product Design Accelerator. In 12 weeks, go from brief to interview-ready portfolio using practical AI workflows designed for designers who want measurable progress.",
+    duration: "12 weeks",
+    format: "Live · Weekends",
+    instructor: "Design Leads",
+    startDate: "",
+    status: "Enrolling",
+    image: liveUiux,
+    ctaLink: "https://tally.so/r/wd7eqN",
+  },
+  {
+    id: "sw",
+    title: "Screenwriting Workshop",
+    description:
+      "The 8-week experience that transforms your writing forever. An exclusive online program to master the art of writing captivating stories and shape them into blockbuster screenplays and binge-worthy shows.",
+    duration: "8 weeks",
+    format: "Live · Online",
+    instructor: "4 Industry Mentors",
+    startDate: "",
+    status: "Enrolling",
+    image: liveSw,
+    ctaLink: "https://tally.so/r/mOd4ek",
   },
 ];

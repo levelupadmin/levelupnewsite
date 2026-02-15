@@ -4,12 +4,14 @@ import careerQuizBanner from "@/assets/career-quiz-banner.jpg";
 import { showcasePrograms } from "@/data/programs";
 
 const activeGradients = [
-  { active: "from-orange-600 to-orange-600/0", hoverBg: "linear-gradient(to right, rgba(234,88,12,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(234,88,12,0.15) 0%, transparent 60%)" },
-  { active: "from-blue-600 to-blue-600/0", hoverBg: "linear-gradient(to right, rgba(37,99,235,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(37,99,235,0.15) 0%, transparent 60%)" },
-  { active: "from-purple-600 to-purple-600/0", hoverBg: "linear-gradient(to right, rgba(147,51,234,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(147,51,234,0.15) 0%, transparent 60%)" },
-  { active: "from-emerald-600 to-emerald-600/0", hoverBg: "linear-gradient(to right, rgba(5,150,105,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(5,150,105,0.15) 0%, transparent 60%)" },
+  // BFP – Cinematic Amber
+  { active: "from-amber-600 to-amber-600/0", hoverBg: "linear-gradient(to right, rgba(217,119,6,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(217,119,6,0.15) 0%, transparent 60%)" },
+  // Video Editing – Electric Blue
+  { active: "from-sky-600 to-sky-600/0", hoverBg: "linear-gradient(to right, rgba(2,132,199,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(2,132,199,0.15) 0%, transparent 60%)" },
+  // UI/UX – Vivid Purple
+  { active: "from-violet-600 to-violet-600/0", hoverBg: "linear-gradient(to right, rgba(124,58,237,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(124,58,237,0.15) 0%, transparent 60%)" },
+  // Screenwriting – Warm Rose
   { active: "from-rose-600 to-rose-600/0", hoverBg: "linear-gradient(to right, rgba(225,29,72,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(225,29,72,0.15) 0%, transparent 60%)" },
-  { active: "from-indigo-600 to-indigo-600/0", hoverBg: "linear-gradient(to right, rgba(79,70,229,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(79,70,229,0.15) 0%, transparent 60%)" },
 ];
 
 const statusStyles: Record<string, string> = {
@@ -180,7 +182,7 @@ const LiveProgramsSection = () => {
 
               <div className="flex gap-3 flex-nowrap">
                 <a
-                  href="https://www.leveluplearning.live/bfp"
+                  href={activeProgram.ctaLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="cta-sweep cta-glow inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-sans-body text-sm font-medium tracking-wide transition-colors hover:bg-primary/90 whitespace-nowrap"
@@ -189,7 +191,7 @@ const LiveProgramsSection = () => {
                   <ArrowRight className="w-3.5 h-3.5" />
                 </a>
                 <a
-                  href="https://www.leveluplearning.live/bfp"
+                  href={activeProgram.ctaLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center font-sans-body text-sm px-5 py-2.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors whitespace-nowrap"
