@@ -1,33 +1,35 @@
 
-# Cinematic Gradient Hero Background
+
+# Hero Headline Layout Fix
 
 ## What changes
-Replace the current starfield particle image (`hero-bg.png`) with a CSS-only cinematic gradient background. This creates a warm, theatrical atmosphere — like a darkened theater before the curtain rises — using deep charcoal tones and a faint amber light leak at the top center.
 
-## Why this is better
-- The starfield feels generic and disconnected from the filmmaking/creative brand
-- A CSS gradient loads instantly (no image to fetch), improving LCP performance
-- Warm amber tones tie directly into the brand's primary orange accent
-- The "light leak" effect evokes cinema without being literal
+Two adjustments to the hero headline in `HeroSection.tsx`:
 
-## Visual description
-- Base: deep charcoal-to-black vertical gradient
-- Top center: a soft, wide amber/orange radial glow (very low opacity, ~4-6%) simulating a warm overhead light leak
-- The bottom fade overlay stays as-is for the smooth transition into content below
+1. **Keep "Where India's next big" on a single line**: Remove the `<br />` between the static text and the rotating word container. Instead, use `white-space: nowrap` on the first line wrapper so it never wraps, even on smaller screens.
+
+2. **Center the rotating word**: Since the rotating word now sits on its own visual line, remove the `justify-start` and `left-0` positioning. Instead, center the container and the animated word within it. Remove the fixed `8.5ch` width and let the container use `text-center` with inline-block sizing. The longest word ("cinematographers") is ~16ch, so the container width will be set to `auto` with the word itself centered.
+
+## Visual result
+
+```text
+Line 1:  Where India's next big
+Line 2:       cinematographers      (centered, rotating)
+Line 3:          become             (centered, italic orange)
+```
 
 ## Technical details
 
 ### File: `src/components/HeroSection.tsx`
 
-1. **Remove** the `heroBg` image import (line 5)
-2. **Replace** the `<img>` tag (lines 26-33) with a `<div>` using layered CSS gradients:
-   - A radial amber glow: `radial-gradient(ellipse 80% 50% at 50% 0%, hsl(24 95% 53% / 0.05) 0%, transparent 70%)`
-   - A vertical base gradient: `linear-gradient(to bottom, hsl(0 0% 6%) 0%, hsl(0 0% 4%) 40%, hsl(0 0% 3%) 100%)`
-3. No new dependencies or images required — pure CSS
+**Line 47**: Wrap "Where India's next big" in a `whitespace-nowrap` span to prevent wrapping on any screen size.
 
-### Optional cleanup
-- The `hero-bg.png` asset can be deleted later if no longer needed elsewhere
+**Lines 49-63**: Update the rotating word container:
+- Remove `style={{ width: "8.5ch" }}`
+- Change `justify-start` to `justify-center`
+- Change the inner `m.span` from `absolute left-0` to `absolute left-1/2 -translate-x-1/2` for centering
+- Set container width to `16ch` (length of "cinematographers", the longest word) to prevent layout shift
+- The invisible sizer span stays to maintain line height
 
-### Performance benefit
-- Removes a large image from the critical rendering path
-- No fetch required — the gradient renders immediately with the first paint
+**Line 57**: Update animated word class from `absolute left-0` to `absolute left-1/2 -translate-x-1/2 text-center`
+
