@@ -115,7 +115,7 @@ const StudentLogosSection = () => {
                   rowIdx === 0 ? "animate-scroll-left" : "animate-scroll-right"
                 } pause-on-hover`}
               >
-                {[...row, ...row, ...row, ...row].map((brand, i) => (
+                {[...row, ...row].map((brand, i) => (
                   <img
                     key={`${brand.name}-${i}`}
                     src={brand.logo}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import HeroCarousel from "@/components/HeroCarousel";
 import heroBg from "@/assets/hero-bg.png";
 
@@ -49,7 +49,7 @@ const HeroSection = () => {
           <span>Where</span>
           <span className="relative inline-flex justify-start overflow-visible" style={{ width: "5.5ch" }}>
             <AnimatePresence mode="wait">
-              <motion.span
+              <m.span
                 key={rotatingWords[wordIndex]}
                 initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -58,7 +58,7 @@ const HeroSection = () => {
                 className="absolute left-0 whitespace-nowrap text-white"
               >
                 {rotatingWords[wordIndex]}
-              </motion.span>
+              </m.span>
             </AnimatePresence>
             {/* Invisible sizer to maintain line height */}
             <span className="invisible">W</span>
