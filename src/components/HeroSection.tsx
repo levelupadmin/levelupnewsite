@@ -46,7 +46,7 @@ const HeroSection = () => {
         <h1 className="font-serif-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-medium text-hero-headline text-center leading-[1.1] tracking-[-0.03em] max-w-5xl text-shadow-hero">
           <span className="whitespace-nowrap">Where India's next big</span>
           <br />
-          <span className="relative inline-flex justify-center overflow-visible" style={{ width: "16ch" }}>
+          <span className="relative inline-flex justify-center overflow-hidden" style={{ width: "16ch" }}>
             <AnimatePresence mode="wait">
               <m.span
                 key={rotatingWords[wordIndex]}
