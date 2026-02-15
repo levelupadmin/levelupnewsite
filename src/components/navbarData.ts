@@ -2,8 +2,9 @@ import masterclass3 from "@/assets/masterclass-3.jpg";
 import masterclass4 from "@/assets/masterclass-4.jpg";
 import masterclass5 from "@/assets/masterclass-5.jpg";
 import liveProgram1 from "@/assets/live-program-1.jpg";
-import liveProgram2 from "@/assets/live-program-2.jpg";
-import liveProgram3 from "@/assets/live-program-3.jpg";
+import navVe from "@/assets/nav-ve.png";
+import navUiux from "@/assets/nav-uiux.png";
+import navSw from "@/assets/nav-sw.png";
 import forge1 from "@/assets/forge-1.jpg";
 import forge2 from "@/assets/forge-2.jpg";
 import forge3 from "@/assets/forge-3.jpg";
@@ -90,16 +91,22 @@ export const navLinks: NavLink[] = [
         href: "https://www.leveluplearning.live/bfp",
       },
       {
-        image: liveProgram2,
-        title: "Advanced Direction Program",
-        subtitle: "4-week intensive",
-        href: "https://www.leveluplearning.live/adp",
-      },
-      {
-        image: liveProgram3,
+        image: navVe,
         title: "Video Editing Academy",
         subtitle: "12-week cohort",
         href: "https://www.leveluplearning.live/ve",
+      },
+      {
+        image: navUiux,
+        title: "UI/UX Design Academy",
+        subtitle: "12-week accelerator",
+        href: "https://tally.so/r/wd7eqN",
+      },
+      {
+        image: navSw,
+        title: "Screenwriting Workshop",
+        subtitle: "8-week program",
+        href: "https://tally.so/r/mOd4ek",
       },
     ],
   },
