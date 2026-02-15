@@ -120,7 +120,7 @@ const StudentLogosSection = () => {
                     key={`${brand.name}-${i}`}
                     src={brand.logo}
                     alt={brand.name}
-                    className="h-8 md:h-10 lg:h-12 w-auto object-contain select-none opacity-90 hover:opacity-100 transition-opacity duration-300"
+                    className="h-10 md:h-14 lg:h-16 w-auto object-contain select-none hover:opacity-80 transition-opacity duration-300"
                     loading="lazy"
                   />
                 ))}
