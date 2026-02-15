@@ -1,17 +1,18 @@
 
-
-# Improve Logo Visibility on Dark Background
+# Mobile Optimization for Logos Section
 
 ## Problem
-Some logos (e.g., NID, TVF, Google) use dark colors that blend into the pure black background, making them hard to see.
+On mobile (390px wide), logos at `h-14` (56px) are oversized, and the `gap-16` (64px) spacing between them is too generous. The vertical gap between the stats CTA and "Our students come from" heading is also excessive.
 
-## Solution
-Apply a CSS `brightness` and `invert` filter to make all logos appear as white/light versions, ensuring consistent visibility on the dark background.
+## Changes
 
 ### File: `src/components/StudentLogosSection.tsx`
-- Add `brightness(0) invert(1)` CSS filter to all logo images, converting them to white silhouettes
-- Keep the existing `hover:opacity-80` transition so hover still feels interactive
-- Add `opacity-70` base opacity with `hover:opacity-100` for a subtle hover brightening effect
 
-This is a common pattern for displaying mixed-color brand logos on dark backgrounds -- converting them all to white ensures uniform visibility without needing to source white versions of each logo.
+1. **Reduce mobile logo size**: Change `h-14` to `h-10` (40px) -- keeps them readable but less dominant on small screens
+2. **Reduce mobile gap**: Change `gap-16` to `gap-10` so logos sit more comfortably within the marquee at mobile widths
+3. **Tighten vertical spacing**: Reduce the padding between the stats/CTA area and the "Our students come from" heading (currently there are two separate `<div>` blocks with independent padding that stack up)
 
+### Specific line changes
+- Line 123: `h-14 md:h-20 lg:h-24` becomes `h-10 md:h-20 lg:h-24`
+- Line 114: `gap-16 md:gap-24 lg:gap-32` becomes `gap-10 md:gap-24 lg:gap-32`
+- Line 96 (heading): Reduce `mb-12 md:mb-16` to `mb-8 md:mb-16` for tighter mobile spacing
