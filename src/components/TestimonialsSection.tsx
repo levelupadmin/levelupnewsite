@@ -38,52 +38,12 @@ const testimonials: Testimonial[] = [
       "LevelUp Learning's Filmmaking Masterclass is a game-changer. The course content is comprehensive, covering every aspect of filmmaking.",
   },
   {
-    image: testimonial3,
-    name: "Neera",
-    role: "Editor",
-    context: "Completed the Editing Masterclass",
-    pullQuote:
-      "The feedback from mentors was invaluable, helping me improve my editing techniques significantly. I now feel confident in my editing abilities.",
-  },
-  {
     image: testimonial4,
     name: "Kishore",
     role: "Photographer",
     context: "Enrolled in the Photography Masterclass",
     pullQuote:
       "LevelUp elevated my skills to a professional level. I particularly liked the emphasis on storytelling through photographs.",
-  },
-  {
-    image: testimonial5,
-    name: "Mithun",
-    role: "Music Composer",
-    context: "Took the Music Masterclass",
-    pullQuote:
-      "The instructors not only taught the technical aspects of music but also emphasized the emotional connection with the audience.",
-  },
-  {
-    image: testimonial6,
-    name: "Lokesh",
-    role: "Art Director",
-    context: "Completed the Art Direction Masterclass",
-    pullQuote:
-      "The course delved into the nuances of visual storytelling, helping me understand the importance of every element in a scene.",
-  },
-  {
-    image: testimonial7,
-    name: "Suraj Suresh",
-    role: "Software Engineer → Filmmaker",
-    context: "Forge Graduate, Hyderabad",
-    pullQuote:
-      "The Forge taught me guerrilla filmmaking — I wrote, directed, and edited my very own short film in just 10 days.",
-  },
-  {
-    image: testimonial1,
-    name: "Neeraj Mohan",
-    role: "IT Professional → Filmmaker",
-    context: "Breakthrough Filmmakers' Program graduate",
-    pullQuote:
-      "The most valuable information is the insider current-day knowledge on how things work — something that isn't available online anywhere.",
   },
   {
     image: testimonial8,
