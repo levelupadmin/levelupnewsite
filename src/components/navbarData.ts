@@ -14,6 +14,7 @@ export interface NavItem {
   title: string;
   subtitle: string;
   href: string;
+  objectPosition?: string;
 }
 
 export interface NavLink {
@@ -95,6 +96,7 @@ export const navLinks: NavLink[] = [
         title: "Video Editing Academy",
         subtitle: "12-week cohort",
         href: "https://www.leveluplearning.live/ve",
+        objectPosition: "center 30%",
       },
       {
         image: navUiux,
