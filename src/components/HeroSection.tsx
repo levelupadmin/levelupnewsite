@@ -43,8 +43,9 @@ const HeroSection = () => {
           India's Creative Education Ecosystem
         </p>
 
-        <h1 className="font-serif-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-medium text-hero-headline text-center leading-[1.1] tracking-[-0.03em] max-w-5xl text-shadow-hero flex items-baseline justify-center flex-wrap gap-x-[0.3em]">
-          <span>Where</span>
+        <h1 className="font-serif-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-medium text-hero-headline text-center leading-[1.1] tracking-[-0.03em] max-w-5xl text-shadow-hero">
+          <span>Where India's next big</span>
+          <br />
           <span className="relative inline-flex justify-start overflow-visible" style={{ width: "8.5ch" }}>
             <AnimatePresence mode="wait">
               <m.span
@@ -58,9 +59,9 @@ const HeroSection = () => {
                 {rotatingWords[wordIndex]}
               </m.span>
             </AnimatePresence>
-            {/* Invisible sizer to maintain line height */}
             <span className="invisible">W</span>
           </span>
+          <br />
           <em className="font-serif-display italic font-normal" style={{ color: "#E6681D" }}>
             become
           </em>
