@@ -1,9 +1,32 @@
 import { ArrowUpRight } from "lucide-react";
 import { AnimatedCounter } from "./AnimatedCounter";
 
+import logoFtii from "@/assets/logos/ftii.png";
+import logoNid from "@/assets/logos/nid.png";
+import logoWhistlingWoods from "@/assets/logos/whistling-woods.png";
+import logoYrf from "@/assets/logos/yrf.png";
+import logoExcel from "@/assets/logos/excel-entertainment.png";
+import logoTvf from "@/assets/logos/tvf.png";
+import logoGoogle from "@/assets/logos/google.png";
+import logoAmazonPrime from "@/assets/logos/amazon-prime.png";
+import logoViacom18 from "@/assets/logos/viacom18.png";
+import logoDharma from "@/assets/logos/dharma.png";
+import logoRedChillies from "@/assets/logos/red-chillies.png";
+import logoAdobe from "@/assets/logos/adobe.png";
+
 const brands = [
-  "FTII", "NID", "Whistling Woods", "YRF", "Excel Entertainment", "TVF",
-  "Google", "Amazon Prime", "Viacom18", "Dharma", "Red Chillies", "Adobe",
+  { name: "FTII", logo: logoFtii },
+  { name: "NID", logo: logoNid },
+  { name: "Whistling Woods", logo: logoWhistlingWoods },
+  { name: "YRF", logo: logoYrf },
+  { name: "Excel Entertainment", logo: logoExcel },
+  { name: "TVF", logo: logoTvf },
+  { name: "Google", logo: logoGoogle },
+  { name: "Amazon Prime", logo: logoAmazonPrime },
+  { name: "Viacom18", logo: logoViacom18 },
+  { name: "Dharma", logo: logoDharma },
+  { name: "Red Chillies", logo: logoRedChillies },
+  { name: "Adobe", logo: logoAdobe },
 ];
 
 const stats = [
@@ -93,12 +116,13 @@ const StudentLogosSection = () => {
                 } pause-on-hover`}
               >
                 {[...row, ...row, ...row, ...row].map((brand, i) => (
-                  <span
-                    key={`${brand}-${i}`}
-                    className="inline-flex items-center font-sans-body text-xl md:text-2xl lg:text-3xl font-extrabold text-foreground/90 select-none transition-colors duration-300 hover:text-foreground"
-                  >
-                    {brand}
-                  </span>
+                  <img
+                    key={`${brand.name}-${i}`}
+                    src={brand.logo}
+                    alt={brand.name}
+                    className="h-8 md:h-10 lg:h-12 w-auto object-contain select-none opacity-90 hover:opacity-100 transition-opacity duration-300"
+                    loading="lazy"
+                  />
                 ))}
               </div>
             </div>
