@@ -126,7 +126,7 @@ const ForgeSection = () => {
       {/* Section header — centered, matching other sections */}
       <div className="text-center px-6 md:px-12 mb-10 md:mb-12">
         <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border border-primary/30 text-primary bg-primary/5 mb-4">
-          In-person Bootcamp
+          Offline Bootcamps
         </span>
       </div>
 
