@@ -25,7 +25,7 @@ const LiveProgramsSection = () => {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const activeProgram = showcasePrograms[activeShowcase];
 
-  // Lazy-load videos only when section is in viewport
+  // Start observing earlier (rootMargin) so videos begin loading before user scrolls to them
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
@@ -36,17 +36,20 @@ const LiveProgramsSection = () => {
           observer.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0, rootMargin: "400px 0px" }
     );
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
-  // Play active video, pause others
+  // When visible, eagerly load all videos; play active, pause others
   useEffect(() => {
     if (!isVisible) return;
     videoRefs.current.forEach((v, i) => {
       if (!v) return;
+      // Force all videos to start buffering
+      if (v.preload === "none") v.preload = "auto";
+      v.load();
       if (i === activeShowcase) {
         v.play().catch(() => {});
       } else {
