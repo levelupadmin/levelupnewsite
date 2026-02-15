@@ -44,7 +44,7 @@ const StarField = () => {
         data[i] = v;
         data[i + 1] = v;
         data[i + 2] = v;
-        data[i + 3] = 14; // ~5.5% opacity
+        data[i + 3] = 32; // ~12.5% opacity
       }
       grainCtx.putImageData(imageData, 0, 0);
       if (grainRef.current) {
@@ -131,7 +131,7 @@ const StarField = () => {
         ref={grainRef}
         className="absolute inset-0 pointer-events-none"
         aria-hidden="true"
-        style={{ backgroundRepeat: "repeat", mixBlendMode: "overlay" }}
+        style={{ backgroundRepeat: "repeat", mixBlendMode: "overlay", opacity: 0.6 }}
       />
     </>
   );
