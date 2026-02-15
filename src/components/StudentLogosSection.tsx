@@ -95,12 +95,12 @@ const StudentLogosSection = () => {
         </div>
       </div>
 
-      <div className="bg-background py-10 md:py-14">
-        <p className="font-serif-display text-2xl md:text-3xl text-foreground text-center mb-10 md:mb-12">
+      <div className="bg-background py-14 md:py-20">
+        <p className="font-serif-display text-2xl md:text-3xl text-foreground text-center mb-12 md:mb-16">
           Our students come from:
         </p>
 
-        <div className="space-y-6 md:space-y-8">
+        <div className="space-y-8 md:space-y-12">
           {[brands.slice(0, 6), brands.slice(6)].map((row, rowIdx) => (
             <div
               key={rowIdx}
@@ -111,7 +111,7 @@ const StudentLogosSection = () => {
               }}
             >
               <div
-                className={`flex whitespace-nowrap items-center gap-12 md:gap-16 lg:gap-20 w-max ${
+                className={`flex whitespace-nowrap items-center gap-16 md:gap-24 lg:gap-32 w-max ${
                   rowIdx === 0 ? "animate-scroll-left" : "animate-scroll-right"
                 } pause-on-hover`}
               >
@@ -120,7 +120,7 @@ const StudentLogosSection = () => {
                     key={`${brand.name}-${i}`}
                     src={brand.logo}
                     alt={brand.name}
-                    className="h-10 md:h-14 lg:h-16 w-auto object-contain select-none hover:opacity-80 transition-opacity duration-300"
+                    className="h-14 md:h-20 lg:h-24 w-auto object-contain select-none hover:opacity-80 transition-opacity duration-300"
                     loading="lazy"
                   />
                 ))}
