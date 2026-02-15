@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { AnimatePresence, m } from "framer-motion";
 import HeroCarousel from "@/components/HeroCarousel";
+import StarField from "@/components/StarField";
 
 const rotatingWords = ["filmmakers", "editors", "storytellers", "artists", "writers", "creators", "animators", "screenwriters", "cinematographers", "designers", "producers", "directors", "musicians"];
 
@@ -21,6 +22,9 @@ const HeroSection = () => {
       aria-label="Hero"
       className="relative flex flex-col pb-8 md:pb-12"
     >
+      {/* Animated star field + grain */}
+      <StarField />
+
       {/* Cinematic gradient background */}
       <div
         aria-hidden="true"
