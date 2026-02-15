@@ -96,7 +96,7 @@ const StudentLogosSection = () => {
       </div>
 
       <div className="bg-background py-14 md:py-20">
-        <p className="font-serif-display text-2xl md:text-3xl text-foreground text-center mb-12 md:mb-16">
+        <p className="font-serif-display text-2xl md:text-3xl text-foreground text-center mb-8 md:mb-16">
           Our students come from:
         </p>
 
@@ -111,7 +111,7 @@ const StudentLogosSection = () => {
               }}
             >
               <div
-                className={`flex whitespace-nowrap items-center gap-16 md:gap-24 lg:gap-32 w-max ${
+                className={`flex whitespace-nowrap items-center gap-10 md:gap-24 lg:gap-32 w-max ${
                   rowIdx === 0 ? "animate-scroll-left" : "animate-scroll-right"
                 } pause-on-hover`}
               >
@@ -120,7 +120,7 @@ const StudentLogosSection = () => {
                     key={`${brand.name}-${i}`}
                     src={brand.logo}
                     alt={brand.name}
-                    className="h-14 md:h-20 lg:h-24 w-auto object-contain select-none opacity-70 hover:opacity-100 transition-all duration-300"
+                    className="h-10 md:h-20 lg:h-24 w-auto object-contain select-none opacity-70 hover:opacity-100 transition-all duration-300"
                     style={{ filter: "brightness(0) invert(1)" }}
                     loading="lazy"
                   />
