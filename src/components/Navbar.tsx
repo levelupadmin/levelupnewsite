@@ -280,7 +280,8 @@ const Navbar = () => {
                               <img
                                 src={item.image}
                                 alt={item.title}
-                                className="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105"
+                                className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                                style={{ objectPosition: item.objectPosition || "top" }}
                                 loading="lazy"
                                 decoding="async"
                               />
@@ -434,6 +435,7 @@ const Navbar = () => {
                                         src={item.image}
                                         alt={item.title}
                                         className="w-full h-full object-cover"
+                                        style={{ objectPosition: item.objectPosition || "top" }}
                                         loading="lazy"
                                         decoding="async"
                                       />
