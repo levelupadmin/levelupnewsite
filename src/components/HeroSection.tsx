@@ -44,9 +44,9 @@ const HeroSection = () => {
         </p>
 
         <h1 className="font-serif-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-medium text-hero-headline text-center leading-[1.1] tracking-[-0.03em] max-w-5xl text-shadow-hero">
-          <span>Where India's next big</span>
+          <span className="whitespace-nowrap">Where India's next big</span>
           <br />
-          <span className="relative inline-flex justify-start overflow-visible" style={{ width: "8.5ch" }}>
+          <span className="relative inline-flex justify-center overflow-visible" style={{ width: "16ch" }}>
             <AnimatePresence mode="wait">
               <m.span
                 key={rotatingWords[wordIndex]}
@@ -54,7 +54,7 @@ const HeroSection = () => {
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 exit={{ opacity: 0, y: -20, filter: "blur(4px)" }}
                 transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-                className="absolute left-0 whitespace-nowrap text-white"
+                className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-white text-center"
               >
                 {rotatingWords[wordIndex]}
               </m.span>
