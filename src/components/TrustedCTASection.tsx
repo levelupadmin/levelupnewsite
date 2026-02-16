@@ -17,7 +17,7 @@ const TrustedCTASection = () => {
 
       <div className="relative max-w-4xl mx-auto flex flex-col items-center text-center gap-8">
         {/* Masters group photo */}
-        <div className="w-full max-w-md md:max-w-lg">
+        <div className="relative w-full max-w-md md:max-w-lg">
           <img
             src={allMastersImg}
             alt="LevelUp's master instructors"
@@ -26,6 +26,8 @@ const TrustedCTASection = () => {
             height={810}
             loading="lazy"
           />
+          {/* Bottom vignette blend */}
+          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background via-background/60 to-transparent pointer-events-none" />
         </div>
 
         {/* Headline */}
