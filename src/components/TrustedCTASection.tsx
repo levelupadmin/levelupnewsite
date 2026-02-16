@@ -72,13 +72,13 @@ const TrustedCTASection = () => {
           <p className="text-xs md:text-sm text-muted-foreground/60 uppercase tracking-widest">
             Featured in
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+          <div className="flex flex-wrap items-center justify-center gap-5 md:gap-8">
             {pressLogos.map((logo) => (
               <img
                 key={logo.name}
                 src={logo.src}
                 alt={logo.name}
-                className="h-5 md:h-7 w-auto object-contain opacity-50 grayscale brightness-150"
+                className="h-4 md:h-5 w-auto object-contain opacity-35 grayscale brightness-200"
                 style={{ mixBlendMode: "screen" }}
                 loading="lazy"
               />
