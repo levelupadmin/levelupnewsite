@@ -1,30 +1,39 @@
 import { m } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
+import testimonial1 from "@/assets/testimonial-1.jpg";
+import testimonial2 from "@/assets/testimonial-2.jpg";
+import testimonial4 from "@/assets/testimonial-4.jpg";
+import testimonial5 from "@/assets/testimonial-5.jpg";
+
 const stories = [
   {
     name: "Chetan Chaudhary",
     before: "Aspiring Director",
     after: "Directed his first feature film",
     quote: "LevelUp gave me the roadmap and the network I didn't know existed.",
+    avatar: testimonial1,
   },
   {
     name: "Bishall Paul",
     before: "Stuck Writer",
     after: "Amazon bestselling author",
     quote: "The mentorship changed everything. I went from blank pages to a bestseller.",
+    avatar: testimonial2,
   },
   {
     name: "Kiruba Shankar",
     before: "800 views on YouTube",
     after: "500K+ viral reels",
     quote: "I learned how to think like a creator, not just post content.",
+    avatar: testimonial4,
   },
   {
     name: "Sneha Patil",
     before: "No job offers",
     after: "Placed at Swiggy",
     quote: "The portfolio I built during the program got me hired in weeks.",
+    avatar: testimonial5,
   },
 ];
 
@@ -60,21 +69,32 @@ const SuccessStories = () => (
             key={s.name}
             {...fadeUp}
             transition={{ duration: 0.5, delay: 0.15 + i * 0.08 }}
-            className="rounded-xl bg-card p-6 flex flex-col gap-4 shadow-cinematic border-t-4 border-primary relative overflow-hidden"
+            className="rounded-xl bg-card p-6 flex gap-4 shadow-cinematic border-t-4 border-primary relative overflow-hidden"
           >
             {/* Decorative quote mark */}
             <span className="absolute top-3 right-4 font-serif-display text-6xl text-primary/10 leading-none select-none pointer-events-none">"</span>
 
-            <p className="font-sans-body text-sm text-muted-foreground italic leading-relaxed relative z-10">
-              "{s.quote}"
-            </p>
-            <div className="flex items-center gap-2 mt-auto">
-              <span className="font-serif-display text-sm text-foreground">{s.name}</span>
+            {/* Avatar */}
+            <div className="shrink-0">
+              <img
+                src={s.avatar}
+                alt={s.name}
+                className="w-14 h-14 rounded-full object-cover ring-2 ring-primary/20"
+              />
             </div>
-            <div className="flex items-center gap-2 text-xs">
-              <span className="bg-muted px-2 py-0.5 rounded-full text-muted-foreground">{s.before}</span>
-              <ArrowRight className="w-3 h-3 text-primary" />
-              <span className="bg-primary/10 px-2 py-0.5 rounded-full text-primary font-medium">{s.after}</span>
+
+            <div className="flex flex-col gap-3 relative z-10">
+              <p className="font-sans-body text-sm text-muted-foreground italic leading-relaxed">
+                "{s.quote}"
+              </p>
+              <div className="flex items-center gap-2 mt-auto">
+                <span className="font-serif-display text-sm text-foreground">{s.name}</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs">
+                <span className="bg-muted px-2 py-0.5 rounded-full text-muted-foreground">{s.before}</span>
+                <ArrowRight className="w-3 h-3 text-primary" />
+                <span className="bg-primary/10 px-2 py-0.5 rounded-full text-primary font-medium">{s.after}</span>
+              </div>
             </div>
           </m.div>
         ))}
