@@ -26,8 +26,8 @@ const fadeUp = {
 };
 
 const WhyUsSection = () => (
-  <section className="py-12 md:py-16 px-6 md:px-12 bg-background relative">
-    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-[2px] bg-gradient-to-r from-transparent via-border to-transparent" />
+  <section className="py-12 md:py-16 px-6 md:px-12 bg-[hsl(24,40%,96%)] relative">
+    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
 
     <div className="max-w-7xl mx-auto">
       <m.p
@@ -53,7 +53,9 @@ const WhyUsSection = () => (
             transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
             className="rounded-xl bg-card p-6 md:p-8 flex flex-col gap-4 shadow-cinematic"
           >
-            <p.icon className="w-6 h-6 text-primary" />
+            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+              <p.icon className="w-6 h-6 text-primary" />
+            </div>
             <h3 className="font-serif-display text-lg text-foreground">{p.title}</h3>
             <p className="font-sans-body text-sm text-muted-foreground leading-relaxed">
               {p.description}

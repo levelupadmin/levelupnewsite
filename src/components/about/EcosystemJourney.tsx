@@ -66,9 +66,12 @@ const EcosystemJourney = () => (
       </m.p>
 
       {/* Timeline */}
-      <div className="relative grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-4">
-        {/* Horizontal connector line — desktop only */}
-        <div className="hidden md:block absolute top-12 left-[12.5%] right-[12.5%] h-px bg-border" />
+      <div className="relative grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-4">
+        {/* Horizontal gradient connector — desktop */}
+        <div className="hidden md:block absolute top-[28px] left-[12.5%] right-[12.5%] h-1 rounded-full bg-gradient-to-r from-primary via-primary/50 to-transparent" />
+
+        {/* Vertical dotted connector — mobile */}
+        <div className="md:hidden absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px border-l-2 border-dashed border-primary/20" />
 
         {layers.map((layer, i) => (
           <m.div
@@ -77,9 +80,9 @@ const EcosystemJourney = () => (
             transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
             className="relative flex flex-col items-center text-center gap-3"
           >
-            {/* Step circle */}
-            <div className="relative z-10 w-10 h-10 rounded-full bg-primary flex items-center justify-center mb-2">
-              <layer.icon className="w-4 h-4 text-primary-foreground" />
+            {/* Step circle with outer glow ring */}
+            <div className="relative z-10 w-14 h-14 rounded-full bg-primary flex items-center justify-center mb-2 ring-4 ring-primary/20">
+              <layer.icon className="w-6 h-6 text-primary-foreground" />
             </div>
             <span className="font-sans-body text-[10px] uppercase tracking-widest text-primary">
               {layer.step}

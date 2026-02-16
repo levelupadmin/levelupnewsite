@@ -10,15 +10,12 @@ const fadeUp = {
 };
 
 const ClosingVision = () => (
-  <section className="py-16 md:py-24 px-6 md:px-12 bg-background relative">
-    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-[2px] bg-gradient-to-r from-transparent via-border to-transparent" />
-    <div className="absolute inset-0 bg-gradient-amber-glow pointer-events-none" />
-
+  <section className="py-16 md:py-24 px-6 md:px-12 bg-gradient-to-br from-primary to-[hsl(24,95%,40%)] relative">
     <div className="relative max-w-3xl mx-auto text-center flex flex-col items-center gap-6">
       <m.blockquote
         {...fadeUp}
         transition={{ duration: 0.6 }}
-        className="font-serif-display text-xl md:text-3xl text-hero-headline leading-relaxed"
+        className="font-serif-display text-2xl md:text-4xl text-primary-foreground leading-relaxed"
       >
         "Creativity is becoming India's most valuable skill."
       </m.blockquote>
@@ -26,7 +23,7 @@ const ClosingVision = () => (
       <m.p
         {...fadeUp}
         transition={{ duration: 0.6, delay: 0.15 }}
-        className="font-sans-body text-sm md:text-base text-muted-foreground max-w-xl leading-relaxed"
+        className="font-sans-body text-sm md:text-base text-primary-foreground/80 max-w-xl leading-relaxed"
       >
         As AI automates execution, storytelling, creative judgment, and design thinking are the new economic differentiators.
       </m.p>
@@ -35,7 +32,7 @@ const ClosingVision = () => (
         <Link to="/">
           <Button
             size="lg"
-            className="cta-sweep cta-glow rounded-sm gap-2 text-sm font-sans-body"
+            className="rounded-xl gap-2 text-sm font-sans-body bg-white text-primary hover:bg-white/90"
           >
             Explore Programs
             <ArrowRight className="w-4 h-4" />
