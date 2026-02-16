@@ -1,5 +1,6 @@
 import { m } from "framer-motion";
 import { Sparkles, Users, Award } from "lucide-react";
+import ConcentricRings from "./ConcentricRings";
 
 const pillars = [
   {
@@ -26,10 +27,11 @@ const fadeUp = {
 };
 
 const WhyUsSection = () => (
-  <section className="py-12 md:py-16 px-6 md:px-12 bg-[hsl(24,40%,96%)] relative">
+  <section className="py-12 md:py-16 px-6 md:px-12 bg-[hsl(24,40%,96%)] relative overflow-hidden">
     <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+    <ConcentricRings className="-top-12 -right-20 opacity-50" size={280} count={4} />
 
-    <div className="max-w-7xl mx-auto">
+    <div className="relative max-w-7xl mx-auto">
       <m.p
         {...fadeUp}
         transition={{ duration: 0.5 }}
