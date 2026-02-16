@@ -1,47 +1,41 @@
 
 
-# Grainy Animated 3D Star Field for Hero Background
+## "The Most Intentional Way to Learn the Craft" -- Pre-Footer CTA Section
 
-## What it adds
+A cinematic, high-conviction closing section placed just before the Footer. Informed by brand positioning from the investor deck, this section replaces the previously discussed "Trusted by India's Best" concept with a more emotionally resonant version.
 
-A pure Canvas-based star field behind the hero section that creates a cinematic, deep-space feel with film grain overlay. No heavy 3D libraries -- just a lightweight `<canvas>` element driven by `requestAnimationFrame`.
+### Copy
 
-## How it works
+**Badge:** India's Creative Career Infrastructure
 
-### Star Field (Canvas)
-- ~200 stars rendered as small white circles with varying opacity and size
-- Each star has x, y, z coordinates; the z-axis drives perspective projection (stars closer to the "camera" appear larger and brighter)
-- Stars drift slowly toward the viewer (z decreases each frame), creating a gentle parallax depth effect -- not warp speed, more like floating through space
-- When a star passes the camera, it resets to the far plane with new random x/y
-- A subtle radial vignette is drawn on top (dark edges, transparent center) to focus attention on the headline
+**Headline:** The most intentional way to *learn the craft.*
 
-### Film Grain Overlay
-- A separate small off-screen canvas generates a static noise texture (random grayscale pixels)
-- This texture is tiled over the hero area at low opacity (~4-6%) using CSS `background-image`
-- The noise texture regenerates every 3-4 frames to create a subtle flickering grain effect, mimicking 16mm film stock
+**Subline:** From first shot to first paycheck -- and beyond. Join 9,000+ creators across 821 cities who chose to take their craft seriously.
 
-### Performance
-- Single `<canvas>` element, no DOM nodes per star
-- Uses `requestAnimationFrame` with cleanup on unmount
-- Grain regeneration is throttled (every ~100ms) to avoid unnecessary work
-- Canvas resolution is capped at `devicePixelRatio` of 2 to save GPU on high-DPI screens
-- The existing gradient overlays (amber glow at top, fade-to-black at bottom) layer on top, so the stars naturally fade out toward the carousel
+**CTA Button:** "Explore Programs" (links to #masterclasses or the main programs page)
 
-## Technical Details
+### Visual Layout
 
-### New file: `src/components/StarField.tsx`
+- **Teacher portrait row**: 7 circular avatars of all masterclass teachers (Karthik Subbaraj, Anthony Gonsalvez, G Venket Ram, DRK Kiran, Ravi Basrur, Lokesh Kanagaraj, Nelson Dilipkumar) displayed in an overlapping horizontal strip
+- **Proof stats row** (subtle, below the headline): "9,000+ Learners", "821 Cities", "4.86/5 Rating" displayed as small inline badges or a single line of text -- understated, not loud
+- Consistent amber accent line at the top of the section
+- Subtle radial amber glow behind the headline
+- Section padding matching the rest of the site (py-16 md:py-24)
 
-A self-contained component that:
-1. Creates a full-size `<canvas>` positioned absolutely behind the hero content
-2. Initializes ~200 star objects with random 3D positions
-3. Runs a render loop: clear canvas, project each star from 3D to 2D, draw as a circle with size/opacity based on z-depth, apply vignette
-4. Generates a grain texture on a tiny off-screen canvas (e.g., 128x128) and composites it at low opacity every few frames
-5. Handles window resize to keep the canvas full-size
-6. Cleans up on unmount (cancels animation frame, releases references)
+### Responsive Behavior
 
-### Modified file: `src/components/HeroSection.tsx`
+- **Desktop**: Avatars at w-16/h-16, headline at text-4xl/5xl, stats inline
+- **Mobile**: Avatars scale to w-12/h-12, headline at text-2xl, stats stack or wrap
 
-- Import and render `<StarField />` as the first child inside the `<section>`, positioned `absolute inset-0` behind everything
-- The existing gradient overlays remain on top, ensuring the bottom fade and amber glow still work
-- No other changes to the headline, CTA, or carousel
+### Technical Details
+
+1. **New file**: `src/components/TrustedCTASection.tsx`
+   - Imports teacher images from existing assets and CDN URLs (reusing the same sources as MasterclassSection and navbarData)
+   - Renders circular overlapping avatars, headline, subline, stats, and CTA
+   - Uses existing design tokens: `font-serif-display`, `font-sans-body`, `text-hero-headline`, `text-hero-subtext`, `bg-background`
+   - CTA button uses primary styling consistent with existing buttons
+
+2. **Update**: `src/pages/Index.tsx`
+   - Add lazy import for `TrustedCTASection`
+   - Place between `FAQSection` and `Footer`
 
