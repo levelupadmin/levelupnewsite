@@ -1,50 +1,96 @@
 
 
-## Revamp: "The Most Intentional Way to Learn the Craft" Section
+# About Us Page -- Built from the Investor Deck
 
-The current "Trusted by India's best" section works but feels generic and light. Using insights from the investor deck, here's a stronger, more emotionally resonant version that positions LevelUp as creative career infrastructure -- not just another course platform.
+## Overview
 
-### Copy Direction
+A new `/about` page that distills the investor deck's narrative into a public-facing story. The page will follow the same cinematic dark aesthetic, Sora typography, and amber accent system as the rest of the site. No investor-confidential data (revenue, MRR, fundraising) will be shown -- only the public-worthy story, problem framing, mission, stats, team, and outcomes.
 
-Three options to consider (all aligned with the brand voice -- emotional, grounded, not salesy):
+## Page Sections (top to bottom)
 
-**Option A (Recommended): Identity-driven close**
-- Headline: "The most intentional way to *learn the craft.*"
-- Subline: "From first shot to first paycheck -- and beyond."
-- CTA: "Start Your Journey"
+### 1. Hero -- "Building India's Creative Career Infrastructure"
+- Full-width dark section with the tagline from the deck's cover
+- Subline: "India's next workforce isn't coding -- it's creating."
+- Supporting line from deck: "Filmmakers, Musicians, Designers and Creators are building a new kind of career -- driven by ideas, not job titles."
 
-**Option B: Aspiration-driven close**
-- Headline: "Built for creators who *take it seriously.*"
-- Subline: "Not tutorials. Not shortcuts. A real path forward."
-- CTA: "Explore Programs"
+### 2. The Problem
+Three cards in a row (stacked on mobile) presenting the three core problems from the deck:
+- **No Structured Learning** -- "YouTube has 10,000 tutorials. Zero clear pathways."
+- **No Verified Skills** -- "They learn scattered skills but can't prove their capability."
+- **No Access to Network** -- "Talent gets lost without a network. Opportunities go to known faces only."
 
-**Option C: Community-driven close**
-- Headline: "9,000 creators didn't wait. *Neither should you.*"
-- Subline: "Across 821 cities, they chose to invest in their craft."
-- CTA: "Join Them"
+### 3. The Opportunity (Market Context)
+A subtle data section with key public stats from the deck (sourced from BCG, LinkedIn, AIICE):
+- India's creative industry: $30B (set to be $50B by 2030)
+- Creative job postings: up 180% in 3 years
+- 67% of creative positions remain unfilled
+- By 2030, 10M creative professionals will make up 15-18% of India's IT workforce
+Each stat displayed as a compact grid with source attribution.
 
-### Visual Layout (applies to all options)
+### 4. Our Answer -- "The only end-to-end infrastructure for creative careers"
+A visual journey through the four ecosystem layers:
+- **Discover** -- 2-hour Workshops to explore creative fields
+- **Learn from the best** -- Masterclasses from India's top 0.01%
+- **Master the craft** -- 8-16 week live cohorts with portfolios and placement
+- **Experience** -- Invite-only Forge residencies worldwide
+Displayed as a horizontal timeline on desktop, vertical stack on mobile.
 
-The section will be more visually rich than the current version:
+### 5. Impact Numbers
+A clean stats row (reusing the AnimatedCounter component already in the project):
+- 9,000+ learners
+- 821 cities
+- 13+ countries
+- 300,000+ community
+- 3,000+ collaborations enabled
+- 4.86/5 average rating
 
-1. **Teacher portrait row** -- keep the 7 overlapping circular avatars (already working well), but increase size slightly on desktop (w-16 to w-20) for more presence
-2. **Journey keywords** -- a subtle horizontal line of text chips below the headline showing the breadth of the ecosystem: "Filmmaking / Photography / Editing / Music / Writing / Design" in muted text, separated by dots or slashes
-3. **Single understated proof line** -- one line like "9,000+ learners across 821 cities" in small muted text, positioned just above the CTA (not as badges -- just a quiet confidence line)
-4. **Refined CTA** -- slightly larger button with the sweep + glow effects already in use
+### 6. Student Success Stories
+Four mini case studies from the deck, each as a compact card:
+- Chetan Chaudhary -- Aspiring Director to first feature film
+- Bishall Paul -- Stuck writer to Amazon bestselling author
+- Kiruba Shankar -- 800 views to 500K+ viral reels
+- Sneha Patil -- No job offers to placed at Swiggy
 
-### What Changes
+### 7. Why LevelUp (Moats)
+Three pillars from the deck's "Why should we be the ones building this?":
+- **Mentor IP** -- Exclusive masterclasses with top filmmakers
+- **Community Flywheel** -- 300K+ creators fueling acquisition and opportunity
+- **Brand and Certification Partners** -- Partnered with India's leading brands and institutions
 
-**File: `src/components/TrustedCTASection.tsx`**
-- Replace headline and subline with the chosen copy direction
-- Add a row of discipline keywords (Filmmaking, Photography, etc.) styled as subtle muted text with separators
-- Add a single understated social proof line above the CTA
-- Increase avatar size on desktop from w-16/h-16 to w-20/h-20 for more visual weight
-- Increase section padding to py-16 md:py-24 for more breathing room (this is the closing section, it deserves gravitas)
+### 8. Closing Vision
+Quote-style closing block:
+- "Creativity is becoming India's most valuable skill."
+- "As AI automates execution, storytelling, creative judgment, and design thinking are the new economic differentiators."
+- CTA: "Explore Programs" linking back to homepage
 
-No new files or page-level changes needed -- the component is already rendered in `Index.tsx` between FAQ and Footer.
+### 9. Featured In (press logos)
+Reuse the existing press logos from `TrustedCTASection` -- Outlook India, The Quint, Hindustan Times, YourStory, ABN.
 
-### Responsive Behavior
+## Technical Details
 
-- Desktop: Avatars at w-20/h-20, headline at text-5xl, disciplines inline with dot separators
-- Mobile: Avatars at w-12/h-12, headline at text-2xl, disciplines wrap naturally, proof line stays single-line
+### New Files
+- `src/pages/About.tsx` -- Page component with all sections above
+- `src/components/about/AboutHero.tsx` -- Hero section
+- `src/components/about/ProblemSection.tsx` -- The 3-card problem layout
+- `src/components/about/OpportunityStats.tsx` -- Market data grid
+- `src/components/about/EcosystemJourney.tsx` -- 4-layer timeline
+- `src/components/about/ImpactNumbers.tsx` -- Stats row with AnimatedCounter
+- `src/components/about/SuccessStories.tsx` -- 4 student case study cards
+- `src/components/about/WhyUsSection.tsx` -- 3 moat pillars
+- `src/components/about/ClosingVision.tsx` -- Quote block with CTA
+
+### Modified Files
+- `src/App.tsx` -- Add `/about` route
+- `src/components/navbarData.ts` -- Update "About" link from external URL to `/about`
+- `src/components/Navbar.tsx` -- Update the hardcoded About label href to `/about`
+
+### Patterns and Conventions
+- All sections use `py-12 md:py-16` vertical padding and `px-6 md:px-12` horizontal padding
+- Max width: `max-w-7xl` for standard sections
+- Dark background throughout (`bg-background`)
+- Amber accent lines and glows between sections
+- Sora font via `font-serif-display` and `font-sans-body` utilities
+- Framer Motion for scroll-triggered fade-in animations
+- Reuse existing `AnimatedCounter` component for the stats
+- Each sub-component kept under 200 lines per project guidelines
 
