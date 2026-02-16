@@ -7,9 +7,9 @@ const AboutHero = () => (
     {/* Star field background */}
     <StarField />
     {/* Concentric rings */}
-    <ConcentricRings className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-30" size={600} count={6} />
-    <ConcentricRings className="-top-20 -right-32 opacity-20" size={400} count={5} />
-    <ConcentricRings className="-bottom-24 -left-28 opacity-15" size={350} count={4} />
+    <ConcentricRings className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-50" size={700} count={8} />
+    <ConcentricRings className="-top-16 -right-24 opacity-40" size={500} count={6} />
+    <ConcentricRings className="-bottom-20 -left-20 opacity-30" size={450} count={5} />
     {/* Radial amber glow */}
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_hsl(24,95%,53%,0.08)_0%,_transparent_70%)] pointer-events-none" />
 
