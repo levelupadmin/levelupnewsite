@@ -29,7 +29,7 @@ const fadeUp = {
 const WhyUsSection = () => (
   <section className="py-12 md:py-16 px-6 md:px-12 bg-[hsl(24,40%,96%)] relative overflow-hidden">
     <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-    <ConcentricRings className="-top-12 -right-20 opacity-50" size={280} count={4} />
+    <ConcentricRings className="-top-8 -right-12 opacity-60" size={380} count={6} />
 
     <div className="relative max-w-7xl mx-auto">
       <m.p

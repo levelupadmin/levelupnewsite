@@ -38,8 +38,8 @@ const fadeUp = {
 const ManifestoSection = () => (
   <section className="py-16 md:py-24 px-6 md:px-12 bg-background relative overflow-hidden">
     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-[2px] bg-gradient-to-r from-transparent via-border to-transparent" />
-    <ConcentricRings className="-top-20 -left-24 opacity-40" size={400} count={6} />
-    <ConcentricRings className="-bottom-16 -right-20 opacity-30" size={300} count={4} />
+    <ConcentricRings className="-top-16 -left-16 opacity-50" size={500} count={7} />
+    <ConcentricRings className="-bottom-12 -right-12 opacity-40" size={400} count={5} />
 
     <div className="relative max-w-4xl mx-auto">
       {/* Header */}

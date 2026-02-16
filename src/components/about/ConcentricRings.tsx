@@ -19,12 +19,12 @@ const ConcentricRings: React.FC<ConcentricRingsProps> = ({
     aria-hidden="true"
   >
     {Array.from({ length: count }).map((_, i) => {
-      const scale = 1 - i * (0.7 / count);
-      const opacity = 0.08 + i * 0.03;
+      const scale = 1 - i * (0.6 / count);
+      const opacity = 0.12 + i * 0.04;
       return (
         <div
           key={i}
-          className="absolute inset-0 rounded-full border-2 border-primary"
+          className="absolute inset-0 rounded-full border-[2.5px] border-primary"
           style={{
             transform: `scale(${scale})`,
             opacity,

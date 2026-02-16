@@ -42,7 +42,7 @@ const fadeUp = {
 const EcosystemJourney = () => (
   <section className="py-12 md:py-16 px-6 md:px-12 bg-background relative overflow-hidden">
     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-[2px] bg-gradient-to-r from-transparent via-border to-transparent" />
-    <ConcentricRings className="-bottom-20 -left-28 opacity-50" size={360} count={5} />
+    <ConcentricRings className="-bottom-16 -left-20 opacity-60" size={450} count={6} />
 
     <div className="relative max-w-7xl mx-auto">
       <m.p
