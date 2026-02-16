@@ -47,10 +47,10 @@ const HeroSection = () => {
           India's Creative Education Ecosystem
         </p>
 
-        <h1 className="font-serif-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-medium text-hero-headline text-center leading-[1.1] tracking-[-0.03em] max-w-5xl text-shadow-hero">
+        <h1 className="font-serif-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-medium text-hero-headline text-center tracking-[-0.03em] max-w-5xl text-shadow-hero" style={{ lineHeight: 1.1 }}>
           <span className="whitespace-nowrap">Where India's next big</span>
           <br />
-          <span className="relative inline-block h-[1.15em] overflow-hidden" style={{ width: "16ch" }}>
+          <span className="relative inline-block overflow-hidden align-middle" style={{ width: "16ch", height: "1.15em" }}>
             <AnimatePresence mode="wait">
               <m.span
                 key={rotatingWords[wordIndex]}
