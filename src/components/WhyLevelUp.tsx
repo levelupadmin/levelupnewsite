@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { Maximize2, X } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import ExpertMembershipCard from "./why-levelup/ExpertMembershipCard";
 import LiveProjectsCard from "./why-levelup/LiveProjectsCard";
@@ -46,9 +47,37 @@ const features = [
   },
 ];
 
+const CARD_WIDTH = 380;
+const EXPANDED_WIDTH = 920;
+const TRANSITION = "width 700ms cubic-bezier(0.25, 0.8, 0.25, 1), min-height 700ms cubic-bezier(0.25, 0.8, 0.25, 1)";
+
 const WhyLevelUp = () => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const isMobile = useIsMobile();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    if (expandedIndex === null || isMobile) return;
+    const timer = setTimeout(() => {
+      cardRefs.current[expandedIndex]?.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [expandedIndex, isMobile]);
+
+  const handleCardClick = (index: number) => {
+    if (expandedIndex === index) return; // don't toggle on self-click
+    setExpandedIndex(index);
+  };
+
+  const handleClose = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setExpandedIndex(null);
+  };
 
   return (
     <section
@@ -71,34 +100,42 @@ const WhyLevelUp = () => {
 
       {/* Feature Cards */}
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className={`flex ${isMobile ? "flex-col gap-4" : "flex-row gap-5"}`}>
+        <div
+          ref={containerRef}
+          className={`flex ${isMobile ? "flex-col gap-4" : "flex-row gap-5"}`}
+          style={!isMobile ? {
+            overflowX: "auto",
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+          } as React.CSSProperties : undefined}
+        >
           {features.map((feature, index) => {
             const isExpanded = expandedIndex === index;
             const isCompressed = expandedIndex !== null && expandedIndex !== index;
             const Illustration = feature.illustration;
 
-            // Determine flex value
-            let flexValue = 1;
-            if (!isMobile && isExpanded) flexValue = 3.7;
-            if (!isMobile && isCompressed) flexValue = 1;
+            const cardWidth = isMobile ? undefined : isExpanded ? EXPANDED_WIDTH : CARD_WIDTH;
 
             return (
               <div
                 key={index}
-                className="cursor-pointer"
+                ref={(el) => { cardRefs.current[index] = el; }}
+                className={`${isExpanded ? "" : "cursor-pointer"}`}
                 style={{
-                  flex: isMobile ? undefined : flexValue,
-                  transition: "flex 500ms cubic-bezier(0.4, 0, 0.2, 1), min-height 500ms cubic-bezier(0.4, 0, 0.2, 1)",
+                  width: cardWidth,
+                  minWidth: cardWidth,
+                  transition: TRANSITION,
                   minHeight: isMobile
                     ? isExpanded ? 420 : isCompressed ? 56 : 360
                     : 440,
+                  flexShrink: 0,
                 }}
-                onClick={() => setExpandedIndex(isExpanded ? null : index)}
+                onClick={() => handleCardClick(index)}
               >
                 <div
-                  className={`relative w-full h-full rounded-2xl overflow-hidden border transition-all duration-500 ${
+                  className={`relative w-full h-full rounded-2xl overflow-hidden border transition-all duration-700 ${
                     isExpanded
-                      ? "border-primary/40 shadow-[0_0_30px_4px_hsl(30_80%_45%/0.25)]"
+                      ? "border-primary/40 shadow-[0_0_40px_8px_hsl(30_80%_45%/0.3)]"
                       : isCompressed
                       ? "border-primary/10"
                       : "border-primary/20 hover:border-primary/40 hover:shadow-[0_0_30px_4px_hsl(30_80%_45%/0.25)]"
@@ -107,6 +144,15 @@ const WhyLevelUp = () => {
                     background: "linear-gradient(160deg, hsl(30 40% 12%) 0%, hsl(0 0% 4%) 50%, hsl(0 0% 2%) 100%)",
                   }}
                 >
+                  {/* Icon button */}
+                  <button
+                    className="absolute top-4 right-4 z-20 p-1.5 rounded-lg transition-all duration-200 hover:scale-110 hover:bg-white/10 text-foreground/50 hover:text-foreground/80"
+                    onClick={isExpanded ? handleClose : (e) => { e.stopPropagation(); handleCardClick(index); }}
+                    aria-label={isExpanded ? "Close" : "Expand"}
+                  >
+                    {isExpanded ? <X size={18} /> : <Maximize2 size={16} />}
+                  </button>
+
                   {/* COMPRESSED STATE (desktop only) */}
                   {!isMobile && (
                     <div
@@ -144,7 +190,7 @@ const WhyLevelUp = () => {
                     </div>
                   )}
 
-                  {/* DEFAULT STATE - title + illustration */}
+                  {/* DEFAULT STATE */}
                   <div
                     className="absolute inset-0 flex flex-col p-7 md:p-10"
                     style={{
@@ -166,9 +212,10 @@ const WhyLevelUp = () => {
                     className={`absolute inset-0 flex ${isMobile ? "flex-col" : "flex-row"}`}
                     style={{
                       opacity: isExpanded ? 1 : 0,
-                      transition: "opacity 350ms cubic-bezier(0.4, 0, 0.2, 1) 100ms",
+                      transition: "opacity 350ms cubic-bezier(0.4, 0, 0.2, 1) 150ms",
                       pointerEvents: isExpanded ? "auto" : "none",
                     }}
+                    onClick={(e) => e.stopPropagation()}
                   >
                     {/* Left: illustration */}
                     <div className={`${isMobile ? "h-[180px]" : "w-[40%]"} p-6 flex flex-col shrink-0`}>
@@ -218,6 +265,13 @@ const WhyLevelUp = () => {
           })}
         </div>
       </div>
+
+      {/* Hide scrollbar CSS */}
+      <style>{`
+        [style*="scrollbar-width"]::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </section>
   );
 };
