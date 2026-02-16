@@ -18,7 +18,7 @@ const fadeUp = {
 
 const ImpactNumbers = () => (
   <section className="py-12 md:py-16 px-6 md:px-12 bg-background relative">
-    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent" />
+    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-[2px] bg-gradient-to-r from-transparent via-border to-transparent" />
     <div className="absolute inset-0 bg-gradient-amber-glow pointer-events-none" />
 
     <div className="relative max-w-7xl mx-auto">
