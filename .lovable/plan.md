@@ -1,41 +1,28 @@
 
 
-## "The Most Intentional Way to Learn the Craft" -- Pre-Footer CTA Section
+## Update Pre-Footer CTA Section
 
-A cinematic, high-conviction closing section placed just before the Footer. Informed by brand positioning from the investor deck, this section replaces the previously discussed "Trusted by India's Best" concept with a more emotionally resonant version.
+The `TrustedCTASection` component already exists with teacher avatars and styling, but needs two changes:
 
-### Copy
+### 1. Update the copy
 
-**Badge:** India's Creative Career Infrastructure
+Replace the current text with the requested copy:
+- **Headline:** "Trusted by India's best"
+- **Subline:** "It's time for you to take the leap."
+- Remove the "India's Creative Career Infrastructure" badge and the stats row to keep the section focused and emotionally driven (aligned with the brand's tone of not leading with statistics)
 
-**Headline:** The most intentional way to *learn the craft.*
+### 2. Add the section to the page
 
-**Subline:** From first shot to first paycheck -- and beyond. Join 9,000+ creators across 821 cities who chose to take their craft seriously.
-
-**CTA Button:** "Explore Programs" (links to #masterclasses or the main programs page)
-
-### Visual Layout
-
-- **Teacher portrait row**: 7 circular avatars of all masterclass teachers (Karthik Subbaraj, Anthony Gonsalvez, G Venket Ram, DRK Kiran, Ravi Basrur, Lokesh Kanagaraj, Nelson Dilipkumar) displayed in an overlapping horizontal strip
-- **Proof stats row** (subtle, below the headline): "9,000+ Learners", "821 Cities", "4.86/5 Rating" displayed as small inline badges or a single line of text -- understated, not loud
-- Consistent amber accent line at the top of the section
-- Subtle radial amber glow behind the headline
-- Section padding matching the rest of the site (py-16 md:py-24)
-
-### Responsive Behavior
-
-- **Desktop**: Avatars at w-16/h-16, headline at text-4xl/5xl, stats inline
-- **Mobile**: Avatars scale to w-12/h-12, headline at text-2xl, stats stack or wrap
+The component is imported in `Index.tsx` but never rendered. It needs to be placed between `FAQSection` and `Footer`.
 
 ### Technical Details
 
-1. **New file**: `src/components/TrustedCTASection.tsx`
-   - Imports teacher images from existing assets and CDN URLs (reusing the same sources as MasterclassSection and navbarData)
-   - Renders circular overlapping avatars, headline, subline, stats, and CTA
-   - Uses existing design tokens: `font-serif-display`, `font-sans-body`, `text-hero-headline`, `text-hero-subtext`, `bg-background`
-   - CTA button uses primary styling consistent with existing buttons
+**File: `src/components/TrustedCTASection.tsx`**
+- Change the headline from "The most intentional way to learn the craft." to "Trusted by India's best"
+- Change the subline to "It's time for you to take the leap."
+- Remove the badge text and stats row for a cleaner, more emotional close
+- Keep the teacher avatar row, amber accent line, radial glow, and CTA button as-is
 
-2. **Update**: `src/pages/Index.tsx`
-   - Add lazy import for `TrustedCTASection`
-   - Place between `FAQSection` and `Footer`
+**File: `src/pages/Index.tsx`**
+- Add `<TrustedCTASection />` between `<FAQSection />` and `<Footer />` in the render order
 
