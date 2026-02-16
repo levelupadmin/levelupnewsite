@@ -68,7 +68,7 @@ export const navLinks: NavLink[] = [
         href: "https://masterclass.leveluplearning.in/lokesh-kanagaraj",
       },
       {
-        image: "",
+        image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/68533fa498f29f6c70f6b5d1_nelson%20website%20hero%201.png",
         title: "Nelson Dilipkumar",
         subtitle: "Filmmaking",
         href: "https://masterclass.leveluplearning.in/nelson-dilipkumar",
