@@ -78,8 +78,8 @@ const EcosystemJourney = () => (
             className="relative flex flex-col items-center text-center gap-3"
           >
             {/* Step circle */}
-            <div className="relative z-10 w-10 h-10 rounded-full border border-primary bg-background flex items-center justify-center mb-2">
-              <layer.icon className="w-4 h-4 text-primary" />
+            <div className="relative z-10 w-10 h-10 rounded-full bg-primary flex items-center justify-center mb-2">
+              <layer.icon className="w-4 h-4 text-primary-foreground" />
             </div>
             <span className="font-sans-body text-[10px] uppercase tracking-widest text-primary">
               {layer.step}
