@@ -1,66 +1,64 @@
 
 
-# About Page Glow-Up: From "Meh" to Cinematic
+# Replace Why LevelUp with Expandable Card System
 
-The page has decent structure but still feels flat and text-heavy. Here's a focused set of high-impact upgrades to inject life, depth, and visual storytelling.
-
----
-
-## 1. Hero -- Add floating creator portrait collage
-
-Right now the hero is stars + rings + text. It's atmospheric but impersonal. Add a subtle grid of floating creator portraits (using existing masterclass/testimonial assets) behind the text with heavy blur and low opacity -- giving it a "faces of the community" vibe without competing with the headline.
-
-**Assets to use**: `masterclass-1.jpg` through `masterclass-6.jpg` arranged in a loose scattered grid behind the text.
+Replace the current 3D flip-card "Why LevelUp" section with a new expandable card system matching the reference screenshots. The images are reference only -- not embedded.
 
 ---
 
-## 2. Problem Section -- Full-bleed split layout with overlay text on image
+## Visual Design (from reference)
 
-The cinematic image is hidden on mobile and feels like a sidebar on desktop. Instead, make it a full-width background image with a dark gradient overlay, and float the problem cards on top with a glassmorphism treatment (backdrop-blur + semi-transparent bg). This creates a dramatic, editorial magazine feel.
+Three cards in a horizontal grid. Only one can be expanded at a time.
 
----
+- **Card 1**: Black background, white text
+- **Card 2**: Soft peach/coral background (`#f5d5c8` / `hsl(15, 70%, 88%)`), dark text
+- **Card 3**: Dark brown background (`hsl(20, 20%, 15%)`), white text
 
-## 3. Ecosystem Journey -- Add a large background photo strip
+**Closed state**: Large serif headline, a small expand icon (top-right corner, `Maximize2` from lucide), and a decorative preview illustration area. Gentle hover lift (`hover:-translate-y-1`).
 
-The 4 small thumbnail squares feel like clip-art. Replace them with larger card-style panels where each step has a half-image, half-text layout (image on top, text below), creating a visual storyboard feel. Use the existing images at a much larger size.
-
----
-
-## 4. Manifesto Section -- Add a large hero-style image break before the tenets
-
-Insert a full-width cinematic image divider (using `forge-filmmaking-banner.jpg` or `all-masters.png`) between the manifesto intro text and the tenet cards. This creates a visual breathing moment and breaks up the wall of cards.
+**Expanded state**: Card grows taller with smooth Framer Motion `layout` animation. Close button (X icon) replaces expand icon. Shows description, feature pills, testimonial, or lesson list depending on the card.
 
 ---
 
-## 5. Why Us Section -- Add relevant imagery to each pillar card
+## Card Content
 
-Each card is just an icon + text. Add a small relevant photo to each card (e.g., `all-masters.png` for Mentor IP, a community photo for Community Flywheel, logo collage for Brand Partners) to make them visually richer.
+### Card 1 -- "A learning experience tailored to you"
+- **Closed**: Headline + mock lesson card UI (Chapter 2 / Development Environments / Continue button)
+- **Expanded**: Description text + "Everything in one place" feature pill list (Lessons, Coding tasks, Community events, Office hours, AI hints and instant feedback, Our AI assistant Dot, Lifetime access) + Testimonial from Stephanie McMillan
 
----
+### Card 2 -- "Stuck? Get 1-on-1 guidance"
+- **Closed**: Headline + mentor/AI character illustration area
+- **Expanded**: Andrew availability card with green online badge + Dot AI assistant card with "Online 24/7" badge
 
-## 6. Closing Vision -- Add a background texture/image
-
-The solid orange gradient is fine but flat. Layer a subtle dark cinematic background image (`hero-cinematic.jpg`) with an orange overlay blend, giving it depth and texture instead of a flat color block.
-
----
-
-## 7. Featured In -- Make logos bigger and add a subtle card treatment
-
-The press logos are tiny (h-4 to h-5) and nearly invisible. Increase to h-8 with better spacing and wrap in a subtle card/band for more presence.
+### Card 3 -- "Make steady progress with bite-sized lessons"
+- **Closed**: Headline + background image feel (dark overlay on cinematic image)
+- **Expanded**: Lesson list with titles and durations (e.g., "From Chatbots to Agents: What's the Difference? -- Theory, 15 min")
 
 ---
 
-## Technical Details
+## Technical Plan
 
 ### Files to modify:
-- `src/components/about/AboutHero.tsx` -- floating portrait collage behind text
-- `src/components/about/ProblemSection.tsx` -- full-bleed image bg with glassmorphism cards
-- `src/components/about/EcosystemJourney.tsx` -- larger image-card panels for each step
-- `src/components/about/ManifestoSection.tsx` -- full-width image divider before tenets
-- `src/components/about/WhyUsSection.tsx` -- add photos to pillar cards
-- `src/components/about/ClosingVision.tsx` -- textured background with image + orange overlay
-- `src/components/about/FeaturedInSection.tsx` -- larger logos, card treatment
+- **`src/components/WhyLevelUp.tsx`** -- Complete rewrite with new expandable card system
 
-### No new dependencies needed
-All changes use existing Tailwind utilities, existing image assets, and Framer Motion (already installed).
+### Files to delete (no longer needed):
+- `src/components/why-levelup/ExpertMembershipCard.tsx`
+- `src/components/why-levelup/LiveProjectsCard.tsx`
+- `src/components/why-levelup/CommunityCard.tsx`
+
+### No new files or dependencies needed
+Uses existing Framer Motion (`AnimatePresence`, `m.div` with `layout`), lucide-react icons (`Maximize2`, `X`, `BookOpen`, `Code`, `Users`, `Clock`, `Sparkles`, `RefreshCw`, `Zap`), and Tailwind utilities.
+
+### Implementation details:
+
+1. **State**: `useState<number | null>(null)` for tracking which card is expanded
+2. **Animation**: Framer Motion `AnimatePresence` + `m.div` with `layout` prop for smooth height transitions. Expanded content fades in with `initial={{ opacity: 0 }}` / `animate={{ opacity: 1 }}`.
+3. **Layout**: `grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6` matching existing spacing conventions. When a card expands, it stays in its grid position (no overlay/modal).
+4. **Closed card height**: Fixed `h-[420px] md:h-[480px]` with the headline at top and decorative content below.
+5. **Expanded card height**: `auto` with `min-h-[480px]` to accommodate content.
+6. **Feature pills**: Rendered as inline-flex items with icon + label, styled with `border border-foreground/20 rounded-full px-3 py-1.5`.
+7. **Testimonial**: Avatar placeholder (initials circle), name, title, and quote text.
+8. **Lesson list**: Stacked cards with title, category badge, and duration.
+9. **Section headline** preserved: "The most intentional way to learn the craft." with the same layout.
+10. **Mobile**: Cards stack vertically; expanded card pushes siblings down naturally via grid flow.
 
