@@ -32,8 +32,8 @@ const TrustedCTASection = () => {
 
         {/* Headline */}
         <h2 className="font-serif-display text-2xl md:text-4xl lg:text-5xl text-hero-headline leading-tight">
-          The most intentional way to{" "}
-          <em className="text-gradient-amber not-italic">learn the craft.</em>
+          Trusted by{" "}
+          <em className="text-gradient-amber not-italic">India's best</em>
         </h2>
 
         {/* Discipline keywords */}
