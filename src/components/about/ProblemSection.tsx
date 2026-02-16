@@ -1,6 +1,7 @@
 import { m } from "framer-motion";
 import { BookX, ShieldX, Users } from "lucide-react";
 import ConcentricRings from "./ConcentricRings";
+import heroImg from "@/assets/hero-cinematic.jpg";
 
 const problems = [
   {
@@ -47,23 +48,41 @@ const ProblemSection = () => (
         A broken system for creative careers
       </m.h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        {problems.map((p, i) => (
-          <m.div
-            key={p.title}
-            {...fadeUp}
-            transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
-            className="rounded-xl bg-card p-6 md:p-8 flex flex-col gap-4 shadow-cinematic border-l-4 border-primary"
-          >
-            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-              <p.icon className="w-6 h-6 text-primary" />
-            </div>
-            <h3 className="font-serif-display text-lg text-foreground">{p.title}</h3>
-            <p className="font-sans-body text-sm text-muted-foreground leading-relaxed">
-              {p.description}
-            </p>
-          </m.div>
-        ))}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch">
+        {/* Human image — editorial accent */}
+        <m.div
+          {...fadeUp}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="hidden md:block md:col-span-4 rounded-xl overflow-hidden shadow-cinematic"
+        >
+          <img
+            src={heroImg}
+            alt="Young creator at work"
+            className="w-full h-full object-cover"
+          />
+        </m.div>
+
+        {/* Problem cards */}
+        <div className="md:col-span-8 flex flex-col gap-4">
+          {problems.map((p, i) => (
+            <m.div
+              key={p.title}
+              {...fadeUp}
+              transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
+              className="rounded-xl bg-card p-5 md:p-6 flex items-start gap-4 shadow-cinematic border-l-4 border-primary"
+            >
+              <div className="w-11 h-11 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                <p.icon className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-serif-display text-base text-foreground mb-1">{p.title}</h3>
+                <p className="font-sans-body text-sm text-muted-foreground leading-relaxed">
+                  {p.description}
+                </p>
+              </div>
+            </m.div>
+          ))}
+        </div>
       </div>
     </div>
   </section>

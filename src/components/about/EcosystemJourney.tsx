@@ -2,6 +2,11 @@ import { m } from "framer-motion";
 import { Compass, Star, GraduationCap, Flame } from "lucide-react";
 import ConcentricRings from "./ConcentricRings";
 
+import liveProgram1 from "@/assets/live-program-1.jpg";
+import masterclass2 from "@/assets/masterclass-2.jpg";
+import liveProgram3 from "@/assets/live-program-3.jpg";
+import forge1 from "@/assets/forge-1.jpg";
+
 const layers = [
   {
     icon: Compass,
@@ -9,6 +14,7 @@ const layers = [
     title: "Discover",
     subtitle: "2-hour Workshops",
     description: "Explore creative fields through hands-on workshops that help you find your path.",
+    image: liveProgram1,
   },
   {
     icon: Star,
@@ -16,6 +22,7 @@ const layers = [
     title: "Learn from the Best",
     subtitle: "Masterclasses",
     description: "India's top 0.01% creators share their craft through in-depth masterclasses.",
+    image: masterclass2,
   },
   {
     icon: GraduationCap,
@@ -23,6 +30,7 @@ const layers = [
     title: "Master the Craft",
     subtitle: "8–16 week Live Cohorts",
     description: "Intensive programs with portfolios, feedback, and placement support.",
+    image: liveProgram3,
   },
   {
     icon: Flame,
@@ -30,6 +38,7 @@ const layers = [
     title: "Experience",
     subtitle: "The Forge Residencies",
     description: "Invite-only immersive residencies across India and beyond.",
+    image: forge1,
   },
 ];
 
@@ -68,9 +77,9 @@ const EcosystemJourney = () => (
       </m.p>
 
       {/* Timeline */}
-      <div className="relative grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-4">
+      <div className="relative grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-5">
         {/* Horizontal gradient connector — desktop */}
-        <div className="hidden md:block absolute top-[28px] left-[12.5%] right-[12.5%] h-1 rounded-full bg-gradient-to-r from-primary via-primary/50 to-transparent" />
+        <div className="hidden md:block absolute top-[60px] left-[12.5%] right-[12.5%] h-1 rounded-full bg-gradient-to-r from-primary via-primary/50 to-transparent" />
 
         {/* Vertical dotted connector — mobile */}
         <div className="md:hidden absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px border-l-2 border-dashed border-primary/20" />
@@ -82,9 +91,13 @@ const EcosystemJourney = () => (
             transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
             className="relative flex flex-col items-center text-center gap-3"
           >
-            {/* Step circle with outer glow ring */}
-            <div className="relative z-10 w-14 h-14 rounded-full bg-primary flex items-center justify-center mb-2 ring-4 ring-primary/20">
-              <layer.icon className="w-6 h-6 text-primary-foreground" />
+            {/* Photo thumbnail */}
+            <div className="relative z-10 w-[120px] h-[120px] rounded-xl overflow-hidden shadow-cinematic ring-4 ring-primary/20 mb-2">
+              <img src={layer.image} alt={layer.title} className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                <layer.icon className="w-4 h-4 text-primary-foreground" />
+              </div>
             </div>
             <span className="font-sans-body text-[10px] uppercase tracking-widest text-primary">
               {layer.step}
