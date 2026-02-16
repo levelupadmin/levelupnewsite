@@ -1,5 +1,6 @@
 import { m } from "framer-motion";
 import { BookX, ShieldX, Users } from "lucide-react";
+import ConcentricRings from "./ConcentricRings";
 
 const problems = [
   {
@@ -26,10 +27,11 @@ const fadeUp = {
 };
 
 const ProblemSection = () => (
-  <section className="py-12 md:py-16 px-6 md:px-12 bg-background relative">
+  <section className="py-12 md:py-16 px-6 md:px-12 bg-background relative overflow-hidden">
     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-[2px] bg-gradient-to-r from-transparent via-border to-transparent" />
+    <ConcentricRings className="-top-16 -right-24 opacity-60" size={320} count={5} />
 
-    <div className="max-w-7xl mx-auto">
+    <div className="relative max-w-7xl mx-auto">
       <m.p
         {...fadeUp}
         transition={{ duration: 0.5 }}
