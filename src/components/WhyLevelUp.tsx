@@ -70,7 +70,7 @@ const WhyLevelUp = () => {
   }, [expandedIndex, isMobile]);
 
   const handleCardClick = (index: number) => {
-    if (expandedIndex === index) return; // don't toggle on self-click
+    if (expandedIndex === index) return;
     setExpandedIndex(index);
   };
 
@@ -111,7 +111,6 @@ const WhyLevelUp = () => {
         >
           {features.map((feature, index) => {
             const isExpanded = expandedIndex === index;
-            const isCompressed = expandedIndex !== null && expandedIndex !== index;
             const Illustration = feature.illustration;
 
             const cardWidth = isMobile ? undefined : isExpanded ? EXPANDED_WIDTH : CARD_WIDTH;
@@ -125,8 +124,9 @@ const WhyLevelUp = () => {
                   width: cardWidth,
                   minWidth: cardWidth,
                   transition: TRANSITION,
+                  willChange: "width",
                   minHeight: isMobile
-                    ? isExpanded ? 420 : isCompressed ? 56 : 360
+                    ? isExpanded ? 420 : 360
                     : 440,
                   flexShrink: 0,
                 }}
@@ -136,70 +136,31 @@ const WhyLevelUp = () => {
                   className={`relative w-full h-full rounded-2xl overflow-hidden border transition-all duration-700 ${
                     isExpanded
                       ? "border-primary/40 shadow-[0_0_40px_8px_hsl(30_80%_45%/0.3)]"
-                      : isCompressed
-                      ? "border-primary/10"
                       : "border-primary/20 hover:border-primary/40 hover:shadow-[0_0_30px_4px_hsl(30_80%_45%/0.25)]"
                   }`}
                   style={{
                     background: "linear-gradient(160deg, hsl(30 40% 12%) 0%, hsl(0 0% 4%) 50%, hsl(0 0% 2%) 100%)",
                   }}
                 >
-                  {/* Icon button */}
+                  {/* Icon button - bordered square */}
                   <button
-                    className="absolute top-4 right-4 z-20 p-1.5 rounded-lg transition-all duration-200 hover:scale-110 hover:bg-white/10 text-foreground/50 hover:text-foreground/80"
+                    className="absolute top-4 right-4 z-20 w-9 h-9 flex items-center justify-center rounded-md border border-foreground/30 transition-all duration-200 hover:scale-110 hover:border-foreground/60 hover:bg-white/5 text-foreground/50 hover:text-foreground/80"
                     onClick={isExpanded ? handleClose : (e) => { e.stopPropagation(); handleCardClick(index); }}
                     aria-label={isExpanded ? "Close" : "Expand"}
                   >
-                    {isExpanded ? <X size={18} /> : <Maximize2 size={16} />}
+                    {isExpanded ? <X size={16} /> : <Maximize2 size={14} />}
                   </button>
 
-                  {/* COMPRESSED STATE (desktop only) */}
-                  {!isMobile && (
-                    <div
-                      className="absolute inset-0 flex items-center justify-center"
-                      style={{
-                        opacity: isCompressed ? 1 : 0,
-                        transition: "opacity 350ms cubic-bezier(0.4, 0, 0.2, 1)",
-                        pointerEvents: isCompressed ? "auto" : "none",
-                      }}
-                    >
-                      <div className="absolute left-0 top-[15%] bottom-[15%] w-[2px] bg-primary/40 rounded-full" />
-                      <span
-                        className="font-serif-display text-lg font-medium text-foreground/70 tracking-wide"
-                        style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
-                      >
-                        {feature.title}
-                      </span>
-                    </div>
-                  )}
-
-                  {/* COMPRESSED STATE (mobile) */}
-                  {isMobile && (
-                    <div
-                      className="absolute inset-0 flex items-center px-5 py-4 gap-3"
-                      style={{
-                        opacity: isCompressed ? 1 : 0,
-                        transition: "opacity 350ms cubic-bezier(0.4, 0, 0.2, 1)",
-                        pointerEvents: isCompressed ? "auto" : "none",
-                      }}
-                    >
-                      <div className="w-[2px] h-6 bg-primary/40 rounded-full shrink-0" />
-                      <span className="font-serif-display text-base font-medium text-foreground/70">
-                        {feature.title}
-                      </span>
-                    </div>
-                  )}
-
-                  {/* DEFAULT STATE */}
+                  {/* DEFAULT / COMPRESSED layer - always visible when not expanded */}
                   <div
-                    className="absolute inset-0 flex flex-col p-7 md:p-10"
+                    className="absolute inset-0 flex flex-col p-7 md:p-10 overflow-hidden"
                     style={{
-                      opacity: !isCompressed && !isExpanded ? 1 : 0,
-                      transition: "opacity 350ms cubic-bezier(0.4, 0, 0.2, 1)",
-                      pointerEvents: !isCompressed && !isExpanded ? "auto" : "none",
+                      opacity: !isExpanded ? 1 : 0,
+                      transition: "opacity 250ms ease",
+                      pointerEvents: !isExpanded ? "auto" : "none",
                     }}
                   >
-                    <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-5">
+                    <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-5 whitespace-nowrap">
                       {feature.title}
                     </h3>
                     <div className="flex-1 min-h-0">
@@ -209,33 +170,36 @@ const WhyLevelUp = () => {
 
                   {/* EXPANDED STATE */}
                   <div
-                    className={`absolute inset-0 flex ${isMobile ? "flex-col" : "flex-row"}`}
+                    className="absolute inset-0 flex flex-col overflow-hidden"
                     style={{
                       opacity: isExpanded ? 1 : 0,
-                      transition: "opacity 350ms cubic-bezier(0.4, 0, 0.2, 1) 150ms",
+                      transition: isExpanded
+                        ? "opacity 300ms ease 100ms"
+                        : "opacity 200ms ease",
                       pointerEvents: isExpanded ? "auto" : "none",
                     }}
                     onClick={(e) => e.stopPropagation()}
                   >
-                    {/* Left: illustration */}
-                    <div className={`${isMobile ? "h-[180px]" : "w-[40%]"} p-6 flex flex-col shrink-0`}>
-                      <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-4">
+                    {/* Top: Title + Description */}
+                    <div className={`p-6 md:p-8 pb-4 ${isMobile ? "" : "flex items-start gap-8"}`}>
+                      <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight shrink-0">
                         {feature.title}
                       </h3>
-                      <div className="flex-1 min-h-0">
-                        <Illustration />
-                      </div>
+                      <p className={`font-sans-body text-sm text-muted-foreground leading-relaxed ${isMobile ? "mt-3" : "mt-1"}`}>
+                        {feature.expandedDescription}
+                      </p>
                     </div>
 
-                    {/* Right: details */}
-                    <div
-                      className={`${isMobile ? "" : "w-[60%] border-l border-primary/15"} p-6 md:p-8 flex flex-col justify-between`}
-                    >
-                      <div>
-                        <p className="font-sans-body text-sm text-muted-foreground leading-relaxed">
-                          {feature.expandedDescription}
-                        </p>
-                        <div className="space-y-2 mt-5">
+                    {/* Bottom: Illustration | Bullets | Stat - 3 column grid */}
+                    <div className={`flex-1 px-6 md:px-8 pb-6 md:pb-8 ${isMobile ? "flex flex-col gap-5" : "grid grid-cols-3 gap-6"}`}>
+                      {/* Illustration */}
+                      <div className="flex items-center justify-center">
+                        <Illustration />
+                      </div>
+
+                      {/* Bullets */}
+                      <div className="flex flex-col justify-center">
+                        <div className="space-y-2.5">
                           {feature.bullets.map((bullet, i) => (
                             <div key={i} className="flex items-start gap-2.5">
                               <span className="w-2 h-2 rounded-full bg-primary mt-1.5 shrink-0" />
@@ -247,12 +211,13 @@ const WhyLevelUp = () => {
                         </div>
                       </div>
 
+                      {/* Stat */}
                       {feature.stat && (
-                        <div className="mt-auto pt-6">
-                          <span className="font-serif-display text-4xl font-bold text-gradient-amber">
+                        <div className="flex flex-col items-center justify-center">
+                          <span className="font-serif-display text-4xl md:text-5xl font-bold text-gradient-amber">
                             {feature.stat}
                           </span>
-                          <span className="font-sans-body text-xs text-muted-foreground tracking-wider ml-2 uppercase">
+                          <span className="font-sans-body text-xs text-muted-foreground tracking-wider mt-1 uppercase">
                             {feature.statLabel}
                           </span>
                         </div>
