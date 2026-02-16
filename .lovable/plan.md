@@ -1,26 +1,38 @@
 
 
-# Why LevelUp Cards: Flip-to-Expand Interaction Redesign
+# Why LevelUp Cards: Fixed-Width Expand with Icons and Auto-Scroll
 
-Replace the current 3D flip animation with a horizontal expand/compress interaction where the clicked card grows to ~65% width while the others shrink to ~17.5% each.
+Upgrade the existing expand/compress interaction to use fixed pixel widths, explicit expand/close icons, auto-scroll behavior, and refined timing.
 
 ---
 
-## Interaction Design
+## What Changes
 
-**Rest state**: Three equal-width cards (33.33% each), showing title + illustration
+### 1. Fixed pixel widths instead of flex ratios
+- Rest state: all cards `width: 380px`
+- Expanded: active card `width: 920px`, others stay `380px`
+- Container becomes horizontally scrollable with hidden scrollbar
 
-**Expanded state**:
-- Active card: ~65% width -- shows title, illustration (left side), expanded description, bullet points, and stat (right side)
-- Inactive cards: ~17.5% width -- show only the title rotated vertically, with a subtle amber accent line
+### 2. Timing and easing update
+- Transition duration: `700ms` (up from 500ms)
+- Easing: `cubic-bezier(0.25, 0.8, 0.25, 1)` (snappier attack, softer settle)
+- Content fade-in delay stays at `150ms`
 
-**Transitions**:
-- Width change: 400ms ease-in-out
-- Expanded content fade-in: 150ms delay after width starts
-- Only one card expandable at a time
-- Clicking expanded card collapses back to rest state
+### 3. Expand/Close icon buttons
+- Collapsed cards: show a `Maximize2` icon (from lucide-react) in top-right corner
+- Expanded card: show an `X` icon in top-right corner instead
+- Icons have hover effects (scale + background opacity)
+- Only the close button (X) or clicking another card triggers collapse -- clicking general card content does NOT collapse
 
-**Mobile**: Cards stack vertically; the expanded card grows taller instead of wider, inactive cards show condensed single-line view
+### 4. Auto-scroll into view
+- Add `useRef` on the scroll container
+- Add `useRef` array for each card
+- On expand, after 100ms delay via `useEffect`, scroll the expanded card into center view with `scrollIntoView({ behavior: 'smooth', inline: 'center' })`
+
+### 5. Click behavior refinement
+- Clicking a collapsed card expands it
+- Clicking inside an expanded card does nothing (content area stops propagation)
+- Only the X close button or clicking a different card collapses
 
 ---
 
@@ -28,28 +40,35 @@ Replace the current 3D flip animation with a horizontal expand/compress interact
 
 ### File: `src/components/WhyLevelUp.tsx`
 
-**Changes:**
-1. Replace `grid grid-cols-3` with a `flex` row layout to allow dynamic width control
-2. Replace `flippedIndex` state with `expandedIndex`
-3. Remove all 3D flip logic (perspective, rotateY, backfaceVisibility, preserve-3d)
-4. Each card gets dynamic width via inline style:
-   - No card expanded: `flex: 1` (equal)
-   - Card expanded: active gets `flex: 3.7`, inactive get `flex: 1`
-   - `transition: flex 400ms ease-in-out` on each card
-5. Card internal layout changes based on expanded state:
-   - **Collapsed (default)**: Title + illustration stacked vertically (same as current front)
-   - **Expanded**: Two-column layout -- illustration on left (~40%), text content on right (~60%) with description, bullets, stat
-   - **Compressed (inactive when another is expanded)**: Title displayed vertically using `writing-mode: vertical-rl` with a small amber accent bar
-6. Expanded content uses `opacity` + `transition-delay: 150ms` for the fade-in effect
-7. Mobile: Switch to `flex-col`, expanded card gets more height, compressed cards show horizontal condensed view (title only, single line)
+**State and refs:**
+- Keep `expandedIndex` state
+- Add `containerRef = useRef<HTMLDivElement>` for the scroll container
+- Add `cardRefs = useRef<(HTMLDivElement | null)[]>([])` for individual cards
+- Add `useEffect` watching `expandedIndex` to trigger auto-scroll after 100ms
+
+**Layout changes:**
+- Replace `flex: flexValue` with explicit `width` values (`380px` / `920px`)
+- Add `min-width` matching width to prevent flex shrinking
+- Container: add `overflow-x-auto` with CSS to hide scrollbar (`scrollbar-width: none`, `-webkit-scrollbar: display none`)
+- Update transition property to `width 700ms cubic-bezier(0.25, 0.8, 0.25, 1), min-height 700ms ...`
+
+**Icon buttons:**
+- Import `Maximize2` and `X` from `lucide-react`
+- Add absolute-positioned button in top-right of each card
+- Default state: `Maximize2` icon, clicking expands the card
+- Expanded state: `X` icon, clicking collapses (sets `expandedIndex` to null)
+- Both have `onClick` with `e.stopPropagation()` to prevent card-level click handling
+- Hover: `hover:scale-110 hover:bg-white/10` with transition
+
+**Click handling:**
+- Card outer div: `onClick` only expands (sets index), does NOT toggle
+- Expanded content area: `onClick={e => e.stopPropagation()}` to prevent collapse
+- Close button: explicitly sets `expandedIndex` to null
+
+**Mobile behavior:**
+- On mobile, cards use full width and stack vertically (existing behavior preserved)
+- Width values only apply on desktop
 
 ### Sub-components unchanged
-- `ExpertMembershipCard`, `LiveProjectsCard`, `CommunityCard` remain as-is -- they render inside the illustration area of each card
-
-### Styling maintained
-- Dark gradient background on cards: `linear-gradient(160deg, hsl(30 40% 12%) 0%, hsl(0 0% 4%) 50%, hsl(0 0% 2%) 100%)`
-- Orange accent borders: `border-primary/20`, `border-primary/40` on active
-- Rounded corners: `rounded-2xl`
-- Soft glow shadow on expanded card: `shadow-[0_0_30px_4px_hsl(30_80%_45%/0.25)]`
-- Compressed cards get a subtle `border-primary/10` treatment
+- `ExpertMembershipCard`, `LiveProjectsCard`, `CommunityCard` stay as-is
 
