@@ -18,7 +18,7 @@ const slides = [
     alt: "PVR Trailer - LevelUp filmmaking showcase",
   },
   {
-    video: "/videos/ve-preview.mp4",
+    video: "/videos/forge.mp4",
     poster: heroPoster2,
     alt: "Forge program showcase",
   },
