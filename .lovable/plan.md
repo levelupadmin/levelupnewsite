@@ -1,80 +1,66 @@
 
-# Revamp the About Page: From Dull to Dynamic
 
-## The Problem
+# About Page Glow-Up: From "Meh" to Cinematic
 
-The page is currently a wall of text-on-white with repetitive card layouts, no imagery, no visual breaks, and every section looks the same. There's no storytelling rhythm — it reads like a document, not a brand page.
+The page has decent structure but still feels flat and text-heavy. Here's a focused set of high-impact upgrades to inject life, depth, and visual storytelling.
 
-## Changes (7 high-impact upgrades)
+---
 
-### 1. Hero with a background image or gradient texture
-The hero is just centered text on a blank white background. Add:
-- A large, soft background image (use the existing `hero-cinematic.jpg` asset) with a light overlay so text stays readable
-- A subtle animated gradient mesh or a warm radial gradient to add depth
-- Increase vertical padding for a more cinematic, breathing feel
+## 1. Hero -- Add floating creator portrait collage
 
-### 2. Problem Section -- icon cards with colored icon backgrounds
-The 3 problem cards are plain white boxes with tiny icons. Make them pop:
-- Add a soft orange-tinted circular background behind each icon (e.g., `bg-primary/10 rounded-full p-3`)
-- Add a subtle left border accent in orange (`border-l-4 border-primary`)
-- Slightly increase icon size from `w-6 h-6` to `w-8 h-8`
+Right now the hero is stars + rings + text. It's atmospheric but impersonal. Add a subtle grid of floating creator portraits (using existing masterclass/testimonial assets) behind the text with heavy blur and low opacity -- giving it a "faces of the community" vibe without competing with the headline.
 
-### 3. Opportunity Stats -- add a light background band
-The stats grid currently floats on the same white as everything else. Differentiate it:
-- Wrap in a very subtle warm-tinted background band (`bg-[hsl(24,40%,96%)]`) to create visual rhythm
-- Add a faint orange top border line for continuity
+**Assets to use**: `masterclass-1.jpg` through `masterclass-6.jpg` arranged in a loose scattered grid behind the text.
 
-### 4. Ecosystem Journey -- horizontal progress bar and larger icons
-The timeline is functional but visually flat:
-- Replace the thin 1px connector line with a thicker gradient bar (orange-to-transparent)
-- Increase the step circles from `w-10 h-10` to `w-14 h-14` with a soft outer ring/glow
-- Add a faint connecting dotted line on mobile (vertical)
+---
 
-### 5. Impact Numbers -- bold treatment
-The impact stats are small and understated:
-- Wrap the entire section in a solid orange band (`bg-primary`) with white text — making it a visual anchor like the investor deck
-- Increase number sizes to `text-4xl md:text-5xl`
-- This creates the strongest visual break on the page
+## 2. Problem Section -- Full-bleed split layout with overlay text on image
 
-### 6. Success Stories -- avatar placeholders and quote styling
-The testimonial cards lack personality:
-- Add a large opening quotation mark as a decorative element (orange, semi-transparent)
-- Add a colored left border or top accent bar on each card
-- Style the "before -> after" transformation more boldly with a pill/badge treatment
+The cinematic image is hidden on mobile and feels like a sidebar on desktop. Instead, make it a full-width background image with a dark gradient overlay, and float the problem cards on top with a glassmorphism treatment (backdrop-blur + semi-transparent bg). This creates a dramatic, editorial magazine feel.
 
-### 7. Closing Vision -- full-width orange CTA band
-The closing section is too subtle. Turn it into a full-width warm gradient block:
-- Use a warm gradient background (orange-to-deep-orange) with white text
-- Make the quote larger and bolder
-- Style the CTA button as white-on-orange (inverted from the rest of the page)
+---
 
-## Section rhythm (alternating backgrounds)
+## 3. Ecosystem Journey -- Add a large background photo strip
 
-```text
-Hero             -- white + background image
-Problem          -- white (cards with orange accents)
-Opportunity      -- subtle warm tint band
-Ecosystem        -- white
-Impact Numbers   -- SOLID ORANGE band (bold break)
-Success Stories  -- white (cards with quote decorations)
-Why Us           -- subtle warm tint band
-Closing Vision   -- warm gradient CTA
-Featured In      -- white
-Footer           -- white (inherited)
-```
+The 4 small thumbnail squares feel like clip-art. Replace them with larger card-style panels where each step has a half-image, half-text layout (image on top, text below), creating a visual storyboard feel. Use the existing images at a much larger size.
 
-This alternating pattern creates visual breathing room and storytelling pacing.
+---
+
+## 4. Manifesto Section -- Add a large hero-style image break before the tenets
+
+Insert a full-width cinematic image divider (using `forge-filmmaking-banner.jpg` or `all-masters.png`) between the manifesto intro text and the tenet cards. This creates a visual breathing moment and breaks up the wall of cards.
+
+---
+
+## 5. Why Us Section -- Add relevant imagery to each pillar card
+
+Each card is just an icon + text. Add a small relevant photo to each card (e.g., `all-masters.png` for Mentor IP, a community photo for Community Flywheel, logo collage for Brand Partners) to make them visually richer.
+
+---
+
+## 6. Closing Vision -- Add a background texture/image
+
+The solid orange gradient is fine but flat. Layer a subtle dark cinematic background image (`hero-cinematic.jpg`) with an orange overlay blend, giving it depth and texture instead of a flat color block.
+
+---
+
+## 7. Featured In -- Make logos bigger and add a subtle card treatment
+
+The press logos are tiny (h-4 to h-5) and nearly invisible. Increase to h-8 with better spacing and wrap in a subtle card/band for more presence.
+
+---
 
 ## Technical Details
 
-Files to modify:
-- `src/components/about/AboutHero.tsx` -- background image/gradient, spacing
-- `src/components/about/ProblemSection.tsx` -- icon styling, card border accents
-- `src/components/about/OpportunityStats.tsx` -- background band wrapper
-- `src/components/about/EcosystemJourney.tsx` -- thicker timeline, larger circles
-- `src/components/about/ImpactNumbers.tsx` -- solid orange band, white text, larger numbers
-- `src/components/about/SuccessStories.tsx` -- decorative quotes, card accents
-- `src/components/about/WhyUsSection.tsx` -- background tint band
-- `src/components/about/ClosingVision.tsx` -- gradient CTA band, inverted button
+### Files to modify:
+- `src/components/about/AboutHero.tsx` -- floating portrait collage behind text
+- `src/components/about/ProblemSection.tsx` -- full-bleed image bg with glassmorphism cards
+- `src/components/about/EcosystemJourney.tsx` -- larger image-card panels for each step
+- `src/components/about/ManifestoSection.tsx` -- full-width image divider before tenets
+- `src/components/about/WhyUsSection.tsx` -- add photos to pillar cards
+- `src/components/about/ClosingVision.tsx` -- textured background with image + orange overlay
+- `src/components/about/FeaturedInSection.tsx` -- larger logos, card treatment
 
-No new dependencies needed. All changes use existing Tailwind utilities and CSS variables.
+### No new dependencies needed
+All changes use existing Tailwind utilities, existing image assets, and Framer Motion (already installed).
+
