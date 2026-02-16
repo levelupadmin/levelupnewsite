@@ -11,7 +11,7 @@ import ClosingVision from "@/components/about/ClosingVision";
 import FeaturedInSection from "@/components/about/FeaturedInSection";
 
 const About = () => (
-  <div className="min-h-screen bg-background">
+  <div className="min-h-screen bg-background theme-warm">
     <Navbar />
     <main>
       <AboutHero />

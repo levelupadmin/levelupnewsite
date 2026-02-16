@@ -1,14 +1,12 @@
 import { m } from "framer-motion";
-import outlookLogo from "@/assets/press/outlook-india.svg";
-import quintLogo from "@/assets/press/the-quint.svg";
-import htLogo from "@/assets/press/hindustan-times.svg";
-import yourstoryLogo from "@/assets/press/yourstory.svg";
-import abnLogo from "@/assets/press/abn-telugu.svg";
+import outlookLogo from "@/assets/press/outlook-india.png";
+import quintLogo from "@/assets/press/the-quint.png";
+import yourstoryLogo from "@/assets/press/yourstory.png";
+import abnLogo from "@/assets/press/abn-telugu.png";
 
 const pressLogos = [
   { name: "Outlook India", src: outlookLogo },
   { name: "The Quint", src: quintLogo },
-  { name: "Hindustan Times", src: htLogo },
   { name: "YourStory", src: yourstoryLogo },
   { name: "ABN", src: abnLogo },
 ];
@@ -30,8 +28,7 @@ const FeaturedInSection = () => (
             key={logo.name}
             src={logo.src}
             alt={logo.name}
-            className="h-4 md:h-5 w-auto object-contain opacity-35 grayscale brightness-200"
-            style={{ mixBlendMode: "screen" }}
+            className="h-4 md:h-5 w-auto object-contain opacity-50 grayscale"
             loading="lazy"
           />
         ))}
