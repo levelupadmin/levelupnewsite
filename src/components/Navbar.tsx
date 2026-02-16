@@ -86,7 +86,7 @@ const Navbar = () => {
   // Determine grid columns based on number of items
   const activeItems = activeIndex !== null ? links[activeIndex].items : [];
   const activeFormatBadge = activeIndex !== null ? (links[activeIndex] as NavLink).formatBadge : undefined;
-  const gridCols = "grid-cols-3";
+  const gridCols = activeItems.length > 4 ? "grid-cols-4" : "grid-cols-3";
 
   return (
     <>
@@ -256,7 +256,7 @@ const Navbar = () => {
 
                       {/* Course/item cards */}
                       <div className={`grid ${gridCols} gap-3`}>
-                        {(activeIndex === 0 ? activeItems.slice(0, 3) : activeItems).map((item, i) => (
+                        {activeItems.map((item, i) => (
                           <m.a
                             key={item.title}
                             href={item.href}
@@ -275,15 +275,21 @@ const Navbar = () => {
                               "--card-accent-bg": activeAccent.replace(")", " / 0.1)").replace("hsl(", "hsl("),
                             } as React.CSSProperties}
                           >
-                            <div className="aspect-[3/2] overflow-hidden">
-                              <img
-                                src={item.image}
-                                alt={item.title}
-                                className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                                style={{ objectPosition: item.objectPosition || "top" }}
-                                loading="lazy"
-                                decoding="async"
-                              />
+                            <div className="aspect-[3/2] overflow-hidden bg-white/5">
+                              {item.image ? (
+                                <img
+                                  src={item.image}
+                                  alt={item.title}
+                                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                                  style={{ objectPosition: item.objectPosition || "top" }}
+                                  loading="lazy"
+                                  decoding="async"
+                                />
+                              ) : (
+                                <div className="w-full h-full flex items-center justify-center">
+                                  <span className="font-sans-body text-[10px] uppercase tracking-wider text-muted-foreground/50">Coming Soon</span>
+                                </div>
+                              )}
                             </div>
                             <div className="px-2.5 py-2">
                               <p className="nav-card-title font-sans-body text-xs font-medium text-foreground leading-snug transition-colors duration-200 truncate">
@@ -310,19 +316,6 @@ const Navbar = () => {
                         ))}
                       </div>
 
-                      {/* "See all" link for Masterclasses */}
-                      {activeIndex === 0 && (
-                        <div className="mt-3 text-center">
-                          <a
-                            href="#masterclasses"
-                            onClick={() => setActiveIndex(null)}
-                            className="font-sans-body text-xs transition-colors duration-200 hover:opacity-80"
-                            style={{ color: activeAccent }}
-                          >
-                            See all masterclasses →
-                          </a>
-                        </div>
-                      )}
                     </m.div>
                   </AnimatePresence>
                 </div>
