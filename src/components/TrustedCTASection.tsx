@@ -33,11 +33,6 @@ const teachers = [
   },
 ];
 
-const stats = [
-  { value: "9,000+", label: "Learners" },
-  { value: "821", label: "Cities" },
-  { value: "4.86/5", label: "Rating" },
-];
 
 const TrustedCTASection = () => {
   return (
@@ -67,35 +62,16 @@ const TrustedCTASection = () => {
           ))}
         </div>
 
-        {/* Badge */}
-        <span className="text-xs md:text-sm font-sans-body uppercase tracking-[0.15em] text-muted-foreground">
-          India's Creative Career Infrastructure
-        </span>
-
         {/* Headline */}
         <h2 className="font-serif-display text-2xl md:text-4xl lg:text-5xl text-hero-headline leading-tight">
-          The most intentional way to{" "}
-          <em className="text-gradient-amber not-italic">learn the craft.</em>
+          Trusted by{" "}
+          <em className="text-gradient-amber not-italic">India's best</em>
         </h2>
 
         {/* Subline */}
         <p className="font-sans-body text-hero-subtext text-sm md:text-base max-w-xl leading-relaxed">
-          From first shot to first paycheck — and beyond. Join 9,000+ creators
-          across 821 cities who chose to take their craft seriously.
+          It's time for you to take the leap.
         </p>
-
-        {/* Stats */}
-        <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-muted-foreground text-xs md:text-sm font-sans-body">
-          {stats.map((stat, i) => (
-            <span key={stat.label} className="flex items-center gap-1.5">
-              <span className="text-cue-value font-semibold">{stat.value}</span>
-              <span className="text-cue">{stat.label}</span>
-              {i < stats.length - 1 && (
-                <span className="ml-3 md:ml-5 w-1 h-1 rounded-full bg-border" />
-              )}
-            </span>
-          ))}
-        </div>
 
         {/* CTA */}
         <a href="#masterclasses">
