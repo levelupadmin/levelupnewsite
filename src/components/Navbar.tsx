@@ -13,7 +13,7 @@ const navLabels = [
   { label: "Masterclasses", href: "https://www.leveluplearning.in/#masterclasses" },
   { label: "LevelUp Live", href: "https://www.leveluplearning.live" },
   { label: "The Forge", href: "#forge" },
-  { label: "About", href: "https://www.leveluplearning.in/contact-us" },
+  { label: "About", href: "/about" },
 ];
 
 const Navbar = () => {
