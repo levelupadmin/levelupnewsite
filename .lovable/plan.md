@@ -1,28 +1,50 @@
 
 
-## Update Pre-Footer CTA Section
+## Revamp: "The Most Intentional Way to Learn the Craft" Section
 
-The `TrustedCTASection` component already exists with teacher avatars and styling, but needs two changes:
+The current "Trusted by India's best" section works but feels generic and light. Using insights from the investor deck, here's a stronger, more emotionally resonant version that positions LevelUp as creative career infrastructure -- not just another course platform.
 
-### 1. Update the copy
+### Copy Direction
 
-Replace the current text with the requested copy:
-- **Headline:** "Trusted by India's best"
-- **Subline:** "It's time for you to take the leap."
-- Remove the "India's Creative Career Infrastructure" badge and the stats row to keep the section focused and emotionally driven (aligned with the brand's tone of not leading with statistics)
+Three options to consider (all aligned with the brand voice -- emotional, grounded, not salesy):
 
-### 2. Add the section to the page
+**Option A (Recommended): Identity-driven close**
+- Headline: "The most intentional way to *learn the craft.*"
+- Subline: "From first shot to first paycheck -- and beyond."
+- CTA: "Start Your Journey"
 
-The component is imported in `Index.tsx` but never rendered. It needs to be placed between `FAQSection` and `Footer`.
+**Option B: Aspiration-driven close**
+- Headline: "Built for creators who *take it seriously.*"
+- Subline: "Not tutorials. Not shortcuts. A real path forward."
+- CTA: "Explore Programs"
 
-### Technical Details
+**Option C: Community-driven close**
+- Headline: "9,000 creators didn't wait. *Neither should you.*"
+- Subline: "Across 821 cities, they chose to invest in their craft."
+- CTA: "Join Them"
+
+### Visual Layout (applies to all options)
+
+The section will be more visually rich than the current version:
+
+1. **Teacher portrait row** -- keep the 7 overlapping circular avatars (already working well), but increase size slightly on desktop (w-16 to w-20) for more presence
+2. **Journey keywords** -- a subtle horizontal line of text chips below the headline showing the breadth of the ecosystem: "Filmmaking / Photography / Editing / Music / Writing / Design" in muted text, separated by dots or slashes
+3. **Single understated proof line** -- one line like "9,000+ learners across 821 cities" in small muted text, positioned just above the CTA (not as badges -- just a quiet confidence line)
+4. **Refined CTA** -- slightly larger button with the sweep + glow effects already in use
+
+### What Changes
 
 **File: `src/components/TrustedCTASection.tsx`**
-- Change the headline from "The most intentional way to learn the craft." to "Trusted by India's best"
-- Change the subline to "It's time for you to take the leap."
-- Remove the badge text and stats row for a cleaner, more emotional close
-- Keep the teacher avatar row, amber accent line, radial glow, and CTA button as-is
+- Replace headline and subline with the chosen copy direction
+- Add a row of discipline keywords (Filmmaking, Photography, etc.) styled as subtle muted text with separators
+- Add a single understated social proof line above the CTA
+- Increase avatar size on desktop from w-16/h-16 to w-20/h-20 for more visual weight
+- Increase section padding to py-16 md:py-24 for more breathing room (this is the closing section, it deserves gravitas)
 
-**File: `src/pages/Index.tsx`**
-- Add `<TrustedCTASection />` between `<FAQSection />` and `<Footer />` in the render order
+No new files or page-level changes needed -- the component is already rendered in `Index.tsx` between FAQ and Footer.
+
+### Responsive Behavior
+
+- Desktop: Avatars at w-20/h-20, headline at text-5xl, disciplines inline with dot separators
+- Mobile: Avatars at w-12/h-12, headline at text-2xl, disciplines wrap naturally, proof line stays single-line
 
