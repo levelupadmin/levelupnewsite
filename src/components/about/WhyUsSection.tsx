@@ -51,7 +51,7 @@ const WhyUsSection = () => (
             key={p.title}
             {...fadeUp}
             transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
-            className="rounded-sm bg-card p-6 md:p-8 flex flex-col gap-4 shadow-cinematic"
+            className="rounded-xl bg-card p-6 md:p-8 flex flex-col gap-4 shadow-cinematic"
           >
             <p.icon className="w-6 h-6 text-primary" />
             <h3 className="font-serif-display text-lg text-foreground">{p.title}</h3>
