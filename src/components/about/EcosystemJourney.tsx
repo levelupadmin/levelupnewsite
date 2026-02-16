@@ -1,6 +1,5 @@
 import { m } from "framer-motion";
 import { Compass, Star, GraduationCap, Flame } from "lucide-react";
-import ConcentricRings from "./ConcentricRings";
 
 import liveProgram1 from "@/assets/live-program-1.jpg";
 import masterclass2 from "@/assets/masterclass-2.jpg";
@@ -51,7 +50,6 @@ const fadeUp = {
 const EcosystemJourney = () => (
   <section className="py-12 md:py-16 px-6 md:px-12 bg-background relative overflow-hidden">
     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-[2px] bg-gradient-to-r from-transparent via-border to-transparent" />
-    <ConcentricRings className="-bottom-16 -left-20 opacity-60" size={450} count={6} />
 
     <div className="relative max-w-7xl mx-auto">
       <m.p
@@ -76,37 +74,41 @@ const EcosystemJourney = () => (
         Four layers that take you from curiosity to career.
       </m.p>
 
-      {/* Timeline */}
-      <div className="relative grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-5">
-        {/* Horizontal gradient connector — desktop */}
-        <div className="hidden md:block absolute top-[60px] left-[12.5%] right-[12.5%] h-1 rounded-full bg-gradient-to-r from-primary via-primary/50 to-transparent" />
-
-        {/* Vertical dotted connector — mobile */}
-        <div className="md:hidden absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px border-l-2 border-dashed border-primary/20" />
-
+      {/* Storyboard cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
         {layers.map((layer, i) => (
           <m.div
             key={layer.title}
             {...fadeUp}
             transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
-            className="relative flex flex-col items-center text-center gap-3"
+            className="rounded-xl overflow-hidden bg-card shadow-cinematic group"
           >
-            {/* Photo thumbnail */}
-            <div className="relative z-10 w-[120px] h-[120px] rounded-xl overflow-hidden shadow-cinematic ring-4 ring-primary/20 mb-2">
-              <img src={layer.image} alt={layer.title} className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-                <layer.icon className="w-4 h-4 text-primary-foreground" />
+            {/* Large image top half */}
+            <div className="relative aspect-[4/3] overflow-hidden">
+              <img
+                src={layer.image}
+                alt={layer.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute bottom-3 left-3 flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                  <layer.icon className="w-4 h-4 text-primary-foreground" />
+                </div>
+                <span className="font-sans-body text-[10px] uppercase tracking-widest text-white/80">
+                  Step {layer.step}
+                </span>
               </div>
             </div>
-            <span className="font-sans-body text-[10px] uppercase tracking-widest text-primary">
-              {layer.step}
-            </span>
-            <h3 className="font-serif-display text-base md:text-lg text-foreground">{layer.title}</h3>
-            <p className="font-sans-body text-xs text-primary/70">{layer.subtitle}</p>
-            <p className="font-sans-body text-sm text-muted-foreground leading-relaxed max-w-[240px]">
-              {layer.description}
-            </p>
+            {/* Text bottom half */}
+            <div className="p-4 flex flex-col gap-1.5">
+              <h3 className="font-serif-display text-base text-foreground">{layer.title}</h3>
+              <p className="font-sans-body text-xs text-primary/70">{layer.subtitle}</p>
+              <p className="font-sans-body text-sm text-muted-foreground leading-relaxed">
+                {layer.description}
+              </p>
+            </div>
           </m.div>
         ))}
       </div>

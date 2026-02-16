@@ -1,6 +1,5 @@
 import { m } from "framer-motion";
 import { BookX, ShieldX, Users } from "lucide-react";
-import ConcentricRings from "./ConcentricRings";
 import heroImg from "@/assets/hero-cinematic.jpg";
 
 const problems = [
@@ -28,58 +27,45 @@ const fadeUp = {
 };
 
 const ProblemSection = () => (
-  <section className="py-12 md:py-16 px-6 md:px-12 bg-background relative overflow-hidden">
-    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-[2px] bg-gradient-to-r from-transparent via-border to-transparent" />
-    <ConcentricRings className="-top-12 -right-16 opacity-70" size={400} count={6} />
+  <section className="relative overflow-hidden">
+    {/* Full-bleed background image */}
+    <div className="absolute inset-0">
+      <img src={heroImg} alt="" className="w-full h-full object-cover" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/85" />
+    </div>
 
-    <div className="relative max-w-7xl mx-auto">
-      <m.p
-        {...fadeUp}
-        transition={{ duration: 0.5 }}
-        className="font-sans-body text-xs md:text-sm uppercase tracking-[0.2em] text-primary text-center mb-3"
-      >
-        The Problem
-      </m.p>
-      <m.h2
-        {...fadeUp}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        className="font-serif-display text-2xl md:text-3xl text-hero-headline text-center mb-10"
-      >
-        A broken system for creative careers
-      </m.h2>
-
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch">
-        {/* Human image — editorial accent */}
-        <m.div
+    <div className="relative py-16 md:py-24 px-6 md:px-12 z-10">
+      <div className="max-w-7xl mx-auto">
+        <m.p
           {...fadeUp}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="hidden md:block md:col-span-4 rounded-xl overflow-hidden shadow-cinematic"
+          transition={{ duration: 0.5 }}
+          className="font-sans-body text-xs md:text-sm uppercase tracking-[0.2em] text-primary text-center mb-3"
         >
-          <img
-            src={heroImg}
-            alt="Young creator at work"
-            className="w-full h-full object-cover"
-          />
-        </m.div>
+          The Problem
+        </m.p>
+        <m.h2
+          {...fadeUp}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="font-serif-display text-2xl md:text-3xl text-white text-center mb-12"
+        >
+          A broken system for creative careers
+        </m.h2>
 
-        {/* Problem cards */}
-        <div className="md:col-span-8 flex flex-col gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto">
           {problems.map((p, i) => (
             <m.div
               key={p.title}
               {...fadeUp}
               transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
-              className="rounded-xl bg-card p-5 md:p-6 flex items-start gap-4 shadow-cinematic border-l-4 border-primary"
+              className="rounded-xl bg-white/10 backdrop-blur-md border border-white/10 p-6 flex flex-col items-start gap-4"
             >
-              <div className="w-11 h-11 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+              <div className="w-11 h-11 rounded-full bg-primary/20 flex items-center justify-center">
                 <p.icon className="w-5 h-5 text-primary" />
               </div>
-              <div>
-                <h3 className="font-serif-display text-base text-foreground mb-1">{p.title}</h3>
-                <p className="font-sans-body text-sm text-muted-foreground leading-relaxed">
-                  {p.description}
-                </p>
-              </div>
+              <h3 className="font-serif-display text-base text-white">{p.title}</h3>
+              <p className="font-sans-body text-sm text-white/70 leading-relaxed">
+                {p.description}
+              </p>
             </m.div>
           ))}
         </div>

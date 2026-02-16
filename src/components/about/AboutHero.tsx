@@ -2,10 +2,54 @@ import { m } from "framer-motion";
 import StarField from "@/components/StarField";
 import ConcentricRings from "./ConcentricRings";
 
+import mc1 from "@/assets/masterclass-1.jpg";
+import mc2 from "@/assets/masterclass-2.jpg";
+import mc3 from "@/assets/masterclass-3.jpg";
+import mc4 from "@/assets/masterclass-4.jpg";
+import mc5 from "@/assets/masterclass-5.jpg";
+import mc6 from "@/assets/masterclass-6.jpg";
+
+const portraits = [
+  { src: mc1, x: "8%", y: "12%", size: 90, delay: 0 },
+  { src: mc2, x: "78%", y: "8%", size: 80, delay: 0.2 },
+  { src: mc3, x: "18%", y: "65%", size: 70, delay: 0.4 },
+  { src: mc4, x: "85%", y: "60%", size: 85, delay: 0.1 },
+  { src: mc5, x: "45%", y: "5%", size: 65, delay: 0.3 },
+  { src: mc6, x: "60%", y: "75%", size: 75, delay: 0.5 },
+];
+
 const AboutHero = () => (
   <section className="relative py-32 md:py-44 px-6 md:px-12 overflow-hidden bg-[hsl(0,0%,5%)]">
     {/* Star field background */}
     <StarField starCount={450} speed={0.2} />
+
+    {/* Floating creator portraits — blurred, low opacity */}
+    <div className="absolute inset-0 z-[1] pointer-events-none">
+      {portraits.map((p, i) => (
+        <m.div
+          key={i}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 0.15, scale: 1 }}
+          transition={{ duration: 1.2, delay: 0.3 + p.delay }}
+          className="absolute rounded-full overflow-hidden"
+          style={{
+            left: p.x,
+            top: p.y,
+            width: p.size,
+            height: p.size,
+            filter: "blur(6px)",
+          }}
+        >
+          <img
+            src={p.src}
+            alt=""
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </m.div>
+      ))}
+    </div>
+
     {/* Concentric rings */}
     <ConcentricRings className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-60" size={900} count={10} />
     {/* Stronger amber glow */}

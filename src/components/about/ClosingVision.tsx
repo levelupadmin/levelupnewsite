@@ -2,6 +2,7 @@ import { m } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import heroCinematic from "@/assets/hero-cinematic.jpg";
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
@@ -10,8 +11,15 @@ const fadeUp = {
 };
 
 const ClosingVision = () => (
-  <section className="py-16 md:py-24 px-6 md:px-12 bg-gradient-to-br from-primary to-[hsl(24,95%,40%)] relative">
-    <div className="relative max-w-3xl mx-auto text-center flex flex-col items-center gap-6">
+  <section className="relative py-16 md:py-24 px-6 md:px-12 overflow-hidden">
+    {/* Textured background: cinematic image + orange overlay blend */}
+    <div className="absolute inset-0">
+      <img src={heroCinematic} alt="" className="w-full h-full object-cover" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-[hsl(24,95%,40%,0.92)] mix-blend-multiply" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/80 to-[hsl(24,95%,40%,0.85)]" />
+    </div>
+
+    <div className="relative max-w-3xl mx-auto text-center flex flex-col items-center gap-6 z-10">
       <m.blockquote
         {...fadeUp}
         transition={{ duration: 0.6 }}

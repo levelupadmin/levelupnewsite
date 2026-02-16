@@ -13,7 +13,7 @@ const pressLogos = [
 
 const FeaturedInSection = () => (
   <section className="py-12 md:py-16 px-6 md:px-12 bg-background">
-    <div className="max-w-7xl mx-auto flex flex-col items-center gap-6">
+    <div className="max-w-7xl mx-auto flex flex-col items-center gap-8">
       <m.p
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -22,13 +22,13 @@ const FeaturedInSection = () => (
       >
         Featured in
       </m.p>
-      <div className="flex flex-wrap items-center justify-center gap-5 md:gap-8">
+      <div className="rounded-xl bg-card shadow-cinematic px-8 py-6 flex flex-wrap items-center justify-center gap-8 md:gap-12">
         {pressLogos.map((logo) => (
           <img
             key={logo.name}
             src={logo.src}
             alt={logo.name}
-            className="h-4 md:h-5 w-auto object-contain opacity-60"
+            className="h-7 md:h-8 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity duration-300"
             loading="lazy"
           />
         ))}
