@@ -35,19 +35,26 @@ const OpportunityStats = () => (
       </m.h2>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-        {stats.map((s, i) => (
-          <m.div
-            key={s.label}
-            {...fadeUp}
-            transition={{ duration: 0.5, delay: 0.15 + i * 0.08 }}
-            className="rounded-sm border border-border bg-card p-5 flex flex-col gap-2"
-          >
-            <span className="font-serif-display text-2xl md:text-3xl text-gradient-amber">{s.value}</span>
-            <p className="font-sans-body text-sm text-foreground leading-snug">{s.label}</p>
-            <p className="font-sans-body text-xs text-muted-foreground">{s.note}</p>
-            <p className="font-sans-body text-[10px] text-muted-foreground/50 mt-auto">Source: {s.source}</p>
-          </m.div>
-        ))}
+        {stats.map((s, i) => {
+          const isHighlight = i === 0 || i === 2;
+          return (
+            <m.div
+              key={s.label}
+              {...fadeUp}
+              transition={{ duration: 0.5, delay: 0.15 + i * 0.08 }}
+              className={`rounded-sm p-5 flex flex-col gap-2 shadow-cinematic ${
+                isHighlight
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-card border border-border"
+              }`}
+            >
+              <span className={`font-serif-display text-2xl md:text-3xl ${isHighlight ? "" : "text-gradient-amber"}`}>{s.value}</span>
+              <p className={`font-sans-body text-sm leading-snug ${isHighlight ? "text-primary-foreground/90" : "text-foreground"}`}>{s.label}</p>
+              <p className={`font-sans-body text-xs ${isHighlight ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{s.note}</p>
+              <p className={`font-sans-body text-[10px] mt-auto ${isHighlight ? "text-primary-foreground/50" : "text-muted-foreground/50"}`}>Source: {s.source}</p>
+            </m.div>
+          );
+        })}
       </div>
     </div>
   </section>

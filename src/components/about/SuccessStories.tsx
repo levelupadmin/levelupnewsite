@@ -60,7 +60,7 @@ const SuccessStories = () => (
             key={s.name}
             {...fadeUp}
             transition={{ duration: 0.5, delay: 0.15 + i * 0.08 }}
-            className="rounded-sm border border-border bg-card p-6 flex flex-col gap-4"
+            className="rounded-sm bg-card p-6 flex flex-col gap-4 shadow-cinematic"
           >
             <p className="font-sans-body text-sm text-muted-foreground italic leading-relaxed">
               "{s.quote}"

@@ -66,38 +66,38 @@
 
   /* Warm earthy theme — scoped to About page */
   .theme-warm {
-    --background: 40 30% 95%;
-    --foreground: 30 15% 15%;
+    --background: 20 20% 97%;
+    --foreground: 0 0% 8%;
 
-    --card: 40 25% 97%;
-    --card-foreground: 30 15% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 8%;
 
-    --popover: 40 25% 97%;
-    --popover-foreground: 30 15% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 8%;
 
-    --primary: 24 80% 45%;
-    --primary-foreground: 40 30% 97%;
+    --primary: 24 95% 53%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 35 15% 90%;
-    --secondary-foreground: 30 10% 35%;
+    --secondary: 20 10% 93%;
+    --secondary-foreground: 0 0% 25%;
 
-    --muted: 35 15% 90%;
-    --muted-foreground: 30 8% 45%;
+    --muted: 20 10% 93%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 24 80% 45%;
-    --accent-foreground: 40 30% 97%;
+    --accent: 24 95% 53%;
+    --accent-foreground: 0 0% 100%;
 
-    --border: 35 12% 85%;
-    --input: 35 12% 85%;
-    --ring: 24 80% 45%;
+    --border: 20 5% 90%;
+    --input: 20 5% 90%;
+    --ring: 24 95% 53%;
 
-    --hero-headline: 30 15% 12%;
-    --hero-subtext: 30 8% 40%;
-    --cue-text: 30 6% 50%;
-    --cue-value: 30 12% 25%;
-    --gradient-amber-glow: radial-gradient(ellipse at 50% 0%, hsl(30 60% 50% / 0.06) 0%, transparent 60%);
-    --gradient-amber-gold: linear-gradient(135deg, hsl(24 80% 45%) 0%, hsl(30 70% 55%) 50%, hsl(20 75% 40%) 100%);
-    --shadow-cinematic: 0 20px 60px -15px hsl(30 20% 30% / 0.08);
+    --hero-headline: 0 0% 5%;
+    --hero-subtext: 0 0% 35%;
+    --cue-text: 0 0% 50%;
+    --cue-value: 0 0% 15%;
+    --gradient-amber-glow: radial-gradient(ellipse at 50% 0%, hsl(24 95% 53% / 0.06) 0%, transparent 60%);
+    --gradient-amber-gold: linear-gradient(135deg, hsl(24 95% 53%) 0%, hsl(30 90% 60%) 50%, hsl(20 85% 48%) 100%);
+    --shadow-cinematic: 0 4px 20px -4px hsl(0 0% 0% / 0.06);
   }
 }
 

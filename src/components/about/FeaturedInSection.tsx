@@ -28,7 +28,7 @@ const FeaturedInSection = () => (
             key={logo.name}
             src={logo.src}
             alt={logo.name}
-            className="h-4 md:h-5 w-auto object-contain opacity-50 grayscale"
+            className="h-4 md:h-5 w-auto object-contain opacity-60"
             loading="lazy"
           />
         ))}
