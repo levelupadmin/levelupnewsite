@@ -2,6 +2,20 @@ import allMastersImg from "@/assets/all-masters.png";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
+import outlookLogo from "@/assets/press/outlook-india.png";
+import quintLogo from "@/assets/press/the-quint.png";
+import htLogo from "@/assets/press/hindustan-times.svg";
+import yourstoryLogo from "@/assets/press/yourstory.png";
+import abnLogo from "@/assets/press/abn-telugu.png";
+
+const pressLogos = [
+  { name: "Outlook India", src: outlookLogo },
+  { name: "The Quint", src: quintLogo },
+  { name: "Hindustan Times", src: htLogo },
+  { name: "YourStory", src: yourstoryLogo },
+  { name: "ABN", src: abnLogo },
+];
+
 const disciplines = [
   "Filmmaking", "Photography", "Editing", "Music", "Writing", "Design"
 ];
@@ -52,6 +66,25 @@ const TrustedCTASection = () => {
         <p className="font-sans-body text-hero-subtext text-sm md:text-base max-w-xl leading-relaxed">
           From first shot to first paycheck — and beyond.
         </p>
+
+        {/* Featured in - press logos */}
+        <div className="flex flex-col items-center gap-4 w-full">
+          <p className="text-xs md:text-sm text-muted-foreground/60 uppercase tracking-widest">
+            Featured in
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+            {pressLogos.map((logo) => (
+              <img
+                key={logo.name}
+                src={logo.src}
+                alt={logo.name}
+                className="h-5 md:h-7 w-auto object-contain opacity-50 grayscale brightness-150"
+                style={{ mixBlendMode: "screen" }}
+                loading="lazy"
+              />
+            ))}
+          </div>
+        </div>
 
         {/* Social proof */}
         <p className="text-xs md:text-sm text-muted-foreground">
