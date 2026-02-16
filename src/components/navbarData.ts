@@ -139,7 +139,7 @@ export const navLinks: NavLink[] = [
   },
   {
     label: "About",
-    href: "https://www.leveluplearning.in/contact-us",
+    href: "/about",
     description: "",
     items: [],
   },
