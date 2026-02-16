@@ -9,6 +9,7 @@ import SuccessStories from "@/components/about/SuccessStories";
 import WhyUsSection from "@/components/about/WhyUsSection";
 import ClosingVision from "@/components/about/ClosingVision";
 import FeaturedInSection from "@/components/about/FeaturedInSection";
+import ManifestoSection from "@/components/about/ManifestoSection";
 
 const About = () => (
   <div className="min-h-screen bg-background theme-warm">
@@ -19,6 +20,7 @@ const About = () => (
       <OpportunityStats />
       <EcosystemJourney />
       <ImpactNumbers />
+      <ManifestoSection />
       <SuccessStories />
       <WhyUsSection />
       <ClosingVision />
