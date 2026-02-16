@@ -8,7 +8,7 @@ const disciplines = [
 
 const TrustedCTASection = () => {
   return (
-    <section className="relative py-16 md:py-24 px-6 md:px-12 overflow-hidden">
+    <section className="relative py-16 md:py-24 px-6 md:px-12 overflow-hidden bg-background">
       {/* Amber accent line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent" />
 
