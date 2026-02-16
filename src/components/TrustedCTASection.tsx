@@ -34,9 +34,13 @@ const teachers = [
 ];
 
 
+const disciplines = [
+  "Filmmaking", "Photography", "Editing", "Music", "Writing", "Design"
+];
+
 const TrustedCTASection = () => {
   return (
-    <section className="relative py-12 md:py-16 px-6 md:px-12 overflow-hidden">
+    <section className="relative py-16 md:py-24 px-6 md:px-12 overflow-hidden">
       {/* Amber accent line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent" />
 
@@ -49,7 +53,7 @@ const TrustedCTASection = () => {
           {teachers.map((teacher, i) => (
             <div
               key={teacher.name}
-              className="relative w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-background ring-1 ring-border"
+              className="relative w-12 h-12 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-background ring-1 ring-border"
               style={{ marginLeft: i === 0 ? 0 : "-0.5rem", zIndex: teachers.length - i }}
             >
               <img
@@ -64,13 +68,30 @@ const TrustedCTASection = () => {
 
         {/* Headline */}
         <h2 className="font-serif-display text-2xl md:text-4xl lg:text-5xl text-hero-headline leading-tight">
-          Trusted by{" "}
-          <em className="text-gradient-amber not-italic">India's best</em>
+          The most intentional way to{" "}
+          <em className="text-gradient-amber not-italic">learn the craft.</em>
         </h2>
+
+        {/* Discipline keywords */}
+        <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
+          {disciplines.map((d, i) => (
+            <span key={d} className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground tracking-wide">
+              {d}
+              {i < disciplines.length - 1 && (
+                <span className="text-muted-foreground/40">·</span>
+              )}
+            </span>
+          ))}
+        </div>
 
         {/* Subline */}
         <p className="font-sans-body text-hero-subtext text-sm md:text-base max-w-xl leading-relaxed">
-          It's time for you to take the leap.
+          From first shot to first paycheck — and beyond.
+        </p>
+
+        {/* Social proof */}
+        <p className="text-xs md:text-sm text-muted-foreground">
+          9,000+ learners across 821 cities
         </p>
 
         {/* CTA */}
@@ -79,7 +100,7 @@ const TrustedCTASection = () => {
             size="lg"
             className="cta-sweep cta-glow rounded-sm gap-2 text-sm font-sans-body"
           >
-            Explore Programs
+            Start Your Journey
             <ArrowRight className="w-4 h-4" />
           </Button>
         </a>
@@ -87,5 +108,4 @@ const TrustedCTASection = () => {
     </section>
   );
 };
-
 export default TrustedCTASection;
