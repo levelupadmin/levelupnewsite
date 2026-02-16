@@ -1,7 +1,13 @@
 import { m } from "framer-motion";
+import heroBg from "@/assets/hero-cinematic.jpg";
 
 const AboutHero = () => (
-  <section className="relative py-24 md:py-36 px-6 md:px-12 overflow-hidden bg-background">
+  <section className="relative py-32 md:py-44 px-6 md:px-12 overflow-hidden">
+    {/* Background image with warm overlay */}
+    <div className="absolute inset-0">
+      <img src={heroBg} alt="" className="w-full h-full object-cover" />
+      <div className="absolute inset-0 bg-background/80" />
+    </div>
     {/* Radial amber glow */}
     <div className="absolute inset-0 bg-gradient-amber-glow pointer-events-none" />
 

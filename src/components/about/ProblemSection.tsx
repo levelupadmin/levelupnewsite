@@ -51,9 +51,11 @@ const ProblemSection = () => (
             key={p.title}
             {...fadeUp}
             transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
-            className="rounded-xl bg-card p-6 md:p-8 flex flex-col gap-4 shadow-cinematic"
+            className="rounded-xl bg-card p-6 md:p-8 flex flex-col gap-4 shadow-cinematic border-l-4 border-primary"
           >
-            <p.icon className="w-6 h-6 text-primary" />
+            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+              <p.icon className="w-6 h-6 text-primary" />
+            </div>
             <h3 className="font-serif-display text-lg text-foreground">{p.title}</h3>
             <p className="font-sans-body text-sm text-muted-foreground leading-relaxed">
               {p.description}

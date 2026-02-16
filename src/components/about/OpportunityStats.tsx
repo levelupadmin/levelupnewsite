@@ -14,9 +14,8 @@ const fadeUp = {
 };
 
 const OpportunityStats = () => (
-  <section className="py-12 md:py-16 px-6 md:px-12 bg-background relative">
-    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-[2px] bg-gradient-to-r from-transparent via-border to-transparent" />
-    <div className="absolute inset-0 bg-gradient-amber-glow pointer-events-none" />
+  <section className="py-12 md:py-16 px-6 md:px-12 bg-[hsl(24,40%,96%)] relative">
+    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
 
     <div className="relative max-w-7xl mx-auto">
       <m.p

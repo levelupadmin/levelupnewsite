@@ -17,15 +17,12 @@ const fadeUp = {
 };
 
 const ImpactNumbers = () => (
-  <section className="py-12 md:py-16 px-6 md:px-12 bg-background relative">
-    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-[2px] bg-gradient-to-r from-transparent via-border to-transparent" />
-    <div className="absolute inset-0 bg-gradient-amber-glow pointer-events-none" />
-
+  <section className="py-14 md:py-20 px-6 md:px-12 bg-primary relative">
     <div className="relative max-w-7xl mx-auto">
       <m.p
         {...fadeUp}
         transition={{ duration: 0.5 }}
-        className="font-sans-body text-xs md:text-sm uppercase tracking-[0.2em] text-primary text-center mb-10"
+        className="font-sans-body text-xs md:text-sm uppercase tracking-[0.2em] text-primary-foreground/70 text-center mb-10"
       >
         Our Impact
       </m.p>
@@ -38,10 +35,10 @@ const ImpactNumbers = () => (
             transition={{ duration: 0.5, delay: 0.1 + i * 0.06 }}
             className="flex flex-col items-center text-center gap-1"
           >
-            <span className="font-serif-display text-2xl md:text-3xl text-gradient-amber">
+            <span className="font-serif-display text-4xl md:text-5xl text-primary-foreground">
               <AnimatedCounter target={s.target} suffix={s.suffix} hasComma={s.hasComma} decimals={s.decimals} />
             </span>
-            <span className="font-sans-body text-xs text-muted-foreground">{s.label}</span>
+            <span className="font-sans-body text-xs text-primary-foreground/60">{s.label}</span>
           </m.div>
         ))}
       </div>
