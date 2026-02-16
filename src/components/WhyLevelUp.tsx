@@ -88,7 +88,7 @@ const WhyLevelUp = () => {
                 className="cursor-pointer"
                 style={{
                   flex: isMobile ? undefined : flexValue,
-                  transition: "flex 400ms ease-in-out",
+                  transition: "flex 500ms cubic-bezier(0.4, 0, 0.2, 1), min-height 500ms cubic-bezier(0.4, 0, 0.2, 1)",
                   minHeight: isMobile
                     ? isExpanded ? 420 : isCompressed ? 56 : 360
                     : 440,
@@ -108,8 +108,15 @@ const WhyLevelUp = () => {
                   }}
                 >
                   {/* COMPRESSED STATE (desktop only) */}
-                  {!isMobile && isCompressed && (
-                    <div className="flex items-center justify-center h-full relative">
+                  {!isMobile && (
+                    <div
+                      className="absolute inset-0 flex items-center justify-center"
+                      style={{
+                        opacity: isCompressed ? 1 : 0,
+                        transition: "opacity 350ms cubic-bezier(0.4, 0, 0.2, 1)",
+                        pointerEvents: isCompressed ? "auto" : "none",
+                      }}
+                    >
                       <div className="absolute left-0 top-[15%] bottom-[15%] w-[2px] bg-primary/40 rounded-full" />
                       <span
                         className="font-serif-display text-lg font-medium text-foreground/70 tracking-wide"
@@ -121,8 +128,15 @@ const WhyLevelUp = () => {
                   )}
 
                   {/* COMPRESSED STATE (mobile) */}
-                  {isMobile && isCompressed && (
-                    <div className="flex items-center h-full px-5 py-4 gap-3">
+                  {isMobile && (
+                    <div
+                      className="absolute inset-0 flex items-center px-5 py-4 gap-3"
+                      style={{
+                        opacity: isCompressed ? 1 : 0,
+                        transition: "opacity 350ms cubic-bezier(0.4, 0, 0.2, 1)",
+                        pointerEvents: isCompressed ? "auto" : "none",
+                      }}
+                    >
                       <div className="w-[2px] h-6 bg-primary/40 rounded-full shrink-0" />
                       <span className="font-serif-display text-base font-medium text-foreground/70">
                         {feature.title}
@@ -131,67 +145,73 @@ const WhyLevelUp = () => {
                   )}
 
                   {/* DEFAULT STATE - title + illustration */}
-                  {!isCompressed && !isExpanded && (
-                    <div className="flex flex-col h-full p-7 md:p-10">
-                      <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-5">
+                  <div
+                    className="absolute inset-0 flex flex-col p-7 md:p-10"
+                    style={{
+                      opacity: !isCompressed && !isExpanded ? 1 : 0,
+                      transition: "opacity 350ms cubic-bezier(0.4, 0, 0.2, 1)",
+                      pointerEvents: !isCompressed && !isExpanded ? "auto" : "none",
+                    }}
+                  >
+                    <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-5">
+                      {feature.title}
+                    </h3>
+                    <div className="flex-1 min-h-0">
+                      <Illustration />
+                    </div>
+                  </div>
+
+                  {/* EXPANDED STATE */}
+                  <div
+                    className={`absolute inset-0 flex ${isMobile ? "flex-col" : "flex-row"}`}
+                    style={{
+                      opacity: isExpanded ? 1 : 0,
+                      transition: "opacity 350ms cubic-bezier(0.4, 0, 0.2, 1) 100ms",
+                      pointerEvents: isExpanded ? "auto" : "none",
+                    }}
+                  >
+                    {/* Left: illustration */}
+                    <div className={`${isMobile ? "h-[180px]" : "w-[40%]"} p-6 flex flex-col shrink-0`}>
+                      <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-4">
                         {feature.title}
                       </h3>
                       <div className="flex-1 min-h-0">
                         <Illustration />
                       </div>
                     </div>
-                  )}
 
-                  {/* EXPANDED STATE */}
-                  {isExpanded && (
-                    <div className={`flex h-full ${isMobile ? "flex-col" : "flex-row"}`}>
-                      {/* Left: illustration */}
-                      <div className={`${isMobile ? "h-[180px]" : "w-[40%]"} p-6 flex flex-col shrink-0`}>
-                        <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-4">
-                          {feature.title}
-                        </h3>
-                        <div className="flex-1 min-h-0">
-                          <Illustration />
+                    {/* Right: details */}
+                    <div
+                      className={`${isMobile ? "" : "w-[60%] border-l border-primary/15"} p-6 md:p-8 flex flex-col justify-between`}
+                    >
+                      <div>
+                        <p className="font-sans-body text-sm text-muted-foreground leading-relaxed">
+                          {feature.expandedDescription}
+                        </p>
+                        <div className="space-y-2 mt-5">
+                          {feature.bullets.map((bullet, i) => (
+                            <div key={i} className="flex items-start gap-2.5">
+                              <span className="w-2 h-2 rounded-full bg-primary mt-1.5 shrink-0" />
+                              <span className="font-sans-body text-sm text-foreground/80">
+                                {bullet}
+                              </span>
+                            </div>
+                          ))}
                         </div>
                       </div>
 
-                      {/* Right: details */}
-                      <div
-                        className={`${isMobile ? "" : "w-[60%] border-l border-primary/15"} p-6 md:p-8 flex flex-col justify-between`}
-                        style={{
-                          opacity: isExpanded ? 1 : 0,
-                          transition: "opacity 300ms ease-in-out 150ms",
-                        }}
-                      >
-                        <div>
-                          <p className="font-sans-body text-sm text-muted-foreground leading-relaxed">
-                            {feature.expandedDescription}
-                          </p>
-                          <div className="space-y-2 mt-5">
-                            {feature.bullets.map((bullet, i) => (
-                              <div key={i} className="flex items-start gap-2.5">
-                                <span className="w-2 h-2 rounded-full bg-primary mt-1.5 shrink-0" />
-                                <span className="font-sans-body text-sm text-foreground/80">
-                                  {bullet}
-                                </span>
-                              </div>
-                            ))}
-                          </div>
+                      {feature.stat && (
+                        <div className="mt-auto pt-6">
+                          <span className="font-serif-display text-4xl font-bold text-gradient-amber">
+                            {feature.stat}
+                          </span>
+                          <span className="font-sans-body text-xs text-muted-foreground tracking-wider ml-2 uppercase">
+                            {feature.statLabel}
+                          </span>
                         </div>
-
-                        {feature.stat && (
-                          <div className="mt-auto pt-6">
-                            <span className="font-serif-display text-4xl font-bold text-gradient-amber">
-                              {feature.stat}
-                            </span>
-                            <span className="font-sans-body text-xs text-muted-foreground tracking-wider ml-2 uppercase">
-                              {feature.statLabel}
-                            </span>
-                          </div>
-                        )}
-                      </div>
+                      )}
                     </div>
-                  )}
+                  </div>
                 </div>
               </div>
             );
