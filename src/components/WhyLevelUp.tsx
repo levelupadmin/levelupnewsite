@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import ExpertMembershipCard from "./why-levelup/ExpertMembershipCard";
 import LiveProjectsCard from "./why-levelup/LiveProjectsCard";
 import CommunityCard from "./why-levelup/CommunityCard";
@@ -46,7 +47,8 @@ const features = [
 ];
 
 const WhyLevelUp = () => {
-  const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const isMobile = useIsMobile();
 
   return (
     <section
@@ -60,7 +62,6 @@ const WhyLevelUp = () => {
             The most intentional way to learn{" "}
             <span className="text-gradient-amber">the craft.</span>
           </h2>
-
           <p className="font-sans-body text-sm md:text-base text-hero-subtext leading-relaxed max-w-sm md:pb-2">
             We changed how creators learn. Build real skills with mentors who
             built careers — not PowerPoint decks.
@@ -70,33 +71,67 @@ const WhyLevelUp = () => {
 
       {/* Feature Cards */}
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+        <div className={`flex ${isMobile ? "flex-col gap-4" : "flex-row gap-5"}`}>
           {features.map((feature, index) => {
-            const isFlipped = flippedIndex === index;
+            const isExpanded = expandedIndex === index;
+            const isCompressed = expandedIndex !== null && expandedIndex !== index;
             const Illustration = feature.illustration;
+
+            // Determine flex value
+            let flexValue = 1;
+            if (!isMobile && isExpanded) flexValue = 3.7;
+            if (!isMobile && isCompressed) flexValue = 1;
 
             return (
               <div
                 key={index}
-                className="cursor-pointer group h-[360px] md:h-[440px]"
-                style={{ perspective: 1200 }}
-                onClick={() => setFlippedIndex(isFlipped ? null : index)}
+                className="cursor-pointer"
+                style={{
+                  flex: isMobile ? undefined : flexValue,
+                  transition: "flex 400ms ease-in-out",
+                  minHeight: isMobile
+                    ? isExpanded ? 420 : isCompressed ? 56 : 360
+                    : 440,
+                }}
+                onClick={() => setExpandedIndex(isExpanded ? null : index)}
               >
                 <div
-                  className="relative w-full h-full transition-transform duration-700"
+                  className={`relative w-full h-full rounded-2xl overflow-hidden border transition-all duration-500 ${
+                    isExpanded
+                      ? "border-primary/40 shadow-[0_0_30px_4px_hsl(30_80%_45%/0.25)]"
+                      : isCompressed
+                      ? "border-primary/10"
+                      : "border-primary/20 hover:border-primary/40 hover:shadow-[0_0_30px_4px_hsl(30_80%_45%/0.25)]"
+                  }`}
                   style={{
-                    transformStyle: "preserve-3d",
-                    transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+                    background: "linear-gradient(160deg, hsl(30 40% 12%) 0%, hsl(0 0% 4%) 50%, hsl(0 0% 2%) 100%)",
                   }}
                 >
-                  {/* FRONT */}
-                  <div
-                    className="absolute inset-0 rounded-2xl overflow-hidden border border-primary/20 hover:border-primary/40 transition-all duration-500 hover:shadow-[0_0_30px_4px_hsl(30_80%_45%/0.25)]"
-                    style={{
-                      backfaceVisibility: "hidden",
-                      background: "linear-gradient(160deg, hsl(30 40% 12%) 0%, hsl(0 0% 4%) 50%, hsl(0 0% 2%) 100%)",
-                    }}
-                  >
+                  {/* COMPRESSED STATE (desktop only) */}
+                  {!isMobile && isCompressed && (
+                    <div className="flex items-center justify-center h-full relative">
+                      <div className="absolute left-0 top-[15%] bottom-[15%] w-[2px] bg-primary/40 rounded-full" />
+                      <span
+                        className="font-serif-display text-lg font-medium text-foreground/70 tracking-wide"
+                        style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
+                      >
+                        {feature.title}
+                      </span>
+                    </div>
+                  )}
+
+                  {/* COMPRESSED STATE (mobile) */}
+                  {isMobile && isCompressed && (
+                    <div className="flex items-center h-full px-5 py-4 gap-3">
+                      <div className="w-[2px] h-6 bg-primary/40 rounded-full shrink-0" />
+                      <span className="font-serif-display text-base font-medium text-foreground/70">
+                        {feature.title}
+                      </span>
+                    </div>
+                  )}
+
+                  {/* DEFAULT STATE - title + illustration */}
+                  {!isCompressed && !isExpanded && (
                     <div className="flex flex-col h-full p-7 md:p-10">
                       <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-5">
                         {feature.title}
@@ -105,50 +140,58 @@ const WhyLevelUp = () => {
                         <Illustration />
                       </div>
                     </div>
-                  </div>
+                  )}
 
-                  {/* BACK */}
-                  <div
-                    className="absolute inset-0 rounded-2xl overflow-hidden border border-primary/30 shadow-[0_0_30px_4px_hsl(30_80%_45%/0.2)]"
-                    style={{
-                      backfaceVisibility: "hidden",
-                      transform: "rotateY(180deg)",
-                      background: "linear-gradient(160deg, hsl(30 40% 12%) 0%, hsl(0 0% 4%) 50%, hsl(0 0% 2%) 100%)",
-                    }}
-                  >
-                    <div className="flex flex-col justify-between h-full p-7 md:p-10">
-                      <div>
-                        <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight">
+                  {/* EXPANDED STATE */}
+                  {isExpanded && (
+                    <div className={`flex h-full ${isMobile ? "flex-col" : "flex-row"}`}>
+                      {/* Left: illustration */}
+                      <div className={`${isMobile ? "h-[180px]" : "w-[40%]"} p-6 flex flex-col shrink-0`}>
+                        <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-4">
                           {feature.title}
                         </h3>
-                        <p className="font-sans-body text-sm text-muted-foreground leading-relaxed mt-4">
-                          {feature.expandedDescription}
-                        </p>
+                        <div className="flex-1 min-h-0">
+                          <Illustration />
+                        </div>
                       </div>
 
-                      <div className="space-y-2 mt-5">
-                        {feature.bullets.map((bullet, i) => (
-                          <div key={i} className="flex items-start gap-2.5">
-                            <span className="w-2 h-2 rounded-full bg-primary mt-1.5 shrink-0" />
-                            <span className="font-sans-body text-sm text-foreground/80">
-                              {bullet}
+                      {/* Right: details */}
+                      <div
+                        className={`${isMobile ? "" : "w-[60%] border-l border-primary/15"} p-6 md:p-8 flex flex-col justify-between`}
+                        style={{
+                          opacity: isExpanded ? 1 : 0,
+                          transition: "opacity 300ms ease-in-out 150ms",
+                        }}
+                      >
+                        <div>
+                          <p className="font-sans-body text-sm text-muted-foreground leading-relaxed">
+                            {feature.expandedDescription}
+                          </p>
+                          <div className="space-y-2 mt-5">
+                            {feature.bullets.map((bullet, i) => (
+                              <div key={i} className="flex items-start gap-2.5">
+                                <span className="w-2 h-2 rounded-full bg-primary mt-1.5 shrink-0" />
+                                <span className="font-sans-body text-sm text-foreground/80">
+                                  {bullet}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {feature.stat && (
+                          <div className="mt-auto pt-6">
+                            <span className="font-serif-display text-4xl font-bold text-gradient-amber">
+                              {feature.stat}
+                            </span>
+                            <span className="font-sans-body text-xs text-muted-foreground tracking-wider ml-2 uppercase">
+                              {feature.statLabel}
                             </span>
                           </div>
-                        ))}
+                        )}
                       </div>
-
-                      {feature.stat && (
-                        <div className="mt-auto pt-6">
-                          <span className="font-serif-display text-4xl font-bold text-gradient-amber">
-                            {feature.stat}
-                          </span>
-                          <span className="font-sans-body text-xs text-muted-foreground tracking-wider ml-2 uppercase">
-                            {feature.statLabel}
-                          </span>
-                        </div>
-                      )}
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
             );
