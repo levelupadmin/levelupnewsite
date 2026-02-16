@@ -2,11 +2,11 @@ import allMastersImg from "@/assets/all-masters.png";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
-import outlookLogo from "@/assets/press/outlook-india.png";
-import quintLogo from "@/assets/press/the-quint.png";
+import outlookLogo from "@/assets/press/outlook-india.svg";
+import quintLogo from "@/assets/press/the-quint.svg";
 import htLogo from "@/assets/press/hindustan-times.svg";
-import yourstoryLogo from "@/assets/press/yourstory.png";
-import abnLogo from "@/assets/press/abn-telugu.png";
+import yourstoryLogo from "@/assets/press/yourstory.svg";
+import abnLogo from "@/assets/press/abn-telugu.svg";
 
 const pressLogos = [
   { name: "Outlook India", src: outlookLogo },
