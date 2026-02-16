@@ -6,11 +6,16 @@ interface Star {
   z: number;
 }
 
-const STAR_COUNT = 250;
-const MAX_DEPTH = 1000;
-const SPEED = 0.3;
+const DEFAULT_STAR_COUNT = 250;
+const DEFAULT_MAX_DEPTH = 1000;
+const DEFAULT_SPEED = 0.3;
 
-const StarField = () => {
+interface StarFieldProps {
+  starCount?: number;
+  speed?: number;
+}
+
+const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: StarFieldProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const grainRef = useRef<HTMLDivElement>(null);
 
@@ -23,10 +28,10 @@ const StarField = () => {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     // Initialize stars
-    const stars: Star[] = Array.from({ length: STAR_COUNT }, () => ({
+    const stars: Star[] = Array.from({ length: starCount }, () => ({
       x: (Math.random() - 0.5) * 2000,
       y: (Math.random() - 0.5) * 2000,
-      z: Math.random() * MAX_DEPTH,
+      z: Math.random() * DEFAULT_MAX_DEPTH,
     }));
 
     // Grain canvas
@@ -76,11 +81,11 @@ const StarField = () => {
 
       // Draw stars
       for (const star of stars) {
-        star.z -= SPEED;
+        star.z -= speed;
         if (star.z <= 1) {
           star.x = (Math.random() - 0.5) * 2000;
           star.y = (Math.random() - 0.5) * 2000;
-          star.z = MAX_DEPTH;
+          star.z = DEFAULT_MAX_DEPTH;
         }
 
         const k = 300 / star.z;
@@ -89,8 +94,8 @@ const StarField = () => {
 
         if (sx < -10 || sx > w + 10 || sy < -10 || sy > h + 10) continue;
 
-        const size = Math.max(0.5, (1 - star.z / MAX_DEPTH) * 3.5);
-        const opacity = Math.max(0.1, (1 - star.z / MAX_DEPTH) * 1);
+        const size = Math.max(0.5, (1 - star.z / DEFAULT_MAX_DEPTH) * 3.5);
+        const opacity = Math.max(0.1, (1 - star.z / DEFAULT_MAX_DEPTH) * 1);
 
         // ~20% of stars get an amber tint
         const isAmber = star.x * star.y % 5 < 1;

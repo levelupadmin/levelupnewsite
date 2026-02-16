@@ -5,11 +5,11 @@ import ConcentricRings from "./ConcentricRings";
 const AboutHero = () => (
   <section className="relative py-32 md:py-44 px-6 md:px-12 overflow-hidden bg-[hsl(0,0%,5%)]">
     {/* Star field background */}
-    <StarField />
+    <StarField starCount={450} speed={0.2} />
     {/* Concentric rings */}
-    <ConcentricRings className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-40" size={700} count={8} />
-    {/* Radial amber glow */}
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_hsl(24,95%,53%,0.08)_0%,_transparent_70%)] pointer-events-none" />
+    <ConcentricRings className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-60" size={900} count={10} />
+    {/* Stronger amber glow */}
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_hsl(24,95%,53%,0.15)_0%,_transparent_60%)] pointer-events-none" />
 
     <div className="relative max-w-4xl mx-auto text-center flex flex-col items-center gap-6 z-10">
       <m.p
