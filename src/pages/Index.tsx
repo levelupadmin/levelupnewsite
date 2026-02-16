@@ -11,6 +11,7 @@ const ForgeSection = lazy(() => import("@/components/ForgeSection"));
 const StudentLogosSection = lazy(() => import("@/components/StudentLogosSection"));
 const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection"));
 const FAQSection = lazy(() => import("@/components/FAQSection"));
+const TrustedCTASection = lazy(() => import("@/components/TrustedCTASection"));
 const Footer = lazy(() => import("@/components/Footer"));
 const FloatingSupport = lazy(() => import("@/components/FloatingSupport"));
 
