@@ -42,7 +42,7 @@ const OpportunityStats = () => (
               key={s.label}
               {...fadeUp}
               transition={{ duration: 0.5, delay: 0.15 + i * 0.08 }}
-              className={`rounded-sm p-5 flex flex-col gap-2 shadow-cinematic ${
+              className={`rounded-xl p-5 flex flex-col gap-2 shadow-cinematic ${
                 isHighlight
                   ? "bg-primary text-primary-foreground"
                   : "bg-card border border-border"
