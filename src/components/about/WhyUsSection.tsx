@@ -2,21 +2,28 @@ import { m } from "framer-motion";
 import { Sparkles, Users, Award } from "lucide-react";
 import ConcentricRings from "./ConcentricRings";
 
+import allMasters from "@/assets/all-masters.png";
+import shapeCommunity from "@/assets/shape-community-unique.png";
+import forgeCreators from "@/assets/forge-creators-banner.jpg";
+
 const pillars = [
   {
     icon: Sparkles,
     title: "Mentor IP",
     description: "Exclusive masterclasses with India's top filmmakers, editors, photographers, and musicians — content you can't find anywhere else.",
+    image: allMasters,
   },
   {
     icon: Users,
     title: "Community Flywheel",
     description: "300K+ creators fueling organic acquisition, peer learning, and real-world opportunity — a self-reinforcing ecosystem.",
+    image: shapeCommunity,
   },
   {
     icon: Award,
     title: "Brand & Certification Partners",
     description: "Partnered with India's leading entertainment houses, production studios, and institutions for credibility and placement.",
+    image: forgeCreators,
   },
 ];
 
@@ -53,15 +60,28 @@ const WhyUsSection = () => (
             key={p.title}
             {...fadeUp}
             transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
-            className="rounded-xl bg-card p-6 md:p-8 flex flex-col gap-4 shadow-cinematic"
+            className="rounded-xl bg-card overflow-hidden shadow-cinematic group"
           >
-            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-              <p.icon className="w-6 h-6 text-primary" />
+            {/* Card image */}
+            <div className="relative h-36 overflow-hidden">
+              <img
+                src={p.image}
+                alt={p.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
             </div>
-            <h3 className="font-serif-display text-lg text-foreground">{p.title}</h3>
-            <p className="font-sans-body text-sm text-muted-foreground leading-relaxed">
-              {p.description}
-            </p>
+            {/* Card content */}
+            <div className="p-6 md:p-8 flex flex-col gap-4">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <p.icon className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="font-serif-display text-lg text-foreground">{p.title}</h3>
+              <p className="font-sans-body text-sm text-muted-foreground leading-relaxed">
+                {p.description}
+              </p>
+            </div>
           </m.div>
         ))}
       </div>

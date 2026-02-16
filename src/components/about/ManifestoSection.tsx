@@ -1,5 +1,6 @@
 import { m } from "framer-motion";
 import ConcentricRings from "./ConcentricRings";
+import allMasters from "@/assets/all-masters.png";
 
 const tenets = [
   {
@@ -67,10 +68,25 @@ const ManifestoSection = () => (
       <m.p
         {...fadeUp}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="font-sans-body text-sm text-muted-foreground/70 text-center mb-14 max-w-xl mx-auto leading-relaxed italic"
+        className="font-sans-body text-sm text-muted-foreground/70 text-center mb-10 max-w-xl mx-auto leading-relaxed italic"
       >
         Here are our tenets. From time to time we revisit this list to see if it still holds true. We hope it does — and you can hold us to that.
       </m.p>
+
+      {/* Full-width cinematic image divider */}
+      <m.div
+        {...fadeUp}
+        transition={{ duration: 0.7, delay: 0.25 }}
+        className="relative w-full rounded-xl overflow-hidden mb-12 aspect-[21/9] shadow-cinematic"
+      >
+        <img
+          src={allMasters}
+          alt="LevelUp mentors and creators"
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
+      </m.div>
 
       {/* Tenets */}
       <div className="flex flex-col gap-8">
