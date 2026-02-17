@@ -1,30 +1,27 @@
 
 
-# Why LevelUp Cards: Alignment and Interaction Polish
+# Why LevelUp Cards: Height Increase + Layout Restructure
 
-Redesign the card states to match the reference images and make open/close transitions smoother.
+## Changes
 
----
+### 1. Increase card height by 20%
+- Desktop `minHeight`: 440px --> 528px
+- Mobile collapsed: 360px --> 432px
+- Mobile expanded: 420px --> 504px
 
-## Key Changes from Reference
+### 2. Restructure expanded card layout
+Currently the expanded state has a top bar (title + description) then a 3-column grid below. Restructure to a **2-column split**:
 
-### 1. Compressed cards keep their content visible (not vertical text)
-In the reference, when one card is expanded the other cards still show their title and illustration -- just narrower. Currently, compressed cards collapse to vertical text. This will change so compressed cards simply scale down their default view.
+- **Left column (~40%)**: Title at top, illustration centered below, stat at bottom
+- **Right column (~60%)**: Description paragraph at top, bullet list below with more vertical spacing
 
-### 2. Icon button styled as bordered square
-The reference shows the expand/close icon inside a visible bordered square button (not a bare icon). Update styling to add a border and slightly larger hit area.
+This gives the content more breathing room with the taller cards and creates a cleaner visual hierarchy.
 
-### 3. Expanded layout restructured
-The reference expanded state shows:
-- Title (large) + description text at the top-left
-- Below that: illustration on left, bullet list in center, stat on right
-- This is a more horizontal content spread vs the current 2-column split
-
-### 4. Smoother transitions
-- Remove the separate "compressed state" overlay entirely on desktop -- just let the default state content naturally shrink with the card width
-- Use `overflow: hidden` on content areas so text clips gracefully during resize
-- Faster opacity crossfade (250ms) with no delay on collapse for snappier feel
-- Keep the 700ms width transition but use a slightly different easing for collapse vs expand
+### 3. Default/compressed state layout
+With more height available, add the short description text below the title (currently only shows title + illustration). Layout becomes:
+- Title at top
+- Short description below title
+- Illustration fills remaining space
 
 ---
 
@@ -32,32 +29,18 @@ The reference expanded state shows:
 
 ### File: `src/components/WhyLevelUp.tsx`
 
-**Remove the compressed state overlays entirely (desktop and mobile).** Instead, the "default state" layer stays visible for both default and compressed states -- the card just gets narrower and the content clips via overflow-hidden. This eliminates the jarring content swap during transitions.
+**Height values (line 128-130):**
+- Desktop: `minHeight: 528` (was 440)
+- Mobile collapsed: `432` (was 360)
+- Mobile expanded: `504` (was 420)
 
-**Three visual layers become two:**
-1. **Default/Compressed layer** (always visible when not expanded) -- title + illustration, clips naturally as width shrinks
-2. **Expanded layer** -- full content, fades in when expanded
+**Default/compressed layer (lines 154-169):**
+- Add `feature.description` as a `<p>` between the title and illustration
+- Style: `text-sm text-muted-foreground leading-relaxed mb-4`
 
-**Specific changes:**
-- Delete the "COMPRESSED STATE (desktop only)" block (lines 156-174)
-- Delete the "COMPRESSED STATE (mobile)" block (lines 176-191)
-- Update the "DEFAULT STATE" opacity logic: show when NOT expanded (i.e., `opacity: !isExpanded ? 1 : 0`)
-- This means compressed cards still show the title + illustration, just narrower
+**Expanded state layout (lines 182-226):**
+- Replace top-bar + 3-column-grid with a 2-column layout (`grid grid-cols-[2fr_3fr]`)
+- Left column: title, illustration (centered), stat at bottom
+- Right column: expanded description, bullets with more spacing (`space-y-3.5`)
+- On mobile: stack vertically as before
 
-**Icon button styling update:**
-- Change from bare icon to bordered button: `border border-foreground/30 rounded-md p-2` with hover state `hover:border-foreground/60 hover:bg-white/5`
-- Slightly larger: `w-9 h-9 flex items-center justify-center`
-
-**Expanded state layout update (to match reference):**
-- Top section: Title + expanded description side by side
-- Bottom section: Illustration (left), bullets (center), stat (right) in a 3-column grid
-- Close button stays in top-right corner
-
-**Transition smoothness improvements:**
-- Default/Compressed layer: `opacity 250ms ease` (no delay)
-- Expanded layer: `opacity 300ms ease 100ms` on expand, `opacity 200ms ease` on collapse (remove delay when closing)
-- Add `will-change: width` on card wrapper for GPU-accelerated width transitions
-- Add `overflow: hidden` on the default state content so text doesn't overflow during compression
-
-**Mobile adjustments:**
-- Compressed cards on mobile show a single-line row with title (same as current mobile compressed but using the default state layer with overflow hidden instead of a separate overlay)
