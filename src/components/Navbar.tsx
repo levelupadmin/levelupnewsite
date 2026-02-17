@@ -116,7 +116,7 @@ const Navbar = () => {
           transition={{
             opacity: { duration: 0.8, delay: 0.2 },
             y: { duration: 0.8, delay: 0.2 },
-            borderRadius: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
+            borderRadius: { duration: 0.05, ease: "easeOut" },
             backgroundColor: { duration: 0.5, ease: "easeOut" },
             borderColor: { duration: 0.5, ease: "easeOut" },
             boxShadow: { duration: 0.5, ease: "easeOut" },
