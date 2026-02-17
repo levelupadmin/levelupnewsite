@@ -94,16 +94,24 @@ export default {
           "100%": { transform: "translateX(0)" },
         },
         "float-card-1": {
-          "0%, 100%": { transform: "translate(-50%, -50%) rotateY(12deg) translateZ(-40px) translateY(0)" },
-          "50%": { transform: "translate(-50%, -50%) rotateY(12deg) translateZ(-40px) translateY(-3px)" },
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-4px)" },
         },
         "float-card-2": {
-          "0%, 100%": { transform: "translate(-50%, -50%) rotateY(0deg) translateZ(0px) translateY(0)" },
-          "50%": { transform: "translate(-50%, -50%) rotateY(0deg) translateZ(0px) translateY(-2.5px)" },
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-3px)" },
         },
         "float-card-3": {
-          "0%, 100%": { transform: "translate(-50%, -50%) rotateY(-8deg) translateZ(30px) translateY(0)" },
-          "50%": { transform: "translate(-50%, -50%) rotateY(-8deg) translateZ(30px) translateY(-3px)" },
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-4px)" },
+        },
+        "slide-playhead": {
+          "0%": { left: "0%" },
+          "100%": { left: "100%" },
+        },
+        "progress-fill": {
+          "0%": { strokeDashoffset: "75.4" },
+          "100%": { strokeDashoffset: "0" },
         },
       },
       animation: {
@@ -116,6 +124,8 @@ export default {
         "float-card-1": "float-card-1 3s ease-in-out infinite",
         "float-card-2": "float-card-2 3.5s ease-in-out infinite 0.3s",
         "float-card-3": "float-card-3 4s ease-in-out infinite 0.6s",
+        "slide-playhead": "slide-playhead 6s ease-in-out infinite alternate",
+        "progress-fill": "progress-fill 4s ease-out infinite",
       },
     },
   },
