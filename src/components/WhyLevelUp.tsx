@@ -126,8 +126,8 @@ const WhyLevelUp = () => {
                   transition: TRANSITION,
                   willChange: "width",
                   minHeight: isMobile
-                    ? isExpanded ? 420 : 360
-                    : 440,
+                    ? isExpanded ? 504 : 432
+                    : 528,
                   flexShrink: 0,
                 }}
                 onClick={() => handleCardClick(index)}
@@ -160,9 +160,12 @@ const WhyLevelUp = () => {
                       pointerEvents: !isExpanded ? "auto" : "none",
                     }}
                   >
-                    <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-5 whitespace-nowrap">
+                    <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-3 whitespace-nowrap">
                       {feature.title}
                     </h3>
+                    <p className="font-sans-body text-sm text-muted-foreground leading-relaxed mb-4">
+                      {feature.description}
+                    </p>
                     <div className="flex-1 min-h-0">
                       <Illustration />
                     </div>
@@ -180,26 +183,34 @@ const WhyLevelUp = () => {
                     }}
                     onClick={(e) => e.stopPropagation()}
                   >
-                    {/* Top: Title + Description */}
-                    <div className={`p-6 md:p-8 pb-4 ${isMobile ? "" : "flex items-start gap-8"}`}>
-                      <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight shrink-0">
-                        {feature.title}
-                      </h3>
-                      <p className={`font-sans-body text-sm text-muted-foreground leading-relaxed ${isMobile ? "mt-3" : "mt-1"}`}>
-                        {feature.expandedDescription}
-                      </p>
-                    </div>
-
-                    {/* Bottom: Illustration | Bullets | Stat - 3 column grid */}
-                    <div className={`flex-1 px-6 md:px-8 pb-6 md:pb-8 ${isMobile ? "flex flex-col gap-5" : "grid grid-cols-3 gap-6"}`}>
-                      {/* Illustration */}
-                      <div className="flex items-center justify-center">
-                        <Illustration />
+                    {/* 2-column layout */}
+                    <div className={`flex-1 p-6 md:p-8 ${isMobile ? "flex flex-col gap-5" : "grid grid-cols-[2fr_3fr] gap-8"}`}>
+                      {/* Left column: Title, Illustration, Stat */}
+                      <div className="flex flex-col">
+                        <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-4">
+                          {feature.title}
+                        </h3>
+                        <div className="flex-1 flex items-center justify-center min-h-0">
+                          <Illustration />
+                        </div>
+                        {feature.stat && (
+                          <div className="flex flex-col items-center mt-4">
+                            <span className="font-serif-display text-4xl md:text-5xl font-bold text-gradient-amber">
+                              {feature.stat}
+                            </span>
+                            <span className="font-sans-body text-xs text-muted-foreground tracking-wider mt-1 uppercase">
+                              {feature.statLabel}
+                            </span>
+                          </div>
+                        )}
                       </div>
 
-                      {/* Bullets */}
+                      {/* Right column: Description, Bullets */}
                       <div className="flex flex-col justify-center">
-                        <div className="space-y-2.5">
+                        <p className="font-sans-body text-sm text-muted-foreground leading-relaxed mb-6">
+                          {feature.expandedDescription}
+                        </p>
+                        <div className="space-y-3.5">
                           {feature.bullets.map((bullet, i) => (
                             <div key={i} className="flex items-start gap-2.5">
                               <span className="w-2 h-2 rounded-full bg-primary mt-1.5 shrink-0" />
@@ -210,18 +221,6 @@ const WhyLevelUp = () => {
                           ))}
                         </div>
                       </div>
-
-                      {/* Stat */}
-                      {feature.stat && (
-                        <div className="flex flex-col items-center justify-center">
-                          <span className="font-serif-display text-4xl md:text-5xl font-bold text-gradient-amber">
-                            {feature.stat}
-                          </span>
-                          <span className="font-sans-body text-xs text-muted-foreground tracking-wider mt-1 uppercase">
-                            {feature.statLabel}
-                          </span>
-                        </div>
-                      )}
                     </div>
                   </div>
                 </div>
