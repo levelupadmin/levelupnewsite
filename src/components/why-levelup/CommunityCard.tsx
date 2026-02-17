@@ -1,46 +1,46 @@
+import testimonial1 from "@/assets/testimonial-1.jpg";
+import testimonial2 from "@/assets/testimonial-2.jpg";
+import testimonial4 from "@/assets/testimonial-4.jpg";
+import testimonial5 from "@/assets/testimonial-5.jpg";
+import testimonial6 from "@/assets/testimonial-6.jpg";
+import testimonial7 from "@/assets/testimonial-7.jpg";
+
+const avatars = [testimonial1, testimonial2, testimonial4, testimonial5, testimonial6, testimonial7];
+
 const CommunityCard = () => {
-  const nodes = [
-    { cx: 60, cy: 40 },
-    { cx: 35, cy: 60 },
-    { cx: 85, cy: 60 },
-    { cx: 28, cy: 85 },
-    { cx: 60, cy: 90 },
-    { cx: 92, cy: 85 },
-  ];
-
-  const edges: [number, number][] = [
-    [0, 1], [0, 2], [1, 2], [1, 3], [1, 4], [2, 4], [2, 5], [3, 4], [4, 5],
-  ];
-
   return (
-    <div className="flex items-center justify-center h-full w-full">
-      <svg viewBox="0 0 120 120" className="w-full h-full max-w-[120px] max-h-[120px]" fill="none">
-        {/* Connection lines */}
-        {edges.map(([a, b], i) => (
-          <line
+    <div className="relative w-full h-full flex flex-col items-center justify-center gap-4 p-4">
+      {/* Avatar cluster */}
+      <div className="flex flex-wrap justify-center gap-2">
+        {avatars.map((src, i) => (
+          <div
             key={i}
-            x1={nodes[a].cx} y1={nodes[a].cy}
-            x2={nodes[b].cx} y2={nodes[b].cy}
-            stroke="hsl(30 60% 45% / 0.25)"
-            strokeWidth="1"
-          />
+            className="w-11 h-11 rounded-full overflow-hidden border-2 border-primary/30 shadow-md"
+            style={{
+              transform: `rotate(${(i - 2.5) * 4}deg)`,
+            }}
+          >
+            <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
+          </div>
         ))}
+      </div>
 
-        {/* Nodes */}
-        {nodes.map((n, i) => (
-          <circle
-            key={i}
-            cx={n.cx} cy={n.cy}
-            r={i === 0 ? 10 : 7}
-            stroke={i === 0 ? "hsl(30 70% 50%)" : "hsl(30 50% 40% / 0.5)"}
-            strokeWidth={i === 0 ? 1.5 : 1}
-            fill={i === 0 ? "hsl(30 70% 50% / 0.15)" : "hsl(30 50% 40% / 0.08)"}
-          />
-        ))}
-
-        {/* Pulse ring on center */}
-        <circle cx="60" cy="40" r="15" stroke="hsl(30 70% 50% / 0.15)" strokeWidth="1" fill="none" />
-      </svg>
+      {/* Simulated chat bubble */}
+      <div
+        className="w-full max-w-[220px] rounded-lg px-3.5 py-2.5"
+        style={{
+          background: "hsl(30 20% 14% / 0.9)",
+          border: "1px solid hsl(30 30% 25% / 0.3)",
+        }}
+      >
+        <p className="font-sans-body text-[11px] text-foreground/60 leading-relaxed">
+          "Just wrapped my first short film edit with feedback from 3 peers — this community is 🔥"
+        </p>
+        <div className="flex items-center gap-1.5 mt-1.5">
+          <span className="text-[10px]">❤️ 24</span>
+          <span className="text-[10px]">🎬 8</span>
+        </div>
+      </div>
     </div>
   );
 };
