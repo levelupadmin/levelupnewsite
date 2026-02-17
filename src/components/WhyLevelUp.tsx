@@ -50,7 +50,7 @@ const features = [
 
 const CARD_WIDTH = 380;
 const EXPANDED_WIDTH = 920;
-const TRANSITION = "width 700ms cubic-bezier(0.25, 0.8, 0.25, 1), min-height 700ms cubic-bezier(0.25, 0.8, 0.25, 1)";
+const TRANSITION = "width 600ms cubic-bezier(0.4, 0, 0.2, 1), min-width 600ms cubic-bezier(0.4, 0, 0.2, 1), min-height 600ms cubic-bezier(0.4, 0, 0.2, 1)";
 
 const WhyLevelUp = () => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
@@ -134,7 +134,7 @@ const WhyLevelUp = () => {
                 onClick={() => handleCardClick(index)}
               >
                 <div
-                  className={`relative w-full h-full rounded-2xl overflow-hidden border transition-all duration-700 ${
+                  className={`relative w-full h-full rounded-2xl overflow-hidden border transition-all duration-500 ease-out ${
                     isExpanded
                       ? "border-primary/40 shadow-[0_0_40px_8px_hsl(30_80%_45%/0.3)]"
                       : "border-primary/20 hover:border-primary/40 hover:shadow-[0_0_30px_4px_hsl(30_80%_45%/0.25)]"
@@ -154,10 +154,10 @@ const WhyLevelUp = () => {
 
                   {/* DEFAULT / COMPRESSED layer - always visible when not expanded */}
                   <div
-                    className="absolute inset-0 flex flex-col p-7 md:p-10 overflow-hidden"
+                    className="absolute inset-0 flex flex-col p-7 md:p-10 overflow-hidden transition-opacity duration-300 ease-out"
                     style={{
                       opacity: !isExpanded ? 1 : 0,
-                      transition: "opacity 250ms ease",
+                      transitionDelay: !isExpanded ? "150ms" : "0ms",
                       pointerEvents: !isExpanded ? "auto" : "none",
                     }}
                   >
@@ -174,12 +174,10 @@ const WhyLevelUp = () => {
 
                   {/* EXPANDED STATE */}
                   <div
-                    className="absolute inset-0 flex flex-col overflow-hidden"
+                    className="absolute inset-0 flex flex-col overflow-hidden transition-opacity duration-400 ease-out"
                     style={{
                       opacity: isExpanded ? 1 : 0,
-                      transition: isExpanded
-                        ? "opacity 300ms ease 100ms"
-                        : "opacity 200ms ease",
+                      transitionDelay: isExpanded ? "200ms" : "0ms",
                       pointerEvents: isExpanded ? "auto" : "none",
                     }}
                     onClick={(e) => e.stopPropagation()}
