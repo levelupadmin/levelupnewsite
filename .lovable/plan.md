@@ -1,46 +1,40 @@
 
 
-# Expert Mentors Card: Creative Visual Redesign
+# Portfolio-Driven Learning Card: Visual Redesign
 
 ## Problem
-The current illustration is a flat group photo (`all-masters.png`) with small floating thumbnails at the bottom. It looks generic, like a stock photo placement, and doesn't convey the premium, cinematic feel of the brand.
+The current illustration is a single flat SVG clapperboard icon centered in the card. It looks generic and lifeless — completely mismatched with the cinematic, photographic quality of the other cards (Expert Mentors mosaic, Community avatars).
 
-## Solution: Staggered Mentor Mosaic
-Replace the group photo with a **dynamic mosaic/collage** of individual mentor portraits using the existing `masterclass-*.jpg` assets. The layout creates visual depth through:
+## Solution: Stacked Portfolio Showcase
+Replace the SVG with a **fanned stack of real project thumbnails** using existing photographic assets (`forge-1.jpg`, `forge-2.jpg`, `forge-3.jpg`). The layout creates the feeling of a creative portfolio spread out on a table — layered cards with slight rotations, each representing a different type of output (film, edit, script).
 
-- **Varying sizes** (some larger "featured" portraits, some smaller)
-- **Slight overlaps** between images for a layered editorial feel
-- **Warm amber border accents** on select portraits
-- **A cinematic gradient fade** at the bottom blending into the card background
-- **Subtle rotation** on some thumbnails for organic energy
+### Visual Concept
+- **3 stacked "project cards"** fanned out with slight rotations (-4deg, 0deg, 4deg), each using a real photo from the forge/hero assets
+- Each mini-card has a subtle **label overlay** at the bottom (e.g., "Short Film", "Showreel", "Scene Edit") to reinforce the portfolio theme
+- A warm **amber accent border** on the front-most card
+- A cinematic **gradient fade** at the bottom to blend into the card background
+- The stack is slightly offset to feel organic, not rigid
 
-The result looks like a curated casting wall or film-industry mood board -- much more fitting for a creative education brand.
-
-## Layout (Collapsed State)
-A 3x2-ish asymmetric grid of 5-6 mentor photos:
-- Top row: 2 larger portraits (slightly overlapping)
-- Bottom row: 3 smaller portraits offset to the right
-- Warm gradient overlay fading into the card's dark background at the bottom
-- A small "40+ mentors" label tucked at the bottom-right
-
-## Layout (Expanded State)
-Same mosaic but given more horizontal space in the left column -- photos can breathe more with slightly larger sizing.
-
----
+### Why This Works
+- Uses real imagery instead of abstract icons — matches the Expert Mentors mosaic quality
+- The "stacked projects" metaphor directly communicates "portfolio outcomes"
+- The labels reinforce what students actually build (films, reels, edits)
 
 ## Technical Details
 
-### File: `src/components/why-levelup/ExpertMembershipCard.tsx`
+### File: `src/components/why-levelup/LiveProjectsCard.tsx`
 
-Complete rewrite of the component:
+Complete rewrite:
 
-- **Imports**: Use `masterclass-1.jpg` through `masterclass-6.jpg` as individual mentor portraits (these are headshot-style images of real mentors)
-- **Layout**: CSS Grid with `grid-template-columns` and `grid-template-rows` to create an asymmetric mosaic
-- **Each image cell**: `rounded-lg`, `overflow-hidden`, `border border-primary/20`, with `object-cover object-top`
-- **Feature image** (top-left): Spans 2 rows, larger, with a `border-primary/40` accent
-- **Gradient overlay**: `absolute inset-0` with `linear-gradient(to top, card-bg 0%, transparent 40%)` to blend the bottom into the card
-- **"40+ mentors" label**: Positioned `absolute bottom-2 right-3` in `text-[10px] uppercase tracking-wide text-foreground/50`
-- **Subtle shadow/glow**: Each image gets a faint `shadow-md` for depth separation
+- **Imports**: `forge-1.jpg`, `forge-2.jpg`, `forge-3.jpg` as portfolio project thumbnails
+- **Layout**: `relative` container with 3 absolutely positioned image cards, each with:
+  - `rounded-lg overflow-hidden border border-primary/20 shadow-lg`
+  - Slight rotation via `transform: rotate()`
+  - Staggered `z-index` so the front card overlaps
+  - A small label bar at the bottom of each card (`"Short Film"`, `"Showreel"`, `"Scene Edit"`) using `text-[9px] uppercase tracking-wider` on a dark semi-transparent background
+- **Front card accent**: `border-primary/40` for emphasis
+- **Gradient overlay**: Bottom fade matching the card's dark background (`hsl(30 40% 12%)`)
+- **Sizing**: Cards scale to fill the illustration area (~70% width each, overlapping)
 
-No changes to `WhyLevelUp.tsx` or other card components -- only the illustration component changes.
+No changes to `WhyLevelUp.tsx` — only the illustration component changes.
 
