@@ -7,39 +7,40 @@ import CommunityCard from "./why-levelup/CommunityCard";
 
 const features = [
   {
-    title: "Expert Membership",
-    description: "Learn directly from industry experts with years of real-world experience.",
-    expandedDescription: "Not theorists — filmmakers, editors, and writers who built careers through decades of real work. They give you the unfiltered truth.",
+    title: "Expert Mentors",
+    description: "Not theorists. Working filmmakers, editors, and writers who've shipped real work—and tell you what actually matters.",
+    expandedDescription: "You don't need more tips. You need taste, reps, and honest direction. Our mentors are working creators—the kind who've built careers through real projects. They'll help you see what you're missing, and how to fix it.",
     bullets: [
-      "Award-winning filmmakers & editors",
-      "Decades of industry experience",
-      "Direct, honest feedback on your work",
+      "Mentors with real credits (film + digital)",
+      "Direct feedback on your work—not generic comments",
+      "Craft-first teaching: story, rhythm, clarity, emotion",
     ],
     stat: "40+",
-    statLabel: "INDUSTRY MENTORS",
+    statLabel: "WORKING MENTORS",
     illustration: ExpertMembershipCard,
   },
   {
-    title: "Live Projects",
-    description: "Residencies, real sets, and deadlines that matter.",
-    expandedDescription: "We put you in real creative environments with actual stakes. No simulations, no pretend briefs — just meaningful work that matters.",
+    title: "Portfolio-Driven Learning",
+    description: "Every program ends with work you can show—edits, scenes, scripts, films. Proof over certificates.",
+    expandedDescription: "Most learning stays in your notes. Ours ends up in your portfolio. We build the curriculum around outputs, so your progress is visible—and shareable.",
     bullets: [
-      "Real-world production residencies",
-      "Industry-standard equipment & sets",
-      "Portfolio-ready deliverables",
+      "Project-first structure (make while you learn)",
+      "Deadlines that create momentum",
+      "Portfolio outcomes: reels, edits, scripts, scenes, short films",
     ],
-    stat: "60+",
-    statLabel: "WORKSHOPS",
+    stat: "",
+    statLabel: "",
+    microLine: "Leave with something you're proud to put out in the world.",
     illustration: LiveProjectsCard,
   },
   {
-    title: "Community",
-    description: "A creative ecosystem that keeps growing.",
-    expandedDescription: "A living network of creators who collaborate, hire each other, and keep pushing the craft forward together.",
+    title: "Community, Through the Journey",
+    description: "Support, feedback, and momentum—before, during, and after you learn.",
+    expandedDescription: "The work gets easier when you're not doing it alone. LevelUp is built with support baked in—feedback loops, peers, and mentors—so you keep moving even when motivation drops.",
     bullets: [
-      "Lifetime access to the network",
-      "Ongoing collaboration opportunities",
-      "Alumni-led workshops & events",
+      "Feedback that keeps you sharp (work-in-progress encouraged)",
+      "Peers who get it—editors, DPs, writers, creators",
+      "Consistency support: prompts, reviews, accountability",
     ],
     stat: "2K+",
     statLabel: "ACTIVE MEMBERS",
@@ -202,6 +203,11 @@ const WhyLevelUp = () => {
                               {feature.statLabel}
                             </span>
                           </div>
+                        )}
+                        {(feature as any).microLine && (
+                          <p className="font-sans-body text-xs text-muted-foreground/70 italic text-center mt-4">
+                            {(feature as any).microLine}
+                          </p>
                         )}
                       </div>
 
