@@ -1,46 +1,24 @@
 
+# Fix Navbar Hover: Remove Oval Glitch on Expand
 
-# Why LevelUp Cards: Height Increase + Layout Restructure
+## Problem
+When hovering a nav link, the navbar's `borderRadius` animates from `9999` (pill) to `16` (rounded square) over 300ms via Framer Motion. During this transition, the shape passes through an intermediate "large oval" state that looks like a glitch.
 
-## Changes
-
-### 1. Increase card height by 20%
-- Desktop `minHeight`: 440px --> 528px
-- Mobile collapsed: 360px --> 432px
-- Mobile expanded: 420px --> 504px
-
-### 2. Restructure expanded card layout
-Currently the expanded state has a top bar (title + description) then a 3-column grid below. Restructure to a **2-column split**:
-
-- **Left column (~40%)**: Title at top, illustration centered below, stat at bottom
-- **Right column (~60%)**: Description paragraph at top, bullet list below with more vertical spacing
-
-This gives the content more breathing room with the taller cards and creates a cleaner visual hierarchy.
-
-### 3. Default/compressed state layout
-With more height available, add the short description text below the title (currently only shows title + illustration). Layout becomes:
-- Title at top
-- Short description below title
-- Illustration fills remaining space
-
----
+## Solution
+Make the `borderRadius` change near-instantly (30-50ms) so the shape snaps cleanly from pill to rounded square without a visible oval intermediate. The dropdown content still animates smoothly -- only the border-radius timing changes.
 
 ## Technical Details
 
-### File: `src/components/WhyLevelUp.tsx`
+### File: `src/components/Navbar.tsx`
 
-**Height values (line 128-130):**
-- Desktop: `minHeight: 528` (was 440)
-- Mobile collapsed: `432` (was 360)
-- Mobile expanded: `504` (was 420)
+**Line 119** -- Change the `borderRadius` transition duration from `0.3s` to `0.05s` (50ms), making it effectively instant:
 
-**Default/compressed layer (lines 154-169):**
-- Add `feature.description` as a `<p>` between the title and illustration
-- Style: `text-sm text-muted-foreground leading-relaxed mb-4`
+```
+// Before
+borderRadius: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
 
-**Expanded state layout (lines 182-226):**
-- Replace top-bar + 3-column-grid with a 2-column layout (`grid grid-cols-[2fr_3fr]`)
-- Left column: title, illustration (centered), stat at bottom
-- Right column: expanded description, bullets with more spacing (`space-y-3.5`)
-- On mobile: stack vertically as before
+// After
+borderRadius: { duration: 0.05, ease: "easeOut" },
+```
 
+This single change eliminates the oval intermediate state. The dropdown panel still opens with its own smooth height animation (300ms), so the overall experience remains fluid -- just without the shape glitch.
