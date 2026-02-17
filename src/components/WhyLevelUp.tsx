@@ -161,7 +161,7 @@ const WhyLevelUp = () => {
                       pointerEvents: !isExpanded ? "auto" : "none",
                     }}
                   >
-                    <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-3 whitespace-nowrap">
+                    <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-3">
                       {feature.title}
                     </h3>
                     <p className="font-sans-body text-sm text-muted-foreground leading-relaxed mb-4">
