@@ -6,12 +6,12 @@ import masterclass5 from "@/assets/masterclass-5.jpg";
 import masterclass6 from "@/assets/masterclass-6.jpg";
 
 const mentors = [
-  { src: masterclass1, alt: "Mentor 1", className: "col-span-1 row-span-2", featured: true },
-  { src: masterclass2, alt: "Mentor 2", className: "col-span-1 row-span-1", rotate: "-2deg" },
-  { src: masterclass3, alt: "Mentor 3", className: "col-span-1 row-span-1", rotate: "1.5deg" },
-  { src: masterclass4, alt: "Mentor 4", className: "col-span-1 row-span-1", rotate: "2deg" },
-  { src: masterclass5, alt: "Mentor 5", className: "col-span-1 row-span-1", rotate: "-1deg" },
-  { src: masterclass6, alt: "Mentor 6", className: "col-span-1 row-span-1", rotate: "1deg" },
+  { src: masterclass1, alt: "Mentor 1", className: "col-span-1 row-span-2", featured: true, rotate: "-0.5deg" },
+  { src: masterclass2, alt: "Mentor 2", className: "col-span-1 row-span-1", rotate: "0.8deg" },
+  { src: masterclass3, alt: "Mentor 3", className: "col-span-1 row-span-1", rotate: "-0.6deg" },
+  { src: masterclass4, alt: "Mentor 4", className: "col-span-1 row-span-1", rotate: "0.5deg" },
+  { src: masterclass5, alt: "Mentor 5", className: "col-span-1 row-span-1", rotate: "-0.4deg" },
+  { src: masterclass6, alt: "Mentor 6", className: "col-span-1 row-span-1", rotate: "0.3deg" },
 ];
 
 const ExpertMembershipCard = () => {
@@ -19,9 +19,9 @@ const ExpertMembershipCard = () => {
     <div className="relative w-full h-full overflow-hidden rounded-lg">
       {/* Asymmetric mosaic grid */}
       <div
-        className="w-full h-full grid gap-1.5 p-1"
+        className="w-full h-full grid gap-1 p-0.5"
         style={{
-          gridTemplateColumns: "1.4fr 1fr 1fr",
+          gridTemplateColumns: "1.3fr 1fr 1fr",
           gridTemplateRows: "1fr 1fr",
         }}
       >
