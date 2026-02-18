@@ -29,8 +29,7 @@ const TrustedCTASection = () => {
       {/* Radial amber glow */}
       <div className="absolute inset-0 bg-gradient-amber-glow pointer-events-none" />
 
-      <div className="relative max-w-4xl mx-auto border border-white/10 rounded-2xl px-8 py-10 md:px-12 md:py-14 bg-white/[0.01]">
-        <div className="flex flex-col items-center text-center gap-8">
+      <div className="relative max-w-4xl mx-auto flex flex-col items-center text-center gap-8">
         {/* Masters group photo */}
         <div className="relative w-full max-w-md md:max-w-lg">
           <img
@@ -102,7 +101,6 @@ const TrustedCTASection = () => {
             <ArrowRight className="w-4 h-4" />
           </Button>
         </a>
-        </div>
       </div>
     </section>
   );
