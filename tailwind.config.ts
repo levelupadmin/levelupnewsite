@@ -117,6 +117,14 @@ export default {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
         },
+        "orbit-cw": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
+        "orbit-ccw": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(-360deg)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -131,6 +139,10 @@ export default {
         "slide-playhead": "slide-playhead 6s ease-in-out infinite alternate",
         "progress-fill": "progress-fill 4s ease-out infinite",
         "float-slow": "float-slow 6s ease-in-out infinite",
+        "orbit-cw": "orbit-cw 90s linear infinite",
+        "orbit-ccw": "orbit-ccw 90s linear infinite",
+        "orbit-cw-slow": "orbit-cw 120s linear infinite",
+        "orbit-ccw-slow": "orbit-ccw 120s linear infinite",
       },
     },
   },
