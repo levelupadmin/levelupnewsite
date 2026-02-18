@@ -1,56 +1,53 @@
 
-# Enhance Portfolio-Driven Learning Card
+
+# Revamp Community Card Illustration
 
 ## Overview
-Enrich the LiveProjectsCard illustration with creator/influencer reel elements and cinematography-related visuals, building on the existing stacked thumbnails + timeline aesthetic.
+Transform the current simple CommunityCard (6 avatars + 1 chat bubble) into a rich, dynamic, multi-layered illustration matching the complexity of the Portfolio-Driven Learning card -- with floating elements, animated accents, layered UI mockups, and multiple visual zones.
 
-## New Elements to Add
+## Visual Design
 
-### 1. Phone Reel Mockup (Creator/Influencer Element)
-- Add a small phone-shaped frame (9:16 aspect ratio) on the right side of the card, overlapping the stacked thumbnails slightly
-- Style it with a rounded rect border, subtle glow, and a "reel" label at the bottom
-- Use one of the existing forge images inside it, cropped to portrait
-- Add a small heart icon + view count ("12.4K") overlay to sell the "creator reel" look
-- Float-animate it with `animate-float-card-2`
+The new card will feature:
 
-### 2. Cinematography UI Elements
-- **Viewfinder crosshair**: A subtle SVG crosshair/frame overlay in the center of the front thumbnail card, giving a "through the lens" feel
-- **Aperture/f-stop badge**: A floating tag showing "f/1.8" alongside the existing "4K", "Color Graded", "Final Cut" tags
-- **Film strip accent**: A thin vertical film-strip pattern (perforated edge) on the left edge of the card, very subtle (low opacity)
+1. **Stacked chat bubbles (3 layered, like the stacked thumbnails)** -- offset and slightly rotated, each with a different community message, using float animations. The front bubble is highlighted with a primary border glow.
 
-### 3. Updated Floating Tags
-Replace/augment the existing tags to blend portfolio and cinematography themes:
-- Keep "4K" and "Color Graded"
-- Replace "Final Cut" with "Director's Cut"
-- Add "f/1.8" as a new cinematography tag
-- Add "Reel Ready" as a creator/portfolio tag
+2. **Floating avatar cluster** -- 6 avatars arranged in an organic arc/constellation pattern (not a flat row), each with float animations at different delays, connected by faint dotted lines to suggest a network graph.
+
+3. **Live activity feed mockup** -- A small vertical panel on the right side (like the phone reel in card 2) showing 3-4 mini activity items: "Priya shared a reel", "Arjun reviewed your edit", "New prompt: 48hr challenge" -- with tiny colored dots (green for online) and timestamps.
+
+4. **Floating tags** -- Community-themed tags scattered around the edges: "Feedback Loop", "Peer Review", "2K+ Members", "Daily Prompts", "Work-in-Progress" -- matching the same style as the portfolio card tags.
+
+5. **Pulse ring / online indicator** -- A progress-ring-style SVG in the corner showing "142 online now" with a pulsing green dot, mirroring the progress ring from the portfolio card.
+
+6. **Reaction bar at the bottom** -- A horizontal bar (like the timeline/playhead bar in card 2) showing emoji reactions sliding across: fire, clap, heart, camera -- with a subtle slide animation.
 
 ## Technical Details
 
-### File: `src/components/why-levelup/LiveProjectsCard.tsx`
+### File: `src/components/why-levelup/CommunityCard.tsx` (full rewrite)
 
-**Tags update** (lines 13-17):
-- Update the tags array to include the new labels: "4K", "Color Graded", "Director's Cut", "f/1.8", "Reel Ready"
-- Reposition them to accommodate the new phone mockup on the right
+**Imports:**
+- Keep all 6 testimonial image imports
+- Add `MessageCircle` from lucide-react for chat icon accents
 
-**Phone reel mockup** (new JSX block):
-- Add after the stacked thumbnails div
-- Positioned `absolute`, right side (~65% left, 10% top)
-- A div styled as a phone frame (w-[60px], rounded-xl, border, aspect-[9/16])
-- Contains a cropped forge image, heart icon, and view count
-- Uses `animate-float-card-3` for gentle bobbing
+**Data arrays:**
+- `chatBubbles`: 3 objects with message text, position offsets, rotation, and zIndex (mirroring `projects` array pattern from LiveProjectsCard)
+- `floatClasses`: reuse `["animate-float-card-1", "animate-float-card-2", "animate-float-card-3"]`
+- `tags`: 5 community-themed floating tags with top/left positions and animation delays
+- `activityItems`: 3-4 mini activity feed entries with name, action, and time
 
-**Viewfinder crosshair** (new SVG on the front card):
-- Add inside the `i === 2` conditional block alongside the existing play icon
-- Thin corner brackets in each corner of the card (like a camera viewfinder)
-- Low opacity (~0.3) so it doesn't overpower
+**Layout structure (mirroring LiveProjectsCard):**
+- Outer `div` with `relative w-full h-full flex items-center justify-center p-4 overflow-hidden`
+- Network lines accent on left edge (replacing film strip) -- faint dotted vertical connector lines
+- Central stacked chat bubbles zone (replacing stacked thumbnails)
+- Activity feed panel on right (replacing phone reel mockup)
+- Floating tags scattered around edges
+- Pulse ring with "142 online" in top-right corner (replacing progress ring)
+- Reaction bar at bottom (replacing timeline/playhead)
 
-**Film strip accent** (new div):
-- Thin vertical strip on the far left of the card
-- Small repeated rectangles (perforations) using a simple pattern
-- Very low opacity (0.15-0.2)
+**Avatars:**
+- Positioned as an arc/scatter above the chat bubbles, each with float animations and slight rotation
+- Connected by a faint SVG path (network graph feel)
 
 ### File: `tailwind.config.ts`
-- No changes needed; existing float and playhead animations are sufficient.
+- No changes needed -- reuses existing float-card-1/2/3, slide-playhead, and progress-fill animations.
 
-### No other files change.
