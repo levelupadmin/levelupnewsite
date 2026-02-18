@@ -4,7 +4,7 @@ import outlookLogo from "@/assets/press/outlook-india.png";
 import quintLogo from "@/assets/press/the-quint.png";
 import yourstoryLogo from "@/assets/press/yourstory.png";
 import abnLogo from "@/assets/press/abn-telugu.png";
-import theHinduLogo from "@/assets/press/the-hindu.png";
+import theHinduLogo from "@/assets/press/the-hindu-logo.svg";
 import mc1 from "@/assets/masterclass-1.jpg";
 
 const pressLogos = [
@@ -55,14 +55,15 @@ const FeaturedInSection = () => (
 
           {/* Article content */}
           <div className="flex-1 p-6 md:p-8 flex flex-col justify-center gap-4">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               <img
                 src={theHinduLogo}
                 alt="The Hindu"
-                className="h-5 md:h-6 w-auto object-contain opacity-80"
+                className="h-6 md:h-8 w-auto object-contain"
               />
+              <div className="w-[1px] h-5 bg-border" />
               <span className="text-[10px] md:text-xs text-muted-foreground/50 uppercase tracking-wider">
-                March 2022
+                Entertainment · March 2022
               </span>
             </div>
 
@@ -71,7 +72,7 @@ const FeaturedInSection = () => (
             </h3>
 
             <p className="font-sans-body text-sm text-muted-foreground leading-relaxed line-clamp-3">
-              How Rahul Srinivas and team put together LevelUp Learning, an online streaming platform that currently offers courses on filmmaking, music composition and others — featured in The Hindu's Entertainment section.
+              "Indians have no go-to online platform to learn creative arts. Also, most courses are completely in English, with examples that aspirants cannot relate to." — How a pandemic-era phone call led to LevelUp Learning, featuring courses by Karthik Subbaraj, Ravi Basrur, and more.
             </p>
 
             <span className="inline-flex items-center gap-1.5 text-xs font-sans-body text-primary group-hover:gap-2.5 transition-all duration-300">
