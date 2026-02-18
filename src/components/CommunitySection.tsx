@@ -15,10 +15,10 @@ import masterclass4 from "@/assets/masterclass-4.jpg";
 import masterclass5 from "@/assets/masterclass-5.jpg";
 
 const rings = [
-  { radius: 20, dashArray: "4 8" },
-  { radius: 30, dashArray: "3 10" },
-  { radius: 40, dashArray: "5 12" },
-  { radius: 50, dashArray: "4 10" },
+  { rx: 24, ry: 16, dashArray: "4 8" },
+  { rx: 34, ry: 24, dashArray: "3 10" },
+  { rx: 44, ry: 33, dashArray: "5 12" },
+  { rx: 54, ry: 42, dashArray: "4 10" },
 ];
 
 const avatars = [
@@ -65,13 +65,13 @@ const CommunitySection = () => {
           fill="none"
         >
           {rings.map((ring, i) => {
-            const r = (ring.radius / 100) * containerSize;
             return (
-              <circle
+              <ellipse
                 key={i}
                 cx={center}
                 cy={center}
-                r={r}
+                rx={(ring.rx / 100) * containerSize}
+                ry={(ring.ry / 100) * containerSize}
                 stroke="hsl(var(--muted-foreground))"
                 strokeWidth="1.5"
                 strokeOpacity="0.35"
@@ -86,10 +86,11 @@ const CommunitySection = () => {
         <div className="absolute inset-0 hidden md:block">
           {avatars.map((a, i) => {
             const ring = rings[a.ring];
-            const r = (ring.radius / 100) * containerSize;
+            const rx = (ring.rx / 100) * containerSize;
+            const ry = (ring.ry / 100) * containerSize;
             const rad = (a.angle * Math.PI) / 180;
-            const x = center + r * Math.cos(rad);
-            const y = center + r * Math.sin(rad);
+            const x = center + rx * Math.cos(rad);
+            const y = center + ry * Math.sin(rad);
             const leftPct = (x / containerSize) * 100;
             const topPct = (y / containerSize) * 100;
             const BadgeIcon = a.badge.icon;
