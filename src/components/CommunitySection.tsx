@@ -14,7 +14,7 @@ const avatars = [
   { src: testimonial1, top: "8%", left: "6%", size: "w-14 h-14", delay: "0s", badge: { text: "Invited to The Forge", icon: UserPlus, pos: "top-full mt-2 left-0" } },
   { src: masterclass1, top: "18%", right: "8%", size: "w-12 h-12", delay: "0.8s", badge: { text: "Recommended: Arjun", icon: Star, pos: "top-full mt-2 right-0" } },
   { src: testimonial4, top: "55%", left: "3%", size: "w-11 h-11", delay: "1.6s", badge: { text: "Connected: 12 new peers", icon: Users, pos: "top-full mt-2 left-0" } },
-  { src: testimonial5, top: "70%", right: "5%", size: "w-13 h-13", delay: "2.4s", badge: { text: "Shared: Priya's project", icon: Share2, pos: "top-full mt-2 right-0" } },
+  { src: testimonial5, top: "70%", right: "5%", size: "w-12 h-12", delay: "2.4s", badge: { text: "Shared: Priya's project", icon: Share2, pos: "top-full mt-2 right-0" } },
   { src: testimonial2, top: "35%", left: "10%", size: "w-10 h-10", delay: "0.4s", badge: { text: "Reviewed: Meera's portfolio", icon: Eye, pos: "top-full mt-2 left-0" } },
   { src: masterclass2, top: "40%", right: "12%", size: "w-10 h-10", delay: "1.2s", badge: { text: "Collaborated on 4 projects", icon: Handshake, pos: "top-full mt-2 right-0" } },
   { src: testimonial6, top: "82%", left: "12%", size: "w-12 h-12", delay: "2s", badge: { text: "Mentoring 3 students", icon: GraduationCap, pos: "bottom-full mb-2 left-0" } },
