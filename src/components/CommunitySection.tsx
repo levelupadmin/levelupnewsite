@@ -26,19 +26,9 @@ const rings = [
   { rx: 54, ry: 48, dashArray: "4 10" },
 ];
 
-// Ring animation directions: alternating CW / CCW
-const ringAnimations = [
-  "animate-orbit-cw",
-  "animate-orbit-ccw-slow",
-  "animate-orbit-cw-slow",
-  "animate-orbit-ccw",
-];
-const counterAnimations = [
-  "animate-orbit-ccw",       // counter for cw
-  "animate-orbit-cw-slow",   // counter for ccw-slow
-  "animate-orbit-ccw-slow",  // counter for cw-slow
-  "animate-orbit-cw",        // counter for ccw
-];
+// Alternating directions per ring
+const ringDurations = [90, 120, 120, 90]; // seconds
+const ringDirections = [1, -1, 1, -1]; // 1 = CW, -1 = CCW
 
 type AvatarItem = {
   type: "avatar";
@@ -101,15 +91,14 @@ const mobileStats = [
   { target: 50, suffix: "+", label: "Masterclasses" },
 ];
 
-function getTranslate(ringIndex: number, angle: number) {
+function getPosition(ringIndex: number, angle: number) {
   const ring = rings[ringIndex];
   const rx = (ring.rx / 100) * containerW;
   const ry = (ring.ry / 100) * containerH;
   const rad = (angle * Math.PI) / 180;
-  // Translate from center (0,0) since parent is centered
-  const x = rx * Math.cos(rad);
-  const y = ry * Math.sin(rad);
-  return { x, y };
+  const x = cx + rx * Math.cos(rad);
+  const y = cy + ry * Math.sin(rad);
+  return { leftPct: (x / containerW) * 100, topPct: (y / containerH) * 100 };
 }
 
 const CommunitySection = () => {
@@ -139,71 +128,83 @@ const CommunitySection = () => {
           ))}
         </svg>
 
-        {/* Orbiting ring groups */}
+        {/* Orbiting ring groups — each ring wrapper rotates, children counter-rotate */}
         <div className="absolute inset-0 hidden md:block">
-          {ringItems.map((items, ringIdx) => (
-            <div
-              key={ringIdx}
-              className={`absolute top-1/2 left-1/2 ${ringAnimations[ringIdx]}`}
-              style={{ width: 0, height: 0 }}
-            >
-              {items.map((item, itemIdx) => {
-                const { x, y } = getTranslate(ringIdx, item.angle);
+          {ringItems.map((items, ringIdx) => {
+            const dur = ringDurations[ringIdx];
+            const dir = ringDirections[ringIdx];
 
-                if (item.type === "avatar") {
-                  const a = item as AvatarItem;
-                  const BadgeIcon = a.badge.icon;
+            return (
+              <div
+                key={ringIdx}
+                className="absolute inset-0"
+                style={{
+                  animation: `orbit-spin ${dur}s linear infinite`,
+                  ["--orbit-dir" as string]: dir,
+                }}
+              >
+                {items.map((item, itemIdx) => {
+                  const { leftPct, topPct } = getPosition(ringIdx, item.angle);
+
+                  if (item.type === "avatar") {
+                    const a = item as AvatarItem;
+                    const BadgeIcon = a.badge.icon;
+                    const half = a.size / 2;
+                    return (
+                      <div
+                        key={itemIdx}
+                        className="absolute"
+                        style={{
+                          left: `calc(${leftPct}% - ${half}px)`,
+                          top: `calc(${topPct}% - ${half}px)`,
+                          animation: `orbit-spin ${dur}s linear infinite reverse`,
+                          ["--orbit-dir" as string]: dir,
+                        }}
+                      >
+                        <div className="relative group">
+                          <img
+                            src={a.src}
+                            alt=""
+                            className="rounded-full object-cover ring-2 ring-border/30"
+                            style={{ width: a.size, height: a.size }}
+                            loading="lazy"
+                          />
+                          <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-card border border-border/50 text-[10px] text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20">
+                            <BadgeIcon className="w-3 h-3 text-primary" />
+                            {a.badge.text}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  const s = item as StatItem;
                   return (
                     <div
                       key={itemIdx}
-                      className={`absolute ${counterAnimations[ringIdx]}`}
+                      className="absolute"
                       style={{
-                        left: x,
-                        top: y,
+                        left: `${leftPct}%`,
+                        top: `${topPct}%`,
                         transform: "translate(-50%, -50%)",
+                        animation: `orbit-spin ${dur}s linear infinite reverse`,
+                        ["--orbit-dir" as string]: dir,
                       }}
                     >
-                      <div className="relative group">
-                        <img
-                          src={a.src}
-                          alt=""
-                          className="rounded-full object-cover ring-2 ring-border/30"
-                          style={{ width: a.size, height: a.size }}
-                          loading="lazy"
-                        />
-                        <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-card border border-border/50 text-[10px] text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20">
-                          <BadgeIcon className="w-3 h-3 text-primary" />
-                          {a.badge.text}
-                        </div>
+                      <div className="bg-card border border-border/50 rounded-xl px-4 py-2 flex flex-col items-center shadow-sm">
+                        <span className="text-base font-bold text-foreground tabular-nums leading-tight">
+                          <AnimatedCounter target={s.target} suffix={s.suffix} hasComma={s.hasComma} />
+                        </span>
+                        <span className="text-[9px] text-muted-foreground uppercase tracking-wider mt-0.5">
+                          {s.label}
+                        </span>
                       </div>
                     </div>
                   );
-                }
-
-                const s = item as StatItem;
-                return (
-                  <div
-                    key={itemIdx}
-                    className={`absolute ${counterAnimations[ringIdx]}`}
-                    style={{
-                      left: x,
-                      top: y,
-                      transform: "translate(-50%, -50%)",
-                    }}
-                  >
-                    <div className="bg-card border border-border/50 rounded-xl px-4 py-2 flex flex-col items-center shadow-sm">
-                      <span className="text-base font-bold text-foreground tabular-nums leading-tight">
-                        <AnimatedCounter target={s.target} suffix={s.suffix} hasComma={s.hasComma} />
-                      </span>
-                      <span className="text-[9px] text-muted-foreground uppercase tracking-wider mt-0.5">
-                        {s.label}
-                      </span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          ))}
+                })}
+              </div>
+            );
+          })}
         </div>
 
         {/* Center content */}

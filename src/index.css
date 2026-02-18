@@ -267,6 +267,11 @@
   100% { transform: translateX(0); }
 }
 
+@keyframes orbit-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(calc(var(--orbit-dir, 1) * 360deg)); }
+}
+
 @layer utilities {
   .animate-scroll-left {
     animation: scroll-left 60s linear infinite;
