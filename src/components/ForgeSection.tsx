@@ -134,7 +134,7 @@ const ForgeSection = () => {
       <div className="max-w-[1600px] mx-auto px-5 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
           {/* Left Column — Text Block */}
-          <div>
+          <div className="bg-card/60 backdrop-blur-sm rounded-xl p-6 md:p-8">
 
             <img
               src={forgeLogo}
