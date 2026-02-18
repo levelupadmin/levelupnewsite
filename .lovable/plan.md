@@ -1,27 +1,17 @@
 
 
-# Update Forge Section Text Content
+# Add Soft Outline to Trusted By Section
 
 ## What Changes
-Replace the headline and description in the Forge section's left column with the new copy provided.
-
-## Current Text (to be replaced)
-- Headline: "Where you *become*"
-- Description: "A filmmaking bootcamp for aspiring filmmakers, writers, creators, and storytellers -- where in 12 days we teach you filmmaking hands-on and you create your very own short film."
-
-## New Text
-- Headline: "Where you *become*" (kept as-is based on the image reference)
-- Description split into two paragraphs:
-  1. "The Forge is an offline, immersive learning experience that brings together travel, hands-on creation, and a like-minded community."
-  2. "Built for filmmakers, writers, founders, builders, artists, and creators, The Forge is designed for people who want to learn by doing in an environment built for growth."
-  3. "Over an intensive week with practicing creators and mentors, participants move beyond theory. They apply what they learn in real time, collaborate with peers, and build a complete project of their own."
+Add a subtle, soft border/outline around the entire "Trusted by India's best" pre-footer CTA section to visually distinguish it from the surrounding background.
 
 ## Technical Details
 
-### File: `src/components/ForgeSection.tsx`
-- Lines 145-154: Replace the single `<p>` description with the three paragraphs above, each in its own `<p>` tag styled consistently with the existing `font-sans-body text-sm md:text-base text-hero-subtext leading-relaxed` classes.
-- The headline "Where you *become*" stays unchanged.
-- Spacing between paragraphs will use `mt-3` for a comfortable reading flow.
+### File: `src/components/TrustedCTASection.tsx`
+- Add a wrapper `<div>` inside the section's `max-w-4xl` container (or apply directly to it) with a soft border using a low-opacity amber/white tone:
+  - `border border-white/10 rounded-2xl` for a subtle glowing outline
+  - Add `px-8 py-10 md:px-12 md:py-14` padding inside the outlined area
+- This keeps the section's outer padding intact while giving the content area a defined, soft boundary.
 
 ### No other files change.
 
