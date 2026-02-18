@@ -43,7 +43,7 @@ const stats = [
 
 const CommunitySection = () => {
   return (
-    <section className="relative py-20 md:py-28 bg-background overflow-hidden">
+    <section className="relative min-h-screen flex flex-col justify-center py-20 md:py-28 bg-background overflow-hidden">
       {/* Connecting lines SVG */}
       <svg
         className="absolute inset-0 w-full h-full hidden md:block pointer-events-none"
