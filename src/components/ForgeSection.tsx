@@ -148,9 +148,13 @@ const ForgeSection = () => {
             </p>
 
             <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-4 md:mt-6 max-w-md leading-relaxed">
-              A filmmaking bootcamp for aspiring filmmakers, writers, creators,
-              and storytellers — where in 12 days we teach you filmmaking
-              hands-on and you create your very own short film.
+              The Forge is an offline, immersive learning experience that brings together travel, hands-on creation, and a like-minded community.
+            </p>
+            <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-3 max-w-md leading-relaxed">
+              Built for filmmakers, writers, founders, builders, artists, and creators, The Forge is designed for people who want to learn by doing in an environment built for growth.
+            </p>
+            <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-3 max-w-md leading-relaxed">
+              Over an intensive week with practicing creators and mentors, participants move beyond theory. They apply what they learn in real time, collaborate with peers, and build a complete project of their own.
             </p>
 
             {/* Stats row */}
