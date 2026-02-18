@@ -73,8 +73,8 @@ const CommunitySection = () => {
                 cy={center}
                 r={r}
                 stroke="hsl(var(--muted-foreground))"
-                strokeWidth="1"
-                strokeOpacity="0.15"
+                strokeWidth="1.5"
+                strokeOpacity="0.35"
                 strokeDasharray={ring.dashArray}
                 fill="none"
               />
