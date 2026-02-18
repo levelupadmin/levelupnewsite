@@ -15,10 +15,10 @@ import masterclass4 from "@/assets/masterclass-4.jpg";
 import masterclass5 from "@/assets/masterclass-5.jpg";
 
 const rings = [
-  { rx: 24, ry: 16, dashArray: "4 8" },
-  { rx: 34, ry: 24, dashArray: "3 10" },
-  { rx: 44, ry: 33, dashArray: "5 12" },
-  { rx: 54, ry: 42, dashArray: "4 10" },
+  { rx: 28, ry: 20, dashArray: "4 8" },
+  { rx: 37, ry: 28, dashArray: "3 10" },
+  { rx: 46, ry: 36, dashArray: "5 12" },
+  { rx: 55, ry: 44, dashArray: "4 10" },
 ];
 
 const avatars = [
@@ -52,47 +52,48 @@ const stats = [
 ];
 
 const CommunitySection = () => {
-  const containerSize = 700;
-  const center = containerSize / 2;
+  const containerW = 900;
+  const containerH = 700;
+  const cx = containerW / 2;
+  const cy = containerH / 2;
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center py-20 md:py-28 bg-background overflow-hidden">
-      <div className="relative w-[90vw] h-[90vw] max-w-[700px] max-h-[700px] mx-auto flex items-center justify-center">
+      <div className="relative w-[95vw] max-w-[900px] aspect-[9/7] mx-auto flex items-center justify-center">
         {/* SVG rings — using muted-foreground color */}
-        <svg
+         <svg
           className="absolute inset-0 w-full h-full"
-          viewBox={`0 0 ${containerSize} ${containerSize}`}
+          viewBox={`0 0 ${containerW} ${containerH}`}
           fill="none"
+          preserveAspectRatio="xMidYMid meet"
         >
-          {rings.map((ring, i) => {
-            return (
-              <ellipse
-                key={i}
-                cx={center}
-                cy={center}
-                rx={(ring.rx / 100) * containerSize}
-                ry={(ring.ry / 100) * containerSize}
-                stroke="hsl(var(--muted-foreground))"
-                strokeWidth="1.5"
-                strokeOpacity="0.35"
-                strokeDasharray={ring.dashArray}
-                fill="none"
-              />
-            );
-          })}
+          {rings.map((ring, i) => (
+            <ellipse
+              key={i}
+              cx={cx}
+              cy={cy}
+              rx={(ring.rx / 100) * containerW}
+              ry={(ring.ry / 100) * containerH}
+              stroke="hsl(var(--muted-foreground))"
+              strokeWidth="1"
+              strokeOpacity="0.25"
+              strokeDasharray={ring.dashArray}
+              fill="none"
+            />
+          ))}
         </svg>
 
         {/* Floating avatars on rings */}
         <div className="absolute inset-0 hidden md:block">
           {avatars.map((a, i) => {
             const ring = rings[a.ring];
-            const rx = (ring.rx / 100) * containerSize;
-            const ry = (ring.ry / 100) * containerSize;
+            const rx = (ring.rx / 100) * containerW;
+            const ry = (ring.ry / 100) * containerH;
             const rad = (a.angle * Math.PI) / 180;
-            const x = center + rx * Math.cos(rad);
-            const y = center + ry * Math.sin(rad);
-            const leftPct = (x / containerSize) * 100;
-            const topPct = (y / containerSize) * 100;
+            const x = cx + rx * Math.cos(rad);
+            const y = cy + ry * Math.sin(rad);
+            const leftPct = (x / containerW) * 100;
+            const topPct = (y / containerH) * 100;
             const BadgeIcon = a.badge.icon;
             const halfSize = a.size / 2;
 
@@ -125,37 +126,37 @@ const CommunitySection = () => {
         </div>
 
         {/* Center content — text + CTA + stats all inside the circle */}
-        <div className="relative z-10 flex flex-col items-center text-center px-4 max-w-sm">
-          <span className="text-primary text-xs uppercase tracking-[0.2em] font-semibold mb-3">
+        <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-md">
+          <span className="text-primary text-xs uppercase tracking-[0.25em] font-semibold mb-4">
             The Community
           </span>
 
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight mb-3">
+          <h2 className="text-2xl md:text-3xl lg:text-[2.5rem] font-bold leading-[1.15] mb-4">
             Come for learning,{" "}
+            <br className="hidden md:block" />
             <span className="text-primary italic font-serif">Stay for the community</span>
           </h2>
 
-          <p className="text-muted-foreground text-xs md:text-sm max-w-xs mb-6">
-            Connect with creators, mentors, and peers who push your craft forward. Learn together, grow together.
+          <p className="text-muted-foreground text-sm md:text-base max-w-sm mb-8 leading-relaxed">
+            Connect with creators, mentors, and peers who push your craft forward.
           </p>
 
           <a
             href="#"
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold text-white transition-transform hover:-translate-y-0.5 mb-8"
-            style={{ background: "linear-gradient(135deg, #FF6B35, #F7931E)" }}
+            className="inline-flex items-center gap-2 px-7 py-3 rounded-full text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:shadow-lg mb-10"
+            style={{ background: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary) / 0.8))" }}
           >
             Join the community
             <ArrowRight className="w-4 h-4" />
           </a>
 
-          {/* Stats inside the circle */}
-          <div className="grid grid-cols-2 gap-x-8 gap-y-4 w-full">
+          <div className="grid grid-cols-4 gap-6 w-full">
             {stats.map((s) => (
               <div key={s.label} className="flex flex-col items-center">
-                <span className="text-xl md:text-2xl font-bold text-foreground">
+                <span className="text-lg md:text-2xl font-bold text-foreground tabular-nums">
                   <AnimatedCounter target={s.target} suffix={s.suffix} hasComma={s.hasComma} />
                 </span>
-                <span className="text-[9px] md:text-[10px] text-muted-foreground uppercase tracking-wider mt-0.5">
+                <span className="text-[9px] md:text-[10px] text-muted-foreground uppercase tracking-wider mt-1">
                   {s.label}
                 </span>
               </div>
