@@ -26,44 +26,90 @@ const rings = [
   { rx: 54, ry: 48, dashArray: "4 10" },
 ];
 
-const avatars = [
+// Ring animation directions: alternating CW / CCW
+const ringAnimations = [
+  "animate-orbit-cw",
+  "animate-orbit-ccw-slow",
+  "animate-orbit-cw-slow",
+  "animate-orbit-ccw",
+];
+const counterAnimations = [
+  "animate-orbit-ccw",       // counter for cw
+  "animate-orbit-cw-slow",   // counter for ccw-slow
+  "animate-orbit-ccw-slow",  // counter for cw-slow
+  "animate-orbit-cw",        // counter for ccw
+];
+
+type AvatarItem = {
+  type: "avatar";
+  src: string;
+  angle: number;
+  size: number;
+  badge: { text: string; icon: React.ComponentType<{ className?: string }> };
+};
+
+type StatItem = {
+  type: "stat";
+  angle: number;
+  target: number;
+  suffix: string;
+  label: string;
+  hasComma?: boolean;
+};
+
+type RingItem = AvatarItem | StatItem;
+
+const ringItems: RingItem[][] = [
   // Ring 0
-  { src: testimonial1, ring: 0, angle: 30, size: 44, delay: "0s", badge: { text: "Invited to The Forge", icon: UserPlus } },
-  { src: masterclass1, ring: 0, angle: 150, size: 40, delay: "0.6s", badge: { text: "Recommended: Arjun", icon: Star } },
-  { src: testimonial8, ring: 0, angle: 270, size: 42, delay: "1.2s", badge: { text: "Bookmarked 8 lessons", icon: Bookmark } },
+  [
+    { type: "avatar", src: testimonial1, angle: 30, size: 44, badge: { text: "Invited to The Forge", icon: UserPlus } },
+    { type: "avatar", src: masterclass1, angle: 150, size: 40, badge: { text: "Recommended: Arjun", icon: Star } },
+    { type: "stat", angle: 210, target: 12000, suffix: "+", label: "Members", hasComma: true },
+    { type: "avatar", src: testimonial8, angle: 270, size: 42, badge: { text: "Bookmarked 8 lessons", icon: Bookmark } },
+    { type: "stat", angle: 330, target: 200, suffix: "+", label: "Mentors" },
+  ],
   // Ring 1
-  { src: testimonial4, ring: 1, angle: 10, size: 42, delay: "1.8s", badge: { text: "Connected: 12 new peers", icon: Users } },
-  { src: testimonial5, ring: 1, angle: 100, size: 40, delay: "2.4s", badge: { text: "Shared: Priya's project", icon: Share2 } },
-  { src: masterclass3, ring: 1, angle: 190, size: 44, delay: "0.3s", badge: { text: "Top contributor this week", icon: Award } },
-  { src: masterclass4, ring: 1, angle: 300, size: 40, delay: "0.9s", badge: { text: "Gave feedback on 6 drafts", icon: MessageCircle } },
+  [
+    { type: "avatar", src: testimonial4, angle: 10, size: 42, badge: { text: "Connected: 12 new peers", icon: Users } },
+    { type: "stat", angle: 55, target: 50, suffix: "+", label: "Masterclasses" },
+    { type: "avatar", src: testimonial5, angle: 100, size: 40, badge: { text: "Shared: Priya's project", icon: Share2 } },
+    { type: "avatar", src: masterclass3, angle: 190, size: 44, badge: { text: "Top contributor this week", icon: Award } },
+    { type: "stat", angle: 250, target: 850, suffix: "+", label: "Projects" },
+    { type: "avatar", src: masterclass4, angle: 300, size: 40, badge: { text: "Gave feedback on 6 drafts", icon: MessageCircle } },
+  ],
   // Ring 2
-  { src: testimonial2, ring: 2, angle: 45, size: 40, delay: "1.5s", badge: { text: "Reviewed: Meera's portfolio", icon: Eye } },
-  { src: masterclass2, ring: 2, angle: 130, size: 42, delay: "2.1s", badge: { text: "Collaborated on 4 projects", icon: Handshake } },
-  { src: testimonial6, ring: 2, angle: 220, size: 40, delay: "2.7s", badge: { text: "Mentoring 3 students", icon: GraduationCap } },
-  { src: masterclass5, ring: 2, angle: 320, size: 42, delay: "0.5s", badge: { text: "Streak: 14 days active", icon: Zap } },
+  [
+    { type: "avatar", src: testimonial2, angle: 45, size: 40, badge: { text: "Reviewed: Meera's portfolio", icon: Eye } },
+    { type: "avatar", src: masterclass2, angle: 130, size: 42, badge: { text: "Collaborated on 4 projects", icon: Handshake } },
+    { type: "avatar", src: testimonial6, angle: 220, size: 40, badge: { text: "Mentoring 3 students", icon: GraduationCap } },
+    { type: "avatar", src: masterclass5, angle: 320, size: 42, badge: { text: "Streak: 14 days active", icon: Zap } },
+  ],
   // Ring 3
-  { src: testimonial7, ring: 3, angle: 25, size: 38, delay: "1.1s", badge: { text: "Enrolled: Masterclass", icon: Star } },
-  { src: testimonial1, ring: 3, angle: 95, size: 40, delay: "1.7s", badge: { text: "Invited 5 friends", icon: UserPlus } },
-  { src: masterclass1, ring: 3, angle: 165, size: 38, delay: "2.3s", badge: { text: "Completed 3 courses", icon: Award } },
-  { src: testimonial4, ring: 3, angle: 245, size: 40, delay: "0.7s", badge: { text: "Posted in community", icon: MessageCircle } },
-  { src: masterclass3, ring: 3, angle: 315, size: 38, delay: "1.3s", badge: { text: "Shared a resource", icon: Share2 } },
+  [
+    { type: "avatar", src: testimonial7, angle: 25, size: 38, badge: { text: "Enrolled: Masterclass", icon: Star } },
+    { type: "avatar", src: testimonial1, angle: 95, size: 40, badge: { text: "Invited 5 friends", icon: UserPlus } },
+    { type: "avatar", src: masterclass1, angle: 165, size: 38, badge: { text: "Completed 3 courses", icon: Award } },
+    { type: "avatar", src: testimonial4, angle: 245, size: 40, badge: { text: "Posted in community", icon: MessageCircle } },
+    { type: "avatar", src: masterclass3, angle: 315, size: 38, badge: { text: "Shared a resource", icon: Share2 } },
+  ],
 ];
 
-const orbitingStats = [
-  { ring: 0, angle: 210, target: 12000, suffix: "+", label: "Members", hasComma: true, delay: "0.4s" },
-  { ring: 1, angle: 250, target: 850, suffix: "+", label: "Projects", delay: "1.0s" },
-  { ring: 0, angle: 330, target: 200, suffix: "+", label: "Mentors", delay: "1.6s" },
-  { ring: 1, angle: 55, target: 50, suffix: "+", label: "Masterclasses", delay: "2.2s" },
+const mobileStats = [
+  { target: 12000, suffix: "+", label: "Members", hasComma: true },
+  { target: 850, suffix: "+", label: "Projects" },
+  { target: 200, suffix: "+", label: "Mentors" },
+  { target: 50, suffix: "+", label: "Masterclasses" },
 ];
 
-function getPosition(ringIndex: number, angle: number) {
+function getTranslate(ringIndex: number, angle: number) {
   const ring = rings[ringIndex];
   const rx = (ring.rx / 100) * containerW;
   const ry = (ring.ry / 100) * containerH;
   const rad = (angle * Math.PI) / 180;
-  const x = cx + rx * Math.cos(rad);
-  const y = cy + ry * Math.sin(rad);
-  return { leftPct: (x / containerW) * 100, topPct: (y / containerH) * 100 };
+  // Translate from center (0,0) since parent is centered
+  const x = rx * Math.cos(rad);
+  const y = ry * Math.sin(rad);
+  return { x, y };
 }
 
 const CommunitySection = () => {
@@ -93,69 +139,74 @@ const CommunitySection = () => {
           ))}
         </svg>
 
-        {/* Floating avatars */}
+        {/* Orbiting ring groups */}
         <div className="absolute inset-0 hidden md:block">
-          {avatars.map((a, i) => {
-            const { leftPct, topPct } = getPosition(a.ring, a.angle);
-            const BadgeIcon = a.badge.icon;
-            const half = a.size / 2;
+          {ringItems.map((items, ringIdx) => (
+            <div
+              key={ringIdx}
+              className={`absolute top-1/2 left-1/2 ${ringAnimations[ringIdx]}`}
+              style={{ width: 0, height: 0 }}
+            >
+              {items.map((item, itemIdx) => {
+                const { x, y } = getTranslate(ringIdx, item.angle);
 
-            return (
-              <div
-                key={`avatar-${i}`}
-                className="absolute animate-float-slow"
-                style={{
-                  left: `calc(${leftPct}% - ${half}px)`,
-                  top: `calc(${topPct}% - ${half}px)`,
-                  animationDelay: a.delay,
-                }}
-              >
-                <div className="relative group">
-                  <img
-                    src={a.src}
-                    alt=""
-                    className="rounded-full object-cover ring-2 ring-border/30"
-                    style={{ width: a.size, height: a.size }}
-                    loading="lazy"
-                  />
-                  <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-card border border-border/50 text-[10px] text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20">
-                    <BadgeIcon className="w-3 h-3 text-primary" />
-                    {a.badge.text}
+                if (item.type === "avatar") {
+                  const a = item as AvatarItem;
+                  const BadgeIcon = a.badge.icon;
+                  return (
+                    <div
+                      key={itemIdx}
+                      className={`absolute ${counterAnimations[ringIdx]}`}
+                      style={{
+                        left: x,
+                        top: y,
+                        transform: "translate(-50%, -50%)",
+                      }}
+                    >
+                      <div className="relative group">
+                        <img
+                          src={a.src}
+                          alt=""
+                          className="rounded-full object-cover ring-2 ring-border/30"
+                          style={{ width: a.size, height: a.size }}
+                          loading="lazy"
+                        />
+                        <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 whitespace-nowrap flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-card border border-border/50 text-[10px] text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20">
+                          <BadgeIcon className="w-3 h-3 text-primary" />
+                          {a.badge.text}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+
+                const s = item as StatItem;
+                return (
+                  <div
+                    key={itemIdx}
+                    className={`absolute ${counterAnimations[ringIdx]}`}
+                    style={{
+                      left: x,
+                      top: y,
+                      transform: "translate(-50%, -50%)",
+                    }}
+                  >
+                    <div className="bg-card border border-border/50 rounded-xl px-4 py-2 flex flex-col items-center shadow-sm">
+                      <span className="text-base font-bold text-foreground tabular-nums leading-tight">
+                        <AnimatedCounter target={s.target} suffix={s.suffix} hasComma={s.hasComma} />
+                      </span>
+                      <span className="text-[9px] text-muted-foreground uppercase tracking-wider mt-0.5">
+                        {s.label}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </div>
-            );
-          })}
-
-          {/* Orbiting stats */}
-          {orbitingStats.map((s, i) => {
-            const { leftPct, topPct } = getPosition(s.ring, s.angle);
-
-            return (
-              <div
-                key={`stat-${i}`}
-                className="absolute animate-float-slow"
-                style={{
-                  left: `${leftPct}%`,
-                  top: `${topPct}%`,
-                  transform: "translate(-50%, -50%)",
-                  animationDelay: s.delay,
-                }}
-              >
-                <div className="bg-card border border-border/50 rounded-xl px-4 py-2 flex flex-col items-center shadow-sm">
-                  <span className="text-base font-bold text-foreground tabular-nums leading-tight">
-                    <AnimatedCounter target={s.target} suffix={s.suffix} hasComma={s.hasComma} />
-                  </span>
-                  <span className="text-[9px] text-muted-foreground uppercase tracking-wider mt-0.5">
-                    {s.label}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
+                );
+              })}
+            </div>
+          ))}
         </div>
 
-        {/* Center content — text + CTA only */}
+        {/* Center content */}
         <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-md">
           <span className="text-primary text-xs uppercase tracking-[0.25em] font-semibold mb-4">
             The Community
@@ -182,7 +233,7 @@ const CommunitySection = () => {
 
           {/* Mobile-only stats */}
           <div className="grid grid-cols-4 gap-6 w-full mt-10 md:hidden">
-            {orbitingStats.map((s) => (
+            {mobileStats.map((s) => (
               <div key={s.label} className="flex flex-col items-center">
                 <span className="text-lg font-bold text-foreground tabular-nums">
                   <AnimatedCounter target={s.target} suffix={s.suffix} hasComma={s.hasComma} />
