@@ -113,6 +113,10 @@ export default {
           "0%": { strokeDashoffset: "75.4" },
           "100%": { strokeDashoffset: "0" },
         },
+        "float-slow": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -126,6 +130,7 @@ export default {
         "float-card-3": "float-card-3 4s ease-in-out infinite 0.6s",
         "slide-playhead": "slide-playhead 6s ease-in-out infinite alternate",
         "progress-fill": "progress-fill 4s ease-out infinite",
+        "float-slow": "float-slow 6s ease-in-out infinite",
       },
     },
   },
