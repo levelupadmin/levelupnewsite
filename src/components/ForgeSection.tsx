@@ -143,8 +143,7 @@ const ForgeSection = () => {
             />
 
             <p className="font-serif-display text-lg md:text-xl text-hero-headline mt-2">
-              Where you{" "}
-              <em className="italic font-normal text-primary">become</em>
+              Learn. Do. <em className="italic font-normal text-primary">Become.</em>
             </p>
 
             <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-4 md:mt-6 max-w-md leading-relaxed">
