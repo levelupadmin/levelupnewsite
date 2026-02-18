@@ -1,22 +1,34 @@
 import { m } from "framer-motion";
 import { BookX, ShieldX, Users } from "lucide-react";
 import heroImg from "@/assets/hero-cinematic.jpg";
+import testimonial1 from "@/assets/testimonial-1.jpg";
+import testimonial5 from "@/assets/testimonial-5.jpg";
+import testimonial7 from "@/assets/testimonial-7.jpg";
 
 const problems = [
   {
     icon: BookX,
     title: "No Structured Learning",
     description: "YouTube has 10,000 tutorials. Zero clear pathways.",
+    image: testimonial1,
+    stat: "10,000+",
+    statLabel: "tutorials, zero direction",
   },
   {
     icon: ShieldX,
     title: "No Verified Skills",
     description: "They learn scattered skills but can't prove their capability.",
+    image: testimonial5,
+    stat: "83%",
+    statLabel: "of creators lack portfolio proof",
   },
   {
     icon: Users,
     title: "No Access to Network",
     description: "Talent gets lost without a network. Opportunities go to known faces only.",
+    image: testimonial7,
+    stat: "92%",
+    statLabel: "of jobs go to referrals",
   },
 ];
 
@@ -57,15 +69,38 @@ const ProblemSection = () => (
               key={p.title}
               {...fadeUp}
               transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
-              className="rounded-xl bg-white/10 backdrop-blur-md border border-white/10 p-6 flex flex-col items-start gap-4"
+              className="rounded-xl bg-white/10 backdrop-blur-md border border-white/10 overflow-hidden flex flex-col"
             >
-              <div className="w-11 h-11 rounded-full bg-primary/20 flex items-center justify-center">
-                <p.icon className="w-5 h-5 text-primary" />
+              {/* Human image with gradient overlay */}
+              <div className="relative h-32 overflow-hidden">
+                <img
+                  src={p.image}
+                  alt=""
+                  className="w-full h-full object-cover object-top grayscale opacity-60"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-white/10 via-transparent to-black/40" />
+                {/* Stat overlay */}
+                <div className="absolute bottom-3 left-4">
+                  <span className="font-serif-display text-2xl text-primary font-bold leading-none">
+                    {p.stat}
+                  </span>
+                  <span className="block font-sans-body text-[10px] text-white/50 mt-0.5">
+                    {p.statLabel}
+                  </span>
+                </div>
               </div>
-              <h3 className="font-serif-display text-base text-white">{p.title}</h3>
-              <p className="font-sans-body text-sm text-white/70 leading-relaxed">
-                {p.description}
-              </p>
+
+              {/* Card content */}
+              <div className="p-6 flex flex-col items-start gap-3">
+                <div className="w-11 h-11 rounded-full bg-primary/20 flex items-center justify-center">
+                  <p.icon className="w-5 h-5 text-primary" />
+                </div>
+                <h3 className="font-serif-display text-base text-white">{p.title}</h3>
+                <p className="font-sans-body text-sm text-white/70 leading-relaxed">
+                  {p.description}
+                </p>
+              </div>
             </m.div>
           ))}
         </div>
