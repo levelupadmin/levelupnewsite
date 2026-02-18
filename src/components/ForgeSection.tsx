@@ -26,9 +26,9 @@ const featurePoints = [
 
 
 const stats = [
-{ value: "7", label: "Cities" },
-{ value: "11", label: "Editions" },
-{ value: "248", label: "Shortfilms" }];
+{ value: "10", label: "Cities Explored" },
+{ value: "25+", label: "Editions" },
+{ value: "500+", label: "Dreamers" }];
 
 
 const forgeCards = [
