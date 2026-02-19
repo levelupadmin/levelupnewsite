@@ -1,67 +1,63 @@
 
 
-## Reposition Circles and Stats to Match GoFundMe Reference
+## Replace Community Section with Bento Photo Grid Layout
 
 ### What Changes
-Reposition the 6 circular images into tighter, cascading diagonal groups that hug the central text. Move stat badges to anchor the four corners. Add slight rotations for organic feel. Move labels inside/overlapping the bottom of each circle.
+Complete replacement of the current GoFundMe-style circular layout with a bento/masonry photo grid matching the reference image. The section shifts from a centered, symmetrical composition to a left-aligned editorial layout with a dense photo mosaic below.
 
-### Layout Details
+### New Layout Structure
 
-**Left circles** -- cascading diagonal from upper-right to lower-left:
-- Top: shifted right (closer to text), positioned higher, rotated ~3deg
-- Middle: centered, slightly overlapping top circle vertically, rotated ~-2deg  
-- Bottom: shifted further left, lowest, rotated ~4deg
-- Tighter vertical gap (`gap-2` or negative margins) so circles feel clustered
+**Header area (top)**:
+- Left-aligned eyebrow: "DIVE INTO OUR COMMUNITY" (orange, uppercase, letter-spaced)
+- Left-aligned headline: "Learn Online, Connect Offline" (large, bold, white)
+- Left-aligned subtitle: "Engage with other learners, alumni, and mentors and attend community sessions to learn from each other in our curated community."
+- Right-aligned: Left/right arrow navigation buttons (white square buttons with arrow icons)
 
-**Right circles** -- mirrored diagonal from upper-left to lower-right:
-- Top: shifted left (closer to text), positioned higher, rotated ~-3deg
-- Middle: centered, rotated ~2deg
-- Bottom: shifted further right, lowest, rotated ~-4deg
+**Photo grid (below header)**:
+A 3-row bento/masonry grid with ~11 photos in varying sizes. The grid uses CSS Grid with defined row/column spans to create the asymmetric mosaic effect from the reference:
 
-**Stats repositioned** to four corners:
-- Members: `top-[8%] left-[4%]` (above top-left circle)
-- Projects: `top-[8%] right-[4%]` (above top-right circle)
-- Mentors: `bottom-[8%] left-[4%]` (below bottom-left circle)
-- Masterclasses: `bottom-[8%] right-[4%]` (below bottom-right circle)
-- Slightly smaller text (`text-sm` for numbers, `text-[8px]` for labels)
+```text
+Row 1:  [tall-1]  [short-2]        [tall-3 center]     [medium-4]  [short-5]
+Row 2:  [tall-1]  [medium-6]       [tall-3 center]     [medium-4]  [short-7]
+Row 3:  [short-8]       [tall-6 continues]  [short-9]  [short-10]  [tall-11]
+```
 
-**Labels** -- moved from outside to overlapping the bottom of each circle:
-- Positioned absolutely at the bottom of the circle container
-- Semi-transparent dark background (`bg-black/60 backdrop-blur-sm`)
-- Sits inside the circle's bottom edge
+Photos have rounded-lg corners, small gaps between them, and dark background showing through.
 
-**Spacing tightened**:
-- Reduce center column padding from `md:px-16` to `md:px-8`
-- Circles use `gap-2` instead of `gap-6`
-- Circles overlap into the text column space using negative margins or `translateX`
+### Images Used
+Will reuse existing project assets (masterclass-1 through 6, forge-1 through 4, and carousel images) to fill the ~11 grid slots. All images use `object-cover` for consistent cropping.
 
-**Rotation** added via inline `transform: rotate()` on each circle (alternating 2-5deg).
+### What Gets Removed
+- All circular image components and data arrays
+- FloatingCircleImage component
+- AnimatedCounter stats (floating badges and mobile grid)
+- community-float animation
+- Orange ring borders, rotations, labels on circles
+- CTA "Join the community" button
 
-**Float animation** updated to include rotation in the keyframe so it doesn't reset.
+### What Stays
+- Dark background (`bg-background`)
+- Orange accent color for eyebrow text
+- Section padding patterns
+- Responsive behavior (grid simplifies on mobile)
 
 ### Technical Details
 
-**File: `src/components/CommunitySection.tsx`**
+**File: `src/components/CommunitySection.tsx`** -- Full rewrite
 
-1. Update `leftCircles` and `rightCircles` data arrays to include `rotation` values (e.g., 3, -2, 4 and -3, 2, -4 degrees)
+1. **Imports**: Replace icon imports with `ArrowLeft`, `ArrowRight` from lucide-react. Import ~11 images from assets (masterclass-1 through 6, forge-1 through 4, carousel-1).
 
-2. Update `CircleImage` component:
-   - Add `rotation` prop, apply via `style={{ transform: rotate(Xdeg) }}`
-   - Move label inside the circle container as an absolutely-positioned overlay at the bottom with `bg-black/60 backdrop-blur-sm`
-   - Change outer container from `flex-col items-center gap-3` to `relative` positioning
+2. **Grid data**: Array of image objects with `src`, `alt`, and grid positioning classes (`col-span`, `row-span` values).
 
-3. Update `stats` positions to corner-anchoring values
+3. **Header**: Flex container with left-aligned text block and right-aligned arrow buttons. Buttons are white-bordered squares with hover effects.
 
-4. Update left/right column containers:
-   - Change `gap-6` to `gap-1` or `-space-y-4` for tighter clustering
-   - Add `translateX` offsets per circle to create the diagonal cascade (top circle pulled toward center, bottom circle pushed away)
-   - Use `items-end` for left column, `items-start` for right column to create the diagonal
+4. **Photo grid**: CSS Grid with `grid-cols-5` on desktop, defined `row-span-2` for taller images. Each cell is a rounded-lg overflow-hidden container with `object-cover` image. Gap of `gap-3` or `gap-4`.
 
-5. Reduce center column padding: `md:px-8` instead of `md:px-16`
+5. **Mobile**: Grid collapses to `grid-cols-2` with fewer images shown (hide some on small screens).
 
-6. Update float keyframe to preserve rotation: `transform: translateY(0) rotate(var(--rotate))` pattern, or apply rotation on wrapper and float on inner element
+6. **Arrow buttons**: Styled as square outline buttons (white border, transparent bg). Currently decorative (no carousel functionality) -- can be wired up later if needed.
 
-7. Stat badge sizing: reduce number to `text-sm`, label to `text-[8px]`, padding to `px-3 py-1.5`
+7. **Hover effect**: Subtle scale or brightness change on individual photos.
 
-No other files changed.
+No other files changed. The `AnimatedCounter` import is removed as stats are no longer displayed.
 
