@@ -80,7 +80,6 @@ const ringItems: RingItem[][] = [
     { type: "avatar", src: testimonial1, angle: 95, size: 40, badge: { text: "Invited 5 friends", icon: UserPlus } },
     { type: "avatar", src: masterclass1, angle: 165, size: 38, badge: { text: "Completed 3 courses", icon: Award } },
     { type: "avatar", src: testimonial4, angle: 245, size: 40, badge: { text: "Posted in community", icon: MessageCircle } },
-    { type: "avatar", src: masterclass3, angle: 315, size: 38, badge: { text: "Shared a resource", icon: Share2 } },
   ],
 ];
 
