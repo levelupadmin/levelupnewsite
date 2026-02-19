@@ -1,42 +1,47 @@
 
 
-## Replace Community Section Images with Forge People Photos
+## Use Uploaded Community Images in Bento Grid
 
 ### What Changes
-Replace the current local asset images (masterclass-1..6, forge-1..4, carousel-1) with real people-focused photographs sourced from the Forge by LevelUp websites. The bento grid layout, text, and styling remain identical -- only the image sources change.
+Replace the 11 broken CDN URLs in the Community Section with the 6 uploaded images. The grid will be adjusted from 11 items to 6, with updated row/column spans to maintain a visually balanced bento layout.
 
-### Image Sources
-11 images will be sourced directly from the Forge websites (framerusercontent.com CDN). These are high-resolution photos showing people collaborating, learning, creating content, and mentoring -- perfect for a community section.
+### Image Mapping
+The 6 uploaded images will be copied to `src/assets/community/` and used as follows:
 
-Selected images (all featuring people):
-1. Behind-the-scenes creators collaborating (6000x4000)
-2. Group learning session
-3. People creating content together
-4. Outdoor creator challenge
-5. Workshop/mentoring moment
-6. Collaborative filming
-7. Team discussion
-8. Creator in action
-9. Core learning session photo
-10. Behind-the-feed session photo
-11. Discover your niche / group activity photo
+| Image | Description | Grid Position |
+|-------|-------------|---------------|
+| image-60.png | Group photo at venue | col-span-2, row-span-1 (wide) |
+| image-61.png | Cafe learning session | col-span-1, row-span-2 (tall) |
+| image-62.png | Group selfie indoors | col-span-1, row-span-1 |
+| image-63.png | Hilltop group photo | col-span-2, row-span-1 (wide) |
+| image-64.png | Campfire circle session | col-span-1, row-span-2 (tall) |
+| image-65.png | Night bonfire moment | col-span-1, row-span-1 |
 
-### What Stays the Same
-- Bento grid layout (5 columns desktop, 2 mobile)
-- Row span assignments for tall/short images
-- Header text, eyebrow, subtitle
-- Arrow navigation buttons
-- Hover scale effect
-- All styling, colors, dark theme
-- Responsive behavior
+### Grid Layout (Desktop - 5 columns)
+```text
+Row 1: [wide group photo (2 cols)] [tall cafe (1 col)] [selfie (1 col)] [tall campfire (1 col)]
+Row 2: [hilltop wide (2 cols)]     [tall cafe cont.]   [bonfire (1 col)] [tall campfire cont.]
+```
 
 ### Technical Details
 
+**New files (copy uploads):**
+- `src/assets/community/community-1.png` (image-60)
+- `src/assets/community/community-2.png` (image-61)
+- `src/assets/community/community-3.png` (image-62)
+- `src/assets/community/community-4.png` (image-63)
+- `src/assets/community/community-5.png` (image-64)
+- `src/assets/community/community-6.png` (image-65)
+
 **File: `src/components/CommunitySection.tsx`**
+1. Add local imports for all 6 community images
+2. Replace the `gridItems` array with 6 entries using the local imports, with updated `className` values for the new grid spans
+3. Update `alt` text to match photo content
+4. Adjust grid to work well with 6 items (keep `grid-cols-5` desktop, `grid-cols-2` mobile)
 
-1. Remove all local asset imports (masterclass-1..6, forge-1..4, carousel-1)
-2. Replace `gridItems` array entries with external URLs from framerusercontent.com CDN, keeping the same `className` (col-span/row-span) values and updating `alt` text to be descriptive of the actual photo content
-3. Update `alt` text to describe the people activities shown (e.g., "Creators collaborating on set", "Group mentoring session", "Content creation workshop")
-
-No other files change. No new assets need to be downloaded -- images are loaded directly from the Forge CDN URLs.
+### What Stays the Same
+- Header text, eyebrow, subtitle
+- Arrow navigation buttons
+- Hover scale effect, rounded corners
+- Dark background, responsive behavior
 
