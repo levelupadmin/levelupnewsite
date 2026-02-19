@@ -1,67 +1,67 @@
 
 
-## Community Section Redesign: GoFundMe-Style Circular Layout
+## Reposition Circles and Stats to Match GoFundMe Reference
 
 ### What Changes
-Replace the orbital avatar system with 6 large circular category images arranged in two groups flanking the centered text content, inspired by the GoFundMe reference image. All existing text, colors, stats, and dark theme remain identical.
+Reposition the 6 circular images into tighter, cascading diagonal groups that hug the central text. Move stat badges to anchor the four corners. Add slight rotations for organic feel. Move labels inside/overlapping the bottom of each circle.
 
-### Layout Structure
+### Layout Details
 
-```text
-   [Circle 1]                              [Circle 4]
-        [Circle 2]    HEADLINE + CTA    [Circle 5]
-   [Circle 3]                              [Circle 6]
-```
+**Left circles** -- cascading diagonal from upper-right to lower-left:
+- Top: shifted right (closer to text), positioned higher, rotated ~3deg
+- Middle: centered, slightly overlapping top circle vertically, rotated ~-2deg  
+- Bottom: shifted further left, lowest, rotated ~4deg
+- Tighter vertical gap (`gap-2` or negative margins) so circles feel clustered
 
-- **Left column**: 3 circles with slight diagonal stagger (not perfectly aligned)
-- **Center**: Eyebrow, headline, subheading, CTA button (unchanged text)
-- **Right column**: 3 circles mirroring left with asymmetric offset
-- **Stats**: 4 floating pill badges scattered around the composition (top-right, bottom-left, etc.)
-- **Mobile**: Circles hidden, falls back to centered text + stat grid (similar to current mobile layout)
+**Right circles** -- mirrored diagonal from upper-left to lower-right:
+- Top: shifted left (closer to text), positioned higher, rotated ~-3deg
+- Middle: centered, rotated ~2deg
+- Bottom: shifted further right, lowest, rotated ~-4deg
 
-### Circle Details
-- **Size**: ~200-220px diameter on desktop, with slight size variation per circle
-- **Border**: 3-4px orange gradient ring (`border-primary`) with subtle glow
-- **Images**: Reuse existing assets (`masterclass-1` through `masterclass-6`)
-- **Labels**: Small dark badge positioned outside each circle bottom-left: "Learning Together", "Mentorship", "Collaboration", "Project Reviews", "Masterclasses", "Creative Community"
-- **Animation**: Gentle float using existing Tailwind keyframes, staggered delays
-- **Hover**: Subtle scale-up (1.05) + increased glow
+**Stats repositioned** to four corners:
+- Members: `top-[8%] left-[4%]` (above top-left circle)
+- Projects: `top-[8%] right-[4%]` (above top-right circle)
+- Mentors: `bottom-[8%] left-[4%]` (below bottom-left circle)
+- Masterclasses: `bottom-[8%] right-[4%]` (below bottom-right circle)
+- Slightly smaller text (`text-sm` for numbers, `text-[8px]` for labels)
 
-### What Gets Removed
-- All SVG ellipse ring paths
-- All orbiting avatar items and stat pills
-- `orbit-spin` animation system
-- `ringItems`, `rings`, `getPosition`, and all orbital logic
-- Tooltip badges on avatars
-- Most icon imports (UserPlus, Star, Share2, Eye, Handshake, etc.)
+**Labels** -- moved from outside to overlapping the bottom of each circle:
+- Positioned absolutely at the bottom of the circle container
+- Semi-transparent dark background (`bg-black/60 backdrop-blur-sm`)
+- Sits inside the circle's bottom edge
 
-### What Stays
-- All text content verbatim
-- `AnimatedCounter` for stats
-- Orange accent color system
-- Dark background
-- Mobile stat grid
-- Section structure and padding
+**Spacing tightened**:
+- Reduce center column padding from `md:px-16` to `md:px-8`
+- Circles use `gap-2` instead of `gap-6`
+- Circles overlap into the text column space using negative margins or `translateX`
+
+**Rotation** added via inline `transform: rotate()` on each circle (alternating 2-5deg).
+
+**Float animation** updated to include rotation in the keyframe so it doesn't reset.
 
 ### Technical Details
 
-**File: `src/components/CommunitySection.tsx`** -- Full rewrite:
+**File: `src/components/CommunitySection.tsx`**
 
-1. **Imports**: Keep `ArrowRight`, `AnimatedCounter`, and 6 masterclass images. Remove all other icon/avatar imports.
+1. Update `leftCircles` and `rightCircles` data arrays to include `rotation` values (e.g., 3, -2, 4 and -3, 2, -4 degrees)
 
-2. **Circle data array**: 6 entries with `src`, `label`, `size`, and positional offsets for the stagger effect.
+2. Update `CircleImage` component:
+   - Add `rotation` prop, apply via `style={{ transform: rotate(Xdeg) }}`
+   - Move label inside the circle container as an absolutely-positioned overlay at the bottom with `bg-black/60 backdrop-blur-sm`
+   - Change outer container from `flex-col items-center gap-3` to `relative` positioning
 
-3. **Desktop layout** (`hidden md:flex`): Three-column flex layout:
-   - Left column: 3 circles stacked with `space-y-6` and alternating `ml`/`mr` offsets for asymmetry
-   - Center column: Existing text block (eyebrow, headline, subheading, CTA)
-   - Right column: Mirror of left with different offsets
+3. Update `stats` positions to corner-anchoring values
 
-4. **Stat badges**: 4 absolutely-positioned pill elements scattered around the section with `bg-card border border-border/50`, containing `AnimatedCounter` + label. Each positioned via percentage-based `top`/`left`/`right`/`bottom`.
+4. Update left/right column containers:
+   - Change `gap-6` to `gap-1` or `-space-y-4` for tighter clustering
+   - Add `translateX` offsets per circle to create the diagonal cascade (top circle pulled toward center, bottom circle pushed away)
+   - Use `items-end` for left column, `items-start` for right column to create the diagonal
 
-5. **Mobile layout**: Circles hidden, text centered, stat grid below (same as current).
+5. Reduce center column padding: `md:px-8` instead of `md:px-16`
 
-6. **Animations**: Each circle gets a gentle float animation with staggered `animation-delay`. Hover adds `scale-105` and `shadow-[0_0_20px_hsl(var(--primary)/0.3)]`.
+6. Update float keyframe to preserve rotation: `transform: translateY(0) rotate(var(--rotate))` pattern, or apply rotation on wrapper and float on inner element
 
-7. **Circle component**: Rounded-full container with `ring-[3px] ring-primary/70` border, overflow-hidden for the image, and an absolutely-positioned label badge below.
+7. Stat badge sizing: reduce number to `text-sm`, label to `text-[8px]`, padding to `px-3 py-1.5`
 
-No other files need changes.
+No other files changed.
+
