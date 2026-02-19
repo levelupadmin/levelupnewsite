@@ -58,7 +58,7 @@ const CommunitySection = () => {
           {gridItems.map((item, i) => (
             <div
               key={i}
-              className={`${item.className} rounded-md overflow-hidden ${i > 7 ? "hidden md:block" : ""}`}
+              className={`${item.className} rounded-lg overflow-hidden ${i > 7 ? "hidden md:block" : ""}`}
             >
               <img
                 src={item.src}

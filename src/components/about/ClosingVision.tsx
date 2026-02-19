@@ -40,7 +40,7 @@ const ClosingVision = () => (
         <Link to="/">
           <Button
             size="lg"
-            className="rounded-md gap-2 text-sm font-sans-body bg-white text-primary hover:bg-white/90"
+            className="rounded-xl gap-2 text-sm font-sans-body bg-white text-primary hover:bg-white/90"
           >
             Explore Programs
             <ArrowRight className="w-4 h-4" />
