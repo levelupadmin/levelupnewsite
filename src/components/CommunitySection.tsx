@@ -1,17 +1,18 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import community1 from "@/assets/community/community-1.png";
+import community2 from "@/assets/community/community-2.png";
+import community3 from "@/assets/community/community-3.png";
+import community4 from "@/assets/community/community-4.png";
+import community5 from "@/assets/community/community-5.png";
+import community6 from "@/assets/community/community-6.png";
 
 const gridItems = [
-  { src: "https://framerusercontent.com/images/BYEJmEGKJbMtIUNOOJnTn8x7bI.jpg", alt: "Creators collaborating on set", className: "col-span-1 row-span-2" },
-  { src: "https://framerusercontent.com/images/6Fs7kg1MQc0tPjBPHJicVaPYKw.jpg", alt: "Group learning session", className: "col-span-1 row-span-1" },
-  { src: "https://framerusercontent.com/images/QTzKDvEMmKrCMiXYr3VfjyEqcU.jpg", alt: "People creating content together", className: "col-span-1 row-span-2" },
-  { src: "https://framerusercontent.com/images/TdTF5FmC13HuQzBl3betaHi6DeE.jpg", alt: "Outdoor creator challenge", className: "col-span-1 row-span-1" },
-  { src: "https://framerusercontent.com/images/wJMFRMDa5ePMdMjfiDe2JaaQA.jpg", alt: "Workshop mentoring moment", className: "col-span-1 row-span-1" },
-  { src: "https://framerusercontent.com/images/90aqgxnsMoMGbcRsEgWvVS1Lpk.jpg", alt: "Collaborative filming session", className: "col-span-1 row-span-1" },
-  { src: "https://framerusercontent.com/images/ckwOsA1cF3VeJHilFPAotSOW6I.jpg", alt: "Team discussion and brainstorming", className: "col-span-1 row-span-1" },
-  { src: "https://framerusercontent.com/images/3HpLaR4Z2uVzMVADt4v1TJE0fQ.jpg", alt: "Creator in action on location", className: "col-span-1 row-span-1" },
-  { src: "https://framerusercontent.com/images/AoFTrEzekJAXse1VDg6jotVQM.jpg", alt: "Core learning session with mentors", className: "col-span-1 row-span-2" },
-  { src: "https://framerusercontent.com/images/S2pcNDOeVFHZfnRqBT15sAdpo.jpg", alt: "Behind-the-feed community session", className: "col-span-1 row-span-1" },
-  { src: "https://framerusercontent.com/images/kAjwW7QZ8W8MvPnOh5JJrXMdY.jpg", alt: "Group activity discovering creative niches", className: "col-span-1 row-span-1" },
+  { src: community1, alt: "Group photo at venue", className: "col-span-2 row-span-1" },
+  { src: community2, alt: "Cafe learning session", className: "col-span-1 row-span-2" },
+  { src: community3, alt: "Group selfie indoors", className: "col-span-1 row-span-1" },
+  { src: community5, alt: "Campfire circle session", className: "col-span-1 row-span-2" },
+  { src: community4, alt: "Hilltop group photo", className: "col-span-2 row-span-1" },
+  { src: community6, alt: "Night bonfire moment", className: "col-span-1 row-span-1" },
 ];
 
 const CommunitySection = () => {
@@ -46,7 +47,7 @@ const CommunitySection = () => {
           {gridItems.map((item, i) => (
             <div
               key={i}
-              className={`${item.className} rounded-lg overflow-hidden ${i > 7 ? "hidden md:block" : ""}`}
+              className={`${item.className} rounded-lg overflow-hidden`}
             >
               <img
                 src={item.src}
