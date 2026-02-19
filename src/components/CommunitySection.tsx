@@ -13,6 +13,10 @@ const gridItems = [
   { src: community5, alt: "Campfire circle session", className: "col-span-1 row-span-2" },
   { src: community4, alt: "Hilltop group photo", className: "col-span-2 row-span-1" },
   { src: community6, alt: "Night bonfire moment", className: "col-span-1 row-span-1" },
+  { src: community3, alt: "Community gathering", className: "col-span-1 row-span-1" },
+  { src: community1, alt: "Creators together", className: "col-span-2 row-span-1" },
+  { src: community6, alt: "Evening bonfire hangout", className: "col-span-1 row-span-1" },
+  { src: community4, alt: "Outdoor group moment", className: "col-span-1 row-span-1" },
 ];
 
 const CommunitySection = () => {
