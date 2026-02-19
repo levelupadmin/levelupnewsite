@@ -1,29 +1,17 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
-import masterclass1 from "@/assets/masterclass-1.jpg";
-import masterclass2 from "@/assets/masterclass-2.jpg";
-import masterclass3 from "@/assets/masterclass-3.jpg";
-import masterclass4 from "@/assets/masterclass-4.jpg";
-import masterclass5 from "@/assets/masterclass-5.jpg";
-import masterclass6 from "@/assets/masterclass-6.jpg";
-import forge1 from "@/assets/forge-1.jpg";
-import forge2 from "@/assets/forge-2.jpg";
-import forge3 from "@/assets/forge-3.jpg";
-import forge4 from "@/assets/forge-4.jpg";
-import carousel1 from "@/assets/carousel-1.jpg";
-
 const gridItems = [
-  { src: masterclass1, alt: "Community event 1", className: "col-span-1 row-span-2" },
-  { src: masterclass2, alt: "Community event 2", className: "col-span-1 row-span-1" },
-  { src: forge1, alt: "Community event 3", className: "col-span-1 row-span-2" },
-  { src: masterclass3, alt: "Community event 4", className: "col-span-1 row-span-1" },
-  { src: forge2, alt: "Community event 5", className: "col-span-1 row-span-1" },
-  { src: masterclass4, alt: "Community event 6", className: "col-span-1 row-span-1" },
-  { src: forge3, alt: "Community event 7", className: "col-span-1 row-span-1" },
-  { src: masterclass5, alt: "Community event 8", className: "col-span-1 row-span-1" },
-  { src: carousel1, alt: "Community event 9", className: "col-span-1 row-span-2" },
-  { src: forge4, alt: "Community event 10", className: "col-span-1 row-span-1" },
-  { src: masterclass6, alt: "Community event 11", className: "col-span-1 row-span-1" },
+  { src: "https://framerusercontent.com/images/BYEJmEGKJbMtIUNOOJnTn8x7bI.jpg", alt: "Creators collaborating on set", className: "col-span-1 row-span-2" },
+  { src: "https://framerusercontent.com/images/6Fs7kg1MQc0tPjBPHJicVaPYKw.jpg", alt: "Group learning session", className: "col-span-1 row-span-1" },
+  { src: "https://framerusercontent.com/images/QTzKDvEMmKrCMiXYr3VfjyEqcU.jpg", alt: "People creating content together", className: "col-span-1 row-span-2" },
+  { src: "https://framerusercontent.com/images/TdTF5FmC13HuQzBl3betaHi6DeE.jpg", alt: "Outdoor creator challenge", className: "col-span-1 row-span-1" },
+  { src: "https://framerusercontent.com/images/wJMFRMDa5ePMdMjfiDe2JaaQA.jpg", alt: "Workshop mentoring moment", className: "col-span-1 row-span-1" },
+  { src: "https://framerusercontent.com/images/90aqgxnsMoMGbcRsEgWvVS1Lpk.jpg", alt: "Collaborative filming session", className: "col-span-1 row-span-1" },
+  { src: "https://framerusercontent.com/images/ckwOsA1cF3VeJHilFPAotSOW6I.jpg", alt: "Team discussion and brainstorming", className: "col-span-1 row-span-1" },
+  { src: "https://framerusercontent.com/images/3HpLaR4Z2uVzMVADt4v1TJE0fQ.jpg", alt: "Creator in action on location", className: "col-span-1 row-span-1" },
+  { src: "https://framerusercontent.com/images/AoFTrEzekJAXse1VDg6jotVQM.jpg", alt: "Core learning session with mentors", className: "col-span-1 row-span-2" },
+  { src: "https://framerusercontent.com/images/S2pcNDOeVFHZfnRqBT15sAdpo.jpg", alt: "Behind-the-feed community session", className: "col-span-1 row-span-1" },
+  { src: "https://framerusercontent.com/images/kAjwW7QZ8W8MvPnOh5JJrXMdY.jpg", alt: "Group activity discovering creative niches", className: "col-span-1 row-span-1" },
 ];
 
 const CommunitySection = () => {
