@@ -89,9 +89,9 @@ const TestimonialModal = ({
 }) => {
   return (
     <Dialog open={!!testimonial} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="p-0 gap-0 max-w-2xl w-full overflow-hidden rounded-sm border border-border/60 bg-card flex flex-row max-h-[85vh]">
+      <DialogContent className="p-0 gap-0 max-w-3xl w-full overflow-hidden rounded-sm border border-border bg-card flex flex-row max-h-[80vh]">
         {/* Close button */}
-        <DialogClose className="absolute right-3 top-3 z-20 w-8 h-8 rounded-sm bg-background/80 backdrop-blur-sm flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
+        <DialogClose className="absolute right-4 top-4 z-20 w-9 h-9 rounded-sm border border-border bg-background/70 backdrop-blur-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors">
           <X className="w-4 h-4" />
           <span className="sr-only">Close</span>
         </DialogClose>
@@ -99,41 +99,37 @@ const TestimonialModal = ({
         {testimonial && (
           <>
             {/* Image — left column */}
-            <div className="relative w-[240px] shrink-0">
+            <div className="relative w-[260px] shrink-0">
               <img
                 src={testimonial.image}
                 alt={`${testimonial.name}, ${testimonial.role}`}
                 className="absolute inset-0 w-full h-full object-cover object-top"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent" />
+              {/* Bottom gradient with name overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-card via-card/10 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <p className="font-serif-display text-lg font-medium text-hero-headline leading-snug">
+                  {testimonial.name}
+                </p>
+                <p className="font-sans-body text-[10px] tracking-[0.15em] uppercase text-foreground/50 mt-1">
+                  {testimonial.role}
+                </p>
+                <p className="font-sans-body text-[11px] text-muted-foreground mt-1 leading-relaxed">
+                  {testimonial.context}
+                </p>
+              </div>
             </div>
 
             {/* Content — right column */}
-            <div className="flex flex-col justify-between px-7 py-8 overflow-y-auto">
-              {/* Identity */}
-              <div>
-                <div className="mb-5">
-                  <p className="font-serif-display text-xl font-medium text-hero-headline leading-snug">
-                    {testimonial.name}
-                  </p>
-                  <p className="font-sans-body text-[11px] tracking-[0.15em] uppercase text-foreground/50 mt-1">
-                    {testimonial.role}
-                  </p>
-                  <p className="font-sans-body text-xs text-muted-foreground mt-1">
-                    {testimonial.context}
-                  </p>
-                </div>
-
-                <div className="h-px bg-border/50 mb-5" />
-
-                {/* Story */}
-                <span className="font-serif-display text-5xl text-primary/20 leading-none select-none block -mb-2">
-                  "
-                </span>
-                <p className="font-sans-body text-sm text-foreground/80 leading-relaxed">
-                  {testimonial.fullStory}
-                </p>
-              </div>
+            <div className="flex flex-col justify-start p-8 overflow-y-auto border-l border-border/50">
+              {/* Decorative quote */}
+              <span className="font-serif-display text-6xl text-primary/15 leading-none select-none block -mb-3">
+                "
+              </span>
+              {/* Story */}
+              <p className="font-sans-body text-sm text-foreground/75 leading-[1.8] tracking-[0.01em]">
+                {testimonial.fullStory}
+              </p>
             </div>
           </>
         )}
