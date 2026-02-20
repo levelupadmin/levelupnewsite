@@ -40,7 +40,8 @@ const forgeCards = [
   "Shape raw footage into compelling stories. Learn rhythm, pacing, and the art of emotional beats from working editors.",
   cohort: "Dec 2025",
   image: forgeFilmmaking,
-  cta: "https://www.forgebylevelup.com/"
+  cta: "https://www.forgebylevelup.com/",
+  learnMore: "https://www.forgebylevelup.com/"
 },
 {
   title: "Forge Writers",
@@ -50,7 +51,8 @@ const forgeCards = [
   "Immersive retreat for writers and storytellers. Develop your voice and craft your narrative.",
   cohort: "Jan 2026",
   image: forgeWriting,
-  cta: "https://tally.so/r/nPJydd"
+  cta: "https://tally.so/r/nPJydd",
+  learnMore: "https://www.forgebylevelup.com/writingresidency"
 },
 {
   title: "Forge Creators",
@@ -60,7 +62,8 @@ const forgeCards = [
   "Build, collaborate, and ship creative work with fellow creators.",
   cohort: "Feb 2026",
   image: forgeCreators,
-  cta: "https://creators.forgebylevelup.com/"
+  cta: "https://creators.forgebylevelup.com/",
+  learnMore: "https://creators.forgebylevelup.com/"
 }];
 
 
@@ -244,9 +247,13 @@ Over an intensive week with practicing mentors, participants move beyond theory 
                         Request an Invite
                         <ArrowRight className="w-3.5 h-3.5" />
                       </a>
-                      <button className="inline-flex items-center font-sans-body text-xs md:text-sm px-4 py-2 rounded-full border border-white/30 text-white hover:border-white/60 transition-colors">
+                      <a
+                      href={card.learnMore}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center font-sans-body text-xs md:text-sm px-4 py-2 rounded-full border border-white/30 text-white hover:border-white/60 transition-colors">
                         Learn More
-                      </button>
+                      </a>
                     </div>
                   </div>
                 </div>
