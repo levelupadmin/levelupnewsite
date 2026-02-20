@@ -1,47 +1,69 @@
 
+## Testimonial Story Popup Modal
 
-## Use Uploaded Community Images in Bento Grid
+### What This Does
+When a user clicks "Read the story" on any testimonial card, a modal dialog opens showing the student's portrait image at the top and a full ~200-word story below it.
+
+### User Experience
+1. User sees the testimonial carousel as normal
+2. They click "Read the story" link on any slide
+3. A centered modal overlays the page with:
+   - The student's photo (top, full-width, with a subtle gradient overlay)
+   - Name, role, and context beneath the image
+   - A ~200-word detailed story in the body
+   - A close (X) button in the top-right corner
+4. Clicking outside the modal or pressing Escape closes it
 
 ### What Changes
-Replace the 11 broken CDN URLs in the Community Section with the 6 uploaded images. The grid will be adjusted from 11 items to 6, with updated row/column spans to maintain a visually balanced bento layout.
 
-### Image Mapping
-The 6 uploaded images will be copied to `src/assets/community/` and used as follows:
+**`src/components/TestimonialsSection.tsx`**
 
-| Image | Description | Grid Position |
-|-------|-------------|---------------|
-| image-60.png | Group photo at venue | col-span-2, row-span-1 (wide) |
-| image-61.png | Cafe learning session | col-span-1, row-span-2 (tall) |
-| image-62.png | Group selfie indoors | col-span-1, row-span-1 |
-| image-63.png | Hilltop group photo | col-span-2, row-span-1 (wide) |
-| image-64.png | Campfire circle session | col-span-1, row-span-2 (tall) |
-| image-65.png | Night bonfire moment | col-span-1, row-span-1 |
+1. **Extend the `Testimonial` interface** — add a `fullStory: string` field (200-word text per student)
 
-### Grid Layout (Desktop - 5 columns)
-```text
-Row 1: [wide group photo (2 cols)] [tall cafe (1 col)] [selfie (1 col)] [tall campfire (1 col)]
-Row 2: [hilltop wide (2 cols)]     [tall cafe cont.]   [bonfire (1 col)] [tall campfire cont.]
-```
+2. **Add full stories to each testimonial object** — write a ~200-word story for each of the 5 students (Janani, Karthik, Kishore, Avantika, Michael)
+
+3. **Add modal state** — two pieces of state:
+   - `selectedTestimonial: Testimonial | null` — which story is open
+   - Pass `onReadStory` callback down to `TestimonialSlide`
+
+4. **`TestimonialSlide` update** — change "Read the story" from an `<a>` tag to a `<button>` that calls `onReadStory(testimonial)` on click
+
+5. **New `TestimonialModal` component** (inside the same file) — uses the existing `Dialog` / `DialogContent` from `src/components/ui/dialog.tsx`:
+   - `DialogOverlay` with `bg-black/80` blur
+   - Portrait image at top (aspect-[3/4], `object-cover`, with gradient fade at bottom)
+   - Name + role + context row beneath the image
+   - Decorative large `"` quote mark
+   - `fullStory` paragraph text (200 words, `font-sans-body`, readable line-height)
+   - Native `DialogClose` X button top-right
 
 ### Technical Details
 
-**New files (copy uploads):**
-- `src/assets/community/community-1.png` (image-60)
-- `src/assets/community/community-2.png` (image-61)
-- `src/assets/community/community-3.png` (image-62)
-- `src/assets/community/community-4.png` (image-63)
-- `src/assets/community/community-5.png` (image-64)
-- `src/assets/community/community-6.png` (image-65)
+```text
+TestimonialsSection (state: selectedTestimonial)
+  ├── carousel slides → TestimonialSlide (receives onReadStory prop)
+  │     └── "Read the story" button → calls onReadStory(t)
+  └── TestimonialModal (open={!!selectedTestimonial}, onClose)
+        ├── portrait image (top)
+        ├── name / role / context
+        └── 200-word fullStory body
+```
 
-**File: `src/components/CommunitySection.tsx`**
-1. Add local imports for all 6 community images
-2. Replace the `gridItems` array with 6 entries using the local imports, with updated `className` values for the new grid spans
-3. Update `alt` text to match photo content
-4. Adjust grid to work well with 6 items (keep `grid-cols-5` desktop, `grid-cols-2` mobile)
+**Modal layout:**
+```text
+┌────────────────────────────────────┐
+│  [portrait image, 3:4 aspect]      │
+│  [gradient fade at bottom of img]  │
+├────────────────────────────────────┤
+│  Name · Role                       │
+│  Context line                      │
+│  ─────────────────────────────     │
+│  " (decorative)                    │
+│  200-word story paragraph...       │
+│                                    │
+└────────────────────────────────────┘  [X button top-right]
+```
 
-### What Stays the Same
-- Header text, eyebrow, subtitle
-- Arrow navigation buttons
-- Hover scale effect, rounded corners
-- Dark background, responsive behavior
-
+- Uses the existing `Dialog`, `DialogContent`, `DialogClose` from `@/components/ui/dialog`
+- Max-width of `md` (448px), scrollable on small screens
+- No new dependencies required
+- The "Read all stories" header button stays as-is (it's a separate CTA)
