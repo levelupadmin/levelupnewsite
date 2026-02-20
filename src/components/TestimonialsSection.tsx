@@ -89,7 +89,7 @@ const TestimonialModal = ({
 }) => {
   return (
     <Dialog open={!!testimonial} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="p-0 gap-0 max-w-md w-full overflow-hidden rounded-sm border border-border/60 bg-card max-h-[90vh] overflow-y-auto">
+      <DialogContent className="p-0 gap-0 max-w-2xl w-full overflow-hidden rounded-sm border border-border/60 bg-card flex flex-row max-h-[85vh]">
         {/* Close button */}
         <DialogClose className="absolute right-3 top-3 z-20 w-8 h-8 rounded-sm bg-background/80 backdrop-blur-sm flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
           <X className="w-4 h-4" />
@@ -98,40 +98,42 @@ const TestimonialModal = ({
 
         {testimonial && (
           <>
-            {/* Image */}
-            <div className="relative aspect-[4/3] w-full shrink-0">
+            {/* Image — left column */}
+            <div className="relative w-[240px] shrink-0">
               <img
                 src={testimonial.image}
                 alt={`${testimonial.name}, ${testimonial.role}`}
                 className="absolute inset-0 w-full h-full object-cover object-top"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent" />
             </div>
 
-            {/* Content */}
-            <div className="px-7 pb-8 pt-4">
+            {/* Content — right column */}
+            <div className="flex flex-col justify-between px-7 py-8 overflow-y-auto">
               {/* Identity */}
-              <div className="mb-5">
-                <p className="font-serif-display text-xl font-medium text-hero-headline leading-snug">
-                  {testimonial.name}
-                </p>
-                <p className="font-sans-body text-[11px] tracking-[0.15em] uppercase text-foreground/50 mt-1">
-                  {testimonial.role}
-                </p>
-                <p className="font-sans-body text-xs text-muted-foreground mt-1">
-                  {testimonial.context}
+              <div>
+                <div className="mb-5">
+                  <p className="font-serif-display text-xl font-medium text-hero-headline leading-snug">
+                    {testimonial.name}
+                  </p>
+                  <p className="font-sans-body text-[11px] tracking-[0.15em] uppercase text-foreground/50 mt-1">
+                    {testimonial.role}
+                  </p>
+                  <p className="font-sans-body text-xs text-muted-foreground mt-1">
+                    {testimonial.context}
+                  </p>
+                </div>
+
+                <div className="h-px bg-border/50 mb-5" />
+
+                {/* Story */}
+                <span className="font-serif-display text-5xl text-primary/20 leading-none select-none block -mb-2">
+                  "
+                </span>
+                <p className="font-sans-body text-sm text-foreground/80 leading-relaxed">
+                  {testimonial.fullStory}
                 </p>
               </div>
-
-              <div className="h-px bg-border/50 mb-5" />
-
-              {/* Pull quote */}
-              <span className="font-serif-display text-5xl text-primary/20 leading-none select-none block -mb-2">
-                "
-              </span>
-              <p className="font-sans-body text-sm text-foreground/80 leading-relaxed">
-                {testimonial.fullStory}
-              </p>
             </div>
           </>
         )}
