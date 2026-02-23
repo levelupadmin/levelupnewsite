@@ -4,6 +4,7 @@ interface Star {
   x: number;
   y: number;
   z: number;
+  sizeScale: number;
 }
 
 const DEFAULT_STAR_COUNT = 250;
@@ -32,6 +33,7 @@ const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: St
       x: (Math.random() - 0.5) * 2000,
       y: (Math.random() - 0.5) * 2000,
       z: Math.random() * DEFAULT_MAX_DEPTH,
+      sizeScale: 0.5 + Math.random() * 0.8,
     }));
 
     // Grain canvas
@@ -86,6 +88,7 @@ const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: St
           star.x = (Math.random() - 0.5) * 2000;
           star.y = (Math.random() - 0.5) * 2000;
           star.z = DEFAULT_MAX_DEPTH;
+          star.sizeScale = 0.5 + Math.random() * 0.8;
         }
 
         const k = 300 / star.z;
@@ -94,7 +97,7 @@ const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: St
 
         if (sx < -10 || sx > w + 10 || sy < -10 || sy > h + 10) continue;
 
-        const size = Math.max(0.5, (1 - star.z / DEFAULT_MAX_DEPTH) * 3.5) * (0.5 + Math.random() * 0.8);
+        const size = Math.max(0.5, (1 - star.z / DEFAULT_MAX_DEPTH) * 3.5) * star.sizeScale;
         const opacity = Math.max(0.1, (1 - star.z / DEFAULT_MAX_DEPTH) * 1);
 
         // ~20% of stars get an amber tint
