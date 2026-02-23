@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import AccentLine from "./AccentLine";
 import FadeInSection from "./FadeInSection";
 import { ArrowRight, Clock, Radio, CalendarDays, Play } from "lucide-react";
 import careerQuizBanner from "@/assets/career-quiz-banner.jpg";
@@ -61,14 +62,7 @@ const LiveProgramsSection = () => {
 
   return (
     <section ref={sectionRef} id="live-programs" aria-label="Live programs" className="relative py-14 md:py-20">
-      {/* Amber accent line at top */}
-      <div
-        className="absolute top-0 left-0 right-0 h-[2px]"
-        style={{
-          background:
-            "linear-gradient(90deg, transparent 10%, hsl(38 75% 55% / 0.5) 50%, transparent 90%)",
-        }}
-      />
+      <AccentLine />
 
       {/* Subtle top glow */}
       <div

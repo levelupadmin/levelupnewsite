@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import AccentLine from "./AccentLine";
 import { ArrowRight } from "lucide-react";
 import FadeInSection, { useScrollReveal } from "./FadeInSection";
 import nelsonImg from "@/assets/nelson-dilipkumar.jpg";
@@ -141,14 +142,7 @@ const ComingSoonCard = () => (
 const MasterclassSection = () => {
   return (
     <section id="masterclasses" aria-label="Masterclasses" className="relative bg-background py-12 md:py-16">
-      {/* Amber accent line at top */}
-      <div
-        className="absolute top-0 left-0 right-0 h-[2px]"
-        style={{
-          background:
-            "linear-gradient(90deg, transparent 10%, hsl(38 75% 55% / 0.5) 50%, transparent 90%)",
-        }}
-      />
+      <AccentLine />
 
       {/* Subtle top glow */}
       <div

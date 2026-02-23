@@ -1,4 +1,5 @@
 import { PlusCircle, ArrowRight } from "lucide-react";
+import AccentLine from "./AccentLine";
 import FadeInSection from "./FadeInSection";
 import forgeLogo from "@/assets/forge-logo.png";
 import useEmblaCarousel from "embla-carousel-react";
@@ -109,13 +110,7 @@ const ForgeSection = () => {
       aria-label="The Forge residency"
       className="relative py-12 md:py-16 overflow-hidden bg-background">
 
-      {/* Accent line at top */}
-      <div
-        className="absolute top-0 left-0 right-0 h-[2px]"
-        style={{
-          background:
-          "linear-gradient(90deg, transparent 10%, hsl(var(--accent-forge)) 50%, transparent 90%)"
-        }} />
+      <AccentLine gradient="linear-gradient(90deg, transparent 10%, hsl(var(--accent-forge)) 50%, transparent 90%)" />
 
 
       {/* Orange ambient glow */}
