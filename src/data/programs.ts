@@ -16,7 +16,7 @@ export interface ShowcaseProgram {
   ctaLink: string;
 }
 
-import liveBfp from "@/assets/live-bfp.png";
+import liveBfp from "@/assets/live-bfp.jpg";
 import liveVe from "@/assets/live-ve.png";
 import liveUiux from "@/assets/live-uiux.png";
 import liveSw from "@/assets/live-sw.png";
