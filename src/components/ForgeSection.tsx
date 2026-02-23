@@ -242,7 +242,7 @@ Over an intensive week with practicing mentors, participants move beyond theory 
                       href={card.cta}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-sans-body text-xs md:text-sm px-4 py-2 rounded-full hover:bg-primary/90 transition-colors">
+                      className="inline-flex items-center gap-2 bg-primary text-white font-sans-body text-xs md:text-sm px-4 py-2 rounded-full hover:bg-primary/90 transition-colors">
 
                         Request an Invite
                         <ArrowRight className="w-3.5 h-3.5" />
