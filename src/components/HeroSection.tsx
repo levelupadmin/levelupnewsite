@@ -50,14 +50,20 @@ const HeroSection = () => {
 
       {/* Headline area */}
       <div className="relative z-10 flex flex-col items-center justify-center pt-24 md:pt-36 lg:pt-40 px-5 md:px-12">
-        <p className="font-sans-body text-xs md:text-sm tracking-[0.3em] uppercase text-muted-foreground mb-4 md:mb-6 text-shadow-hero">
+        <p
+          className="font-sans-body text-xs md:text-sm tracking-[0.3em] uppercase text-muted-foreground mb-4 md:mb-6 text-shadow-hero animate-hero-stagger"
+          style={{ animationDelay: "0ms" }}
+        >
           India's Creative Education Ecosystem
         </p>
 
         <h1 className="font-serif-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-medium text-hero-headline text-center tracking-[-0.03em] max-w-5xl text-shadow-hero" style={{ lineHeight: 1.1 }}>
-          <span className="whitespace-nowrap">Where India's next big</span>
+          <span className="animate-hero-stagger whitespace-nowrap" style={{ animationDelay: "200ms" }}>Where India's next big</span>
           <br />
-          <span className="relative inline-block overflow-hidden align-middle" style={{ width: `${maxWordLength}ch`, height: "1.15em" }}>
+          <span
+            className="relative inline-block overflow-hidden align-middle animate-hero-stagger"
+            style={{ width: `${maxWordLength}ch`, height: "1.15em", animationDelay: "400ms" }}
+          >
             <AnimatePresence mode="wait">
               <m.span
                 key={rotatingWords[wordIndex]}
@@ -72,18 +78,24 @@ const HeroSection = () => {
             </AnimatePresence>
           </span>
           <br />
-          <em className="font-serif-display italic font-normal" style={{ color: "#E6681D" }}>
+          <em
+            className="font-serif-display italic font-normal animate-hero-stagger"
+            style={{ color: "#E6681D", animationDelay: "600ms" }}
+          >
             become
           </em>
         </h1>
 
-        <p className="font-sans-body text-sm md:text-lg text-hero-subtext text-center mt-4 md:mt-6 max-w-xl leading-relaxed tracking-[0.015em] text-shadow-hero">
+        <p
+          className="font-sans-body text-sm md:text-lg text-hero-subtext text-center mt-4 md:mt-6 max-w-xl leading-relaxed tracking-[0.015em] text-shadow-hero animate-hero-stagger"
+          style={{ animationDelay: "800ms" }}
+        >
           A place for those who believe the craft is the journey.{" "}
           <br className="hidden md:block" />
           Learn from India's finest. Find your voice.
         </p>
 
-        <div className="mt-8 md:mt-10">
+        <div className="mt-8 md:mt-10 animate-hero-stagger" style={{ animationDelay: "1000ms" }}>
           <a
             href="#masterclasses"
             className="cta-sweep cta-glow group inline-flex items-center gap-3 font-sans-body text-sm md:text-base text-foreground px-6 py-3 md:px-7 md:py-3.5 rounded-full hover:text-primary transition-all duration-500"
