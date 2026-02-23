@@ -102,7 +102,7 @@ const FAQSection = () => {
             <FadeInSection
               key={index}
               delay={index * 50}
-              className={`break-inside-avoid mb-5 rounded-sm border p-6 md:p-7 ${
+              className={`break-inside-avoid mb-5 rounded-sm border border-l-2 border-l-transparent p-6 md:p-7 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_0_20px_2px_hsl(38_75%_55%/0.12)] hover:border-l-primary ${
                 faq.featured ? featuredStyle : cardStyles[index % cardStyles.length]
               }`}
             >
