@@ -6,6 +6,12 @@ import navForgeFilmmaking from "@/assets/nav-forge-filmmaking.jpg";
 import navForgeWriting from "@/assets/nav-forge-writing.jpg";
 import navForgeCreators from "@/assets/nav-forge-creators.jpg";
 import nelsonImg from "@/assets/nelson-dilipkumar.png";
+import karthikImg from "@/assets/karthik-subbaraj.png";
+import anthonyImg from "@/assets/anthony-gonsalvez.png";
+import venketImg from "@/assets/venket-ram.png";
+import kiranImg from "@/assets/drk-kiran.webp";
+import raviImg from "@/assets/ravi-basrur.webp";
+import lokeshImg from "@/assets/lokesh-kanagaraj.png";
 
 export interface NavItem {
   image: string;
@@ -33,37 +39,37 @@ export const navLinks: NavLink[] = [
     formatBadge: "On-demand",
     items: [
       {
-        image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/650c1be5224f49f6432aaae6_1.Karthik_Subburaj%20course%20banner.png",
+        image: karthikImg,
         title: "Karthik Subbaraj",
         subtitle: "Filmmaking",
         href: "https://masterclass.leveluplearning.in/karthik-subbaraj",
       },
       {
-        image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64f60ddd91f67b7db8f6716b_3.Anthony_Gonsalvez.png",
+        image: anthonyImg,
         title: "Anthony Gonsalvez",
         subtitle: "Film Editing",
         href: "https://masterclass.leveluplearning.in/anthony",
       },
       {
-        image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64f2f14d67e5504737c57ea5_2.Venket_Ram.png",
+        image: venketImg,
         title: "G Venket Ram",
         subtitle: "Photography",
         href: "https://masterclass.leveluplearning.in/g-venket-ram",
       },
       {
-        image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64b79ef6d61b238747788c6c_kiran%20website%201.webp",
+        image: kiranImg,
         title: "DRK Kiran",
         subtitle: "Art Direction",
         href: "https://masterclass.leveluplearning.in/kiran",
       },
       {
-        image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/64b79ef642421ae3cbe004d9_ravi%20website%201.webp",
+        image: raviImg,
         title: "Ravi Basrur",
         subtitle: "Music Composition",
         href: "https://masterclass.leveluplearning.in/ravi-basrur",
       },
       {
-        image: "https://cdn.prod.website-files.com/649fbe7d7f61c6fc912e1d33/6899f2de01c2b6f380973a82_Frame%20191%20LK.png",
+        image: lokeshImg,
         title: "Lokesh Kanagaraj",
         subtitle: "Filmmaking",
         href: "https://masterclass.leveluplearning.in/lokesh-kanagaraj",
