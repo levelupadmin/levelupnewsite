@@ -120,7 +120,7 @@ const WhyLevelUp = () => {
               <div
                 key={index}
                 ref={(el) => { cardRefs.current[index] = el; }}
-                className={`${isExpanded ? "" : "cursor-pointer"}`}
+                className={`flex flex-col ${isExpanded ? "" : "cursor-pointer"}`}
                 style={{
                   width: cardWidth,
                   minWidth: cardWidth,
@@ -134,7 +134,7 @@ const WhyLevelUp = () => {
                 onClick={() => handleCardClick(index)}
               >
                 <div
-                  className={`relative w-full h-full rounded-2xl overflow-hidden border transition-all duration-500 ease-out ${
+                  className={`relative w-full flex-1 min-h-0 rounded-2xl overflow-hidden border transition-all duration-500 ease-out ${
                     isExpanded
                       ? "border-primary/40 shadow-[0_0_40px_8px_hsl(30_80%_45%/0.3)]"
                       : "border-primary/20 hover:border-primary/40 hover:shadow-[0_0_30px_4px_hsl(30_80%_45%/0.25)]"
