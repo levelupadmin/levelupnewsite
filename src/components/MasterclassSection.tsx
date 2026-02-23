@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { ArrowRight } from "lucide-react";
-import nelsonImg from "@/assets/nelson-dilipkumar.png";
+import nelsonImg from "@/assets/nelson-dilipkumar.jpg";
 import comingSoonImg from "@/assets/coming-soon-silhouette.jpg";
 import karthikImg from "@/assets/karthik-subbaraj.png";
 import anthonyImg from "@/assets/anthony-gonsalvez.png";
