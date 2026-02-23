@@ -295,6 +295,17 @@
 }
 
 
+@keyframes counter-celebrate {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.08); }
+  70% { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
+
+.counter-celebrate {
+  animation: counter-celebrate 0.5s cubic-bezier(0.16, 1, 0.3, 1) 2.4s both;
+}
+
 @keyframes progress-fill {
   from { transform: scaleX(0); }
   to { transform: scaleX(1); }
