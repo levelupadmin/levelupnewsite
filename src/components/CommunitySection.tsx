@@ -1,4 +1,4 @@
-
+import FadeInSection from "./FadeInSection";
 import community1 from "@/assets/community/community-1.png";
 import community2 from "@/assets/community/community-2.png";
 import community3 from "@/assets/community/community-3.png";
@@ -40,7 +40,7 @@ const CommunitySection = () => {
       />
       <div className="max-w-[1300px] mx-auto px-6">
         {/* Header */}
-        <div className="mb-10">
+        <FadeInSection className="mb-10">
           <div>
             <span className="text-primary text-xs uppercase tracking-[0.25em] font-semibold mb-3 block">
               Dive into our community
@@ -52,13 +52,14 @@ const CommunitySection = () => {
               Engage with other learners, alumni, and mentors and attend community sessions to learn from each other in our curated community.
             </p>
           </div>
-        </div>
+        </FadeInSection>
 
         {/* Bento Grid */}
         <div className="grid grid-cols-2 md:grid-cols-5 auto-rows-[140px] md:auto-rows-[160px] gap-3">
           {gridItems.map((item, i) => (
-            <div
+            <FadeInSection
               key={i}
+              delay={i * 60}
               className={`${item.className} rounded-lg overflow-hidden`}
             >
               <img
@@ -68,7 +69,7 @@ const CommunitySection = () => {
                 loading="lazy"
                 decoding="async"
               />
-            </div>
+            </FadeInSection>
           ))}
         </div>
       </div>

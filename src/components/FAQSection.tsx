@@ -1,3 +1,5 @@
+import FadeInSection from "./FadeInSection";
+
 const faqs = [
   {
     question: "What is LevelUp Learning?",
@@ -89,14 +91,17 @@ const FAQSection = () => {
         aria-hidden="true"
       />
       <div className="relative max-w-6xl mx-auto px-5 md:px-6">
-        <h2 className="font-serif-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-10 md:mb-12">
-          Frequently asked questions
-        </h2>
+        <FadeInSection>
+          <h2 className="font-serif-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-10 md:mb-12">
+            Frequently asked questions
+          </h2>
+        </FadeInSection>
 
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-5">
           {faqs.map((faq, index) => (
-            <div
+            <FadeInSection
               key={index}
+              delay={index * 50}
               className={`break-inside-avoid mb-5 rounded-sm border p-6 md:p-7 ${
                 faq.featured ? featuredStyle : cardStyles[index % cardStyles.length]
               }`}
@@ -113,7 +118,7 @@ const FAQSection = () => {
               <p className="font-sans-body text-sm md:text-base text-muted-foreground leading-relaxed">
                 {faq.answer}
               </p>
-            </div>
+            </FadeInSection>
           ))}
         </div>
 

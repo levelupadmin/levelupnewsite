@@ -1,3 +1,4 @@
+import FadeInSection from "./FadeInSection";
 import allMastersImg from "@/assets/all-masters.png";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
@@ -29,7 +30,7 @@ const TrustedCTASection = () => {
       {/* Radial amber glow */}
       <div className="absolute inset-0 bg-gradient-amber-glow pointer-events-none" />
 
-      <div className="relative max-w-4xl mx-auto flex flex-col items-center text-center gap-8">
+      <FadeInSection className="relative max-w-4xl mx-auto flex flex-col items-center text-center gap-8">
         {/* Masters group photo */}
         <div className="relative w-full max-w-md md:max-w-lg">
           <img
@@ -101,7 +102,7 @@ const TrustedCTASection = () => {
             <ArrowRight className="w-4 h-4" />
           </Button>
         </a>
-      </div>
+      </FadeInSection>
     </section>
   );
 };

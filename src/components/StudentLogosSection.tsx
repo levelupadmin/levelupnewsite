@@ -1,4 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
+import FadeInSection from "./FadeInSection";
 import { AnimatedCounter } from "./AnimatedCounter";
 
 import logoFtii from "@/assets/logos/ftii.png";
@@ -56,12 +57,14 @@ const StudentLogosSection = () => {
           <div className="h-px bg-border mx-auto mb-10 md:mb-12 w-12" />
 
           {/* Headline */}
+          <FadeInSection>
           <h2 className="font-serif-display text-2xl md:text-3xl lg:text-[2.5rem] lg:leading-[1.25] text-center text-foreground max-w-2xl mx-auto mb-12 md:mb-16">
             The creative industry is competitive.{" "}
             <strong className="text-gradient-amber">
               Your growth doesn't have to wait.
             </strong>
           </h2>
+          </FadeInSection>
 
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 mb-10 md:mb-14 max-w-xl mx-auto">

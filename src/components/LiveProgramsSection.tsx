@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import FadeInSection from "./FadeInSection";
 import { ArrowRight, Clock, Radio, CalendarDays, Play } from "lucide-react";
 import careerQuizBanner from "@/assets/career-quiz-banner.jpg";
 import { showcasePrograms } from "@/data/programs";
@@ -79,7 +80,7 @@ const LiveProgramsSection = () => {
       />
 
       {/* Section header */}
-      <div className="text-center px-6 md:px-12 mb-10 md:mb-12">
+      <FadeInSection className="text-center px-6 md:px-12 mb-10 md:mb-12">
         <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border border-primary/30 text-primary bg-primary/5 mb-4">
           Live + Mentor-Led
         </span>
@@ -91,7 +92,7 @@ const LiveProgramsSection = () => {
           Structured programs led by working professionals. Live sessions, real
           practice, honest feedback.
         </p>
-      </div>
+      </FadeInSection>
 
       {/* Showcase layout */}
       <div className="max-w-[1600px] mx-auto px-6 md:px-12">

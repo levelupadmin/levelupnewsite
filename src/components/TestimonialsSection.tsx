@@ -1,4 +1,5 @@
 import { useEffect, useCallback, useState } from "react";
+import FadeInSection from "./FadeInSection";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { ChevronLeft, ChevronRight, ArrowRight, ArrowUpRight, X } from "lucide-react";
@@ -198,7 +199,7 @@ const TestimonialsSection = () => {
 
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 md:mb-12">
+        <FadeInSection className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 md:mb-12">
           <div>
             <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl font-medium text-hero-headline leading-[1.15] tracking-tight max-w-xl">
               Real transformations. No scripts, no exaggeration — just{" "}
@@ -215,7 +216,7 @@ const TestimonialsSection = () => {
             Read all stories
             <ArrowRight className="w-4 h-4" />
           </a>
-        </div>
+        </FadeInSection>
       </div>
 
       {/* Carousel */}
