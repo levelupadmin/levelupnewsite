@@ -94,7 +94,7 @@ const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: St
 
         if (sx < -10 || sx > w + 10 || sy < -10 || sy > h + 10) continue;
 
-        const size = Math.max(0.5, (1 - star.z / DEFAULT_MAX_DEPTH) * 3.5);
+        const size = Math.max(1, (1 - star.z / DEFAULT_MAX_DEPTH) * 5);
         const opacity = Math.max(0.1, (1 - star.z / DEFAULT_MAX_DEPTH) * 1);
 
         // ~20% of stars get an amber tint

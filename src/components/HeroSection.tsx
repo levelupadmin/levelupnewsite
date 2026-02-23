@@ -23,7 +23,7 @@ const HeroSection = () => {
       className="relative flex flex-col pb-8 md:pb-12"
     >
       {/* Animated star field + grain */}
-      <StarField />
+      <StarField starCount={750} />
 
       {/* Cinematic gradient background */}
       <div
