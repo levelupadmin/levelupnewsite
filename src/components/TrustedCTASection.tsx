@@ -78,7 +78,7 @@ const TrustedCTASection = () => {
                 key={logo.name}
                 src={logo.src}
                 alt={logo.name}
-                className="h-4 md:h-5 w-auto object-contain opacity-35 grayscale brightness-200"
+                className="h-4 md:h-5 w-auto object-contain opacity-50 grayscale brightness-200"
                 style={{ mixBlendMode: "screen" }}
                 loading="lazy"
               />
