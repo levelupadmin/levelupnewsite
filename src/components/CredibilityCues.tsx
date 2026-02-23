@@ -31,7 +31,7 @@ const CredibilityCues = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8">
           {cues.map((cue, i) => (
             <FadeInSection key={cue.label} delay={i * 100} className="text-center">
-              <p className="relative overflow-hidden inline-block font-serif-display text-2xl md:text-3xl lg:text-4xl font-medium text-white tracking-tight tabular-nums counter-shimmer">
+              <p className="font-serif-display text-2xl md:text-3xl lg:text-4xl font-medium text-white tracking-tight tabular-nums">
                 <AnimatedCounter
                   target={cue.numericValue}
                   suffix={cue.suffix}
