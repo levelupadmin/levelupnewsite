@@ -34,17 +34,8 @@ const HeroCarousel = () => {
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Only initialize carousel when visible
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setIsVisible(true); obs.disconnect(); } },
-      { rootMargin: "200px" }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
+  // Mark visible immediately — carousel is above the fold
+  useEffect(() => { setIsVisible(true); }, []);
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
@@ -92,9 +83,9 @@ const HeroCarousel = () => {
   return (
     <m.div
       ref={containerRef}
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1.2, delay: 1.5, ease: "easeOut" }}
+      transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
       className="relative z-10 mt-4 md:mt-6"
     >
       <div className="relative">
@@ -115,24 +106,16 @@ const HeroCarousel = () => {
                   />
 
                   {/* Only render videos when carousel is visible */}
-                  {isVisible ? (
-                    <video
-                      ref={(el) => { videoRefs.current[index] = el; }}
-                      src={slide.video}
-                      poster={slide.poster}
-                      muted
-                      loop
-                      playsInline
-                      preload="none"
-                      className="w-full aspect-[16/9] object-cover object-center bg-card scale-[1.3]"
-                    />
-                  ) : (
-                    <img
-                      src={slide.poster}
-                      alt={slide.alt}
-                      className="w-full aspect-[16/9] object-cover object-center bg-card scale-[1.3]"
-                    />
-                  )}
+                  <video
+                    ref={(el) => { videoRefs.current[index] = el; }}
+                    src={slide.video}
+                    poster={slide.poster}
+                    muted
+                    loop
+                    playsInline
+                    preload={index === 0 ? "auto" : "none"}
+                    className="w-full aspect-[16/9] object-cover object-center bg-card scale-[1.3]"
+                  />
                 </div>
               </div>
             ))}
