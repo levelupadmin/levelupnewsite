@@ -143,11 +143,11 @@ const HeroCarousel = () => {
         <div className="absolute top-3 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
           {slides.map((_, index) => (
             <button
-              key={index}
+              key={`${index}-${selectedIndex}`}
               onClick={() => emblaApi?.scrollTo(index)}
               className={`h-1 rounded-full transition-all duration-500 ${
                 index === selectedIndex
-                  ? "w-8 bg-primary"
+                  ? "w-8 bg-primary/30 dot-progress"
                   : "w-2 bg-white/30 hover:bg-white/50"
               }`}
               aria-label={`Go to slide ${index + 1}: ${slides[index].alt}`}

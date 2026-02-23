@@ -294,6 +294,27 @@
   animation: badge-shimmer 1.2s ease-out 0.6s forwards;
 }
 
+@keyframes progress-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.dot-progress {
+  position: relative;
+  overflow: hidden;
+}
+
+.dot-progress::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: hsl(var(--primary));
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: progress-fill 5s linear forwards;
+}
+
 @keyframes scroll-left {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }

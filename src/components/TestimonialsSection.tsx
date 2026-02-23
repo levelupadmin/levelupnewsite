@@ -244,11 +244,11 @@ const TestimonialsSection = () => {
           <div className="flex items-center gap-1.5">
             {scrollSnaps.map((_, index) => (
               <button
-                key={index}
+                key={`${index}-${selectedIndex}`}
                 onClick={() => emblaApi?.scrollTo(index)}
                 className={`h-1 rounded-full transition-all duration-500 ${
                   index === selectedIndex
-                    ? "w-7 bg-primary"
+                    ? "w-7 bg-primary/30 dot-progress"
                     : "w-2 bg-foreground/20 hover:bg-foreground/40"
                 }`}
                 aria-label={`Go to testimonial ${index + 1}`}
