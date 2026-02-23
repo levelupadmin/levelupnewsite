@@ -2,6 +2,7 @@ import FadeInSection from "./FadeInSection";
 import allMastersImg from "@/assets/all-masters.png";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import MagneticButton from "@/components/MagneticButton";
 
 import outlookLogo from "@/assets/press/outlook-india.svg";
 import quintLogo from "@/assets/press/the-quint.svg";
@@ -93,15 +94,17 @@ const TrustedCTASection = () => {
         </p>
 
         {/* CTA */}
-        <a href="#masterclasses">
-          <Button
-            size="lg"
-            className="cta-sweep cta-glow rounded-sm gap-2 text-sm font-sans-body"
-          >
-            Start Your Journey
-            <ArrowRight className="w-4 h-4" />
-          </Button>
-        </a>
+        <MagneticButton>
+          <a href="#masterclasses">
+            <Button
+              size="lg"
+              className="cta-sweep cta-glow rounded-sm gap-2 text-sm font-sans-body"
+            >
+              Start Your Journey
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+          </a>
+        </MagneticButton>
       </FadeInSection>
     </section>
   );

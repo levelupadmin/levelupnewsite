@@ -1,5 +1,6 @@
 import { useState, useEffect, lazy, Suspense } from "react";
 import { ArrowRight } from "lucide-react";
+import MagneticButton from "@/components/MagneticButton";
 import { AnimatePresence, m } from "framer-motion";
 
 // Lazy-load heavy hero sub-components to reduce initial JS evaluation
@@ -96,14 +97,16 @@ const HeroSection = () => {
         </p>
 
         <div className="mt-8 md:mt-10 animate-hero-stagger" style={{ animationDelay: "1000ms" }}>
-          <a
-            href="#masterclasses"
-            className="cta-sweep cta-glow group inline-flex items-center gap-3 font-sans-body text-sm md:text-base text-foreground px-6 py-3 md:px-7 md:py-3.5 rounded-full hover:text-primary transition-all duration-500"
-            style={{ border: "1px solid #5c5c5c" }}
-          >
-            Explore the ecosystem
-            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-          </a>
+          <MagneticButton>
+            <a
+              href="#masterclasses"
+              className="cta-sweep cta-glow group inline-flex items-center gap-3 font-sans-body text-sm md:text-base text-foreground px-6 py-3 md:px-7 md:py-3.5 rounded-full hover:text-primary transition-all duration-500"
+              style={{ border: "1px solid #5c5c5c" }}
+            >
+              Explore the ecosystem
+              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </a>
+          </MagneticButton>
         </div>
       </div>
 
