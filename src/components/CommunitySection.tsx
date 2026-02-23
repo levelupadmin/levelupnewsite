@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight } from "lucide-react";
+
 import community1 from "@/assets/community/community-1.png";
 import community2 from "@/assets/community/community-2.png";
 import community3 from "@/assets/community/community-3.png";
@@ -22,9 +22,25 @@ const gridItems = [
 const CommunitySection = () => {
   return (
     <section className="relative py-16 md:py-24 bg-background overflow-hidden">
+      {/* Top accent line */}
+      <div
+        className="absolute top-0 left-0 right-0 h-[2px]"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent 10%, hsl(38 75% 55% / 0.5) 50%, transparent 90%)",
+        }}
+      />
+      {/* Subtle top glow */}
+      <div
+        className="absolute top-0 left-0 right-0 h-64 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at 50% 0%, hsl(38 75% 55% / 0.03) 0%, transparent 70%)",
+        }}
+      />
       <div className="max-w-[1300px] mx-auto px-6">
         {/* Header */}
-        <div className="flex items-start justify-between mb-10">
+        <div className="mb-10">
           <div>
             <span className="text-primary text-xs uppercase tracking-[0.25em] font-semibold mb-3 block">
               Dive into our community
@@ -35,14 +51,6 @@ const CommunitySection = () => {
             <p className="text-muted-foreground text-sm md:text-base max-w-lg leading-relaxed">
               Engage with other learners, alumni, and mentors and attend community sessions to learn from each other in our curated community.
             </p>
-          </div>
-          <div className="hidden md:flex items-center gap-2 mt-2">
-            <button className="w-10 h-10 rounded-md border border-border flex items-center justify-center text-foreground hover:bg-accent transition-colors">
-              <ArrowLeft className="w-4 h-4" />
-            </button>
-            <button className="w-10 h-10 rounded-md border border-border flex items-center justify-center text-foreground hover:bg-accent transition-colors">
-              <ArrowRight className="w-4 h-4" />
-            </button>
           </div>
         </div>
 
