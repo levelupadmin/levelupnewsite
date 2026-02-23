@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { AnimatePresence, m } from "framer-motion";
 
 // Lazy-load heavy hero sub-components to reduce initial JS evaluation
-const HeroCarousel = lazy(() => import("@/components/HeroCarousel"));
+import HeroCarousel from "@/components/HeroCarousel";
 const StarField = lazy(() => import("@/components/StarField"));
 
 const rotatingWords = ["filmmakers", "editors", "storytellers", "artists", "writers", "creators", "animators", "screenwriters", "cinematographers", "designers", "producers", "directors", "musicians"];
@@ -108,9 +108,7 @@ const HeroSection = () => {
       </div>
 
       {/* Cinematic video carousel */}
-      <Suspense fallback={null}>
-        <HeroCarousel />
-      </Suspense>
+      <HeroCarousel />
     </section>
   );
 };
