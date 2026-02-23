@@ -60,15 +60,17 @@ const CommunitySection = () => {
             <FadeInSection
               key={i}
               delay={i * 60}
-              className={`${item.className} rounded-lg overflow-hidden`}
+              className={`${item.className} rounded-lg overflow-hidden group relative`}
             >
               <img
                 src={item.src}
                 alt={item.alt}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 loading="lazy"
                 decoding="async"
               />
+              {/* Hover overlay with amber glow */}
+              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-lg ring-1 ring-inset ring-primary/30" />
             </FadeInSection>
           ))}
         </div>
