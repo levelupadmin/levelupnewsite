@@ -19,6 +19,8 @@ const FloatingSupport = lazy(() => import("@/components/FloatingSupport"));
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      {/* Cinematic curtain-rise overlay */}
+      <div className="fixed inset-0 z-[100] bg-background pointer-events-none animate-curtain-rise" aria-hidden="true" />
       {/* Skip-to-content link for keyboard users */}
       <a
         href="#main-content"
