@@ -62,7 +62,7 @@ const HeroSection = () => {
           <br />
           <span
             className="relative inline-block overflow-hidden align-middle animate-hero-stagger"
-            style={{ width: `${maxWordLength}ch`, height: "1.15em", animationDelay: "400ms" }}
+            style={{ width: "min(100%, " + maxWordLength + "ch)", height: "1.15em", animationDelay: "400ms" }}
           >
             <AnimatePresence mode="wait">
               <m.span
