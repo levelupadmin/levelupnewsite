@@ -1,4 +1,5 @@
 import FadeInSection from "./FadeInSection";
+import AccentLine from "./AccentLine";
 import community1 from "@/assets/community/community-1.png";
 import community2 from "@/assets/community/community-2.png";
 import community3 from "@/assets/community/community-3.png";
@@ -22,14 +23,7 @@ const gridItems = [
 const CommunitySection = () => {
   return (
     <section className="relative py-16 md:py-24 bg-background overflow-hidden">
-      {/* Top accent line */}
-      <div
-        className="absolute top-0 left-0 right-0 h-[2px]"
-        style={{
-          background:
-            "linear-gradient(90deg, transparent 10%, hsl(38 75% 55% / 0.5) 50%, transparent 90%)",
-        }}
-      />
+      <AccentLine />
       {/* Subtle top glow */}
       <div
         className="absolute top-0 left-0 right-0 h-64 pointer-events-none"

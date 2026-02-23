@@ -3,6 +3,7 @@ import allMastersImg from "@/assets/all-masters.png";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import MagneticButton from "@/components/MagneticButton";
+import AccentLine from "./AccentLine";
 
 import outlookLogo from "@/assets/press/outlook-india.svg";
 import quintLogo from "@/assets/press/the-quint.svg";
@@ -25,8 +26,7 @@ const disciplines = [
 const TrustedCTASection = () => {
   return (
     <section className="relative py-16 md:py-24 px-6 md:px-12 overflow-hidden bg-background">
-      {/* Amber accent line */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent" />
+      <AccentLine gradient="linear-gradient(90deg, transparent 20%, hsl(38 75% 55% / 0.5) 50%, transparent 80%)" className="w-48 left-1/2 -translate-x-1/2 right-auto" />
 
       {/* Radial amber glow */}
       <div className="absolute inset-0 bg-gradient-amber-glow pointer-events-none" />
