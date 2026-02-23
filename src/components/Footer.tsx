@@ -1,4 +1,6 @@
 import { Instagram, Youtube, Twitter, Linkedin } from "lucide-react";
+import { m } from "framer-motion";
+import { useParallax } from "@/hooks/use-parallax";
 import levelupLogo from "@/assets/levelup-logo.svg";
 
 const footerLinks = {
@@ -30,6 +32,8 @@ const socialLinks = [
 ];
 
 const Footer = () => {
+  const { ref: watermarkRef, y: watermarkY } = useParallax({ speed: -0.05 });
+
   return (
     <footer
       aria-label="Site footer"
@@ -112,9 +116,11 @@ const Footer = () => {
         </div>
       </div>
 
-      <div
+      <m.div
+        ref={watermarkRef}
         aria-hidden="true"
         className="hidden md:block absolute bottom-0 left-0 right-0 translate-y-[35%] pointer-events-none select-none"
+        style={{ y: watermarkY }}
       >
         <img
           src={levelupLogo}
@@ -122,7 +128,7 @@ const Footer = () => {
           className="w-full h-auto opacity-[0.03]"
           decoding="async"
         />
-      </div>
+      </m.div>
     </footer>
   );
 };
