@@ -297,7 +297,7 @@ const TestimonialSlide = ({
   onReadStory: () => void;
 }) => {
   return (
-    <div className="group flex flex-col md:flex-row rounded-sm overflow-hidden h-full border border-border/50 min-h-[380px] md:min-h-[420px]">
+    <div className="group flex flex-col md:flex-row rounded-sm overflow-hidden h-full border border-border/50 min-h-[380px] md:min-h-[420px] transition-all duration-500 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_0_20px_2px_hsl(38_75%_55%/0.15)]">
       <div className="relative md:w-1/2 shrink-0">
         <div className="relative aspect-[4/5] md:aspect-auto md:h-full overflow-hidden">
           <img
