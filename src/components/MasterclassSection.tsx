@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { ArrowRight } from "lucide-react";
+import FadeInSection, { useScrollReveal } from "./FadeInSection";
 import nelsonImg from "@/assets/nelson-dilipkumar.jpg";
 import comingSoonImg from "@/assets/coming-soon-silhouette.jpg";
 import karthikImg from "@/assets/karthik-subbaraj.png";
@@ -159,7 +160,7 @@ const MasterclassSection = () => {
       />
 
       {/* Section headline */}
-      <div className="text-center px-6 md:px-12 mb-8 md:mb-10">
+      <FadeInSection className="text-center px-6 md:px-12 mb-8 md:mb-10">
         <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border border-primary/30 text-primary bg-primary/5 mb-4">
           On-demand
         </span>
@@ -170,15 +171,19 @@ const MasterclassSection = () => {
         <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-5 md:mt-6 max-w-lg mx-auto leading-relaxed">
           High quality pre-recorded courses taught by India's finest.
         </p>
-      </div>
+      </FadeInSection>
 
       {/* Masterclass cards — grid layout */}
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-6">
-          {masterclasses.map((mc) => (
-            <MasterclassCard key={mc.name} mc={mc} />
+          {masterclasses.map((mc, i) => (
+            <FadeInSection key={mc.name} delay={i * 80}>
+              <MasterclassCard mc={mc} />
+            </FadeInSection>
           ))}
-          <ComingSoonCard />
+          <FadeInSection delay={masterclasses.length * 80}>
+            <ComingSoonCard />
+          </FadeInSection>
         </div>
       </div>
 

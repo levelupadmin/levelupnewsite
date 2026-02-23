@@ -1,4 +1,5 @@
 import { AnimatedCounter } from "./AnimatedCounter";
+import FadeInSection from "./FadeInSection";
 
 const cues = [
   { value: "57,660+", numericValue: 57660, label: "Learners enrolled", suffix: "+", hasComma: true },
@@ -28,8 +29,8 @@ const CredibilityCues = () => {
       />
       <div className="max-w-5xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8">
-          {cues.map((cue) => (
-            <div key={cue.label} className="text-center">
+          {cues.map((cue, i) => (
+            <FadeInSection key={cue.label} delay={i * 100} className="text-center">
               <p className="font-serif-display text-2xl md:text-3xl lg:text-4xl font-medium text-white tracking-tight tabular-nums">
                 <AnimatedCounter
                   target={cue.numericValue}
@@ -41,15 +42,15 @@ const CredibilityCues = () => {
               <p className="font-sans-body text-xs md:text-sm text-white/60 mt-2 tracking-wide">
                 {cue.label}
               </p>
-            </div>
+            </FadeInSection>
           ))}
         </div>
 
-        <p className="font-sans-body text-base text-white/40 text-center mt-10 md:mt-12 max-w-lg mx-auto leading-relaxed">
+        <FadeInSection delay={400} className="font-sans-body text-base text-white/40 text-center mt-10 md:mt-12 max-w-lg mx-auto leading-relaxed">
           From masterclasses to residencies, from community to career —
           <br className="hidden md:block" />
           every layer designed for the serious creator.
-        </p>
+        </FadeInSection>
       </div>
     </section>
   );
