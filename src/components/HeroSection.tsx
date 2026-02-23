@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { ArrowRight } from "lucide-react";
 import { AnimatePresence, m } from "framer-motion";
-import HeroCarousel from "@/components/HeroCarousel";
-import StarField from "@/components/StarField";
+
+// Lazy-load heavy hero sub-components to reduce initial JS evaluation
+const HeroCarousel = lazy(() => import("@/components/HeroCarousel"));
+const StarField = lazy(() => import("@/components/StarField"));
 
 const rotatingWords = ["filmmakers", "editors", "storytellers", "artists", "writers", "creators", "animators", "screenwriters", "cinematographers", "designers", "producers", "directors", "musicians"];
 
@@ -23,7 +25,9 @@ const HeroSection = () => {
       className="relative flex flex-col pb-8 md:pb-12"
     >
       {/* Animated star field + grain */}
-      <StarField starCount={750} />
+      <Suspense fallback={null}>
+        <StarField starCount={750} />
+      </Suspense>
 
       {/* Cinematic gradient background */}
       <div
@@ -89,7 +93,9 @@ const HeroSection = () => {
       </div>
 
       {/* Cinematic video carousel */}
-      <HeroCarousel />
+      <Suspense fallback={null}>
+        <HeroCarousel />
+      </Suspense>
     </section>
   );
 };
