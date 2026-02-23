@@ -8,6 +8,9 @@ const StarField = lazy(() => import("@/components/StarField"));
 
 const rotatingWords = ["filmmakers", "editors", "storytellers", "artists", "writers", "creators", "animators", "screenwriters", "cinematographers", "designers", "producers", "directors", "musicians"];
 
+// Pre-compute the longest word length to use a fixed container width and avoid CLS
+const maxWordLength = Math.max(...rotatingWords.map(w => w.length));
+
 const HeroSection = () => {
   const [wordIndex, setWordIndex] = useState(0);
 
@@ -54,7 +57,7 @@ const HeroSection = () => {
         <h1 className="font-serif-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-medium text-hero-headline text-center tracking-[-0.03em] max-w-5xl text-shadow-hero" style={{ lineHeight: 1.1 }}>
           <span className="whitespace-nowrap">Where India's next big</span>
           <br />
-          <span className="relative inline-block overflow-hidden align-middle transition-[width] duration-300 ease-out" style={{ width: `${rotatingWords[wordIndex].length}ch`, height: "1.15em" }}>
+          <span className="relative inline-block overflow-hidden align-middle" style={{ width: `${maxWordLength}ch`, height: "1.15em" }}>
             <AnimatePresence mode="wait">
               <m.span
                 key={rotatingWords[wordIndex]}
