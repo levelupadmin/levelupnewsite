@@ -175,20 +175,8 @@ const ForgeSection = () => {
           A filmmaking bootcamp for aspiring filmmakers, creators, and storytellers — where in 12 days we teach you filmmaking hands-on and you create your very own short film.
         </p>
 
-        {/* Stats row */}
-        <div className="flex justify-center gap-8 md:gap-10 mt-6 md:mt-8">
-          {stats.map((stat) => <div key={stat.label}>
-              <p className="font-serif-display text-2xl md:text-3xl font-medium text-hero-headline">
-                {stat.value}
-              </p>
-              <p className="font-sans-body text-xs text-muted-foreground mt-1 tracking-wide">
-                {stat.label}
-              </p>
-            </div>)}
-        </div>
-
         {/* Feature Points — horizontal 3-column grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 mt-8 md:mt-12 text-left">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 mt-6 md:mt-8 text-left">
           {featurePoints.map((point) =>
           <div key={point.headline} className="flex gap-4 items-start">
               <div className="flex-shrink-0 mt-1">
@@ -204,6 +192,18 @@ const ForgeSection = () => {
               </div>
             </div>
           )}
+        </div>
+
+        {/* Stats row */}
+        <div className="flex justify-center gap-8 md:gap-10 mt-8 md:mt-12">
+          {stats.map((stat) => <div key={stat.label}>
+              <p className="font-serif-display text-2xl md:text-3xl font-medium text-hero-headline">
+                {stat.value}
+              </p>
+              <p className="font-sans-body text-xs text-muted-foreground mt-1 tracking-wide">
+                {stat.label}
+              </p>
+            </div>)}
         </div>
       </FadeInSection>
 
