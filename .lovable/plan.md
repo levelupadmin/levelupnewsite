@@ -1,24 +1,41 @@
 
 
-# Create Privacy Policy Page
+# Improve the Terms of Service Page
 
-## What Changes
-Create a new `/privacy-policy` page displaying the provided Privacy Policy content, update Footer links to point to this internal route, and register the route in `App.tsx`.
+## Current Issues
+- Wall of dense text with no visual breathing room
+- No way to quickly navigate to specific sections (14 sections total)
+- No "last updated" date shown
+- Inconsistent section numbering (some have numbers, some don't)
+- Long paragraphs with no visual breaks make it hard to scan
+- No way to get back to top after scrolling deep
 
-## Technical Steps
+## Proposed Improvements
 
-### 1. Create `src/pages/PrivacyPolicy.tsx`
-- Follow the exact same pattern as `Terms.tsx` (Navbar + centered content + Footer)
-- Use `max-w-4xl mx-auto px-6 py-20 md:py-28` container
-- Render all 9 sections with proper heading hierarchy (h1 title, h2 sections) and bullet lists using `<ul>` elements
-- Include "Effective Date: 28th August 2025" subtitle
-- Scroll to top on mount via `useEffect`
+### 1. Add "Last Updated" date subtitle
+- Add a subtitle below the title (same pattern as Privacy Policy's "Effective Date")
 
-### 2. Update `src/App.tsx`
-- Add lazy import: `const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));`
-- Add route: `<Route path="/privacy-policy" element={<PrivacyPolicy />} />` above the catch-all
+### 2. Add a clickable Table of Contents
+- Render a styled box at the top listing all 14 sections as anchor links
+- Each section gets an `id` attribute for smooth scrolling
+- Styled with a card background (`bg-card border border-border rounded-lg p-6`)
 
-### 3. Update `src/components/Footer.tsx`
-- Change "Privacy Policy" href in the Support links (line 23) from external URL to `"/privacy-policy"`
-- Change bottom "Privacy Policy" link (line 109) from external URL to `"/privacy-policy"` and remove `target="_blank"` and `rel` attributes
+### 3. Consistent section numbering
+- Ensure all h2 headings have proper numbering (1-14)
+- Subsections use dot notation (4.1, 4.2, etc.) -- already partially done
+
+### 4. Visual section dividers
+- Add `border-b border-border pb-8` to each `<section>` for clear separation between sections
+
+### 5. Floating "Back to Top" button
+- Small fixed button in bottom-right that appears after scrolling past the TOC
+- Smooth scrolls back to the page top
+
+### 6. Key callout styling for important notices
+- The all-caps legal warnings (Sections 8, 9, 10) get a subtle card/callout treatment (`bg-muted/50 border-l-2 border-primary p-4 rounded`) to signal their importance
+
+### Technical Changes
+- **`src/pages/Terms.tsx`** -- restructure with TOC, section IDs, dividers, callout styling, back-to-top button, and last-updated date
+
+No new dependencies required. All changes are in a single file.
 
