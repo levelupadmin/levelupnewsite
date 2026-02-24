@@ -103,7 +103,7 @@ const HeroSection = () => {
               className="cta-sweep cta-glow group inline-flex items-center gap-3 font-sans-body text-sm md:text-base text-foreground px-6 py-3 md:px-7 md:py-3.5 rounded-full hover:text-primary transition-all duration-500"
               style={{ border: "1px solid #5c5c5c" }}
             >
-              Explore the ecosystem
+              See all Programs
               <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
           </MagneticButton>
