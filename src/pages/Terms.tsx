@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { ArrowUp } from "lucide-react";
+import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -26,6 +27,8 @@ const tocSections = [
 
 const Terms = () => {
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [activeId, setActiveId] = useState<string>("");
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
@@ -35,24 +38,43 @@ const Terms = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  // Active section tracking
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.find((e) => e.isIntersecting);
+        if (visible) setActiveId(visible.target.id);
+      },
+      { rootMargin: "-20% 0px -75% 0px" }
+    );
+    tocSections.forEach((s) => {
+      const el = document.getElementById(s.id);
+      if (el) observerRef.current?.observe(el);
+    });
+    return () => observerRef.current?.disconnect();
+  }, []);
+
+  const scrollToTop = useCallback(() => window.scrollTo({ top: 0, behavior: "smooth" }), []);
 
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
       <main className="max-w-4xl mx-auto px-6 py-20 md:py-28">
         <h1 className="font-sans-body text-3xl md:text-4xl font-bold text-foreground mb-2">Terms Of Service</h1>
-        <p className="font-sans-body text-sm text-muted-foreground mb-10">Last Updated: 28th August 2025</p>
+        <p className="font-sans-body text-sm text-muted-foreground mb-2">Last Updated: 28th August 2025</p>
+        <p className="font-sans-body text-sm text-muted-foreground mb-10">
+          See also our <Link to="/privacy-policy" className="text-primary hover:underline">Privacy Policy</Link>.
+        </p>
 
         {/* Table of Contents */}
-        <nav className="bg-card border border-border rounded-lg p-6 mb-12">
+        <nav className="bg-card border border-border rounded-lg p-6 mb-12 print:hidden">
           <h2 className="text-lg font-semibold text-foreground mb-4">Table of Contents</h2>
           <ol className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
             {tocSections.map((s) => (
               <li key={s.id}>
                 <a
                   href={`#${s.id}`}
-                  className="text-muted-foreground hover:text-primary transition-colors"
+                  className={`transition-colors ${activeId === s.id ? "text-primary font-medium" : "text-muted-foreground hover:text-primary"}`}
                   onClick={(e) => {
                     e.preventDefault();
                     document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth" });
@@ -79,7 +101,7 @@ const Terms = () => {
             <p>We reserve the right, at our sole discretion, to change or modify portions of these Terms of Service at any time. If we do this, depending on the nature of the change, we will post the changes on this page and indicate at the top of this page the date these terms were last revised and/or notify you, either through the Services' user interface, in an email notification or through other reasonable means. Any such changes will become effective no later than fourteen (14) days after they are posted, except that changes addressing new functions of the Services or changes made for legal reasons will be effective immediately. Your continued use of the Service after the date any such changes become effective constitutes your acceptance of the new Terms of Service. In addition, when using certain Services, you will be subject to any additional terms applicable to such Services that may be posted on the Service from time to time.</p>
 
             <h3 className="text-lg font-medium text-foreground mt-6 mb-2">Privacy</h3>
-            <p>At Level Up Learning, we respect the privacy of our users. For details, please see our Privacy Policy. By using the Service, you consent to our collection and use of personal data as outlined therein.</p>
+            <p>At Level Up Learning, we respect the privacy of our users. For details, please see our <Link to="/privacy-policy" className="text-primary hover:underline">Privacy Policy</Link>. By using the Service, you consent to our collection and use of personal data as outlined therein.</p>
           </section>
 
           <section id="access-use" className="border-b border-border pb-8 mb-8">
@@ -234,7 +256,7 @@ const Terms = () => {
       {showBackToTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-50 bg-primary text-primary-foreground p-3 rounded-full shadow-lg hover:bg-primary/90 transition-all"
+          className="fixed bottom-8 right-8 z-50 bg-primary text-primary-foreground p-3 rounded-full shadow-lg hover:bg-primary/90 transition-all print:hidden"
           aria-label="Back to top"
         >
           <ArrowUp className="h-5 w-5" />
