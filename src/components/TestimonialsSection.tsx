@@ -90,7 +90,7 @@ const TestimonialModal = ({
 }) => {
   return (
     <Dialog open={!!testimonial} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="p-0 gap-0 max-w-3xl w-full overflow-hidden rounded-sm border border-border bg-card flex flex-row max-h-[80vh]">
+      <DialogContent className="p-0 gap-0 max-w-3xl w-full overflow-hidden rounded-sm border border-border bg-card flex flex-col md:flex-row max-h-[80vh]">
         {/* Close button */}
         <DialogClose className="absolute right-4 top-4 z-20 w-9 h-9 rounded-sm border border-border bg-background/70 backdrop-blur-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors">
           <X className="w-4 h-4" />
@@ -100,7 +100,7 @@ const TestimonialModal = ({
         {testimonial && (
           <>
             {/* Image — left column */}
-            <div className="relative w-[260px] shrink-0">
+            <div className="relative w-full md:w-[260px] shrink-0 h-48 md:h-auto">
               <img
                 src={testimonial.image}
                 alt={`${testimonial.name}, ${testimonial.role}`}
@@ -122,7 +122,7 @@ const TestimonialModal = ({
             </div>
 
             {/* Content — right column */}
-            <div className="flex flex-col justify-start p-8 overflow-y-auto border-l border-border/50">
+            <div className="flex flex-col justify-start p-6 md:p-8 overflow-y-auto border-t md:border-t-0 md:border-l border-border/50">
               {/* Decorative quote */}
               <span className="font-serif-display text-6xl text-primary/15 leading-none select-none block -mb-3">
                 "
@@ -246,13 +246,15 @@ const TestimonialsSection = () => {
               <button
                 key={`${index}-${selectedIndex}`}
                 onClick={() => emblaApi?.scrollTo(index)}
-                className={`h-1 rounded-full transition-all duration-500 ${
+                className="py-4 px-1 flex items-center"
+                aria-label={`Go to testimonial ${index + 1}`}
+              >
+                <span className={`h-1 rounded-full transition-all duration-500 ${
                   index === selectedIndex
                     ? "w-7 bg-primary/30 dot-progress"
                     : "w-2 bg-foreground/20 hover:bg-foreground/40"
-                }`}
-                aria-label={`Go to testimonial ${index + 1}`}
-              />
+                }`} />
+              </button>
             ))}
           </div>
 
