@@ -1,4 +1,4 @@
-import { PlusCircle, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import AccentLine from "./AccentLine";
 import FadeInSection from "./FadeInSection";
 import forgeLogo from "@/assets/forge-logo.png";
@@ -6,6 +6,37 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { useCallback, useEffect, useState, useRef } from "react";
 import forgeFilmmaking from "@/assets/forge-filmmaking-banner.jpg";
+
+const AnvilHammerIcon = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    {/* Anvil base */}
+    <path d="M4 20h16" />
+    <path d="M6 20v-2h12v2" />
+    <path d="M7 18v-3h10v3" />
+    <path d="M5 15h14" />
+    {/* Anvil top surface */}
+    <path d="M8 15v-2h8v2" />
+    <path d="M6 13h12" />
+    {/* Hammer */}
+    <path d="M12 13V8" />
+    <path d="M8 6h8v2H8z" />
+    <path d="M12 6V3" />
+    {/* Sparks */}
+    <path d="M5 11l-2-1" />
+    <path d="M19 11l2-1" />
+    <path d="M7 9l-1-2" />
+    <path d="M17 9l1-2" />
+  </svg>
+);
+
 import forgeWriting from "@/assets/forge-writing-banner.jpg";
 import forgeCreators from "@/assets/forge-creators-banner.jpg";
 
@@ -169,9 +200,7 @@ Over an intensive week with practicing mentors, participants move beyond theory 
             {featurePoints.map((point) =>
             <div key={point.headline} className="flex gap-4 items-start">
                 <div className="flex-shrink-0 mt-1">
-                  <PlusCircle
-                  className="w-5 h-5 text-primary"
-                  strokeWidth={1.5} />
+                  <AnvilHammerIcon className="w-5 h-5 text-primary" />
 
                 </div>
                 <div>
