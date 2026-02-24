@@ -64,10 +64,10 @@ const WhyLevelUp = () => {
     const timer = setTimeout(() => {
       cardRefs.current[expandedIndex]?.scrollIntoView({
         behavior: "smooth",
-        inline: "center",
+        inline: "start",
         block: "nearest",
       });
-    }, 100);
+    }, 150);
     return () => clearTimeout(timer);
   }, [expandedIndex, isMobile]);
 
