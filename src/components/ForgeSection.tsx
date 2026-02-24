@@ -59,9 +59,9 @@ const featurePoints = [
 
 
 const stats = [
-{ value: "10", label: "Cities Explored" },
-{ value: "25+", label: "Editions" },
-{ value: "500+", label: "Dreamers" }];
+{ value: "7", label: "Cities" },
+{ value: "11", label: "Editions" },
+{ value: "248", label: "Shortfilms" }];
 
 
 const forgeCards = [
@@ -156,64 +156,54 @@ const ForgeSection = () => {
       {/* Section header — centered, matching other sections */}
       <FadeInSection className="text-center px-6 md:px-12 mb-10 md:mb-12">
         <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border border-primary/30 text-primary bg-primary/5 mb-4 badge-shimmer">
-          Offline Bootcamps
+          In-Person Bootcamp
         </span>
       </FadeInSection>
 
       {/* ─── Top: Split Two-Column Layout ─── */}
-      <FadeInSection delay={100} className="max-w-[1600px] mx-auto px-5 md:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
-          {/* Left Column — Text Block */}
-          <div>
+      <FadeInSection delay={100} className="max-w-[1600px] mx-auto px-5 md:px-12 text-center">
+        <img
+          src={forgeLogo}
+          alt="The Forge"
+          className="h-16 sm:h-20 md:h-28 lg:h-32 w-auto object-contain mx-auto" />
 
-            <img
-              src={forgeLogo}
-              alt="The Forge"
-              className="h-16 sm:h-20 md:h-28 lg:h-32 w-auto object-contain" />
+        <p className="font-serif-display text-lg md:text-xl text-hero-headline mt-2">
+          Where you <em className="italic font-normal text-primary">become</em>
+        </p>
 
+        <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-4 md:mt-6 max-w-2xl mx-auto leading-relaxed">
+          A filmmaking bootcamp for aspiring filmmakers, creators, and storytellers — where in 12 days we teach you filmmaking hands-on and you create your very own short film.
+        </p>
 
-            <p className="font-serif-display text-lg md:text-xl text-hero-headline mt-2">
-              Learn. Do. <em className="italic font-normal text-primary">Become.</em>
-            </p>
+        {/* Stats row */}
+        <div className="flex justify-center gap-8 md:gap-10 mt-6 md:mt-8">
+          {stats.map((stat) => <div key={stat.label}>
+              <p className="font-serif-display text-2xl md:text-3xl font-medium text-hero-headline">
+                {stat.value}
+              </p>
+              <p className="font-sans-body text-xs text-muted-foreground mt-1 tracking-wide">
+                {stat.label}
+              </p>
+            </div>)}
+        </div>
 
-            <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-4 md:mt-6 max-w-md leading-relaxed">
-              The Forge is an offline, immersive experience built for filmmakers, writers, founders, and creators who want to learn by doing. 
-
-Over an intensive week with practicing mentors, participants move beyond theory — applying what they learn in real time, collaborating with peers, and building a complete project of their own.
-            </p>
-
-            {/* Stats row */}
-            <div className="flex gap-8 md:gap-10 mt-6 md:mt-8">
-              {stats.map((stat) => <div key={stat.label}>
-                  <p className="font-serif-display text-2xl md:text-3xl font-medium text-hero-headline">
-                    {stat.value}
-                  </p>
-                  <p className="font-sans-body text-xs text-muted-foreground mt-1 tracking-wide">
-                    {stat.label}
-                  </p>
-                </div>)}
-            </div>
-          </div>
-
-          {/* Right Column — Feature Points */}
-          <div className="flex flex-col gap-6 md:gap-10 md:pt-2">
-            {featurePoints.map((point) =>
-            <div key={point.headline} className="flex gap-4 items-start">
-                <div className="flex-shrink-0 mt-1">
-                  <AnvilHammerIcon className="w-5 h-5 text-primary" />
-
-                </div>
-                <div>
-                  <h3 className="font-serif-display text-base md:text-lg font-medium text-hero-headline leading-snug">
-                    {point.headline}
-                  </h3>
-                  <p className="font-sans-body text-xs md:text-sm text-muted-foreground mt-1 leading-relaxed max-w-sm">
-                    {point.description}
-                  </p>
-                </div>
+        {/* Feature Points — horizontal 3-column grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 mt-8 md:mt-12 text-left">
+          {featurePoints.map((point) =>
+          <div key={point.headline} className="flex gap-4 items-start">
+              <div className="flex-shrink-0 mt-1">
+                <AnvilHammerIcon className="w-5 h-5 text-primary" />
               </div>
-            )}
-          </div>
+              <div>
+                <h3 className="font-serif-display text-base md:text-lg font-medium text-hero-headline leading-snug">
+                  {point.headline}
+                </h3>
+                <p className="font-sans-body text-xs md:text-sm text-muted-foreground mt-1 leading-relaxed">
+                  {point.description}
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </FadeInSection>
 
@@ -269,7 +259,7 @@ Over an intensive week with practicing mentors, participants move beyond theory 
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 bg-primary text-white font-sans-body text-xs md:text-sm px-4 py-2 rounded-full hover:bg-primary/90 transition-colors">
 
-                        Request an Invite
+                        Apply Now
                         <ArrowRight className="w-3.5 h-3.5" />
                       </a>
                       <a
