@@ -122,7 +122,7 @@ const FAQSection = () => {
           ))}
         </div>
 
-        <p className="mt-10 md:mt-14 font-sans-body text-sm text-muted-foreground">
+        <p className="mt-10 md:mt-14 font-sans-body text-sm text-muted-foreground text-center">
           Still have questions?{" "}
           <a
             href="mailto:hello@leveluplearning.com"
