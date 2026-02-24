@@ -201,16 +201,6 @@ const WhyLevelUp = () => {
                         <div className="flex-1 flex items-center justify-center min-h-0">
                           <Illustration />
                         </div>
-                        {feature.stat && (
-                          <div className="flex flex-col items-center mt-4">
-                            <span className="font-serif-display text-4xl md:text-5xl font-bold text-gradient-amber">
-                              {feature.stat}
-                            </span>
-                            <span className="font-sans-body text-xs text-muted-foreground tracking-wider mt-1 uppercase">
-                              {feature.statLabel}
-                            </span>
-                          </div>
-                        )}
                         {(feature as any).microLine && (
                           <p className="font-sans-body text-xs text-muted-foreground/70 italic text-center mt-4">
                             {(feature as any).microLine}
@@ -219,8 +209,8 @@ const WhyLevelUp = () => {
                       </div>
 
                       {/* Right column: Description, Bullets */}
-                      <div className="flex flex-col justify-center">
-                        <p className="font-sans-body text-sm text-muted-foreground leading-relaxed mb-6">
+                      <div className="flex flex-col justify-start pt-4 md:pt-6">
+                        <p className="font-sans-body text-sm text-muted-foreground leading-relaxed mb-4">
                           {feature.expandedDescription}
                         </p>
                         <div className="space-y-3.5">
@@ -233,6 +223,16 @@ const WhyLevelUp = () => {
                             </div>
                           ))}
                         </div>
+                        {feature.stat && (
+                          <div className="flex flex-col items-start mt-6">
+                            <span className="font-serif-display text-4xl md:text-5xl font-bold text-gradient-amber">
+                              {feature.stat}
+                            </span>
+                            <span className="font-sans-body text-xs text-muted-foreground tracking-wider mt-1 uppercase">
+                              {feature.statLabel}
+                            </span>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
