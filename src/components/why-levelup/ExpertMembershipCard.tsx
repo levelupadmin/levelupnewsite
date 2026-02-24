@@ -1,4 +1,4 @@
-import masterclass1 from "@/assets/masterclass-1.jpg";
+import masterclass1 from "@/assets/masterclass-hero-new.png";
 import masterclass2 from "@/assets/masterclass-2.jpg";
 import masterclass3 from "@/assets/masterclass-3.jpg";
 import masterclass4 from "@/assets/masterclass-4.jpg";
