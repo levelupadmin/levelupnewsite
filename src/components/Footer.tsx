@@ -20,7 +20,7 @@ const footerLinks = {
     { label: "FAQs", href: "#faq" },
     { label: "Contact Us", href: "https://api.whatsapp.com/send?phone=919791520177&text=Hi" },
     { label: "Terms", href: "/terms" },
-    { label: "Privacy Policy", href: "https://www.leveluplearning.in/privacy-policy" },
+    { label: "Privacy Policy", href: "/privacy-policy" },
   ],
 };
 
@@ -106,10 +106,10 @@ const Footer = () => {
             <a href="/terms" className="font-sans-body text-xs text-muted-foreground hover:text-foreground transition-colors duration-300">
               Terms
             </a>
-            <a href="https://www.leveluplearning.in/privacy-policy" target="_blank" rel="noopener noreferrer" className="font-sans-body text-xs text-muted-foreground hover:text-foreground transition-colors duration-300">
+            <a href="/privacy-policy" className="font-sans-body text-xs text-muted-foreground hover:text-foreground transition-colors duration-300">
               Privacy Policy
             </a>
-            <a href="https://www.leveluplearning.in/privacy-policy" target="_blank" rel="noopener noreferrer" className="font-sans-body text-xs text-muted-foreground hover:text-foreground transition-colors duration-300">
+            <a href="/privacy-policy" className="font-sans-body text-xs text-muted-foreground hover:text-foreground transition-colors duration-300">
               Cookies
             </a>
           </div>
