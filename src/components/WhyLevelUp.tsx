@@ -224,7 +224,7 @@ const WhyLevelUp = () => {
                           ))}
                         </div>
                         {feature.stat && (
-                          <div className="flex flex-col items-center mt-6 p-4">
+                          <div className="flex-1 flex flex-col items-center justify-center p-4">
                             <span className="font-serif-display text-4xl md:text-5xl font-bold text-gradient-amber">
                               {feature.stat}
                             </span>
