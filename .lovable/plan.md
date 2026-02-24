@@ -1,28 +1,35 @@
 
 
-# Auto-Scroll 3rd Card Into Full View on Expand
+# Replace Bullet Icon with Custom Anvil+Hammer SVG
 
-## Problem
-When the 3rd card ("Community") is expanded, it's partially cut off and requires manual scrolling. Because it's the last card in the row, `scrollIntoView({ inline: "center" })` can't center it properly -- there isn't enough scroll room to the right.
-
-## Solution
-When any card (especially the 3rd) is expanded, scroll the container so the expanded card aligns to the **start** of the viewport instead of center. This pushes the first two cards off-screen to the left, making the expanded card fully visible.
+## What Changes
+Replace the `PlusCircle` icon in the Forge section's three feature bullet points with a custom inline SVG component that exactly matches the uploaded anvil-and-hammer icon, rendered in the site's primary orange color.
 
 ## Technical Steps
 
-### `src/components/WhyLevelUp.tsx`
+### `src/components/ForgeSection.tsx`
 
-**1. Change `scrollIntoView` alignment (lines 64-69)**
-- Replace `inline: "center"` with `inline: "start"` so the expanded card snaps to the left edge of the scroll container
-- Also change `block: "nearest"` to `block: "nearest"` (keep as-is) to avoid vertical jump
+**1. Update import (line 1)**
+- Remove `PlusCircle` from the lucide-react import:
+  - Before: `import { PlusCircle, ArrowRight } from "lucide-react";`
+  - After: `import { ArrowRight } from "lucide-react";`
 
-**2. Increase scroll delay slightly (line 64)**
-- Change delay from `100ms` to `150ms` to allow the width transition to start before scrolling, producing a smoother result
+**2. Add custom AnvilHammerIcon component (after imports, before `featurePoints`)**
+- Define a small inline SVG component that draws:
+  - An anvil base (flat-topped trapezoid shape)
+  - A hammer at an angle above the anvil
+  - Small spark/impact lines at the strike point
+- Uses `currentColor` so it inherits the orange color from `text-primary`
 
-| Line | Current | New |
-|------|---------|-----|
-| 64 | `setTimeout(() => {` (100ms) | `setTimeout(() => {` (150ms) |
-| 66 | `inline: "center",` | `inline: "start",` |
+**3. Replace icon usage (lines 172-174)**
+- Swap:
+  ```
+  <PlusCircle className="w-5 h-5 text-primary" strokeWidth={1.5} />
+  ```
+- With:
+  ```
+  <AnvilHammerIcon className="w-5 h-5 text-primary" />
+  ```
 
-These two small changes ensure the 3rd card (and any expanded card) is fully visible by scrolling preceding cards out of view.
+No other files need changes. The icon picks up the site's orange theme automatically via `text-primary`.
 
