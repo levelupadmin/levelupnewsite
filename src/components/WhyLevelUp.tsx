@@ -154,7 +154,7 @@ const WhyLevelUp = () => {
                 >
                   {/* Icon button - bordered square */}
                   <button
-                    className="absolute top-4 right-4 z-20 w-9 h-9 flex items-center justify-center rounded-md border border-foreground/30 transition-all duration-200 hover:scale-110 hover:border-foreground/60 hover:bg-white/5 text-foreground/50 hover:text-foreground/80"
+                    className="absolute top-4 right-4 z-20 w-11 h-11 flex items-center justify-center rounded-md border border-foreground/30 transition-all duration-200 hover:scale-110 hover:border-foreground/60 hover:bg-white/5 text-foreground/50 hover:text-foreground/80"
                     onClick={isExpanded ? handleClose : (e) => { e.stopPropagation(); handleCardClick(index); }}
                     aria-label={isExpanded ? "Close" : "Expand"}
                   >

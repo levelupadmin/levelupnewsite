@@ -69,12 +69,12 @@ const Footer = () => {
               <h4 className="font-sans-body text-xs font-medium uppercase tracking-widest text-primary mb-5">
                 {category}
               </h4>
-              <ul className="space-y-3">
+              <ul className="space-y-1">
                 {links.map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-300"
+                      className="font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors duration-300 py-2 inline-block"
                     >
                       {link.label}
                     </a>

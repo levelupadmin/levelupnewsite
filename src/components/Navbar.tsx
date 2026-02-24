@@ -206,10 +206,10 @@ const Navbar = () => {
               {/* Mobile hamburger */}
               <button
                 onClick={handleMobileOpen}
-                className="md:hidden flex items-center justify-center w-8 h-8 rounded-full border border-border text-foreground hover:border-foreground/30 transition-colors duration-300"
+                className="md:hidden flex items-center justify-center w-11 h-11 rounded-full border border-border text-foreground hover:border-foreground/30 transition-colors duration-300"
                 aria-label="Toggle menu"
               >
-                {mobileOpen ? <X size={16} /> : <Menu size={16} />}
+                {mobileOpen ? <X size={18} /> : <Menu size={18} />}
               </button>
             </div>
           </div>

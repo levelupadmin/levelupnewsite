@@ -128,13 +128,15 @@ const HeroCarousel = () => {
             <button
               key={`${index}-${selectedIndex}`}
               onClick={() => emblaApi?.scrollTo(index)}
-              className={`h-1 rounded-full transition-all duration-500 ${
+              className="py-4 px-1 flex items-center"
+              aria-label={`Go to slide ${index + 1}: ${slides[index].alt}`}
+            >
+              <span className={`h-1 rounded-full transition-all duration-500 ${
                 index === selectedIndex
                   ? "w-8 bg-primary/30 dot-progress"
                   : "w-2 bg-white/30 hover:bg-white/50"
-              }`}
-              aria-label={`Go to slide ${index + 1}: ${slides[index].alt}`}
-            />
+              }`} />
+            </button>
           ))}
         </div>
       </div>
