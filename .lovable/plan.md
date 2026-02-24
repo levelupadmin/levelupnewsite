@@ -1,41 +1,45 @@
 
 
-# Improve the Terms of Service Page
+# Improve Privacy Policy Page & Polish Both Legal Pages
 
-## Current Issues
-- Wall of dense text with no visual breathing room
-- No way to quickly navigate to specific sections (14 sections total)
-- No "last updated" date shown
-- Inconsistent section numbering (some have numbers, some don't)
-- Long paragraphs with no visual breaks make it hard to scan
-- No way to get back to top after scrolling deep
+## Part 1: Privacy Policy Page Improvements
 
-## Proposed Improvements
+### Changes to `src/pages/PrivacyPolicy.tsx`
 
-### 1. Add "Last Updated" date subtitle
-- Add a subtitle below the title (same pattern as Privacy Policy's "Effective Date")
+**A. Add Table of Contents**
+- Add a `tocSections` array for all 9 sections with `id` and `label`
+- Render a styled TOC card (`bg-card border border-border rounded-lg p-6`) with anchor links, matching the Terms page pattern
+- Add `id` attributes to each `<section>`
 
-### 2. Add a clickable Table of Contents
-- Render a styled box at the top listing all 14 sections as anchor links
-- Each section gets an `id` attribute for smooth scrolling
-- Styled with a card background (`bg-card border border-border rounded-lg p-6`)
+**B. Add section dividers**
+- Add `border-b border-border pb-8 mb-8` to each section (last section excluded from border)
 
-### 3. Consistent section numbering
-- Ensure all h2 headings have proper numbering (1-14)
-- Subsections use dot notation (4.1, 4.2, etc.) -- already partially done
+**C. Add floating Back to Top button**
+- Import `useState` and `ArrowUp` from lucide-react
+- Add scroll listener that shows button after 400px scroll
+- Fixed button in bottom-right corner, same styling as Terms page
 
-### 4. Visual section dividers
-- Add `border-b border-border pb-8` to each `<section>` for clear separation between sections
+**D. Callout styling for key sections**
+- Section 5 (Your Rights) gets a callout treatment to highlight user rights
+- Section 9 (Contact Us) gets a subtle callout to make the email stand out
 
-### 5. Floating "Back to Top" button
-- Small fixed button in bottom-right that appears after scrolling past the TOC
-- Smooth scrolls back to the page top
+---
 
-### 6. Key callout styling for important notices
-- The all-caps legal warnings (Sections 8, 9, 10) get a subtle card/callout treatment (`bg-muted/50 border-l-2 border-primary p-4 rounded`) to signal their importance
+## Part 2: Additional Improvements for Both Pages
 
-### Technical Changes
-- **`src/pages/Terms.tsx`** -- restructure with TOC, section IDs, dividers, callout styling, back-to-top button, and last-updated date
+### E. Cross-link between legal pages
+- On Terms page: add a note in the Privacy subsection (Section 1) linking to `/privacy-policy` with an internal `<a>` tag
+- On Privacy Policy page: add a note at the top referencing "See also our Terms of Service" linking to `/terms`
 
-No new dependencies required. All changes are in a single file.
+### F. Print-friendly styling (both pages)
+- Add a `print:` Tailwind variant to hide the navbar, footer, back-to-top button, and TOC when printing, so users get clean printed copies
+
+### G. Active section highlighting in TOC (both pages)
+- Use an `IntersectionObserver` to track which section is in view
+- Highlight the corresponding TOC link with `text-primary font-medium` as the user scrolls
+- Provides a subtle "you are here" indicator
+
+### Technical Details
+- **Files changed**: `src/pages/PrivacyPolicy.tsx`, `src/pages/Terms.tsx`
+- **No new dependencies** -- uses Intersection Observer API (native browser), existing lucide-react icons, and Tailwind `print:` utilities
 
