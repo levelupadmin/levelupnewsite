@@ -133,7 +133,7 @@ const Navbar = () => {
             ].join(" ")}
           >
             {/* Logo */}
-            <a href="https://www.leveluplearning.in" className="flex items-center">
+            <a href="/" className="flex items-center">
               <img
                 src={levelupLogo}
                 alt="LevelUp Learning"
