@@ -1,18 +1,20 @@
 
 
-# Center "40+ Working Mentors" Stat and Add Padding
+# Add "200+ Projects Enabled" Stat to Portfolio-Driven Learning Card
 
 ## What Changes
-The "40+ / WORKING MENTORS" stat block in the right column of the expanded card will be centered horizontally (instead of left-aligned) and given padding on all four sides to increase its visual prominence.
+The second card ("Portfolio-Driven Learning") currently has empty `stat` and `statLabel` fields. These will be populated with "200+" and "PROJECTS ENABLED" so the expanded view shows a centered stat block matching the style of the Expert Mentors card.
 
 ## Technical Steps
 
-### `src/components/WhyLevelUp.tsx` (line 224-232)
+### `src/components/WhyLevelUp.tsx` (lines 32-33)
 
-- Change `items-start` to `items-center` on the stat container
-- Add `p-4` (padding on all sides) and `text-center` for balanced centering
+Update the feature data for the second card:
 
 | Line | Current | New |
 |------|---------|-----|
-| 225 | `items-start mt-6` | `items-center mt-6 p-4` |
+| 32 | `stat: "",` | `stat: "200+",` |
+| 33 | `statLabel: "",` | `statLabel: "PROJECTS ENABLED",` |
+
+No other changes needed -- the rendering logic already conditionally shows the stat block when `feature.stat` is truthy, using the same centered style as the first card.
 
