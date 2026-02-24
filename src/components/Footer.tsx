@@ -19,7 +19,7 @@ const footerLinks = {
   Support: [
     { label: "FAQs", href: "#faq" },
     { label: "Contact Us", href: "https://api.whatsapp.com/send?phone=919791520177&text=Hi" },
-    { label: "Terms", href: "https://www.leveluplearning.in/terms-and-conditions" },
+    { label: "Terms", href: "/terms" },
     { label: "Privacy Policy", href: "https://www.leveluplearning.in/privacy-policy" },
   ],
 };
@@ -103,7 +103,7 @@ const Footer = () => {
             © 2026 LevelUp Learning. All rights reserved.
           </p>
           <div className="flex items-center gap-8 md:gap-6">
-            <a href="https://www.leveluplearning.in/terms-and-conditions" target="_blank" rel="noopener noreferrer" className="font-sans-body text-xs text-muted-foreground hover:text-foreground transition-colors duration-300">
+            <a href="/terms" className="font-sans-body text-xs text-muted-foreground hover:text-foreground transition-colors duration-300">
               Terms
             </a>
             <a href="https://www.leveluplearning.in/privacy-policy" target="_blank" rel="noopener noreferrer" className="font-sans-body text-xs text-muted-foreground hover:text-foreground transition-colors duration-300">
