@@ -189,20 +189,6 @@ const ForgeSection = () => {
             </div>
           ))}
         </div>
-
-        {/* Stats — 3-column grid */}
-        <div className="grid grid-cols-3 gap-8 max-w-3xl mx-auto mt-10 md:mt-14">
-          {stats.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <p className="font-serif-display text-3xl md:text-5xl font-bold text-hero-headline">
-                {stat.value}
-              </p>
-              <p className="font-sans-body text-xs md:text-sm text-muted-foreground mt-1 tracking-wide">
-                {stat.label}
-              </p>
-            </div>
-          ))}
-        </div>
       </FadeInSection>
 
       {/* ─── Horizontal Embla Carousel ─── */}
@@ -215,28 +201,19 @@ const ForgeSection = () => {
               className={`flex-[0_0_85%] md:flex-[0_0_65%] min-w-0 transition-opacity duration-500 ${
               index === selectedIndex ? "opacity-100" : "opacity-40"}`
               }>
-
                 <div className="relative aspect-[3/4] md:aspect-[16/10] rounded-sm overflow-hidden group">
-                  {/* Background Image */}
                   <img
                   src={card.image}
                   alt={card.title}
                   className="absolute inset-0 w-full h-full object-cover"
                   loading="lazy" />
-
-
-                  {/* Gradient Overlays */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
-
-                  {/* Cohort Badge */}
                   <div className="absolute top-4 right-4 md:top-6 md:right-6">
                     <span className="inline-block bg-background/80 backdrop-blur-sm text-foreground text-[10px] md:text-xs font-sans-body tracking-wide px-3 py-1.5 rounded-full">
                       Next Cohort — {card.cohort}
                     </span>
                   </div>
-
-                  {/* Bottom Content */}
                   <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8">
                     <p className="font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase text-primary mb-1">
                       {card.tag}
@@ -256,7 +233,6 @@ const ForgeSection = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 bg-primary text-white font-sans-body text-xs md:text-sm px-4 py-2 rounded-full hover:bg-primary/90 transition-colors">
-
                         Apply Now
                         <ArrowRight className="w-3.5 h-3.5" />
                       </a>
@@ -287,10 +263,25 @@ const ForgeSection = () => {
             "w-2 bg-muted-foreground/30"}`
             }
             aria-label={`Go to slide ${index + 1}`} />
-
           )}
         </div>
       </div>
+
+      {/* Stats — 3-column grid */}
+      <FadeInSection className="max-w-3xl mx-auto px-5 md:px-12 mt-10 md:mt-14">
+        <div className="grid grid-cols-3 gap-8">
+          {stats.map((stat) => (
+            <div key={stat.label} className="text-center">
+              <p className="font-serif-display text-3xl md:text-5xl font-bold text-hero-headline">
+                {stat.value}
+              </p>
+              <p className="font-sans-body text-xs md:text-sm text-muted-foreground mt-1 tracking-wide">
+                {stat.label}
+              </p>
+            </div>
+          ))}
+        </div>
+      </FadeInSection>
     </section>);
 
 };
