@@ -1,30 +1,48 @@
 
 
-## Three-Row Auto-Scrolling Community Section
+## Redesign Forge Section Layout per Sketch
 
-### Approach
-Split the 6 images across 3 rows, each scrolling horizontally in an infinite loop. Rows alternate direction (left, right, left) for visual interest. Each row gets 2 base images duplicated multiple times to fill the strip.
+The sketch shows a new layout for the top portion of the Forge section (above the carousel). Currently everything is centered in a single column. The new layout splits the stats and feature points into a side-by-side arrangement.
 
-### Changes
+### New Layout Structure
 
-**File: `src/components/CommunitySection.tsx`**
+```text
+┌──────────────────────────────────────────────────┐
+│              [The Forge logo]                    │
+│  Where you become                                │  ← left-aligned, large
+│                                                  │
+│  ┌──────────────────────────────────────────┐    │
+│  │  Description paragraph (centered)         │    │
+│  └──────────────────────────────────────────┘    │
+│                                                  │
+│  ┌─────────┐   │   ┌──────────────────────┐     │
+│  │  7       │   │   │ Pressure that ...    │     │
+│  │  Cities  │   │   │ description          │     │
+│  ├─────────┤   │   ├──────────────────────┤     │
+│  │  11      │   │   │ Mentorship without.. │     │
+│  │  Editions│   │   │ description          │     │
+│  ├─────────┤   │   ├──────────────────────┤     │
+│  │  248     │   │   │ Offline. Immersive.. │     │
+│  │  Shortfilms│ │   │ description          │     │
+│  └─────────┘   │   └──────────────────────┘     │
+│                                                  │
+│  [Carousel remains unchanged below]              │
+└──────────────────────────────────────────────────┘
+```
 
-1. **Split images into 3 rows** of 2 images each:
-   - Row 1: community1, community2 → scrolls left
-   - Row 2: community3, community4 → scrolls right
-   - Row 3: community5, community6 → scrolls left
+### File: `src/components/ForgeSection.tsx`
 
-2. **Quadruple each row's images** (repeat 4x) so the strip is wide enough for seamless looping
+**Changes to the header area (lines 163-208):**
 
-3. **Render 3 stacked marquee rows** inside the masked container, each with:
-   - `flex gap-4 w-max` layout
-   - Alternating `scroll-left` / `scroll-right` animations (already defined in CSS)
-   - Slightly different speeds per row (e.g. 25s, 30s, 20s) for organic feel
-   - Shared `paused` state on hover
+1. **Forge logo** — keep centered
+2. **"Where you become" headline** — change to left-aligned, increase size to `text-3xl md:text-5xl`
+3. **Description paragraph** — keep centered, add a subtle border around it (matching the sketch's bordered box look): `border border-muted-foreground/20 rounded-sm px-6 py-4`
+4. **Replace the horizontal feature points + centered stats row** with a two-column grid layout:
+   - **Left column**: Stats stacked vertically with spacing between each stat. Each stat shows the number large and label below
+   - **Center divider**: A thin vertical line (`w-px bg-muted-foreground/20 self-stretch`) between the two columns
+   - **Right column**: The 3 feature points stacked vertically with the AnvilHammerIcon
 
-4. **Reduce card height slightly** to fit 3 rows comfortably: ~`h-[120px] md:h-[160px]`
+5. On mobile, stack everything vertically (stats row above features, no divider)
 
-5. **Add `gap-3` between rows** via a `flex flex-col gap-3` wrapper
-
-No new CSS keyframes needed — `scroll-left` and `scroll-right` already exist.
+The carousel section (lines 210-295) remains completely unchanged.
 
