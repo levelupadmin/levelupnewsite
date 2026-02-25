@@ -183,10 +183,10 @@ const ForgeSection = () => {
               <div key={stat.label} className="flex flex-col md:flex-row items-center gap-4 md:gap-0">
                 {/* Left — Stat */}
                 <div className="flex-1 text-center md:text-right md:pr-8">
-                  <p className="font-serif-display text-3xl md:text-4xl font-bold text-hero-headline">
+                  <p className="font-serif-display text-3xl md:text-4xl font-bold text-hero-headline text-center">
                     {stat.value}
                   </p>
-                  <p className="font-sans-body text-xs text-muted-foreground mt-1 tracking-wide">
+                  <p className="font-sans-body text-xs text-muted-foreground mt-1 tracking-wide text-center">
                     {stat.label}
                   </p>
                 </div>
@@ -205,8 +205,8 @@ const ForgeSection = () => {
                     {point.description}
                   </p>
                 </div>
-              </div>
-            );
+              </div>);
+
           })}
         </div>
       </FadeInSection>
