@@ -27,6 +27,25 @@ const LiveProgramsSection = () => {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const activeProgram = showcasePrograms[activeShowcase];
 
+  // Deep-link: read hash to auto-select a program and scroll into view
+  useEffect(() => {
+    const handleHash = () => {
+      const hash = window.location.hash;
+      if (!hash.startsWith("#live-")) return;
+      const programId = hash.replace("#live-", "");
+      const idx = showcasePrograms.findIndex((p) => p.id === programId);
+      if (idx !== -1) {
+        setActiveShowcase(idx);
+        setTimeout(() => {
+          sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+      }
+    };
+    handleHash();
+    window.addEventListener("hashchange", handleHash);
+    return () => window.removeEventListener("hashchange", handleHash);
+  }, []);
+
   // Start observing earlier (rootMargin) so videos begin loading before user scrolls to them
   useEffect(() => {
     const el = sectionRef.current;
