@@ -1,48 +1,32 @@
 
 
-## Redesign Forge Section Layout per Sketch
+## Visual Layout Changes to Forge Section
 
-The sketch shows a new layout for the top portion of the Forge section (above the carousel). Currently everything is centered in a single column. The new layout splits the stats and feature points into a side-by-side arrangement.
+**File:** `src/components/ForgeSection.tsx`
 
-### New Layout Structure
+Two targeted layout adjustments — no wording, color, or functionality changes.
 
-```text
-┌──────────────────────────────────────────────────┐
-│              [The Forge logo]                    │
-│  Where you become                                │  ← left-aligned, large
-│                                                  │
-│  ┌──────────────────────────────────────────┐    │
-│  │  Description paragraph (centered)         │    │
-│  └──────────────────────────────────────────┘    │
-│                                                  │
-│  ┌─────────┐   │   ┌──────────────────────┐     │
-│  │  7       │   │   │ Pressure that ...    │     │
-│  │  Cities  │   │   │ description          │     │
-│  ├─────────┤   │   ├──────────────────────┤     │
-│  │  11      │   │   │ Mentorship without.. │     │
-│  │  Editions│   │   │ description          │     │
-│  ├─────────┤   │   ├──────────────────────┤     │
-│  │  248     │   │   │ Offline. Immersive.. │     │
-│  │  Shortfilms│ │   │ description          │     │
-│  └─────────┘   │   └──────────────────────┘     │
-│                                                  │
-│  [Carousel remains unchanged below]              │
-└──────────────────────────────────────────────────┘
-```
+### 1. Feature Points (lines 178-195)
+Currently a 3-column grid with `text-left` and `flex gap-4 items-start` (icon beside text horizontally).
 
-### File: `src/components/ForgeSection.tsx`
+**Change to:** Center-aligned columns with icon, title, and description stacked vertically. Each card centers its content with `text-center items-center` instead of `text-left items-start`.
 
-**Changes to the header area (lines 163-208):**
+### 2. Stats Row (lines 197-207)
+Already a centered horizontal row — just needs minor tweaks: remove the wrapping `div` per stat that could imply boxing, and ensure `justify-between` with a `max-w-xl` constraint for even spacing across the page width. Numbers get `font-bold` added.
 
-1. **Forge logo** — keep centered
-2. **"Where you become" headline** — change to left-aligned, increase size to `text-3xl md:text-5xl`
-3. **Description paragraph** — keep centered, add a subtle border around it (matching the sketch's bordered box look): `border border-muted-foreground/20 rounded-sm px-6 py-4`
-4. **Replace the horizontal feature points + centered stats row** with a two-column grid layout:
-   - **Left column**: Stats stacked vertically with spacing between each stat. Each stat shows the number large and label below
-   - **Center divider**: A thin vertical line (`w-px bg-muted-foreground/20 self-stretch`) between the two columns
-   - **Right column**: The 3 feature points stacked vertically with the AnvilHammerIcon
+### Specific Edits
 
-5. On mobile, stack everything vertically (stats row above features, no divider)
+**Lines 178-195** — Feature points grid:
+- Keep `grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 mt-6 md:mt-8`
+- Change `text-left` → `text-center`
+- Each card: change `flex gap-4 items-start` → `flex flex-col items-center`
+- Icon wrapper: remove `mt-1`, keep icon centered above title
+- Title and description: centered naturally via parent `text-center`
 
-The carousel section (lines 210-295) remains completely unchanged.
+**Lines 197-207** — Stats row:
+- Change `flex justify-center gap-8 md:gap-10` → `flex justify-between max-w-xl mx-auto`
+- Add `text-center` to each stat wrapper
+- Add `font-bold` to the number `<p>` tag (currently `font-medium`)
+
+No other sections, colors, or copy affected.
 
