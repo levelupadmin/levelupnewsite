@@ -1,27 +1,25 @@
 
 
-## Visual Layout Change: Stats + Features → Two-Column Split Layout
+## Change Stats to Single-Line Format
 
-The uploaded sketch shows a different layout from what the user's text describes. The sketch shows:
-- **Left column**: Stats stacked vertically (7 Cities, 11 Editions, 248 Shortfilms)
-- **Center**: A vertical divider line with a small decorative element
-- **Right column**: Feature points stacked vertically
-
-However, the user's **text instructions** say:
-- Feature cards in a horizontal 3-column grid **above** the stats
-- Stats in a single horizontal row, evenly spaced, centered
-
-The text and the image contradict each other. The image clearly shows a two-column split with a vertical divider. The text says horizontal rows. Since the image is the newer upload attached to this message, I will follow the **image layout** (two-column split with vertical divider) as the intended design.
+The user wants each stat (e.g., "7 Cities") displayed as a single line with the number and label on the same line, all at the same font weight — rather than the current two-line layout with a large bold number above a smaller label.
 
 ### File: `src/components/ForgeSection.tsx`
 
-**Replace lines 178-207** (the feature points grid + stats row) with a two-column layout:
+**Lines 185-192** (repeated 3 times via the map) — Replace the two separate `<p>` tags (number + label stacked) with a single `<p>` showing `{stat.value} {stat.label}` in one line, uniform weight.
 
-1. **Outer container**: `flex` row with `max-w-3xl mx-auto`, items stretched vertically
-2. **Left column** (~1/3 width): Stats stacked vertically with spacing, left-aligned within their column but centered overall. Each stat: large bold number + label below
-3. **Center divider**: `w-px bg-muted-foreground/20 self-stretch mx-8` — a thin vertical line
-4. **Right column** (~2/3 width): Three feature points stacked vertically with spacing, each showing icon + bold title + description, left-aligned
-5. **Mobile**: Stack vertically — stats as a horizontal row, then features below (graceful fallback)
+Current:
+```tsx
+<p className="font-serif-display text-3xl md:text-4xl font-bold ...">7</p>
+<p className="font-sans-body text-xs text-muted-foreground ...">Cities</p>
+```
 
-No changes to wording, colors, functionality, or any other section. The carousel below remains untouched.
+Change to:
+```tsx
+<p className="font-serif-display text-base md:text-lg font-medium text-hero-headline">
+  {stat.value} {stat.label}
+</p>
+```
+
+Single line, single weight (`font-medium`), matching the feature point title size. No other changes.
 
