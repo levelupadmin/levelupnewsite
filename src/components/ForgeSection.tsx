@@ -7,16 +7,16 @@ import Autoplay from "embla-carousel-autoplay";
 import { useCallback, useEffect, useState, useRef } from "react";
 import forgeFilmmaking from "@/assets/forge-filmmaking-banner.jpg";
 
-const AnvilHammerIcon = ({ className }: { className?: string }) => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
+const AnvilHammerIcon = ({ className }: {className?: string;}) =>
+<svg
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  strokeWidth="1.5"
+  strokeLinecap="round"
+  strokeLinejoin="round"
+  className={className}>
+
     {/* Anvil base */}
     <path d="M4 20h16" />
     <path d="M6 20v-2h12v2" />
@@ -34,8 +34,8 @@ const AnvilHammerIcon = ({ className }: { className?: string }) => (
     <path d="M19 11l2-1" />
     <path d="M7 9l-1-2" />
     <path d="M17 9l1-2" />
-  </svg>
-);
+  </svg>;
+
 
 import forgeWriting from "@/assets/forge-writing-banner.jpg";
 import forgeCreators from "@/assets/forge-creators-banner.jpg";
@@ -179,8 +179,8 @@ const ForgeSection = () => {
         <div className="flex flex-col md:flex-row items-center md:items-stretch justify-center max-w-3xl mx-auto mt-8 md:mt-12 gap-8 md:gap-0">
           {/* Left column — Stats stacked vertically */}
           <div className="flex md:flex-col justify-between md:justify-center items-center md:items-end gap-6 md:gap-8 md:pr-10">
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-center">
+            {stats.map((stat) =>
+            <div key={stat.label} className="text-center">
                 <p className="font-serif-display text-3xl md:text-4xl font-bold text-hero-headline">
                   {stat.value}
                 </p>
@@ -188,7 +188,7 @@ const ForgeSection = () => {
                   {stat.label}
                 </p>
               </div>
-            ))}
+            )}
           </div>
 
           {/* Center divider */}
@@ -196,8 +196,8 @@ const ForgeSection = () => {
 
           {/* Right column — Feature points stacked vertically */}
           <div className="flex flex-col gap-6 md:gap-8 md:pl-10 text-center md:text-left">
-            {featurePoints.map((point) => (
-              <div key={point.headline} className="flex flex-col items-center md:items-start">
+            {featurePoints.map((point) =>
+            <div key={point.headline} className="items-center md:items-start flex flex-col">
                 <AnvilHammerIcon className="w-5 h-5 text-primary" />
                 <h3 className="font-serif-display text-base md:text-lg font-medium text-hero-headline leading-snug mt-2">
                   {point.headline}
@@ -206,7 +206,7 @@ const ForgeSection = () => {
                   {point.description}
                 </p>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </FadeInSection>
