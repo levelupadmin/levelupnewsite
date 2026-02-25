@@ -1,19 +1,24 @@
 
 
-## Remove Bouncy Animations from Expert Mentors Card
+## Convert Community Section to Auto-Scrolling Horizontal Carousel
 
-**File:** `src/components/why-levelup/ExpertMembershipCard.tsx`
+### Approach
+Replace the bento grid with a horizontally scrolling strip of image cards that auto-scrolls continuously using a CSS animation. The animation pauses on hover, creating an infinite marquee effect. The images are duplicated to create a seamless loop.
 
-Remove all `animate-float-card-*` classes and their associated `animationDelay` styles to make the card illustration static.
+### Changes
 
-**Elements affected (6 total):**
-1. **Main player** (line 26): remove `animate-float-card-3`
-2. **Lesson sidebar** (line 70): remove `animate-float-card-2` and `animationDelay: "0.3s"`
-3. **LIVE FEEDBACK badge** (line 126): remove `animate-float-card-1` and `animationDelay: "0.2s"`
-4. **Filmmaking tag** (line 135): remove `animate-float-card-2` and `animationDelay: "0s"`
-5. **Editing tag** (line 141): remove `animate-float-card-3` and `animationDelay: "0.6s"`
-6. **Music tag** (line 147): remove `animate-float-card-1` and `animationDelay: "1.2s"`
-7. **Mentor avatars** (line 155): remove `animate-float-card-2` and `animationDelay: "0.8s"`
+**File: `src/components/CommunitySection.tsx`**
 
-No other files affected. All elements keep their positioning and styling — only the floating/bouncing animation is removed.
+1. **Remove bento grid** — replace the `grid` layout with a horizontal overflow container
+2. **Create a marquee strip** — render the 6 unique community images as cards in a horizontal row, then duplicate them for seamless looping
+3. **CSS animation** — use a `@keyframes` translateX animation on the inner strip that scrolls from `0` to `-50%` (since content is duplicated). Apply `animation-play-state: paused` on hover
+4. **Card styling** — each card is a fixed-width rounded image (e.g. `w-[280px] h-[200px]` on desktop, `w-[220px] h-[160px]` on mobile) with the existing hover overlay effect
+5. **Remove FadeInSection wrappers** from individual cards (not needed for scrolling items), keep it on the header
+6. **Remove grid-specific `className`** from `gridItems` data (col-span/row-span no longer relevant) — simplify to just the 6 unique images
+
+### Technical Detail
+- The marquee uses inline `style` for the `@keyframes` animation via a CSS `animation` property: `scroll 30s linear infinite`
+- The inner container has `onMouseEnter` → set `animationPlayState: 'paused'` and `onMouseLeave` → set `animationPlayState: 'running'` via React state
+- Images are duplicated (`[...items, ...items]`) so the loop is seamless
+- Edge fade masks using `mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent)` on the outer container
 
