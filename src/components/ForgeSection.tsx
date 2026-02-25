@@ -161,59 +161,49 @@ const ForgeSection = () => {
       </FadeInSection>
 
       {/* ─── Top: Split Two-Column Layout ─── */}
-      <FadeInSection delay={100} className="max-w-[1600px] mx-auto px-5 md:px-12">
+      <FadeInSection delay={100} className="max-w-[1600px] mx-auto px-5 md:px-12 text-center">
         <img
           src={forgeLogo}
           alt="The Forge"
           className="h-16 sm:h-20 md:h-28 lg:h-32 w-auto object-contain mx-auto" />
 
-        <p className="font-serif-display text-3xl md:text-5xl text-hero-headline mt-4 text-left">
+        <p className="font-serif-display text-lg md:text-xl text-hero-headline mt-2">
           Where you <em className="italic font-normal text-primary">become</em>
         </p>
 
-        <div className="border border-muted-foreground/20 rounded-sm px-6 py-4 mt-6 md:mt-8">
-          <p className="font-sans-body text-sm md:text-base text-hero-subtext text-center leading-relaxed">
-            A filmmaking bootcamp for aspiring filmmakers, creators, and storytellers — where in 12 days we teach you filmmaking hands-on and you create your very own short film.
-          </p>
+        <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-4 md:mt-6 max-w-2xl mx-auto leading-relaxed">
+          A filmmaking bootcamp for aspiring filmmakers, creators, and storytellers — where in 12 days we teach you filmmaking hands-on and you create your very own short film.
+        </p>
+
+        {/* Feature Points — horizontal 3-column grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 mt-6 md:mt-8 text-left">
+          {featurePoints.map((point) =>
+          <div key={point.headline} className="flex gap-4 items-start">
+              <div className="flex-shrink-0 mt-1">
+                <AnvilHammerIcon className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-serif-display text-base md:text-lg font-medium text-hero-headline leading-snug">
+                  {point.headline}
+                </h3>
+                <p className="font-sans-body text-xs md:text-sm text-muted-foreground mt-1 leading-relaxed">
+                  {point.description}
+                </p>
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* Two-column: Stats | Features */}
-        <div className="flex flex-col md:flex-row gap-8 md:gap-0 mt-8 md:mt-10">
-          {/* Left — Stats stacked */}
-          <div className="flex flex-row md:flex-col justify-center md:justify-start gap-8 md:gap-8 md:pr-10">
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-center md:text-left">
-                <p className="font-serif-display text-3xl md:text-4xl font-medium text-hero-headline">
-                  {stat.value}
-                </p>
-                <p className="font-sans-body text-xs text-muted-foreground mt-1 tracking-wide">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* Divider */}
-          <div className="hidden md:block w-px bg-muted-foreground/20 self-stretch" />
-
-          {/* Right — Feature points */}
-          <div className="flex flex-col gap-6 md:pl-10 flex-1">
-            {featurePoints.map((point) => (
-              <div key={point.headline} className="flex gap-4 items-start">
-                <div className="flex-shrink-0 mt-1">
-                  <AnvilHammerIcon className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-serif-display text-base md:text-lg font-medium text-hero-headline leading-snug">
-                    {point.headline}
-                  </h3>
-                  <p className="font-sans-body text-xs md:text-sm text-muted-foreground mt-1 leading-relaxed">
-                    {point.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* Stats row */}
+        <div className="flex justify-center gap-8 md:gap-10 mt-8 md:mt-12">
+          {stats.map((stat) => <div key={stat.label}>
+              <p className="font-serif-display text-2xl md:text-3xl font-medium text-hero-headline">
+                {stat.value}
+              </p>
+              <p className="font-sans-body text-xs text-muted-foreground mt-1 tracking-wide">
+                {stat.label}
+              </p>
+            </div>)}
         </div>
       </FadeInSection>
 
