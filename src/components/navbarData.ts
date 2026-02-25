@@ -1,4 +1,4 @@
-import liveProgram1 from "@/assets/live-program-1.jpg";
+import navBfp from "@/assets/live-bfp.png";
 import navVe from "@/assets/nav-ve.png";
 import navUiux from "@/assets/nav-uiux.png";
 import navSw from "@/assets/nav-sw.png";
@@ -90,7 +90,7 @@ export const navLinks: NavLink[] = [
     formatBadge: "Live",
     items: [
       {
-        image: liveProgram1,
+        image: navBfp,
         title: "Breakthrough Filmmakers' Program",
         subtitle: "12-week live program",
         href: "https://www.leveluplearning.live/bfp",
