@@ -176,14 +176,14 @@ const ForgeSection = () => {
         </p>
 
         {/* Feature Points — horizontal 3-column grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 mt-6 md:mt-8 text-left">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 mt-6 md:mt-8 text-center">
           {featurePoints.map((point) =>
-          <div key={point.headline} className="flex gap-4 items-start">
-              <div className="flex-shrink-0 mt-1">
+          <div key={point.headline} className="flex flex-col items-center">
+              <div className="flex-shrink-0">
                 <AnvilHammerIcon className="w-5 h-5 text-primary" />
               </div>
               <div>
-                <h3 className="font-serif-display text-base md:text-lg font-medium text-hero-headline leading-snug">
+                <h3 className="font-serif-display text-base md:text-lg font-medium text-hero-headline leading-snug mt-2">
                   {point.headline}
                 </h3>
                 <p className="font-sans-body text-xs md:text-sm text-muted-foreground mt-1 leading-relaxed">
@@ -195,9 +195,9 @@ const ForgeSection = () => {
         </div>
 
         {/* Stats row */}
-        <div className="flex justify-center gap-8 md:gap-10 mt-8 md:mt-12">
-          {stats.map((stat) => <div key={stat.label}>
-              <p className="font-serif-display text-2xl md:text-3xl font-medium text-hero-headline">
+        <div className="flex justify-between max-w-xl mx-auto mt-8 md:mt-12">
+          {stats.map((stat) => <div key={stat.label} className="text-center">
+              <p className="font-serif-display text-2xl md:text-3xl font-bold text-hero-headline">
                 {stat.value}
               </p>
               <p className="font-sans-body text-xs text-muted-foreground mt-1 tracking-wide">
