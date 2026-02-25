@@ -35,7 +35,7 @@ const features = [
     illustration: LiveProjectsCard,
   },
   {
-    title: "Community, Through the Journey",
+    title: "Community,\nThrough the Journey",
     description: "Support, feedback, and momentum—before, during, and after you learn.",
     expandedDescription: "The work gets easier when you're not doing it alone. LevelUp is built with support baked in—feedback loops, peers, and mentors—so you keep moving even when motivation drops.",
     bullets: [
@@ -170,7 +170,7 @@ const WhyLevelUp = () => {
                       pointerEvents: !isExpanded ? "auto" : "none",
                     }}
                   >
-                    <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-3">
+                    <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-3 whitespace-pre-line">
                       {feature.title}
                     </h3>
                     <p className="font-sans-body text-sm text-muted-foreground leading-relaxed mb-4">
@@ -195,7 +195,7 @@ const WhyLevelUp = () => {
                     <div className={`flex-1 p-6 md:p-8 ${isMobile ? "flex flex-col gap-5" : "grid grid-cols-[2fr_3fr] gap-8"}`}>
                       {/* Left column: Title, Illustration, Stat */}
                       <div className="flex flex-col">
-                        <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-4">
+                        <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-4 whitespace-pre-line">
                           {feature.title}
                         </h3>
                         <div className="flex-1 flex items-center justify-center min-h-0">
