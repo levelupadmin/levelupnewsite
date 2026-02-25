@@ -123,7 +123,7 @@ const HeroCarousel = () => {
         </div>
 
         {/* Progress dots */}
-        <div className="absolute top-3 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
           {slides.map((_, index) => (
             <button
               key={`${index}-${selectedIndex}`}
