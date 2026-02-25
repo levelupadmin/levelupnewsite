@@ -1,21 +1,18 @@
 
 
-## Remove "Read all stories" Button from Testimonials Section
+## Replace Video Editing Academy Navbar Thumbnail
 
-### Change in `src/components/TestimonialsSection.tsx`
+### Changes
 
-**Lines 212-218** — Delete the entire `<a>` element containing the "Read all stories" button:
+1. **Copy the uploaded image** to `src/assets/nav-ve-new.png`
 
-```tsx
-// Remove this block:
-<a
-  href="#testimonials"
-  className="cta-sweep cta-glow inline-flex items-center gap-2.5 px-6 py-3 rounded-sm bg-primary text-primary-foreground font-sans-body text-sm font-medium tracking-wide whitespace-nowrap transition-colors hover:bg-primary/90 shrink-0"
->
-  Read all stories
-  <ArrowRight className="w-4 h-4" />
-</a>
-```
+2. **Update `src/components/navbarData.ts`** — Change the import for the Video Editing Academy thumbnail:
+   - Replace `import navVe from "@/assets/nav-ve.png"` with `import navVe from "@/assets/nav-ve-new.png"` (or simply overwrite `nav-ve.png` with the new file)
 
-The `ArrowRight` import can also be removed if it's no longer used elsewhere in the file.
+Since the existing import variable `navVe` is already used in the correct place (the Video Editing Academy item in the LevelUp Live dropdown), only the asset file needs to change. The simplest approach is to copy the uploaded image directly to `src/assets/nav-ve.png`, overwriting the old one — zero code changes needed.
+
+### File Operations
+- **Copy**: `user-uploads://image-81.png` → `src/assets/nav-ve.png` (overwrite existing)
+
+No code changes required — the existing import already references this path.
 
