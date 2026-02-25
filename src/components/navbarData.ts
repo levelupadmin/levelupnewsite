@@ -1,4 +1,4 @@
-import navBfp from "@/assets/live-bfp.png";
+import navBfp from "@/assets/nav-bfp.png";
 import navVe from "@/assets/nav-ve.png";
 import navUiux from "@/assets/nav-uiux.png";
 import navSw from "@/assets/nav-sw.png";
