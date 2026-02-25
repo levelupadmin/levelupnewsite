@@ -1,45 +1,19 @@
 
 
-## Add Unique Icons for Each Forge Feature Point
+## Slow Down Community Marquee and Enlarge Images
 
-Currently all three feature points use the same `AnvilHammerIcon`. The plan is to replace each with a distinct Lucide icon that matches the feature's meaning:
+Two changes in `src/components/CommunitySection.tsx`:
 
-1. **"Pressure that transforms"** → `Flame` icon (intensity, heat, transformation)
-2. **"Mentorship without filters"** → `Users` icon (direct connection, people, mentorship)
-3. **"Offline. Immersive. Real."** → `MapPin` icon (physical location, in-person, real-world)
+### 1. Slower scroll durations (line 28-30)
+Roughly double the animation durations:
+- Row 1: `25s` → `50s`
+- Row 2: `30s` → `60s`
+- Row 3: `20s` → `45s`
 
-### Changes in `src/components/ForgeSection.tsx`
+### 2. Larger image tiles (line 86)
+Increase the image container sizes:
+- Mobile: `w-[220px] h-[120px]` → `w-[280px] h-[160px]`
+- Desktop: `md:w-[280px] md:h-[160px]` → `md:w-[380px] md:h-[220px]`
 
-**Line 1** — Add Lucide imports:
-```tsx
-import { ArrowRight, Flame, Users, MapPin } from "lucide-react";
-```
-
-**Lines 43-58** — Add an `icon` field to each feature point:
-```tsx
-const featurePoints = [
-  {
-    headline: "Pressure that transforms",
-    description: "Not comfort. Not theory. Real creative intensity, shoulder to shoulder.",
-    icon: Flame,
-  },
-  {
-    headline: "Mentorship without filters",
-    description: "Work directly with creators who've shaped the industry. No layers between you and the work.",
-    icon: Users,
-  },
-  {
-    headline: "Offline. Immersive. Real.",
-    description: "Step away from screens. Live, create, and break through — together, in one place.",
-    icon: MapPin,
-  },
-];
-```
-
-**Line 182** — Replace `<AnvilHammerIcon>` with dynamic icon rendering:
-```tsx
-<point.icon className="w-6 h-6 text-primary mx-auto mb-3" />
-```
-
-The `AnvilHammerIcon` component can be left in place (used nowhere else, harmless) or removed for cleanliness.
+Both changes are on single lines in the same file.
 
