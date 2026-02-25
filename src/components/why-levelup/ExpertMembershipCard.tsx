@@ -23,7 +23,7 @@ const ExpertMembershipCard = () => {
 
         {/* === MAIN PLAYER === */}
         <div
-          className="relative flex-[1.6] rounded-lg overflow-hidden border border-primary/40 animate-float-card-3"
+          className="relative flex-[1.6] rounded-lg overflow-hidden border border-primary/40"
           style={{
             boxShadow: "0 12px 40px -8px hsl(0 0% 0% / 0.5), 0 0 20px 2px hsl(30 80% 45% / 0.12)",
           }}
@@ -67,11 +67,10 @@ const ExpertMembershipCard = () => {
 
         {/* === LESSON SIDEBAR === */}
         <div
-          className="flex-1 rounded-lg border border-primary/15 flex flex-col overflow-hidden animate-float-card-2"
+          className="flex-1 rounded-lg border border-primary/15 flex flex-col overflow-hidden"
           style={{
             background: "hsl(30 20% 10% / 0.95)",
             boxShadow: "0 8px 32px -8px hsl(0 0% 0% / 0.4), 0 0 12px 2px hsl(30 80% 45% / 0.04)",
-            animationDelay: "0.3s",
           }}
         >
           {/* Header */}
@@ -123,8 +122,8 @@ const ExpertMembershipCard = () => {
 
       {/* LIVE FEEDBACK badge */}
       <div
-        className="absolute animate-float-card-1 flex items-center gap-1 px-2 py-1 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm"
-        style={{ top: "6%", right: "8%", animationDelay: "0.2s" }}
+        className="absolute flex items-center gap-1 px-2 py-1 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm"
+        style={{ top: "6%", right: "8%" }}
       >
         <Radio size={7} className="text-primary" />
         <span className="text-[7px] font-medium text-primary/90 uppercase tracking-wider">Live Feedback</span>
@@ -132,28 +131,28 @@ const ExpertMembershipCard = () => {
 
       {/* Discipline tags */}
       <div
-        className="absolute text-[7px] px-1.5 py-0.5 rounded-full border border-primary/20 bg-white/5 text-foreground/50 animate-float-card-2"
-        style={{ top: "10%", left: "4%", animationDelay: "0s" }}
+        className="absolute text-[7px] px-1.5 py-0.5 rounded-full border border-primary/20 bg-white/5 text-foreground/50"
+        style={{ top: "10%", left: "4%" }}
       >
         <span className="flex items-center gap-0.5"><Film size={6} className="text-primary/50" /> Filmmaking</span>
       </div>
       <div
-        className="absolute text-[7px] px-1.5 py-0.5 rounded-full border border-primary/20 bg-white/5 text-foreground/50 animate-float-card-3"
-        style={{ bottom: "18%", left: "3%", animationDelay: "0.6s" }}
+        className="absolute text-[7px] px-1.5 py-0.5 rounded-full border border-primary/20 bg-white/5 text-foreground/50"
+        style={{ bottom: "18%", left: "3%" }}
       >
         Editing
       </div>
       <div
-        className="absolute text-[7px] px-1.5 py-0.5 rounded-full border border-primary/20 bg-white/5 text-foreground/50 animate-float-card-1"
-        style={{ bottom: "8%", right: "24%", animationDelay: "1.2s" }}
+        className="absolute text-[7px] px-1.5 py-0.5 rounded-full border border-primary/20 bg-white/5 text-foreground/50"
+        style={{ bottom: "8%", right: "24%" }}
       >
         Music
       </div>
 
       {/* Stacked mentor avatars — bottom-left */}
       <div
-        className="absolute flex items-center animate-float-card-2"
-        style={{ bottom: "8%", left: "5%", animationDelay: "0.8s" }}
+        className="absolute flex items-center"
+        style={{ bottom: "8%", left: "5%" }}
       >
         <div className="flex -space-x-1.5">
           {mentorAvatars.map((src, i) => (
