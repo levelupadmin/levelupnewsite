@@ -184,7 +184,7 @@ const ForgeSection = () => {
                 {/* Left — Stat */}
                 <div className="flex-1 text-center md:text-right md:pr-8">
                   <p className="font-serif-display text-base md:text-lg font-medium text-hero-headline">
-                    {stat.value} {stat.label}
+                    <span className="text-primary">{stat.value}</span> {stat.label}
                   </p>
                 </div>
 
