@@ -84,7 +84,7 @@ export const navLinks: NavLink[] = [
   },
   {
     label: "LevelUp Live",
-    href: "https://www.leveluplearning.live",
+    href: "#live-programs",
     description: "Live mentor-led programs to accelerate your creative career.",
     accent: "hsl(200 35% 55%)",
     formatBadge: "Live",

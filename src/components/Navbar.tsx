@@ -11,7 +11,7 @@ const DEFAULT_ACCENT = "hsl(24 95% 53%)";
 // Minimal nav labels for initial render (before data chunk loads)
 const navLabels = [
   { label: "Masterclasses", href: "https://www.leveluplearning.in/#masterclasses" },
-  { label: "LevelUp Live", href: "https://www.leveluplearning.live" },
+  { label: "LevelUp Live", href: "#live-programs" },
   { label: "The Forge", href: "#forge" },
   { label: "About", href: "/about" },
 ];
