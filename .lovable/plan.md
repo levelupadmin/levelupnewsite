@@ -1,32 +1,27 @@
 
 
-## Visual Layout Changes to Forge Section
+## Visual Layout Change: Stats + Features → Two-Column Split Layout
 
-**File:** `src/components/ForgeSection.tsx`
+The uploaded sketch shows a different layout from what the user's text describes. The sketch shows:
+- **Left column**: Stats stacked vertically (7 Cities, 11 Editions, 248 Shortfilms)
+- **Center**: A vertical divider line with a small decorative element
+- **Right column**: Feature points stacked vertically
 
-Two targeted layout adjustments — no wording, color, or functionality changes.
+However, the user's **text instructions** say:
+- Feature cards in a horizontal 3-column grid **above** the stats
+- Stats in a single horizontal row, evenly spaced, centered
 
-### 1. Feature Points (lines 178-195)
-Currently a 3-column grid with `text-left` and `flex gap-4 items-start` (icon beside text horizontally).
+The text and the image contradict each other. The image clearly shows a two-column split with a vertical divider. The text says horizontal rows. Since the image is the newer upload attached to this message, I will follow the **image layout** (two-column split with vertical divider) as the intended design.
 
-**Change to:** Center-aligned columns with icon, title, and description stacked vertically. Each card centers its content with `text-center items-center` instead of `text-left items-start`.
+### File: `src/components/ForgeSection.tsx`
 
-### 2. Stats Row (lines 197-207)
-Already a centered horizontal row — just needs minor tweaks: remove the wrapping `div` per stat that could imply boxing, and ensure `justify-between` with a `max-w-xl` constraint for even spacing across the page width. Numbers get `font-bold` added.
+**Replace lines 178-207** (the feature points grid + stats row) with a two-column layout:
 
-### Specific Edits
+1. **Outer container**: `flex` row with `max-w-3xl mx-auto`, items stretched vertically
+2. **Left column** (~1/3 width): Stats stacked vertically with spacing, left-aligned within their column but centered overall. Each stat: large bold number + label below
+3. **Center divider**: `w-px bg-muted-foreground/20 self-stretch mx-8` — a thin vertical line
+4. **Right column** (~2/3 width): Three feature points stacked vertically with spacing, each showing icon + bold title + description, left-aligned
+5. **Mobile**: Stack vertically — stats as a horizontal row, then features below (graceful fallback)
 
-**Lines 178-195** — Feature points grid:
-- Keep `grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 mt-6 md:mt-8`
-- Change `text-left` → `text-center`
-- Each card: change `flex gap-4 items-start` → `flex flex-col items-center`
-- Icon wrapper: remove `mt-1`, keep icon centered above title
-- Title and description: centered naturally via parent `text-center`
-
-**Lines 197-207** — Stats row:
-- Change `flex justify-center gap-8 md:gap-10` → `flex justify-between max-w-xl mx-auto`
-- Add `text-center` to each stat wrapper
-- Add `font-bold` to the number `<p>` tag (currently `font-medium`)
-
-No other sections, colors, or copy affected.
+No changes to wording, colors, functionality, or any other section. The carousel below remains untouched.
 
