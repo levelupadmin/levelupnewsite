@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Flame, Users, MapPin } from "lucide-react";
 import AccentLine from "./AccentLine";
 import FadeInSection from "./FadeInSection";
 import forgeLogo from "@/assets/forge-logo.png";
@@ -44,17 +44,20 @@ const featurePoints = [
 {
   headline: "Pressure that transforms",
   description:
-  "Not comfort. Not theory. Real creative intensity, shoulder to shoulder."
+  "Not comfort. Not theory. Real creative intensity, shoulder to shoulder.",
+  icon: Flame,
 },
 {
   headline: "Mentorship without filters",
   description:
-  "Work directly with creators who've shaped the industry. No layers between you and the work."
+  "Work directly with creators who've shaped the industry. No layers between you and the work.",
+  icon: Users,
 },
 {
   headline: "Offline. Immersive. Real.",
   description:
-  "Step away from screens. Live, create, and break through — together, in one place."
+  "Step away from screens. Live, create, and break through — together, in one place.",
+  icon: MapPin,
 }];
 
 
@@ -179,7 +182,7 @@ const ForgeSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 max-w-5xl mx-auto mt-8 md:mt-12">
           {featurePoints.map((point, i) => (
             <div key={i} className="text-center">
-              <AnvilHammerIcon className="w-6 h-6 text-primary mx-auto mb-3" />
+              <point.icon className="w-6 h-6 text-primary mx-auto mb-3" />
               <h3 className="font-serif-display text-base md:text-lg font-medium text-hero-headline leading-snug">
                 {point.headline}
               </h3>
