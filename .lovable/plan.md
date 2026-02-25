@@ -1,22 +1,13 @@
 
 
-## Swap Stats and Carousel Order in Forge Section
+## Move Hero Carousel Progress Dots from Top to Bottom
 
-Currently the order inside the Forge section is:
-1. Feature points (3-column grid) — lines 178-191
-2. Stats (7 Cities, 11 Editions, 248 Shortfilms) — lines 193-205, inside the `FadeInSection`
-3. Carousel — lines 208-290, outside the `FadeInSection`
+Single change in `src/components/HeroCarousel.tsx` line 126:
 
-### Change
+Change `top-3` to `bottom-3` in the progress dots container className.
 
-Move the **stats block** (lines 193-205) to **after the carousel and dots** (after line ~290), and move the **carousel block** up to where the stats currently are.
+**Before:** `className="absolute top-3 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2"`
+**After:** `className="absolute bottom-3 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2"`
 
-Concretely:
-- End the `FadeInSection` right after the feature points grid (line 191)
-- Place the carousel block immediately after
-- Place the stats block after the carousel dots
-
-This puts them in the order: Features → Carousel → Stats.
-
-Single file edit in `src/components/ForgeSection.tsx`, no new dependencies.
+This matches the Forge carousel's dots placement at the bottom, maintaining visual consistency across the site.
 
