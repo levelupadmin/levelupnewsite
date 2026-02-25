@@ -1,24 +1,30 @@
 
 
-## Convert Community Section to Auto-Scrolling Horizontal Carousel
+## Three-Row Auto-Scrolling Community Section
 
 ### Approach
-Replace the bento grid with a horizontally scrolling strip of image cards that auto-scrolls continuously using a CSS animation. The animation pauses on hover, creating an infinite marquee effect. The images are duplicated to create a seamless loop.
+Split the 6 images across 3 rows, each scrolling horizontally in an infinite loop. Rows alternate direction (left, right, left) for visual interest. Each row gets 2 base images duplicated multiple times to fill the strip.
 
 ### Changes
 
 **File: `src/components/CommunitySection.tsx`**
 
-1. **Remove bento grid** — replace the `grid` layout with a horizontal overflow container
-2. **Create a marquee strip** — render the 6 unique community images as cards in a horizontal row, then duplicate them for seamless looping
-3. **CSS animation** — use a `@keyframes` translateX animation on the inner strip that scrolls from `0` to `-50%` (since content is duplicated). Apply `animation-play-state: paused` on hover
-4. **Card styling** — each card is a fixed-width rounded image (e.g. `w-[280px] h-[200px]` on desktop, `w-[220px] h-[160px]` on mobile) with the existing hover overlay effect
-5. **Remove FadeInSection wrappers** from individual cards (not needed for scrolling items), keep it on the header
-6. **Remove grid-specific `className`** from `gridItems` data (col-span/row-span no longer relevant) — simplify to just the 6 unique images
+1. **Split images into 3 rows** of 2 images each:
+   - Row 1: community1, community2 → scrolls left
+   - Row 2: community3, community4 → scrolls right
+   - Row 3: community5, community6 → scrolls left
 
-### Technical Detail
-- The marquee uses inline `style` for the `@keyframes` animation via a CSS `animation` property: `scroll 30s linear infinite`
-- The inner container has `onMouseEnter` → set `animationPlayState: 'paused'` and `onMouseLeave` → set `animationPlayState: 'running'` via React state
-- Images are duplicated (`[...items, ...items]`) so the loop is seamless
-- Edge fade masks using `mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent)` on the outer container
+2. **Quadruple each row's images** (repeat 4x) so the strip is wide enough for seamless looping
+
+3. **Render 3 stacked marquee rows** inside the masked container, each with:
+   - `flex gap-4 w-max` layout
+   - Alternating `scroll-left` / `scroll-right` animations (already defined in CSS)
+   - Slightly different speeds per row (e.g. 25s, 30s, 20s) for organic feel
+   - Shared `paused` state on hover
+
+4. **Reduce card height slightly** to fit 3 rows comfortably: ~`h-[120px] md:h-[160px]`
+
+5. **Add `gap-3` between rows** via a `flex flex-col gap-3` wrapper
+
+No new CSS keyframes needed — `scroll-left` and `scroll-right` already exist.
 
