@@ -1,17 +1,13 @@
 
 
-# Update BFP Image in LevelUp Live Navbar Dropdown
+# Update BFP Navbar Thumbnail
 
 ## Change
-Replace the current thumbnail image for "Breakthrough Filmmakers' Program" in the LevelUp Live navbar dropdown with the uploaded image.
+Copy the uploaded `BFP_Hover.png` to `src/assets/nav-bfp.png` and update the import in `navbarData.ts` to use it (the import already points to the right path from the previous edit, but the actual asset file needs to be the new uploaded image).
 
 ## Steps
+1. Copy `user-uploads://BFP_Hover.png` to `src/assets/nav-bfp.png`
+2. Update `src/components/navbarData.ts` to import from `nav-bfp.png` (already imports `live-bfp.png`, needs to change to `nav-bfp.png`)
 
-1. **Copy the uploaded image** to `src/assets/nav-bfp.png`
-2. **Update `src/components/navbarData.ts`**:
-   - Add a new import: `import navBfp from "@/assets/nav-bfp.png";`
-   - Change the first item in the "LevelUp Live" `items` array from `image: liveProgram1` to `image: navBfp`
-   - Remove the now-unused `liveProgram1` import if no longer referenced elsewhere
-
-Single file change plus one asset copy. No new dependencies.
+Single asset copy + one line import change.
 
