@@ -175,39 +175,39 @@ const ForgeSection = () => {
           A filmmaking bootcamp for aspiring filmmakers, creators, and storytellers — where in 12 days we teach you filmmaking hands-on and you create your very own short film.
         </p>
 
-        {/* Two-column split: Stats | Features */}
-        <div className="flex flex-col md:flex-row items-center md:items-stretch justify-center max-w-3xl mx-auto mt-8 md:mt-12 gap-8 md:gap-0">
-          {/* Left column — Stats stacked vertically */}
-          <div className="flex md:flex-col justify-between md:justify-center items-center md:items-end gap-6 md:gap-8 md:pr-10">
-            {stats.map((stat) =>
-            <div key={stat.label} className="text-center">
-                <p className="font-serif-display text-3xl md:text-4xl font-bold text-hero-headline">
-                  {stat.value}
-                </p>
-                <p className="font-sans-body text-xs text-muted-foreground mt-1 tracking-wide">
-                  {stat.label}
-                </p>
-              </div>
-            )}
-          </div>
+        {/* Three-row layout: Stat | Icon | Feature */}
+        <div className="flex flex-col gap-8 md:gap-10 max-w-4xl mx-auto mt-8 md:mt-12">
+          {stats.map((stat, i) => {
+            const point = featurePoints[i];
+            return (
+              <div key={stat.label} className="flex flex-col md:flex-row items-center gap-4 md:gap-0">
+                {/* Left — Stat */}
+                <div className="flex-1 text-center md:text-right md:pr-8">
+                  <p className="font-serif-display text-3xl md:text-4xl font-bold text-hero-headline">
+                    {stat.value}
+                  </p>
+                  <p className="font-sans-body text-xs text-muted-foreground mt-1 tracking-wide">
+                    {stat.label}
+                  </p>
+                </div>
 
-          {/* Center divider */}
-          <div className="hidden md:block w-px bg-muted-foreground/20 self-stretch" />
+                {/* Center — Icon divider */}
+                <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full border border-muted-foreground/20">
+                  <AnvilHammerIcon className="w-5 h-5 text-primary" />
+                </div>
 
-          {/* Right column — Feature points stacked vertically */}
-          <div className="flex flex-col gap-6 md:gap-8 md:pl-10 text-center md:text-left">
-            {featurePoints.map((point) =>
-            <div key={point.headline} className="items-center md:items-start flex flex-col">
-                <AnvilHammerIcon className="w-5 h-5 text-primary" />
-                <h3 className="font-serif-display text-base md:text-lg font-medium text-hero-headline leading-snug mt-2">
-                  {point.headline}
-                </h3>
-                <p className="font-sans-body text-xs md:text-sm text-muted-foreground mt-1 leading-relaxed max-w-sm">
-                  {point.description}
-                </p>
+                {/* Right — Feature point */}
+                <div className="flex-1 text-center md:text-left md:pl-8">
+                  <h3 className="font-serif-display text-base md:text-lg font-medium text-hero-headline leading-snug">
+                    {point.headline}
+                  </h3>
+                  <p className="font-sans-body text-xs md:text-sm text-muted-foreground mt-1 leading-relaxed max-w-sm mx-auto md:mx-0">
+                    {point.description}
+                  </p>
+                </div>
               </div>
-            )}
-          </div>
+            );
+          })}
         </div>
       </FadeInSection>
 
