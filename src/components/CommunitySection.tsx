@@ -8,16 +8,27 @@ import community4 from "@/assets/community/community-4.png";
 import community5 from "@/assets/community/community-5.png";
 import community6 from "@/assets/community/community-6.png";
 
-const images = [
+const row1 = [
   { src: community1, alt: "Group photo at venue" },
   { src: community2, alt: "Cafe learning session" },
+];
+const row2 = [
   { src: community3, alt: "Group selfie indoors" },
   { src: community4, alt: "Hilltop group photo" },
+];
+const row3 = [
   { src: community5, alt: "Campfire circle session" },
   { src: community6, alt: "Night bonfire moment" },
 ];
 
-const doubled = [...images, ...images];
+const repeat = <T,>(arr: T[], times: number) =>
+  Array.from({ length: times }, () => arr).flat();
+
+const rows = [
+  { images: repeat(row1, 6), direction: "scroll-left", duration: "25s" },
+  { images: repeat(row2, 6), direction: "scroll-right", duration: "30s" },
+  { images: repeat(row3, 6), direction: "scroll-left", duration: "20s" },
+];
 
 const CommunitySection = () => {
   const [paused, setPaused] = useState(false);
@@ -48,7 +59,6 @@ const CommunitySection = () => {
         </FadeInSection>
       </div>
 
-      {/* Marquee container */}
       <div
         className="relative overflow-hidden"
         style={{
@@ -60,26 +70,31 @@ const CommunitySection = () => {
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
-        <div
-          className="flex gap-4 w-max"
-          style={{
-            animation: "scroll-left 30s linear infinite",
-            animationPlayState: paused ? "paused" : "running",
-          }}
-        >
-          {doubled.map((item, i) => (
+        <div className="flex flex-col gap-3">
+          {rows.map((row, rowIdx) => (
             <div
-              key={i}
-              className="w-[220px] h-[160px] md:w-[280px] md:h-[200px] rounded-lg overflow-hidden group relative flex-shrink-0"
+              key={rowIdx}
+              className="flex gap-4 w-max"
+              style={{
+                animation: `${row.direction} ${row.duration} linear infinite`,
+                animationPlayState: paused ? "paused" : "running",
+              }}
             >
-              <img
-                src={item.src}
-                alt={item.alt}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                loading="lazy"
-                decoding="async"
-              />
-              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-lg ring-1 ring-inset ring-primary/30" />
+              {row.images.map((item, i) => (
+                <div
+                  key={i}
+                  className="w-[220px] h-[120px] md:w-[280px] md:h-[160px] rounded-lg overflow-hidden group relative flex-shrink-0"
+                >
+                  <img
+                    src={item.src}
+                    alt={item.alt}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-lg ring-1 ring-inset ring-primary/30" />
+                </div>
+              ))}
             </div>
           ))}
         </div>
