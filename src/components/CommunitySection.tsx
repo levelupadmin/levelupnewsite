@@ -25,9 +25,9 @@ const repeat = <T,>(arr: T[], times: number) =>
   Array.from({ length: times }, () => arr).flat();
 
 const rows = [
-  { images: repeat(row1, 6), direction: "scroll-left", duration: "25s" },
-  { images: repeat(row2, 6), direction: "scroll-right", duration: "30s" },
-  { images: repeat(row3, 6), direction: "scroll-left", duration: "20s" },
+  { images: repeat(row1, 6), direction: "scroll-left", duration: "50s" },
+  { images: repeat(row2, 6), direction: "scroll-right", duration: "60s" },
+  { images: repeat(row3, 6), direction: "scroll-left", duration: "45s" },
 ];
 
 const CommunitySection = () => {
@@ -83,7 +83,7 @@ const CommunitySection = () => {
               {row.images.map((item, i) => (
                 <div
                   key={i}
-                  className="w-[220px] h-[120px] md:w-[280px] md:h-[160px] rounded-lg overflow-hidden group relative flex-shrink-0"
+                  className="w-[280px] h-[160px] md:w-[380px] md:h-[220px] rounded-lg overflow-hidden group relative flex-shrink-0"
                 >
                   <img
                     src={item.src}
