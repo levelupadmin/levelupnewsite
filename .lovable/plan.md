@@ -1,20 +1,19 @@
 
 
-## Change
+## Remove Bouncy Animations from Expert Mentors Card
 
-In `src/components/WhyLevelUp.tsx`, line 38, split the title so "Through the Journey" appears on a new line.
+**File:** `src/components/why-levelup/ExpertMembershipCard.tsx`
 
-**Current (line 38):**
-```
-title: "Community, Through the Journey",
-```
+Remove all `animate-float-card-*` classes and their associated `animationDelay` styles to make the card illustration static.
 
-**New:**
-```
-title: "Community,\nThrough the Journey",
-```
+**Elements affected (6 total):**
+1. **Main player** (line 26): remove `animate-float-card-3`
+2. **Lesson sidebar** (line 70): remove `animate-float-card-2` and `animationDelay: "0.3s"`
+3. **LIVE FEEDBACK badge** (line 126): remove `animate-float-card-1` and `animationDelay: "0.2s"`
+4. **Filmmaking tag** (line 135): remove `animate-float-card-2` and `animationDelay: "0s"`
+5. **Editing tag** (line 141): remove `animate-float-card-3` and `animationDelay: "0.6s"`
+6. **Music tag** (line 147): remove `animate-float-card-1` and `animationDelay: "1.2s"`
+7. **Mentor avatars** (line 155): remove `animate-float-card-2` and `animationDelay: "0.8s"`
 
-Then ensure the rendering element for the title preserves newlines by adding `whitespace-pre-line` to its className (need to check current rendering).
-
-Let me verify how the title is rendered.
+No other files affected. All elements keep their positioning and styling — only the floating/bouncing animation is removed.
 
