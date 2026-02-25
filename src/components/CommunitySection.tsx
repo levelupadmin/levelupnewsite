@@ -1,3 +1,4 @@
+import { useState } from "react";
 import FadeInSection from "./FadeInSection";
 import AccentLine from "./AccentLine";
 import community1 from "@/assets/community/community-1.png";
@@ -7,24 +8,23 @@ import community4 from "@/assets/community/community-4.png";
 import community5 from "@/assets/community/community-5.png";
 import community6 from "@/assets/community/community-6.png";
 
-const gridItems = [
-  { src: community1, alt: "Group photo at venue", className: "col-span-2 row-span-1" },
-  { src: community2, alt: "Cafe learning session", className: "col-span-1 row-span-2" },
-  { src: community3, alt: "Group selfie indoors", className: "col-span-1 row-span-1" },
-  { src: community5, alt: "Campfire circle session", className: "col-span-1 row-span-2" },
-  { src: community4, alt: "Hilltop group photo", className: "col-span-2 row-span-1" },
-  { src: community6, alt: "Night bonfire moment", className: "col-span-1 row-span-1" },
-  { src: community3, alt: "Community gathering", className: "col-span-1 row-span-1" },
-  { src: community1, alt: "Creators together", className: "col-span-2 row-span-1" },
-  { src: community6, alt: "Evening bonfire hangout", className: "col-span-1 row-span-1" },
-  { src: community4, alt: "Outdoor group moment", className: "col-span-1 row-span-1" },
+const images = [
+  { src: community1, alt: "Group photo at venue" },
+  { src: community2, alt: "Cafe learning session" },
+  { src: community3, alt: "Group selfie indoors" },
+  { src: community4, alt: "Hilltop group photo" },
+  { src: community5, alt: "Campfire circle session" },
+  { src: community6, alt: "Night bonfire moment" },
 ];
 
+const doubled = [...images, ...images];
+
 const CommunitySection = () => {
+  const [paused, setPaused] = useState(false);
+
   return (
     <section className="relative py-16 md:py-24 bg-background overflow-hidden">
       <AccentLine />
-      {/* Subtle top glow */}
       <div
         className="absolute top-0 left-0 right-0 h-64 pointer-events-none"
         style={{
@@ -33,7 +33,6 @@ const CommunitySection = () => {
         }}
       />
       <div className="max-w-[1300px] mx-auto px-6">
-        {/* Header */}
         <FadeInSection className="mb-10">
           <div>
             <span className="text-primary text-xs uppercase tracking-[0.25em] font-semibold mb-3 block">
@@ -47,14 +46,31 @@ const CommunitySection = () => {
             </p>
           </div>
         </FadeInSection>
+      </div>
 
-        {/* Bento Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-5 auto-rows-[140px] md:auto-rows-[160px] gap-3">
-          {gridItems.map((item, i) => (
-            <FadeInSection
+      {/* Marquee container */}
+      <div
+        className="relative overflow-hidden"
+        style={{
+          maskImage:
+            "linear-gradient(to right, transparent, black 5%, black 95%, transparent)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent, black 5%, black 95%, transparent)",
+        }}
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
+        <div
+          className="flex gap-4 w-max"
+          style={{
+            animation: "scroll-left 30s linear infinite",
+            animationPlayState: paused ? "paused" : "running",
+          }}
+        >
+          {doubled.map((item, i) => (
+            <div
               key={i}
-              delay={i * 60}
-              className={`${item.className} rounded-lg overflow-hidden group relative`}
+              className="w-[220px] h-[160px] md:w-[280px] md:h-[200px] rounded-lg overflow-hidden group relative flex-shrink-0"
             >
               <img
                 src={item.src}
@@ -63,9 +79,8 @@ const CommunitySection = () => {
                 loading="lazy"
                 decoding="async"
               />
-              {/* Hover overlay with amber glow */}
               <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-lg ring-1 ring-inset ring-primary/30" />
-            </FadeInSection>
+            </div>
           ))}
         </div>
       </div>
