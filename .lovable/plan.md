@@ -1,19 +1,21 @@
 
 
-## Slow Down Community Marquee and Enlarge Images
+## Remove "Read all stories" Button from Testimonials Section
 
-Two changes in `src/components/CommunitySection.tsx`:
+### Change in `src/components/TestimonialsSection.tsx`
 
-### 1. Slower scroll durations (line 28-30)
-Roughly double the animation durations:
-- Row 1: `25s` → `50s`
-- Row 2: `30s` → `60s`
-- Row 3: `20s` → `45s`
+**Lines 212-218** — Delete the entire `<a>` element containing the "Read all stories" button:
 
-### 2. Larger image tiles (line 86)
-Increase the image container sizes:
-- Mobile: `w-[220px] h-[120px]` → `w-[280px] h-[160px]`
-- Desktop: `md:w-[280px] md:h-[160px]` → `md:w-[380px] md:h-[220px]`
+```tsx
+// Remove this block:
+<a
+  href="#testimonials"
+  className="cta-sweep cta-glow inline-flex items-center gap-2.5 px-6 py-3 rounded-sm bg-primary text-primary-foreground font-sans-body text-sm font-medium tracking-wide whitespace-nowrap transition-colors hover:bg-primary/90 shrink-0"
+>
+  Read all stories
+  <ArrowRight className="w-4 h-4" />
+</a>
+```
 
-Both changes are on single lines in the same file.
+The `ArrowRight` import can also be removed if it's no longer used elsewhere in the file.
 
