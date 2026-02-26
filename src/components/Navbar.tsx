@@ -86,7 +86,7 @@ const Navbar = () => {
   // Determine grid columns based on number of items
   const activeItems = activeIndex !== null ? links[activeIndex].items : [];
   const activeFormatBadge = activeIndex !== null ? (links[activeIndex] as NavLink).formatBadge : undefined;
-  const gridCols = activeItems.length > 4 ? "grid-cols-4" : "grid-cols-3";
+  const gridCols = "grid-cols-4";
 
   return (
     <>
