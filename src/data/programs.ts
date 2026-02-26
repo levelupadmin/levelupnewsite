@@ -53,7 +53,7 @@ export const showcasePrograms: ShowcaseProgram[] = [
     previewVideo: "/videos/ve-preview.mp4",
     youtubeId: "dQw4w9WgXcQ",
     ctaLink: "https://www.leveluplearning.live/ve-cta",
-    learnMoreLink: "https://www.leveluplearning.live/ve-cta",
+    learnMoreLink: "https://www.leveluplearning.live/ve",
   },
   {
     id: "uiux",
