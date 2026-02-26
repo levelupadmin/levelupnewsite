@@ -1,18 +1,18 @@
 
 
-## Replace Video Editing Academy Navbar Thumbnail
+## Link BFP "Learn More" Button to New URL
+
+Currently, the "Learn More" button in the Live Programs section uses the same `ctaLink` as the "Request Invite" button for all programs. We need to give BFP its own "Learn More" URL.
 
 ### Changes
 
-1. **Copy the uploaded image** to `src/assets/nav-ve-new.png`
+**1. `src/data/programs.ts`**
+- Add `learnMoreLink` field to the `ShowcaseProgram` interface
+- Set BFP's `learnMoreLink` to `https://www.leveluplearning.live/bfp-2`
+- For the other 3 programs, set `learnMoreLink` to their existing `ctaLink` value (maintaining current behavior)
 
-2. **Update `src/components/navbarData.ts`** — Change the import for the Video Editing Academy thumbnail:
-   - Replace `import navVe from "@/assets/nav-ve.png"` with `import navVe from "@/assets/nav-ve-new.png"` (or simply overwrite `nav-ve.png` with the new file)
+**2. `src/components/LiveProgramsSection.tsx`** (line 270)
+- Change `href={activeProgram.ctaLink}` → `href={activeProgram.learnMoreLink}` on the "Learn More" button
 
-Since the existing import variable `navVe` is already used in the correct place (the Video Editing Academy item in the LevelUp Live dropdown), only the asset file needs to change. The simplest approach is to copy the uploaded image directly to `src/assets/nav-ve.png`, overwriting the old one — zero code changes needed.
-
-### File Operations
-- **Copy**: `user-uploads://image-81.png` → `src/assets/nav-ve.png` (overwrite existing)
-
-No code changes required — the existing import already references this path.
+Two files, minimal changes.
 
