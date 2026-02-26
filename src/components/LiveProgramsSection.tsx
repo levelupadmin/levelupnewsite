@@ -267,7 +267,7 @@ const LiveProgramsSection = () => {
                     <ArrowRight className="w-3.5 h-3.5" />
                   </a>
                   <a
-                    href={activeProgram.ctaLink}
+                    href={activeProgram.learnMoreLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center font-sans-body text-sm px-5 py-2.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors whitespace-nowrap"
