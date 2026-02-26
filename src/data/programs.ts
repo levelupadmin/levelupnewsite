@@ -14,6 +14,7 @@ export interface ShowcaseProgram {
   previewVideo: string;
   youtubeId: string;
   ctaLink: string;
+  learnMoreLink: string;
 }
 
 import liveBfp from "@/assets/live-bfp.jpg";
@@ -36,6 +37,7 @@ export const showcasePrograms: ShowcaseProgram[] = [
     previewVideo: "/videos/bfp-preview.mp4",
     youtubeId: "5-kNI2eSLpo",
     ctaLink: "https://www.leveluplearning.live/bfp-cta",
+    learnMoreLink: "https://www.leveluplearning.live/bfp-2",
   },
   {
     id: "ve",
@@ -51,6 +53,7 @@ export const showcasePrograms: ShowcaseProgram[] = [
     previewVideo: "/videos/ve-preview.mp4",
     youtubeId: "dQw4w9WgXcQ",
     ctaLink: "https://www.leveluplearning.live/ve-cta",
+    learnMoreLink: "https://www.leveluplearning.live/ve-cta",
   },
   {
     id: "uiux",
@@ -66,6 +69,7 @@ export const showcasePrograms: ShowcaseProgram[] = [
     previewVideo: "/videos/ve-trailer.mp4",
     youtubeId: "dQw4w9WgXcQ",
     ctaLink: "https://tally.so/r/wd7eqN",
+    learnMoreLink: "https://tally.so/r/wd7eqN",
   },
   {
     id: "sw",
@@ -81,5 +85,6 @@ export const showcasePrograms: ShowcaseProgram[] = [
     previewVideo: "/videos/sw-preview.mp4",
     youtubeId: "dQw4w9WgXcQ",
     ctaLink: "https://tally.so/r/mOd4ek",
+    learnMoreLink: "https://tally.so/r/mOd4ek",
   },
 ];
