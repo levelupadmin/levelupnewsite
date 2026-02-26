@@ -1,18 +1,22 @@
 
 
-## Update Video Editing "Learn More" Link
+## Standardise Navbar Dropdown Card Sizes
 
-### Change in `src/data/programs.ts`
+**Problem**: Masterclasses (7 items) renders in a 4-column grid, while LevelUp Live (4 items) and The Forge (3 items) render in a 3-column grid. This makes the cards different widths across sections.
 
-**Line 54** — Update the `learnMoreLink` for the Video Editing Academy:
+### Change in `src/components/Navbar.tsx`
+
+**Line 89** — Remove the conditional grid logic and always use 4 columns:
 
 ```
-learnMoreLink: "https://www.leveluplearning.live/ve-cta"
-```
-→
-```
-learnMoreLink: "https://www.leveluplearning.live/ve"
+// Before
+const gridCols = activeItems.length > 4 ? "grid-cols-4" : "grid-cols-3";
+
+// After
+const gridCols = "grid-cols-4";
 ```
 
-Single line change, no other files affected.
+This gives every dropdown card the same width regardless of section. LevelUp Live (4 items) fills the row perfectly. The Forge (3 items) will occupy 3 of 4 columns, leaving one empty — consistent with Masterclasses' last row which also has 3 items in 4 columns.
+
+Single line change. Desktop only — mobile already uses a uniform 2-column grid.
 
