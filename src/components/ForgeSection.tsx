@@ -235,7 +235,7 @@ const ForgeSection = () => {
                       href={card.cta}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 bg-primary text-white font-sans-body text-xs md:text-sm px-4 py-2 rounded-full hover:bg-primary/90 transition-colors">
+                      className="inline-flex items-center gap-2 bg-primary text-background font-sans-body text-xs md:text-sm font-medium px-4 py-2 rounded-full hover:bg-primary/90 transition-colors">
                         Apply Now
                         <ArrowRight className="w-3.5 h-3.5" />
                       </a>
