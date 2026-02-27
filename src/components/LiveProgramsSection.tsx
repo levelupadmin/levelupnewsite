@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import CareerQuizDialog from "./CareerQuizDialog";
 import AccentLine from "./AccentLine";
 import FadeInSection from "./FadeInSection";
 import { ArrowRight, Clock, Radio, CalendarDays, Play } from "lucide-react";
@@ -22,6 +23,7 @@ const statusStyles: Record<string, string> = {
 const LiveProgramsSection = () => {
   const [activeShowcase, setActiveShowcase] = useState(0);
   const [youtubeOpen, setYoutubeOpen] = useState(false);
+  const [quizOpen, setQuizOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
@@ -152,14 +154,12 @@ const LiveProgramsSection = () => {
                     <p className="font-sans-body text-sm text-muted-foreground leading-snug mb-2">
                       Not sure which creator<br />path fits you?
                     </p>
-                    <a
-                      href="https://www.leveluplearning.live/bfp"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <button
+                      onClick={() => setQuizOpen(true)}
                       className="inline-flex items-center gap-1 font-sans-body text-sm text-primary hover:text-primary/80 transition-colors"
                     >
                       Take our quiz <ArrowRight className="w-3 h-3 animate-slide-right" />
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -298,6 +298,7 @@ const LiveProgramsSection = () => {
           </div>
         </DialogContent>
       </Dialog>
+      <CareerQuizDialog open={quizOpen} onOpenChange={setQuizOpen} />
     </section>
   );
 };
