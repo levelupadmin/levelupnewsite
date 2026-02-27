@@ -1,22 +1,58 @@
 
 
-## Standardise Navbar Dropdown Card Sizes
+## Career Quiz Popup
 
-**Problem**: Masterclasses (7 items) renders in a 4-column grid, while LevelUp Live (4 items) and The Forge (3 items) render in a 3-column grid. This makes the cards different widths across sections.
+Build an interactive multi-step quiz dialog that opens when the user clicks "Take our quiz" in the LiveProgramsSection. The quiz follows the flowchart logic to recommend one of 4 products: Masterclass, Live Workshop (BFP/VE/SW), The Forge, or Advanced Mentorship Program.
 
-### Change in `src/components/Navbar.tsx`
+### Quiz Flow (from flowchart)
 
-**Line 89** — Remove the conditional grid logic and always use 4 columns:
+```text
+START PAGE -> Q1 -> Q2 -> Q3 -> Q4 -> Q5 -> Decision Logic -> Result
 
+Q1: What do you want to learn? (Multiselect: Filmmaking, Editing, Writing, Photography, Music, Design, Content Creation)
+Q2: How would you describe your experience? (Beginner, Intermediate, Advanced)
+Q3: What's your goal? (Passion/hobby, Go pro/level up)
+Q4: How much time can you commit? (All-in for 1-2 weeks, Own pace / a few hours per week)
+Q5: What's your budget? (Under 15k, 15k-40k or whatever it takes, 3k-15k)
+
+Decision tree:
+- All-in time + High budget (15k-40k) -> The Forge
+- All-in time + Pro goal + Experienced + Mid/high budget -> Advanced Mentorship (BFP)
+- All-in time + Pro goal + Not experienced / No -> check sub-budget:
+  - 3k-15k or pro but not all-in -> Live Workshop
+  - Low budget or hobby -> Masterclass
+- Own pace / hobby -> Masterclass
 ```
-// Before
-const gridCols = activeItems.length > 4 ? "grid-cols-4" : "grid-cols-3";
 
-// After
-const gridCols = "grid-cols-4";
-```
+### Result Pages (4 outcomes)
+1. **Masterclass** - "Learn from India's finest, at your own pace." -> links to `#masterclasses`
+2. **Live Workshop** - "Structured learning with real-time feedback." -> links to relevant program CTA
+3. **The Forge** - "12 days. In person. You make a film." -> links to `https://www.forgebylevelup.com/`
+4. **Advanced Mentorship Program** - "For those ready to make the leap." -> links to BFP CTA
 
-This gives every dropdown card the same width regardless of section. LevelUp Live (4 items) fills the row perfectly. The Forge (3 items) will occupy 3 of 4 columns, leaving one empty — consistent with Masterclasses' last row which also has 3 items in 4 columns.
+### Technical Implementation
 
-Single line change. Desktop only — mobile already uses a uniform 2-column grid.
+**New file: `src/components/CareerQuizDialog.tsx`**
+- Self-contained component with internal state machine (step: start | q1-q5 | result)
+- Uses existing `Dialog`/`DialogContent` from `@/components/ui/dialog`
+- Start page: headline, brief description, "Start Quiz" button
+- Each question renders as a card with animated transitions (fade-in)
+- Progress bar at top showing step X of 5
+- Back button on each step
+- Result page shows recommended product with name, description, and CTA button linking to the appropriate URL
+- Dark themed to match site aesthetic (bg-background, text-foreground)
+- Mobile responsive (dialog already handles this)
+
+**Edit: `src/components/LiveProgramsSection.tsx` (lines 155-162)**
+- Replace the `<a>` tag with a `<button>` that sets quiz dialog open state
+- Render `<CareerQuizDialog open={quizOpen} onOpenChange={setQuizOpen} />` in the component
+- Add `useState` for `quizOpen`
+
+### Decision Logic (simplified)
+The component stores answers in state and runs a simple function at the end:
+- If Q4 = "own pace" or Q3 = "hobby" and Q5 = low budget -> Masterclass
+- If Q4 = "all-in" and Q5 = "15k-40k+" -> The Forge
+- If Q4 = "all-in" and Q2 = "advanced" and Q5 = mid+ -> Advanced Mentorship
+- If Q5 = "3k-15k" or (pro goal but not all-in) -> Live Workshop
+- Default fallback -> Masterclass
 
