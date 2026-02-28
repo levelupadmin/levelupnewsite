@@ -7,7 +7,7 @@ import { AnimatePresence, m } from "framer-motion";
 import HeroCarousel from "@/components/HeroCarousel";
 const StarField = lazy(() => import("@/components/StarField"));
 
-const rotatingWords = ["filmmakers", "editors", "storytellers", "artists", "writers", "creators", "animators", "screenwriters", "cinematographers", "designers", "producers", "directors", "musicians"];
+const rotatingWords = ["filmmakers", "editors", "storytellers", "writers", "cinematographers", "designers", "musicians", "directors"];
 
 // Pre-compute the longest word length to use a fixed container width and avoid CLS
 const maxWordLength = Math.max(...rotatingWords.map(w => w.length));
@@ -59,7 +59,7 @@ const HeroSection = () => {
         </p>
 
         <h1 className="font-serif-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-medium text-hero-headline text-center tracking-[-0.03em] max-w-5xl text-shadow-hero" style={{ lineHeight: 1.1 }}>
-          <span className="animate-hero-stagger whitespace-nowrap" style={{ animationDelay: "200ms" }}>Where India's next big</span>
+          <span className="animate-hero-stagger whitespace-nowrap" style={{ animationDelay: "200ms" }}>Where India's next great</span>
           <br />
           <span
             className="relative inline-block overflow-hidden align-middle animate-hero-stagger"
@@ -83,7 +83,7 @@ const HeroSection = () => {
             className="font-serif-display italic font-normal animate-hero-stagger"
             style={{ color: "#E6681D", animationDelay: "600ms" }}
           >
-            become
+            are made
           </em>
         </h1>
 
