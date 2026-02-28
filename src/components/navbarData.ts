@@ -9,7 +9,7 @@ import nelsonImg from "@/assets/nelson-dilipkumar.jpg";
 import karthikImg from "@/assets/karthik-subbaraj.png";
 import anthonyImg from "@/assets/anthony-gonsalvez.png";
 import venketImg from "@/assets/nav-venket-ram.png";
-import kiranImg from "@/assets/drk-kiran.webp";
+import kiranImg from "@/assets/nav-drk-kiran.png";
 import raviImg from "@/assets/ravi-basrur.webp";
 import lokeshImg from "@/assets/lokesh-kanagaraj.png";
 
