@@ -180,6 +180,13 @@ const ExpertMembershipCard = () => {
         <CursorSVG />
       </div>
 
+      {/* === CLICK RIPPLES === */}
+      <div className="lms-ripple lms-ripple-ch3" style={{ zIndex: 49 }} />
+      <div className="lms-ripple lms-ripple-ch4" style={{ zIndex: 49 }} />
+      <div className="lms-ripple lms-ripple-live" style={{ zIndex: 49 }} />
+      <div className="lms-ripple lms-ripple-tag" style={{ zIndex: 49 }} />
+      <div className="lms-ripple lms-ripple-play" style={{ zIndex: 49 }} />
+
       {/* Subtle ambient glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_hsl(30,80%,50%,0.04)_0%,_transparent_70%)] pointer-events-none" />
     </div>
