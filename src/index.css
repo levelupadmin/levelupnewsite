@@ -560,6 +560,18 @@
 .lms-ripple-tag { top: 10%; left: 12%; animation: lms-ripple 10s ease infinite; animation-delay: 4s; }
 .lms-ripple-play { top: 48%; left: 38%; animation: lms-ripple 10s ease infinite; animation-delay: 5.6s; }
 
+/* Pause all LMS animations on card hover */
+.group:hover .animate-lms-cursor,
+.group:hover .animate-lms-highlight-ch3,
+.group:hover .animate-lms-highlight-ch4,
+.group:hover .animate-lms-highlight-live,
+.group:hover .animate-lms-highlight-tag1,
+.group:hover .animate-lms-play-glow,
+.group:hover .animate-lms-progress,
+.group:hover .lms-ripple {
+  animation-play-state: paused;
+}
+
 /* ── Logo Marquee Premium Interactions ── */
 .logo-marquee-item {
   opacity: 0.5;

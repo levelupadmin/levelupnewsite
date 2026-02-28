@@ -22,7 +22,7 @@ const CursorSVG = () => (
 
 const ExpertMembershipCard = () => {
   return (
-    <div className="relative w-full h-full flex items-center justify-center p-3 overflow-hidden">
+    <div className="group relative w-full h-full flex items-center justify-center p-3 overflow-hidden">
       {/* Main layout: player + sidebar */}
       <div className="relative w-[92%] h-[90%] flex gap-2">
 
