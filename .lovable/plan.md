@@ -1,36 +1,32 @@
 
 
-## Animated Cursor Flow on ExpertMembershipCard
+## Add Reaction Variety & Image Attachments to Community Chat
 
-### Concept
-Add a fake animated cursor (CSS-only, using `@keyframes`) that moves through the LMS card in a continuous loop, simulating a user navigating between recorded chapters, the live feedback badge, and resource tags. The cursor will click on chapter items (highlighting them), hover over the live badge, and move to discipline tags — creating a sense of active, thriving usage.
+### Changes to `src/components/why-levelup/CommunityCard.tsx`
 
-### Changes to `src/components/why-levelup/ExpertMembershipCard.tsx`
+**1. Diversify reactions** — Replace repetitive 🔥/❤️ with a wider variety: `💡`, `🎯`, `✨`, `🤯`, `💪`, `🫡`, `👀`, `🎬`, `🎧`, `🎭`, `💯`. Each message gets a unique mix.
 
-1. **Add an animated cursor element** — a small SVG pointer icon absolutely positioned inside the card, animated via CSS keyframes to travel between key UI hotspots in a ~10s loop:
-   - Start at chapter "Visual Language" → moves to click "Director's Cut" (chapter highlights on arrival)
-   - Cursor moves to the "Live Feedback" badge (badge pulses/glows on hover)
-   - Cursor sweeps down to the "Filmmaking" discipline tag
-   - Cursor returns to the video player area (play button glows)
-   - Loop restarts seamlessly
+**2. Add `image` optional field to thread data** — Some messages include a small image attachment (a thumbnail below the text bubble). Use existing community/testimonial assets as the "shared" images:
+- After Arjun's "one-take concept" message → small thumbnail of a storyboard-like image
+- After Kiran's "rough cut" message → thumbnail preview of a film frame
+- After Priya's "uploading for peer review" → thumbnail collage
 
-2. **Add highlight states that sync with cursor position** — chapters, badges, and tags get temporary glow/highlight classes timed to match the cursor's position via CSS animation delays. This is done purely with CSS keyframes on opacity/border-color of each element, synchronized to the cursor's movement timeline.
+**3. Update `MessageBubble` component** — If `msg.image` exists, render a small rounded thumbnail (aspect ~16:9, ~full bubble width, ~40px tall) below the text inside the bubble with a subtle border and rounded corners.
 
-3. **Progress bar animates** — the video progress bar width animates forward slightly each cycle to reinforce the "active session" feel.
-
-### Changes to `src/index.css`
-
-Add keyframes:
-- `@keyframes cursor-flow` — translates the cursor through ~6 waypoints over 10s
-- `@keyframes highlight-pulse` — brief border/shadow glow synced to cursor arrival at each element
-
-### Technical approach
-- Pure CSS animations (no JS timers or state) for performance
-- Cursor element: small inline SVG of a macOS-style pointer, ~12px
-- Uses `position: absolute` with `top`/`left` animated via keyframes with percentage-based positions
-- Each chapter row gets a delayed `highlight-pulse` animation to glow when the cursor "arrives"
+**4. Updated threads array** (example changes):
+```
+{ ..., reactions: ["🔥 12", "💡 5", "🎬 3"] }
+{ ..., reactions: ["✨ 6", "👀 4"] }
+{ ..., image: community7, reactions: ["🤯 9", "😈 4", "🎭 2"] }
+{ ..., reactions: ["👏 11", "🫡 7"] }
+{ ..., image: community9, reactions: ["🔥 24", "💯 18", "👀 6"] }
+{ ..., reactions: ["💪 15", "🎧 3"] }
+{ ..., reactions: ["🙌 12", "✨ 8", "🎯 5"] }
+{ ..., image: community11, reactions: ["🎬 32", "❤️ 27", "🤯 14"] }
+{ ..., reactions: ["💛 41", "🫡 9"] }
+{ ..., reactions: ["🔥 38", "❤️ 29", "💡 11"] }
+```
 
 ### Files to edit
-- `src/components/why-levelup/ExpertMembershipCard.tsx` — add cursor SVG element, sync highlight classes
-- `src/index.css` — add `@keyframes cursor-flow` and `@keyframes highlight-pulse`
+- `src/components/why-levelup/CommunityCard.tsx` — add image field, update reactions, render thumbnails
 
