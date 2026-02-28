@@ -174,7 +174,7 @@ const CommunityCard = () => {
   });
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center p-3 overflow-hidden">
+    <div className="group/chat relative w-full h-full flex items-center justify-center p-3 overflow-hidden">
       <div
         className="relative w-[82%] h-[88%] rounded-xl border border-primary/20 overflow-hidden flex flex-col"
         style={{
@@ -214,7 +214,7 @@ const CommunityCard = () => {
           <div className="absolute left-[18px] top-0 bottom-0 w-[1px] bg-primary/10 z-[1]" />
 
           {/* Scrolling container — duplicated for seamless loop */}
-          <div className="animate-scroll-chat-up px-3 py-2 flex flex-col gap-3">
+          <div className="animate-scroll-chat-up group-hover/chat:[animation-play-state:paused] px-3 py-2 flex flex-col gap-3">
             {allMessages}
             {allMessages}
           </div>
