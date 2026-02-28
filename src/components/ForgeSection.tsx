@@ -156,12 +156,6 @@ const ForgeSection = () => {
         }} />
 
 
-      {/* Section header — centered, matching other sections */}
-      <FadeInSection className="text-center px-6 md:px-12 mb-10 md:mb-12">
-        <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border border-primary/30 text-primary bg-primary/5 mb-4 badge-shimmer">
-          In-Person Bootcamp
-        </span>
-      </FadeInSection>
 
       {/* ─── Top: Split Two-Column Layout ─── */}
       <FadeInSection delay={100} className="max-w-[1600px] mx-auto px-5 md:px-12 text-center">
