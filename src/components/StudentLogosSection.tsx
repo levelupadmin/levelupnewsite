@@ -1,6 +1,4 @@
-import { ArrowUpRight } from "lucide-react";
-import FadeInSection from "./FadeInSection";
-import { AnimatedCounter } from "./AnimatedCounter";
+import ImpactBentoGrid from "./ImpactBentoGrid";
 
 import logoFtii from "@/assets/logos/ftii.png";
 import logoNid from "@/assets/logos/nid.png";
@@ -51,52 +49,7 @@ const StudentLogosSection = () => {
       aria-label="LevelUp credibility and community"
       className="relative"
     >
-      <div className="py-12 md:py-16">
-        <div className="max-w-4xl mx-auto px-6 md:px-12">
-          {/* Top separator */}
-          <div className="h-px bg-border mx-auto mb-10 md:mb-12 w-12" />
-
-          {/* Headline */}
-          <FadeInSection>
-          <h2 className="font-serif-display text-2xl md:text-3xl lg:text-[2.5rem] lg:leading-[1.25] text-center text-foreground max-w-2xl mx-auto mb-12 md:mb-16">
-            The creative industry is competitive.{" "}
-            <strong className="text-gradient-amber">
-              Your growth doesn't have to wait.
-            </strong>
-          </h2>
-          </FadeInSection>
-
-          {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 mb-10 md:mb-14 max-w-xl mx-auto">
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <p className="font-serif-display text-4xl md:text-5xl lg:text-6xl font-medium text-cue-value tracking-tight tabular-nums">
-                  <AnimatedCounter
-                    target={stat.value}
-                    suffix={stat.suffix}
-                    hasComma={stat.hasComma}
-                  />
-                </p>
-                <p className="font-sans-body text-xs md:text-sm text-muted-foreground mt-3 leading-relaxed max-w-[220px] mx-auto">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* CTA Link */}
-          <div className="text-center mb-12 md:mb-16">
-            <a
-              href="#testimonials"
-              className="cta-underline font-sans-body text-sm text-primary inline-flex items-center gap-1.5 transition-colors hover:text-primary/80"
-              aria-label="See what our alumni are building"
-            >
-              See what our alumni are building
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </a>
-          </div>
-        </div>
-      </div>
+      <ImpactBentoGrid />
 
       <div className="bg-background py-14 md:py-20">
         <p className="font-serif-display text-2xl md:text-3xl text-foreground text-center mb-8 md:mb-16">
