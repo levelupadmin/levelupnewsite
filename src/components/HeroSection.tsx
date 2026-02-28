@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, lazy, Suspense } from "react";
+import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { ArrowRight } from "lucide-react";
 import MagneticButton from "@/components/MagneticButton";
 import { AnimatePresence, m } from "framer-motion";
@@ -15,7 +15,9 @@ const rotatingWords = ["filmmakers", "editors", "storytellers", "writers", "cine
 const HeroSection = () => {
   const [wordIndex, setWordIndex] = useState(0);
   const [wordWidth, setWordWidth] = useState<number | undefined>(undefined);
+  const [isAreMadeFading, setIsAreMadeFading] = useState(false);
   const measureRef = useRef<HTMLSpanElement>(null);
+  const hasMountedRef = useRef(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -24,13 +26,31 @@ const HeroSection = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Measure word width after each change
+  // Measure word width after each change and on resize
   const measuredWord = rotatingWords[wordIndex];
   useEffect(() => {
-    if (measureRef.current) {
-      setWordWidth(measureRef.current.offsetWidth);
-    }
+    const updateWidth = () => {
+      if (measureRef.current) {
+        setWordWidth(measureRef.current.offsetWidth);
+      }
+    };
+
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
   }, [measuredWord]);
+
+  // Slightly dim "are made" during each word transition for a polished drift
+  useEffect(() => {
+    if (!hasMountedRef.current) {
+      hasMountedRef.current = true;
+      return;
+    }
+
+    setIsAreMadeFading(true);
+    const timeout = window.setTimeout(() => setIsAreMadeFading(false), 260);
+    return () => window.clearTimeout(timeout);
+  }, [wordIndex]);
 
   return (
     <section
@@ -62,49 +82,52 @@ const HeroSection = () => {
       {/* Headline area */}
       <div className="relative z-10 flex flex-col items-center justify-center pt-24 md:pt-36 lg:pt-40 px-5 md:px-12">
 
-        <h1 className="font-serif-display text-[1.6rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium text-hero-headline text-center tracking-[-0.03em] max-w-5xl text-shadow-hero overflow-hidden" style={{ lineHeight: 1.15 }}>
+        <h1 className="font-serif-display text-[1.6rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium text-hero-headline text-center tracking-[-0.03em] max-w-5xl text-shadow-hero" style={{ lineHeight: 1.15 }}>
           <span className="animate-hero-stagger block" style={{ animationDelay: "200ms" }}>Where India's next great</span>
           <span className="block animate-hero-stagger text-center" style={{ animationDelay: "400ms" }}>
-            {/* Hidden measurer */}
-            <span
-              ref={measureRef}
-              className="absolute invisible whitespace-nowrap font-serif-display text-[1.6rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium"
-              aria-hidden="true"
-              style={{ pointerEvents: "none" }}
-            >
-              {rotatingWords[wordIndex]}
+            <span className="inline-flex max-w-full items-baseline justify-center gap-[0.2em] flex-wrap sm:flex-nowrap">
+              {/* Hidden measurer */}
+              <span
+                ref={measureRef}
+                className="absolute invisible whitespace-nowrap font-serif-display text-[1.6rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium"
+                aria-hidden="true"
+                style={{ pointerEvents: "none" }}
+              >
+                {rotatingWords[wordIndex]}
+              </span>
+
+              <span
+                className="relative inline-block overflow-hidden shrink-0"
+                style={{
+                  height: "1.2em",
+                  width: wordWidth ? `${wordWidth}px` : undefined,
+                  transition: "width 0.75s cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
+              >
+                <AnimatePresence mode="sync">
+                  <m.span
+                    key={rotatingWords[wordIndex]}
+                    initial={{ opacity: 0, y: "0.45em" }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: "-0.45em" }}
+                    transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute left-0 top-0 inline-block whitespace-nowrap text-white"
+                  >
+                    {rotatingWords[wordIndex]}
+                  </m.span>
+                </AnimatePresence>
+              </span>
+
+              <em
+                className="font-serif-display italic font-normal whitespace-nowrap text-primary"
+                style={{
+                  opacity: isAreMadeFading ? 0.78 : 1,
+                  transition: "opacity 0.52s cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
+              >
+                are made
+              </em>
             </span>
-            <span
-              className="relative inline-block overflow-hidden text-left"
-              style={{
-                height: "1.2em",
-                width: wordWidth ? `${wordWidth}px` : "auto",
-                transition: "width 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-                verticalAlign: "baseline",
-              }}
-            >
-              {/* Invisible baseline anchor */}
-              <span className="invisible">{rotatingWords[0][0]}</span>
-              <AnimatePresence mode="wait">
-                <m.span
-                  key={rotatingWords[wordIndex]}
-                  initial={{ opacity: 0, y: "0.5em", filter: "blur(4px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, y: "-0.5em", filter: "blur(4px)" }}
-                  transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-                  className="absolute left-0 top-0 inline-block whitespace-nowrap text-white"
-                >
-                  {rotatingWords[wordIndex]}
-                </m.span>
-              </AnimatePresence>
-            </span>
-            {" "}
-            <em
-              className="font-serif-display italic font-normal whitespace-nowrap"
-              style={{ color: "#E6681D" }}
-            >
-              are made
-            </em>
           </span>
         </h1>
 
