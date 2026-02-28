@@ -60,12 +60,10 @@ const HeroSection = () => {
         <h1 className="font-serif-display text-[1.6rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium text-hero-headline text-center tracking-[-0.03em] max-w-5xl text-shadow-hero overflow-hidden" style={{ lineHeight: 1.15 }}>
           <span className="animate-hero-stagger block" style={{ animationDelay: "200ms" }}>Where India's next great</span>
           <LayoutGroup>
-            <m.span layout className="inline-flex items-baseline justify-center gap-[0.2em] flex-wrap md:flex-nowrap animate-hero-stagger" style={{ animationDelay: "400ms" }} transition={{ type: "spring", stiffness: 300, damping: 30 }}>
-              <m.span
-                layout
+            <span className="inline-flex items-baseline justify-center gap-[0.2em] flex-wrap md:flex-nowrap animate-hero-stagger" style={{ animationDelay: "400ms" }}>
+              <span
                 className="relative inline-block overflow-hidden"
                 style={{ height: "1.2em" }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
               >
                 <AnimatePresence mode="wait">
                   <m.span
@@ -79,16 +77,16 @@ const HeroSection = () => {
                     {rotatingWords[wordIndex]}
                   </m.span>
                 </AnimatePresence>
-              </m.span>
+              </span>
               <m.em
-                layout
+                layout="position"
                 className="font-serif-display italic font-normal whitespace-nowrap"
                 style={{ color: "#E6681D" }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               >
                 are made
               </m.em>
-            </m.span>
+            </span>
           </LayoutGroup>
         </h1>
 
