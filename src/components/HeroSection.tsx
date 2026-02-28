@@ -82,7 +82,7 @@ const HeroSection = () => {
                 layout="position"
                 className="font-serif-display italic font-normal whitespace-nowrap"
                 style={{ color: "#E6681D" }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                transition={{ type: "spring", stiffness: 120, damping: 25, mass: 0.8 }}
               >
                 are made
               </m.em>
