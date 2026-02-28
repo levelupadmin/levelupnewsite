@@ -50,12 +50,6 @@ const HeroSection = () => {
 
       {/* Headline area */}
       <div className="relative z-10 flex flex-col items-center justify-center pt-24 md:pt-36 lg:pt-40 px-5 md:px-12">
-        <p
-          className="font-sans-body text-xs md:text-sm tracking-[0.3em] uppercase text-muted-foreground mb-4 md:mb-6 text-shadow-hero animate-hero-stagger"
-          style={{ animationDelay: "0ms" }}
-        >
-          India's Creative Education Ecosystem
-        </p>
 
         <h1 className="font-serif-display text-[1.6rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium text-hero-headline text-center tracking-[-0.03em] max-w-5xl text-shadow-hero overflow-hidden" style={{ lineHeight: 1.15 }}>
           <span className="animate-hero-stagger block" style={{ animationDelay: "200ms" }}>Where India's next great</span>
