@@ -1,3 +1,4 @@
+import { m } from "framer-motion";
 import ImpactBentoGrid from "./ImpactBentoGrid";
 import AccentLine from "./AccentLine";
 
@@ -29,6 +30,22 @@ const brands = [
   { name: "Adobe", logo: logoAdobe },
 ];
 
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.15 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
+  },
+};
+
 const StudentLogosSection = () => {
   return (
     <section
@@ -38,18 +55,28 @@ const StudentLogosSection = () => {
       <ImpactBentoGrid />
 
       {/* Section divider with accent line */}
-      <div className="relative bg-background py-12 md:py-16">
+      <m.div
+        className="relative bg-background py-12 md:py-16"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
         <AccentLine />
 
-        <p className="text-sm text-muted-foreground uppercase tracking-widest text-center mb-8 md:mb-14">
+        <m.p
+          variants={itemVariants}
+          className="text-sm text-muted-foreground uppercase tracking-widest text-center mb-8 md:mb-14"
+        >
           Our students come from
-        </p>
+        </m.p>
 
         <div className="space-y-8 md:space-y-12">
           {[brands.slice(0, 6), brands.slice(6)].map((row, rowIdx) => (
-            <div
+            <m.div
               key={rowIdx}
-              className="overflow-hidden"
+              variants={itemVariants}
+              className="overflow-hidden logo-marquee-row"
               style={{
                 maskImage: "linear-gradient(to right, transparent 0%, black 30%, black 70%, transparent 100%)",
                 WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 30%, black 70%, transparent 100%)",
@@ -58,23 +85,22 @@ const StudentLogosSection = () => {
               <div
                 className={`flex whitespace-nowrap items-center gap-10 md:gap-24 lg:gap-32 w-max ${
                   rowIdx === 0 ? "animate-scroll-left" : "animate-scroll-right"
-                } pause-on-hover`}
+                } marquee-track`}
               >
                 {[...row, ...row].map((brand, i) => (
                   <img
                     key={`${brand.name}-${i}`}
                     src={brand.logo}
                     alt={brand.name}
-                    className="h-10 md:h-20 lg:h-24 w-auto object-contain select-none opacity-70 hover:opacity-100 transition-all duration-300"
-                    style={{ filter: "grayscale(1) brightness(1.5)", mixBlendMode: "screen" }}
+                    className="h-10 md:h-20 lg:h-24 w-auto object-contain select-none logo-marquee-item"
                     loading="lazy"
                   />
                 ))}
               </div>
-            </div>
+            </m.div>
           ))}
         </div>
-      </div>
+      </m.div>
     </section>
   );
 };
