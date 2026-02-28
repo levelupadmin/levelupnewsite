@@ -9,6 +9,17 @@ const StarField = lazy(() => import("@/components/StarField"));
 
 const rotatingWords = ["filmmakers", "editors", "storytellers", "writers", "cinematographers", "designers", "musicians", "directors"];
 
+const wordEmojis: Record<string, string> = {
+  filmmakers: "🎬",
+  editors: "✂️",
+  storytellers: "📖",
+  writers: "✍️",
+  cinematographers: "🎥",
+  designers: "🎨",
+  musicians: "🎵",
+  directors: "🎭",
+};
+
 
 // No fixed width needed — mode="wait" ensures only one word renders at a time
 
@@ -96,26 +107,45 @@ const HeroSection = () => {
                 {rotatingWords[wordIndex]}
               </span>
 
-              <span
-                className="relative inline-block overflow-hidden shrink-0"
-                style={{
-                  height: "1.15em",
-                  lineHeight: 1.15,
-                  width: wordWidth ? `${wordWidth}px` : undefined,
-                  transition: "width 0.75s cubic-bezier(0.16, 1, 0.3, 1)",
-                }}
-              >
+              <span className="relative inline-block shrink-0">
+                {/* Overflow-hidden text container */}
+                <span
+                  className="relative inline-block overflow-hidden"
+                  style={{
+                    height: "1.15em",
+                    lineHeight: 1.15,
+                    width: wordWidth ? `${wordWidth}px` : undefined,
+                    transition: "width 0.75s cubic-bezier(0.16, 1, 0.3, 1)",
+                  }}
+                >
+                  <AnimatePresence mode="sync">
+                    <m.span
+                      key={rotatingWords[wordIndex]}
+                      initial={{ opacity: 0, y: "100%" }}
+                      animate={{ opacity: 1, y: "0%" }}
+                      exit={{ opacity: 0, y: "-100%" }}
+                      transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+                      className="absolute left-0 bottom-0 inline-block whitespace-nowrap text-white"
+                      style={{ lineHeight: 1.15, transformOrigin: "bottom left" }}
+                    >
+                      {rotatingWords[wordIndex]}
+                    </m.span>
+                  </AnimatePresence>
+                </span>
+
+                {/* Emoji accent — outside overflow-hidden, synced animation */}
                 <AnimatePresence mode="sync">
                   <m.span
-                    key={rotatingWords[wordIndex]}
-                    initial={{ opacity: 0, y: "100%" }}
-                    animate={{ opacity: 1, y: "0%" }}
-                    exit={{ opacity: 0, y: "-100%" }}
-                    transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute left-0 bottom-0 inline-block whitespace-nowrap text-white"
-                    style={{ lineHeight: 1.15, transformOrigin: "bottom left" }}
+                    key={`emoji-${rotatingWords[wordIndex]}`}
+                    initial={{ opacity: 0, scale: 0, rotate: -30 }}
+                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                    exit={{ opacity: 0, scale: 0, rotate: 30 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 15, mass: 0.6 }}
+                    className="absolute -top-3 -right-5 md:-top-4 md:-right-6 text-lg md:text-2xl pointer-events-none select-none"
+                    style={{ lineHeight: 1 }}
+                    aria-hidden="true"
                   >
-                    {rotatingWords[wordIndex]}
+                    {wordEmojis[rotatingWords[wordIndex]]}
                   </m.span>
                 </AnimatePresence>
               </span>
