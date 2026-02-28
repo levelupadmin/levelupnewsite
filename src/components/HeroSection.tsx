@@ -85,13 +85,13 @@ const HeroSection = () => {
         <h1 className="font-serif-display text-[1.6rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium text-hero-headline text-center tracking-[-0.03em] max-w-5xl text-shadow-hero" style={{ lineHeight: 1.15 }}>
           <span className="animate-hero-stagger block" style={{ animationDelay: "200ms" }}>Where India's next great</span>
           <span className="block animate-hero-stagger text-center" style={{ animationDelay: "400ms" }}>
-            <span className="inline-flex max-w-full items-baseline justify-center gap-[0.2em] flex-wrap sm:flex-nowrap">
+            <span className="inline-flex max-w-full items-end justify-center gap-[0.2em] flex-wrap sm:flex-nowrap" style={{ lineHeight: 1.15 }}>
               {/* Hidden measurer */}
               <span
                 ref={measureRef}
                 className="absolute invisible whitespace-nowrap font-serif-display text-[1.6rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium"
                 aria-hidden="true"
-                style={{ pointerEvents: "none" }}
+                style={{ pointerEvents: "none", lineHeight: 1.15 }}
               >
                 {rotatingWords[wordIndex]}
               </span>
@@ -100,20 +100,20 @@ const HeroSection = () => {
                 className="relative inline-block overflow-hidden shrink-0"
                 style={{
                   height: "1.15em",
+                  lineHeight: 1.15,
                   width: wordWidth ? `${wordWidth}px` : undefined,
                   transition: "width 0.75s cubic-bezier(0.16, 1, 0.3, 1)",
-                  verticalAlign: "baseline",
-                  top: "0.04em",
                 }}
               >
                 <AnimatePresence mode="sync">
                   <m.span
                     key={rotatingWords[wordIndex]}
-                    initial={{ opacity: 0, y: "0.45em" }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: "-0.45em" }}
+                    initial={{ opacity: 0, y: "100%" }}
+                    animate={{ opacity: 1, y: "0%" }}
+                    exit={{ opacity: 0, y: "-100%" }}
                     transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute left-0 top-0 inline-block whitespace-nowrap text-white"
+                    className="absolute left-0 bottom-0 inline-block whitespace-nowrap text-white"
+                    style={{ lineHeight: 1.15, transformOrigin: "bottom left" }}
                   >
                     {rotatingWords[wordIndex]}
                   </m.span>
@@ -123,6 +123,7 @@ const HeroSection = () => {
               <em
                 className="font-serif-display italic font-normal whitespace-nowrap text-primary"
                 style={{
+                  lineHeight: 1.15,
                   opacity: isAreMadeFading ? 0.78 : 1,
                   transition: "opacity 0.52s cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
