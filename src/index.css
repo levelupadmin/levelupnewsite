@@ -303,7 +303,75 @@
 }
 
 .counter-celebrate {
-  animation: counter-celebrate 0.5s cubic-bezier(0.16, 1, 0.3, 1) 2.4s both;
+  animation: counter-celebrate 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+}
+
+/* Bento grid award-winning keyframes */
+@keyframes ken-burns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+
+.animate-ken-burns {
+  animation: ken-burns 12s ease-in-out infinite alternate;
+}
+
+@keyframes globe-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-globe-spin {
+  animation: globe-spin 30s linear infinite;
+}
+
+.animate-globe-spin-fast {
+  animation: globe-spin 8s linear infinite;
+}
+
+@keyframes handshake-wiggle {
+  0% { transform: rotate(0deg); }
+  15% { transform: rotate(-12deg); }
+  30% { transform: rotate(10deg); }
+  45% { transform: rotate(-8deg); }
+  60% { transform: rotate(6deg); }
+  75% { transform: rotate(-3deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.animate-handshake {
+  animation: handshake-wiggle 0.8s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes star-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.18); }
+}
+
+@keyframes globe-ring-pulse {
+  0% { transform: scale(1); opacity: 0.3; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+@keyframes text-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.text-shimmer {
+  background-image: linear-gradient(
+    110deg,
+    hsl(var(--primary-foreground)) 25%,
+    hsl(30 90% 75%) 45%,
+    hsl(30 95% 85%) 50%,
+    hsl(30 90% 75%) 55%,
+    hsl(var(--primary-foreground)) 75%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: text-shimmer 1.5s ease-in-out;
 }
 
 @keyframes progress-fill {
