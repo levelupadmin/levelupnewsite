@@ -1,18 +1,6 @@
 import masterclass1 from "@/assets/masterclass-hero-new.png";
-import masterclass2 from "@/assets/masterclass-2.jpg";
-import masterclass3 from "@/assets/masterclass-3.jpg";
-import masterclass4 from "@/assets/masterclass-4.jpg";
 import masterclass5 from "@/assets/masterclass-5.jpg";
-import { Play, CheckCircle2, Circle, Film, Radio } from "lucide-react";
-
-const chapters = [
-  { title: "Story Structure", duration: "14:32", done: true },
-  { title: "Building Tension", duration: "11:08", done: true },
-  { title: "Visual Language", duration: "18:45", done: false, nowPlaying: true },
-  { title: "Director's Cut", duration: "22:10", done: false },
-];
-
-const mentorAvatars = [masterclass2, masterclass3, masterclass4];
+import { Play, FileText, CheckCircle2, Circle, Sparkles, Film, BookOpen, Bot, Video } from "lucide-react";
 
 const CursorSVG = () => (
   <svg width="12" height="16" viewBox="0 0 12 16" fill="none" className="drop-shadow-lg">
@@ -20,159 +8,161 @@ const CursorSVG = () => (
   </svg>
 );
 
+const tabs = [
+  { icon: Video, label: "Sessions" },
+  { icon: FileText, label: "Resources" },
+  { icon: BookOpen, label: "Guides" },
+  { icon: Bot, label: "AI Learn" },
+];
+
+const resources = [
+  { title: "Shot Composition Guide", type: "PDF" },
+  { title: "Script Formatting Template", type: "PDF" },
+  { title: "Color Grading Cheat Sheet", type: "PDF" },
+];
+
+const guideSteps = [
+  { text: "Set up your project workspace", done: true },
+  { text: "Write your logline & synopsis", done: true },
+  { text: "Draft your opening scene", done: false, active: true },
+];
+
+/* ── Screen 1: Recorded Sessions ── */
+const SessionsScreen = () => (
+  <div className="absolute inset-0 flex flex-col animate-lms-screen-1">
+    <div className="relative flex-1 overflow-hidden rounded-md">
+      <img src={masterclass1} alt="Masterclass" className="w-full h-full object-cover object-top" loading="lazy" />
+      {/* Viewfinder corners */}
+      <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path d="M8,20 L8,8 L20,8" fill="none" stroke="white" strokeWidth="1" />
+        <path d="M80,8 L92,8 L92,20" fill="none" stroke="white" strokeWidth="1" />
+        <path d="M8,80 L8,92 L20,92" fill="none" stroke="white" strokeWidth="1" />
+        <path d="M80,92 L92,92 L92,80" fill="none" stroke="white" strokeWidth="1" />
+      </svg>
+      {/* Play button */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20">
+          <Play size={12} className="text-white ml-0.5" fill="white" />
+        </div>
+      </div>
+      {/* Bottom bar */}
+      <div className="absolute bottom-0 inset-x-0 px-2.5 pt-5 pb-1.5" style={{ background: "linear-gradient(to top, hsl(0 0% 0% / 0.9), transparent)" }}>
+        <p className="text-[8px] font-medium text-foreground/90">Karthik Subbaraj</p>
+        <p className="text-[6px] text-primary/80 uppercase tracking-wider mt-0.5">Teaches Filmmaking</p>
+        <div className="mt-1 w-full h-[2px] bg-foreground/10 rounded-full overflow-hidden">
+          <div className="h-full bg-primary/80 rounded-full w-[42%]" />
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+/* ── Screen 2: Resources ── */
+const ResourcesScreen = () => (
+  <div className="absolute inset-0 flex flex-col gap-1.5 p-2.5 animate-lms-screen-2">
+    <p className="text-[7px] text-foreground/50 uppercase tracking-wider font-medium mb-0.5">Downloadable Resources</p>
+    {resources.map((r, i) => (
+      <div key={i} className="flex items-center gap-2 px-2 py-2 rounded-md border border-primary/10 bg-white/[0.03]">
+        <div className="w-6 h-6 rounded bg-primary/10 flex items-center justify-center shrink-0">
+          <FileText size={10} className="text-primary/70" />
+        </div>
+        <span className="text-[7px] text-foreground/70 flex-1 truncate">{r.title}</span>
+        <span className="text-[5px] px-1.5 py-0.5 rounded-full bg-primary/10 text-primary/70 font-medium">{r.type}</span>
+      </div>
+    ))}
+  </div>
+);
+
+/* ── Screen 3: Guides ── */
+const GuidesScreen = () => (
+  <div className="absolute inset-0 flex flex-col gap-1.5 p-2.5 animate-lms-screen-3">
+    <p className="text-[7px] text-foreground/50 uppercase tracking-wider font-medium mb-0.5">Project Guide</p>
+    {guideSteps.map((s, i) => (
+      <div key={i} className={`flex items-center gap-2 px-2 py-2 rounded-md border ${s.active ? "border-primary/25 bg-primary/[0.06]" : "border-primary/8 bg-white/[0.02]"}`}>
+        {s.done ? (
+          <CheckCircle2 size={11} className="text-primary/60 shrink-0" />
+        ) : (
+          <Circle size={11} className={`shrink-0 ${s.active ? "text-primary/70" : "text-foreground/20"}`} />
+        )}
+        <span className={`text-[7px] ${s.done ? "text-foreground/40 line-through" : s.active ? "text-foreground/80 font-medium" : "text-foreground/30"}`}>{s.text}</span>
+      </div>
+    ))}
+  </div>
+);
+
+/* ── Screen 4: AI Learning ── */
+const AIScreen = () => (
+  <div className="absolute inset-0 flex flex-col gap-2 p-2.5 animate-lms-screen-4">
+    <p className="text-[7px] text-foreground/50 uppercase tracking-wider font-medium mb-0.5">AI Assistant</p>
+    {/* User bubble */}
+    <div className="self-end max-w-[85%] px-2 py-1.5 rounded-lg bg-primary/15 border border-primary/20">
+      <p className="text-[7px] text-foreground/80">How do I build tension in a chase sequence?</p>
+    </div>
+    {/* AI bubble */}
+    <div className="self-start max-w-[90%] px-2 py-1.5 rounded-lg bg-white/[0.04] border border-primary/10">
+      <div className="flex items-center gap-1 mb-1">
+        <Sparkles size={7} className="text-primary/70" />
+        <span className="text-[6px] text-primary/60 font-medium">AI Mentor</span>
+      </div>
+      <p className="text-[6.5px] text-foreground/60 leading-relaxed">
+        Start with rhythm — alternate between wide establishing shots and tight close-ups. Cut pace should accelerate…
+      </p>
+    </div>
+  </div>
+);
+
 const ExpertMembershipCard = () => {
   return (
     <div className="group relative w-full h-full flex items-center justify-center p-3 overflow-hidden">
-      {/* Main layout: player + sidebar */}
-      <div className="relative w-[92%] h-[90%] flex gap-2">
+      <div className="relative w-[94%] h-[92%] flex gap-1.5">
 
-        {/* === MAIN PLAYER === */}
+        {/* === SIDEBAR === */}
         <div
-          className="relative flex-[1.6] rounded-lg overflow-hidden border border-primary/40"
-          style={{
-            boxShadow: "0 12px 40px -8px hsl(0 0% 0% / 0.5), 0 0 20px 2px hsl(30 80% 45% / 0.12)",
-          }}
+          className="w-[72px] shrink-0 rounded-lg border border-primary/15 flex flex-col overflow-hidden"
+          style={{ background: "hsl(30 20% 10% / 0.95)" }}
         >
-          <img
-            src={masterclass1}
-            alt="Masterclass lesson"
-            className="w-full h-full object-cover object-top"
-            loading="lazy"
-          />
-
-          {/* Viewfinder overlay */}
-          <svg className="absolute inset-0 w-full h-full opacity-25 pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path d="M8,20 L8,8 L20,8" fill="none" stroke="white" strokeWidth="1" />
-            <path d="M80,8 L92,8 L92,20" fill="none" stroke="white" strokeWidth="1" />
-            <path d="M8,80 L8,92 L20,92" fill="none" stroke="white" strokeWidth="1" />
-            <path d="M80,92 L92,92 L92,80" fill="none" stroke="white" strokeWidth="1" />
-          </svg>
-
-          {/* Play button center */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20 animate-lms-play-glow">
-              <Play size={14} className="text-white ml-0.5" fill="white" />
-            </div>
+          {/* Logo area */}
+          <div className="flex items-center justify-center py-2 border-b border-primary/10">
+            <Film size={11} className="text-primary/50" />
           </div>
 
-          {/* Bottom gradient bar with mentor name */}
-          <div
-            className="absolute bottom-0 inset-x-0 px-3 pt-6 pb-1.5"
-            style={{ background: "linear-gradient(to top, hsl(0 0% 0% / 0.9), transparent)" }}
-          >
-            <p className="text-[9px] font-medium text-foreground/90 leading-tight">Karthik Subbaraj</p>
-            <p className="text-[7px] text-primary/80 uppercase tracking-wider mt-0.5">Teaches Filmmaking</p>
-
-            {/* Animated progress bar */}
-            <div className="mt-1.5 w-full h-[2px] bg-foreground/10 rounded-full overflow-hidden">
-              <div className="h-full bg-primary/80 rounded-full animate-lms-progress" />
-            </div>
-          </div>
-        </div>
-
-        {/* === LESSON SIDEBAR === */}
-        <div
-          className="flex-1 rounded-lg border border-primary/15 flex flex-col overflow-hidden"
-          style={{
-            background: "hsl(30 20% 10% / 0.95)",
-            boxShadow: "0 8px 32px -8px hsl(0 0% 0% / 0.4), 0 0 12px 2px hsl(30 80% 45% / 0.04)",
-          }}
-        >
-          {/* Header */}
-          <div className="flex items-center gap-1.5 px-2.5 py-2 border-b border-primary/10">
-            <Film size={9} className="text-primary/60" />
-            <span className="text-[8px] font-medium text-foreground/70 uppercase tracking-wider">Chapters</span>
-          </div>
-
-          {/* Chapter list */}
-          <div className="flex-1 flex flex-col px-2 py-1.5 gap-1">
-            {chapters.map((ch, i) => (
-              <div
-                key={i}
-                className={`flex items-center gap-1.5 px-1.5 py-1.5 rounded-md transition-colors ${
-                  ch.nowPlaying
-                    ? "bg-primary/10 border border-primary/20 animate-lms-highlight-ch3"
-                    : i === 3
-                    ? "border border-transparent animate-lms-highlight-ch4"
-                    : "border border-transparent"
-                }`}
-              >
-                {ch.done ? (
-                  <CheckCircle2 size={10} className="text-primary/50 shrink-0" />
-                ) : (
-                  <Circle size={10} className={`shrink-0 ${ch.nowPlaying ? "text-primary/70" : "text-foreground/20"}`} />
-                )}
-                <div className="flex-1 min-w-0">
-                  <p className={`text-[7px] leading-tight truncate ${
-                    ch.nowPlaying ? "text-foreground/90 font-medium" : ch.done ? "text-foreground/40" : "text-foreground/30"
-                  }`}>
-                    {ch.title}
-                  </p>
+          {/* Nav tabs */}
+          <div className="flex-1 flex flex-col gap-0.5 px-1 py-1.5">
+            {tabs.map((tab, i) => {
+              const Icon = tab.icon;
+              return (
+                <div
+                  key={i}
+                  className={`flex flex-col items-center gap-0.5 px-1 py-1.5 rounded-md cursor-default transition-colors animate-lms-tab-${i + 1}`}
+                >
+                  <Icon size={10} className="transition-colors" />
+                  <span className="text-[5.5px] tracking-wide">{tab.label}</span>
                 </div>
-                <span className={`text-[6px] shrink-0 ${ch.nowPlaying ? "text-primary/70" : "text-foreground/25"}`}>
-                  {ch.duration}
-                </span>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
-          {/* Sidebar thumbnail */}
-          <div className="px-2 pb-2">
-            <div className="w-full h-[32px] rounded overflow-hidden border border-primary/10">
+          {/* Bottom thumbnail */}
+          <div className="px-1.5 pb-1.5">
+            <div className="w-full h-[28px] rounded overflow-hidden border border-primary/10">
               <img src={masterclass5} alt="" className="w-full h-full object-cover" loading="lazy" />
             </div>
           </div>
         </div>
-      </div>
 
-      {/* === FLOATING ELEMENTS === */}
-
-      {/* LIVE FEEDBACK badge */}
-      <div
-        className="absolute flex items-center gap-1 px-2 py-1 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm animate-lms-highlight-live"
-        style={{ top: "6%", right: "8%" }}
-      >
-        <Radio size={7} className="text-primary" />
-        <span className="text-[7px] font-medium text-primary/90 uppercase tracking-wider">Live Feedback</span>
-      </div>
-
-      {/* Discipline tags */}
-      <div
-        className="absolute text-[7px] px-1.5 py-0.5 rounded-full border border-primary/20 bg-white/5 text-foreground/50 animate-lms-highlight-tag1"
-        style={{ top: "10%", left: "4%" }}
-      >
-        <span className="flex items-center gap-0.5"><Film size={6} className="text-primary/50" /> Filmmaking</span>
-      </div>
-      <div
-        className="absolute text-[7px] px-1.5 py-0.5 rounded-full border border-primary/20 bg-white/5 text-foreground/50"
-        style={{ bottom: "18%", left: "3%" }}
-      >
-        Editing
-      </div>
-      <div
-        className="absolute text-[7px] px-1.5 py-0.5 rounded-full border border-primary/20 bg-white/5 text-foreground/50"
-        style={{ bottom: "8%", right: "24%" }}
-      >
-        Music
-      </div>
-
-      {/* Stacked mentor avatars — bottom-left */}
-      <div
-        className="absolute flex items-center"
-        style={{ bottom: "8%", left: "5%" }}
-      >
-        <div className="flex -space-x-1.5">
-          {mentorAvatars.map((src, i) => (
-            <div
-              key={i}
-              className="w-[18px] h-[18px] rounded-full overflow-hidden border border-primary/25"
-              style={{ zIndex: 3 - i }}
-            >
-              <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
-            </div>
-          ))}
+        {/* === MAIN CONTENT AREA === */}
+        <div
+          className="flex-1 relative rounded-lg border border-primary/15 overflow-hidden"
+          style={{
+            background: "hsl(30 20% 8% / 0.95)",
+            boxShadow: "0 12px 40px -8px hsl(0 0% 0% / 0.5)",
+          }}
+        >
+          <SessionsScreen />
+          <ResourcesScreen />
+          <GuidesScreen />
+          <AIScreen />
         </div>
-        <span className="text-[6px] text-foreground/35 ml-1">+37 more</span>
       </div>
 
       {/* === ANIMATED CURSOR === */}
@@ -180,12 +170,11 @@ const ExpertMembershipCard = () => {
         <CursorSVG />
       </div>
 
-      {/* === CLICK RIPPLES === */}
-      <div className="lms-ripple lms-ripple-ch3" style={{ zIndex: 49 }} />
-      <div className="lms-ripple lms-ripple-ch4" style={{ zIndex: 49 }} />
-      <div className="lms-ripple lms-ripple-live" style={{ zIndex: 49 }} />
-      <div className="lms-ripple lms-ripple-tag" style={{ zIndex: 49 }} />
-      <div className="lms-ripple lms-ripple-play" style={{ zIndex: 49 }} />
+      {/* === CLICK RIPPLES at each tab === */}
+      <div className="lms-ripple lms-ripple-tab1" style={{ zIndex: 49 }} />
+      <div className="lms-ripple lms-ripple-tab2" style={{ zIndex: 49 }} />
+      <div className="lms-ripple lms-ripple-tab3" style={{ zIndex: 49 }} />
+      <div className="lms-ripple lms-ripple-tab4" style={{ zIndex: 49 }} />
 
       {/* Subtle ambient glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_hsl(30,80%,50%,0.04)_0%,_transparent_70%)] pointer-events-none" />
