@@ -10,7 +10,7 @@ import karthikImg from "@/assets/karthik-subbaraj.png";
 import anthonyImg from "@/assets/anthony-gonsalvez.png";
 import venketImg from "@/assets/nav-venket-ram.png";
 import kiranImg from "@/assets/nav-drk-kiran.png";
-import raviImg from "@/assets/ravi-basrur.webp";
+import raviImg from "@/assets/nav-ravi-basrur.png";
 import lokeshImg from "@/assets/nav-lokesh-kanagaraj.png";
 
 export interface NavItem {
