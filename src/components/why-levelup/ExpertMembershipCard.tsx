@@ -3,7 +3,6 @@ import masterclass2 from "@/assets/masterclass-2.jpg";
 import masterclass3 from "@/assets/masterclass-3.jpg";
 import masterclass4 from "@/assets/masterclass-4.jpg";
 import masterclass5 from "@/assets/masterclass-5.jpg";
-import masterclass6 from "@/assets/masterclass-6.jpg";
 import { Play, CheckCircle2, Circle, Film, Radio } from "lucide-react";
 
 const chapters = [
@@ -14,6 +13,12 @@ const chapters = [
 ];
 
 const mentorAvatars = [masterclass2, masterclass3, masterclass4];
+
+const CursorSVG = () => (
+  <svg width="12" height="16" viewBox="0 0 12 16" fill="none" className="drop-shadow-lg">
+    <path d="M1 1L1 12.5L4 9.5L7 15L9 14L6 8L10 8L1 1Z" fill="white" stroke="hsl(30 20% 15%)" strokeWidth="0.8" />
+  </svg>
+);
 
 const ExpertMembershipCard = () => {
   return (
@@ -45,7 +50,7 @@ const ExpertMembershipCard = () => {
 
           {/* Play button center */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20">
+            <div className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20 animate-lms-play-glow">
               <Play size={14} className="text-white ml-0.5" fill="white" />
             </div>
           </div>
@@ -58,9 +63,9 @@ const ExpertMembershipCard = () => {
             <p className="text-[9px] font-medium text-foreground/90 leading-tight">Karthik Subbaraj</p>
             <p className="text-[7px] text-primary/80 uppercase tracking-wider mt-0.5">Teaches Filmmaking</p>
 
-            {/* Progress bar */}
+            {/* Animated progress bar */}
             <div className="mt-1.5 w-full h-[2px] bg-foreground/10 rounded-full overflow-hidden">
-              <div className="h-full bg-primary/80 rounded-full" style={{ width: "42%" }} />
+              <div className="h-full bg-primary/80 rounded-full animate-lms-progress" />
             </div>
           </div>
         </div>
@@ -86,7 +91,9 @@ const ExpertMembershipCard = () => {
                 key={i}
                 className={`flex items-center gap-1.5 px-1.5 py-1.5 rounded-md transition-colors ${
                   ch.nowPlaying
-                    ? "bg-primary/10 border border-primary/20"
+                    ? "bg-primary/10 border border-primary/20 animate-lms-highlight-ch3"
+                    : i === 3
+                    ? "border border-transparent animate-lms-highlight-ch4"
                     : "border border-transparent"
                 }`}
               >
@@ -122,7 +129,7 @@ const ExpertMembershipCard = () => {
 
       {/* LIVE FEEDBACK badge */}
       <div
-        className="absolute flex items-center gap-1 px-2 py-1 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm"
+        className="absolute flex items-center gap-1 px-2 py-1 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm animate-lms-highlight-live"
         style={{ top: "6%", right: "8%" }}
       >
         <Radio size={7} className="text-primary" />
@@ -131,7 +138,7 @@ const ExpertMembershipCard = () => {
 
       {/* Discipline tags */}
       <div
-        className="absolute text-[7px] px-1.5 py-0.5 rounded-full border border-primary/20 bg-white/5 text-foreground/50"
+        className="absolute text-[7px] px-1.5 py-0.5 rounded-full border border-primary/20 bg-white/5 text-foreground/50 animate-lms-highlight-tag1"
         style={{ top: "10%", left: "4%" }}
       >
         <span className="flex items-center gap-0.5"><Film size={6} className="text-primary/50" /> Filmmaking</span>
@@ -166,6 +173,11 @@ const ExpertMembershipCard = () => {
           ))}
         </div>
         <span className="text-[6px] text-foreground/35 ml-1">+37 more</span>
+      </div>
+
+      {/* === ANIMATED CURSOR === */}
+      <div className="absolute inset-0 pointer-events-none animate-lms-cursor" style={{ zIndex: 50 }}>
+        <CursorSVG />
       </div>
 
       {/* Subtle ambient glow */}
