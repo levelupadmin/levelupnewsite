@@ -5,36 +5,48 @@ import testimonial5 from "@/assets/testimonial-5.jpg";
 import testimonial6 from "@/assets/testimonial-6.jpg";
 import testimonial7 from "@/assets/testimonial-7.jpg";
 import testimonial8 from "@/assets/testimonial-8.jpg";
+import community7 from "@/assets/community/community-7.jpg";
+import community9 from "@/assets/community/community-9.jpg";
+import community11 from "@/assets/community/community-11.jpg";
 import { Hash, Users } from "lucide-react";
 
-const threads = [
+const threads: {
+  avatar: string;
+  name: string;
+  time: string;
+  text: string;
+  reactions: string[];
+  typing?: boolean;
+  image?: string;
+}[] = [
   {
     avatar: testimonial1,
     name: "Priya",
     time: "2m",
     text: "Anyone up for a 48hr edit challenge? 🎬",
-    reactions: ["🔥 12", "👏 8"],
+    reactions: ["🔥 12", "💡 5", "🎬 3"],
   },
   {
     avatar: testimonial2,
     name: "Arjun",
     time: "3m",
     text: "I'm in — been wanting to try a one-take concept",
-    reactions: ["❤️ 6"],
+    reactions: ["✨ 6", "👀 4"],
+    image: community7,
   },
   {
     avatar: testimonial4,
     name: "Meera",
     time: "5m",
     text: "Count me in! Can we do horror genre? 🎃",
-    reactions: ["🔥 9", "😈 4"],
+    reactions: ["🤯 9", "😈 4", "🎭 2"],
   },
   {
     avatar: testimonial1,
     name: "Priya",
     time: "6m",
     text: "Horror it is. Let's sync at 8pm tonight 🕗",
-    reactions: ["👏 11"],
+    reactions: ["👏 11", "🫡 7"],
     typing: true,
   },
   {
@@ -42,43 +54,45 @@ const threads = [
     name: "Kiran",
     time: "1h",
     text: "Just watched Arjun's rough cut — the tension is insane 🔥",
-    reactions: ["🔥 24", "❤️ 18"],
+    reactions: ["🔥 24", "💯 18", "👀 6"],
+    image: community9,
   },
   {
     avatar: testimonial2,
     name: "Arjun",
     time: "1h",
     text: "Meera's sound design made all the difference honestly",
-    reactions: ["❤️ 15"],
+    reactions: ["💪 15", "🎧 3"],
   },
   {
     avatar: testimonial4,
     name: "Meera",
     time: "2h",
     text: "Learned that layering trick from Ravi Sir's masterclass 🎧",
-    reactions: ["🙌 12", "🔥 8"],
+    reactions: ["🙌 12", "✨ 8", "🎯 5"],
   },
   {
     avatar: testimonial1,
     name: "Priya",
     time: "2h",
     text: "All 3 films are done! Uploading for peer review now 🎉",
-    reactions: ["🔥 32", "❤️ 27"],
+    reactions: ["🎬 32", "❤️ 27", "🤯 14"],
     typing: true,
+    image: community11,
   },
   {
     avatar: testimonial5,
     name: "Kiran",
     time: "3h",
     text: "This community is something else 🙌",
-    reactions: ["❤️ 41"],
+    reactions: ["💛 41", "🫡 9"],
   },
   {
     avatar: testimonial2,
     name: "Arjun",
     time: "3h",
     text: "From strangers to collaborators in 48 hours ❤️",
-    reactions: ["🔥 38", "❤️ 29"],
+    reactions: ["🔥 38", "❤️ 29", "💡 11"],
   },
 ];
 
@@ -107,6 +121,11 @@ const MessageBubble = ({ msg, i }: { msg: typeof threads[0]; i: number }) => (
         }}
       >
         <p className="text-[8px] text-foreground/65 leading-relaxed">{msg.text}</p>
+        {msg.image && (
+          <div className="mt-1 rounded overflow-hidden border border-primary/10">
+            <img src={msg.image} alt="" className="w-full h-[40px] object-cover" loading="lazy" />
+          </div>
+        )}
       </div>
       <div className="flex gap-1.5 mt-1">
         {msg.reactions.map((r, ri) => (
