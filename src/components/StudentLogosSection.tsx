@@ -1,4 +1,5 @@
 import ImpactBentoGrid from "./ImpactBentoGrid";
+import AccentLine from "./AccentLine";
 
 import logoFtii from "@/assets/logos/ftii.png";
 import logoNid from "@/assets/logos/nid.png";
@@ -28,21 +29,6 @@ const brands = [
   { name: "Adobe", logo: logoAdobe },
 ];
 
-const stats = [
-  {
-    value: 57600,
-    suffix: "+",
-    hasComma: true,
-    label: "learners have enrolled across masterclasses, live programs, and residencies",
-  },
-  {
-    value: 11,
-    suffix: "",
-    hasComma: false,
-    label: "editions of The Forge across 7 cities",
-  },
-];
-
 const StudentLogosSection = () => {
   return (
     <section
@@ -51,9 +37,12 @@ const StudentLogosSection = () => {
     >
       <ImpactBentoGrid />
 
-      <div className="bg-background py-14 md:py-20">
-        <p className="font-serif-display text-2xl md:text-3xl text-foreground text-center mb-8 md:mb-16">
-          Our students come from:
+      {/* Section divider with accent line */}
+      <div className="relative bg-background py-12 md:py-16">
+        <AccentLine />
+
+        <p className="text-sm text-muted-foreground uppercase tracking-widest text-center mb-8 md:mb-14">
+          Our students come from
         </p>
 
         <div className="space-y-8 md:space-y-12">
