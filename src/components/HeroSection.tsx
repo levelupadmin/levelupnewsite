@@ -75,13 +75,16 @@ const HeroSection = () => {
               {rotatingWords[wordIndex]}
             </span>
             <span
-              className="relative inline-block overflow-hidden text-left align-baseline"
+              className="relative inline-block overflow-hidden text-left"
               style={{
                 height: "1.2em",
                 width: wordWidth ? `${wordWidth}px` : "auto",
                 transition: "width 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+                verticalAlign: "baseline",
               }}
             >
+              {/* Invisible baseline anchor */}
+              <span className="invisible">{rotatingWords[0][0]}</span>
               <AnimatePresence mode="wait">
                 <m.span
                   key={rotatingWords[wordIndex]}
