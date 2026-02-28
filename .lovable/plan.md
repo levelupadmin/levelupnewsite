@@ -1,9 +1,8 @@
 
 
-## Replace Lokesh Kanagaraj Thumbnail in Navbar Only
+## Remove "StarDa" and "About" from Footer
 
 ### Steps
 
-1. **Copy uploaded image** to `src/assets/nav-lokesh-kanagaraj.png`
-2. **Update `src/components/navbarData.ts`** — change the Lokesh Kanagaraj import from `lokesh-kanagaraj.png` to `nav-lokesh-kanagaraj.png`. No other changes.
+1. **Update `src/components/Footer.tsx`** — Remove the "StarDa" entry from the `Learn` array and the "About" entry from the `Company` array in the `footerLinks` object.
 
