@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, lazy, Suspense } from "react";
-import { ArrowRight, Clapperboard, Scissors, BookOpen, Pen, Camera, Palette, Music, Megaphone } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import MagneticButton from "@/components/MagneticButton";
 import { AnimatePresence, m } from "framer-motion";
 
@@ -9,17 +8,6 @@ import HeroCarousel from "@/components/HeroCarousel";
 const StarField = lazy(() => import("@/components/StarField"));
 
 const rotatingWords = ["filmmakers", "editors", "storytellers", "writers", "cinematographers", "designers", "musicians", "directors"];
-
-const wordIcons: Record<string, LucideIcon> = {
-  filmmakers: Clapperboard,
-  editors: Scissors,
-  storytellers: BookOpen,
-  writers: Pen,
-  cinematographers: Camera,
-  designers: Palette,
-  musicians: Music,
-  directors: Megaphone,
-};
 
 
 // No fixed width needed — mode="wait" ensures only one word renders at a time
@@ -108,45 +96,26 @@ const HeroSection = () => {
                 {rotatingWords[wordIndex]}
               </span>
 
-              <span className="relative inline-block shrink-0">
-                {/* Overflow-hidden text container */}
-                <span
-                  className="relative inline-block overflow-hidden"
-                  style={{
-                    height: "1.15em",
-                    lineHeight: 1.15,
-                    width: wordWidth ? `${wordWidth}px` : undefined,
-                    transition: "width 0.75s cubic-bezier(0.16, 1, 0.3, 1)",
-                  }}
-                >
-                  <AnimatePresence mode="sync">
-                    <m.span
-                      key={rotatingWords[wordIndex]}
-                      initial={{ opacity: 0, y: "100%" }}
-                      animate={{ opacity: 1, y: "0%" }}
-                      exit={{ opacity: 0, y: "-100%" }}
-                      transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-                      className="absolute left-0 bottom-0 inline-block whitespace-nowrap text-white"
-                      style={{ lineHeight: 1.15, transformOrigin: "bottom left" }}
-                    >
-                      {rotatingWords[wordIndex]}
-                    </m.span>
-                  </AnimatePresence>
-                </span>
-
-                {/* Icon accent — outside overflow-hidden, synced animation */}
+              <span
+                className="relative inline-block overflow-hidden shrink-0"
+                style={{
+                  height: "1.15em",
+                  lineHeight: 1.15,
+                  width: wordWidth ? `${wordWidth}px` : undefined,
+                  transition: "width 0.75s cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
+              >
                 <AnimatePresence mode="sync">
                   <m.span
-                    key={`icon-${rotatingWords[wordIndex]}`}
-                    initial={{ opacity: 0, scale: 0, rotate: -30 }}
-                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                    exit={{ opacity: 0, scale: 0, rotate: 30 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 15, mass: 0.6 }}
-                    className="absolute -top-2.5 -right-4 md:-top-3.5 md:-right-5 pointer-events-none select-none text-primary/70"
-                    style={{ lineHeight: 1 }}
-                    aria-hidden="true"
+                    key={rotatingWords[wordIndex]}
+                    initial={{ opacity: 0, y: "100%" }}
+                    animate={{ opacity: 1, y: "0%" }}
+                    exit={{ opacity: 0, y: "-100%" }}
+                    transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute left-0 bottom-0 inline-block whitespace-nowrap text-white"
+                    style={{ lineHeight: 1.15, transformOrigin: "bottom left" }}
                   >
-                    {(() => { const Icon = wordIcons[rotatingWords[wordIndex]]; return <Icon className="w-4 h-4 md:w-5 md:h-5" strokeWidth={1.5} />; })()}
+                    {rotatingWords[wordIndex]}
                   </m.span>
                 </AnimatePresence>
               </span>
