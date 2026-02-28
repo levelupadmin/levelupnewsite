@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, lazy, Suspense } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Clapperboard, Scissors, BookOpen, Pen, Camera, Palette, Music, Megaphone } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import MagneticButton from "@/components/MagneticButton";
 import { AnimatePresence, m } from "framer-motion";
 
@@ -9,15 +10,15 @@ const StarField = lazy(() => import("@/components/StarField"));
 
 const rotatingWords = ["filmmakers", "editors", "storytellers", "writers", "cinematographers", "designers", "musicians", "directors"];
 
-const wordEmojis: Record<string, string> = {
-  filmmakers: "🎬",
-  editors: "✂️",
-  storytellers: "📖",
-  writers: "✍️",
-  cinematographers: "🎥",
-  designers: "🎨",
-  musicians: "🎵",
-  directors: "🎭",
+const wordIcons: Record<string, LucideIcon> = {
+  filmmakers: Clapperboard,
+  editors: Scissors,
+  storytellers: BookOpen,
+  writers: Pen,
+  cinematographers: Camera,
+  designers: Palette,
+  musicians: Music,
+  directors: Megaphone,
 };
 
 
@@ -133,19 +134,19 @@ const HeroSection = () => {
                   </AnimatePresence>
                 </span>
 
-                {/* Emoji accent — outside overflow-hidden, synced animation */}
+                {/* Icon accent — outside overflow-hidden, synced animation */}
                 <AnimatePresence mode="sync">
                   <m.span
-                    key={`emoji-${rotatingWords[wordIndex]}`}
+                    key={`icon-${rotatingWords[wordIndex]}`}
                     initial={{ opacity: 0, scale: 0, rotate: -30 }}
                     animate={{ opacity: 1, scale: 1, rotate: 0 }}
                     exit={{ opacity: 0, scale: 0, rotate: 30 }}
                     transition={{ type: "spring", stiffness: 400, damping: 15, mass: 0.6 }}
-                    className="absolute -top-3 -right-5 md:-top-4 md:-right-6 text-lg md:text-2xl pointer-events-none select-none"
+                    className="absolute -top-2.5 -right-4 md:-top-3.5 md:-right-5 pointer-events-none select-none text-primary/70"
                     style={{ lineHeight: 1 }}
                     aria-hidden="true"
                   >
-                    {wordEmojis[rotatingWords[wordIndex]]}
+                    {(() => { const Icon = wordIcons[rotatingWords[wordIndex]]; return <Icon className="w-4 h-4 md:w-5 md:h-5" strokeWidth={1.5} />; })()}
                   </m.span>
                 </AnimatePresence>
               </span>
