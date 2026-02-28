@@ -1,7 +1,7 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect, useRef, useCallback, lazy, Suspense } from "react";
 import { ArrowRight } from "lucide-react";
 import MagneticButton from "@/components/MagneticButton";
-import { AnimatePresence, LayoutGroup, m } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 
 // Lazy-load heavy hero sub-components to reduce initial JS evaluation
 import HeroCarousel from "@/components/HeroCarousel";
@@ -9,10 +9,13 @@ const StarField = lazy(() => import("@/components/StarField"));
 
 const rotatingWords = ["filmmakers", "editors", "storytellers", "writers", "cinematographers", "designers", "musicians", "directors"];
 
+
 // No fixed width needed — mode="wait" ensures only one word renders at a time
 
 const HeroSection = () => {
   const [wordIndex, setWordIndex] = useState(0);
+  const [wordWidth, setWordWidth] = useState<number | undefined>(undefined);
+  const measureRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -20,6 +23,14 @@ const HeroSection = () => {
     }, 1400);
     return () => clearInterval(interval);
   }, []);
+
+  // Measure word width after each change
+  const measuredWord = rotatingWords[wordIndex];
+  useEffect(() => {
+    if (measureRef.current) {
+      setWordWidth(measureRef.current.offsetWidth);
+    }
+  }, [measuredWord]);
 
   return (
     <section
@@ -53,35 +64,45 @@ const HeroSection = () => {
 
         <h1 className="font-serif-display text-[1.6rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium text-hero-headline text-center tracking-[-0.03em] max-w-5xl text-shadow-hero overflow-hidden" style={{ lineHeight: 1.15 }}>
           <span className="animate-hero-stagger block" style={{ animationDelay: "200ms" }}>Where India's next great</span>
-          <LayoutGroup>
-            <span className="inline-flex items-baseline justify-start md:justify-center gap-[0.2em] flex-wrap md:flex-nowrap animate-hero-stagger" style={{ animationDelay: "400ms" }}>
-              <span
-                className="relative inline-block overflow-hidden"
-                style={{ height: "1.2em" }}
-              >
-                <AnimatePresence mode="wait">
-                  <m.span
-                    key={rotatingWords[wordIndex]}
-                    initial={{ opacity: 0, y: "0.5em", filter: "blur(4px)" }}
-                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, y: "-0.5em", filter: "blur(4px)" }}
-                    transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-                    className="inline-block whitespace-nowrap text-white"
-                  >
-                    {rotatingWords[wordIndex]}
-                  </m.span>
-                </AnimatePresence>
-              </span>
-              <m.em
-                layout="position"
-                className="font-serif-display italic font-normal whitespace-nowrap"
-                style={{ color: "#E6681D" }}
-                transition={{ type: "spring", stiffness: 60, damping: 30, mass: 1.5 }}
-              >
-                are made
-              </m.em>
+          <span className="block animate-hero-stagger text-center" style={{ animationDelay: "400ms" }}>
+            {/* Hidden measurer */}
+            <span
+              ref={measureRef}
+              className="absolute invisible whitespace-nowrap font-serif-display text-[1.6rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium"
+              aria-hidden="true"
+              style={{ pointerEvents: "none" }}
+            >
+              {rotatingWords[wordIndex]}
             </span>
-          </LayoutGroup>
+            <span
+              className="relative inline-block overflow-hidden text-left align-baseline"
+              style={{
+                height: "1.2em",
+                width: wordWidth ? `${wordWidth}px` : "auto",
+                transition: "width 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+              }}
+            >
+              <AnimatePresence mode="wait">
+                <m.span
+                  key={rotatingWords[wordIndex]}
+                  initial={{ opacity: 0, y: "0.5em", filter: "blur(4px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, y: "-0.5em", filter: "blur(4px)" }}
+                  transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+                  className="absolute left-0 top-0 inline-block whitespace-nowrap text-white"
+                >
+                  {rotatingWords[wordIndex]}
+                </m.span>
+              </AnimatePresence>
+            </span>
+            {" "}
+            <em
+              className="font-serif-display italic font-normal whitespace-nowrap"
+              style={{ color: "#E6681D" }}
+            >
+              are made
+            </em>
+          </span>
         </h1>
 
         <p
