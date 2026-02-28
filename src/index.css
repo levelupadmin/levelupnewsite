@@ -430,6 +430,11 @@
   100% { transform: translateX(0); }
 }
 
+@keyframes scroll-chat-up {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
 @keyframes orbit-spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(calc(var(--orbit-dir, 1) * 360deg)); }
@@ -441,6 +446,9 @@
   }
   .animate-scroll-right {
     animation: scroll-right 60s linear infinite;
+  }
+  .animate-scroll-chat-up {
+    animation: scroll-chat-up 28s linear infinite;
   }
   .pause-on-hover:hover {
     animation-play-state: paused;
