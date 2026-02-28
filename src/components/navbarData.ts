@@ -11,7 +11,7 @@ import anthonyImg from "@/assets/anthony-gonsalvez.png";
 import venketImg from "@/assets/nav-venket-ram.png";
 import kiranImg from "@/assets/nav-drk-kiran.png";
 import raviImg from "@/assets/ravi-basrur.webp";
-import lokeshImg from "@/assets/lokesh-kanagaraj.png";
+import lokeshImg from "@/assets/nav-lokesh-kanagaraj.png";
 
 export interface NavItem {
   image: string;
