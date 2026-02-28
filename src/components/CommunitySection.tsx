@@ -43,9 +43,9 @@ const repeat = <T,>(arr: T[], times: number) =>
   Array.from({ length: times }, () => arr).flat();
 
 const rows = [
-  { images: repeat(row1, 6), direction: "scroll-left", duration: "50s" },
-  { images: repeat(row2, 6), direction: "scroll-right", duration: "60s" },
-  { images: repeat(row3, 6), direction: "scroll-left", duration: "45s" },
+  { images: repeat(row1, 6), direction: "scroll-left", duration: "80s" },
+  { images: repeat(row2, 6), direction: "scroll-right", duration: "90s" },
+  { images: repeat(row3, 6), direction: "scroll-left", duration: "75s" },
 ];
 
 const CommunitySection = () => {
