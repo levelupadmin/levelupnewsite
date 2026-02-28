@@ -1,42 +1,21 @@
 
 
-## Put "are made" on the same line as rotating words
+## Smooth "are made" position transition
 
-Currently the structure is:
-```text
-Where India's next great
-    [filmmakers]
-       are made
-```
+The problem: when the rotating word changes width (e.g. "editors" → "storytellers"), "are made" jumps abruptly to its new position. We need it to glide smoothly.
 
-The goal is to place "are made" immediately after the rotating word on the same line:
-```text
-Where India's next great
-  [filmmakers] are made
-```
+### Approach: Use `m.span` with `layout` animation
+
+Framer Motion's `layout` prop automatically animates position/size changes. By wrapping "are made" in a `m.em` with `layout`, it will smoothly slide to its new x-position whenever the rotating word's width changes.
 
 ### Steps
 
 1. **Update `src/components/HeroSection.tsx`**:
-   - Remove the `<br />` between the rotating word container and "are made"
-   - Move the `<em>are made</em>` inline right after the rotating word `<span>`, wrapping both in a single line container
-   - Change the rotating word's inner alignment from `justify-center` to `justify-start` (left-align) so "are made" sits naturally after the word
-   - Add a small left margin or gap to "are made" for spacing
-   - The rotating word container keeps its fixed `ch`-based width so "are made" shifts position naturally based on the longest word, but stays on the same line
+   - Wrap the parent `<span>` (containing rotating word + "are made") in `<m.span>` with `layout` enabled via `LayoutGroup`
+   - Change `<em>` to `<m.em layout>` so Framer Motion animates its position when the sibling word width changes
+   - Add a `layout` prop to the rotating word container as well
+   - Use a smooth spring transition (`type: "spring", stiffness: 300, damping: 30`) for the layout animation to feel fluid rather than mechanical
+   - Import `LayoutGroup` from framer-motion
 
-The revised JSX structure for the second and third lines becomes:
-```tsx
-<span className="inline-flex items-center justify-center animate-hero-stagger" style={{ animationDelay: "400ms" }}>
-  <span className="relative inline-block overflow-hidden align-middle"
-    style={{ width: maxWordLength + "ch", height: "1.15em" }}>
-    {/* AnimatePresence rotating words - left aligned */}
-  </span>
-  <em className="font-serif-display italic font-normal ml-[0.3ch]"
-    style={{ color: "#E6681D" }}>
-    are made
-  </em>
-</span>
-```
-
-This removes the third `<br />` and groups the rotating word + "are made" as one inline-flex row. On mobile, `min(100%, ...)` width ensures it doesn't overflow.
+The key change is adding `layout` to both the word container and the "are made" element, so when one resizes, the other repositions with a spring animation.
 
