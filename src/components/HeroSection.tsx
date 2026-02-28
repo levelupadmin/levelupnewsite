@@ -94,9 +94,9 @@ const HeroSection = () => {
           className="font-sans-body text-sm md:text-lg text-hero-subtext text-center mt-4 md:mt-6 max-w-xl leading-relaxed tracking-[0.015em] text-shadow-hero animate-hero-stagger"
           style={{ animationDelay: "800ms" }}
         >
-          A place for those who believe the craft is the journey.{" "}
+          India's largest creative education ecosystem —{" "}
           <br className="hidden md:block" />
-          Learn from India's finest. Find your voice.
+          where you learn, practice, create, and become.
         </p>
 
         <div className="mt-8 md:mt-10 animate-hero-stagger" style={{ animationDelay: "1000ms" }}>
