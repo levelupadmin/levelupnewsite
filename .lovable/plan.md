@@ -1,11 +1,9 @@
 
 
-## Slow Down Community Carousel Scroll
+## Replace Ravi Basrur Navbar Thumbnail
 
 ### Steps
 
-1. **Update `src/components/CommunitySection.tsx`** — Increase the animation durations for all three rows to reduce scroll speed:
-   - Row 1: `50s` → `80s`
-   - Row 2: `60s` → `90s`
-   - Row 3: `45s` → `75s`
+1. **Copy uploaded image** to `src/assets/nav-ravi-basrur.png`
+2. **Update `src/components/navbarData.ts`** — Change the Ravi Basrur import from `ravi-basrur.webp` to the new `nav-ravi-basrur.png`
 
