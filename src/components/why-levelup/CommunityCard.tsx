@@ -18,6 +18,7 @@ const threads: {
   reactions: string[];
   typing?: boolean;
   image?: string;
+  replies?: { count: number; avatars: string[]; lastReply: string };
 }[] = [
   {
     avatar: testimonial1,
@@ -25,6 +26,7 @@ const threads: {
     time: "2m",
     text: "Anyone up for a 48hr edit challenge? 🎬",
     reactions: ["🔥 12", "💡 5", "🎬 3"],
+    replies: { count: 4, avatars: [testimonial2, testimonial4, testimonial5], lastReply: "1m" },
   },
   {
     avatar: testimonial2,
@@ -56,6 +58,7 @@ const threads: {
     text: "Just watched Arjun's rough cut — the tension is insane 🔥",
     reactions: ["🔥 24", "💯 18", "👀 6"],
     image: community9,
+    replies: { count: 7, avatars: [testimonial2, testimonial4], lastReply: "45m" },
   },
   {
     avatar: testimonial2,
@@ -70,6 +73,7 @@ const threads: {
     time: "2h",
     text: "Learned that layering trick from Ravi Sir's masterclass 🎧",
     reactions: ["🙌 12", "✨ 8", "🎯 5"],
+    replies: { count: 3, avatars: [testimonial1, testimonial8], lastReply: "1h" },
   },
   {
     avatar: testimonial1,
@@ -137,6 +141,23 @@ const MessageBubble = ({ msg, i }: { msg: typeof threads[0]; i: number }) => (
           </span>
         ))}
       </div>
+      {msg.replies && (
+        <div className="flex items-center gap-1.5 mt-1.5 ml-0.5 cursor-default">
+          <div className="flex -space-x-1">
+            {msg.replies.avatars.map((src, ai) => (
+              <div
+                key={ai}
+                className="w-[12px] h-[12px] rounded-full overflow-hidden border border-primary/20"
+                style={{ zIndex: msg.replies!.avatars.length - ai }}
+              >
+                <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
+              </div>
+            ))}
+          </div>
+          <span className="text-[7px] font-medium text-primary/70">{msg.replies.count} replies</span>
+          <span className="text-[6px] text-foreground/25">{msg.replies.lastReply}</span>
+        </div>
+      )}
     </div>
   </div>
 );
