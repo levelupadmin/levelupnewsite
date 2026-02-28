@@ -1,6 +1,6 @@
 import masterclass1 from "@/assets/masterclass-hero-new.png";
 import masterclass5 from "@/assets/masterclass-5.jpg";
-import { Play, FileText, CheckCircle2, Circle, Sparkles, Film, BookOpen, Bot, Video } from "lucide-react";
+import { Play, FileText, CheckCircle2, Circle, Sparkles, Film, BookOpen, Bot, Radio, Calendar } from "lucide-react";
 
 const CursorSVG = () => (
   <svg width="12" height="16" viewBox="0 0 12 16" fill="none" className="drop-shadow-lg">
@@ -9,43 +9,40 @@ const CursorSVG = () => (
 );
 
 const tabs = [
-  { icon: Video, label: "Sessions" },
-  { icon: FileText, label: "Resources" },
-  { icon: BookOpen, label: "Guides" },
-  { icon: Bot, label: "AI Learn" },
+  { icon: Film, label: "Masterclass" },
+  { icon: Radio, label: "Live" },
+  { icon: BookOpen, label: "Briefs" },
+  { icon: Bot, label: "AI Mentor" },
 ];
 
-const resources = [
-  { title: "Shot Composition Guide", type: "PDF" },
-  { title: "Script Formatting Template", type: "PDF" },
-  { title: "Color Grading Cheat Sheet", type: "PDF" },
+const livePrograms = [
+  { title: "Breakthrough Filmmakers' Program", format: "12 weeks · Live", status: "Enrolling" },
+  { title: "Video Editing Academy", format: "12 weeks · Cohort", status: "Enrolling" },
+  { title: "Screenwriting Workshop", format: "8 weeks · Live", status: "Upcoming" },
 ];
 
-const guideSteps = [
-  { text: "Set up your project workspace", done: true },
-  { text: "Write your logline & synopsis", done: true },
-  { text: "Draft your opening scene", done: false, active: true },
+const projectBriefs = [
+  { text: "Shoot a 2-min short with one location", done: true },
+  { text: "Edit a 60-sec reel from raw footage", done: true },
+  { text: "Write a 5-page screenplay draft", done: false, active: true },
 ];
 
-/* ── Screen 1: Recorded Sessions ── */
-const SessionsScreen = () => (
+/* ── Screen 1: Masterclass (on-demand) ── */
+const MasterclassScreen = () => (
   <div className="absolute inset-0 flex flex-col animate-lms-screen-1">
     <div className="relative flex-1 overflow-hidden rounded-md">
       <img src={masterclass1} alt="Masterclass" className="w-full h-full object-cover object-top" loading="lazy" />
-      {/* Viewfinder corners */}
       <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
         <path d="M8,20 L8,8 L20,8" fill="none" stroke="white" strokeWidth="1" />
         <path d="M80,8 L92,8 L92,20" fill="none" stroke="white" strokeWidth="1" />
         <path d="M8,80 L8,92 L20,92" fill="none" stroke="white" strokeWidth="1" />
         <path d="M80,92 L92,92 L92,80" fill="none" stroke="white" strokeWidth="1" />
       </svg>
-      {/* Play button */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20">
           <Play size={12} className="text-white ml-0.5" fill="white" />
         </div>
       </div>
-      {/* Bottom bar */}
       <div className="absolute bottom-0 inset-x-0 px-2.5 pt-5 pb-1.5" style={{ background: "linear-gradient(to top, hsl(0 0% 0% / 0.9), transparent)" }}>
         <p className="text-[8px] font-medium text-foreground/90">Karthik Subbaraj</p>
         <p className="text-[6px] text-primary/80 uppercase tracking-wider mt-0.5">Teaches Filmmaking</p>
@@ -57,27 +54,34 @@ const SessionsScreen = () => (
   </div>
 );
 
-/* ── Screen 2: Resources ── */
-const ResourcesScreen = () => (
+/* ── Screen 2: Live Programs ── */
+const LiveScreen = () => (
   <div className="absolute inset-0 flex flex-col gap-1.5 p-2.5 animate-lms-screen-2">
-    <p className="text-[7px] text-foreground/50 uppercase tracking-wider font-medium mb-0.5">Downloadable Resources</p>
-    {resources.map((r, i) => (
+    <p className="text-[7px] text-foreground/50 uppercase tracking-wider font-medium mb-0.5">Live Programs</p>
+    {livePrograms.map((p, i) => (
       <div key={i} className="flex items-center gap-2 px-2 py-2 rounded-md border border-primary/10 bg-white/[0.03]">
         <div className="w-6 h-6 rounded bg-primary/10 flex items-center justify-center shrink-0">
-          <FileText size={10} className="text-primary/70" />
+          <Calendar size={10} className="text-primary/70" />
         </div>
-        <span className="text-[7px] text-foreground/70 flex-1 truncate">{r.title}</span>
-        <span className="text-[5px] px-1.5 py-0.5 rounded-full bg-primary/10 text-primary/70 font-medium">{r.type}</span>
+        <div className="flex-1 min-w-0">
+          <span className="text-[7px] text-foreground/70 block truncate">{p.title}</span>
+          <span className="text-[5.5px] text-foreground/35">{p.format}</span>
+        </div>
+        <span className={`text-[5px] px-1.5 py-0.5 rounded-full font-medium shrink-0 ${
+          p.status === "Enrolling" 
+            ? "bg-green-500/15 text-green-400/80 border border-green-500/20" 
+            : "bg-primary/10 text-primary/70 border border-primary/15"
+        }`}>{p.status}</span>
       </div>
     ))}
   </div>
 );
 
-/* ── Screen 3: Guides ── */
-const GuidesScreen = () => (
+/* ── Screen 3: Project Briefs ── */
+const BriefsScreen = () => (
   <div className="absolute inset-0 flex flex-col gap-1.5 p-2.5 animate-lms-screen-3">
-    <p className="text-[7px] text-foreground/50 uppercase tracking-wider font-medium mb-0.5">Project Guide</p>
-    {guideSteps.map((s, i) => (
+    <p className="text-[7px] text-foreground/50 uppercase tracking-wider font-medium mb-0.5">Portfolio Briefs</p>
+    {projectBriefs.map((s, i) => (
       <div key={i} className={`flex items-center gap-2 px-2 py-2 rounded-md border ${s.active ? "border-primary/25 bg-primary/[0.06]" : "border-primary/8 bg-white/[0.02]"}`}>
         {s.done ? (
           <CheckCircle2 size={11} className="text-primary/60 shrink-0" />
@@ -87,25 +91,24 @@ const GuidesScreen = () => (
         <span className={`text-[7px] ${s.done ? "text-foreground/40 line-through" : s.active ? "text-foreground/80 font-medium" : "text-foreground/30"}`}>{s.text}</span>
       </div>
     ))}
+    <p className="text-[5.5px] text-foreground/25 italic mt-0.5 px-1">Complete briefs → build your portfolio</p>
   </div>
 );
 
-/* ── Screen 4: AI Learning ── */
+/* ── Screen 4: AI Mentor ── */
 const AIScreen = () => (
   <div className="absolute inset-0 flex flex-col gap-2 p-2.5 animate-lms-screen-4">
-    <p className="text-[7px] text-foreground/50 uppercase tracking-wider font-medium mb-0.5">AI Assistant</p>
-    {/* User bubble */}
+    <p className="text-[7px] text-foreground/50 uppercase tracking-wider font-medium mb-0.5">AI Mentor</p>
     <div className="self-end max-w-[85%] px-2 py-1.5 rounded-lg bg-primary/15 border border-primary/20">
-      <p className="text-[7px] text-foreground/80">How do I build tension in a chase sequence?</p>
+      <p className="text-[7px] text-foreground/80">How should I pace the tension before the interval block?</p>
     </div>
-    {/* AI bubble */}
     <div className="self-start max-w-[90%] px-2 py-1.5 rounded-lg bg-white/[0.04] border border-primary/10">
       <div className="flex items-center gap-1 mb-1">
         <Sparkles size={7} className="text-primary/70" />
         <span className="text-[6px] text-primary/60 font-medium">AI Mentor</span>
       </div>
       <p className="text-[6.5px] text-foreground/60 leading-relaxed">
-        Start with rhythm — alternate between wide establishing shots and tight close-ups. Cut pace should accelerate…
+        Use escalating stakes across 3 beats — plant the doubt early, raise the cost midway, then let silence do the work before the break…
       </p>
     </div>
   </div>
@@ -121,12 +124,10 @@ const ExpertMembershipCard = () => {
           className="w-[72px] shrink-0 rounded-lg border border-primary/15 flex flex-col overflow-hidden"
           style={{ background: "hsl(30 20% 10% / 0.95)" }}
         >
-          {/* Logo area */}
           <div className="flex items-center justify-center py-2 border-b border-primary/10">
             <Film size={11} className="text-primary/50" />
           </div>
 
-          {/* Nav tabs */}
           <div className="flex-1 flex flex-col gap-0.5 px-1 py-1.5">
             {tabs.map((tab, i) => {
               const Icon = tab.icon;
@@ -142,7 +143,6 @@ const ExpertMembershipCard = () => {
             })}
           </div>
 
-          {/* Bottom thumbnail */}
           <div className="px-1.5 pb-1.5">
             <div className="w-full h-[28px] rounded overflow-hidden border border-primary/10">
               <img src={masterclass5} alt="" className="w-full h-full object-cover" loading="lazy" />
@@ -158,9 +158,9 @@ const ExpertMembershipCard = () => {
             boxShadow: "0 12px 40px -8px hsl(0 0% 0% / 0.5)",
           }}
         >
-          <SessionsScreen />
-          <ResourcesScreen />
-          <GuidesScreen />
+          <MasterclassScreen />
+          <LiveScreen />
+          <BriefsScreen />
           <AIScreen />
         </div>
       </div>
