@@ -57,9 +57,9 @@ const HeroSection = () => {
           India's Creative Education Ecosystem
         </p>
 
-        <h1 className="font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium text-hero-headline text-center tracking-[-0.03em] max-w-5xl text-shadow-hero" style={{ lineHeight: 1.15 }}>
+        <h1 className="font-serif-display text-[1.6rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium text-hero-headline text-center tracking-[-0.03em] max-w-5xl text-shadow-hero overflow-hidden" style={{ lineHeight: 1.15 }}>
           <span className="animate-hero-stagger block" style={{ animationDelay: "200ms" }}>Where India's next great</span>
-          <span className="inline-flex items-baseline justify-center gap-[0.2em] flex-nowrap animate-hero-stagger" style={{ animationDelay: "400ms" }}>
+          <span className="inline-flex items-baseline justify-center gap-[0.2em] flex-wrap md:flex-nowrap animate-hero-stagger" style={{ animationDelay: "400ms" }}>
             <span
               className="relative inline-block overflow-hidden"
               style={{ height: "1.2em" }}
