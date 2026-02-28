@@ -1,11 +1,11 @@
 
 
-## Replace Anthony Gonsalvez Poster in On-demand Masterclasses Section Only
+## Replace Venket Ram Thumbnail in Navbar Only
 
-Same approach as Karthik Subbaraj — create a separate asset so the navbar thumbnail stays unchanged.
+The navbar (`navbarData.ts`) and masterclass section (`MasterclassSection.tsx`) both share `venket-ram.png`. To change only the navbar, save the new image as a separate navbar-specific asset.
 
 ### Steps
 
-1. **Copy uploaded image** to `src/assets/anthony-gonsalvez-masterclass.png`
-2. **Update `src/components/MasterclassSection.tsx`** — change the Anthony import from `anthony-gonsalvez.png` to `anthony-gonsalvez-masterclass.png` (line 9 import only). No other changes.
+1. **Copy uploaded image** to `src/assets/nav-venket-ram.png`
+2. **Update `src/components/navbarData.ts`** — change the Venket Ram import from `venket-ram.png` to `nav-venket-ram.png`. No other changes.
 
