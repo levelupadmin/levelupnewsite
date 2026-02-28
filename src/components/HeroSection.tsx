@@ -9,8 +9,7 @@ const StarField = lazy(() => import("@/components/StarField"));
 
 const rotatingWords = ["filmmakers", "editors", "storytellers", "writers", "cinematographers", "designers", "musicians", "directors"];
 
-// Pre-compute the longest word length to use a fixed container width and avoid CLS
-const maxWordLength = Math.max(...rotatingWords.map(w => w.length));
+// No fixed width needed — mode="wait" ensures only one word renders at a time
 
 const HeroSection = () => {
   const [wordIndex, setWordIndex] = useState(0);
@@ -58,29 +57,28 @@ const HeroSection = () => {
           India's Creative Education Ecosystem
         </p>
 
-        <h1 className="font-serif-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-medium text-hero-headline text-center tracking-[-0.03em] max-w-5xl text-shadow-hero" style={{ lineHeight: 1.1 }}>
-          <span className="animate-hero-stagger whitespace-nowrap" style={{ animationDelay: "200ms" }}>Where India's next great</span>
-          <br />
-          <span className="inline-flex items-center justify-center animate-hero-stagger" style={{ animationDelay: "400ms" }}>
+        <h1 className="font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium text-hero-headline text-center tracking-[-0.03em] max-w-5xl text-shadow-hero" style={{ lineHeight: 1.15 }}>
+          <span className="animate-hero-stagger block" style={{ animationDelay: "200ms" }}>Where India's next great</span>
+          <span className="inline-flex items-baseline justify-center gap-[0.2em] flex-nowrap animate-hero-stagger" style={{ animationDelay: "400ms" }}>
             <span
-              className="relative inline-block overflow-hidden align-middle"
-              style={{ width: "min(100%, " + maxWordLength + "ch)", height: "1.15em" }}
+              className="relative inline-block overflow-hidden"
+              style={{ height: "1.2em" }}
             >
               <AnimatePresence mode="wait">
                 <m.span
                   key={rotatingWords[wordIndex]}
-                  initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+                  initial={{ opacity: 0, y: "0.5em", filter: "blur(4px)" }}
                   animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, y: -20, filter: "blur(4px)" }}
+                  exit={{ opacity: 0, y: "-0.5em", filter: "blur(4px)" }}
                   transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-                  className="absolute inset-0 flex items-center justify-start whitespace-nowrap text-white"
+                  className="inline-block whitespace-nowrap text-white"
                 >
                   {rotatingWords[wordIndex]}
                 </m.span>
               </AnimatePresence>
             </span>
             <em
-              className="font-serif-display italic font-normal ml-[0.3ch]"
+              className="font-serif-display italic font-normal whitespace-nowrap"
               style={{ color: "#E6681D" }}
             >
               are made
