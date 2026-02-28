@@ -99,9 +99,11 @@ const HeroSection = () => {
               <span
                 className="relative inline-block overflow-hidden shrink-0"
                 style={{
-                  height: "1.2em",
+                  height: "1.15em",
                   width: wordWidth ? `${wordWidth}px` : undefined,
                   transition: "width 0.75s cubic-bezier(0.16, 1, 0.3, 1)",
+                  verticalAlign: "baseline",
+                  top: "0.04em",
                 }}
               >
                 <AnimatePresence mode="sync">
