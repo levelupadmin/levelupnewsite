@@ -5,7 +5,7 @@ import navSw from "@/assets/nav-sw.png";
 import navForgeFilmmaking from "@/assets/nav-forge-filmmaking.jpg";
 import navForgeWriting from "@/assets/nav-forge-writing.jpg";
 import navForgeCreators from "@/assets/nav-forge-creators.jpg";
-import nelsonImg from "@/assets/nelson-dilipkumar.jpg";
+import nelsonImg from "@/assets/nav-nelson-dilipkumar.png";
 import karthikImg from "@/assets/karthik-subbaraj.png";
 import anthonyImg from "@/assets/anthony-gonsalvez.png";
 import venketImg from "@/assets/nav-venket-ram.png";
