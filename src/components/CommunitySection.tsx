@@ -7,18 +7,36 @@ import community3 from "@/assets/community/community-3.png";
 import community4 from "@/assets/community/community-4.png";
 import community5 from "@/assets/community/community-5.png";
 import community6 from "@/assets/community/community-6.png";
+import community7 from "@/assets/community/community-7.jpg";
+import community8 from "@/assets/community/community-8.jpg";
+import community9 from "@/assets/community/community-9.jpg";
+import community10 from "@/assets/community/community-10.jpg";
+import community11 from "@/assets/community/community-11.jpg";
+import community12 from "@/assets/community/community-12.jpg";
+import community13 from "@/assets/community/community-13.jpg";
+import community14 from "@/assets/community/community-14.jpg";
+import community15 from "@/assets/community/community-15.jpg";
 
 const row1 = [
   { src: community1, alt: "Group photo at venue" },
-  { src: community2, alt: "Cafe learning session" },
+  { src: community7, alt: "Community gathering" },
+  { src: community8, alt: "Learning together" },
+  { src: community9, alt: "Creative session" },
+  { src: community10, alt: "Team collaboration" },
 ];
 const row2 = [
+  { src: community2, alt: "Cafe learning session" },
   { src: community3, alt: "Group selfie indoors" },
-  { src: community4, alt: "Hilltop group photo" },
+  { src: community11, alt: "Workshop moment" },
+  { src: community12, alt: "Group discussion" },
+  { src: community13, alt: "Mentoring session" },
 ];
 const row3 = [
+  { src: community4, alt: "Hilltop group photo" },
   { src: community5, alt: "Campfire circle session" },
   { src: community6, alt: "Night bonfire moment" },
+  { src: community14, alt: "Community meetup" },
+  { src: community15, alt: "Celebration moment" },
 ];
 
 const repeat = <T,>(arr: T[], times: number) =>
