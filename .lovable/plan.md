@@ -1,43 +1,48 @@
 
 
-## Revamp: Impact Bento Grid + Student Logos Section
+## Award-Winning Bento Grid Interactions
 
-### Problems with current design
-- Bento grid uses `rounded-2xl` instead of site-standard `rounded-sm`
-- Warm dark cards use inline `hsl(24 30% 12%)` instead of the established card surface color (`hsl(25 8% 10%)`)
-- Orange cards feel flat — no texture, no depth, no cinematic quality
-- No entrance animations (staggered `whileInView` were removed earlier)
-- Logo marquee heading "Our students come from:" is plain, lacks the editorial quality of other section headlines
-- No section divider/transition between bento grid and logos
-- No ambient glow or grain texture that the rest of the site uses
-- Gap/padding doesn't follow site standard (`px-6 md:px-12`, `py-12 md:py-16`, `max-w-7xl`)
-- Community card's orange overlay is too heavy — loses the photo mosaic beauty
-- No `FadeInSection` or `whileInView` stagger on any element
+### Current state
+The cards have basic `FadeInSection` entrance + uniform `scale: 1.015, y: -2` hover. Stars are static. Community mosaic is inert. Globe icon is static. Counter just counts up with no celebration. Every card behaves identically. Nothing feels "award-winning."
 
-### Design direction
-Cinematic, dark, textural — matching the site's award-winning feel. Think: restrained luxury with subtle ambient lighting.
+### Design philosophy
+Each card gets a **unique signature interaction** that reinforces its content. No two cards should feel the same.
 
-### Changes to `ImpactBentoGrid.tsx`
+### Card-by-card upgrades
 
-1. **Container**: Switch to `max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-16` (site standard)
-2. **Border radius**: All cards from `rounded-2xl` to `rounded-sm` (site standard for rectangular components)
-3. **Dark cards**: Use `bg-[hsl(25_8%_10%)]` with `border border-primary/15` (subtle, not `border-primary/25`)
-4. **Orange cards**: Add noise texture overlay (`.noise-overlay` class already exists), subtle inner glow via `box-shadow: inset 0 1px 0 hsl(30 90% 60% / 0.2)`
-5. **Community card**: Reduce orange overlay from `bg-primary/60` to `bg-primary/30`, strengthen bottom gradient for text readability
-6. **Typography**: Remove `font-serif-display` and `font-sans-body` utility classes — use raw `font-semibold tracking-tight` matching the site's Sora usage
-7. **Entrance animations**: Wrap each card in `m.div` with `whileInView={{ opacity: 1, y: 0 }}` and `initial={{ opacity: 0, y: 24 }}` with staggered `transition.delay`
-8. **Hover**: Refine to `scale: 1.015, y: -2` (subtler, more sophisticated) with `box-shadow` glow on hover matching `hover:shadow-[0_0_30px_4px_hsl(30_80%_45%/0.15)]`
-9. **Grid gaps**: Tighten to `gap-2 md:gap-3` for a tighter, more editorial grid feel
-10. **Ambient glow**: Add a subtle radial amber glow behind the grid using the existing `--gradient-amber-glow` token
+**Card 1 — Rating (4.86/5)**
+- Stars animate in sequentially on scroll reveal (stagger 120ms each, scale from 0 + rotate) using Framer Motion `m.div` with `whileInView`
+- On hover: stars gently pulse (a subtle `scale` keyframe loop), and the 5th partial star "fills up" from 60% to 100% opacity
+- Counter gets the existing `counter-celebrate` bounce class once counting finishes
 
-### Changes to `StudentLogosSection.tsx`
+**Card 2 — Paid Learners (58,746)**
+- Photo overlay does a slow, continuous `scale(1.05) → scale(1)` Ken Burns drift (CSS animation, 12s infinite alternate)
+- On hover: the number text gets a brief shimmer sweep (reuse `badge-shimmer` pattern adapted for text)
+- Noise texture subtle flicker via opacity animation
 
-1. **Section divider**: Add the standard thin gradient line between bento grid and logos (matching `WhyLevelUp`'s top divider pattern)
-2. **Heading**: Change "Our students come from:" to a more editorial treatment — smaller uppercase tracking-wider label above, then the brand logos. Or keep text but style as `text-muted-foreground text-sm uppercase tracking-widest`
-3. **Container padding**: Align to `py-12 md:py-16` site standard
-4. **Remove unused `stats` const** (dead code from lines 31-44)
+**Card 3 — Community (300,000+ mosaic)**
+- Each mosaic photo tile gets a staggered scale-in entrance (Framer `whileInView`, stagger 60ms per tile, scale from 0.8 + opacity 0)
+- On hover over the card: mosaic photos subtly shift/parallax — each tile translates slightly based on its grid position (CSS transition, creating a "breathing" feel)
+- Orange overlay opacity reduces further on hover (0.30 → 0.15) revealing more of the photos
+
+**Card 4 — Cities/Countries (821 / 13+)**
+- Globe icon: continuous slow rotation (CSS `animate-spin` at 30s duration) — "always spinning"
+- On hover: Globe rotation speeds up (8s), and a subtle ring/pulse radiates outward from the globe
+- The two counters (cities, countries) animate sequentially — cities first, then countries 400ms later
+
+**Card 5 — Collaborations (3,000+)**
+- Handshake icon: on scroll reveal, animates with a "shake" — rotate(-10deg) → rotate(10deg) → settle, giving it a literal handshake motion
+- On hover: icon subtly repeats the handshake wiggle
+- Counter celebrate bounce on completion
+
+### Technical approach
+- All per-card animations use Framer Motion (`m.div`, `m.span`, `variants`, `whileInView`, `whileHover`)
+- CSS keyframes added to `index.css` for: `ken-burns`, `globe-spin`, `handshake-wiggle`, `star-pulse`
+- `AnimatedCounter` gets an optional `onComplete` callback to trigger celebrate class
+- Community mosaic tiles wrapped in `m.div` with stagger via `variants` + `staggerChildren`
 
 ### Files to edit
-1. `src/components/ImpactBentoGrid.tsx` — full styling overhaul
-2. `src/components/StudentLogosSection.tsx` — divider, heading style, cleanup
+1. `src/components/ImpactBentoGrid.tsx` — per-card unique animations, hover states, mosaic stagger
+2. `src/index.css` — new keyframes (`ken-burns`, `globe-spin`, `handshake-wiggle`, `star-pulse`)
+3. `src/components/AnimatedCounter.tsx` — add `onComplete` callback + celebrate class support
 
