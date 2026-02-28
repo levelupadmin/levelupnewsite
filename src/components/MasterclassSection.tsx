@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import FadeInSection, { useScrollReveal } from "./FadeInSection";
 import nelsonImg from "@/assets/nelson-dilipkumar.jpg";
 import comingSoonImg from "@/assets/coming-soon-silhouette.jpg";
-import karthikImg from "@/assets/karthik-subbaraj.png";
+import karthikImg from "@/assets/karthik-subbaraj-masterclass.png";
 import anthonyImg from "@/assets/anthony-gonsalvez.png";
 import venketImg from "@/assets/venket-ram.png";
 import kiranImg from "@/assets/drk-kiran.webp";
