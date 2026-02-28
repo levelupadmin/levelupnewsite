@@ -155,9 +155,6 @@ const MasterclassSection = () => {
 
       {/* Section headline */}
       <FadeInSection className="text-center px-6 md:px-12 mb-8 md:mb-10">
-        <span className="inline-block font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase px-3 py-1 rounded-full border border-primary/30 text-primary bg-primary/5 mb-4 badge-shimmer">
-          On-demand
-        </span>
         <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-hero-headline leading-[1.2] tracking-tight">
           Learn from the ones{" "}
           <em className="italic font-normal text-primary">who shaped the craft</em>
