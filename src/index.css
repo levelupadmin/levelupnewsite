@@ -636,3 +636,244 @@
   pointer-events: none;
   border-radius: inherit;
 }
+
+/* ═══════════════════════════════════════════════
+   Portfolio Builder — LiveProjectsCard animations
+   12s loop: 3 projects build sequentially + "ready" state
+   ═══════════════════════════════════════════════ */
+
+/* ── Portfolio grid slots: scale in when their project completes ── */
+/* Slot 1: visible from 25% (3s), Slot 2: from 50% (6s), Slot 3: from 75% (9s) */
+@keyframes portfolio-slot-1 {
+  0%, 20% { opacity: 0.3; transform: scale(0.9); filter: saturate(0); }
+  25%, 100% { opacity: 1; transform: scale(1); filter: saturate(1); }
+}
+@keyframes portfolio-slot-2 {
+  0%, 45% { opacity: 0.3; transform: scale(0.9); filter: saturate(0); }
+  50%, 100% { opacity: 1; transform: scale(1); filter: saturate(1); }
+}
+@keyframes portfolio-slot-3 {
+  0%, 70% { opacity: 0.3; transform: scale(0.9); filter: saturate(0); }
+  75%, 100% { opacity: 1; transform: scale(1); filter: saturate(1); }
+}
+
+.animate-portfolio-slot-1 { animation: portfolio-slot-1 12s ease infinite; }
+.animate-portfolio-slot-2 { animation: portfolio-slot-2 12s ease infinite; }
+.animate-portfolio-slot-3 { animation: portfolio-slot-3 12s ease infinite; }
+
+/* ── Checkmarks: appear after slot fills ── */
+@keyframes portfolio-check-1 {
+  0%, 24% { opacity: 0; transform: scale(0.5); }
+  27% { opacity: 1; transform: scale(1.15); }
+  30%, 100% { opacity: 1; transform: scale(1); }
+}
+@keyframes portfolio-check-2 {
+  0%, 49% { opacity: 0; transform: scale(0.5); }
+  52% { opacity: 1; transform: scale(1.15); }
+  55%, 100% { opacity: 1; transform: scale(1); }
+}
+@keyframes portfolio-check-3 {
+  0%, 74% { opacity: 0; transform: scale(0.5); }
+  77% { opacity: 1; transform: scale(1.15); }
+  80%, 100% { opacity: 1; transform: scale(1); }
+}
+
+.animate-portfolio-check-1 { animation: portfolio-check-1 12s ease infinite; }
+.animate-portfolio-check-2 { animation: portfolio-check-2 12s ease infinite; }
+.animate-portfolio-check-3 { animation: portfolio-check-3 12s ease infinite; }
+
+/* ── Empty circle: visible until slot fills ── */
+@keyframes portfolio-empty-1 {
+  0%, 20% { opacity: 1; }
+  25%, 100% { opacity: 0; }
+}
+@keyframes portfolio-empty-2 {
+  0%, 45% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+@keyframes portfolio-empty-3 {
+  0%, 70% { opacity: 1; }
+  75%, 100% { opacity: 0; }
+}
+
+.animate-portfolio-empty-1 { animation: portfolio-empty-1 12s ease infinite; }
+.animate-portfolio-empty-2 { animation: portfolio-empty-2 12s ease infinite; }
+.animate-portfolio-empty-3 { animation: portfolio-empty-3 12s ease infinite; }
+
+/* ── Active project panel: pulses during work phases ── */
+@keyframes portfolio-active {
+  0%, 5% { opacity: 0.5; transform: translateY(4px); }
+  8% { opacity: 1; transform: translateY(0); }
+  83% { opacity: 1; transform: translateY(0); }
+  88%, 100% { opacity: 0.5; transform: translateY(4px); }
+}
+.animate-portfolio-active { animation: portfolio-active 12s ease infinite; }
+
+/* ── Progress bar fill: cycles through 3 projects ── */
+@keyframes portfolio-progress {
+  0% { width: 0%; }
+  8% { width: 30%; }
+  18% { width: 72%; }
+  23% { width: 100%; }
+  25% { width: 0%; }
+  33% { width: 25%; }
+  43% { width: 65%; }
+  48% { width: 100%; }
+  50% { width: 0%; }
+  58% { width: 40%; }
+  68% { width: 80%; }
+  73% { width: 100%; }
+  83%, 100% { width: 100%; }
+}
+.animate-portfolio-progress { animation: portfolio-progress 12s ease infinite; }
+
+/* ── Title cycling ── */
+@keyframes portfolio-title-1 { 0%, 24% { opacity: 1; } 25%, 100% { opacity: 0; } }
+@keyframes portfolio-title-2 { 0%, 24% { opacity: 0; } 25%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+@keyframes portfolio-title-3 { 0%, 49% { opacity: 0; } 50%, 83% { opacity: 1; } 84%, 100% { opacity: 0; } }
+
+/* ── Percent text ── */
+@keyframes portfolio-percent {
+  0% { opacity: 1; }
+  23% { opacity: 1; }
+  25% { opacity: 1; }
+  83% { opacity: 1; }
+  88%, 100% { opacity: 0.3; }
+}
+.animate-portfolio-percent { animation: portfolio-percent 12s ease infinite; }
+
+/* ── Mentor feedback: fades in during phase 2 ── */
+@keyframes portfolio-feedback {
+  0%, 30% { opacity: 0; transform: translateY(6px); }
+  35% { opacity: 1; transform: translateY(0); }
+  83% { opacity: 1; transform: translateY(0); }
+  88%, 100% { opacity: 0; transform: translateY(6px); }
+}
+.animate-portfolio-feedback { animation: portfolio-feedback 12s ease infinite; }
+
+/* ── Typing dots: visible briefly before feedback appears ── */
+@keyframes portfolio-typing {
+  0%, 27% { opacity: 0; }
+  28%, 33% { opacity: 1; }
+  35%, 100% { opacity: 0; }
+}
+.animate-portfolio-typing { animation: portfolio-typing 12s ease infinite; }
+
+/* ── Text typing reveal ── */
+@keyframes portfolio-type {
+  0%, 30% { max-width: 0; overflow: hidden; white-space: nowrap; }
+  50% { max-width: 300px; overflow: hidden; white-space: nowrap; }
+  55%, 100% { max-width: 300px; overflow: visible; white-space: normal; }
+}
+.animate-portfolio-type { animation: portfolio-type 12s ease infinite; display: inline-block; }
+
+/* ── Engagement stats: fade in during phase 3 ── */
+@keyframes portfolio-stats {
+  0%, 55% { opacity: 0; transform: translateY(4px); }
+  60% { opacity: 1; transform: translateY(0); }
+  83% { opacity: 1; }
+  88%, 100% { opacity: 0; transform: translateY(4px); }
+}
+.animate-portfolio-stats { animation: portfolio-stats 12s ease infinite; }
+
+/* ── "Portfolio Ready" badge: appears at completion ── */
+@keyframes portfolio-ready {
+  0%, 78% { opacity: 0; transform: scale(0.8); }
+  82% { opacity: 1; transform: scale(1.08); }
+  85%, 92% { opacity: 1; transform: scale(1); }
+  96%, 100% { opacity: 0; transform: scale(0.8); }
+}
+.animate-portfolio-ready { animation: portfolio-ready 12s ease infinite; }
+
+/* ── Project count: show 1, then 2, then 3 ── */
+@keyframes portfolio-count-1 {
+  0%, 24% { display: inline; }
+  25%, 100% { display: none; }
+}
+@keyframes portfolio-count-2 {
+  0%, 24% { display: none; }
+  25%, 49% { display: inline; }
+  50%, 100% { display: none; }
+}
+@keyframes portfolio-count-3 {
+  0%, 49% { display: none; }
+  50%, 100% { display: inline; }
+}
+/* Can't animate display, use opacity instead */
+.animate-portfolio-count-1 {
+  animation: portfolio-slot-1 12s ease infinite;
+}
+.animate-portfolio-count-2 {
+  position: absolute;
+  animation: portfolio-count-vis-2 12s ease infinite;
+}
+.animate-portfolio-count-3 {
+  position: absolute;
+  animation: portfolio-count-vis-3 12s ease infinite;
+}
+@keyframes portfolio-count-vis-2 {
+  0%, 24% { opacity: 0; }
+  25%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+@keyframes portfolio-count-vis-3 {
+  0%, 49% { opacity: 0; }
+  50%, 100% { opacity: 1; }
+}
+
+/* ── Timeline tracks: fill progressively ── */
+@keyframes portfolio-track-v {
+  0% { width: 0%; }
+  83% { width: 85%; }
+  88%, 100% { width: 85%; }
+}
+@keyframes portfolio-track-a {
+  0% { width: 0%; }
+  10% { width: 0%; }
+  83% { width: 60%; }
+  88%, 100% { width: 60%; }
+}
+@keyframes portfolio-track-sfx {
+  0% { width: 0%; }
+  20% { width: 0%; }
+  83% { width: 45%; }
+  88%, 100% { width: 45%; }
+}
+@keyframes portfolio-playhead {
+  0% { left: 0%; }
+  83% { left: 90%; }
+  88%, 100% { left: 0%; }
+}
+
+.animate-portfolio-track-v { animation: portfolio-track-v 12s ease infinite; }
+.animate-portfolio-track-a { animation: portfolio-track-a 12s ease infinite; }
+.animate-portfolio-track-sfx { animation: portfolio-track-sfx 12s ease infinite; }
+.animate-portfolio-playhead { animation: portfolio-playhead 12s linear infinite; }
+
+/* ── Pause all portfolio animations on hover ── */
+.group\/portfolio:hover .animate-portfolio-slot-1,
+.group\/portfolio:hover .animate-portfolio-slot-2,
+.group\/portfolio:hover .animate-portfolio-slot-3,
+.group\/portfolio:hover .animate-portfolio-check-1,
+.group\/portfolio:hover .animate-portfolio-check-2,
+.group\/portfolio:hover .animate-portfolio-check-3,
+.group\/portfolio:hover .animate-portfolio-empty-1,
+.group\/portfolio:hover .animate-portfolio-empty-2,
+.group\/portfolio:hover .animate-portfolio-empty-3,
+.group\/portfolio:hover .animate-portfolio-active,
+.group\/portfolio:hover .animate-portfolio-progress,
+.group\/portfolio:hover .animate-portfolio-percent,
+.group\/portfolio:hover .animate-portfolio-feedback,
+.group\/portfolio:hover .animate-portfolio-typing,
+.group\/portfolio:hover .animate-portfolio-type,
+.group\/portfolio:hover .animate-portfolio-stats,
+.group\/portfolio:hover .animate-portfolio-ready,
+.group\/portfolio:hover .animate-portfolio-count-1,
+.group\/portfolio:hover .animate-portfolio-count-2,
+.group\/portfolio:hover .animate-portfolio-count-3,
+.group\/portfolio:hover .animate-portfolio-track-v,
+.group\/portfolio:hover .animate-portfolio-track-a,
+.group\/portfolio:hover .animate-portfolio-track-sfx,
+.group\/portfolio:hover .animate-portfolio-playhead {
+  animation-play-state: paused;
+}
