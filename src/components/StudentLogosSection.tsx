@@ -2,6 +2,7 @@ import { m } from "framer-motion";
 import ImpactBentoGrid from "./ImpactBentoGrid";
 import AccentLine from "./AccentLine";
 
+// Existing raster logos
 import logoFtii from "@/assets/logos/ftii.png";
 import logoNid from "@/assets/logos/nid.png";
 import logoWhistlingWoods from "@/assets/logos/whistling-woods.png";
@@ -15,19 +16,91 @@ import logoDharma from "@/assets/logos/dharma.png";
 import logoRedChillies from "@/assets/logos/red-chillies.png";
 import logoAdobe from "@/assets/logos/adobe.png";
 
-const brands = [
+// New SVG logos — Tech
+import logoMicrosoft from "@/assets/logos/microsoft.svg";
+import logoMeta from "@/assets/logos/meta.svg";
+import logoFlipkart from "@/assets/logos/flipkart.svg";
+import logoInfosys from "@/assets/logos/infosys.svg";
+import logoTcs from "@/assets/logos/tcs.svg";
+import logoWipro from "@/assets/logos/wipro.svg";
+import logoZoho from "@/assets/logos/zoho.svg";
+import logoSwiggy from "@/assets/logos/swiggy.svg";
+import logoRazorpay from "@/assets/logos/razorpay.svg";
+
+// New SVG logos — Consumer/Media
+import logoTata from "@/assets/logos/tata.svg";
+import logoReliance from "@/assets/logos/reliance.svg";
+import logoItc from "@/assets/logos/itc.svg";
+import logoHul from "@/assets/logos/hul.svg";
+import logoSonyPictures from "@/assets/logos/sony-pictures.svg";
+import logoStarIndia from "@/assets/logos/star-india.svg";
+import logoZee from "@/assets/logos/zee.svg";
+
+// New SVG logos — Institutions
+import logoIit from "@/assets/logos/iit.svg";
+import logoIim from "@/assets/logos/iim.svg";
+import logoNift from "@/assets/logos/nift.svg";
+import logoSrfti from "@/assets/logos/srfti.svg";
+import logoSymbiosis from "@/assets/logos/symbiosis.svg";
+import logoChristUniversity from "@/assets/logos/christ-university.svg";
+import logoManipal from "@/assets/logos/manipal.svg";
+import logoMica from "@/assets/logos/mica.svg";
+import logoPearlAcademy from "@/assets/logos/pearl-academy.svg";
+import logoAshokaUniversity from "@/assets/logos/ashoka-university.svg";
+import logoIsb from "@/assets/logos/isb.svg";
+
+const row1 = [
   { name: "FTII", logo: logoFtii },
   { name: "NID", logo: logoNid },
   { name: "Whistling Woods", logo: logoWhistlingWoods },
   { name: "YRF", logo: logoYrf },
   { name: "Excel Entertainment", logo: logoExcel },
   { name: "TVF", logo: logoTvf },
+  { name: "IIT", logo: logoIit },
+  { name: "IIM", logo: logoIim },
+  { name: "NIFT", logo: logoNift },
+  { name: "SRFTI", logo: logoSrfti },
+  { name: "Symbiosis", logo: logoSymbiosis },
+  { name: "Christ University", logo: logoChristUniversity },
+  { name: "Manipal", logo: logoManipal },
+];
+
+const row2 = [
   { name: "Google", logo: logoGoogle },
   { name: "Amazon Prime", logo: logoAmazonPrime },
   { name: "Viacom18", logo: logoViacom18 },
   { name: "Dharma", logo: logoDharma },
   { name: "Red Chillies", logo: logoRedChillies },
   { name: "Adobe", logo: logoAdobe },
+  { name: "Microsoft", logo: logoMicrosoft },
+  { name: "Meta", logo: logoMeta },
+  { name: "Flipkart", logo: logoFlipkart },
+  { name: "Infosys", logo: logoInfosys },
+  { name: "TCS", logo: logoTcs },
+  { name: "Wipro", logo: logoWipro },
+  { name: "Zoho", logo: logoZoho },
+];
+
+const row3 = [
+  { name: "Tata", logo: logoTata },
+  { name: "Reliance", logo: logoReliance },
+  { name: "ITC", logo: logoItc },
+  { name: "HUL", logo: logoHul },
+  { name: "Sony Pictures", logo: logoSonyPictures },
+  { name: "Star India", logo: logoStarIndia },
+  { name: "Zee", logo: logoZee },
+  { name: "Swiggy", logo: logoSwiggy },
+  { name: "Razorpay", logo: logoRazorpay },
+  { name: "MICA", logo: logoMica },
+  { name: "Pearl Academy", logo: logoPearlAcademy },
+  { name: "Ashoka University", logo: logoAshokaUniversity },
+  { name: "ISB", logo: logoIsb },
+];
+
+const rows = [
+  { brands: row1, direction: "animate-scroll-left" },
+  { brands: row2, direction: "animate-scroll-right" },
+  { brands: row3, direction: "animate-scroll-left" },
 ];
 
 const containerVariants = {
@@ -72,7 +145,7 @@ const StudentLogosSection = () => {
         </m.p>
 
         <div className="space-y-8 md:space-y-12">
-          {[brands.slice(0, 6), brands.slice(6)].map((row, rowIdx) => (
+          {rows.map((row, rowIdx) => (
             <m.div
               key={rowIdx}
               variants={itemVariants}
@@ -83,11 +156,9 @@ const StudentLogosSection = () => {
               }}
             >
               <div
-                className={`flex whitespace-nowrap items-center gap-10 md:gap-24 lg:gap-32 w-max ${
-                  rowIdx === 0 ? "animate-scroll-left" : "animate-scroll-right"
-                } marquee-track`}
+                className={`flex whitespace-nowrap items-center gap-10 md:gap-24 lg:gap-32 w-max ${row.direction} marquee-track`}
               >
-                {[...row, ...row].map((brand, i) => (
+                {[...row.brands, ...row.brands].map((brand, i) => (
                   <img
                     key={`${brand.name}-${i}`}
                     src={brand.logo}
