@@ -191,8 +191,8 @@ const WhyLevelUp = () => {
                     }}
                     onClick={(e) => e.stopPropagation()}
                   >
-                    {/* 2-column layout */}
-                    <div className={`flex-1 p-6 md:p-8 ${isMobile ? "flex flex-col gap-5" : "grid grid-cols-[2fr_3fr] gap-8"}`}>
+                    {/* 2-column layout — scrollable on mobile */}
+                    <div className={`flex-1 p-6 md:p-8 ${isMobile ? "flex flex-col gap-5 overflow-y-auto" : "grid grid-cols-[2fr_3fr] gap-8"}`}>
                       {/* Left column: Title, Illustration, Stat */}
                       <div className="flex flex-col">
                         <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-4 whitespace-pre-line">
