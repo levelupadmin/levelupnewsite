@@ -1,79 +1,54 @@
 
-## Visual UX Audit — GeoReach "India to World" Narrative
 
-### What is currently breaking immersion (priority order)
-1. India silhouette is not clearly recognizable in Phase 1.
-- What user sees: glowing fragments, not one coherent India.
-- Why confusing: narrative promise is “India lights up,” but viewer first has to decode abstract polygons.
-- Root cause: only per-state paths are rendered; no persistent outer national contour/coastline anchor.
+## Audit: GeoReach Animation Issues
 
-2. India drifts/misaligns during Phase 1→2 transition.
-- What user sees: state cluster appears to land over another country.
-- Why confusing: story continuity breaks (“this is India”) and trust drops.
-- Root cause: zoom/pan applied via CSS `style.transform` on SVG `<g>` with pixel-like values while map content is in SVG user coordinates/viewBox; coordinate systems are mixed.
+### Problems Found
 
-3. World alignment relies on one hardcoded India center.
-- What user sees: arcs/hub can feel slightly off from actual India location.
-- Why confusing: users perceive geographic inaccuracy instantly in map narratives.
-- Root cause: single `INDIA_CENTER` constant + manual `WORLD_TX/WORLD_TY` calibration, not geometry-anchored to actual India path bounds in the world SVG.
+**1. India states overlay is positioned over China/Central Asia, not India**
+The state paths are rendered at `translate(540, 388) scale(0.52)` which places them over Central/East Asia on the world map. Looking at the world SVG (`viewBox: 30.767 241.591 784.077 458.627`), India's actual geographic center is approximately at SVG coordinates ~580, 450. The current `INDIA_WORLD_TX=540, INDIA_WORLD_TY=388` is significantly off — about 25-40 units too far left and 30-50 units too high.
 
-4. Phase timing is rigid, not perception-driven.
-- What user sees: transitions continue even if user is still decoding Phase 1.
-- Why confusing: user misses the “state-wise” story and perceives it as rushed animation.
-- Root cause: fixed `setTimeout` sequencing (3s/4.5s) without readiness gate, replay logic, or slow-device adaptation.
+**Root fix**: Recalibrate `INDIA_WORLD_TX`, `INDIA_WORLD_TY`, and `INDIA_WORLD_SCALE` in `worldMapData.ts`. India's bounding box on the actual world-map.svg (path `#in`) needs to be matched by our custom state paths. Estimated correct values: `TX ≈ 560`, `TY ≈ 420`, `SCALE ≈ 0.42`.
 
-5. Label density creates clutter in Phase 1.
-- What user sees: many names + counts competing with state lighting.
-- Why confusing: eye cannot prioritize map shape vs dots vs text.
-- Root cause: city labels and learner counts appear broadly at similar visual weight; no hierarchy by zoom level/region.
+**2. Phase 1 zoom viewBox doesn't center on India**
+`INDIA_ZOOM_VIEWBOX.desktop = "505 370 130 130"` — this viewBox crops into a region that's positioned based on the wrong India location. Once we fix the position, this must also shift to match.
 
-6. Visual style mismatch between India layer and world layer.
-- What user sees: India is vector paths, world is a flat `<image>` with opacity fade.
-- Why confusing: the scene looks composited from different systems, not one map.
-- Root cause: raster-like world image treatment + inability to style individual countries in the same semantic SVG layer.
+**3. `INDIA_CENTER` for arcs is derived from the wrong position**
+Since `INDIA_CENTER` is computed from `INDIA_WORLD_TX + 49 * INDIA_WORLD_SCALE`, the arcs emanate from the wrong point (Central Asia), not from India. This auto-fixes once TX/TY/SCALE are corrected.
 
-7. Mobile introduces additional transform instability.
-- What user sees: jumpiness/repositioning around entry and transition.
-- Why confusing: narrative feels “buggy,” not cinematic.
-- Root cause: `useIsMobile()` resolves after mount, so transform preset can switch after initial render.
+**4. India outline path is too simplified to be recognizable**
+The current `INDIA_OUTLINE_PATH` and state paths use crude polygons (6-8 points each) that don't look like India at all — they look like abstract shapes. The eastern coastline, southern peninsula, and Gujarat/Kathiawar peninsula are not recognizable. This is why Phase 1 shows "glowing fragments" rather than India.
 
-### Why this is confusing for the audience (experience impact)
-- Identity loss: if India shape is not instantly legible, Phase 1 message fails.
-- Spatial discontinuity: if India “teleports,” the brain treats Phase 2 as unrelated shot.
-- Cognitive overload: too many simultaneous signals (state glow + labels + metrics).
-- Credibility gap: geographic mismatch undermines “821 cities, 13+ countries” claim.
-- Emotional drop: cinematic build-up gets interrupted by mechanical timing artifacts.
+**Root fix**: Replace state paths with more detailed SVG paths (~20-30 points each for key states) and a more accurate national outline. Focus on making the peninsula, Sri Lanka gap, Gujarat coast, and eastern coast recognizable.
 
-### Concise remediation plan (seamless version)
-1. Lock geography first
-- Add a persistent India outer contour path behind state paths (always visible at low opacity).
-- Calibrate India layer to world map using one shared SVG coordinate system only (no CSS pixel transform on `<g>`).
+**5. No smooth viewBox transition between phases**
+`viewBox` changes are instant (state swap). The jump from zoomed-India to world-view is jarring. SVG `viewBox` doesn't CSS-transition natively.
 
-2. Fix transform architecture
-- Animate via SVG `transform` values in user units (or animate a wrapper group with consistent viewBox math).
-- Compute target India anchor from actual world SVG India geometry (centroid/bbox), not manual constants.
+**Root fix**: Animate viewBox values using `requestAnimationFrame` interpolation (lerp between zoomed and world viewBox over ~1.5s) instead of instant state swap.
 
-3. Improve Phase 1 readability
-- State glow first, then dots, then only top-tier labels initially.
-- Delay full learner-count labels until the tail end of Phase 1 (or on hover/tap).
+**6. Heartbeat/glow center at ~(565, 422) is in the wrong spot**
+The large glow circle (`r=40`) appears over China, not India. Same root cause as #1.
 
-4. Make phase transitions perceptually smooth
-- Use overlap windows (India still visible while world fades in).
-- Start arc draw only after India has settled into exact world position.
+### Remediation Plan
 
-5. Mobile-first stabilization
-- Resolve viewport preset before animation starts.
-- Reduce label count and stroke complexity on mobile to keep map legible.
+**File: `src/components/impact/worldMapData.ts`**
+- Recalibrate `INDIA_WORLD_TX ≈ 558`, `INDIA_WORLD_TY ≈ 418`, `INDIA_WORLD_SCALE ≈ 0.44` to align state paths precisely over India on the world map
+- Update `INDIA_ZOOM_VIEWBOX` to center on the corrected India position
+- All derived values (`INDIA_CENTER`) auto-correct
 
-### Technical details (implementation guidance)
-- Current problematic areas: `GeoReachScene.tsx` transform math and timing state-machine, `IndiaStatesMap.tsx` lack of national boundary path, mixed map rendering approach (`<image href={worldMapUrl}>` vs semantic paths).
-- Key fix direction:
-  - Replace CSS pixel transform strategy with SVG-user-unit transform pipeline.
-  - Introduce `INDIA_OUTLINE_PATH` and render it persistently under state paths.
-  - Introduce phase substates (`1a states`, `1b dots`, `1c labels`) instead of one Phase-1 burst.
-  - Replace hardcoded India target with geometry-derived anchor.
-- Validation criteria:
-  - India never leaves India during transition.
-  - First 1 second: India instantly recognizable before any label clutter.
-  - Phase 1→2 perceived as one camera move, not element teleport.
-  - Mobile retains legibility without overlap collisions.
+**File: `src/components/impact/indiaMapData.ts`**
+- Replace the simplified state paths with more geographically accurate paths (more waypoints for coastline, peninsula shape, Gujarat, northeast)
+- Improve `INDIA_OUTLINE_PATH` to be immediately recognizable as India
+- Adjust city coordinates to match the new, more accurate state geometry
+
+**File: `src/components/impact/GeoReachScene.tsx`**
+- Add animated viewBox interpolation using `requestAnimationFrame` for smooth Phase 1→4 transition instead of instant swap
+- This makes the "camera zoom out" feel cinematic rather than jarring
+
+**File: `src/components/impact/IndiaStatesMap.tsx`**
+- No structural changes needed — it reads from the data files which we're fixing
+
+### Priority Order
+1. Fix position calibration (worldMapData.ts) — makes India land on India
+2. Improve state/outline paths (indiaMapData.ts) — makes India look like India
+3. Add viewBox animation (GeoReachScene.tsx) — makes transition smooth
+
