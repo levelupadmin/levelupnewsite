@@ -73,7 +73,7 @@ const LiveProjectsCard = () => {
 
           {/* DM rotation — all 4 share the same space */}
           <div className="relative" style={{ minHeight: 50 }}>
-            {/* DM #1: Priya — a producer discovers the BFP short film */}
+            {/* DM #1: Priya discovers the BFP short — the spark */}
             <div
               className="absolute inset-x-0 top-0 rounded-lg px-2 py-1.5 animate-pf-notif-1"
               style={{
@@ -112,7 +112,7 @@ const LiveProjectsCard = () => {
               </div>
             </div>
 
-            {/* DM #2: Arjun — noticed the screenplay on a mentor's recommendation */}
+            {/* DM #2: Kavitha — festival selects the short (consequence of views) */}
             <div
               className="absolute inset-x-0 top-0 rounded-lg px-2 py-1.5 animate-pf-notif-1b"
               style={{
@@ -123,23 +123,23 @@ const LiveProjectsCard = () => {
               <div className="flex gap-1.5">
                 <div className="relative shrink-0">
                   <div className="w-[18px] h-[18px] rounded-full overflow-hidden border border-primary/20">
-                    <img src={testimonial2} alt="" className="w-full h-full object-cover" loading="lazy" />
+                    <img src={testimonial4} alt="" className="w-full h-full object-cover" loading="lazy" />
                   </div>
                   <div className="absolute -bottom-[1px] -right-[1px] w-[5px] h-[5px] rounded-full bg-accent border" style={{ borderColor: "hsl(30 30% 15%)" }} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1 mb-0.5">
-                    <span className="text-[7px] font-medium text-foreground/80">Arjun Kapoor</span>
-                    <span className="text-[5px] text-primary/50">TVF</span>
+                    <span className="text-[7px] font-medium text-foreground/80">Kavitha Rajan</span>
+                    <span className="text-[5px] text-primary/50">MAMI Festival</span>
                   </div>
                   <p className="text-[6.5px] text-foreground/55 leading-relaxed animate-pf-type-1b">
-                    "Our writer's room loved your pilot — can we set up a call this week?"
+                    "Your BFP short's been selected for the student showcase 🎬"
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* DM #3: Rohan — showreel caught attention on social */}
+            {/* DM #3: Rohan — saw it AT MAMI, direct cause-effect from Kavitha */}
             <div
               className="absolute inset-x-0 top-0 rounded-lg px-2 py-1.5 animate-pf-notif-1c"
               style={{
@@ -160,13 +160,13 @@ const LiveProjectsCard = () => {
                     <span className="text-[5px] text-primary/50">Dharma Productions</span>
                   </div>
                   <p className="text-[6.5px] text-foreground/55 leading-relaxed animate-pf-type-1c">
-                    "Shared your showreel with our post team — they want you on the next edit"
+                    "Caught your short at MAMI — our post team wants you on the next edit"
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* DM #4: Kavitha — festival selection news */}
+            {/* DM #4: Arjun — Priya referred him, cause-effect from DM #1 */}
             <div
               className="absolute inset-x-0 top-0 rounded-lg px-2 py-1.5 animate-pf-notif-1d"
               style={{
@@ -177,17 +177,17 @@ const LiveProjectsCard = () => {
               <div className="flex gap-1.5">
                 <div className="relative shrink-0">
                   <div className="w-[18px] h-[18px] rounded-full overflow-hidden border border-primary/20">
-                    <img src={testimonial4} alt="" className="w-full h-full object-cover" loading="lazy" />
+                    <img src={testimonial2} alt="" className="w-full h-full object-cover" loading="lazy" />
                   </div>
                   <div className="absolute -bottom-[1px] -right-[1px] w-[5px] h-[5px] rounded-full bg-accent border" style={{ borderColor: "hsl(30 30% 15%)" }} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1 mb-0.5">
-                    <span className="text-[7px] font-medium text-foreground/80">Kavitha Rajan</span>
-                    <span className="text-[5px] text-primary/50">MAMI Festival</span>
+                    <span className="text-[7px] font-medium text-foreground/80">Arjun Kapoor</span>
+                    <span className="text-[5px] text-primary/50">TVF</span>
                   </div>
                   <p className="text-[6.5px] text-foreground/55 leading-relaxed animate-pf-type-1d">
-                    "Congrats — your short's been selected for the student showcase 🎬"
+                    "Priya shared your work with us — our writer's room needs someone like you"
                   </p>
                 </div>
               </div>
@@ -207,7 +207,7 @@ const LiveProjectsCard = () => {
                 <Briefcase size={8} className="text-primary/60" />
               </div>
               <div className="flex-1 min-w-0">
-                <span className="text-[7px] font-medium text-foreground/75">Freelance enquiry</span>
+                <span className="text-[7px] font-medium text-foreground/75">Via Priya's network</span>
                 <div className="flex items-center gap-1.5 mt-0.5">
                   <span className="pf-gig-a">
                     <span className="text-[6.5px] text-foreground/55">Wedding Film</span>
@@ -248,10 +248,10 @@ const LiveProjectsCard = () => {
                 </div>
                 <div className="mt-0.5">
                   <span className="pf-mile-a">
-                    <span className="text-[6.5px] text-foreground/55">Short film crossed 10K views</span>
+                    <span className="text-[6.5px] text-foreground/55">MAMI showcase — 200+ industry views</span>
                   </span>
                   <span className="pf-mile-b">
-                    <span className="text-[6.5px] text-foreground/55">First paid client signed ✨</span>
+                    <span className="text-[6.5px] text-foreground/55">Signed as editor at Dharma post ✨</span>
                   </span>
                 </div>
               </div>
