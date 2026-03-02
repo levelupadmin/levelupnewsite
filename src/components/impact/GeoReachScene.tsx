@@ -180,6 +180,7 @@ const GeoReachScene = () => {
               {/* India city markers — appear wave by wave */}
               {phase >= 1 && indianCities.map((city, i) => {
                 const delay = city.wave * WAVE_DELAY_MS;
+                const [lx, ly] = city.labelOffset || [6, -4];
                 return (
                   <g
                     key={`india-city-${i}`}
@@ -188,42 +189,46 @@ const GeoReachScene = () => {
                   >
                     {/* City dot */}
                     <circle
-                      cx={city.cx} cy={city.cy} r={3}
+                      cx={city.cx} cy={city.cy} r={city.dotOnly ? 2 : 3}
                       fill="hsl(var(--primary))"
                       opacity={0.9}
                     />
                     {/* Pulse ring */}
                     <circle
-                      cx={city.cx} cy={city.cy} r={3}
+                      cx={city.cx} cy={city.cy} r={city.dotOnly ? 2 : 3}
                       fill="none"
                       stroke="hsl(var(--primary))"
                       strokeWidth={0.5}
                       className="animate-impact-city-ping"
                       style={{ animationDelay: `${delay + 200}ms` }}
                     />
-                    {/* Label — sized for zoomed-in view */}
-                    <text
-                      x={city.cx + 5} y={city.cy - 5}
-                      fill="hsl(var(--foreground))"
-                      fontSize={4}
-                      fontFamily="sans-serif"
-                      fontWeight={600}
-                      opacity={0.9}
-                      filter="url(#city-label-glow)"
-                    >
-                      {city.label}
-                    </text>
-                    {/* Learner count */}
-                    <text
-                      x={city.cx + 5} y={city.cy + 1}
-                      fill="hsl(var(--primary))"
-                      fontSize={3}
-                      fontFamily="sans-serif"
-                      fontWeight={500}
-                      opacity={0.7}
-                    >
-                      {city.learners}
-                    </text>
+                    {/* Label + learner count — skip for dotOnly cities */}
+                    {!city.dotOnly && (
+                      <>
+                        <text
+                          x={city.cx + lx} y={city.cy + ly}
+                          fill="hsl(var(--foreground))"
+                          fontSize={3.5}
+                          fontFamily="sans-serif"
+                          fontWeight={600}
+                          opacity={0.9}
+                          textAnchor={lx < 0 ? "end" : "start"}
+                        >
+                          {city.label}
+                        </text>
+                        <text
+                          x={city.cx + lx} y={city.cy + ly + 5}
+                          fill="hsl(var(--primary))"
+                          fontSize={2.8}
+                          fontFamily="sans-serif"
+                          fontWeight={500}
+                          opacity={0.7}
+                          textAnchor={lx < 0 ? "end" : "start"}
+                        >
+                          {city.learners}
+                        </text>
+                      </>
+                    )}
                   </g>
                 );
               })}
