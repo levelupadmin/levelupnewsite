@@ -156,11 +156,11 @@ const MasterclassSection = () => {
       {/* Section headline */}
       <FadeInSection className="text-center px-6 md:px-12 mb-8 md:mb-10">
         <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-hero-headline leading-[1.2] tracking-tight">
-          Learn from the ones{" "}
-          <em className="italic font-normal text-primary">who shaped the craft</em>
+          India's greatest creative minds.{" "}
+          <em className="italic font-normal text-primary">Now your mentors.</em>
         </h2>
         <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-5 md:mt-6 max-w-lg mx-auto leading-relaxed">
-          High quality pre-recorded courses taught by India's finest.
+          Cinematic, in-depth courses you can start today and revisit forever.
         </p>
       </FadeInSection>
 
