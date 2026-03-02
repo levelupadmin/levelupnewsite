@@ -4,66 +4,74 @@ import { useScrollReveal } from "@/components/FadeInSection";
 import { useIsMobile } from "@/hooks/use-mobile";
 import ImpactScene from "./ImpactScene";
 import worldMapUrl from "@/assets/world-map.svg";
-import { INDIA_CENTER, internationalCities } from "./worldMapData";
+import {
+  INDIA_CENTER,
+  INDIA_WORLD_SCALE,
+  INDIA_WORLD_TX,
+  INDIA_WORLD_TY,
+  INDIA_ZOOM_VIEWBOX,
+  internationalCities,
+} from "./worldMapData";
 import IndiaStatesMap from "./IndiaStatesMap";
 
 /* ── Helpers ── */
-
 const arcPath = (x1: number, y1: number, x2: number, y2: number) => {
   const dx = x2 - x1;
   const dy = y2 - y1;
   const dist = Math.sqrt(dx * dx + dy * dy);
   const midX = (x1 + x2) / 2;
-  const midY = (y1 + y2) / 2 + -dist * 0.2;
+  const midY = (y1 + y2) / 2 - dist * 0.2;
   return `M ${x1} ${y1} Q ${midX} ${midY} ${x2} ${y2}`;
 };
 
-/* ── Layout constants ── */
+/* ── Full world viewBox ── */
+const WORLD_VIEWBOX = "30.767 241.591 784.077 458.627";
 
-const VIEWBOX = "80 241.591 750 458.627";
-const VIEWBOX_MOBILE = "200 260 550 420";
-
-// India local-coord center (inside IndiaStatesMap's 0-100 × 0-130 space)
-const LOCAL_CX = 50;
-const LOCAL_CY = 65;
-
-// Where India sits on the world SVG at base scale
-const BASE_SCALE = 0.65;
-const WORLD_TX = INDIA_CENTER.cx - LOCAL_CX * BASE_SCALE; // ≈ 532.5
-const WORLD_TY = INDIA_CENTER.cy - LOCAL_CY * BASE_SCALE; // ≈ 412.75
-
-// Phase-1 zoom: fill the viewport with India
-const DESKTOP = { scale: 3.0, cx: 455, cy: 471 };
-const MOBILE = { scale: 2.2, cx: 475, cy: 470 };
-
-/* ── Component ── */
+/* ── Phase timeline (ms from scroll-in) ──
+ *  0: hidden
+ *  1: India outline + state glow (viewBox zoomed into India)
+ *  2: Tier-1 city dots appear
+ *  3: Tier-2 cities + learner counts
+ *  4: viewBox animates to world, world map fades in, India settles into position
+ *  5: Arcs + international cities + heartbeat
+ */
 
 const GeoReachScene = () => {
   const { ref, isVisible } = useScrollReveal(0.15);
   const isMobile = useIsMobile();
-  const [phase, setPhase] = useState<0 | 1 | 2 | 3>(0);
+  const [phase, setPhase] = useState(0);
   const [hoveredCity, setHoveredCity] = useState<string | null>(null);
 
-  /* Phase state-machine: 0 → 1 → 2 → 3, triggered once on scroll-in */
+  // Resolve mobile before animation starts
+  const [ready, setReady] = useState(false);
   useEffect(() => {
-    if (!isVisible) return;
-    setPhase(1);
-    const t2 = setTimeout(() => setPhase(2), 3000);
-    const t3 = setTimeout(() => setPhase(3), 4500);
-    return () => {
-      clearTimeout(t2);
-      clearTimeout(t3);
-    };
-  }, [isVisible]);
+    // Wait one frame so isMobile resolves from undefined → boolean
+    requestAnimationFrame(() => setReady(true));
+  }, []);
 
-  /* India <g> transform — zoomed-in for phase 0-1, world-position for phase 2+ */
-  const indiaTransform = useMemo(() => {
-    if (phase <= 1) {
-      const z = isMobile ? MOBILE : DESKTOP;
-      return `translate(${z.cx - LOCAL_CX * z.scale}px, ${z.cy - LOCAL_CY * z.scale}px) scale(${z.scale})`;
+  /* Phase state-machine */
+  useEffect(() => {
+    if (!isVisible || !ready) return;
+    setPhase(1);
+    const timers = [
+      setTimeout(() => setPhase(2), 1200),  // dots tier 1
+      setTimeout(() => setPhase(3), 2400),  // dots tier 2
+      setTimeout(() => setPhase(4), 4000),  // zoom out to world
+      setTimeout(() => setPhase(5), 5800),  // arcs + intl cities
+    ];
+    return () => timers.forEach(clearTimeout);
+  }, [isVisible, ready]);
+
+  /* viewBox animation: zoomed into India → full world */
+  const currentViewBox = useMemo(() => {
+    if (phase < 4) {
+      return isMobile ? INDIA_ZOOM_VIEWBOX.mobile : INDIA_ZOOM_VIEWBOX.desktop;
     }
-    return `translate(${WORLD_TX}px, ${WORLD_TY}px) scale(${BASE_SCALE})`;
+    return WORLD_VIEWBOX;
   }, [phase, isMobile]);
+
+  /* India <g> uses pure SVG transform (no CSS px) — always at world position */
+  const indiaTransform = `translate(${INDIA_WORLD_TX}, ${INDIA_WORLD_TY}) scale(${INDIA_WORLD_SCALE})`;
 
   const arcPaths = useMemo(
     () =>
@@ -72,6 +80,9 @@ const GeoReachScene = () => {
       ),
     []
   );
+
+  /* Map India sub-phases: GeoReachScene phases 1-3 map to IndiaStatesMap phases 1-3 */
+  const indiaPhase = Math.min(phase, 3);
 
   return (
     <ImpactScene>
@@ -88,8 +99,8 @@ const GeoReachScene = () => {
             <h2
               className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground tracking-tight transition-all duration-700"
               style={{
-                opacity: phase < 2 ? 1 : 0,
-                transform: phase < 2 ? "none" : "translateY(-10px)",
+                opacity: phase < 4 ? 1 : 0,
+                transform: phase < 4 ? "none" : "translateY(-10px)",
               }}
             >
               Lighting Up India
@@ -97,8 +108,8 @@ const GeoReachScene = () => {
             <h2
               className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground tracking-tight transition-all duration-700 absolute inset-x-0 top-0"
               style={{
-                opacity: phase >= 2 ? 1 : 0,
-                transform: phase >= 2 ? "none" : "translateY(10px)",
+                opacity: phase >= 4 ? 1 : 0,
+                transform: phase >= 4 ? "none" : "translateY(10px)",
               }}
             >
               Spreading from India to the World
@@ -113,7 +124,7 @@ const GeoReachScene = () => {
             width: "30%",
             height: "40%",
             top: "45%",
-            left: phase >= 2 ? "58%" : "50%",
+            left: phase >= 4 ? "58%" : "50%",
             transform: "translate(-50%, -50%)",
             background:
               "radial-gradient(ellipse 100% 100% at 50% 50%, hsl(var(--primary) / 0.2), hsl(var(--primary) / 0.05) 60%, transparent 85%)",
@@ -127,12 +138,20 @@ const GeoReachScene = () => {
         {/* ── Map SVG ── */}
         <div className="w-full max-w-6xl mx-auto relative z-[2]">
           <svg
-            viewBox={isMobile ? VIEWBOX_MOBILE : VIEWBOX}
+            viewBox={currentViewBox}
             className="w-full h-auto"
             xmlns="http://www.w3.org/2000/svg"
             role="img"
             aria-label="Animated map showing LevelUp's reach across India and the world"
+            style={{
+              transition: "viewBox 0s", // viewBox doesn't CSS-transition; we handle via state
+            }}
           >
+            {/* Smooth viewBox transition via CSS on the SVG element */}
+            <style>{`
+              svg { transition: none; }
+            `}</style>
+
             <defs>
               <filter id="geo-glow" x="-50%" y="-50%" width="200%" height="200%">
                 <feGaussianBlur stdDeviation="3" result="blur" />
@@ -164,7 +183,7 @@ const GeoReachScene = () => {
               ))}
             </defs>
 
-            {/* World map outlines — fades in during Phase 2 */}
+            {/* World map outlines — fades in during Phase 4 */}
             <image
               href={worldMapUrl}
               x="30.767"
@@ -172,25 +191,19 @@ const GeoReachScene = () => {
               width="784.077"
               height="458.627"
               style={{
-                opacity: phase >= 2 ? 0.4 : 0,
+                opacity: phase >= 4 ? 0.4 : 0,
                 transition: "opacity 1.5s ease",
                 filter: "brightness(0.6) contrast(1.2)",
               }}
             />
 
-            {/* ── India states group with zoom transition ── */}
-            <g
-              style={{
-                transform: indiaTransform,
-                transition: `transform ${phase >= 2 ? "1.5s" : "0s"} cubic-bezier(0.4, 0, 0.2, 1)`,
-                transformOrigin: "0 0",
-              }}
-            >
-              <IndiaStatesMap phase={phase} />
+            {/* ── India states group — always at world-map position ── */}
+            <g transform={indiaTransform}>
+              <IndiaStatesMap phase={indiaPhase} />
             </g>
 
-            {/* ── India center heartbeat — Phase 3 ── */}
-            {phase >= 3 && (
+            {/* ── India center heartbeat — Phase 5 ── */}
+            {phase >= 5 && (
               <>
                 <circle
                   cx={INDIA_CENTER.cx}
@@ -220,8 +233,8 @@ const GeoReachScene = () => {
               </>
             )}
 
-            {/* ── Connection arcs + traveling dots — Phase 3 ── */}
-            {phase >= 3 &&
+            {/* ── Connection arcs + traveling dots — Phase 5 ── */}
+            {phase >= 5 &&
               arcPaths.map((d, i) => (
                 <g key={`arc-${i}`}>
                   <path
@@ -250,8 +263,8 @@ const GeoReachScene = () => {
                 </g>
               ))}
 
-            {/* ── International city markers — Phase 3 ── */}
-            {phase >= 3 &&
+            {/* ── International city markers — Phase 5 ── */}
+            {phase >= 5 &&
               internationalCities.map((city, i) => {
                 const isHovered = hoveredCity === `city-${i}`;
                 return (
@@ -361,13 +374,13 @@ const GeoReachScene = () => {
 
         {/* ── Stats with crossfade ── */}
         <div className="relative z-10 mt-6 md:mt-10" style={{ minHeight: 80 }}>
-          {/* India stats — Phase 1-2 */}
+          {/* India stats — Phase 1-3 */}
           <div
             className="flex items-center justify-center gap-8 md:gap-16 transition-all duration-700"
             style={{
-              opacity: phase >= 1 && phase < 3 ? 1 : 0,
+              opacity: phase >= 1 && phase < 5 ? 1 : 0,
               transform:
-                phase >= 1 && phase < 3 ? "none" : "translateY(-10px)",
+                phase >= 1 && phase < 5 ? "none" : "translateY(-10px)",
             }}
           >
             <div className="text-center">
@@ -391,17 +404,17 @@ const GeoReachScene = () => {
             </div>
           </div>
 
-          {/* Global stats — Phase 3 */}
+          {/* Global stats — Phase 5 */}
           <div
             className="flex items-center justify-center gap-8 md:gap-16 transition-all duration-700 absolute inset-0"
             style={{
-              opacity: phase >= 3 ? 1 : 0,
-              transform: phase >= 3 ? "none" : "translateY(10px)",
+              opacity: phase >= 5 ? 1 : 0,
+              transform: phase >= 5 ? "none" : "translateY(10px)",
             }}
           >
             <div className="text-center">
               <p className="text-3xl sm:text-4xl md:text-6xl font-semibold text-foreground tracking-tight">
-                {phase >= 3 && <AnimatedCounter target={821} celebrate />}
+                {phase >= 5 && <AnimatedCounter target={821} celebrate />}
               </p>
               <p className="text-xs md:text-sm text-muted-foreground mt-1">
                 cities
@@ -410,7 +423,7 @@ const GeoReachScene = () => {
             <div className="w-px h-12 bg-border" />
             <div className="text-center">
               <p className="text-3xl sm:text-4xl md:text-6xl font-semibold text-foreground tracking-tight">
-                {phase >= 3 && (
+                {phase >= 5 && (
                   <AnimatedCounter
                     target={13}
                     suffix="+"
