@@ -51,7 +51,7 @@ const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: St
         data[i] = v;
         data[i + 1] = v;
         data[i + 2] = v;
-        data[i + 3] = 32; // ~12.5% opacity
+        data[i + 3] = 52; // ~20% opacity
       }
       grainCtx.putImageData(imageData, 0, 0);
       if (grainRef.current) {
@@ -145,7 +145,7 @@ const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: St
         ref={grainRef}
         className="absolute inset-0 pointer-events-none"
         aria-hidden="true"
-        style={{ backgroundRepeat: "repeat", mixBlendMode: "overlay", opacity: 0.6 }}
+        style={{ backgroundRepeat: "repeat", mixBlendMode: "overlay", opacity: 0.85 }}
       />
     </>
   );
