@@ -787,149 +787,191 @@
 [class*="animate-pf-viewcount-"] .pf-vc-b { display: none; animation: pf-vc-cycle-b 9s ease infinite; }
 [class*="animate-pf-viewcount-"] .pf-vc-c { display: none; animation: pf-vc-cycle-c 9s ease infinite; }
 
-/* ── DM #1: visible 18–38% ── */
+/* ── DM #1: visible 10–28% (12s cycle, 4 DMs) ── */
 @keyframes pf-notif-1 {
-  0%, 16% { opacity: 0; transform: translateX(20px); }
-  20% { opacity: 1; transform: translateX(0); }
-  34% { opacity: 1; transform: translateX(0); }
-  38% { opacity: 0; transform: translateX(-10px); }
+  0%, 8% { opacity: 0; transform: translateX(20px); }
+  12% { opacity: 1; transform: translateX(0); }
+  24% { opacity: 1; transform: translateX(0); }
+  28% { opacity: 0; transform: translateX(-10px); }
   100% { opacity: 0; }
 }
-.animate-pf-notif-1 { animation: pf-notif-1 9s ease infinite; }
+.animate-pf-notif-1 { animation: pf-notif-1 12s ease infinite; }
 
-/* ── DM #1 typing dots ── */
 @keyframes pf-typing-1 {
-  0%, 16% { opacity: 0; }
-  18%, 24% { opacity: 1; }
-  26%, 100% { opacity: 0; }
+  0%, 8% { opacity: 0; }
+  10%, 18% { opacity: 1; }
+  20%, 100% { opacity: 0; }
 }
-.animate-pf-typing-1 { animation: pf-typing-1 9s ease infinite; }
+.animate-pf-typing-1 { animation: pf-typing-1 12s ease infinite; }
 
-/* ── DM #1 text reveal ── */
 @keyframes pf-type-1 {
-  0%, 20% { max-width: 0; overflow: hidden; white-space: nowrap; }
-  30% { max-width: 250px; overflow: hidden; white-space: nowrap; }
-  34%, 100% { max-width: 250px; overflow: visible; white-space: normal; }
+  0%, 12% { max-width: 0; overflow: hidden; white-space: nowrap; }
+  22% { max-width: 250px; overflow: hidden; white-space: nowrap; }
+  24%, 100% { max-width: 250px; overflow: visible; white-space: normal; }
 }
-.animate-pf-type-1 { animation: pf-type-1 9s ease infinite; display: inline-block; }
+.animate-pf-type-1 { animation: pf-type-1 12s ease infinite; display: inline-block; }
 
-/* ── DM #2: visible 42–62% ── */
+/* ── DM #2: visible 30–48% ── */
 @keyframes pf-notif-1b {
-  0%, 40% { opacity: 0; transform: translateX(20px); }
+  0%, 28% { opacity: 0; transform: translateX(20px); }
+  32% { opacity: 1; transform: translateX(0); }
   44% { opacity: 1; transform: translateX(0); }
-  58% { opacity: 1; transform: translateX(0); }
-  62% { opacity: 0; transform: translateX(-10px); }
+  48% { opacity: 0; transform: translateX(-10px); }
   100% { opacity: 0; }
 }
-.animate-pf-notif-1b { animation: pf-notif-1b 9s ease infinite; }
+.animate-pf-notif-1b { animation: pf-notif-1b 12s ease infinite; }
 
 @keyframes pf-type-1b {
-  0%, 42% { max-width: 0; overflow: hidden; white-space: nowrap; }
-  52% { max-width: 250px; overflow: hidden; white-space: nowrap; }
-  56%, 100% { max-width: 250px; overflow: visible; white-space: normal; }
+  0%, 30% { max-width: 0; overflow: hidden; white-space: nowrap; }
+  40% { max-width: 250px; overflow: hidden; white-space: nowrap; }
+  44%, 100% { max-width: 250px; overflow: visible; white-space: normal; }
 }
-.animate-pf-type-1b { animation: pf-type-1b 9s ease infinite; display: inline-block; }
+.animate-pf-type-1b { animation: pf-type-1b 12s ease infinite; display: inline-block; }
 
-/* ── DM #3: visible 65–85% ── */
+/* ── DM #3: visible 50–68% ── */
 @keyframes pf-notif-1c {
-  0%, 63% { opacity: 0; transform: translateX(20px); }
-  67% { opacity: 1; transform: translateX(0); }
-  81% { opacity: 1; transform: translateX(0); }
-  85% { opacity: 0; transform: translateX(-10px); }
+  0%, 48% { opacity: 0; transform: translateX(20px); }
+  52% { opacity: 1; transform: translateX(0); }
+  64% { opacity: 1; transform: translateX(0); }
+  68% { opacity: 0; transform: translateX(-10px); }
   100% { opacity: 0; }
 }
-.animate-pf-notif-1c { animation: pf-notif-1c 9s ease infinite; }
+.animate-pf-notif-1c { animation: pf-notif-1c 12s ease infinite; }
 
 @keyframes pf-type-1c {
-  0%, 65% { max-width: 0; overflow: hidden; white-space: nowrap; }
-  75% { max-width: 250px; overflow: hidden; white-space: nowrap; }
-  79%, 100% { max-width: 250px; overflow: visible; white-space: normal; }
+  0%, 50% { max-width: 0; overflow: hidden; white-space: nowrap; }
+  60% { max-width: 250px; overflow: hidden; white-space: nowrap; }
+  64%, 100% { max-width: 250px; overflow: visible; white-space: normal; }
 }
-.animate-pf-type-1c { animation: pf-type-1c 9s ease infinite; display: inline-block; }
+.animate-pf-type-1c { animation: pf-type-1c 12s ease infinite; display: inline-block; }
 
-/* ── Freelance enquiry: visible from 35% ── */
+/* ── DM #4: visible 70–88% ── */
+@keyframes pf-notif-1d {
+  0%, 68% { opacity: 0; transform: translateX(20px); }
+  72% { opacity: 1; transform: translateX(0); }
+  84% { opacity: 1; transform: translateX(0); }
+  88% { opacity: 0; transform: translateX(-10px); }
+  100% { opacity: 0; }
+}
+.animate-pf-notif-1d { animation: pf-notif-1d 12s ease infinite; }
+
+@keyframes pf-type-1d {
+  0%, 70% { max-width: 0; overflow: hidden; white-space: nowrap; }
+  80% { max-width: 250px; overflow: hidden; white-space: nowrap; }
+  84%, 100% { max-width: 250px; overflow: visible; white-space: normal; }
+}
+.animate-pf-type-1d { animation: pf-type-1d 12s ease infinite; display: inline-block; }
+
+/* ── Freelance enquiry: visible from 25% ── */
 @keyframes pf-notif-2 {
-  0%, 33% { opacity: 0; transform: translateY(8px); }
-  37% { opacity: 1; transform: translateY(0); }
+  0%, 23% { opacity: 0; transform: translateY(8px); }
+  27% { opacity: 1; transform: translateY(0); }
   100% { opacity: 1; transform: translateY(0); }
 }
-.animate-pf-notif-2 { animation: pf-notif-2 9s ease infinite; }
+.animate-pf-notif-2 { animation: pf-notif-2 12s ease infinite; }
 
-/* Gig A visible 35–55%, Gig B visible 58–90% */
+/* Gig A visible 25–42%, Gig B visible 44–65%, Gig C visible 67–92% */
 @keyframes pf-gig-a-cycle {
-  0%, 33% { opacity: 0; }
-  37%, 53% { opacity: 1; }
-  57%, 100% { opacity: 0; display: none; }
+  0%, 23% { opacity: 0; }
+  27%, 40% { opacity: 1; }
+  44%, 100% { opacity: 0; display: none; }
 }
 @keyframes pf-gig-b-cycle {
-  0%, 55% { opacity: 0; display: none; }
-  58%, 92% { opacity: 1; display: inline; }
+  0%, 42% { opacity: 0; display: none; }
+  44%, 63% { opacity: 1; display: inline; }
+  67%, 100% { opacity: 0; display: none; }
+}
+@keyframes pf-gig-c-cycle {
+  0%, 65% { opacity: 0; display: none; }
+  67%, 92% { opacity: 1; display: inline; }
   100% { opacity: 1; }
 }
-.pf-gig-a { display: inline; animation: pf-gig-a-cycle 9s ease infinite; }
-.pf-gig-b { display: none; animation: pf-gig-b-cycle 9s ease infinite; }
+.pf-gig-a { display: inline; animation: pf-gig-a-cycle 12s ease infinite; }
+.pf-gig-b { display: none; animation: pf-gig-b-cycle 12s ease infinite; }
+.pf-gig-c { display: none; animation: pf-gig-c-cycle 12s ease infinite; }
 
-/* ── Cohort reactions: visible from 70%, persist ── */
-@keyframes pf-notif-3 {
-  0%, 68% { opacity: 0; transform: translateY(8px); }
-  73% { opacity: 1; transform: translateY(0); }
+/* ── Milestone notification: visible from 45% ── */
+@keyframes pf-notif-milestone {
+  0%, 43% { opacity: 0; transform: translateY(8px); }
+  47% { opacity: 1; transform: translateY(0); }
   100% { opacity: 1; transform: translateY(0); }
 }
-.animate-pf-notif-3 { animation: pf-notif-3 9s ease infinite; }
+.animate-pf-notif-milestone { animation: pf-notif-milestone 12s ease infinite; }
+
+/* Milestone text swap */
+@keyframes pf-mile-a {
+  0%, 43% { opacity: 0; }
+  47%, 68% { opacity: 1; display: inline; }
+  72%, 100% { opacity: 0; display: none; }
+}
+@keyframes pf-mile-b {
+  0%, 70% { opacity: 0; display: none; }
+  72%, 100% { opacity: 1; display: inline; }
+}
+.pf-mile-a { display: inline; animation: pf-mile-a 12s ease infinite; }
+.pf-mile-b { display: none; animation: pf-mile-b 12s ease infinite; }
+
+/* ── Cohort reactions: visible from 55%, persist ── */
+@keyframes pf-notif-3 {
+  0%, 53% { opacity: 0; transform: translateY(8px); }
+  57% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-pf-notif-3 { animation: pf-notif-3 12s ease infinite; }
 
 /* ── Emoji reactions pop in + tick up ── */
 @keyframes pf-reactions {
-  0%, 70% { opacity: 0; transform: scale(0.7); }
-  75% { opacity: 1; transform: scale(1.1); }
-  78%, 100% { opacity: 1; transform: scale(1); }
+  0%, 55% { opacity: 0; transform: scale(0.7); }
+  60% { opacity: 1; transform: scale(1.1); }
+  63%, 100% { opacity: 1; transform: scale(1); }
 }
-.animate-pf-reactions { animation: pf-reactions 9s ease infinite; }
+.animate-pf-reactions { animation: pf-reactions 12s ease infinite; }
 
-/* Reaction count swap: A visible 72–85%, B from 85% onward */
+/* Reaction count swap: A visible 57–75%, B from 75% onward */
 @keyframes pf-rc-a {
-  0%, 72% { opacity: 0; }
-  75%, 83% { opacity: 1; }
-  86%, 100% { opacity: 0; display: none; }
+  0%, 57% { opacity: 0; }
+  60%, 73% { opacity: 1; }
+  76%, 100% { opacity: 0; display: none; }
 }
 @keyframes pf-rc-b {
-  0%, 83% { opacity: 0; display: none; }
-  86%, 100% { opacity: 1; display: inline; }
+  0%, 73% { opacity: 0; display: none; }
+  76%, 100% { opacity: 1; display: inline; }
 }
-.pf-rc-a { display: inline; animation: pf-rc-a 9s ease infinite; }
-.pf-rc-b { display: none; animation: pf-rc-b 9s ease infinite; }
+.pf-rc-a { display: inline; animation: pf-rc-a 12s ease infinite; }
+.pf-rc-b { display: none; animation: pf-rc-b 12s ease infinite; }
 
 /* ── Stacked avatars ── */
 @keyframes pf-avatars {
-  0%, 74% { opacity: 0; transform: translateX(8px); }
-  80%, 100% { opacity: 1; transform: translateX(0); }
+  0%, 58% { opacity: 0; transform: translateX(8px); }
+  64%, 100% { opacity: 1; transform: translateX(0); }
 }
-.animate-pf-avatars { animation: pf-avatars 9s ease infinite; }
+.animate-pf-avatars { animation: pf-avatars 12s ease infinite; }
 
-/* ── Bottom summary: visible from 32%, text swaps at 65% ── */
+/* ── Bottom summary: visible from 22%, text swaps at 55% ── */
 @keyframes pf-earnings {
-  0%, 30% { opacity: 0.3; }
-  34%, 100% { opacity: 1; }
+  0%, 20% { opacity: 0.3; }
+  24%, 100% { opacity: 1; }
 }
-.animate-pf-earnings { animation: pf-earnings 9s ease infinite; }
+.animate-pf-earnings { animation: pf-earnings 12s ease infinite; }
 
 @keyframes pf-earned {
-  0%, 30% { opacity: 0; }
-  34%, 100% { opacity: 1; }
+  0%, 20% { opacity: 0; }
+  24%, 100% { opacity: 1; }
 }
-.animate-pf-earned { animation: pf-earned 9s ease infinite; }
+.animate-pf-earned { animation: pf-earned 12s ease infinite; }
 
 /* Summary text swap */
 @keyframes pf-sum-a {
-  0%, 32% { opacity: 0; }
-  34%, 62% { opacity: 1; display: inline; }
-  65%, 100% { opacity: 0; display: none; }
+  0%, 22% { opacity: 0; }
+  24%, 52% { opacity: 1; display: inline; }
+  55%, 100% { opacity: 0; display: none; }
 }
 @keyframes pf-sum-b {
-  0%, 62% { opacity: 0; display: none; }
-  65%, 100% { opacity: 1; display: inline; }
+  0%, 52% { opacity: 0; display: none; }
+  55%, 100% { opacity: 1; display: inline; }
 }
-.pf-sum-a { display: inline; animation: pf-sum-a 9s ease infinite; }
-.pf-sum-b { display: none; animation: pf-sum-b 9s ease infinite; }
+.pf-sum-a { display: inline; animation: pf-sum-a 12s ease infinite; }
+.pf-sum-b { display: none; animation: pf-sum-b 12s ease infinite; }
 
 /* ── Card border glow pulse ── */
 @keyframes pf-border-glow {
@@ -943,7 +985,7 @@
 }
 .animate-pf-border-glow {
   border: 1px solid hsl(var(--primary) / 0.1);
-  animation: pf-border-glow 9s ease infinite;
+  animation: pf-border-glow 12s ease infinite;
 }
 
 /* ── Pause all portfolio animations on hover ── */
@@ -957,12 +999,15 @@
 .group\/portfolio:hover .animate-pf-notif-1,
 .group\/portfolio:hover .animate-pf-notif-1b,
 .group\/portfolio:hover .animate-pf-notif-1c,
+.group\/portfolio:hover .animate-pf-notif-1d,
 .group\/portfolio:hover .animate-pf-notif-2,
+.group\/portfolio:hover .animate-pf-notif-milestone,
 .group\/portfolio:hover .animate-pf-notif-3,
 .group\/portfolio:hover .animate-pf-typing-1,
 .group\/portfolio:hover .animate-pf-type-1,
 .group\/portfolio:hover .animate-pf-type-1b,
 .group\/portfolio:hover .animate-pf-type-1c,
+.group\/portfolio:hover .animate-pf-type-1d,
 .group\/portfolio:hover .animate-pf-reactions,
 .group\/portfolio:hover .animate-pf-avatars,
 .group\/portfolio:hover .animate-pf-earnings,
@@ -976,8 +1021,11 @@
 .group\/portfolio:hover .pf-vc-c,
 .group\/portfolio:hover .pf-gig-a,
 .group\/portfolio:hover .pf-gig-b,
+.group\/portfolio:hover .pf-gig-c,
 .group\/portfolio:hover .pf-rc-a,
 .group\/portfolio:hover .pf-rc-b,
+.group\/portfolio:hover .pf-mile-a,
+.group\/portfolio:hover .pf-mile-b,
 .group\/portfolio:hover .pf-sum-a,
 .group\/portfolio:hover .pf-sum-b {
   animation-play-state: paused;
