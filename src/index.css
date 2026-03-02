@@ -459,24 +459,29 @@
 
 /* Cursor visits 4 sidebar tabs. Positions target the sidebar nav items. */
 @keyframes lms-cursor-flow {
-  /* Tab 1 — Sessions (arrive + dwell) */
+  /* Tab 1 — dwell */
   0%, 2% { top: 28%; left: 10%; opacity: 1; }
-  /* click at ~3% */
   5% { top: 28%; left: 10%; }
-  /* Travel to Tab 2 — Resources */
+  /* Travel to Tab 2 — overshoot past 40% then settle */
   20% { top: 28%; left: 10%; }
-  24% { top: 40%; left: 10%; }
+  23% { top: 42%; left: 9.5%; }
+  24.5% { top: 39.5%; left: 10.2%; }
   25%, 27% { top: 40%; left: 10%; opacity: 1; }
-  /* Travel to Tab 3 — Guides */
+  /* Travel to Tab 3 — overshoot past 52% then settle */
   45% { top: 40%; left: 10%; }
-  49% { top: 52%; left: 10%; }
+  48% { top: 54%; left: 10.3%; }
+  49.5% { top: 51.5%; left: 9.8%; }
   50%, 52% { top: 52%; left: 10%; opacity: 1; }
-  /* Travel to Tab 4 — AI Learn */
+  /* Travel to Tab 4 — overshoot past 64% then settle */
   70% { top: 52%; left: 10%; }
-  74% { top: 64%; left: 10%; }
+  73% { top: 66%; left: 9.6%; }
+  74.5% { top: 63.5%; left: 10.2%; }
   75%, 77% { top: 64%; left: 10%; opacity: 1; }
+  /* Return to Tab 1 — overshoot upward then settle */
   95% { top: 64%; left: 10%; }
-  98% { top: 28%; left: 10%; }
+  97.5% { top: 26.5%; left: 10.3%; }
+  99% { top: 28.5%; left: 9.8%; }
+  100% { top: 28%; left: 10%; }
 }
 
 .animate-lms-cursor {
