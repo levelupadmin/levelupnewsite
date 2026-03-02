@@ -1,28 +1,40 @@
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import FadeInSection from "@/components/FadeInSection";
 import ImpactScene from "./ImpactScene";
-import {
-  indianCities,
-  internationalCities,
-  indiaArcs,
-  indiaDots,
-  worldDots,
-  INDIA_CENTER,
-} from "./worldMapData";
+import WorldMapSvg from "@/assets/world-map.svg?react";
 
-// Sort India dots by distance from center for ripple effect
-const sortedIndiaDots = [...indiaDots].sort((a, b) => {
-  const distA = Math.hypot(a.cx - INDIA_CENTER.cx, a.cy - INDIA_CENTER.cy);
-  const distB = Math.hypot(b.cx - INDIA_CENTER.cx, b.cy - INDIA_CENTER.cy);
-  return distA - distB;
-});
+// Indian cities — approximate positions within the SVG viewBox (30.767 241.591 784.077 458.627)
+const indianCities = [
+  { cx: 574, cy: 470, label: "Mumbai" },
+  { cx: 580, cy: 445, label: "Delhi" },
+  { cx: 586, cy: 490, label: "Bangalore" },
+  { cx: 596, cy: 492, label: "Chennai" },
+  { cx: 614, cy: 460, label: "Kolkata" },
+  { cx: 588, cy: 478, label: "Hyderabad" },
+];
 
-// Build arc path helper
-const arcPath = (
-  x1: number, y1: number,
-  x2: number, y2: number,
-  curvature = -40
-) => {
+const INDIA_CENTER = { cx: 588, cy: 468 };
+
+const internationalCities = [
+  { cx: 536, cy: 468, label: "Dubai" },
+  { cx: 405, cy: 395, label: "London" },
+  { cx: 220, cy: 420, label: "New York" },
+  { cx: 640, cy: 510, label: "Singapore" },
+  { cx: 720, cy: 610, label: "Sydney" },
+  { cx: 195, cy: 380, label: "Toronto" },
+  { cx: 115, cy: 435, label: "Los Angeles" },
+];
+
+// Internal India arcs
+const indiaArcs = [
+  { from: 0, to: 1 }, // Mumbai ↔ Delhi
+  { from: 2, to: 3 }, // Bangalore ↔ Chennai
+  { from: 1, to: 4 }, // Delhi ↔ Kolkata
+  { from: 0, to: 5 }, // Mumbai ↔ Hyderabad
+  { from: 5, to: 2 }, // Hyderabad ↔ Bangalore
+];
+
+const arcPath = (x1: number, y1: number, x2: number, y2: number, curvature = -30) => {
   const midX = (x1 + x2) / 2;
   const midY = (y1 + y2) / 2 + curvature;
   return `M ${x1} ${y1} Q ${midX} ${midY} ${x2} ${y2}`;
@@ -32,42 +44,34 @@ const GeoReachScene = () => (
   <ImpactScene>
     <FadeInSection>
       <div className="relative flex flex-col items-center justify-center min-h-[280px] md:min-h-[420px] px-4 py-10 md:py-16">
-        {/* World map SVG */}
-        <div className="w-full max-w-4xl mx-auto">
+        {/* World map container */}
+        <div className="w-full max-w-4xl mx-auto relative">
+          {/* Base SVG world map — thin outlines, India filled */}
+          <div className="world-map-container animate-impact-world-fade" style={{ animationDelay: "0.2s" }}>
+            <WorldMapSvg className="world-map-svg w-full h-auto" />
+          </div>
+
+          {/* Overlay SVG for arcs, city dots, labels */}
           <svg
-            viewBox="0 0 800 400"
-            className="w-full h-auto"
+            viewBox="30.767 241.591 784.077 458.627"
+            className="absolute inset-0 w-full h-full pointer-events-none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            {/* World continent dots — sparse, low opacity */}
-            {worldDots.map((dot, i) => (
-              <circle
-                key={`w-${i}`}
-                cx={dot.cx}
-                cy={dot.cy}
-                r={1.2}
-                fill="hsl(var(--muted-foreground))"
-                opacity={0}
-                className="animate-impact-world-fade"
-                style={{ animationDelay: `${0.8 + i * 0.004}s` }}
-              />
-            ))}
-
-            {/* Internal India arcs (city-to-city) */}
+            {/* Internal India arcs */}
             {indiaArcs.map((arc, i) => {
               const from = indianCities[arc.from];
               const to = indianCities[arc.to];
               return (
                 <path
                   key={`ia-${i}`}
-                  d={arcPath(from.cx, from.cy, to.cx, to.cy, -15)}
+                  d={arcPath(from.cx, from.cy, to.cx, to.cy, -10)}
                   fill="none"
                   stroke="hsl(var(--primary))"
                   strokeWidth={0.8}
-                  strokeDasharray="4 4"
+                  strokeDasharray="3 3"
                   opacity={0}
                   className="animate-impact-internal-arc"
-                  style={{ animationDelay: `${0.6 + i * 0.12}s` }}
+                  style={{ animationDelay: `${0.8 + i * 0.12}s` }}
                 />
               );
             })}
@@ -76,30 +80,14 @@ const GeoReachScene = () => (
             {internationalCities.map((city, i) => (
               <path
                 key={`xa-${i}`}
-                d={arcPath(INDIA_CENTER.cx, INDIA_CENTER.cy, city.cx, city.cy, -50)}
+                d={arcPath(INDIA_CENTER.cx, INDIA_CENTER.cy, city.cx, city.cy, -40)}
                 fill="none"
                 stroke="hsl(var(--primary))"
-                strokeWidth={0.6}
-                strokeDasharray="6 5"
+                strokeWidth={0.8}
+                strokeDasharray="5 4"
                 opacity={0}
                 className="animate-impact-arc-draw"
-                style={{ animationDelay: `${1.0 + i * 0.18}s` }}
-              />
-            ))}
-
-            {/* Dense India dots — ripple from center */}
-            {sortedIndiaDots.map((dot, i) => (
-              <circle
-                key={`id-${i}`}
-                cx={dot.cx}
-                cy={dot.cy}
-                r={1.8}
-                fill="hsl(var(--primary))"
-                className="animate-impact-dot-ripple"
-                style={{
-                  animationDelay: `${i * 0.012}s`,
-                  ["--dot-opacity" as string]: 0.7,
-                }}
+                style={{ animationDelay: `${1.2 + i * 0.18}s` }}
               />
             ))}
 
@@ -121,11 +109,11 @@ const GeoReachScene = () => (
                   stroke="hsl(var(--primary))"
                   strokeWidth={0.8}
                   className="animate-impact-city-ping"
-                  style={{ animationDelay: `${0.8 + i * 0.2}s` }}
+                  style={{ animationDelay: `${1.0 + i * 0.2}s` }}
                 />
                 <text
                   x={city.cx}
-                  y={city.cy - 7}
+                  y={city.cy - 6}
                   textAnchor="middle"
                   fill="hsl(var(--primary))"
                   fontSize={7}
@@ -133,7 +121,7 @@ const GeoReachScene = () => (
                   fontFamily="sans-serif"
                   fontWeight={500}
                   className="animate-impact-label-fade"
-                  style={{ animationDelay: `${1.0 + i * 0.15}s` }}
+                  style={{ animationDelay: `${1.2 + i * 0.15}s` }}
                 >
                   {city.label}
                 </text>
@@ -156,20 +144,20 @@ const GeoReachScene = () => (
                   r={2.5}
                   fill="none"
                   stroke="hsl(var(--primary))"
-                  strokeWidth={0.5}
+                  strokeWidth={0.6}
                   className="animate-impact-city-ping"
-                  style={{ animationDelay: `${1.5 + i * 0.25}s` }}
+                  style={{ animationDelay: `${1.8 + i * 0.25}s` }}
                 />
                 <text
                   x={city.cx}
-                  y={city.cy - 6}
+                  y={city.cy - 5}
                   textAnchor="middle"
                   fill="hsl(var(--muted-foreground))"
                   fontSize={7}
                   opacity={0}
                   fontFamily="sans-serif"
                   className="animate-impact-label-fade"
-                  style={{ animationDelay: `${1.5 + i * 0.2}s` }}
+                  style={{ animationDelay: `${1.8 + i * 0.2}s` }}
                 >
                   {city.label}
                 </text>
