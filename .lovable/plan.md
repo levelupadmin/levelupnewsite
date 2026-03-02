@@ -1,61 +1,79 @@
 
+## Visual UX Audit — GeoReach "India to World" Narrative
 
-## Plan: Three-Phase Animated Narrative with India State Outline Map
+### What is currently breaking immersion (priority order)
+1. India silhouette is not clearly recognizable in Phase 1.
+- What user sees: glowing fragments, not one coherent India.
+- Why confusing: narrative promise is “India lights up,” but viewer first has to decode abstract polygons.
+- Root cause: only per-state paths are rendered; no persistent outer national contour/coastline anchor.
 
-### Overview
+2. India drifts/misaligns during Phase 1→2 transition.
+- What user sees: state cluster appears to land over another country.
+- Why confusing: story continuity breaks (“this is India”) and trust drops.
+- Root cause: zoom/pan applied via CSS `style.transform` on SVG `<g>` with pixel-like values while map content is in SVG user coordinates/viewBox; coordinate systems are mixed.
 
-Replace the India dot map with a proper SVG outline map of India split by states. Cities light up as dots state-by-state in Phase 1 (zoomed in), then the view zooms out to reveal the world map in Phase 2, and international arcs appear in Phase 3.
+3. World alignment relies on one hardcoded India center.
+- What user sees: arcs/hub can feel slightly off from actual India location.
+- Why confusing: users perceive geographic inaccuracy instantly in map narratives.
+- Root cause: single `INDIA_CENTER` constant + manual `WORLD_TX/WORLD_TY` calibration, not geometry-anchored to actual India path bounds in the world SVG.
 
-### Files to Create/Modify
+4. Phase timing is rigid, not perception-driven.
+- What user sees: transitions continue even if user is still decoding Phase 1.
+- Why confusing: user misses the “state-wise” story and perceives it as rushed animation.
+- Root cause: fixed `setTimeout` sequencing (3s/4.5s) without readiness gate, replay logic, or slow-device adaptation.
 
-**1. Create `src/components/impact/IndiaStatesMap.tsx`**
-- An SVG `<g>` component containing simplified SVG `<path>` elements for all major Indian states (using actual geographic path data, ~30 states/UTs)
-- Each state path has a unique id (e.g., `"mh"`, `"ka"`, `"tn"`)
-- States start invisible (`opacity: 0, fill: none, stroke: muted`) and light up region-by-region with a primary color fill and glow
-- Accepts `phase` and `isVisible` props to control animation timing
-- Local coordinate space ~0-200 x 0-280 (same as the old dot map for positioning compatibility)
+5. Label density creates clutter in Phase 1.
+- What user sees: many names + counts competing with state lighting.
+- Why confusing: eye cannot prioritize map shape vs dots vs text.
+- Root cause: city labels and learner counts appear broadly at similar visual weight; no hierarchy by zoom level/region.
 
-**2. Create `src/components/impact/indiaMapData.ts`**
-- Array of ~15-20 major Indian cities with:
-  - Position in India local coords
-  - `label` (city name), `learners` count
-  - `region` grouping: North, South, West, East, Central (for staggered state-by-state lighting)
-- State-to-region mapping for controlling which states light up in which wave
-- Region animation order: Central (0s) → West (0.4s) → North (0.8s) → East (1.2s) → South (1.6s)
+6. Visual style mismatch between India layer and world layer.
+- What user sees: India is vector paths, world is a flat `<image>` with opacity fade.
+- Why confusing: the scene looks composited from different systems, not one map.
+- Root cause: raster-like world image treatment + inability to style individual countries in the same semantic SVG layer.
 
-**3. Rewrite `src/components/impact/GeoReachScene.tsx`**
-- Three-phase state machine triggered by `useScrollReveal`:
-  - **Phase 1 (0-3s)**: India outline map zoomed in (`scale(2.5)` on the `<g>` wrapper, centered in SVG viewBox). States light up region-by-region with fill transitions. City dots appear with labels and learner counts staggered by region. Stats show "821 cities across 28 states".
-  - **Phase 2 (3-4.5s)**: Smooth CSS transition scales India `<g>` down from `scale(2.5)` to `scale(1)` and translates it to the India position on the world map. World map `<image>` fades in simultaneously. India states remain highlighted.
-  - **Phase 3 (4.5s+)**: Connection arcs draw from India to 7 international cities. Traveling dots animate along arcs. City markers with tooltips appear. Stats crossfade to "821 cities, 13+ countries".
-- The `<g>` transform uses `translate(cx,cy) scale(s) translate(-cx,-cy)` pattern for proper origin
-- Heading text transitions: "Lighting Up India" → "Spreading from India to the World"
+7. Mobile introduces additional transform instability.
+- What user sees: jumpiness/repositioning around entry and transition.
+- Why confusing: narrative feels “buggy,” not cinematic.
+- Root cause: `useIsMobile()` resolves after mount, so transform preset can switch after initial render.
 
-**4. Update `src/index.css`**
-- Add `@keyframes india-state-light-up` for state fill/stroke transitions
-- Add `@keyframes india-city-dot-appear` for staggered city dot pop-in
-- Add `.geo-phase-transition` class with `transition: transform 1.5s ease-in-out`
+### Why this is confusing for the audience (experience impact)
+- Identity loss: if India shape is not instantly legible, Phase 1 message fails.
+- Spatial discontinuity: if India “teleports,” the brain treats Phase 2 as unrelated shot.
+- Cognitive overload: too many simultaneous signals (state glow + labels + metrics).
+- Credibility gap: geographic mismatch undermines “821 cities, 13+ countries” claim.
+- Emotional drop: cinematic build-up gets interrupted by mechanical timing artifacts.
 
-### India States SVG Approach
-- Use simplified/compressed SVG path data for Indian states (not full geographic detail — enough to be recognizable)
-- Each state is a `<path>` with `className` driven by the current phase and region
-- States in the active region get `fill: hsl(var(--primary) / 0.3)` and `stroke: hsl(var(--primary))` with a staggered delay
-- This replaces `IndiaDotsMap` entirely in the GeoReachScene (the old component stays for any other usage)
+### Concise remediation plan (seamless version)
+1. Lock geography first
+- Add a persistent India outer contour path behind state paths (always visible at low opacity).
+- Calibrate India layer to world map using one shared SVG coordinate system only (no CSS pixel transform on `<g>`).
 
-### Animation Timeline
-```text
-0.0s  — Scroll trigger, Phase 1 starts
-0.0s  — India outline appears (stroke only, muted)
-0.3s  — Central states light up (MP, Maharashtra)
-0.7s  — West states (Gujarat, Rajasthan, Goa)
-1.1s  — North states (Delhi, Punjab, UP)
-1.5s  — East states (WB, Odisha, Bihar, NE)
-1.9s  — South states (Karnataka, TN, Kerala, AP)
-2.0s  — City dots start appearing per region
-2.5s  — India stats fade in below
-3.0s  — Phase 2: zoom-out transition begins
-4.5s  — Phase 3: world map visible, arcs start drawing
-5.5s  — International city markers appear
-6.0s  — Stats swap to global numbers
-```
+2. Fix transform architecture
+- Animate via SVG `transform` values in user units (or animate a wrapper group with consistent viewBox math).
+- Compute target India anchor from actual world SVG India geometry (centroid/bbox), not manual constants.
 
+3. Improve Phase 1 readability
+- State glow first, then dots, then only top-tier labels initially.
+- Delay full learner-count labels until the tail end of Phase 1 (or on hover/tap).
+
+4. Make phase transitions perceptually smooth
+- Use overlap windows (India still visible while world fades in).
+- Start arc draw only after India has settled into exact world position.
+
+5. Mobile-first stabilization
+- Resolve viewport preset before animation starts.
+- Reduce label count and stroke complexity on mobile to keep map legible.
+
+### Technical details (implementation guidance)
+- Current problematic areas: `GeoReachScene.tsx` transform math and timing state-machine, `IndiaStatesMap.tsx` lack of national boundary path, mixed map rendering approach (`<image href={worldMapUrl}>` vs semantic paths).
+- Key fix direction:
+  - Replace CSS pixel transform strategy with SVG-user-unit transform pipeline.
+  - Introduce `INDIA_OUTLINE_PATH` and render it persistently under state paths.
+  - Introduce phase substates (`1a states`, `1b dots`, `1c labels`) instead of one Phase-1 burst.
+  - Replace hardcoded India target with geometry-derived anchor.
+- Validation criteria:
+  - India never leaves India during transition.
+  - First 1 second: India instantly recognizable before any label clutter.
+  - Phase 1→2 perceived as one camera move, not element teleport.
+  - Mobile retains legibility without overlap collisions.
