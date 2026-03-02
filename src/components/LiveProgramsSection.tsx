@@ -101,19 +101,7 @@ const LiveProgramsSection = () => {
           <em className="italic font-normal text-primary">guided live</em>
         </h2>
         <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-5 md:mt-6 max-w-xl mx-auto leading-relaxed text-center">
-          LevelUp Live's features structured programs led by working professionals .            
-Live sessions, real practice, honest feedback.
-
-
-
-
-
-
-
-
-
-
-        
+          Work alongside industry mentors in intensive live programs. Real projects, real feedback, real progress — in 12 weeks or less.
         </p>
       </FadeInSection>
 
