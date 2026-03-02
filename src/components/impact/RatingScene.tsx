@@ -27,7 +27,7 @@ const RatingScene = () => {
           <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none opacity-[0.07]">
             <div className="animate-impact-review-scroll space-y-6 text-center">
               {[...reviews, ...reviews].map((r, i) => (
-                <p key={i} className="text-lg md:text-2xl font-sans-body text-foreground whitespace-nowrap">{r}</p>
+                <p key={i} className="text-xs md:text-2xl font-sans-body text-foreground whitespace-nowrap">{r}</p>
               ))}
             </div>
           </div>
