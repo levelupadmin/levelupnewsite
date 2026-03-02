@@ -5,7 +5,7 @@ import { useScrollReveal } from "@/components/FadeInSection";
 import { useIsMobile } from "@/hooks/use-mobile";
 import ImpactScene from "./ImpactScene";
 import IndiaDotsMap from "@/components/IndiaDotsMap";
-import worldMapUrl from "@/assets/world-map.svg";
+import worldMapUrl from "@/assets/world-map.svg?url";
 import { INDIA_CENTER, internationalCities } from "./worldMapData";
 import { indianCities, WAVE_DELAY_MS, MAX_WAVE } from "./indiaMapData";
 
