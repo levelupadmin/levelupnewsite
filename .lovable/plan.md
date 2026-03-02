@@ -1,49 +1,26 @@
 
 
-## Speed Up & Extend LiveProjectsCard Narrative
+## Audit: Hardcoded Neutral `hsl(0 0% ...)` Values
 
-### Problem
-The full animation cycle is **16 seconds** — too slow. User also wants more narrative beats to keep it interesting longer.
+### Findings
 
-### Plan
+**Files with neutral black values to replace:**
 
-**1. Cut cycle duration from 16s → 9s** (`src/index.css`)
-- Change every `16s` reference in the portfolio animation block (lines 664–862) to `9s`
-- Recalculate all percentage keyframes to maintain the same relative sequence but compressed into 9s
-- Float bob durations stay independent (3s/3.4s/3.8s) — those are fine
+| File | Line(s) | Current Value | Replacement |
+|------|---------|---------------|-------------|
+| `src/index.css` | 46 | `hsl(0 0% 0% / 0.6)` (shadow-cinematic) | `hsl(22 14% 0% / 0.6)` |
+| `src/index.css` | 47 | `hsl(0 0% 0% / 0.5)`, `hsl(0 0% 0% / 0.3)` (text-shadow-hero) | `hsl(22 14% 0% / 0.5)`, `hsl(22 14% 0% / 0.3)` |
+| `src/index.css` | 100 | `hsl(0 0% 0% / 0.06)` (light-mode shadow-cinematic) | `hsl(22 14% 0% / 0.06)` |
+| `src/index.css` | 526-542 | `hsl(0 0% 40%)` in lms-tab keyframes (×8 occurrences) | `hsl(22 10% 40%)` |
+| `ExpertMembershipCard.tsx` | 46 | `hsl(0 0% 0% / 0.9)` gradient | `hsl(22 14% 0% / 0.9)` |
+| `ExpertMembershipCard.tsx` | 173 | `hsl(0 0% 0% / 0.5)` box-shadow | `hsl(22 14% 0% / 0.5)` |
+| `LiveProjectsCard.tsx` | 22 | `hsl(0 0% 0% / 0.4)` box-shadow | `hsl(22 14% 0% / 0.4)` |
+| `LiveProjectsCard.tsx` | 42 | `hsl(0 0% 0% / 0.75)` gradient | `hsl(22 14% 0% / 0.75)` |
+| `CommunityCard.tsx` | 204 | `hsl(0 0% 0% / 0.4)` box-shadow | `hsl(22 14% 0% / 0.4)` |
 
-**2. Add a 3rd DM message** (`src/components/why-levelup/LiveProjectsCard.tsx`)
-- Add a new DM from e.g. "Rohan Mehta · Dharma Productions" saying "Love the showreel — got a project for you"
-- This creates a 3-DM rotation: Priya → Arjun → Rohan, each getting ~20% of the cycle
+### Approach
 
-**3. Revised timeline (9s cycle)**
+Replace all `hsl(0 0% ...)` with `hsl(22 14% ...)` (or `hsl(22 10% ...)` for the mid-gray tab text) to give shadows, gradients, and inactive text a warm undertone matching the established palette. The lightness values stay identical — only hue and saturation shift.
 
-```text
- 0%─────────────────────────────────────100%
- |  Thumbs  |                              |  (scale in 0-12%)
- |  Views tags appear staggered            |  (5-15%)
- |          | DM1 Priya    |               |  (18-38%)
- |                | Freelance gig appears  |  (35%+, persists)
- |                    | DM2 Arjun  |       |  (42-62%)
- |                         | DM3 Rohan |   |  (65-85%)
- |                              | Cohort   |  (70%+, persists)
- |                                | Summary|  (75%+)
- |  View counters cycle through 3 values   |
- |  Border glow pulses 3x                  |
-```
-
-**4. New keyframe percentages** — all in `src/index.css`:
-- Thumbnails: same % (scale in at 2/6/10%), just over 9s instead of 16s
-- DM #1: 18–38% (was 24–56%)
-- DM #2: 42–62% (was 58–92%)
-- DM #3 (new): 65–85%
-- Freelance: appears at 35% (was 46%)
-- Cohort: appears at 70% (was 70%)
-- Gig A/B cycle: 35–55% / 58–90%
-- Reactions: pop at 72%
-- Summary: visible from 32%, text swap at 65%
-
-### Files
-1. `src/index.css` — all `pf-*` keyframes: change `16s` → `9s`, recalculate percentages, add DM3 keyframes
-2. `src/components/why-levelup/LiveProjectsCard.tsx` — add 3rd DM block with new animate classes
+Four files total: `src/index.css`, `ExpertMembershipCard.tsx`, `LiveProjectsCard.tsx`, `CommunityCard.tsx`.
 
