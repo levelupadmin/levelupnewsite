@@ -106,36 +106,42 @@ const LiveProgramsSection = () => {
 
       {/* Section header */}
       <FadeInSection className="text-center px-6 md:px-12 mb-10 md:mb-12">
-        <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-hero-headline leading-[1.2] tracking-tight">
-          Mentorship Programs, For the{" "}
-          <span className="inline-flex items-baseline overflow-hidden align-baseline">
-            <AnimatePresence mode="wait">
-              <m.em
-                key={rotatingWords[wordIndex]}
-                initial={{ y: "100%", opacity: 0 }}
-                animate={{ y: "0%", opacity: 1 }}
-                exit={{ y: "-100%", opacity: 0 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className="italic font-normal text-primary inline-block"
-              >
-                {rotatingWords[wordIndex]}
-              </m.em>
-            </AnimatePresence>
-          </span>
-          , By{" "}
-          <span className="inline-flex items-baseline overflow-hidden align-baseline">
-            <AnimatePresence mode="wait">
-              <m.em
-                key={`by-${rotatingWords[wordIndex]}`}
-                initial={{ y: "100%", opacity: 0 }}
-                animate={{ y: "0%", opacity: 1 }}
-                exit={{ y: "-100%", opacity: 0 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
-                className="italic font-normal text-primary inline-block"
-              >
-                {rotatingWords[wordIndex]}
-              </m.em>
-            </AnimatePresence>
+        <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-hero-headline leading-[1.35] tracking-tight">
+          <span className="block sm:inline">Mentorship Programs,</span>{" "}
+          <span className="block sm:inline whitespace-nowrap">
+            For the{" "}
+            <span className="inline-flex items-baseline overflow-hidden align-baseline justify-center" style={{ minWidth: "7ch" }}>
+              <AnimatePresence mode="wait">
+                <m.em
+                  key={rotatingWords[wordIndex]}
+                  initial={{ y: "100%", opacity: 0 }}
+                  animate={{ y: "0%", opacity: 1 }}
+                  exit={{ y: "-100%", opacity: 0 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="italic font-normal text-primary inline-block"
+                >
+                  {rotatingWords[wordIndex]}
+                </m.em>
+              </AnimatePresence>
+            </span>
+            ,
+          </span>{" "}
+          <span className="block sm:inline whitespace-nowrap">
+            By{" "}
+            <span className="inline-flex items-baseline overflow-hidden align-baseline justify-center" style={{ minWidth: "7ch" }}>
+              <AnimatePresence mode="wait">
+                <m.em
+                  key={`by-${rotatingWords[wordIndex]}`}
+                  initial={{ y: "100%", opacity: 0 }}
+                  animate={{ y: "0%", opacity: 1 }}
+                  exit={{ y: "-100%", opacity: 0 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
+                  className="italic font-normal text-primary inline-block"
+                >
+                  {rotatingWords[wordIndex]}
+                </m.em>
+              </AnimatePresence>
+            </span>
           </span>
         </h2>
         <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-5 md:mt-6 max-w-xl mx-auto leading-relaxed text-center">
