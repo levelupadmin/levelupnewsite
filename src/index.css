@@ -331,6 +331,58 @@
   animation: counter-celebrate 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
 }
 
+/* ═══ Impact Immersive Scene Keyframes ═══ */
+@keyframes impact-review-scroll {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+.animate-impact-review-scroll {
+  animation: impact-review-scroll 18s linear infinite;
+}
+
+@keyframes impact-photo-drift {
+  0%, 100% { transform: scale(1) translate(0, 0); }
+  25% { transform: scale(1.03) translate(2px, -2px); }
+  50% { transform: scale(1.01) translate(-1px, 2px); }
+  75% { transform: scale(1.04) translate(1px, -1px); }
+}
+.animate-impact-photo-drift {
+  animation: impact-photo-drift 8s ease-in-out infinite;
+}
+
+@keyframes impact-glow-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+.animate-impact-glow-pulse {
+  animation: impact-glow-pulse 3s ease-in-out infinite;
+}
+
+@keyframes impact-enrollment-ticker {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+.animate-impact-enrollment-ticker {
+  animation: impact-enrollment-ticker 12s linear infinite;
+}
+
+@keyframes impact-city-ping {
+  0% { transform: scale(0); opacity: 0; }
+  30% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+.animate-impact-city-ping {
+  animation: impact-city-ping 2s ease-out infinite;
+}
+
+@keyframes impact-network-pulse {
+  0% { r: 6; opacity: 0.4; }
+  100% { r: 18; opacity: 0; }
+}
+.animate-impact-network-pulse {
+  animation: impact-network-pulse 2s ease-out infinite;
+}
+
 /* Bento grid award-winning keyframes */
 @keyframes ken-burns {
   0% { transform: scale(1); }
