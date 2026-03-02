@@ -28,15 +28,15 @@ export const INDIA_CITIES: {
 }[] = [
   // Tier 1 — major metros
   { x: 595, y: 455, label: "Delhi", learners: "4,200+", region: "north", tier: 1 },
-  { x: 577, y: 484, label: "Mumbai", learners: "5,800+", region: "west", tier: 1 },
+  { x: 578, y: 484, label: "Mumbai", learners: "5,800+", region: "west", tier: 1 },
   { x: 588, y: 500, label: "Bengaluru", learners: "6,100+", region: "south", tier: 1 },
-  { x: 601, y: 500, label: "Chennai", learners: "3,400+", region: "south", tier: 1 },
+  { x: 600, y: 500, label: "Chennai", learners: "3,400+", region: "south", tier: 1 },
   { x: 598, y: 486, label: "Hyderabad", learners: "3,200+", region: "south", tier: 1 },
-  { x: 618, y: 466, label: "Kolkata", learners: "2,800+", region: "east", tier: 1 },
+  { x: 616, y: 466, label: "Kolkata", learners: "2,800+", region: "east", tier: 1 },
 
   // Tier 2 — secondary cities
   { x: 584, y: 486, label: "Pune", learners: "3,600+", region: "west", tier: 2 },
-  { x: 575, y: 467, label: "Ahmedabad", learners: "1,800+", region: "west", tier: 2 },
+  { x: 576, y: 467, label: "Ahmedabad", learners: "1,800+", region: "west", tier: 2 },
   { x: 581, y: 456, label: "Jaipur", learners: "1,500+", region: "west", tier: 2 },
   { x: 603, y: 460, label: "Lucknow", learners: "1,200+", region: "north", tier: 2 },
   { x: 590, y: 448, label: "Chandigarh", learners: "900+", region: "north", tier: 2 },
