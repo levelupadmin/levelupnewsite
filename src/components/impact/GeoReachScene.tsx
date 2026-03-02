@@ -30,8 +30,8 @@ const INDIA_LOCAL = { x: 108, y: 140 };
 const INDIA_SCALE_WORLD = 0.3;
 
 // ── Phase timing ──
-const PHASE_2_DELAY = 3000;
-const PHASE_3_DELAY = 4800;
+const PHASE_2_DELAY = 5500;
+const PHASE_3_DELAY = 7500;
 
 // ── Zoom calculations ──
 // Phase 1: India zoomed in, centered in viewBox
