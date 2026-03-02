@@ -412,10 +412,49 @@
 
 @keyframes impact-world-fade {
   0% { opacity: 0; }
-  100% { opacity: 0.18; }
+  100% { opacity: 1; }
 }
 .animate-impact-world-fade {
-  animation: impact-world-fade 0.6s ease-out both;
+  animation: impact-world-fade 1s ease-out both;
+}
+
+/* World map SVG styling — thin outlines for all countries, India filled */
+.world-map-container {
+  position: relative;
+}
+
+.world-map-svg path,
+.world-map-svg g path {
+  fill: none;
+  stroke: hsl(var(--muted-foreground));
+  stroke-width: 0.6;
+  opacity: 0.25;
+  transition: opacity 0.3s ease;
+}
+
+/* India — filled and highlighted */
+.world-map-svg #in path,
+.world-map-svg path#in,
+.world-map-svg #in .mainland {
+  fill: hsl(var(--primary) / 0.35);
+  stroke: hsl(var(--primary));
+  stroke-width: 0.8;
+  opacity: 0.85;
+}
+
+/* Neighboring countries — slightly brighter outline */
+.world-map-svg #pk path,
+.world-map-svg path#pk,
+.world-map-svg #bd path,
+.world-map-svg path#bd,
+.world-map-svg #lk path,
+.world-map-svg path#lk,
+.world-map-svg #np path,
+.world-map-svg path#np,
+.world-map-svg #mm path,
+.world-map-svg path#mm {
+  opacity: 0.35;
+  stroke: hsl(var(--primary) / 0.5);
 }
 
 @keyframes impact-label-fade {
