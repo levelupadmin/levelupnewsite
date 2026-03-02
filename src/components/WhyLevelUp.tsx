@@ -136,7 +136,7 @@ const WhyLevelUp = () => {
                   transition: TRANSITION,
                   willChange: "width",
                   minHeight: isMobile
-                    ? isExpanded ? 504 : 432
+                    ? isExpanded ? 560 : 500
                     : 528,
                   flexShrink: 0,
                 }}
