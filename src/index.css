@@ -869,78 +869,77 @@
 [class*="animate-pf-viewcount-"] .pf-vc-b { display: none; animation: pf-vc-cycle-b 9s ease infinite; }
 [class*="animate-pf-viewcount-"] .pf-vc-c { display: none; animation: pf-vc-cycle-c 9s ease infinite; }
 
-/* ── DM #1: visible 10–28% (12s cycle, 4 DMs) ── */
+/* ── DM #1: visible 0–25% (12s cycle, 4 DMs, continuous coverage) ── */
 @keyframes pf-notif-1 {
-  0%, 8% { opacity: 0; transform: translateX(20px); }
-  12% { opacity: 1; transform: translateX(0); }
-  24% { opacity: 1; transform: translateX(0); }
-  28% { opacity: 0; transform: translateX(-10px); }
+  0% { opacity: 0; transform: translateX(20px); }
+  3% { opacity: 1; transform: translateX(0); }
+  22% { opacity: 1; transform: translateX(0); }
+  25% { opacity: 0; transform: translateX(-10px); }
   100% { opacity: 0; }
 }
 .animate-pf-notif-1 { animation: pf-notif-1 12s ease infinite; }
 
 @keyframes pf-typing-1 {
-  0%, 8% { opacity: 0; }
-  10%, 18% { opacity: 1; }
-  20%, 100% { opacity: 0; }
+  0% { opacity: 0; }
+  2%, 12% { opacity: 1; }
+  14%, 100% { opacity: 0; }
 }
 .animate-pf-typing-1 { animation: pf-typing-1 12s ease infinite; }
 
 @keyframes pf-type-1 {
-  0%, 12% { max-width: 0; overflow: hidden; white-space: nowrap; }
-  22% { max-width: 250px; overflow: hidden; white-space: nowrap; }
-  24%, 100% { max-width: 250px; overflow: visible; white-space: normal; }
+  0%, 3% { max-width: 0; overflow: hidden; white-space: nowrap; }
+  15% { max-width: 250px; overflow: hidden; white-space: nowrap; }
+  18%, 100% { max-width: 250px; overflow: visible; white-space: normal; }
 }
 .animate-pf-type-1 { animation: pf-type-1 12s ease infinite; display: inline-block; }
 
-/* ── DM #2: visible 30–48% ── */
+/* ── DM #2: visible 25–50% ── */
 @keyframes pf-notif-1b {
-  0%, 28% { opacity: 0; transform: translateX(20px); }
-  32% { opacity: 1; transform: translateX(0); }
-  44% { opacity: 1; transform: translateX(0); }
-  48% { opacity: 0; transform: translateX(-10px); }
+  0%, 23% { opacity: 0; transform: translateX(20px); }
+  28% { opacity: 1; transform: translateX(0); }
+  47% { opacity: 1; transform: translateX(0); }
+  50% { opacity: 0; transform: translateX(-10px); }
   100% { opacity: 0; }
 }
 .animate-pf-notif-1b { animation: pf-notif-1b 12s ease infinite; }
 
 @keyframes pf-type-1b {
-  0%, 30% { max-width: 0; overflow: hidden; white-space: nowrap; }
+  0%, 28% { max-width: 0; overflow: hidden; white-space: nowrap; }
   40% { max-width: 250px; overflow: hidden; white-space: nowrap; }
   44%, 100% { max-width: 250px; overflow: visible; white-space: normal; }
 }
 .animate-pf-type-1b { animation: pf-type-1b 12s ease infinite; display: inline-block; }
 
-/* ── DM #3: visible 50–68% ── */
+/* ── DM #3: visible 50–75% ── */
 @keyframes pf-notif-1c {
   0%, 48% { opacity: 0; transform: translateX(20px); }
-  52% { opacity: 1; transform: translateX(0); }
-  64% { opacity: 1; transform: translateX(0); }
-  68% { opacity: 0; transform: translateX(-10px); }
+  53% { opacity: 1; transform: translateX(0); }
+  72% { opacity: 1; transform: translateX(0); }
+  75% { opacity: 0; transform: translateX(-10px); }
   100% { opacity: 0; }
 }
 .animate-pf-notif-1c { animation: pf-notif-1c 12s ease infinite; }
 
 @keyframes pf-type-1c {
-  0%, 50% { max-width: 0; overflow: hidden; white-space: nowrap; }
-  60% { max-width: 250px; overflow: hidden; white-space: nowrap; }
-  64%, 100% { max-width: 250px; overflow: visible; white-space: normal; }
+  0%, 53% { max-width: 0; overflow: hidden; white-space: nowrap; }
+  65% { max-width: 250px; overflow: hidden; white-space: nowrap; }
+  68%, 100% { max-width: 250px; overflow: visible; white-space: normal; }
 }
 .animate-pf-type-1c { animation: pf-type-1c 12s ease infinite; display: inline-block; }
 
-/* ── DM #4: visible 70–88% ── */
+/* ── DM #4: visible 75–100% ── */
 @keyframes pf-notif-1d {
-  0%, 68% { opacity: 0; transform: translateX(20px); }
-  72% { opacity: 1; transform: translateX(0); }
-  84% { opacity: 1; transform: translateX(0); }
-  88% { opacity: 0; transform: translateX(-10px); }
-  100% { opacity: 0; }
+  0%, 73% { opacity: 0; transform: translateX(20px); }
+  78% { opacity: 1; transform: translateX(0); }
+  97% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(-10px); }
 }
 .animate-pf-notif-1d { animation: pf-notif-1d 12s ease infinite; }
 
 @keyframes pf-type-1d {
-  0%, 70% { max-width: 0; overflow: hidden; white-space: nowrap; }
-  80% { max-width: 250px; overflow: hidden; white-space: nowrap; }
-  84%, 100% { max-width: 250px; overflow: visible; white-space: normal; }
+  0%, 78% { max-width: 0; overflow: hidden; white-space: nowrap; }
+  90% { max-width: 250px; overflow: hidden; white-space: nowrap; }
+  93%, 100% { max-width: 250px; overflow: visible; white-space: normal; }
 }
 .animate-pf-type-1d { animation: pf-type-1d 12s ease infinite; display: inline-block; }
 
