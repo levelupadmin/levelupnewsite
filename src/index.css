@@ -432,14 +432,15 @@
   transition: opacity 0.3s ease;
 }
 
-/* India — filled and highlighted */
+/* India — filled and highlighted with glow */
 .world-map-svg #in path,
 .world-map-svg path#in,
 .world-map-svg #in .mainland {
-  fill: hsl(var(--primary) / 0.35);
+  fill: hsl(var(--primary) / 0.45);
   stroke: hsl(var(--primary));
-  stroke-width: 0.8;
-  opacity: 0.85;
+  stroke-width: 1;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 3px hsl(var(--primary) / 0.4));
 }
 
 /* Neighboring countries — slightly brighter outline */
