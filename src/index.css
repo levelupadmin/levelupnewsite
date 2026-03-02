@@ -393,12 +393,22 @@
 }
 
 @keyframes impact-arc-draw {
-  0% { stroke-dashoffset: 100; opacity: 0; }
-  100% { stroke-dashoffset: 0; opacity: 0.4; }
+  0% { stroke-dashoffset: 200; opacity: 0; }
+  30% { opacity: 0.6; }
+  100% { stroke-dashoffset: 0; opacity: 0.7; }
 }
 .animate-impact-arc-draw {
-  stroke-dasharray: 100;
-  animation: impact-arc-draw 1.2s ease-out both;
+  stroke-dasharray: 200;
+  animation: impact-arc-draw 2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Glowing arc trail overlay */
+@keyframes arc-glow-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+.animate-arc-glow-pulse {
+  animation: arc-glow-pulse 3s ease-in-out infinite;
 }
 
 @keyframes impact-internal-arc {
@@ -468,19 +478,25 @@
 
 /* Heartbeat pulse at India center */
 @keyframes impact-heartbeat {
-  0%, 100% { opacity: 0.6; r: 3; }
-  50% { opacity: 0.9; r: 5; }
+  0%, 100% { opacity: 0.5; r: 2.5; }
+  50% { opacity: 1; r: 4; }
 }
 .animate-impact-heartbeat {
-  animation: impact-heartbeat 2.5s ease-in-out infinite;
+  animation: impact-heartbeat 2s ease-in-out infinite;
 }
 
 @keyframes impact-heartbeat-ring {
-  0% { opacity: 0.4; r: 3; }
-  100% { opacity: 0; r: 20; }
+  0% { opacity: 0.5; r: 3; }
+  50% { opacity: 0.2; }
+  100% { opacity: 0; r: 18; }
 }
 .animate-impact-heartbeat-ring {
-  animation: impact-heartbeat-ring 2.5s ease-out infinite;
+  animation: impact-heartbeat-ring 2s ease-out infinite;
+}
+
+/* Second staggered ring for richer heartbeat */
+.animate-impact-heartbeat-ring-2 {
+  animation: impact-heartbeat-ring 2s ease-out 0.5s infinite;
 }
 
 /* Bento grid award-winning keyframes */
