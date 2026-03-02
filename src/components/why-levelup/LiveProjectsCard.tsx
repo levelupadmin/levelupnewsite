@@ -19,7 +19,7 @@ const LiveProjectsCard = () => {
         className="relative w-[88%] h-[92%] rounded-xl overflow-hidden flex flex-col animate-pf-border-glow"
         style={{
           background: "hsl(30 20% 10% / 0.95)",
-          boxShadow: "0 8px 32px -8px hsl(0 0% 0% / 0.4), 0 0 16px 2px hsl(30 80% 45% / 0.06)",
+          boxShadow: "0 8px 32px -8px hsl(22 14% 0% / 0.4), 0 0 16px 2px hsl(30 80% 45% / 0.06)",
         }}
       >
         {/* ── Header ── */}
@@ -39,7 +39,7 @@ const LiveProjectsCard = () => {
               <img src={p.img} alt={p.title} className="w-full h-full object-cover" loading="lazy" />
               <div
                 className="absolute inset-0"
-                style={{ background: "linear-gradient(to top, hsl(0 0% 0% / 0.75) 0%, transparent 55%)" }}
+                style={{ background: "linear-gradient(to top, hsl(22 14% 0% / 0.75) 0%, transparent 55%)" }}
               />
               <div className="absolute bottom-0 inset-x-0 px-1 py-0.5 flex flex-col gap-[1px]">
                 <span className="text-[5.5px] text-foreground/60 truncate leading-tight">{p.title}</span>

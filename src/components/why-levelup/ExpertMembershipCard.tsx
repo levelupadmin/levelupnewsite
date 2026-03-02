@@ -43,7 +43,7 @@ const MasterclassScreen = () => (
           <Play size={12} className="text-white ml-0.5" fill="white" />
         </div>
       </div>
-      <div className="absolute bottom-0 inset-x-0 px-2.5 pt-5 pb-1.5" style={{ background: "linear-gradient(to top, hsl(0 0% 0% / 0.9), transparent)" }}>
+      <div className="absolute bottom-0 inset-x-0 px-2.5 pt-5 pb-1.5" style={{ background: "linear-gradient(to top, hsl(22 14% 0% / 0.9), transparent)" }}>
         <p className="text-[8px] font-medium text-foreground/90">Karthik Subbaraj</p>
         <p className="text-[6px] text-primary/80 uppercase tracking-wider mt-0.5">Teaches Filmmaking</p>
         <div className="mt-1 w-full h-[2px] bg-foreground/10 rounded-full overflow-hidden">
@@ -170,7 +170,7 @@ const ExpertMembershipCard = () => {
           className="flex-1 relative rounded-lg border border-primary/15 overflow-hidden"
           style={{
             background: "hsl(30 20% 8% / 0.95)",
-            boxShadow: "0 12px 40px -8px hsl(0 0% 0% / 0.5)",
+            boxShadow: "0 12px 40px -8px hsl(22 14% 0% / 0.5)",
           }}
         >
           <MasterclassScreen />

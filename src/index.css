@@ -43,8 +43,8 @@
     --gradient-cinematic: linear-gradient(180deg, hsl(22 14% 6%) 0%, hsl(22 14% 4%) 100%);
     --gradient-amber-glow: radial-gradient(ellipse at 50% 0%, hsl(24 95% 53% / 0.06) 0%, transparent 60%);
     --gradient-amber-gold: linear-gradient(135deg, hsl(24 95% 53%) 0%, hsl(30 90% 60%) 50%, hsl(20 85% 48%) 100%);
-    --shadow-cinematic: 0 20px 60px -15px hsl(0 0% 0% / 0.6);
-    --text-shadow-hero: 0 2px 20px hsl(0 0% 0% / 0.5), 0 1px 4px hsl(0 0% 0% / 0.3);
+    --shadow-cinematic: 0 20px 60px -15px hsl(22 14% 0% / 0.6);
+    --text-shadow-hero: 0 2px 20px hsl(22 14% 0% / 0.5), 0 1px 4px hsl(22 14% 0% / 0.3);
 
     /* Unified section backgrounds — no per-section shifts */
     --bg-live-programs: 22 14% 6%;
@@ -97,7 +97,7 @@
     --cue-value: 0 0% 15%;
     --gradient-amber-glow: radial-gradient(ellipse at 50% 0%, hsl(24 95% 53% / 0.06) 0%, transparent 60%);
     --gradient-amber-gold: linear-gradient(135deg, hsl(24 95% 53%) 0%, hsl(30 90% 60%) 50%, hsl(20 85% 48%) 100%);
-    --shadow-cinematic: 0 4px 20px -4px hsl(0 0% 0% / 0.06);
+    --shadow-cinematic: 0 4px 20px -4px hsl(22 14% 0% / 0.06);
   }
 
   /* Invert white-only SVG logos inside the warm theme */
@@ -523,23 +523,23 @@
 /* ── Tab highlight: active state for each tab ── */
 @keyframes lms-tab-1 {
   0%, 22% { background: hsl(24 95% 53% / 0.12); color: hsl(24 95% 53%); }
-  25%, 97% { background: transparent; color: hsl(0 0% 40%); }
+  25%, 97% { background: transparent; color: hsl(22 10% 40%); }
   100% { background: hsl(24 95% 53% / 0.12); color: hsl(24 95% 53%); }
 }
 @keyframes lms-tab-2 {
-  0%, 22% { background: transparent; color: hsl(0 0% 40%); }
+  0%, 22% { background: transparent; color: hsl(22 10% 40%); }
   25%, 47% { background: hsl(24 95% 53% / 0.12); color: hsl(24 95% 53%); }
-  50%, 100% { background: transparent; color: hsl(0 0% 40%); }
+  50%, 100% { background: transparent; color: hsl(22 10% 40%); }
 }
 @keyframes lms-tab-3 {
-  0%, 47% { background: transparent; color: hsl(0 0% 40%); }
+  0%, 47% { background: transparent; color: hsl(22 10% 40%); }
   50%, 72% { background: hsl(24 95% 53% / 0.12); color: hsl(24 95% 53%); }
-  75%, 100% { background: transparent; color: hsl(0 0% 40%); }
+  75%, 100% { background: transparent; color: hsl(22 10% 40%); }
 }
 @keyframes lms-tab-4 {
-  0%, 72% { background: transparent; color: hsl(0 0% 40%); }
+  0%, 72% { background: transparent; color: hsl(22 10% 40%); }
   75%, 97% { background: hsl(24 95% 53% / 0.12); color: hsl(24 95% 53%); }
-  100% { background: transparent; color: hsl(0 0% 40%); }
+  100% { background: transparent; color: hsl(22 10% 40%); }
 }
 
 .animate-lms-tab-1 { animation: lms-tab-1 16s ease infinite; }
