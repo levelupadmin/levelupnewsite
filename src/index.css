@@ -786,30 +786,9 @@
 .animate-portfolio-ready { animation: portfolio-ready 12s ease infinite; }
 
 /* ── Project count: show 1, then 2, then 3 ── */
-@keyframes portfolio-count-1 {
-  0%, 24% { display: inline; }
-  25%, 100% { display: none; }
-}
-@keyframes portfolio-count-2 {
-  0%, 24% { display: none; }
-  25%, 49% { display: inline; }
-  50%, 100% { display: none; }
-}
-@keyframes portfolio-count-3 {
-  0%, 49% { display: none; }
-  50%, 100% { display: inline; }
-}
-/* Can't animate display, use opacity instead */
-.animate-portfolio-count-1 {
-  animation: portfolio-slot-1 12s ease infinite;
-}
-.animate-portfolio-count-2 {
-  position: absolute;
-  animation: portfolio-count-vis-2 12s ease infinite;
-}
-.animate-portfolio-count-3 {
-  position: absolute;
-  animation: portfolio-count-vis-3 12s ease infinite;
+@keyframes portfolio-count-vis-1 {
+  0%, 24% { opacity: 1; }
+  25%, 100% { opacity: 0; }
 }
 @keyframes portfolio-count-vis-2 {
   0%, 24% { opacity: 0; }
@@ -821,7 +800,10 @@
   50%, 100% { opacity: 1; }
 }
 
-/* ── Timeline tracks: fill progressively ── */
+.animate-portfolio-count-1 { animation: portfolio-count-vis-1 12s ease infinite; }
+.animate-portfolio-count-2 { animation: portfolio-count-vis-2 12s ease infinite; }
+.animate-portfolio-count-3 { animation: portfolio-count-vis-3 12s ease infinite; }
+
 @keyframes portfolio-track-v {
   0% { width: 0%; }
   83% { width: 85%; }
