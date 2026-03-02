@@ -401,6 +401,31 @@
   animation: impact-arc-draw 1.2s ease-out both;
 }
 
+@keyframes impact-internal-arc {
+  0% { stroke-dashoffset: 60; opacity: 0; }
+  100% { stroke-dashoffset: 0; opacity: 0.3; }
+}
+.animate-impact-internal-arc {
+  stroke-dasharray: 60;
+  animation: impact-internal-arc 0.9s ease-out both;
+}
+
+@keyframes impact-world-fade {
+  0% { opacity: 0; }
+  100% { opacity: 0.18; }
+}
+.animate-impact-world-fade {
+  animation: impact-world-fade 0.6s ease-out both;
+}
+
+@keyframes impact-label-fade {
+  0% { opacity: 0; }
+  100% { opacity: 0.75; }
+}
+.animate-impact-label-fade {
+  animation: impact-label-fade 0.5s ease-out both;
+}
+
 /* Bento grid award-winning keyframes */
 @keyframes ken-burns {
   0% { transform: scale(1); }
