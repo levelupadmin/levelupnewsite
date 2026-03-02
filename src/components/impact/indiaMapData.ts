@@ -48,30 +48,46 @@ export const INDIA_STATE_PATHS: { id: string; region: Region; d: string }[] = [
   { id: "tn", region: "south", d: "M40,108 L54,102 L62,108 L60,120 L50,128 L38,124 L34,114 Z" },
 ];
 
-/** Major Indian cities positioned in the same local coordinate space */
+/**
+ * Persistent India national outline — a single closed path tracing the outer boundary.
+ * This is always rendered (at low opacity) so the viewer instantly recognises India
+ * before individual states light up.
+ */
+export const INDIA_OUTLINE_PATH =
+  "M50,2 L62,0 L68,8 L70,18 L74,28 L78,36 L82,48 L84,52 L88,48 L92,56 L100,46 L98,56 L92,58 L88,66 L84,72 L80,82 L72,84 L68,96 L62,108 L60,120 L50,128 L38,124 L34,114 L34,124 L30,130 L24,126 L22,118 L22,102 L22,96 L20,92 L20,90 L12,80 L14,78 L4,76 L-2,66 L0,52 L6,50 L10,34 L40,32 L40,28 L48,14 Z";
+
+/** Local-coordinate bounding box of the India artwork */
+export const INDIA_BBOX = { minX: -2, minY: 0, maxX: 100, maxY: 130 };
+export const INDIA_LOCAL_CENTER = {
+  cx: (INDIA_BBOX.minX + INDIA_BBOX.maxX) / 2, // 49
+  cy: (INDIA_BBOX.minY + INDIA_BBOX.maxY) / 2, // 65
+};
+
+/** Major Indian cities — top-tier cities shown first, rest staggered later */
 export const INDIA_CITIES: {
   x: number;
   y: number;
   label: string;
   learners: string;
   region: Region;
+  tier: 1 | 2;
 }[] = [
-  { x: 50, y: 44, label: "Delhi", learners: "4,200+", region: "north" },
-  { x: 16, y: 76, label: "Mumbai", learners: "5,800+", region: "west" },
-  { x: 36, y: 106, label: "Bengaluru", learners: "6,100+", region: "south" },
-  { x: 54, y: 118, label: "Chennai", learners: "3,400+", region: "south" },
-  { x: 58, y: 84, label: "Hyderabad", learners: "3,200+", region: "south" },
-  { x: 86, y: 54, label: "Kolkata", learners: "2,800+", region: "east" },
-  { x: 38, y: 84, label: "Pune", learners: "3,600+", region: "west" },
-  { x: 10, y: 58, label: "Ahmedabad", learners: "1,800+", region: "west" },
-  { x: 26, y: 40, label: "Jaipur", learners: "1,500+", region: "west" },
-  { x: 66, y: 48, label: "Lucknow", learners: "1,200+", region: "north" },
-  { x: 46, y: 30, label: "Chandigarh", learners: "900+", region: "north" },
-  { x: 28, y: 120, label: "Kochi", learners: "1,100+", region: "south" },
-  { x: 36, y: 66, label: "Indore", learners: "800+", region: "central" },
-  { x: 70, y: 90, label: "Vizag", learners: "600+", region: "east" },
-  { x: 44, y: 112, label: "Coimbatore", learners: "700+", region: "south" },
-  { x: 48, y: 66, label: "Bhopal", learners: "500+", region: "central" },
-  { x: 76, y: 48, label: "Patna", learners: "700+", region: "east" },
-  { x: 52, y: 72, label: "Nagpur", learners: "600+", region: "central" },
+  { x: 50, y: 44, label: "Delhi", learners: "4,200+", region: "north", tier: 1 },
+  { x: 16, y: 76, label: "Mumbai", learners: "5,800+", region: "west", tier: 1 },
+  { x: 36, y: 106, label: "Bengaluru", learners: "6,100+", region: "south", tier: 1 },
+  { x: 54, y: 118, label: "Chennai", learners: "3,400+", region: "south", tier: 1 },
+  { x: 58, y: 84, label: "Hyderabad", learners: "3,200+", region: "south", tier: 1 },
+  { x: 86, y: 54, label: "Kolkata", learners: "2,800+", region: "east", tier: 1 },
+  { x: 38, y: 84, label: "Pune", learners: "3,600+", region: "west", tier: 2 },
+  { x: 10, y: 58, label: "Ahmedabad", learners: "1,800+", region: "west", tier: 2 },
+  { x: 26, y: 40, label: "Jaipur", learners: "1,500+", region: "west", tier: 2 },
+  { x: 66, y: 48, label: "Lucknow", learners: "1,200+", region: "north", tier: 2 },
+  { x: 46, y: 30, label: "Chandigarh", learners: "900+", region: "north", tier: 2 },
+  { x: 28, y: 120, label: "Kochi", learners: "1,100+", region: "south", tier: 2 },
+  { x: 36, y: 66, label: "Indore", learners: "800+", region: "central", tier: 2 },
+  { x: 70, y: 90, label: "Vizag", learners: "600+", region: "east", tier: 2 },
+  { x: 44, y: 112, label: "Coimbatore", learners: "700+", region: "south", tier: 2 },
+  { x: 48, y: 66, label: "Bhopal", learners: "500+", region: "central", tier: 2 },
+  { x: 76, y: 48, label: "Patna", learners: "700+", region: "east", tier: 2 },
+  { x: 52, y: 72, label: "Nagpur", learners: "600+", region: "central", tier: 2 },
 ];
