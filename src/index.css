@@ -638,224 +638,185 @@
 }
 
 /* ═══════════════════════════════════════════════
-   Portfolio Builder — LiveProjectsCard animations
-   12s loop: 3 projects build sequentially + "ready" state
+   Portfolio → Opportunities — LiveProjectsCard animations
+   16s loop: portfolio showcase → client DM → gig offer → community + earnings
    ═══════════════════════════════════════════════ */
 
-/* ── Portfolio grid slots: scale in when their project completes ── */
-/* Slot 1: visible from 25% (3s), Slot 2: from 50% (6s), Slot 3: from 75% (9s) */
-@keyframes portfolio-slot-1 {
-  0%, 20% { opacity: 0.3; transform: scale(0.9); filter: saturate(0); }
-  25%, 100% { opacity: 1; transform: scale(1); filter: saturate(1); }
-}
-@keyframes portfolio-slot-2 {
-  0%, 45% { opacity: 0.3; transform: scale(0.9); filter: saturate(0); }
-  50%, 100% { opacity: 1; transform: scale(1); filter: saturate(1); }
-}
-@keyframes portfolio-slot-3 {
-  0%, 70% { opacity: 0.3; transform: scale(0.9); filter: saturate(0); }
-  75%, 100% { opacity: 1; transform: scale(1); filter: saturate(1); }
-}
-
-.animate-portfolio-slot-1 { animation: portfolio-slot-1 12s ease infinite; }
-.animate-portfolio-slot-2 { animation: portfolio-slot-2 12s ease infinite; }
-.animate-portfolio-slot-3 { animation: portfolio-slot-3 12s ease infinite; }
-
-/* ── Checkmarks: appear after slot fills ── */
-@keyframes portfolio-check-1 {
-  0%, 24% { opacity: 0; transform: scale(0.5); }
-  27% { opacity: 1; transform: scale(1.15); }
+/* ── Notification badge: scale-pop in at 4s ── */
+@keyframes pf-badge {
+  0%, 20% { opacity: 0; transform: scale(0); }
+  25% { opacity: 1; transform: scale(1.3); }
   30%, 100% { opacity: 1; transform: scale(1); }
 }
-@keyframes portfolio-check-2 {
-  0%, 49% { opacity: 0; transform: scale(0.5); }
-  52% { opacity: 1; transform: scale(1.15); }
-  55%, 100% { opacity: 1; transform: scale(1); }
-}
-@keyframes portfolio-check-3 {
-  0%, 74% { opacity: 0; transform: scale(0.5); }
-  77% { opacity: 1; transform: scale(1.15); }
-  80%, 100% { opacity: 1; transform: scale(1); }
-}
+.animate-pf-badge { animation: pf-badge 16s ease infinite; }
 
-.animate-portfolio-check-1 { animation: portfolio-check-1 12s ease infinite; }
-.animate-portfolio-check-2 { animation: portfolio-check-2 12s ease infinite; }
-.animate-portfolio-check-3 { animation: portfolio-check-3 12s ease infinite; }
-
-/* ── Empty circle: visible until slot fills ── */
-@keyframes portfolio-empty-1 {
-  0%, 20% { opacity: 1; }
-  25%, 100% { opacity: 0; }
+/* ── Badge number cycling: 1 → 2 → 3 ── */
+@keyframes pf-badge-1 {
+  0%, 24% { opacity: 1; } 25%, 100% { opacity: 0; }
 }
-@keyframes portfolio-empty-2 {
-  0%, 45% { opacity: 1; }
-  50%, 100% { opacity: 0; }
+@keyframes pf-badge-2 {
+  0%, 24% { opacity: 0; } 25%, 49% { opacity: 1; } 50%, 100% { opacity: 0; }
 }
-@keyframes portfolio-empty-3 {
-  0%, 70% { opacity: 1; }
-  75%, 100% { opacity: 0; }
+@keyframes pf-badge-3 {
+  0%, 49% { opacity: 0; } 50%, 100% { opacity: 1; }
 }
+.animate-pf-badge-1 { animation: pf-badge-1 16s ease infinite; }
+.animate-pf-badge-2 { animation: pf-badge-2 16s ease infinite; }
+.animate-pf-badge-3 { animation: pf-badge-3 16s ease infinite; }
 
-.animate-portfolio-empty-1 { animation: portfolio-empty-1 12s ease infinite; }
-.animate-portfolio-empty-2 { animation: portfolio-empty-2 12s ease infinite; }
-.animate-portfolio-empty-3 { animation: portfolio-empty-3 12s ease infinite; }
-
-/* ── Active project panel: pulses during work phases ── */
-@keyframes portfolio-active {
-  0%, 5% { opacity: 0.5; transform: translateY(4px); }
-  8% { opacity: 1; transform: translateY(0); }
-  83% { opacity: 1; transform: translateY(0); }
-  88%, 100% { opacity: 0.5; transform: translateY(4px); }
+/* ── Thumbnails: scale in staggered 0–4s ── */
+@keyframes pf-thumb-1 {
+  0%, 2% { opacity: 0.2; transform: scale(0.85); filter: saturate(0); }
+  8%, 100% { opacity: 1; transform: scale(1); filter: saturate(1); }
 }
-.animate-portfolio-active { animation: portfolio-active 12s ease infinite; }
-
-/* ── Progress bar fill: cycles through 3 projects ── */
-@keyframes portfolio-progress {
-  0% { width: 0%; }
-  8% { width: 30%; }
-  18% { width: 72%; }
-  23% { width: 100%; }
-  25% { width: 0%; }
-  33% { width: 25%; }
-  43% { width: 65%; }
-  48% { width: 100%; }
-  50% { width: 0%; }
-  58% { width: 40%; }
-  68% { width: 80%; }
-  73% { width: 100%; }
-  83%, 100% { width: 100%; }
+@keyframes pf-thumb-2 {
+  0%, 6% { opacity: 0.2; transform: scale(0.85); filter: saturate(0); }
+  14%, 100% { opacity: 1; transform: scale(1); filter: saturate(1); }
 }
-.animate-portfolio-progress { animation: portfolio-progress 12s ease infinite; }
-
-/* ── Title cycling ── */
-@keyframes portfolio-title-1 { 0%, 24% { opacity: 1; } 25%, 100% { opacity: 0; } }
-@keyframes portfolio-title-2 { 0%, 24% { opacity: 0; } 25%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
-@keyframes portfolio-title-3 { 0%, 49% { opacity: 0; } 50%, 83% { opacity: 1; } 84%, 100% { opacity: 0; } }
-
-/* ── Percent text ── */
-@keyframes portfolio-percent {
-  0% { opacity: 1; }
-  23% { opacity: 1; }
-  25% { opacity: 1; }
-  83% { opacity: 1; }
-  88%, 100% { opacity: 0.3; }
+@keyframes pf-thumb-3 {
+  0%, 10% { opacity: 0.2; transform: scale(0.85); filter: saturate(0); }
+  18%, 100% { opacity: 1; transform: scale(1); filter: saturate(1); }
 }
-.animate-portfolio-percent { animation: portfolio-percent 12s ease infinite; }
+.animate-pf-thumb-1 { animation: pf-thumb-1 16s ease infinite; }
+.animate-pf-thumb-2 { animation: pf-thumb-2 16s ease infinite; }
+.animate-pf-thumb-3 { animation: pf-thumb-3 16s ease infinite; }
 
-/* ── Mentor feedback: fades in during phase 2 ── */
-@keyframes portfolio-feedback {
-  0%, 30% { opacity: 0; transform: translateY(6px); }
-  35% { opacity: 1; transform: translateY(0); }
-  83% { opacity: 1; transform: translateY(0); }
-  88%, 100% { opacity: 0; transform: translateY(6px); }
+/* ── View counters: count up after thumbnails ── */
+@keyframes pf-views-1 {
+  0%, 5% { opacity: 0; } 10%, 100% { opacity: 1; }
 }
-.animate-portfolio-feedback { animation: portfolio-feedback 12s ease infinite; }
+@keyframes pf-views-2 {
+  0%, 10% { opacity: 0; } 16%, 100% { opacity: 1; }
+}
+@keyframes pf-views-3 {
+  0%, 14% { opacity: 0; } 20%, 100% { opacity: 1; }
+}
+.animate-pf-views-1 { animation: pf-views-1 16s ease infinite; }
+.animate-pf-views-2 { animation: pf-views-2 16s ease infinite; }
+.animate-pf-views-3 { animation: pf-views-3 16s ease infinite; }
 
-/* ── Typing dots: visible briefly before feedback appears ── */
-@keyframes portfolio-typing {
-  0%, 27% { opacity: 0; }
-  28%, 33% { opacity: 1; }
-  35%, 100% { opacity: 0; }
+/* ── Notification 1 (Client DM): slides in at 4s ── */
+@keyframes pf-notif-1 {
+  0%, 24% { opacity: 0; transform: translateX(20px); }
+  30% { opacity: 1; transform: translateX(0); }
+  90% { opacity: 1; }
+  96%, 100% { opacity: 0; transform: translateY(-4px); }
 }
-.animate-portfolio-typing { animation: portfolio-typing 12s ease infinite; }
+.animate-pf-notif-1 { animation: pf-notif-1 16s ease infinite; }
 
-/* ── Text typing reveal ── */
-@keyframes portfolio-type {
-  0%, 30% { max-width: 0; overflow: hidden; white-space: nowrap; }
-  50% { max-width: 300px; overflow: hidden; white-space: nowrap; }
-  55%, 100% { max-width: 300px; overflow: visible; white-space: normal; }
-}
-.animate-portfolio-type { animation: portfolio-type 12s ease infinite; display: inline-block; }
-
-/* ── Engagement stats: fade in during phase 3 ── */
-@keyframes portfolio-stats {
-  0%, 55% { opacity: 0; transform: translateY(4px); }
-  60% { opacity: 1; transform: translateY(0); }
-  83% { opacity: 1; }
-  88%, 100% { opacity: 0; transform: translateY(4px); }
-}
-.animate-portfolio-stats { animation: portfolio-stats 12s ease infinite; }
-
-/* ── "Portfolio Ready" badge: appears at completion ── */
-@keyframes portfolio-ready {
-  0%, 78% { opacity: 0; transform: scale(0.8); }
-  82% { opacity: 1; transform: scale(1.08); }
-  85%, 92% { opacity: 1; transform: scale(1); }
-  96%, 100% { opacity: 0; transform: scale(0.8); }
-}
-.animate-portfolio-ready { animation: portfolio-ready 12s ease infinite; }
-
-/* ── Project count: show 1, then 2, then 3 ── */
-@keyframes portfolio-count-vis-1 {
-  0%, 24% { opacity: 1; }
-  25%, 100% { opacity: 0; }
-}
-@keyframes portfolio-count-vis-2 {
+/* ── Typing dots for DM: visible before message ── */
+@keyframes pf-typing-1 {
   0%, 24% { opacity: 0; }
-  25%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
+  26%, 32% { opacity: 1; }
+  34%, 100% { opacity: 0; }
 }
-@keyframes portfolio-count-vis-3 {
-  0%, 49% { opacity: 0; }
-  50%, 100% { opacity: 1; }
-}
+.animate-pf-typing-1 { animation: pf-typing-1 16s ease infinite; }
 
-.animate-portfolio-count-1 { animation: portfolio-count-vis-1 12s ease infinite; }
-.animate-portfolio-count-2 { animation: portfolio-count-vis-2 12s ease infinite; }
-.animate-portfolio-count-3 { animation: portfolio-count-vis-3 12s ease infinite; }
+/* ── DM text typing reveal ── */
+@keyframes pf-type-1 {
+  0%, 28% { max-width: 0; overflow: hidden; white-space: nowrap; }
+  42% { max-width: 250px; overflow: hidden; white-space: nowrap; }
+  46%, 100% { max-width: 250px; overflow: visible; white-space: normal; }
+}
+.animate-pf-type-1 { animation: pf-type-1 16s ease infinite; display: inline-block; }
 
-@keyframes portfolio-track-v {
-  0% { width: 0%; }
-  83% { width: 85%; }
-  88%, 100% { width: 85%; }
+/* ── Notification 2 (Gig Alert): fades in at 8s ── */
+@keyframes pf-notif-2 {
+  0%, 48% { opacity: 0; transform: translateY(8px); }
+  54% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; }
+  96%, 100% { opacity: 0; transform: translateY(-4px); }
 }
-@keyframes portfolio-track-a {
-  0% { width: 0%; }
-  10% { width: 0%; }
-  83% { width: 60%; }
-  88%, 100% { width: 60%; }
-}
-@keyframes portfolio-track-sfx {
-  0% { width: 0%; }
-  20% { width: 0%; }
-  83% { width: 45%; }
-  88%, 100% { width: 45%; }
-}
-@keyframes portfolio-playhead {
-  0% { left: 0%; }
-  83% { left: 90%; }
-  88%, 100% { left: 0%; }
-}
+.animate-pf-notif-2 { animation: pf-notif-2 16s ease infinite; }
 
-.animate-portfolio-track-v { animation: portfolio-track-v 12s ease infinite; }
-.animate-portfolio-track-a { animation: portfolio-track-a 12s ease infinite; }
-.animate-portfolio-track-sfx { animation: portfolio-track-sfx 12s ease infinite; }
-.animate-portfolio-playhead { animation: portfolio-playhead 12s linear infinite; }
+/* ── Accept button glow ── */
+@keyframes pf-accept {
+  0%, 56% { opacity: 0.5; }
+  58% { opacity: 1; }
+  62% { transform: scale(1.05); }
+  65%, 100% { transform: scale(1); opacity: 1; }
+}
+.animate-pf-accept { animation: pf-accept 16s ease infinite; }
+
+/* ── Ripple effect on Accept ── */
+@keyframes pf-ripple {
+  0%, 60% { opacity: 0; transform: scale(1); }
+  62% { opacity: 0.4; transform: scale(1); }
+  68% { opacity: 0; transform: scale(1.8); }
+  69%, 100% { opacity: 0; }
+}
+.animate-pf-ripple { animation: pf-ripple 16s ease infinite; }
+
+/* ── Notification 3 (Community): fades in at 12s ── */
+@keyframes pf-notif-3 {
+  0%, 72% { opacity: 0; transform: translateY(8px); }
+  78% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; }
+  96%, 100% { opacity: 0; transform: translateY(-4px); }
+}
+.animate-pf-notif-3 { animation: pf-notif-3 16s ease infinite; }
+
+/* ── Emoji reactions pop in ── */
+@keyframes pf-reactions {
+  0%, 74% { opacity: 0; transform: scale(0.7); }
+  80% { opacity: 1; transform: scale(1.1); }
+  83%, 100% { opacity: 1; transform: scale(1); }
+}
+.animate-pf-reactions { animation: pf-reactions 16s ease infinite; }
+
+/* ── Stacked avatars slide in ── */
+@keyframes pf-avatars {
+  0%, 76% { opacity: 0; transform: translateX(8px); }
+  82%, 100% { opacity: 1; transform: translateX(0); }
+}
+.animate-pf-avatars { animation: pf-avatars 16s ease infinite; }
+
+/* ── Earnings bar: fades in at 12s ── */
+@keyframes pf-earnings {
+  0%, 70% { opacity: 0.3; }
+  78%, 92% { opacity: 1; }
+  96%, 100% { opacity: 0.3; }
+}
+.animate-pf-earnings { animation: pf-earnings 16s ease infinite; }
+
+/* ── Earnings amount counter ── */
+@keyframes pf-earned {
+  0%, 72% { opacity: 0; }
+  80%, 100% { opacity: 1; }
+}
+.animate-pf-earned { animation: pf-earned 16s ease infinite; }
+
+/* ── Gig progress bar fill ── */
+@keyframes pf-gig-bar {
+  0%, 70% { width: 0%; }
+  80% { width: 45%; }
+  85% { width: 70%; }
+  90%, 100% { width: 100%; }
+}
+.animate-pf-gig-bar { animation: pf-gig-bar 16s ease infinite; }
 
 /* ── Pause all portfolio animations on hover ── */
-.group\/portfolio:hover .animate-portfolio-slot-1,
-.group\/portfolio:hover .animate-portfolio-slot-2,
-.group\/portfolio:hover .animate-portfolio-slot-3,
-.group\/portfolio:hover .animate-portfolio-check-1,
-.group\/portfolio:hover .animate-portfolio-check-2,
-.group\/portfolio:hover .animate-portfolio-check-3,
-.group\/portfolio:hover .animate-portfolio-empty-1,
-.group\/portfolio:hover .animate-portfolio-empty-2,
-.group\/portfolio:hover .animate-portfolio-empty-3,
-.group\/portfolio:hover .animate-portfolio-active,
-.group\/portfolio:hover .animate-portfolio-progress,
-.group\/portfolio:hover .animate-portfolio-percent,
-.group\/portfolio:hover .animate-portfolio-feedback,
-.group\/portfolio:hover .animate-portfolio-typing,
-.group\/portfolio:hover .animate-portfolio-type,
-.group\/portfolio:hover .animate-portfolio-stats,
-.group\/portfolio:hover .animate-portfolio-ready,
-.group\/portfolio:hover .animate-portfolio-count-1,
-.group\/portfolio:hover .animate-portfolio-count-2,
-.group\/portfolio:hover .animate-portfolio-count-3,
-.group\/portfolio:hover .animate-portfolio-track-v,
-.group\/portfolio:hover .animate-portfolio-track-a,
-.group\/portfolio:hover .animate-portfolio-track-sfx,
-.group\/portfolio:hover .animate-portfolio-playhead {
+.group\/portfolio:hover .animate-pf-badge,
+.group\/portfolio:hover .animate-pf-badge-1,
+.group\/portfolio:hover .animate-pf-badge-2,
+.group\/portfolio:hover .animate-pf-badge-3,
+.group\/portfolio:hover .animate-pf-thumb-1,
+.group\/portfolio:hover .animate-pf-thumb-2,
+.group\/portfolio:hover .animate-pf-thumb-3,
+.group\/portfolio:hover .animate-pf-views-1,
+.group\/portfolio:hover .animate-pf-views-2,
+.group\/portfolio:hover .animate-pf-views-3,
+.group\/portfolio:hover .animate-pf-notif-1,
+.group\/portfolio:hover .animate-pf-notif-2,
+.group\/portfolio:hover .animate-pf-notif-3,
+.group\/portfolio:hover .animate-pf-typing-1,
+.group\/portfolio:hover .animate-pf-type-1,
+.group\/portfolio:hover .animate-pf-accept,
+.group\/portfolio:hover .animate-pf-ripple,
+.group\/portfolio:hover .animate-pf-reactions,
+.group\/portfolio:hover .animate-pf-avatars,
+.group\/portfolio:hover .animate-pf-earnings,
+.group\/portfolio:hover .animate-pf-earned,
+.group\/portfolio:hover .animate-pf-gig-bar {
   animation-play-state: paused;
 }
