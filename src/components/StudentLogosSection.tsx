@@ -16,28 +16,28 @@ import logoDharma from "@/assets/logos/dharma.png";
 import logoRedChillies from "@/assets/logos/red-chillies.png";
 import logoAdobe from "@/assets/logos/adobe.png";
 
-// New SVG logos — Tech
-import logoMicrosoft from "@/assets/logos/microsoft.svg";
-import logoMeta from "@/assets/logos/meta.svg";
+// Real SVG logos — Tech (from Simple Icons / svgl)
+import logoMicrosoft from "@/assets/logos/microsoft-real.svg";
+import logoMeta from "@/assets/logos/meta-real.svg";
 import logoFlipkart from "@/assets/logos/flipkart.svg";
-import logoInfosys from "@/assets/logos/infosys.svg";
-import logoTcs from "@/assets/logos/tcs.svg";
-import logoWipro from "@/assets/logos/wipro.svg";
-import logoZoho from "@/assets/logos/zoho.svg";
-import logoSwiggy from "@/assets/logos/swiggy.svg";
-import logoRazorpay from "@/assets/logos/razorpay.svg";
+import logoInfosys from "@/assets/logos/infosys-real.svg";
+import logoTcs from "@/assets/logos/tcs-real.svg";
+import logoWipro from "@/assets/logos/wipro-real.svg";
+import logoZoho from "@/assets/logos/zoho-real.svg";
+import logoSwiggy from "@/assets/logos/swiggy-real.svg";
+import logoRazorpay from "@/assets/logos/razorpay-real.svg";
 
-// New SVG logos — Consumer/Media
-import logoTata from "@/assets/logos/tata.svg";
+// Real SVG logos — Consumer/Media
+import logoTata from "@/assets/logos/tata-real.svg";
 import logoReliance from "@/assets/logos/reliance.svg";
 import logoItc from "@/assets/logos/itc.svg";
 import logoHul from "@/assets/logos/hul.svg";
-import logoSonyPictures from "@/assets/logos/sony-pictures.svg";
+import logoSonyPictures from "@/assets/logos/sony-real.svg";
 import logoStarIndia from "@/assets/logos/star-india.svg";
 import logoZee from "@/assets/logos/zee.svg";
 
-// New SVG logos — Institutions
-import logoIit from "@/assets/logos/iit.svg";
+// Institutions (text SVGs kept for those without downloadable logos)
+import logoIit from "@/assets/logos/iit-real.svg";
 import logoIim from "@/assets/logos/iim.svg";
 import logoNift from "@/assets/logos/nift.svg";
 import logoSrfti from "@/assets/logos/srfti.svg";
@@ -164,6 +164,7 @@ const StudentLogosSection = () => {
                     src={brand.logo}
                     alt={brand.name}
                     className="h-10 md:h-20 lg:h-24 w-auto object-contain select-none logo-marquee-item"
+                    style={{ filter: "brightness(0) invert(1)" }}
                     loading="lazy"
                   />
                 ))}
