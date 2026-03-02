@@ -223,14 +223,14 @@ const GeoReachScene = () => (
         {/* Stats overlay */}
         <div className="relative z-10 flex items-center gap-8 md:gap-16 mt-8 md:mt-10">
           <div className="text-center">
-            <p className="text-4xl md:text-6xl font-semibold text-foreground tracking-tight">
+            <p className="text-3xl sm:text-4xl md:text-6xl font-semibold text-foreground tracking-tight">
               <AnimatedCounter target={821} celebrate />
             </p>
             <p className="text-xs md:text-sm text-muted-foreground mt-1">cities</p>
           </div>
           <div className="w-px h-12 bg-border" />
           <div className="text-center">
-            <p className="text-4xl md:text-6xl font-semibold text-foreground tracking-tight">
+            <p className="text-3xl sm:text-4xl md:text-6xl font-semibold text-foreground tracking-tight">
               <AnimatedCounter target={13} suffix="+" celebrate delay={400} />
             </p>
             <p className="text-xs md:text-sm text-muted-foreground mt-1">countries</p>

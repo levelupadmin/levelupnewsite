@@ -39,7 +39,7 @@ const CollaborationsScene = () => {
           </m.div>
 
           <div className="relative z-10 text-center">
-            <p className="text-5xl md:text-7xl lg:text-8xl font-semibold text-foreground tracking-tight">
+            <p className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-semibold text-foreground tracking-tight">
               <AnimatedCounter target={3000} suffix="+" hasComma celebrate />
             </p>
             <p className="text-sm md:text-base text-muted-foreground mt-3 tracking-wide">
