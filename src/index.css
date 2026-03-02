@@ -384,6 +384,44 @@
   animation: impact-network-pulse 2s ease-out infinite;
 }
 
+/* === Collaborations section animations === */
+
+/* Spark burst particles */
+@keyframes collab-spark {
+  0% { opacity: 1; r: 1.5; }
+  100% { opacity: 0; r: 0; transform: scale(1.5); }
+}
+.animate-collab-spark {
+  animation: collab-spark 0.6s ease-out forwards;
+}
+
+/* Floating collaboration tags bob */
+@keyframes collab-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.animate-collab-float {
+  animation: collab-float 4s ease-in-out infinite;
+}
+
+/* Sonar expanding rings */
+@keyframes collab-sonar {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(12); opacity: 0; }
+}
+.animate-collab-sonar {
+  animation: collab-sonar 2s ease-out forwards;
+}
+
+/* Live activity ticker scroll */
+@keyframes collab-ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-collab-ticker {
+  animation: collab-ticker 30s linear infinite;
+}
+
 @keyframes impact-dot-ripple {
   0% { opacity: 0; }
   100% { opacity: var(--dot-opacity, 0.6); }
