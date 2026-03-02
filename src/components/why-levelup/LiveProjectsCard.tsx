@@ -67,95 +67,98 @@ const LiveProjectsCard = () => {
             <div className="flex-1 h-px bg-primary/10" />
           </div>
 
-          {/* DM #1: Priya — references BFP short */}
-          <div
-            className="rounded-lg px-2 py-1.5 animate-pf-notif-1"
-            style={{
-              background: "hsl(30 30% 15% / 0.8)",
-              border: "1px solid hsl(var(--primary) / 0.15)",
-            }}
-          >
-            <div className="flex gap-1.5">
-              <div className="relative shrink-0">
-                <div className="w-[18px] h-[18px] rounded-full overflow-hidden border border-primary/20">
-                  <img src={testimonial5} alt="" className="w-full h-full object-cover" loading="lazy" />
-                </div>
-                <div className="absolute -bottom-[1px] -right-[1px] w-[5px] h-[5px] rounded-full bg-accent border" style={{ borderColor: "hsl(30 30% 15%)" }} />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-1 mb-0.5">
-                  <span className="text-[7px] font-medium text-foreground/80">Priya Menon</span>
-                  <span className="text-[5px] text-primary/50">Pixel Studios</span>
-                </div>
-                <p className="text-[6.5px] text-foreground/55 leading-relaxed animate-pf-type-1">
-                  "Saw your BFP short — can we talk about a shoot?"
-                </p>
-                <div className="flex items-center gap-1 mt-0.5 animate-pf-typing-1">
-                  <div className="flex gap-[2px]">
-                    {[0, 1, 2].map((d) => (
-                      <div
-                        key={d}
-                        className="w-[2.5px] h-[2.5px] rounded-full bg-primary/40 animate-pulse"
-                        style={{ animationDelay: `${d * 0.25}s` }}
-                      />
-                    ))}
+          {/* DM rotation — all 3 share the same space */}
+          <div className="relative" style={{ minHeight: 42 }}>
+            {/* DM #1: Priya — references BFP short */}
+            <div
+              className="absolute inset-x-0 top-0 rounded-lg px-2 py-1.5 animate-pf-notif-1"
+              style={{
+                background: "hsl(30 30% 15% / 0.8)",
+                border: "1px solid hsl(var(--primary) / 0.15)",
+              }}
+            >
+              <div className="flex gap-1.5">
+                <div className="relative shrink-0">
+                  <div className="w-[18px] h-[18px] rounded-full overflow-hidden border border-primary/20">
+                    <img src={testimonial5} alt="" className="w-full h-full object-cover" loading="lazy" />
                   </div>
-                  <span className="text-[5px] text-foreground/20">typing…</span>
+                  <div className="absolute -bottom-[1px] -right-[1px] w-[5px] h-[5px] rounded-full bg-accent border" style={{ borderColor: "hsl(30 30% 15%)" }} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1 mb-0.5">
+                    <span className="text-[7px] font-medium text-foreground/80">Priya Menon</span>
+                    <span className="text-[5px] text-primary/50">Pixel Studios</span>
+                  </div>
+                  <p className="text-[6.5px] text-foreground/55 leading-relaxed animate-pf-type-1">
+                    "Saw your BFP short — can we talk about a shoot?"
+                  </p>
+                  <div className="flex items-center gap-1 mt-0.5 animate-pf-typing-1">
+                    <div className="flex gap-[2px]">
+                      {[0, 1, 2].map((d) => (
+                        <div
+                          key={d}
+                          className="w-[2.5px] h-[2.5px] rounded-full bg-primary/40 animate-pulse"
+                          style={{ animationDelay: `${d * 0.25}s` }}
+                        />
+                      ))}
+                    </div>
+                    <span className="text-[5px] text-foreground/20">typing…</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* DM #2: Arjun — references screenplay (alternates with DM #1) */}
-          <div
-            className="rounded-lg px-2 py-1.5 animate-pf-notif-1b"
-            style={{
-              background: "hsl(30 30% 15% / 0.8)",
-              border: "1px solid hsl(var(--primary) / 0.15)",
-            }}
-          >
-            <div className="flex gap-1.5">
-              <div className="relative shrink-0">
-                <div className="w-[18px] h-[18px] rounded-full overflow-hidden border border-primary/20">
-                  <img src={testimonial2} alt="" className="w-full h-full object-cover" loading="lazy" />
+            {/* DM #2: Arjun — references screenplay */}
+            <div
+              className="absolute inset-x-0 top-0 rounded-lg px-2 py-1.5 animate-pf-notif-1b"
+              style={{
+                background: "hsl(30 30% 15% / 0.8)",
+                border: "1px solid hsl(var(--primary) / 0.15)",
+              }}
+            >
+              <div className="flex gap-1.5">
+                <div className="relative shrink-0">
+                  <div className="w-[18px] h-[18px] rounded-full overflow-hidden border border-primary/20">
+                    <img src={testimonial2} alt="" className="w-full h-full object-cover" loading="lazy" />
+                  </div>
+                  <div className="absolute -bottom-[1px] -right-[1px] w-[5px] h-[5px] rounded-full bg-accent border" style={{ borderColor: "hsl(30 30% 15%)" }} />
                 </div>
-                <div className="absolute -bottom-[1px] -right-[1px] w-[5px] h-[5px] rounded-full bg-accent border" style={{ borderColor: "hsl(30 30% 15%)" }} />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-1 mb-0.5">
-                  <span className="text-[7px] font-medium text-foreground/80">Arjun Kapoor</span>
-                  <span className="text-[5px] text-primary/50">TVF</span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1 mb-0.5">
+                    <span className="text-[7px] font-medium text-foreground/80">Arjun Kapoor</span>
+                    <span className="text-[5px] text-primary/50">TVF</span>
+                  </div>
+                  <p className="text-[6.5px] text-foreground/55 leading-relaxed animate-pf-type-1b">
+                    "Your screenplay pilot is fire — let's chat?"
+                  </p>
                 </div>
-                <p className="text-[6.5px] text-foreground/55 leading-relaxed animate-pf-type-1b">
-                  "Your screenplay pilot is fire — let's chat?"
-                </p>
               </div>
             </div>
-          </div>
 
-          {/* DM #3: Rohan — references showreel */}
-          <div
-            className="rounded-lg px-2 py-1.5 animate-pf-notif-1c"
-            style={{
-              background: "hsl(30 30% 15% / 0.8)",
-              border: "1px solid hsl(var(--primary) / 0.15)",
-            }}
-          >
-            <div className="flex gap-1.5">
-              <div className="relative shrink-0">
-                <div className="w-[18px] h-[18px] rounded-full overflow-hidden border border-primary/20">
-                  <img src={testimonial1} alt="" className="w-full h-full object-cover" loading="lazy" />
+            {/* DM #3: Rohan — references showreel */}
+            <div
+              className="absolute inset-x-0 top-0 rounded-lg px-2 py-1.5 animate-pf-notif-1c"
+              style={{
+                background: "hsl(30 30% 15% / 0.8)",
+                border: "1px solid hsl(var(--primary) / 0.15)",
+              }}
+            >
+              <div className="flex gap-1.5">
+                <div className="relative shrink-0">
+                  <div className="w-[18px] h-[18px] rounded-full overflow-hidden border border-primary/20">
+                    <img src={testimonial1} alt="" className="w-full h-full object-cover" loading="lazy" />
+                  </div>
+                  <div className="absolute -bottom-[1px] -right-[1px] w-[5px] h-[5px] rounded-full bg-accent border" style={{ borderColor: "hsl(30 30% 15%)" }} />
                 </div>
-                <div className="absolute -bottom-[1px] -right-[1px] w-[5px] h-[5px] rounded-full bg-accent border" style={{ borderColor: "hsl(30 30% 15%)" }} />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-1 mb-0.5">
-                  <span className="text-[7px] font-medium text-foreground/80">Rohan Mehta</span>
-                  <span className="text-[5px] text-primary/50">Dharma Productions</span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1 mb-0.5">
+                    <span className="text-[7px] font-medium text-foreground/80">Rohan Mehta</span>
+                    <span className="text-[5px] text-primary/50">Dharma Productions</span>
+                  </div>
+                  <p className="text-[6.5px] text-foreground/55 leading-relaxed animate-pf-type-1c">
+                    "Love the showreel — got a project for you"
+                  </p>
                 </div>
-                <p className="text-[6.5px] text-foreground/55 leading-relaxed animate-pf-type-1c">
-                  "Love the showreel — got a project for you"
-                </p>
               </div>
             </div>
           </div>
