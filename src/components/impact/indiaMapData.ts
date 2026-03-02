@@ -1,6 +1,7 @@
 // ── India Map Data ──
-// Simplified state outlines and city positions for the animated GeoReachScene.
-// Coordinate space: 0–100 (width) × 0–130 (height), origin at top-left (Kashmir → Kanyakumari).
+// City positions and region data for the animated GeoReachScene.
+// ALL coordinates are in WORLD-MAP SVG coordinate space (viewBox: "30.767 241.591 784.077 458.627").
+// India's actual bbox: x=570.23, y=435.45, w=63.26, h=74.24, center=(601.86, 472.57)
 
 export type Region = "central" | "west" | "north" | "east" | "south";
 
@@ -13,57 +14,10 @@ export const REGION_DELAYS: Record<Region, number> = {
   south: 1.9,
 };
 
-/** Simplified SVG path data for major Indian states / UTs */
-export const INDIA_STATE_PATHS: { id: string; region: Region; d: string }[] = [
-  // ── North ──
-  { id: "jk", region: "north", d: "M50,2 L62,0 L68,8 L70,18 L64,22 L56,20 L48,14 Z" },
-  { id: "hp", region: "north", d: "M56,22 L66,20 L72,28 L68,34 L60,32 L54,26 Z" },
-  { id: "pb", region: "north", d: "M40,28 L54,26 L56,36 L50,40 L40,38 Z" },
-  { id: "uk", region: "north", d: "M62,24 L74,28 L78,36 L72,40 L64,36 Z" },
-  { id: "hr", region: "north", d: "M40,38 L50,40 L54,48 L48,52 L40,48 Z" },
-  { id: "up", region: "north", d: "M50,40 L72,40 L82,48 L78,56 L68,60 L54,56 L48,48 Z" },
-
-  // ── Central ──
-  { id: "mp", region: "central", d: "M30,58 L54,56 L68,60 L66,72 L56,76 L32,74 L26,66 Z" },
-
-  // ── West ──
-  { id: "rj", region: "west", d: "M10,34 L40,32 L40,48 L38,60 L30,66 L14,62 L6,50 Z" },
-  { id: "gj", region: "west", d: "M0,52 L6,50 L14,62 L18,70 L14,78 L4,76 L-2,66 Z" },
-  { id: "mh", region: "west", d: "M14,74 L32,74 L52,78 L56,86 L50,92 L32,94 L20,90 L12,80 Z" },
-  { id: "goa", region: "west", d: "M20,92 L26,90 L28,96 L22,96 Z" },
-
-  // ── East ──
-  { id: "br", region: "east", d: "M70,46 L82,46 L84,52 L78,56 L70,54 Z" },
-  { id: "jh", region: "east", d: "M66,56 L78,56 L80,64 L74,70 L64,66 Z" },
-  { id: "wb", region: "east", d: "M78,52 L88,48 L92,56 L88,66 L84,72 L78,64 L76,58 Z" },
-  { id: "od", region: "east", d: "M62,68 L78,64 L84,72 L80,82 L72,84 L62,78 Z" },
-  { id: "cg", region: "east", d: "M56,62 L66,60 L72,68 L68,78 L60,78 L54,72 Z" },
-  { id: "ne", region: "east", d: "M86,40 L96,38 L100,46 L98,56 L92,58 L86,50 Z" },
-
-  // ── South ──
-  { id: "ts", region: "south", d: "M44,76 L56,76 L64,78 L62,86 L50,88 L42,82 Z" },
-  { id: "ap", region: "south", d: "M50,86 L64,82 L72,84 L68,96 L58,102 L48,98 L44,90 Z" },
-  { id: "ka", region: "south", d: "M22,96 L32,94 L44,98 L48,108 L42,114 L28,112 L22,102 Z" },
-  { id: "kl", region: "south", d: "M26,114 L34,114 L34,124 L30,130 L24,126 L22,118 Z" },
-  { id: "tn", region: "south", d: "M40,108 L54,102 L62,108 L60,120 L50,128 L38,124 L34,114 Z" },
-];
-
-/**
- * Persistent India national outline — a single closed path tracing the outer boundary.
- * This is always rendered (at low opacity) so the viewer instantly recognises India
- * before individual states light up.
+/** Major Indian cities — in world-map SVG coordinates
+ *  Mapped from geographic positions onto the SVG coordinate system.
+ *  India bbox: x=570..633, y=435..510, center≈(602, 473)
  */
-export const INDIA_OUTLINE_PATH =
-  "M50,2 L62,0 L68,8 L70,18 L74,28 L78,36 L82,48 L84,52 L88,48 L92,56 L100,46 L98,56 L92,58 L88,66 L84,72 L80,82 L72,84 L68,96 L62,108 L60,120 L50,128 L38,124 L34,114 L34,124 L30,130 L24,126 L22,118 L22,102 L22,96 L20,92 L20,90 L12,80 L14,78 L4,76 L-2,66 L0,52 L6,50 L10,34 L40,32 L40,28 L48,14 Z";
-
-/** Local-coordinate bounding box of the India artwork */
-export const INDIA_BBOX = { minX: -2, minY: 0, maxX: 100, maxY: 130 };
-export const INDIA_LOCAL_CENTER = {
-  cx: (INDIA_BBOX.minX + INDIA_BBOX.maxX) / 2, // 49
-  cy: (INDIA_BBOX.minY + INDIA_BBOX.maxY) / 2, // 65
-};
-
-/** Major Indian cities — top-tier cities shown first, rest staggered later */
 export const INDIA_CITIES: {
   x: number;
   y: number;
@@ -72,22 +26,25 @@ export const INDIA_CITIES: {
   region: Region;
   tier: 1 | 2;
 }[] = [
-  { x: 50, y: 44, label: "Delhi", learners: "4,200+", region: "north", tier: 1 },
-  { x: 16, y: 76, label: "Mumbai", learners: "5,800+", region: "west", tier: 1 },
-  { x: 36, y: 106, label: "Bengaluru", learners: "6,100+", region: "south", tier: 1 },
-  { x: 54, y: 118, label: "Chennai", learners: "3,400+", region: "south", tier: 1 },
-  { x: 58, y: 84, label: "Hyderabad", learners: "3,200+", region: "south", tier: 1 },
-  { x: 86, y: 54, label: "Kolkata", learners: "2,800+", region: "east", tier: 1 },
-  { x: 38, y: 84, label: "Pune", learners: "3,600+", region: "west", tier: 2 },
-  { x: 10, y: 58, label: "Ahmedabad", learners: "1,800+", region: "west", tier: 2 },
-  { x: 26, y: 40, label: "Jaipur", learners: "1,500+", region: "west", tier: 2 },
-  { x: 66, y: 48, label: "Lucknow", learners: "1,200+", region: "north", tier: 2 },
-  { x: 46, y: 30, label: "Chandigarh", learners: "900+", region: "north", tier: 2 },
-  { x: 28, y: 120, label: "Kochi", learners: "1,100+", region: "south", tier: 2 },
-  { x: 36, y: 66, label: "Indore", learners: "800+", region: "central", tier: 2 },
-  { x: 70, y: 90, label: "Vizag", learners: "600+", region: "east", tier: 2 },
-  { x: 44, y: 112, label: "Coimbatore", learners: "700+", region: "south", tier: 2 },
-  { x: 48, y: 66, label: "Bhopal", learners: "500+", region: "central", tier: 2 },
-  { x: 76, y: 48, label: "Patna", learners: "700+", region: "east", tier: 2 },
-  { x: 52, y: 72, label: "Nagpur", learners: "600+", region: "central", tier: 2 },
+  // Tier 1 — major metros
+  { x: 595, y: 455, label: "Delhi", learners: "4,200+", region: "north", tier: 1 },
+  { x: 577, y: 484, label: "Mumbai", learners: "5,800+", region: "west", tier: 1 },
+  { x: 588, y: 500, label: "Bengaluru", learners: "6,100+", region: "south", tier: 1 },
+  { x: 601, y: 500, label: "Chennai", learners: "3,400+", region: "south", tier: 1 },
+  { x: 598, y: 486, label: "Hyderabad", learners: "3,200+", region: "south", tier: 1 },
+  { x: 618, y: 466, label: "Kolkata", learners: "2,800+", region: "east", tier: 1 },
+
+  // Tier 2 — secondary cities
+  { x: 584, y: 486, label: "Pune", learners: "3,600+", region: "west", tier: 2 },
+  { x: 575, y: 467, label: "Ahmedabad", learners: "1,800+", region: "west", tier: 2 },
+  { x: 581, y: 456, label: "Jaipur", learners: "1,500+", region: "west", tier: 2 },
+  { x: 603, y: 460, label: "Lucknow", learners: "1,200+", region: "north", tier: 2 },
+  { x: 590, y: 448, label: "Chandigarh", learners: "900+", region: "north", tier: 2 },
+  { x: 585, y: 504, label: "Kochi", learners: "1,100+", region: "south", tier: 2 },
+  { x: 588, y: 474, label: "Indore", learners: "800+", region: "central", tier: 2 },
+  { x: 609, y: 490, label: "Vizag", learners: "600+", region: "east", tier: 2 },
+  { x: 592, y: 502, label: "Coimbatore", learners: "700+", region: "south", tier: 2 },
+  { x: 592, y: 474, label: "Bhopal", learners: "500+", region: "central", tier: 2 },
+  { x: 611, y: 460, label: "Patna", learners: "700+", region: "east", tier: 2 },
+  { x: 596, y: 478, label: "Nagpur", learners: "600+", region: "central", tier: 2 },
 ];

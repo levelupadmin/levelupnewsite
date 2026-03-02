@@ -2,34 +2,39 @@
 // Positions mapped to the world-map.svg coordinate system
 // SVG viewBox: "30.767 241.591 784.077 458.627"
 
-// India's actual position on the world map — derived from geometry.
-// The India local artwork spans roughly -2..100 × 0..130 (102 wide × 130 tall).
-// We scale it to fit ~66 SVG-world-units wide so it overlays correctly.
-export const INDIA_WORLD_SCALE = 0.52;
-// Target top-left of India artwork in world-map coords so it lands on the subcontinent:
-export const INDIA_WORLD_TX = 540;
-export const INDIA_WORLD_TY = 388;
-
-// Derived center for arcs/hub (geometry-anchored, not manual constant)
-export const INDIA_CENTER = {
-  cx: INDIA_WORLD_TX + 49 * INDIA_WORLD_SCALE, // ~565
-  cy: INDIA_WORLD_TY + 65 * INDIA_WORLD_SCALE, // ~422
+// India's ACTUAL bounding box on the world-map.svg (measured from path#in)
+export const INDIA_BBOX_WORLD = {
+  x: 570.23,
+  y: 435.45,
+  w: 63.26,
+  h: 74.24,
 };
 
-// Phase-1 zoom presets: viewBox values that zoom into India
-// These define the SVG viewBox for the zoomed-in India view
+// India center — derived from actual SVG geometry
+export const INDIA_CENTER = {
+  cx: 601.86,
+  cy: 472.57,
+};
+
+// The real India outline path from the world-map.svg (path#in).
+// This is in world-map SVG coordinates — no transform needed.
+export const INDIA_SVG_PATH =
+  "M595 509.688l3.958-1.938 2.352-8.505-.104-10.44 13.468-14.54v-3.448l2.774-1.08-.104-3.985-2.99-5.817 1.71-3.12 3.743 3.448 4.808.216v1.937l-1.495 1.616.318.863 2.567.104.536 2.904h.753l1.928-3.45.96-9.04 3.206-2.266.104-3.12-1.28-2.48-2.03-.105-7.95 5.256.5 3.38-5.585-.02-1.97-2.41-1.072.138.363 3.354-12.075-.863-7.484-3.338-.397-4.106-4.99-3.094-.06-6.37-3.422-3.917-7.867.752.856 3.424 3.854 3.12-6.665 13.642-4.46.337-.734 1.643 4.393 4.062-.216 4.105-4.486-.07-.483 2.04 3.727-.163.104 1.616-2.67 1.4 1.71 3.232 3.312 1.08 2.03-1.504.96-2.687 1.177-.535 1.392 1.398-.425 3.45-.96 1.616.217 2.8l595 509.688z";
+
+// Phase-1 zoom presets: viewBox values that zoom into India's actual position
+// Centered on India's real bbox with padding
 export const INDIA_ZOOM_VIEWBOX = {
-  desktop: "505 370 130 130",
-  mobile: "510 375 120 120",
+  desktop: `${INDIA_BBOX_WORLD.x - 10} ${INDIA_BBOX_WORLD.y - 10} ${INDIA_BBOX_WORLD.w + 20} ${INDIA_BBOX_WORLD.h + 20}`,
+  mobile: `${INDIA_BBOX_WORLD.x - 5} ${INDIA_BBOX_WORLD.y - 5} ${INDIA_BBOX_WORLD.w + 10} ${INDIA_BBOX_WORLD.h + 10}`,
 };
 
 // International cities — positioned on the world map SVG coordinates
 export const internationalCities = [
-  { cx: 525, cy: 440, label: "Dubai", learners: "180+", flag: "🇦🇪" },
-  { cx: 405, cy: 320, label: "London", learners: "85+", flag: "🇬🇧" },
-  { cx: 218, cy: 380, label: "New York", learners: "120+", flag: "🇺🇸" },
-  { cx: 635, cy: 510, label: "Singapore", learners: "95+", flag: "🇸🇬" },
+  { cx: 525, cy: 460, label: "Dubai", learners: "180+", flag: "🇦🇪" },
+  { cx: 405, cy: 380, label: "London", learners: "85+", flag: "🇬🇧" },
+  { cx: 218, cy: 420, label: "New York", learners: "120+", flag: "🇺🇸" },
+  { cx: 650, cy: 510, label: "Singapore", learners: "95+", flag: "🇸🇬" },
   { cx: 725, cy: 600, label: "Sydney", learners: "60+", flag: "🇦🇺" },
-  { cx: 210, cy: 350, label: "Toronto", learners: "75+", flag: "🇨🇦" },
-  { cx: 140, cy: 400, label: "Los Angeles", learners: "110+", flag: "🇺🇸" },
+  { cx: 210, cy: 380, label: "Toronto", learners: "75+", flag: "🇨🇦" },
+  { cx: 140, cy: 430, label: "Los Angeles", learners: "110+", flag: "🇺🇸" },
 ];

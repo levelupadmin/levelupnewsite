@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { useScrollReveal } from "@/components/FadeInSection";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -6,9 +6,6 @@ import ImpactScene from "./ImpactScene";
 import worldMapUrl from "@/assets/world-map.svg";
 import {
   INDIA_CENTER,
-  INDIA_WORLD_SCALE,
-  INDIA_WORLD_TX,
-  INDIA_WORLD_TY,
   INDIA_ZOOM_VIEWBOX,
   internationalCities,
 } from "./worldMapData";
@@ -27,14 +24,20 @@ const arcPath = (x1: number, y1: number, x2: number, y2: number) => {
 /* ── Full world viewBox ── */
 const WORLD_VIEWBOX = "30.767 241.591 784.077 458.627";
 
-/* ── Phase timeline (ms from scroll-in) ──
- *  0: hidden
- *  1: India outline + state glow (viewBox zoomed into India)
- *  2: Tier-1 city dots appear
- *  3: Tier-2 cities + learner counts
- *  4: viewBox animates to world, world map fades in, India settles into position
- *  5: Arcs + international cities + heartbeat
- */
+/** Parse "x y w h" → [x, y, w, h] */
+const parseViewBox = (vb: string): [number, number, number, number] =>
+  vb.split(" ").map(Number) as [number, number, number, number];
+
+/** Lerp between two viewBox strings */
+const lerpViewBox = (from: string, to: string, t: number): string => {
+  const a = parseViewBox(from);
+  const b = parseViewBox(to);
+  return a.map((v, i) => v + (b[i] - v) * t).join(" ");
+};
+
+/* ── Easing ── */
+const easeInOutCubic = (t: number) =>
+  t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
 const GeoReachScene = () => {
   const { ref, isVisible } = useScrollReveal(0.15);
@@ -42,36 +45,63 @@ const GeoReachScene = () => {
   const [phase, setPhase] = useState(0);
   const [hoveredCity, setHoveredCity] = useState<string | null>(null);
 
+  // Animated viewBox
+  const [animatedViewBox, setAnimatedViewBox] = useState(WORLD_VIEWBOX);
+  const animFrameRef = useRef<number>(0);
+
   // Resolve mobile before animation starts
   const [ready, setReady] = useState(false);
   useEffect(() => {
-    // Wait one frame so isMobile resolves from undefined → boolean
     requestAnimationFrame(() => setReady(true));
   }, []);
+
+  const indiaViewBox = useMemo(
+    () => (isMobile ? INDIA_ZOOM_VIEWBOX.mobile : INDIA_ZOOM_VIEWBOX.desktop),
+    [isMobile]
+  );
+
+  /** Animate viewBox from `from` to `to` over `duration` ms */
+  const animateViewBox = useCallback(
+    (from: string, to: string, duration: number) => {
+      const startTime = performance.now();
+      const step = (now: number) => {
+        const elapsed = now - startTime;
+        const t = Math.min(elapsed / duration, 1);
+        const eased = easeInOutCubic(t);
+        setAnimatedViewBox(lerpViewBox(from, to, eased));
+        if (t < 1) {
+          animFrameRef.current = requestAnimationFrame(step);
+        }
+      };
+      cancelAnimationFrame(animFrameRef.current);
+      animFrameRef.current = requestAnimationFrame(step);
+    },
+    []
+  );
 
   /* Phase state-machine */
   useEffect(() => {
     if (!isVisible || !ready) return;
+
+    // Start zoomed into India
+    setAnimatedViewBox(indiaViewBox);
     setPhase(1);
+
     const timers = [
-      setTimeout(() => setPhase(2), 1200),  // dots tier 1
-      setTimeout(() => setPhase(3), 2400),  // dots tier 2
-      setTimeout(() => setPhase(4), 4000),  // zoom out to world
-      setTimeout(() => setPhase(5), 5800),  // arcs + intl cities
+      setTimeout(() => setPhase(2), 1200), // tier 1 dots
+      setTimeout(() => setPhase(3), 2400), // tier 2 dots
+      setTimeout(() => {
+        setPhase(4);
+        // Smooth zoom out to world
+        animateViewBox(indiaViewBox, WORLD_VIEWBOX, 1800);
+      }, 4000),
+      setTimeout(() => setPhase(5), 6000), // arcs + intl cities
     ];
-    return () => timers.forEach(clearTimeout);
-  }, [isVisible, ready]);
-
-  /* viewBox animation: zoomed into India → full world */
-  const currentViewBox = useMemo(() => {
-    if (phase < 4) {
-      return isMobile ? INDIA_ZOOM_VIEWBOX.mobile : INDIA_ZOOM_VIEWBOX.desktop;
-    }
-    return WORLD_VIEWBOX;
-  }, [phase, isMobile]);
-
-  /* India <g> uses pure SVG transform (no CSS px) — always at world position */
-  const indiaTransform = `translate(${INDIA_WORLD_TX}, ${INDIA_WORLD_TY}) scale(${INDIA_WORLD_SCALE})`;
+    return () => {
+      timers.forEach(clearTimeout);
+      cancelAnimationFrame(animFrameRef.current);
+    };
+  }, [isVisible, ready, indiaViewBox, animateViewBox]);
 
   const arcPaths = useMemo(
     () =>
@@ -81,7 +111,6 @@ const GeoReachScene = () => {
     []
   );
 
-  /* Map India sub-phases: GeoReachScene phases 1-3 map to IndiaStatesMap phases 1-3 */
   const indiaPhase = Math.min(phase, 3);
 
   return (
@@ -138,20 +167,12 @@ const GeoReachScene = () => {
         {/* ── Map SVG ── */}
         <div className="w-full max-w-6xl mx-auto relative z-[2]">
           <svg
-            viewBox={currentViewBox}
+            viewBox={animatedViewBox}
             className="w-full h-auto"
             xmlns="http://www.w3.org/2000/svg"
             role="img"
             aria-label="Animated map showing LevelUp's reach across India and the world"
-            style={{
-              transition: "viewBox 0s", // viewBox doesn't CSS-transition; we handle via state
-            }}
           >
-            {/* Smooth viewBox transition via CSS on the SVG element */}
-            <style>{`
-              svg { transition: none; }
-            `}</style>
-
             <defs>
               <filter id="geo-glow" x="-50%" y="-50%" width="200%" height="200%">
                 <feGaussianBlur stdDeviation="3" result="blur" />
@@ -161,7 +182,7 @@ const GeoReachScene = () => {
                 </feMerge>
               </filter>
               <filter id="india-glow" x="-100%" y="-100%" width="300%" height="300%">
-                <feGaussianBlur stdDeviation="15" result="blur" />
+                <feGaussianBlur stdDeviation="8" result="blur" />
                 <feMerge>
                   <feMergeNode in="blur" />
                   <feMergeNode in="SourceGraphic" />
@@ -197,10 +218,8 @@ const GeoReachScene = () => {
               }}
             />
 
-            {/* ── India states group — always at world-map position ── */}
-            <g transform={indiaTransform}>
-              <IndiaStatesMap phase={indiaPhase} />
-            </g>
+            {/* ── India — rendered directly in world coords, NO transform ── */}
+            <IndiaStatesMap phase={indiaPhase} />
 
             {/* ── India center heartbeat — Phase 5 ── */}
             {phase >= 5 && (
@@ -208,7 +227,7 @@ const GeoReachScene = () => {
                 <circle
                   cx={INDIA_CENTER.cx}
                   cy={INDIA_CENTER.cy}
-                  r={40}
+                  r={20}
                   fill="hsl(var(--primary))"
                   filter="url(#india-glow)"
                   opacity={0.15}
@@ -216,7 +235,7 @@ const GeoReachScene = () => {
                 <circle
                   cx={INDIA_CENTER.cx}
                   cy={INDIA_CENTER.cy}
-                  r={5}
+                  r={3}
                   fill="hsl(var(--primary))"
                   opacity={0.9}
                   className="animate-impact-heartbeat"
@@ -224,10 +243,10 @@ const GeoReachScene = () => {
                 <circle
                   cx={INDIA_CENTER.cx}
                   cy={INDIA_CENTER.cy}
-                  r={5}
+                  r={3}
                   fill="none"
                   stroke="hsl(var(--primary))"
-                  strokeWidth={1}
+                  strokeWidth={0.5}
                   className="animate-impact-heartbeat-ring"
                 />
               </>
@@ -339,7 +358,6 @@ const GeoReachScene = () => {
                       </text>
                     </g>
 
-                    {/* Tooltip */}
                     {isHovered && (
                       <g>
                         <rect
@@ -374,37 +392,28 @@ const GeoReachScene = () => {
 
         {/* ── Stats with crossfade ── */}
         <div className="relative z-10 mt-6 md:mt-10" style={{ minHeight: 80 }}>
-          {/* India stats — Phase 1-3 */}
           <div
             className="flex items-center justify-center gap-8 md:gap-16 transition-all duration-700"
             style={{
               opacity: phase >= 1 && phase < 5 ? 1 : 0,
-              transform:
-                phase >= 1 && phase < 5 ? "none" : "translateY(-10px)",
+              transform: phase >= 1 && phase < 5 ? "none" : "translateY(-10px)",
             }}
           >
             <div className="text-center">
               <p className="text-3xl sm:text-4xl md:text-6xl font-semibold text-foreground tracking-tight">
                 {phase >= 1 && <AnimatedCounter target={821} celebrate />}
               </p>
-              <p className="text-xs md:text-sm text-muted-foreground mt-1">
-                cities
-              </p>
+              <p className="text-xs md:text-sm text-muted-foreground mt-1">cities</p>
             </div>
             <div className="w-px h-12 bg-border" />
             <div className="text-center">
               <p className="text-3xl sm:text-4xl md:text-6xl font-semibold text-foreground tracking-tight">
-                {phase >= 1 && (
-                  <AnimatedCounter target={28} celebrate delay={400} />
-                )}
+                {phase >= 1 && <AnimatedCounter target={28} celebrate delay={400} />}
               </p>
-              <p className="text-xs md:text-sm text-muted-foreground mt-1">
-                states
-              </p>
+              <p className="text-xs md:text-sm text-muted-foreground mt-1">states</p>
             </div>
           </div>
 
-          {/* Global stats — Phase 5 */}
           <div
             className="flex items-center justify-center gap-8 md:gap-16 transition-all duration-700 absolute inset-0"
             style={{
@@ -416,25 +425,16 @@ const GeoReachScene = () => {
               <p className="text-3xl sm:text-4xl md:text-6xl font-semibold text-foreground tracking-tight">
                 {phase >= 5 && <AnimatedCounter target={821} celebrate />}
               </p>
-              <p className="text-xs md:text-sm text-muted-foreground mt-1">
-                cities
-              </p>
+              <p className="text-xs md:text-sm text-muted-foreground mt-1">cities</p>
             </div>
             <div className="w-px h-12 bg-border" />
             <div className="text-center">
               <p className="text-3xl sm:text-4xl md:text-6xl font-semibold text-foreground tracking-tight">
                 {phase >= 5 && (
-                  <AnimatedCounter
-                    target={13}
-                    suffix="+"
-                    celebrate
-                    delay={400}
-                  />
+                  <AnimatedCounter target={13} suffix="+" celebrate delay={400} />
                 )}
               </p>
-              <p className="text-xs md:text-sm text-muted-foreground mt-1">
-                countries
-              </p>
+              <p className="text-xs md:text-sm text-muted-foreground mt-1">countries</p>
             </div>
           </div>
         </div>
