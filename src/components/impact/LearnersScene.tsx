@@ -28,7 +28,7 @@ const LearnersScene = () => {
           <div className="noise-overlay absolute inset-0 opacity-[0.06] pointer-events-none" />
 
           <div className="relative z-10 text-center">
-            <p className={`text-6xl md:text-8xl lg:text-9xl font-semibold text-primary-foreground tracking-tight ${done ? "text-shimmer" : ""}`}>
+            <p className={`text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-semibold text-primary-foreground tracking-tight ${done ? "text-shimmer" : ""}`}>
               <AnimatedCounter target={58746} hasComma celebrate onComplete={() => setDone(true)} />
             </p>
             <p className="text-sm md:text-base text-primary-foreground/70 mt-3 tracking-wide">paid learners</p>

@@ -43,7 +43,7 @@ const CommunityScene = () => {
           </div>
 
           <div className="relative z-10 text-center">
-            <p className="text-6xl md:text-8xl lg:text-9xl font-semibold text-foreground tracking-tight">
+            <p className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-semibold text-foreground tracking-tight">
               <AnimatedCounter target={300000} suffix="+" hasComma celebrate onComplete={() => setLabelVisible(true)} />
             </p>
             <p

@@ -68,7 +68,7 @@ const RatingScene = () => {
           </div>
 
           {/* Giant counter */}
-          <p className="text-6xl md:text-8xl lg:text-9xl font-semibold text-foreground tracking-tight">
+          <p className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-semibold text-foreground tracking-tight">
             <AnimatedCounter target={4.86} suffix="/5" decimals={2} celebrate />
           </p>
           <p className="text-sm md:text-base text-muted-foreground mt-3 tracking-wide">
