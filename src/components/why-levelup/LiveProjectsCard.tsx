@@ -73,7 +73,7 @@ const LiveProjectsCard = () => {
                 <div className="w-[18px] h-[18px] rounded-full overflow-hidden border border-primary/20">
                   <img src={testimonial5} alt="" className="w-full h-full object-cover" loading="lazy" />
                 </div>
-                <div className="absolute -bottom-[1px] -right-[1px] w-[5px] h-[5px] rounded-full bg-green-500 border border-[hsl(30,30%,15%)]" />
+                <div className="absolute -bottom-[1px] -right-[1px] w-[5px] h-[5px] rounded-full bg-accent border" style={{ borderColor: "hsl(30 30% 15%)" }} />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-1 mb-0.5">
@@ -117,7 +117,7 @@ const LiveProjectsCard = () => {
                 <div className="flex items-center gap-1.5 mt-0.5">
                   <span className="text-[6.5px] text-foreground/55">Wedding Film</span>
                   <span className="text-[6px] text-foreground/30">·</span>
-                  <span className="text-[7px] font-semibold text-green-400/80">₹45K</span>
+                  <span className="text-[7px] font-semibold text-primary/80">₹45K</span>
                 </div>
               </div>
             </div>
@@ -139,8 +139,8 @@ const LiveProjectsCard = () => {
                 <span className="text-[7px] font-medium text-foreground/75 mb-0.5 block">From your cohort</span>
                 <div className="flex items-center gap-2">
                   <div className="flex items-center gap-1 animate-pf-reactions">
-                    <span className="text-[8px] px-1 py-[1px] rounded-full bg-orange-500/10 border border-orange-500/15">🔥 24</span>
-                    <span className="text-[8px] px-1 py-[1px] rounded-full bg-red-500/10 border border-red-500/15">❤️ 18</span>
+                    <span className="text-[8px] px-1 py-[1px] rounded-full bg-primary/10 border border-primary/15">🔥 24</span>
+                    <span className="text-[8px] px-1 py-[1px] rounded-full bg-destructive/10 border border-destructive/15">❤️ 18</span>
                   </div>
                   <div className="flex -space-x-1.5 animate-pf-avatars">
                     {[testimonial1, testimonial2, testimonial5].map((av, i) => (
