@@ -16,19 +16,19 @@ const LiveProjectsCard = () => {
   return (
     <div className="group/portfolio relative w-full h-full flex items-center justify-center p-3 overflow-hidden">
       <div
-        className="relative w-[88%] h-[92%] rounded-xl border border-primary/20 overflow-hidden flex flex-col"
+        className="relative w-[88%] h-[92%] rounded-xl overflow-hidden flex flex-col animate-pf-border-glow"
         style={{
           background: "hsl(30 20% 10% / 0.95)",
           boxShadow: "0 8px 32px -8px hsl(0 0% 0% / 0.4), 0 0 16px 2px hsl(30 80% 45% / 0.06)",
         }}
       >
-        {/* ── Header — simple label, no app chrome ── */}
+        {/* ── Header ── */}
         <div className="flex items-center gap-1.5 px-3 py-2 border-b border-primary/10">
           <Film size={10} className="text-primary/60" />
           <span className="text-[9px] font-medium text-foreground/80">My Work</span>
         </div>
 
-        {/* ── Portfolio grid — 3 thumbnails with program origin tags ── */}
+        {/* ── Portfolio grid — 3 thumbnails with view counts ── */}
         <div className="flex gap-1.5 px-3 pt-2 pb-1.5">
           {portfolioProjects.map((p, i) => (
             <div
@@ -37,30 +37,37 @@ const LiveProjectsCard = () => {
               style={{ borderColor: "hsl(var(--primary) / 0.12)" }}
             >
               <img src={p.img} alt={p.title} className="w-full h-full object-cover" loading="lazy" />
-              {/* Dark gradient overlay */}
               <div
                 className="absolute inset-0"
                 style={{ background: "linear-gradient(to top, hsl(0 0% 0% / 0.75) 0%, transparent 55%)" }}
               />
-              {/* Title + program origin tag */}
               <div className="absolute bottom-0 inset-x-0 px-1 py-0.5 flex flex-col gap-[1px]">
                 <span className="text-[5.5px] text-foreground/60 truncate leading-tight">{p.title}</span>
-                <span className={`text-[5px] text-primary/70 font-mono leading-tight animate-pf-views-${i + 1}`}>
-                  {p.origin}
-                </span>
+                <div className="flex items-center justify-between">
+                  <span className={`text-[5px] text-primary/70 font-mono leading-tight animate-pf-views-${i + 1}`}>
+                    {p.origin}
+                  </span>
+                  {/* View counter — ticks up via CSS opacity swap */}
+                  <span className={`text-[5px] text-foreground/40 font-mono animate-pf-viewcount-${i + 1}`}>
+                    <span className="pf-vc-a">127</span>
+                    <span className="pf-vc-b">184</span>
+                    <span className="pf-vc-c">231</span>
+                    {" views"}
+                  </span>
+                </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* ── "What happened next" — organic outcomes ── */}
+        {/* ── "What happened next" — rotating outcomes ── */}
         <div className="px-3 pb-1 flex-1 min-h-0 flex flex-col gap-1.5">
           <div className="flex items-center gap-1 mb-0.5">
             <span className="text-[6px] uppercase tracking-widest text-foreground/25">What happened next</span>
             <div className="flex-1 h-px bg-primary/10" />
           </div>
 
-          {/* Outcome 1: Someone reached out — references specific project */}
+          {/* DM #1: Priya — references BFP short */}
           <div
             className="rounded-lg px-2 py-1.5 animate-pf-notif-1"
             style={{
@@ -83,7 +90,6 @@ const LiveProjectsCard = () => {
                 <p className="text-[6.5px] text-foreground/55 leading-relaxed animate-pf-type-1">
                   "Saw your BFP short — can we talk about a shoot?"
                 </p>
-                {/* Typing dots */}
                 <div className="flex items-center gap-1 mt-0.5 animate-pf-typing-1">
                   <div className="flex gap-[2px]">
                     {[0, 1, 2].map((d) => (
@@ -100,7 +106,34 @@ const LiveProjectsCard = () => {
             </div>
           </div>
 
-          {/* Outcome 2: Freelance enquiry — passive proof, no CTA */}
+          {/* DM #2: Arjun — references screenplay (alternates with DM #1) */}
+          <div
+            className="rounded-lg px-2 py-1.5 animate-pf-notif-1b"
+            style={{
+              background: "hsl(30 30% 15% / 0.8)",
+              border: "1px solid hsl(var(--primary) / 0.15)",
+            }}
+          >
+            <div className="flex gap-1.5">
+              <div className="relative shrink-0">
+                <div className="w-[18px] h-[18px] rounded-full overflow-hidden border border-primary/20">
+                  <img src={testimonial2} alt="" className="w-full h-full object-cover" loading="lazy" />
+                </div>
+                <div className="absolute -bottom-[1px] -right-[1px] w-[5px] h-[5px] rounded-full bg-accent border" style={{ borderColor: "hsl(30 30% 15%)" }} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-1 mb-0.5">
+                  <span className="text-[7px] font-medium text-foreground/80">Arjun Kapoor</span>
+                  <span className="text-[5px] text-primary/50">TVF</span>
+                </div>
+                <p className="text-[6.5px] text-foreground/55 leading-relaxed animate-pf-type-1b">
+                  "Your screenplay pilot is fire — let's chat?"
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Freelance enquiry — two gigs cycling */}
           <div
             className="rounded-lg px-2 py-1.5 animate-pf-notif-2"
             style={{
@@ -115,15 +148,24 @@ const LiveProjectsCard = () => {
               <div className="flex-1 min-w-0">
                 <span className="text-[7px] font-medium text-foreground/75">Freelance enquiry</span>
                 <div className="flex items-center gap-1.5 mt-0.5">
-                  <span className="text-[6.5px] text-foreground/55">Wedding Film</span>
-                  <span className="text-[6px] text-foreground/30">·</span>
-                  <span className="text-[7px] font-semibold text-primary/80">₹45K</span>
+                  {/* Gig A */}
+                  <span className="pf-gig-a">
+                    <span className="text-[6.5px] text-foreground/55">Wedding Film</span>
+                    <span className="text-[6px] text-foreground/30 mx-1">·</span>
+                    <span className="text-[7px] font-semibold text-primary/80">₹45K</span>
+                  </span>
+                  {/* Gig B */}
+                  <span className="pf-gig-b">
+                    <span className="text-[6.5px] text-foreground/55">Brand Video</span>
+                    <span className="text-[6px] text-foreground/30 mx-1">·</span>
+                    <span className="text-[7px] font-semibold text-primary/80">₹60K</span>
+                  </span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Outcome 3: Cohort reactions — peer love */}
+          {/* Cohort reactions — counters increment */}
           <div
             className="rounded-lg px-2 py-1.5 animate-pf-notif-3"
             style={{
@@ -139,8 +181,12 @@ const LiveProjectsCard = () => {
                 <span className="text-[7px] font-medium text-foreground/75 mb-0.5 block">From your cohort</span>
                 <div className="flex items-center gap-2">
                   <div className="flex items-center gap-1 animate-pf-reactions">
-                    <span className="text-[8px] px-1 py-[1px] rounded-full bg-primary/10 border border-primary/15">🔥 24</span>
-                    <span className="text-[8px] px-1 py-[1px] rounded-full bg-destructive/10 border border-destructive/15">❤️ 18</span>
+                    <span className="text-[8px] px-1 py-[1px] rounded-full bg-primary/10 border border-primary/15">
+                      🔥 <span className="pf-rc-a">24</span><span className="pf-rc-b">31</span>
+                    </span>
+                    <span className="text-[8px] px-1 py-[1px] rounded-full bg-destructive/10 border border-destructive/15">
+                      ❤️ <span className="pf-rc-a">18</span><span className="pf-rc-b">26</span>
+                    </span>
                   </div>
                   <div className="flex -space-x-1.5 animate-pf-avatars">
                     {[testimonial1, testimonial2, testimonial5].map((av, i) => (
@@ -158,10 +204,13 @@ const LiveProjectsCard = () => {
           </div>
         </div>
 
-        {/* ── Bottom summary — outcome + origin attribution ── */}
+        {/* ── Bottom summary — progressively updates ── */}
         <div className="px-3 py-2 border-t border-primary/10 animate-pf-earnings">
           <div className="flex items-center justify-between">
-            <span className="text-[7px] text-foreground/50 font-mono animate-pf-earned">3 projects · 1 paid gig</span>
+            <span className="text-[7px] text-foreground/50 font-mono animate-pf-earned">
+              <span className="pf-sum-a">3 projects · 1 paid gig</span>
+              <span className="pf-sum-b">3 projects · 2 paid gigs</span>
+            </span>
             <span className="text-[6px] text-primary/40">Built during LevelUp programs</span>
           </div>
         </div>
