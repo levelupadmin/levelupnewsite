@@ -35,7 +35,7 @@ const IndiaStatesMap = ({ phase }: IndiaStatesMapProps) => {
         d={INDIA_SVG_PATH}
         fill={showOutline ? "hsl(var(--primary) / 0.08)" : "transparent"}
         stroke="hsl(var(--primary) / 0.15)"
-        strokeWidth={2}
+        strokeWidth={0.6}
         strokeLinejoin="round"
         opacity={showOutline ? 1 : 0}
         filter={showOutline ? "url(#india-glow)" : undefined}
@@ -46,7 +46,7 @@ const IndiaStatesMap = ({ phase }: IndiaStatesMapProps) => {
         d={INDIA_SVG_PATH}
         fill={showOutline ? "hsl(var(--primary) / 0.12)" : "transparent"}
         stroke="hsl(var(--primary) / 0.6)"
-        strokeWidth={0.8}
+        strokeWidth={0.3}
         strokeLinejoin="round"
         opacity={showOutline ? 1 : 0}
         style={{ transition: "opacity 0.8s ease, fill 0.8s ease" }}
@@ -63,19 +63,19 @@ const IndiaStatesMap = ({ phase }: IndiaStatesMapProps) => {
               className="animate-india-city-pop"
               style={{ animationDelay: `${delay}s` }}
             >
-              <circle cx={city.x} cy={city.y} r={4} fill="hsl(var(--primary) / 0.25)" />
-              <circle cx={city.x} cy={city.y} r={1.5} fill="hsl(var(--primary))" />
+              <circle cx={city.x} cy={city.y} r={2} fill="hsl(var(--primary) / 0.25)" />
+              <circle cx={city.x} cy={city.y} r={0.8} fill="hsl(var(--primary))" />
               <circle
-                cx={city.x} cy={city.y} r={1.5}
-                fill="none" stroke="hsl(var(--primary))" strokeWidth={0.4}
+                cx={city.x} cy={city.y} r={0.8}
+                fill="none" stroke="hsl(var(--primary))" strokeWidth={0.2}
                 className="animate-impact-city-ping"
                 style={{ animationDelay: `${delay + 0.3}s` }}
               />
               <text
-                x={city.x} y={city.y - 5}
+                x={city.x} y={city.y - 3}
                 textAnchor="middle"
                 fill="hsl(var(--foreground))"
-                fontSize={isMobile ? 3 : 4}
+                fontSize={isMobile ? 2 : 2.5}
                 fontFamily="'Sora', sans-serif"
                 fontWeight={500}
               >
@@ -96,14 +96,14 @@ const IndiaStatesMap = ({ phase }: IndiaStatesMapProps) => {
               className="animate-india-city-pop"
               style={{ animationDelay: `${delay}s` }}
             >
-              <circle cx={city.x} cy={city.y} r={2.5} fill="hsl(var(--primary) / 0.2)" />
-              <circle cx={city.x} cy={city.y} r={1} fill="hsl(var(--primary))" />
+              <circle cx={city.x} cy={city.y} r={1.2} fill="hsl(var(--primary) / 0.2)" />
+              <circle cx={city.x} cy={city.y} r={0.5} fill="hsl(var(--primary))" />
               {!isMobile && (
                 <text
-                  x={city.x} y={city.y - 4}
+                  x={city.x} y={city.y - 2}
                   textAnchor="middle"
                   fill="hsl(var(--foreground) / 0.7)"
-                  fontSize={3}
+                  fontSize={2}
                   fontFamily="'Sora', sans-serif"
                   fontWeight={400}
                 >

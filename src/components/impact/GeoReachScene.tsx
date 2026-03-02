@@ -182,7 +182,7 @@ const GeoReachScene = () => {
                 </feMerge>
               </filter>
               <filter id="india-glow" x="-100%" y="-100%" width="300%" height="300%">
-                <feGaussianBlur stdDeviation="8" result="blur" />
+                <feGaussianBlur stdDeviation="2" result="blur" />
                 <feMerge>
                   <feMergeNode in="blur" />
                   <feMergeNode in="SourceGraphic" />
@@ -227,7 +227,7 @@ const GeoReachScene = () => {
                 <circle
                   cx={INDIA_CENTER.cx}
                   cy={INDIA_CENTER.cy}
-                  r={20}
+                  r={8}
                   fill="hsl(var(--primary))"
                   filter="url(#india-glow)"
                   opacity={0.15}
@@ -235,7 +235,7 @@ const GeoReachScene = () => {
                 <circle
                   cx={INDIA_CENTER.cx}
                   cy={INDIA_CENTER.cy}
-                  r={3}
+                  r={2}
                   fill="hsl(var(--primary))"
                   opacity={0.9}
                   className="animate-impact-heartbeat"
@@ -243,10 +243,10 @@ const GeoReachScene = () => {
                 <circle
                   cx={INDIA_CENTER.cx}
                   cy={INDIA_CENTER.cy}
-                  r={3}
+                  r={2}
                   fill="none"
                   stroke="hsl(var(--primary))"
-                  strokeWidth={0.5}
+                  strokeWidth={0.3}
                   className="animate-impact-heartbeat-ring"
                 />
               </>

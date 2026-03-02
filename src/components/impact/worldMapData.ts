@@ -24,8 +24,8 @@ export const INDIA_SVG_PATH =
 // Phase-1 zoom presets: viewBox values that zoom into India's actual position
 // Centered on India's real bbox with padding
 export const INDIA_ZOOM_VIEWBOX = {
-  desktop: `${INDIA_BBOX_WORLD.x - 10} ${INDIA_BBOX_WORLD.y - 10} ${INDIA_BBOX_WORLD.w + 20} ${INDIA_BBOX_WORLD.h + 20}`,
-  mobile: `${INDIA_BBOX_WORLD.x - 5} ${INDIA_BBOX_WORLD.y - 5} ${INDIA_BBOX_WORLD.w + 10} ${INDIA_BBOX_WORLD.h + 10}`,
+  desktop: `${INDIA_BBOX_WORLD.x - 40} ${INDIA_BBOX_WORLD.y - 30} ${INDIA_BBOX_WORLD.w + 80} ${INDIA_BBOX_WORLD.h + 60}`,
+  mobile: `${INDIA_BBOX_WORLD.x - 20} ${INDIA_BBOX_WORLD.y - 15} ${INDIA_BBOX_WORLD.w + 40} ${INDIA_BBOX_WORLD.h + 30}`,
 };
 
 // International cities — positioned on the world map SVG coordinates
