@@ -131,6 +131,7 @@ const LiveProjectsCard = () => {
                   <div className="flex items-center gap-1 mb-0.5">
                     <span className="text-[7px] font-medium text-foreground/80">Kavitha Rajan</span>
                     <span className="text-[5px] text-primary/50">MAMI Festival</span>
+                    <span className="text-[4.5px] text-foreground/25 italic ml-auto">via your portfolio</span>
                   </div>
                   <p className="text-[6.5px] text-foreground/55 leading-relaxed animate-pf-type-1b">
                     "Your BFP short's been selected for the student showcase 🎬"
@@ -158,6 +159,7 @@ const LiveProjectsCard = () => {
                   <div className="flex items-center gap-1 mb-0.5">
                     <span className="text-[7px] font-medium text-foreground/80">Rohan Mehta</span>
                     <span className="text-[5px] text-primary/50">Dharma Productions</span>
+                    <span className="text-[4.5px] text-foreground/25 italic ml-auto">via Kavitha's MAMI</span>
                   </div>
                   <p className="text-[6.5px] text-foreground/55 leading-relaxed animate-pf-type-1c">
                     "Caught your short at MAMI — want you on our next edit"
@@ -185,6 +187,7 @@ const LiveProjectsCard = () => {
                   <div className="flex items-center gap-1 mb-0.5">
                     <span className="text-[7px] font-medium text-foreground/80">Arjun Kapoor</span>
                     <span className="text-[5px] text-primary/50">TVF</span>
+                    <span className="text-[4.5px] text-foreground/25 italic ml-auto">via Priya</span>
                   </div>
                   <p className="text-[6.5px] text-foreground/55 leading-relaxed animate-pf-type-1d">
                     "Priya shared your work — our writer's room needs you"
