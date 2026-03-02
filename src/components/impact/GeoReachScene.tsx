@@ -17,11 +17,6 @@ const arcPath = (x1: number, y1: number, x2: number, y2: number) => {
   return `M ${x1} ${y1} Q ${midX} ${midY} ${x2} ${y2}`;
 };
 
-// ── ViewBox constants ──
-const VB = { x: 80, y: 241.591, w: 750, h: 458.627 };
-const VIEWBOX = `${VB.x} ${VB.y} ${VB.w} ${VB.h}`;
-const VIEWBOX_MOBILE = "200 260 550 420";
-
 // ── India position on the world map SVG ──
 const INDIA_WORLD = { x: 565, y: 455 };
 // India local-space center (from IndiaDotsMap)
@@ -33,16 +28,21 @@ const INDIA_SCALE_WORLD = 0.3;
 const PHASE_2_DELAY = 5500;
 const PHASE_3_DELAY = 7500;
 
-// ── Zoom calculations ──
-// Phase 1: India zoomed in, centered in viewBox
-const ZOOM_SCALE = 2.8;
-const VB_CENTER = { x: VB.x + VB.w / 2, y: VB.y + VB.h / 2 };
-// Phase 1 translate: center India local center at viewBox center, scaled up
-const P1_TX = VB_CENTER.x - INDIA_LOCAL.x * INDIA_SCALE_WORLD * ZOOM_SCALE;
-const P1_TY = VB_CENTER.y - INDIA_LOCAL.y * INDIA_SCALE_WORLD * ZOOM_SCALE;
 // Phase 3 translate: India at its world position
 const P3_TX = INDIA_WORLD.x - INDIA_LOCAL.x * INDIA_SCALE_WORLD;
 const P3_TY = INDIA_WORLD.y - INDIA_LOCAL.y * INDIA_SCALE_WORLD;
+
+// ── ViewBox constants ──
+// Full world map view
+const VIEWBOX_WORLD = "80 241.591 750 458.627";
+// Phase 1: Zoomed into India's world-space position
+// India center in world space ≈ (P3_TX + 108*0.3, P3_TY + 140*0.3) = (INDIA_WORLD.x, INDIA_WORLD.y)
+// Show a ~220x170 region centered on India
+const INDIA_VB_W = 220;
+const INDIA_VB_H = 170;
+const VIEWBOX_INDIA = `${INDIA_WORLD.x - INDIA_VB_W / 2} ${INDIA_WORLD.y - INDIA_VB_H / 2} ${INDIA_VB_W} ${INDIA_VB_H}`;
+const VIEWBOX_INDIA_MOBILE = `${INDIA_WORLD.x - INDIA_VB_W * 0.45} ${INDIA_WORLD.y - INDIA_VB_H * 0.45} ${INDIA_VB_W * 0.9} ${INDIA_VB_H * 0.9}`;
+const VIEWBOX_WORLD_MOBILE = "200 260 550 420";
 
 const GeoReachScene = () => {
   const { ref, isVisible } = useScrollReveal(0.15);
@@ -64,13 +64,13 @@ const GeoReachScene = () => {
     []
   );
 
-  // India <g> transform
-  const indiaTransform = useMemo(() => {
-    if (phase <= 1) {
-      return `translate(${P1_TX}, ${P1_TY}) scale(${INDIA_SCALE_WORLD * ZOOM_SCALE})`;
-    }
-    return `translate(${P3_TX}, ${P3_TY}) scale(${INDIA_SCALE_WORLD})`;
-  }, [phase]);
+  // India <g> transform — always at world position; viewBox handles the zoom
+  const indiaTransform = `translate(${P3_TX}, ${P3_TY}) scale(${INDIA_SCALE_WORLD})`;
+
+  // Animated viewBox: zoomed into India in Phase 1, full world in Phase 2+
+  const currentViewBox = phase < 2
+    ? (isMobile ? VIEWBOX_INDIA_MOBILE : VIEWBOX_INDIA)
+    : (isMobile ? VIEWBOX_WORLD_MOBILE : VIEWBOX_WORLD);
 
   // Heading text
   const heading = phase < 2 ? "Lighting Up India" : "Spreading from India to the World";
@@ -119,8 +119,9 @@ const GeoReachScene = () => {
         {/* Map container */}
         <div className="w-full max-w-6xl mx-auto relative z-[2]">
           <svg
-            viewBox={isMobile ? VIEWBOX_MOBILE : VIEWBOX}
-            className="w-full h-auto"
+            viewBox={currentViewBox}
+            className="w-full h-auto transition-none"
+            style={{ transition: "none" }}
             xmlns="http://www.w3.org/2000/svg"
             role="img"
             aria-label="Animated map showing LevelUp's reach across India and the world"
@@ -164,16 +165,8 @@ const GeoReachScene = () => {
               }}
             />
 
-            {/* ── India <g> with zoom transition ── */}
-            <g
-              style={{
-                transform: indiaTransform,
-                transition: phase >= 2
-                  ? "transform 2s cubic-bezier(0.16, 1, 0.3, 1)"
-                  : "none",
-                transformOrigin: "0 0",
-              }}
-            >
+            {/* ── India <g> at world position ── */}
+            <g transform={indiaTransform}>
               {/* India dot map */}
               <IndiaDotsMap isVisible={phase >= 1} />
 
