@@ -341,17 +341,10 @@
   animation: ken-burns 12s ease-in-out infinite alternate;
 }
 
-@keyframes globe-spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.animate-globe-spin {
-  animation: globe-spin 30s linear infinite;
-}
-
-.animate-globe-spin-fast {
-  animation: globe-spin 8s linear infinite;
+/* India dot map breathing animation */
+@keyframes dot-breathe {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
 }
 
 @keyframes handshake-wiggle {
