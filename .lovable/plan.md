@@ -2,30 +2,29 @@
 
 ## Problem
 
-The Global Reach section has several visual issues making it look crude:
-- Arc connection lines are too thick (strokeWidth 1.5) creating ugly ribbon-like bands, especially the long Sydney arc
-- Traveling dots along arcs are too large (r=2.5) with heavy glow
-- International city markers are oversized (r=4 inner dot, r=7 outer ring)
-- The gradient on arcs creates a solid ribbon appearance instead of elegant lines
+The India map in the Global Reach section looks crude and unappealing. From the screenshot:
+- The outline is too thick and heavy with excessive glow, creating a rough, bloated appearance
+- City dots are oversized relative to the map when zoomed in
+- The orange fill is too opaque, making India look like a solid blob rather than an elegant outline
+- Labels crowd the map, especially at the zoomed-in India phase
 
 ## Plan
 
-### 1. Refine arc strokes in `GeoReachScene.tsx`
-- Reduce `strokeWidth` from `1.5` to `0.8`
-- Change `strokeDasharray` from `"6 4"` to `"4 3"` for finer dashes
-- Reduce traveling dot radius from `2.5` to `1.5`
-- Remove the heavy `filter="url(#geo-glow)"` from traveling dots (or reduce stdDeviation)
-- Reduce gradient stop opacities for subtler arcs (0.8→0.5, 0.2→0.08)
+### 1. Refine the India outline in `IndiaStatesMap.tsx`
+- Reduce glow layer `strokeWidth` from `0.6` to `0.3`
+- Reduce crisp outline `strokeWidth` from `0.3` to `0.15`
+- Lower fill opacities: glow fill `0.08` → `0.04`, crisp fill `0.12` → `0.06`
+- Lower glow stroke opacity from `0.15` to `0.08`
+- Lower crisp stroke opacity from `0.6` to `0.35`
 
-### 2. Scale down international city markers
-- Reduce outer ring radius from `7`/`10` to `5`/`7`
-- Reduce inner dot radius from `4` to `2.5`
-- Reduce ping ring radius from `4` to `2.5`
-- Reduce stroke widths proportionally
-- Scale down font sizes from `10`/`8` to `9`/`7`
+### 2. Scale down city markers in `IndiaStatesMap.tsx`
+- Tier 1: outer circle `r=2` → `r=1.2`, inner dot `r=0.8` → `r=0.5`, ping `r=0.8` → `r=0.5`
+- Tier 2: outer circle `r=1.2` → `r=0.7`, inner dot `r=0.5` → `r=0.3`
+- Reduce label font sizes: Tier 1 from `2/2.5` to `1.5/1.8`, Tier 2 from `2` to `1.4`
+- Adjust label offset (y - 3 → y - 2 for tier 1, y - 2 → y - 1.2 for tier 2)
 
-### 3. Reduce glow filter intensity
-- Reduce `geo-glow` stdDeviation from `3` to `1.5` for subtler effect
+### 3. Soften the `india-glow` filter in `GeoReachScene.tsx`
+- Reduce `stdDeviation` from `2` to `1`
 
-All changes in `src/components/impact/GeoReachScene.tsx`.
+All changes across two files: `IndiaStatesMap.tsx` and `GeoReachScene.tsx`.
 
