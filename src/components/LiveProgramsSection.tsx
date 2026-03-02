@@ -109,7 +109,7 @@ const LiveProgramsSection = () => {
         <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-hero-headline leading-[1.35] tracking-tight">
           <span className="block sm:inline">Mentorship Programs,</span>{" "}
           <span className="block sm:inline whitespace-nowrap">
-            For the{" "}
+            For{" "}
             <span className="inline-flex items-baseline overflow-hidden align-baseline justify-center" style={{ minWidth: "7ch" }}>
               <AnimatePresence mode="wait">
                 <m.em
