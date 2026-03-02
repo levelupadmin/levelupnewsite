@@ -499,6 +499,28 @@
   animation: impact-heartbeat-ring 2s ease-out 0.5s infinite;
 }
 
+/* ═══ Geo Reach — Concentric Rings ═══ */
+@keyframes geo-heartbeat {
+  0% { opacity: 0.5; r: inherit; }
+  50% { opacity: 0; }
+  100% { opacity: 0; r: 40; }
+}
+.animate-geo-heartbeat {
+  animation: geo-heartbeat 2.2s ease-out infinite;
+  transform-origin: center;
+}
+
+/* Subtle float for pills */
+.geo-pill {
+  will-change: opacity, transform;
+}
+
+/* Particle breathing */
+.geo-particle {
+  will-change: opacity;
+}
+
+
 /* Bento grid award-winning keyframes */
 @keyframes ken-burns {
   0% { transform: scale(1); }
