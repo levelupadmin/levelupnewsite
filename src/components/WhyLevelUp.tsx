@@ -149,7 +149,7 @@ const WhyLevelUp = () => {
                       : "border-primary/20 hover:border-primary/40 hover:shadow-[0_0_30px_4px_hsl(30_80%_45%/0.25)]"
                   }`}
                   style={{
-                    background: "linear-gradient(160deg, hsl(30 40% 12%) 0%, hsl(0 0% 4%) 50%, hsl(0 0% 2%) 100%)",
+                    background: "linear-gradient(160deg, hsl(30 40% 12%) 0%, hsl(22 14% 5%) 50%, hsl(22 14% 3%) 100%)",
                   }}
                 >
                   {/* Icon button - bordered square */}
