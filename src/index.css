@@ -428,7 +428,7 @@
   fill: none;
   stroke: hsl(var(--muted-foreground));
   stroke-width: 0.6;
-  opacity: 0.25;
+  opacity: 0.4;
   transition: opacity 0.3s ease;
 }
 
@@ -454,7 +454,7 @@
 .world-map-svg path#np,
 .world-map-svg #mm path,
 .world-map-svg path#mm {
-  opacity: 0.35;
+  opacity: 0.5;
   stroke: hsl(var(--primary) / 0.5);
 }
 
