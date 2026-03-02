@@ -175,7 +175,7 @@ const GeoReachScene = () => {
           >
             <defs>
               <filter id="geo-glow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="3" result="blur" />
+                <feGaussianBlur stdDeviation="1.5" result="blur" />
                 <feMerge>
                   <feMergeNode in="blur" />
                   <feMergeNode in="SourceGraphic" />
@@ -198,8 +198,8 @@ const GeoReachScene = () => {
                   y2={city.cy}
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.2" />
+                  <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.5" />
+                  <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.08" />
                 </linearGradient>
               ))}
             </defs>
@@ -260,17 +260,16 @@ const GeoReachScene = () => {
                     d={d}
                     fill="none"
                     stroke={`url(#arc-grad-${i})`}
-                    strokeWidth={1.5}
-                    strokeDasharray="6 4"
+                    strokeWidth={0.8}
+                    strokeDasharray="4 3"
                     opacity={0}
                     className="animate-impact-arc-draw"
                     style={{ animationDelay: `${0.3 + i * 0.15}s` }}
                   />
                   <circle
-                    r={2.5}
+                    r={1.5}
                     fill="hsl(var(--primary))"
-                    filter="url(#geo-glow)"
-                    opacity={0.9}
+                    opacity={0.85}
                   >
                     <animateMotion
                       dur={`${3 + i * 0.3}s`}
@@ -306,7 +305,7 @@ const GeoReachScene = () => {
                       <circle
                         cx={city.cx}
                         cy={city.cy}
-                        r={isHovered ? 10 : 7}
+                        r={isHovered ? 7 : 5}
                         fill="none"
                         stroke="hsl(var(--primary))"
                         strokeWidth={0.6}
@@ -316,7 +315,7 @@ const GeoReachScene = () => {
                       <circle
                         cx={city.cx}
                         cy={city.cy}
-                        r={4}
+                        r={2.5}
                         fill="hsl(var(--primary))"
                         opacity={isHovered ? 1 : 0.85}
                         style={{ transition: "all 0.3s ease" }}
@@ -324,10 +323,10 @@ const GeoReachScene = () => {
                       <circle
                         cx={city.cx}
                         cy={city.cy}
-                        r={4}
+                        r={2.5}
                         fill="none"
                         stroke="hsl(var(--primary))"
-                        strokeWidth={0.6}
+                        strokeWidth={0.4}
                         className="animate-impact-city-ping"
                         style={{ animationDelay: `${1 + i * 0.2}s` }}
                       />
@@ -336,7 +335,7 @@ const GeoReachScene = () => {
                         y={city.cy - 12}
                         textAnchor="middle"
                         fill="hsl(var(--foreground))"
-                        fontSize={isMobile ? 8 : 10}
+                        fontSize={isMobile ? 7 : 9}
                         fontFamily="'Sora', sans-serif"
                         fontWeight={isHovered ? 600 : 500}
                         opacity={isHovered ? 1 : 0.85}
@@ -349,7 +348,7 @@ const GeoReachScene = () => {
                         y={city.cy + (isMobile ? 14 : 16)}
                         textAnchor="middle"
                         fill="hsl(var(--primary))"
-                        fontSize={isMobile ? 7 : 8}
+                        fontSize={isMobile ? 6 : 7}
                         fontFamily="'Sora', sans-serif"
                         fontWeight={600}
                         opacity={0.7}
