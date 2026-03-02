@@ -507,6 +507,23 @@
   animation: india-dot-breathe 3s ease-in-out infinite;
 }
 
+/* ═══ India States Map Animations ═══ */
+@keyframes india-state-glow {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.animate-india-state-glow {
+  animation: india-state-glow 0.8s ease-out both;
+}
+
+@keyframes india-city-pop {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.animate-india-city-pop {
+  animation: india-city-pop 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 /* ═══ Hub-Spoke Map Keyframes ═══ */
 
 /* Range rings fade in — opacity only, no r animation */

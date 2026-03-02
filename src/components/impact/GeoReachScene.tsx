@@ -1,325 +1,431 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
-import FadeInSection from "@/components/FadeInSection";
 import { useScrollReveal } from "@/components/FadeInSection";
 import { useIsMobile } from "@/hooks/use-mobile";
 import ImpactScene from "./ImpactScene";
 import worldMapUrl from "@/assets/world-map.svg";
-import {
-  INDIA_CENTER,
-  internationalCities,
-} from "./worldMapData";
+import { INDIA_CENTER, internationalCities } from "./worldMapData";
+import IndiaStatesMap from "./IndiaStatesMap";
+
+/* ── Helpers ── */
 
 const arcPath = (x1: number, y1: number, x2: number, y2: number) => {
   const dx = x2 - x1;
   const dy = y2 - y1;
   const dist = Math.sqrt(dx * dx + dy * dy);
-  const curvature = -dist * 0.2;
   const midX = (x1 + x2) / 2;
-  const midY = (y1 + y2) / 2 + curvature;
+  const midY = (y1 + y2) / 2 + -dist * 0.2;
   return `M ${x1} ${y1} Q ${midX} ${midY} ${x2} ${y2}`;
 };
 
-// Shifted viewBox to center India more (crop far-west Americas slightly)
+/* ── Layout constants ── */
+
 const VIEWBOX = "80 241.591 750 458.627";
 const VIEWBOX_MOBILE = "200 260 550 420";
+
+// India local-coord center (inside IndiaStatesMap's 0-100 × 0-130 space)
+const LOCAL_CX = 50;
+const LOCAL_CY = 65;
+
+// Where India sits on the world SVG at base scale
+const BASE_SCALE = 0.65;
+const WORLD_TX = INDIA_CENTER.cx - LOCAL_CX * BASE_SCALE; // ≈ 532.5
+const WORLD_TY = INDIA_CENTER.cy - LOCAL_CY * BASE_SCALE; // ≈ 412.75
+
+// Phase-1 zoom: fill the viewport with India
+const DESKTOP = { scale: 3.0, cx: 455, cy: 471 };
+const MOBILE = { scale: 2.2, cx: 475, cy: 470 };
+
+/* ── Component ── */
 
 const GeoReachScene = () => {
   const { ref, isVisible } = useScrollReveal(0.15);
   const isMobile = useIsMobile();
+  const [phase, setPhase] = useState<0 | 1 | 2 | 3>(0);
   const [hoveredCity, setHoveredCity] = useState<string | null>(null);
+
+  /* Phase state-machine: 0 → 1 → 2 → 3, triggered once on scroll-in */
+  useEffect(() => {
+    if (!isVisible) return;
+    setPhase(1);
+    const t2 = setTimeout(() => setPhase(2), 3000);
+    const t3 = setTimeout(() => setPhase(3), 4500);
+    return () => {
+      clearTimeout(t2);
+      clearTimeout(t3);
+    };
+  }, [isVisible]);
+
+  /* India <g> transform — zoomed-in for phase 0-1, world-position for phase 2+ */
+  const indiaTransform = useMemo(() => {
+    if (phase <= 1) {
+      const z = isMobile ? MOBILE : DESKTOP;
+      return `translate(${z.cx - LOCAL_CX * z.scale}px, ${z.cy - LOCAL_CY * z.scale}px) scale(${z.scale})`;
+    }
+    return `translate(${WORLD_TX}px, ${WORLD_TY}px) scale(${BASE_SCALE})`;
+  }, [phase, isMobile]);
 
   const arcPaths = useMemo(
     () =>
-      internationalCities.map((city) =>
-        arcPath(INDIA_CENTER.cx, INDIA_CENTER.cy, city.cx, city.cy)
+      internationalCities.map((c) =>
+        arcPath(INDIA_CENTER.cx, INDIA_CENTER.cy, c.cx, c.cy)
       ),
     []
   );
 
   return (
     <ImpactScene>
-      <FadeInSection>
-        <div
-          ref={ref}
-          className="relative flex flex-col items-center justify-center min-h-[320px] md:min-h-[520px] px-4 py-10 md:py-16"
-        >
-          {/* Section heading */}
-          <div className="text-center mb-6 md:mb-10 relative z-10">
-            <p className="text-[10px] md:text-xs tracking-[0.25em] uppercase text-muted-foreground font-medium mb-3">
-              Global Reach
-            </p>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground tracking-tight">
+      <div
+        ref={ref}
+        className="relative flex flex-col items-center justify-center min-h-[420px] md:min-h-[600px] px-4 py-10 md:py-16"
+      >
+        {/* ── Heading with crossfade ── */}
+        <div className="text-center mb-6 md:mb-10 relative z-10">
+          <p className="text-[10px] md:text-xs tracking-[0.25em] uppercase text-muted-foreground font-medium mb-3">
+            Global Reach
+          </p>
+          <div className="relative" style={{ minHeight: "2.5em" }}>
+            <h2
+              className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground tracking-tight transition-all duration-700"
+              style={{
+                opacity: phase < 2 ? 1 : 0,
+                transform: phase < 2 ? "none" : "translateY(-10px)",
+              }}
+            >
+              Lighting Up India
+            </h2>
+            <h2
+              className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground tracking-tight transition-all duration-700 absolute inset-x-0 top-0"
+              style={{
+                opacity: phase >= 2 ? 1 : 0,
+                transform: phase >= 2 ? "none" : "translateY(10px)",
+              }}
+            >
               Spreading from India to the World
             </h2>
           </div>
+        </div>
 
-          {/* Radial glow behind India */}
-          <div
-            className={`absolute pointer-events-none transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
-            style={{
-              width: "30%",
-              height: "40%",
-              top: "45%",
-              left: "58%",
-              transform: "translate(-50%, -50%)",
-              background:
-                "radial-gradient(ellipse 100% 100% at 50% 50%, hsl(var(--primary) / 0.2), hsl(var(--primary) / 0.05) 60%, transparent 85%)",
-              filter: "blur(40px)",
-              zIndex: 1,
-            }}
-          />
+        {/* ── Radial glow ── */}
+        <div
+          className="absolute pointer-events-none"
+          style={{
+            width: "30%",
+            height: "40%",
+            top: "45%",
+            left: phase >= 2 ? "58%" : "50%",
+            transform: "translate(-50%, -50%)",
+            background:
+              "radial-gradient(ellipse 100% 100% at 50% 50%, hsl(var(--primary) / 0.2), hsl(var(--primary) / 0.05) 60%, transparent 85%)",
+            filter: "blur(40px)",
+            zIndex: 1,
+            opacity: isVisible ? 1 : 0,
+            transition: "left 1.5s ease, opacity 1s ease",
+          }}
+        />
 
-          {/* Map + overlay container */}
-          <div className="w-full max-w-6xl mx-auto relative z-[2]">
-            {/* World map SVG base layer */}
-            <div className="relative">
-              <svg
-                viewBox={isMobile ? VIEWBOX_MOBILE : VIEWBOX}
-                className="w-full h-auto"
-                xmlns="http://www.w3.org/2000/svg"
-                role="img"
-                aria-label="World map showing LevelUp's global reach from India"
-              >
-                <defs>
-                  <filter id="geo-glow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="3" result="blur" />
-                    <feMerge>
-                      <feMergeNode in="blur" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                  </filter>
-                  <filter id="india-glow" x="-100%" y="-100%" width="300%" height="300%">
-                    <feGaussianBlur stdDeviation="15" result="blur" />
-                    <feMerge>
-                      <feMergeNode in="blur" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                  </filter>
+        {/* ── Map SVG ── */}
+        <div className="w-full max-w-6xl mx-auto relative z-[2]">
+          <svg
+            viewBox={isMobile ? VIEWBOX_MOBILE : VIEWBOX}
+            className="w-full h-auto"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-label="Animated map showing LevelUp's reach across India and the world"
+          >
+            <defs>
+              <filter id="geo-glow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="3" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+              <filter id="india-glow" x="-100%" y="-100%" width="300%" height="300%">
+                <feGaussianBlur stdDeviation="15" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+              {internationalCities.map((city, i) => (
+                <linearGradient
+                  key={`ag-${i}`}
+                  id={`arc-grad-${i}`}
+                  x1={INDIA_CENTER.cx}
+                  y1={INDIA_CENTER.cy}
+                  x2={city.cx}
+                  y2={city.cy}
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.2" />
+                </linearGradient>
+              ))}
+            </defs>
 
-                  {/* Arc gradients */}
-                  {internationalCities.map((city, i) => (
-                    <linearGradient
-                      key={`ag-${i}`}
-                      id={`arc-grad-${i}`}
-                      x1={INDIA_CENTER.cx}
-                      y1={INDIA_CENTER.cy}
-                      x2={city.cx}
-                      y2={city.cy}
-                      gradientUnits="userSpaceOnUse"
-                    >
-                      <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.8" />
-                      <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.2" />
-                    </linearGradient>
-                  ))}
-                </defs>
+            {/* World map outlines — fades in during Phase 2 */}
+            <image
+              href={worldMapUrl}
+              x="30.767"
+              y="241.591"
+              width="784.077"
+              height="458.627"
+              style={{
+                opacity: phase >= 2 ? 0.4 : 0,
+                transition: "opacity 1.5s ease",
+                filter: "brightness(0.6) contrast(1.2)",
+              }}
+            />
 
-                {/* ── World map outlines ── */}
-                <image
-                  href={worldMapUrl}
-                  x="30.767"
-                  y="241.591"
-                  width="784.077"
-                  height="458.627"
-                  className={`transition-opacity duration-1000 ${isVisible ? "opacity-40" : "opacity-0"}`}
-                  style={{ filter: "brightness(0.6) contrast(1.2)" }}
+            {/* ── India states group with zoom transition ── */}
+            <g
+              style={{
+                transform: indiaTransform,
+                transition: `transform ${phase >= 2 ? "1.5s" : "0s"} cubic-bezier(0.4, 0, 0.2, 1)`,
+                transformOrigin: "0 0",
+              }}
+            >
+              <IndiaStatesMap phase={phase} />
+            </g>
+
+            {/* ── India center heartbeat — Phase 3 ── */}
+            {phase >= 3 && (
+              <>
+                <circle
+                  cx={INDIA_CENTER.cx}
+                  cy={INDIA_CENTER.cy}
+                  r={40}
+                  fill="hsl(var(--primary))"
+                  filter="url(#india-glow)"
+                  opacity={0.15}
                 />
+                <circle
+                  cx={INDIA_CENTER.cx}
+                  cy={INDIA_CENTER.cy}
+                  r={5}
+                  fill="hsl(var(--primary))"
+                  opacity={0.9}
+                  className="animate-impact-heartbeat"
+                />
+                <circle
+                  cx={INDIA_CENTER.cx}
+                  cy={INDIA_CENTER.cy}
+                  r={5}
+                  fill="none"
+                  stroke="hsl(var(--primary))"
+                  strokeWidth={1}
+                  className="animate-impact-heartbeat-ring"
+                />
+              </>
+            )}
 
-                {/* ── India center glow ── */}
-                {isVisible && (
-                  <>
-                    <circle
-                      cx={INDIA_CENTER.cx}
-                      cy={INDIA_CENTER.cy}
-                      r={40}
-                      fill="hsl(var(--primary))"
-                      filter="url(#india-glow)"
-                      opacity={0.15}
+            {/* ── Connection arcs + traveling dots — Phase 3 ── */}
+            {phase >= 3 &&
+              arcPaths.map((d, i) => (
+                <g key={`arc-${i}`}>
+                  <path
+                    d={d}
+                    fill="none"
+                    stroke={`url(#arc-grad-${i})`}
+                    strokeWidth={1.5}
+                    strokeDasharray="6 4"
+                    opacity={0}
+                    className="animate-impact-arc-draw"
+                    style={{ animationDelay: `${0.3 + i * 0.15}s` }}
+                  />
+                  <circle
+                    r={2.5}
+                    fill="hsl(var(--primary))"
+                    filter="url(#geo-glow)"
+                    opacity={0.9}
+                  >
+                    <animateMotion
+                      dur={`${3 + i * 0.3}s`}
+                      begin={`${0.8 + i * 0.2}s`}
+                      repeatCount="indefinite"
+                      path={d}
                     />
-                    <circle
-                      cx={INDIA_CENTER.cx}
-                      cy={INDIA_CENTER.cy}
-                      r={5}
-                      fill="hsl(var(--primary))"
-                      opacity={0.9}
-                      className="animate-impact-heartbeat"
-                    />
-                    <circle
-                      cx={INDIA_CENTER.cx}
-                      cy={INDIA_CENTER.cy}
-                      r={5}
-                      fill="none"
-                      stroke="hsl(var(--primary))"
-                      strokeWidth={1}
-                      className="animate-impact-heartbeat-ring"
-                    />
-                  </>
-                )}
+                  </circle>
+                </g>
+              ))}
 
-                {/* ── Connection arcs + traveling dots ── */}
-                {arcPaths.map((d, i) => (
-                  <g key={`arc-${i}`}>
-                    <path
-                      d={d}
-                      fill="none"
-                      stroke={`url(#arc-grad-${i})`}
-                      strokeWidth={1.5}
-                      strokeDasharray="6 4"
-                      opacity={0}
-                      className={isVisible ? "animate-impact-arc-draw" : ""}
-                      style={{ animationDelay: `${0.8 + i * 0.2}s` }}
-                    />
-                    {isVisible && (
-                      <circle
-                        r={2.5}
-                        fill="hsl(var(--primary))"
-                        filter="url(#geo-glow)"
-                        opacity={0.9}
-                      >
-                        <animateMotion
-                          dur={`${3 + i * 0.3}s`}
-                          begin={`${1.5 + i * 0.25}s`}
-                          repeatCount="indefinite"
-                          path={d}
-                        />
-                      </circle>
-                    )}
-                  </g>
-                ))}
-
-                {/* ── City markers ── */}
-                {internationalCities.map((city, i) => {
-                  const isHovered = hoveredCity === `city-${i}`;
-                  return (
+            {/* ── International city markers — Phase 3 ── */}
+            {phase >= 3 &&
+              internationalCities.map((city, i) => {
+                const isHovered = hoveredCity === `city-${i}`;
+                return (
+                  <g
+                    key={`city-${i}`}
+                    className="pointer-events-auto cursor-pointer"
+                    onMouseEnter={() => setHoveredCity(`city-${i}`)}
+                    onMouseLeave={() => setHoveredCity(null)}
+                    onClick={() =>
+                      setHoveredCity((p) =>
+                        p === `city-${i}` ? null : `city-${i}`
+                      )
+                    }
+                  >
                     <g
-                      key={`city-${i}`}
-                      className="pointer-events-auto cursor-pointer"
-                      onMouseEnter={() => setHoveredCity(`city-${i}`)}
-                      onMouseLeave={() => setHoveredCity(null)}
-                      onClick={() =>
-                        setHoveredCity((prev) => (prev === `city-${i}` ? null : `city-${i}`))
-                      }
+                      opacity={0}
+                      className="animate-city-fade-in"
+                      style={{ animationDelay: `${0.5 + i * 0.15}s` }}
                     >
-                      <g
-                        opacity={0}
-                        className={isVisible ? "animate-city-fade-in" : ""}
-                        style={{ animationDelay: `${1.2 + i * 0.2}s` }}
+                      <circle
+                        cx={city.cx}
+                        cy={city.cy}
+                        r={isHovered ? 10 : 7}
+                        fill="none"
+                        stroke="hsl(var(--primary))"
+                        strokeWidth={0.6}
+                        opacity={isHovered ? 0.7 : 0.25}
+                        style={{ transition: "all 0.3s ease" }}
+                      />
+                      <circle
+                        cx={city.cx}
+                        cy={city.cy}
+                        r={4}
+                        fill="hsl(var(--primary))"
+                        opacity={isHovered ? 1 : 0.85}
+                        style={{ transition: "all 0.3s ease" }}
+                      />
+                      <circle
+                        cx={city.cx}
+                        cy={city.cy}
+                        r={4}
+                        fill="none"
+                        stroke="hsl(var(--primary))"
+                        strokeWidth={0.6}
+                        className="animate-impact-city-ping"
+                        style={{ animationDelay: `${1 + i * 0.2}s` }}
+                      />
+                      <text
+                        x={city.cx}
+                        y={city.cy - 12}
+                        textAnchor="middle"
+                        fill="hsl(var(--foreground))"
+                        fontSize={isMobile ? 8 : 10}
+                        fontFamily="'Sora', sans-serif"
+                        fontWeight={isHovered ? 600 : 500}
+                        opacity={isHovered ? 1 : 0.85}
+                        style={{ transition: "all 0.3s ease" }}
                       >
-                        {/* Outer ring */}
-                        <circle
-                          cx={city.cx}
-                          cy={city.cy}
-                          r={isHovered ? 10 : 7}
-                          fill="none"
-                          stroke="hsl(var(--primary))"
-                          strokeWidth={0.6}
-                          opacity={isHovered ? 0.7 : 0.25}
-                          style={{ transition: "all 0.3s ease" }}
-                        />
-                        {/* Core dot */}
-                        <circle
-                          cx={city.cx}
-                          cy={city.cy}
-                          r={4}
-                          fill="hsl(var(--primary))"
-                          opacity={isHovered ? 1 : 0.85}
-                          style={{ transition: "all 0.3s ease" }}
-                        />
-                        {/* Ping */}
-                        {isVisible && (
-                          <circle
-                            cx={city.cx}
-                            cy={city.cy}
-                            r={4}
-                            fill="none"
-                            stroke="hsl(var(--primary))"
-                            strokeWidth={0.6}
-                            className="animate-impact-city-ping"
-                            style={{ animationDelay: `${1.8 + i * 0.25}s` }}
-                          />
-                        )}
+                        {city.label}
+                      </text>
+                      <text
+                        x={city.cx}
+                        y={city.cy + (isMobile ? 14 : 16)}
+                        textAnchor="middle"
+                        fill="hsl(var(--primary))"
+                        fontSize={isMobile ? 7 : 8}
+                        fontFamily="'Sora', sans-serif"
+                        fontWeight={600}
+                        opacity={0.7}
+                      >
+                        {city.learners}
+                      </text>
+                    </g>
 
-                        {/* City label */}
+                    {/* Tooltip */}
+                    {isHovered && (
+                      <g>
+                        <rect
+                          x={city.cx - 60}
+                          y={city.cy + 20}
+                          width={120}
+                          height={22}
+                          rx={4}
+                          fill="hsl(var(--background))"
+                          stroke="hsl(var(--primary))"
+                          strokeWidth={0.8}
+                          opacity={0.95}
+                        />
                         <text
                           x={city.cx}
-                          y={city.cy - 12}
+                          y={city.cy + 35}
                           textAnchor="middle"
                           fill="hsl(var(--foreground))"
-                          fontSize={isMobile ? 8 : 10}
-                          fontFamily="sans-serif"
-                          fontWeight={isHovered ? 600 : 500}
-                          opacity={isHovered ? 1 : 0.85}
-                          style={{ transition: "all 0.3s ease" }}
-                        >
-                          {city.label}
-                        </text>
-                        {/* Learner count */}
-                        <text
-                          x={city.cx}
-                          y={city.cy + (isMobile ? 14 : 16)}
-                          textAnchor="middle"
-                          fill="hsl(var(--primary))"
-                          fontSize={isMobile ? 7 : 8}
-                          fontFamily="sans-serif"
+                          fontSize={8}
+                          fontFamily="'Sora', sans-serif"
                           fontWeight={600}
-                          opacity={0.7}
                         >
-                          {city.learners}
+                          {city.flag} {city.label} · {city.learners} learners
                         </text>
                       </g>
+                    )}
+                  </g>
+                );
+              })}
+          </svg>
+        </div>
 
-                      {/* Tooltip on hover */}
-                      {isHovered && (
-                        <g>
-                          <rect
-                            x={city.cx - 60}
-                            y={city.cy + 20}
-                            width={120}
-                            height={22}
-                            rx={4}
-                            fill="hsl(var(--background))"
-                            stroke="hsl(var(--primary))"
-                            strokeWidth={0.8}
-                            opacity={0.95}
-                          />
-                          <text
-                            x={city.cx}
-                            y={city.cy + 35}
-                            textAnchor="middle"
-                            fill="hsl(var(--foreground))"
-                            fontSize={8}
-                            fontFamily="sans-serif"
-                            fontWeight={600}
-                          >
-                            {city.flag} {city.label} · {city.learners} learners
-                          </text>
-                        </g>
-                      )}
-                    </g>
-                  );
-                })}
-              </svg>
-            </div>
-          </div>
-
-          {/* Stats below map */}
-          <div className="relative z-10 flex items-center gap-8 md:gap-16 mt-6 md:mt-10">
+        {/* ── Stats with crossfade ── */}
+        <div className="relative z-10 mt-6 md:mt-10" style={{ minHeight: 80 }}>
+          {/* India stats — Phase 1-2 */}
+          <div
+            className="flex items-center justify-center gap-8 md:gap-16 transition-all duration-700"
+            style={{
+              opacity: phase >= 1 && phase < 3 ? 1 : 0,
+              transform:
+                phase >= 1 && phase < 3 ? "none" : "translateY(-10px)",
+            }}
+          >
             <div className="text-center">
               <p className="text-3xl sm:text-4xl md:text-6xl font-semibold text-foreground tracking-tight">
-                <AnimatedCounter target={821} celebrate />
+                {phase >= 1 && <AnimatedCounter target={821} celebrate />}
               </p>
-              <p className="text-xs md:text-sm text-muted-foreground mt-1">cities</p>
+              <p className="text-xs md:text-sm text-muted-foreground mt-1">
+                cities
+              </p>
             </div>
             <div className="w-px h-12 bg-border" />
             <div className="text-center">
               <p className="text-3xl sm:text-4xl md:text-6xl font-semibold text-foreground tracking-tight">
-                <AnimatedCounter target={13} suffix="+" celebrate delay={400} />
+                {phase >= 1 && (
+                  <AnimatedCounter target={28} celebrate delay={400} />
+                )}
               </p>
-              <p className="text-xs md:text-sm text-muted-foreground mt-1">countries</p>
+              <p className="text-xs md:text-sm text-muted-foreground mt-1">
+                states
+              </p>
+            </div>
+          </div>
+
+          {/* Global stats — Phase 3 */}
+          <div
+            className="flex items-center justify-center gap-8 md:gap-16 transition-all duration-700 absolute inset-0"
+            style={{
+              opacity: phase >= 3 ? 1 : 0,
+              transform: phase >= 3 ? "none" : "translateY(10px)",
+            }}
+          >
+            <div className="text-center">
+              <p className="text-3xl sm:text-4xl md:text-6xl font-semibold text-foreground tracking-tight">
+                {phase >= 3 && <AnimatedCounter target={821} celebrate />}
+              </p>
+              <p className="text-xs md:text-sm text-muted-foreground mt-1">
+                cities
+              </p>
+            </div>
+            <div className="w-px h-12 bg-border" />
+            <div className="text-center">
+              <p className="text-3xl sm:text-4xl md:text-6xl font-semibold text-foreground tracking-tight">
+                {phase >= 3 && (
+                  <AnimatedCounter
+                    target={13}
+                    suffix="+"
+                    celebrate
+                    delay={400}
+                  />
+                )}
+              </p>
+              <p className="text-xs md:text-sm text-muted-foreground mt-1">
+                countries
+              </p>
             </div>
           </div>
         </div>
-      </FadeInSection>
+      </div>
     </ImpactScene>
   );
 };
