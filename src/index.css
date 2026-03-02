@@ -466,6 +466,23 @@
   animation: impact-label-fade 0.5s ease-out both;
 }
 
+/* Heartbeat pulse at India center */
+@keyframes impact-heartbeat {
+  0%, 100% { opacity: 0.6; r: 3; }
+  50% { opacity: 0.9; r: 5; }
+}
+.animate-impact-heartbeat {
+  animation: impact-heartbeat 2.5s ease-in-out infinite;
+}
+
+@keyframes impact-heartbeat-ring {
+  0% { opacity: 0.4; r: 3; }
+  100% { opacity: 0; r: 20; }
+}
+.animate-impact-heartbeat-ring {
+  animation: impact-heartbeat-ring 2.5s ease-out infinite;
+}
+
 /* Bento grid award-winning keyframes */
 @keyframes ken-burns {
   0% { transform: scale(1); }
