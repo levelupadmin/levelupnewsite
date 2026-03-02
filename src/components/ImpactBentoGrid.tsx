@@ -1,7 +1,9 @@
-import { useState, useCallback } from "react";
-import { m, AnimatePresence } from "framer-motion";
-import { Star, Handshake, Globe } from "lucide-react";
+import { useState } from "react";
+import { m } from "framer-motion";
+import { Star, Handshake } from "lucide-react";
 import { AnimatedCounter } from "./AnimatedCounter";
+
+import IndiaDotsMap from "./IndiaDotsMap";
 
 import community1 from "@/assets/community/community-1.png";
 import community2 from "@/assets/community/community-2.png";
@@ -25,7 +27,6 @@ const orangeCard = `${cardBase} bg-primary relative`;
 const orangeInnerGlow = "inset 0 1px 0 hsl(30 90% 60% / 0.2)";
 const hoverGlow = "0 0 30px 4px hsl(30 80% 45% / 0.15)";
 
-/* ── Mosaic tile offsets for parallax breathing ── */
 const tileOffsets = [
   { x: -3, y: -3 }, { x: 0, y: -4 }, { x: 3, y: -3 },
   { x: -4, y: 0 },  { x: 0, y: 0 },  { x: 4, y: 0 },
@@ -34,9 +35,7 @@ const tileOffsets = [
 
 const mosaicContainerVariants = {
   hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.06 },
-  },
+  visible: { transition: { staggerChildren: 0.06 } },
 };
 
 const mosaicTileVariants = {
@@ -54,6 +53,13 @@ const ImpactBentoGrid = () => {
 
   return (
     <div className="relative max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-16">
+      {/* Section label */}
+      <div className="mb-8 md:mb-10">
+        <p className="text-[10px] md:text-xs tracking-[0.25em] uppercase text-muted-foreground font-medium">
+          Our Impact
+        </p>
+      </div>
+
       {/* Ambient amber glow */}
       <div
         className="absolute inset-0 pointer-events-none opacity-30"
@@ -63,12 +69,10 @@ const ImpactBentoGrid = () => {
       />
 
       <div
-        className="relative grid grid-cols-2 md:grid-cols-[1fr_1.4fr_1.2fr] gap-2 md:gap-3"
+        className="relative grid grid-cols-1 md:grid-cols-[1fr_1.6fr_1fr] gap-2 md:gap-3"
         style={{ gridTemplateRows: "auto auto" }}
       >
-        {/* ═══════════════════════════════════════════
-            1 — RATING CARD (4.86/5) — Star stagger
-        ═══════════════════════════════════════════ */}
+        {/* ═══ 1 — RATING (top-left) ═══ */}
         <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -117,57 +121,17 @@ const ImpactBentoGrid = () => {
           </div>
         </m.div>
 
-        {/* ═══════════════════════════════════════════
-            2 — PAID LEARNERS — Ken Burns + shimmer
-        ═══════════════════════════════════════════ */}
+        {/* ═══ 2 — COMMUNITY MOSAIC (center, row-span-2) ═══ */}
         <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-          whileHover={{ scale: 1.015, y: -2, boxShadow: `${orangeInnerGlow}, ${hoverGlow}` }}
-          onHoverStart={() => setLearnersHovered(true)}
-          onHoverEnd={() => setLearnersHovered(false)}
-          className={`${orangeCard} p-6 md:p-7 flex flex-col justify-end min-h-[180px] md:min-h-[200px]`}
-          style={{ boxShadow: orangeInnerGlow }}
-        >
-          {/* Noise texture */}
-          <div className="noise-overlay absolute inset-0 opacity-[0.06] pointer-events-none" />
-          {/* Ken Burns photo overlay */}
-          <div
-            className="absolute inset-0 opacity-20 animate-ken-burns"
-            style={{
-              backgroundImage: `url(${community8})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              mixBlendMode: "multiply",
-              transformOrigin: "center center",
-            }}
-          />
-          <div className="relative z-10">
-            <p className={`text-5xl md:text-6xl lg:text-7xl font-semibold text-primary-foreground tracking-tight ${learnersHovered ? "text-shimmer" : ""}`}>
-              <AnimatedCounter target={58746} hasComma celebrate />
-            </p>
-            <p className="text-xs md:text-sm text-primary-foreground/70 mt-1">
-              paid learners
-            </p>
-          </div>
-        </m.div>
-
-        {/* ═══════════════════════════════════════════
-            3 — COMMUNITY MOSAIC — stagger + parallax
-        ═══════════════════════════════════════════ */}
-        <m.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
           whileHover={{ scale: 1.015, y: -2, boxShadow: hoverGlow }}
           onHoverStart={() => setCommunityHovered(true)}
           onHoverEnd={() => setCommunityHovered(false)}
-          className={`${cardBase} col-span-2 md:col-span-1 md:row-span-2 relative flex flex-col justify-end min-h-[220px] md:min-h-full h-full`}
+          className={`${cardBase} row-span-1 md:row-span-2 relative flex flex-col justify-end min-h-[220px] md:min-h-full h-full`}
         >
-          {/* Photo mosaic with stagger entrance */}
           <m.div
             className="absolute inset-0 grid grid-cols-3 grid-rows-3 gap-0.5"
             variants={mosaicContainerVariants}
@@ -187,16 +151,10 @@ const ImpactBentoGrid = () => {
                   transition: "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
               >
-                <img
-                  src={photo}
-                  alt=""
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
+                <img src={photo} alt="" className="w-full h-full object-cover" loading="lazy" />
               </m.div>
             ))}
           </m.div>
-          {/* Orange overlay — fades on hover */}
           <div
             className="absolute inset-0 transition-opacity duration-500"
             style={{
@@ -204,71 +162,76 @@ const ImpactBentoGrid = () => {
               mixBlendMode: "multiply",
             }}
           />
-          {/* Bottom gradient */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
           <div className="noise-overlay absolute inset-0 opacity-[0.04] pointer-events-none" />
           <div className="relative z-10 p-6 md:p-7">
             <p className="text-5xl md:text-6xl font-semibold text-white tracking-tight">
               <AnimatedCounter target={300000} suffix="+" hasComma celebrate />
             </p>
-            <p className="text-xs md:text-sm text-white/70 mt-1">
-              community
-            </p>
+            <p className="text-xs md:text-sm text-white/70 mt-1">community</p>
           </div>
         </m.div>
 
-        {/* ═══════════════════════════════════════════
-            4 — CITIES / COUNTRIES — spinning globe
-        ═══════════════════════════════════════════ */}
+        {/* ═══ 3 — LEARNERS (top-right, orange) ═══ */}
+        <m.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+          whileHover={{ scale: 1.015, y: -2, boxShadow: `${orangeInnerGlow}, ${hoverGlow}` }}
+          onHoverStart={() => setLearnersHovered(true)}
+          onHoverEnd={() => setLearnersHovered(false)}
+          className={`${orangeCard} p-6 md:p-7 flex flex-col justify-end min-h-[180px] md:min-h-[200px]`}
+          style={{ boxShadow: orangeInnerGlow }}
+        >
+          <div className="noise-overlay absolute inset-0 opacity-[0.06] pointer-events-none" />
+          <div
+            className="absolute inset-0 opacity-20 animate-ken-burns"
+            style={{
+              backgroundImage: `url(${community8})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              mixBlendMode: "multiply",
+              transformOrigin: "center center",
+            }}
+          />
+          <div className="relative z-10">
+            <p className={`text-5xl md:text-6xl lg:text-7xl font-semibold text-primary-foreground tracking-tight ${learnersHovered ? "text-shimmer" : ""}`}>
+              <AnimatedCounter target={58746} hasComma celebrate />
+            </p>
+            <p className="text-xs md:text-sm text-primary-foreground/70 mt-1">paid learners</p>
+          </div>
+        </m.div>
+
+        {/* ═══ 4 — CITIES/COUNTRIES + India Map (bottom-left, dark) ═══ */}
         <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
-          whileHover={{ scale: 1.015, y: -2, boxShadow: `${orangeInnerGlow}, ${hoverGlow}` }}
+          whileHover={{ scale: 1.015, y: -2, boxShadow: hoverGlow }}
           onHoverStart={() => setGeoHovered(true)}
           onHoverEnd={() => setGeoHovered(false)}
-          className={`${orangeCard} p-6 md:p-7 flex flex-col justify-between min-h-[180px] md:min-h-[200px]`}
-          style={{ boxShadow: orangeInnerGlow }}
+          className={`${darkCard} p-5 md:p-6 flex flex-col justify-between min-h-[180px] md:min-h-[200px] relative`}
         >
-          <div className="noise-overlay absolute inset-0 opacity-[0.06] pointer-events-none" />
-          {/* Spinning globe */}
-          <div className="absolute top-2 right-2">
-            <Globe
-              className={`w-20 h-20 md:w-24 md:h-24 text-primary-foreground/10 ${geoHovered ? "animate-globe-spin-fast" : "animate-globe-spin"}`}
-              strokeWidth={0.5}
-            />
-            {/* Ring pulse on hover */}
-            {geoHovered && (
-              <m.div
-                initial={{ scale: 1, opacity: 0.3 }}
-                animate={{ scale: 2.2, opacity: 0 }}
-                transition={{ duration: 1.2, repeat: Infinity, ease: "easeOut" }}
-                className="absolute inset-0 rounded-full border border-primary-foreground/20"
-              />
-            )}
+          {/* India dot map visualization */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-80 p-4">
+            <IndiaDotsMap isHovered={geoHovered} />
           </div>
-          <div className="relative z-10">
-            <p className="text-4xl md:text-5xl font-semibold text-primary-foreground tracking-tight">
+          {/* Stats overlaid at bottom */}
+          <div className="relative z-10 mt-auto">
+            <p className="text-4xl md:text-5xl font-semibold text-foreground tracking-tight">
               <AnimatedCounter target={821} celebrate />
             </p>
-            <p className="text-[11px] md:text-xs text-primary-foreground/70 mt-0.5">
-              cities
-            </p>
-          </div>
-          <div className="relative z-10">
-            <p className="text-3xl md:text-4xl font-semibold text-primary-foreground tracking-tight">
+            <p className="text-[11px] md:text-xs text-muted-foreground mt-0.5">cities</p>
+            <p className="text-2xl md:text-3xl font-semibold text-foreground tracking-tight mt-2">
               <AnimatedCounter target={13} suffix="+" celebrate delay={400} />
             </p>
-            <p className="text-[11px] md:text-xs text-primary-foreground/70 mt-0.5">
-              countries
-            </p>
+            <p className="text-[11px] md:text-xs text-muted-foreground mt-0.5">countries</p>
           </div>
         </m.div>
 
-        {/* ═══════════════════════════════════════════
-            5 — COLLABORATIONS — handshake wiggle
-        ═══════════════════════════════════════════ */}
+        {/* ═══ 5 — COLLABORATIONS (bottom-right, dark) ═══ */}
         <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
