@@ -1,34 +1,45 @@
 
 
-## Plan: Expand "Our Students Come From" with 25+ New Logos
+## Problems Identified
 
-### What's Changing
+From the screenshot, the current map has major visual issues:
 
-Adding **27 new organization logos** across Indian tech companies, consumer brands, and premier institutions. Adding a **third marquee row** and increasing scroll speed from 60s to 40s per cycle.
+1. **International cities barely visible** — tiny dots at edges, labels either not rendering or too faint (arc-draw animation ends at `opacity: 0.15`, label-fade ends at `opacity: 0.75` but font is tiny `9px`)
+2. **Range rings invisible** — `range-ring-fade` animates to `opacity: 0.12` which is nearly invisible on dark backgrounds, and animates `r` from 0 which doesn't work on SVG circle elements
+3. **Arcs too faint** — arc gradient ends at `stopOpacity="0.05"`, arc-draw animation ends at `opacity: 0.15`
+4. **City bounce-in uses CSS `transform: scale()`** — this doesn't work reliably on SVG `<g>` elements without proper `transform-origin` in SVG coordinate space
+5. **Ambient particles drift via CSS `transform: translate()`** — also unreliable on SVG elements
+6. **No section heading** — jumps straight into the SVG with no context
+7. **India dot-map is too small** relative to the viewBox — the dots cluster in a small area
+8. **No visual hierarchy** — everything is the same muted color, no differentiation between India (primary) and international (secondary)
 
-### New Logos (27 total)
+## Redesign Plan
 
-**Tech Companies (9):** Microsoft, Meta, Flipkart, Infosys, TCS, Wipro, Zoho, Swiggy, Razorpay
+### 1. Fix worldMapData.ts — Better Radial Positioning
+- Spread international cities more evenly at larger, more visible distances
+- Keep them within the `900×600` viewBox but closer to the edges for drama
 
-**Consumer/Media (7):** Tata, Reliance, ITC, Hindustan Unilever, Sony Pictures, Star India, Zee
+### 2. Rewrite GeoReachScene.tsx — Cleaner, Bolder Composition
+- Add section heading ("Our Global Reach") above the SVG
+- **Scale up India** by applying a larger transform scale to the IndiaDotsMap `<g>`
+- Replace CSS-based animations on SVG elements with **SVG-native animations** (`<animate>`, `<set>`) where CSS transforms fail
+- Make range rings use `<animate attributeName="r">` instead of CSS
+- Make city nodes use `<animate attributeName="opacity">` instead of `animate-city-bounce-in`
+- **Brighter arcs**: increase gradient end opacity from `0.05` to `0.25`, arc-draw end opacity from `0.15` to `0.4`
+- **Brighter labels**: increase font size to `11px`, use `fill="hsl(var(--foreground))"` instead of muted
+- Add a subtle **India silhouette glow** — a larger blurred circle behind the dot map
+- Add a **"Spreading from India"** text label near the center
+- Improve tooltip styling with better padding and contrast
 
-**Institutions (11):** IIT, IIM, NIFT, SRFTI, Symbiosis, Christ University, Manipal, MICA, Pearl Academy, Ashoka University, ISB
+### 3. Update CSS Keyframes in index.css
+- Fix `range-ring-fade` — remove `r: 0` (doesn't work), just animate opacity from 0 to 0.2
+- Increase `impact-arc-draw` end opacity to `0.4`
+- Increase `impact-internal-arc` end opacity to `0.5`
+- Remove `ambient-particle` CSS transform animation (replace with SVG `<animateMotion>`)
+- Fix `city-bounce-in` — simplify to just opacity fade since CSS scale on SVG `<g>` is unreliable
 
-### Technical Approach
-
-Since we can't download raster logos, each new logo will be a **clean SVG text mark** — white text on transparent background, styled to match the muted/grayscale aesthetic of the existing marquee. This is the same approach used for the press logos (ABN, YourStory, Outlook India SVGs already in the codebase).
-
-### File Changes
-
-1. **Create 27 SVG files** in `src/assets/logos/` — one per organization, using appropriate serif/sans-serif fonts and letter-spacing to approximate each brand's wordmark style.
-
-2. **`src/components/StudentLogosSection.tsx`** — Import all 27 new logos, expand brands array to ~39 total, split into 3 rows of ~13 each, add third marquee row (left, right, left pattern).
-
-3. **`src/index.css`** — Speed up `animate-scroll-left` and `animate-scroll-right` from 60s to 40s.
-
-### Layout
-
-- **Row 1** (13 logos, scroll left, 40s): FTII, NID, Whistling Woods, YRF, Excel, TVF, IIT, IIM, NIFT, SRFTI, Symbiosis, Christ University, Manipal
-- **Row 2** (13 logos, scroll right, 40s): Google, Amazon Prime, Viacom18, Dharma, Red Chillies, Adobe, Microsoft, Meta, Flipkart, Infosys, TCS, Wipro, Zoho
-- **Row 3** (13 logos, scroll left, 40s): Tata, Reliance, ITC, HUL, Sony Pictures, Star India, Zee, Swiggy, Razorpay, MICA, Pearl Academy, Ashoka University, ISB
+### 4. Files Changed
+- `src/components/impact/worldMapData.ts` — adjusted city positions
+- `src/components/impact/GeoReachScene.tsx` — full visual overhaul
+- `src/index.css` — fixed keyframes
 
