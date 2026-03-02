@@ -150,7 +150,7 @@ const IndiaDotsMap = ({ isHovered = false }: IndiaDotsMapProps) => {
             strokeWidth={0.4}
             strokeDasharray="2 3"
             initial={{ opacity: 0, pathLength: 0 }}
-            whileInView={{ opacity: 0.15, pathLength: 1 }}
+            animate={{ opacity: 0.15, pathLength: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, delay: 0.9 + i * 0.1 }}
           />
@@ -161,7 +161,7 @@ const IndiaDotsMap = ({ isHovered = false }: IndiaDotsMapProps) => {
       <m.g
         variants={containerVariants}
         initial="hidden"
-        whileInView="visible"
+        animate="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
         {sortedDots.map((dot, i) => (
@@ -184,7 +184,7 @@ const IndiaDotsMap = ({ isHovered = false }: IndiaDotsMapProps) => {
 
       {/* International dots */}
       {internationalDots.map((dot, i) => (
-        <m.g key={`intl-${i}`} variants={intlDotVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+        <m.g key={`intl-${i}`} variants={intlDotVariants} initial="hidden" animate="visible" viewport={{ once: true }}>
           <circle
             cx={dot.cx}
             cy={dot.cy}
