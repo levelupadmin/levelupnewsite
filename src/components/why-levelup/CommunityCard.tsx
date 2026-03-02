@@ -201,7 +201,7 @@ const CommunityCard = () => {
         style={{
           background: "hsl(30 20% 10% / 0.95)",
           boxShadow:
-            "0 8px 32px -8px hsl(0 0% 0% / 0.4), 0 0 16px 2px hsl(30 80% 45% / 0.06)",
+            "0 8px 32px -8px hsl(22 14% 0% / 0.4), 0 0 16px 2px hsl(30 80% 45% / 0.06)",
         }}
       >
         {/* Channel header */}
