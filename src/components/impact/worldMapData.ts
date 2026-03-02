@@ -19,24 +19,23 @@ export const indianCities = [
 
 // India internal arcs
 export const indiaArcs = [
-  { from: 0, to: 1 }, // Mumbai ↔ Delhi
-  { from: 2, to: 3 }, // Bangalore ↔ Chennai
-  { from: 1, to: 4 }, // Delhi ↔ Kolkata
-  { from: 0, to: 5 }, // Mumbai ↔ Hyderabad
-  { from: 5, to: 2 }, // Hyderabad ↔ Bangalore
+  { from: 0, to: 1 },
+  { from: 2, to: 3 },
+  { from: 1, to: 4 },
+  { from: 0, to: 5 },
+  { from: 5, to: 2 },
 ];
 
-// International cities — radial positions around India center
-// Positioned by real-world compass direction at fixed orbital distances
+// International cities — spread wider to edges for visibility
 export const internationalCities = [
-  { cx: 225, cy: 300, label: "Dubai", learners: "180+", flag: "🇦🇪", angle: 270 },
-  { cx: 165, cy: 115, label: "London", learners: "85", flag: "🇬🇧", angle: 315 },
-  { cx: 55, cy: 210, label: "New York", learners: "120+", flag: "🇺🇸", angle: 290 },
-  { cx: 680, cy: 340, label: "Singapore", learners: "95", flag: "🇸🇬", angle: 100 },
-  { cx: 770, cy: 490, label: "Sydney", learners: "60", flag: "🇦🇺", angle: 135 },
-  { cx: 80, cy: 95, label: "Toronto", learners: "75", flag: "🇨🇦", angle: 320 },
-  { cx: 35, cy: 310, label: "Los Angeles", learners: "110+", flag: "🇺🇸", angle: 260 },
+  { cx: 260, cy: 280, label: "Dubai", learners: "180+", flag: "🇦🇪" },
+  { cx: 180, cy: 100, label: "London", learners: "85+", flag: "🇬🇧" },
+  { cx: 70, cy: 180, label: "New York", learners: "120+", flag: "🇺🇸" },
+  { cx: 680, cy: 360, label: "Singapore", learners: "95+", flag: "🇸🇬" },
+  { cx: 780, cy: 480, label: "Sydney", learners: "60+", flag: "🇦🇺" },
+  { cx: 100, cy: 80, label: "Toronto", learners: "75+", flag: "🇨🇦" },
+  { cx: 50, cy: 340, label: "Los Angeles", learners: "110+", flag: "🇺🇸" },
 ];
 
 // Range ring radii (from INDIA_CENTER)
-export const RANGE_RINGS = [180, 320];
+export const RANGE_RINGS = [140, 260];
