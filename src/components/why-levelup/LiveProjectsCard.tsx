@@ -65,14 +65,14 @@ const LiveProjectsCard = () => {
         </div>
 
         {/* ── "What happened next" — rotating outcomes ── */}
-        <div className="px-3 pb-1 flex-1 min-h-0 flex flex-col gap-1">
+        <div className="px-3 pb-1 flex-1 min-h-0 flex flex-col gap-1 overflow-hidden">
           <div className="flex items-center gap-1 mb-0.5">
             <span className="text-[6px] uppercase tracking-widest text-foreground/25">What happened next</span>
             <div className="flex-1 h-px bg-primary/10" />
           </div>
 
           {/* DM rotation — all 4 share the same space */}
-          <div className="relative" style={{ minHeight: 50 }}>
+          <div className="relative overflow-hidden" style={{ minHeight: 52 }}>
             {/* DM #1: Priya discovers the BFP short — the spark */}
             <div
               className="absolute inset-x-0 top-0 rounded-lg px-2 py-1.5 animate-pf-notif-1"
@@ -94,7 +94,7 @@ const LiveProjectsCard = () => {
                     <span className="text-[5px] text-primary/50">Pixel Studios</span>
                   </div>
                   <p className="text-[6.5px] text-foreground/55 leading-relaxed animate-pf-type-1">
-                    "Loved your BFP short — we're crewing up for a docu series. Interested?"
+                    "Loved your BFP short — crewing up for a docu. Interested?"
                   </p>
                   <div className="flex items-center gap-1 mt-0.5 animate-pf-typing-1">
                     <div className="flex gap-[2px]">
@@ -160,7 +160,7 @@ const LiveProjectsCard = () => {
                     <span className="text-[5px] text-primary/50">Dharma Productions</span>
                   </div>
                   <p className="text-[6.5px] text-foreground/55 leading-relaxed animate-pf-type-1c">
-                    "Caught your short at MAMI — our post team wants you on the next edit"
+                    "Caught your short at MAMI — want you on our next edit"
                   </p>
                 </div>
               </div>
@@ -187,7 +187,7 @@ const LiveProjectsCard = () => {
                     <span className="text-[5px] text-primary/50">TVF</span>
                   </div>
                   <p className="text-[6.5px] text-foreground/55 leading-relaxed animate-pf-type-1d">
-                    "Priya shared your work with us — our writer's room needs someone like you"
+                    "Priya shared your work — our writer's room needs you"
                   </p>
                 </div>
               </div>
@@ -307,7 +307,7 @@ const LiveProjectsCard = () => {
               <span className="pf-sum-a">3 projects · 1 paid gig</span>
               <span className="pf-sum-b">3 projects · 3 paid gigs</span>
             </span>
-            <span className="text-[6px] text-primary/40">Built during LevelUp programs</span>
+            <span className="text-[6px] text-primary/40 truncate">Built during LevelUp</span>
           </div>
         </div>
       </div>
