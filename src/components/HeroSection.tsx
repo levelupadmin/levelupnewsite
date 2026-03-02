@@ -68,14 +68,14 @@ const HeroSection = () => {
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `radial-gradient(ellipse 80% 50% at 50% 0%, hsl(24 95% 53% / 0.05) 0%, transparent 70%), linear-gradient(to bottom, hsl(0 0% 6% / 0.4) 0%, hsl(0 0% 4% / 0.5) 40%, hsl(0 0% 3% / 0.7) 100%)`,
+          background: `radial-gradient(ellipse 80% 50% at 50% 0%, hsl(24 95% 53% / 0.05) 0%, transparent 70%), linear-gradient(to bottom, hsl(22 14% 6% / 0.4) 0%, hsl(22 14% 5% / 0.5) 40%, hsl(22 14% 4% / 0.7) 100%)`,
         }}
       />
       {/* Bottom fade overlay for smooth transition */}
       <div
         className="absolute bottom-0 left-0 right-0 h-[200px] pointer-events-none z-10"
         style={{
-          background: `linear-gradient(to bottom, transparent, hsl(0 0% 4%))`,
+          background: `linear-gradient(to bottom, transparent, hsl(22 14% 6%))`,
         }}
       />
 
