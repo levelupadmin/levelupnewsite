@@ -1,64 +1,54 @@
 
 
-## LiveProjectsCard Redesign: "From Class to Career"
+## Dynamic Thriving Animation for LiveProjectsCard
 
-The core problem: the current card looks like a SaaS portfolio app (URL bar, notification badges, "Accept" buttons). It should instead tell the story: **"You learned at LevelUp → you made this work → opportunities found you."**
+### Problem with Current Animation
+The current 16s loop feels mechanical: everything appears sequentially, then all elements fade out at 96% and hard-reset. It reads as a scripted demo, not a living, thriving portfolio.
 
-### New Concept
+### New Approach: "Always Buzzing" Continuous Narrative
 
-Replace the app-like header and notification UI with a **student journey narrative** — projects clearly tagged with their LevelUp origin (program name, week number), followed by organic real-world outcomes (DMs, gig inquiries, peer love) that feel like natural consequences of great work, not platform features.
+Instead of one reveal-then-reset cycle, the card should feel like a live feed where things keep happening. Elements **stay** after appearing and subtly breathe, while outcomes **rotate** through a stream of ongoing activity.
 
-### Visual Structure
+**Timeline redesign (still 16s loop, but with overlap and persistence):**
 
 ```text
-┌──────────────────────────────────┐
-│  🎬  My Work                    │  ← Simple label, no URL/app chrome
-│      ───────────────────────     │
-├──────────────────────────────────┤
-│  ┌────────┐ ┌────────┐ ┌──────┐ │
-│  │  img1  │ │  img2  │ │ img3 │ │  ← 3 portfolio pieces
-│  │        │ │        │ │      │ │
-│  │ "Debut │ │"Brand  │ │"Music│ │
-│  │ Short" │ │Showreel│ │Video"│ │
-│  │BFP Wk8 │ │VE Final│ │Forge │ │  ← Tagged with program origin
-│  └────────┘ └────────┘ └──────┘ │
-├──────────────────────────────────┤
-│  ── What happened next ───────  │  ← Section divider (not "Incoming")
-│                                  │
-│  [avatar] Priya · Pixel Studios │  ← Someone reached out naturally
-│  "Saw your BFP short — can we   │    (references the specific project)
-│   talk about a shoot?"           │
-│                                  │
-│  [💼] Freelance enquiry          │  ← Organic gig, not "Gig Alert"
-│  Wedding Film · ₹45K            │    (no "Accept" button — just proof)
-│                                  │
-│  [🔥24 ❤️18] from your cohort   │  ← Peer reactions, not "Community"
-│  +14 creators responded          │
-├──────────────────────────────────┤
-│  ▲ 3 projects · 1 paid gig      │  ← Simple outcome summary
-│    Built during LevelUp programs │  ← Origin attribution
-└──────────────────────────────────┘
+0s────4s────8s────12s────16s/0s
+│ Thumbs scale in, then FLOAT continuously (never disappear)
+│ View counts tick up on each thumb (12→47→89→...)
+│      │ DM #1 slides in, stays 6s, slides out
+│      │      │ Gig enquiry slides in as DM exits
+│      │      │      │ Cohort reactions pop, counts tick up
+│      │      │      │ 2nd DM slides in (different person)
+│                         │ Summary pulses with updated stats
+│ ─── card border glow pulses subtly throughout ───
 ```
 
-### Key Changes from Current
+### Key Enhancements
 
-1. **Remove SaaS chrome**: No URL bar (`yourname.lu/work`), no notification badge counter, no "Accept" button with ripple, no "Gig Alert" label
-2. **Tag projects with their LevelUp origin**: Each thumbnail shows which program/week it came from (e.g., "BFP Week 8", "VE Academy Final", "Forge Project")
-3. **Reframe notifications as organic outcomes**: "What happened next" instead of "Incoming" — someone saw your work and reached out, not an app notification
-4. **Client DM references the specific project**: "Saw your BFP short" ties the opportunity directly to the learning
-5. **Gig inquiry is passive proof, not an action**: No "Accept" button — just evidence that work leads to paid opportunities
-6. **Community reactions come from "your cohort"**: Ties it back to the LevelUp learning experience
-7. **Bottom bar**: "Built during LevelUp programs" instead of earnings stats — reinforces the learning→output narrative
-
-### Animation Sequence (~16s loop, same timing)
-
-- **0–4s**: Thumbnails scale in with program tags fading up beneath each
-- **4–8s**: First outcome slides in — client DM referencing the student's project, typing dots
-- **8–12s**: Freelance enquiry fades in (passive, no CTA), then cohort reactions animate
-- **12–16s**: Bottom summary counts up ("3 projects · 1 paid gig"), then resets
+1. **Thumbnails float after appearing** — gentle Y-axis bob (2-3px) so they feel alive, never disappear
+2. **View counters on thumbnails** — each project shows a view count that ticks up (e.g., "127 views" incrementing), reinforcing that people are seeing this work
+3. **Two rotating DMs instead of one** — a second person ("Arjun · TVF") reaches out about the screenplay, creating a sense of multiple opportunities, cycling alternately
+4. **Reaction counters increment** — 🔥 24→31, ❤️ 18→26 over the loop, feeling like real-time engagement
+5. **Gig enquiry amount updates** — subtle flash when a second enquiry replaces the first (Wedding Film ₹45K → Brand Video ₹60K)
+6. **Card border glow pulse** — subtle ambient pulse on the card border synced to new events arriving
+7. **Bottom summary counts up progressively** — "3 projects · 1 paid gig" → "3 projects · 2 paid gigs" as the second enquiry lands
 
 ### Files Changed
 
-1. **`src/components/why-levelup/LiveProjectsCard.tsx`** — rewrite with new "From Class to Career" concept
-2. **`src/index.css`** — update the portfolio keyframes (same animation names, adjusted content timing)
+1. **`src/components/why-levelup/LiveProjectsCard.tsx`**
+   - Add view count display on each thumbnail with `animate-pf-viewcount` class
+   - Add second DM outcome (Arjun from TVF referencing screenplay)
+   - Add second gig data that cycles with the first
+   - Add pulsing border glow wrapper
+   - Reaction emoji counts become dynamic (rendered via CSS content swap or dual-element opacity toggle)
+
+2. **`src/index.css`**
+   - Thumbnails: keep scale-in, add continuous `pf-float` bob after reveal (no fade-out at end)
+   - View counts: `pf-viewcount` — numbers tick up via opacity-swapping spans
+   - DM #1 and DM #2: alternate visibility windows (DM1: 25-55%, DM2: 60-90%)
+   - Gig enquiry: two states cycling (first gig 50-70%, second gig 75-95%)
+   - Reactions: `pf-reactions-tick` — scale pop at multiple points in the loop
+   - Card border: `pf-border-glow` — subtle opacity pulse synced to new events
+   - Bottom summary: stays visible from 40% onward, text swaps at 75%
+   - Remove hard fade-out-to-zero on all elements — everything either persists or cross-fades with its replacement
 
