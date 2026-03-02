@@ -7,9 +7,9 @@ import testimonial2 from "@/assets/testimonial-2.jpg";
 import { Film, Briefcase, MessageCircle } from "lucide-react";
 
 const portfolioProjects = [
-  { img: forge1, title: "Debut Short Film", origin: "BFP Wk 8" },
-  { img: forge2, title: "Brand Showreel", origin: "VE Final" },
-  { img: forge4, title: "Music Video", origin: "Forge" },
+  { img: forge1, title: "Debut Short Film", origin: "BFP · Week 10" },
+  { img: forge2, title: "YouTube Showreel", origin: "Video Editing Academy" },
+  { img: forge4, title: "Screenplay Pilot", origin: "Screenwriting Workshop" },
 ];
 
 const LiveProjectsCard = () => {
