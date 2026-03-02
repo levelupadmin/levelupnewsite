@@ -1,71 +1,78 @@
 
 
-## LiveProjectsCard Redesign — Portfolio Builder Simulator
+## LiveProjectsCard Redesign: "Portfolio → Opportunities" Dashboard
 
-### Problem
-The current card is a static collage of floating thumbnails with minimal interactivity. Compared to the CommunityCard (auto-scrolling chat with reactions/replies/typing) and ExpertMembershipCard (animated cursor cycling 4 screens with ripples), it feels flat and underwhelming.
-
-### Concept: "Portfolio Assembly Line"
-A miniature portfolio workspace that auto-builds itself — projects appear one-by-one, get "reviewed" with feedback badges, and slot into a portfolio grid. The whole thing loops infinitely and pauses on hover, matching the other two cards.
+### New Concept
+Replace the current "assembly line" metaphor with a **creator's portfolio dashboard** that tells the story: "You built great work → now the world comes to you." The card simulates a portfolio view with incoming notifications — client DMs, job offers, gig requests — plus community reactions on shared work. This is aspirational and emotionally resonant.
 
 ### Visual Structure
 
 ```text
-┌─────────────────────────────────┐
-│  ┌──────────────────────────┐   │
-│  │  PORTFOLIO  ·  3 projects │   │
+┌──────────────────────────────────┐
+│  Portfolio  ·  yourname.lu/work  │  ← Header with portfolio URL
+│  ● 3 new notifications           │
+├──────────────────────────────────┤
+│  ┌────┐ ┌────┐ ┌────┐           │  ← Portfolio grid (3 projects)
+│  │img1│ │img2│ │img3│           │    with view counts overlaid
+│  │▶2.1K││1.8K│ │4.7K│          │
+│  └────┘ └────┘ └────┘           │
+├──────────────────────────────────┤
+│  ┌── Incoming ──────────────┐   │
+│  │ 🟢 Priya (Production Co) │   │  ← Notification 1: Client DM
+│  │ "Love your reel — are    │   │    slides in, typing animation
+│  │  you free for a shoot?"  │   │
 │  ├──────────────────────────┤   │
-│  │ ┌────┐ ┌────┐ ┌────┐    │   │
-│  │ │img1│ │img2│ │img3│    │   │  ← Portfolio grid slots
-│  │ │ ✓  │ │ ✓  │ │ ◯  │    │   │    fill in sequentially
-│  │ └────┘ └────┘ └────┘    │   │
-│  │                          │   │
-│  │  ┌── Active Project ──┐  │   │
-│  │  │  [video preview]   │  │   │  ← Current project being
-│  │  │  ▶ Short Film      │  │   │    worked on (cycles)
-│  │  │  ████░░░ 72%       │  │   │
-│  │  └────────────────────┘  │   │
-│  │                          │   │
-│  │  Feedback:               │   │
-│  │  "Great pacing" ★★★★☆   │   │  ← Mentor feedback appears
-│  │  ┌─avatar─┐ Ravi Sir    │   │    with typing animation
+│  │ 📩 Gig Alert             │   │  ← Notification 2: Job offer
+│  │ "Wedding film · ₹45K"   │   │    fades in after
+│  ├──────────────────────────┤   │
+│  │ 🎬 Community             │   │  ← Notification 3: Community
+│  │ "Your edit is 🔥" +14    │   │    reactions pile up
 │  └──────────────────────────┘   │
-│                                 │
-│  V1 ████████░░░░  A1 ████░░░░  │  ← Timeline bar (enhanced)
-└─────────────────────────────────┘
+├──────────────────────────────────┤
+│  This month: ₹1.2L earned      │  ← Bottom stats bar
+│  ████████░░ 3 gigs completed    │
+└──────────────────────────────────┘
 ```
 
-### Animated Sequence (CSS keyframes, ~12s loop)
+### Animated Sequence (~16s loop, matching ExpertMembershipCard duration)
 
-1. **0–3s**: First project (Short Film) — thumbnail scales in, progress bar fills to 100%, checkmark appears, slots into portfolio grid position 1
-2. **3–6s**: Second project (Showreel) — same sequence, mentor feedback bubble types in with avatar + star rating, slots into grid position 2
-3. **6–9s**: Third project (Creator Reel) — phone-format reel preview, engagement stats count up (12.4K views), slots into grid position 3
-4. **9–12s**: Portfolio "complete" state — all 3 slots glow, "Portfolio Ready" badge animates in, then resets
+1. **0–4s (Portfolio showcase)**: Grid thumbnails scale in one by one with view counters counting up. Header shows "Portfolio · yourname.lu/work"
+2. **4–8s (Client reaches out)**: A DM notification slides in from the right — avatar, name, company, and a typed-out message asking about availability. Green "online" dot pulses.
+3. **8–12s (Gig offer lands)**: A second notification fades in — a structured gig card with title, budget (₹45K), and an "Accept" button that gets a click ripple effect.
+4. **12–16s (Community love + earnings)**: Community reactions animate in (🔥 24, ❤️ 18, stacked avatars). Bottom bar shows earnings counter and "3 gigs completed" progress bar. Then resets.
 
-### Key Elements
+### Key Elements (matching CommunityCard/ExpertMembershipCard complexity)
 
-- **Portfolio header bar** with project count that increments (like the channel header in CommunityCard)
-- **3-slot grid** at top that fills sequentially with completed project thumbnails + checkmarks
-- **Active project panel** — the current project being worked on, with video thumbnail, title, and animated progress bar
-- **Mentor feedback section** — a message bubble with avatar, typed-out feedback text, and star rating (mirrors CommunityCard's message style)
-- **Enhanced timeline** — multi-track with colored segments for video/audio/SFX, animated playhead
-- **Pause on hover** via `group-hover/portfolio:[animation-play-state:paused]` (matches CommunityCard pattern)
-- **Ambient glow** matching the other cards
+- **Portfolio header** with a fake URL (like the channel header in CommunityCard) and notification badge counter (1→2→3)
+- **3-project grid** with view count overlays that animate up
+- **Scrolling notification feed** with 3 distinct notification types:
+  - Client DM (avatar + typed message + online indicator)
+  - Gig alert card (structured: title, budget, accept button with ripple)
+  - Community reactions (emoji badges + stacked reply avatars)
+- **Earnings stats bar** at bottom with animated counter and progress
+- **Pause on hover** via `group/portfolio` (existing pattern)
+- **16s loop** to match ExpertMembershipCard's timing
 
 ### Technical Approach
 
-- **Single file change**: `src/components/why-levelup/LiveProjectsCard.tsx` — full rewrite
-- **CSS keyframes in `tailwind.config.ts`**: Add `portfolio-step-1` through `portfolio-step-4` keyframes for the sequential build animation, plus `feedback-type` for the typing effect
-- **Existing assets**: Reuse `forge-1.jpg` through `forge-4.jpg` and testimonial avatars for mentor feedback
-- **No new dependencies** — pure CSS animations + existing Tailwind utilities
+- **Full rewrite of `LiveProjectsCard.tsx`** — new data arrays for notifications, new JSX structure
+- **Replace all portfolio CSS keyframes in `index.css`** (lines 640–861) — new keyframes for the notification slide-in sequence, view counter, earnings counter, gig ripple effect
+- Reuse existing assets: `forge-1.jpg` through `forge-4.jpg` for portfolio thumbnails, `testimonial-*.jpg` for notification avatars
+- Same animation infrastructure: CSS keyframes + opacity/transform transitions, pause-on-hover via group selector
+- No new dependencies
 
-### Complexity Parity
+### Complexity Parity Check
 
 | Feature | CommunityCard | ExpertMembershipCard | New LiveProjectsCard |
 |---------|--------------|---------------------|---------------------|
-| Auto-animation | Scrolling chat | Cursor cycling 4 screens | Sequential project build |
-| Pause on hover | Yes | Yes (group) | Yes |
-| Data richness | 10 messages, reactions, replies | 4 screens, tabs, programs | 3 projects, feedback, ratings |
-| Micro-details | Typing dots, online indicators, stacked avatars | Click ripples, progress bars, typing dots | Star ratings, progress fill, checkmarks, view counts |
-| Narrative | 48hr challenge story | LMS walkthrough | "Build → Review → Portfolio" journey |
+| Loop duration | 28s scroll | 16s cursor cycle | 16s notification cycle |
+| Data items | 10 messages | 4 screens, 3 programs, 3 briefs | 3 projects, 3 notifications, stats |
+| Micro-details | Typing dots, online dots, stacked avatars, reactions, reply threads | Click ripples, progress bars, typing dots, tab highlights | Typing animation, online dot, view counters, gig ripple, emoji reactions, earnings counter |
+| Narrative | "48hr challenge story" | "LMS walkthrough" | "Portfolio → clients find you" |
+| Pause on hover | Yes | Yes | Yes |
+
+### Files Changed
+
+1. **`src/components/why-levelup/LiveProjectsCard.tsx`** — full rewrite with new concept
+2. **`src/index.css`** (lines 640–861) — replace all portfolio keyframes with new notification-sequence animations
 
