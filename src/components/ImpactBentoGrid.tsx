@@ -49,7 +49,7 @@ const ImpactBentoGrid = () => {
   const [communityHovered, setCommunityHovered] = useState(false);
   const [geoHovered, setGeoHovered] = useState(false);
   const [collabHovered, setCollabHovered] = useState(false);
-  const [handshakeVisible, setHandshakeVisible] = useState(false);
+  const [handshakeVisible, setHandshakeVisible] = useState(true);
 
   return (
     <div className="relative max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-16">
@@ -75,7 +75,7 @@ const ImpactBentoGrid = () => {
         {/* ═══ 1 — RATING (top-left) ═══ */}
         <m.div
           initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           whileHover={{ scale: 1.015, y: -2, boxShadow: hoverGlow }}
@@ -88,7 +88,7 @@ const ImpactBentoGrid = () => {
               <m.div
                 key={i}
                 initial={{ opacity: 0, scale: 0, rotate: -90 }}
-                whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{
                   delay: 0.3 + i * 0.12,
@@ -124,7 +124,7 @@ const ImpactBentoGrid = () => {
         {/* ═══ 2 — COMMUNITY MOSAIC (center, row-span-2) ═══ */}
         <m.div
           initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
           whileHover={{ scale: 1.015, y: -2, boxShadow: hoverGlow }}
@@ -136,7 +136,7 @@ const ImpactBentoGrid = () => {
             className="absolute inset-0 grid grid-cols-3 grid-rows-3 gap-0.5"
             variants={mosaicContainerVariants}
             initial="hidden"
-            whileInView="visible"
+            animate="visible"
             viewport={{ once: true, amount: 0.2 }}
           >
             {communityPhotos.map((photo, i) => (
@@ -175,7 +175,7 @@ const ImpactBentoGrid = () => {
         {/* ═══ 3 — LEARNERS (top-right, orange) ═══ */}
         <m.div
           initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
           whileHover={{ scale: 1.015, y: -2, boxShadow: `${orangeInnerGlow}, ${hoverGlow}` }}
@@ -206,7 +206,7 @@ const ImpactBentoGrid = () => {
         {/* ═══ 4 — CITIES/COUNTRIES + India Map (bottom-left, dark) ═══ */}
         <m.div
           initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
           whileHover={{ scale: 1.015, y: -2, boxShadow: hoverGlow }}
@@ -234,7 +234,7 @@ const ImpactBentoGrid = () => {
         {/* ═══ 5 — COLLABORATIONS (bottom-right, dark) ═══ */}
         <m.div
           initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
           whileHover={{ scale: 1.015, y: -2, boxShadow: hoverGlow }}

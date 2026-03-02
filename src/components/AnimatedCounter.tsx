@@ -34,47 +34,63 @@ export const AnimatedCounter = ({
 
   useEffect(() => {
     const el = elRef.current;
-    if (!el) return;
+    let observer: IntersectionObserver | null = null;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated.current) {
-          hasAnimated.current = true;
-          observer.disconnect();
+    const runAnimation = () => {
+      if (hasAnimated.current) return;
+      hasAnimated.current = true;
+      observer?.disconnect();
 
-          const startAnim = () => {
-            const duration = 1800;
-            const startTime = performance.now();
+      const startAnim = () => {
+        const duration = 1800;
+        const startTime = performance.now();
 
-            const animate = (currentTime: number) => {
-              const elapsed = currentTime - startTime;
-              const progress = Math.min(elapsed / duration, 1);
-              const eased = 1 - Math.pow(1 - progress, 3);
-              setValue(eased * target);
+        const animate = (currentTime: number) => {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          setValue(eased * target);
 
-              if (progress < 1) {
-                requestAnimationFrame(animate);
-              } else {
-                setDone(true);
-                onComplete?.();
-              }
-            };
-
+          if (progress < 1) {
             requestAnimationFrame(animate);
-          };
-
-          if (delay > 0) {
-            setTimeout(startAnim, delay);
           } else {
-            startAnim();
+            setDone(true);
+            onComplete?.();
           }
+        };
+
+        requestAnimationFrame(animate);
+      };
+
+      if (delay > 0) {
+        setTimeout(startAnim, delay);
+      } else {
+        startAnim();
+      }
+    };
+
+    if (!el || typeof IntersectionObserver === "undefined") {
+      runAnimation();
+      return;
+    }
+
+    observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          runAnimation();
         }
       },
       { threshold: 0.3 }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+
+    const fallbackTimer = window.setTimeout(runAnimation, 2500);
+
+    return () => {
+      observer?.disconnect();
+      window.clearTimeout(fallbackTimer);
+    };
   }, [target, delay, onComplete]);
 
   return (
