@@ -56,6 +56,40 @@ const CommunityScene = () => {
             >
               community
             </p>
+
+            {/* Sub-stats: Cities, States, Countries */}
+            <div
+              className="flex items-center justify-center gap-6 md:gap-12 mt-6 md:mt-8"
+              style={{
+                opacity: labelVisible ? 1 : 0,
+                transform: labelVisible ? "translateY(0)" : "translateY(8px)",
+                transition: "opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s",
+              }}
+            >
+              {[
+                { target: 821, suffix: "+", label: "Cities" },
+                { target: 28, suffix: "", label: "States" },
+                { target: 13, suffix: "+", label: "Countries" },
+              ].map((stat, i) => (
+                <div key={stat.label} className="text-center">
+                  <p
+                    className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight"
+                    style={{
+                      background: "linear-gradient(180deg, hsl(var(--foreground)), hsl(var(--foreground) / 0.65))",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                    }}
+                  >
+                    {labelVisible && (
+                      <AnimatedCounter target={stat.target} suffix={stat.suffix} celebrate delay={i * 200} />
+                    )}
+                  </p>
+                  <p className="text-[10px] md:text-xs text-muted-foreground/70 mt-1 tracking-wide uppercase">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </FadeInSection>
