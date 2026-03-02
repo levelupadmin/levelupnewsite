@@ -102,6 +102,14 @@ const BriefsScreen = () => (
 );
 
 /* ── Screen 4: AI Mentor ── */
+const TypingDots = () => (
+  <span className="inline-flex items-center gap-[2px] ml-0.5">
+    <span className="w-[3px] h-[3px] rounded-full bg-primary/50 animate-[typing-dot_1.4s_ease-in-out_infinite]" />
+    <span className="w-[3px] h-[3px] rounded-full bg-primary/50 animate-[typing-dot_1.4s_ease-in-out_0.2s_infinite]" />
+    <span className="w-[3px] h-[3px] rounded-full bg-primary/50 animate-[typing-dot_1.4s_ease-in-out_0.4s_infinite]" />
+  </span>
+);
+
 const AIScreen = () => (
   <div className="absolute inset-0 flex flex-col gap-2 p-2.5 animate-lms-screen-4">
     <p className="text-[7px] text-foreground/50 uppercase tracking-wider font-medium mb-0.5">AI Mentor</p>
@@ -112,6 +120,7 @@ const AIScreen = () => (
       <div className="flex items-center gap-1 mb-1">
         <Sparkles size={7} className="text-primary/70" />
         <span className="text-[6px] text-primary/60 font-medium">AI Mentor</span>
+        <TypingDots />
       </div>
       <p className="text-[6.5px] text-foreground/60 leading-relaxed">
         Use escalating stakes across 3 beats — plant the doubt early, raise the cost midway, then let silence do the work before the break…
