@@ -46,8 +46,23 @@ const GeoReachScene = () => (
       <div className="relative flex flex-col items-center justify-center min-h-[280px] md:min-h-[420px] px-4 py-10 md:py-16">
         {/* World map container */}
         <div className="w-full max-w-4xl mx-auto relative">
+          {/* Radial glow behind India */}
+          <div
+            className="absolute pointer-events-none animate-impact-world-fade"
+            style={{
+              animationDelay: "0.6s",
+              width: "30%",
+              height: "40%",
+              top: "32%",
+              left: "58%",
+              transform: "translate(-50%, -50%)",
+              background: "radial-gradient(ellipse 100% 100% at 50% 50%, hsl(var(--primary) / 0.18), hsl(var(--primary) / 0.06) 50%, transparent 80%)",
+              filter: "blur(20px)",
+              zIndex: 0,
+            }}
+          />
           {/* Base SVG world map — thin outlines, India filled */}
-          <div className="world-map-container animate-impact-world-fade" style={{ animationDelay: "0.2s" }}>
+          <div className="world-map-container animate-impact-world-fade relative z-[1]" style={{ animationDelay: "0.2s" }}>
             <WorldMapSvg className="world-map-svg w-full h-auto" />
           </div>
 
