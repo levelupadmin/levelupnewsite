@@ -3,7 +3,6 @@ import { lazy, Suspense } from "react";
 const RatingScene = lazy(() => import("./impact/RatingScene"));
 const CommunityScene = lazy(() => import("./impact/CommunityScene"));
 const LearnersScene = lazy(() => import("./impact/LearnersScene"));
-const GeoReachScene = lazy(() => import("./impact/GeoReachScene"));
 const CollaborationsScene = lazy(() => import("./impact/CollaborationsScene"));
 
 const ImpactBentoGrid = () => (
@@ -19,7 +18,6 @@ const ImpactBentoGrid = () => (
       <RatingScene />
       <CommunityScene />
       <LearnersScene />
-      <GeoReachScene />
       <CollaborationsScene />
     </Suspense>
   </section>
