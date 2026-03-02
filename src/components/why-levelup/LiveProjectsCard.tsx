@@ -35,10 +35,12 @@ const LiveProjectsCard = () => {
             <Film size={10} className="text-primary/60" />
             <span className="text-[9px] font-medium text-foreground/80">Portfolio</span>
             <span className="text-[7px] text-foreground/30 ml-0.5">·</span>
-            <span className="text-[8px] text-primary/70 animate-portfolio-count">
-              <span className="animate-portfolio-count-1">1</span>
-              <span className="animate-portfolio-count-2">2</span>
-              <span className="animate-portfolio-count-3">3</span>
+            <span className="text-[8px] text-primary/70">
+              <span className="relative inline-block w-[1ch]">
+                <span className="absolute inset-0 animate-portfolio-count-1">1</span>
+                <span className="absolute inset-0 animate-portfolio-count-2">2</span>
+                <span className="absolute inset-0 animate-portfolio-count-3">3</span>
+              </span>
               {" "}projects
             </span>
           </div>
