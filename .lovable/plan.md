@@ -1,68 +1,19 @@
 
 
-## Problem
+## Bug: 58K Counter Disappears After Shimmer Animation
 
-The current Global Reach scene uses a complex multi-phase SVG world map with animated viewBox zooming, India outline paths, city dots, and international arcs. It's been difficult to get the India outline accurate, and the overall effect isn't landing visually.
+**Root cause:** The `.text-shimmer` class in `index.css` sets `-webkit-text-fill-color: transparent` and uses `background-clip: text` to render a gradient through the text. The shimmer animation runs once (no `infinite` or `forwards` fill), and the `@keyframes` ends at `background-position: 200% center`. After the animation completes, the gradient may shift to a position where the visible gradient bands are off-screen, leaving the text fully transparent.
 
-## Proposed Alternative: Animated Concentric Rings + Stat Cards
+**Fix (2 changes):**
 
-Replace the map entirely with a **radial expansion** concept — a cinematic, abstract visualization that communicates geographic reach without needing geographic accuracy.
+1. **`src/index.css`** — Add `animation-fill-mode: forwards` isn't enough since the end state is `200%`. Instead, change the animation to end at `0% center` (back to start) OR keep the shimmer but ensure the resting state shows visible text. The cleanest fix: after the shimmer plays once, revert to solid `currentColor` text. This means the shimmer should be a one-shot overlay effect rather than permanently replacing the text fill.
 
-### Visual Concept
+   Concrete approach: Change the `.text-shimmer` animation to use `forwards` fill mode and adjust the keyframes so the end state (`100%`) has `background-position: 0% center` (where the text is fully visible), or simply remove `-webkit-text-fill-color: transparent` from the class and instead apply it only during the animation via keyframes.
 
-```text
-┌─────────────────────────────────────────────┐
-│          "Global Reach"  (label)            │
-│                                             │
-│    "From 821 Cities to 13+ Countries"       │
-│         (gradient heading)                  │
-│                                             │
-│              ╭─────────╮                    │
-│          ╭───┤  INDIA  ├───╮                │
-│      ╭───┤   ╰─────────╯   ├───╮           │
-│  ╭───┤    ring 2 (states)    ├───╮          │
-│  │    ring 3 (cities)             │         │
-│  │     ring 4 (countries)         │         │
-│  ╰────────────────────────────────╯         │
-│                                             │
-│   ┌──────┐  ┌──────┐  ┌──────┐             │
-│   │ 821  │  │  28  │  │ 13+  │             │
-│   │cities│  │states│  │ctry  │             │
-│   └──────┘  └──────┘  └──────┘             │
-│                                             │
-│   City pills: Mumbai · Delhi · Bengaluru…   │
-│   Country flags: 🇦🇪 🇬🇧 🇺🇸 🇸🇬 🇦🇺 🇨🇦       │
-└─────────────────────────────────────────────┘
-```
+2. **Alternative simpler fix:** Just add `animation-fill-mode: forwards` and change the keyframe `100%` from `200%` to `0%` so the text rests at a visible gradient position.
 
-### How It Works
-
-1. **Central hub** — A glowing branded dot in the center labeled "India" with a heartbeat pulse animation
-2. **Expanding concentric rings** — 3-4 rings that ripple outward on scroll-reveal, each representing a layer of reach (states → cities → countries). Rings use soft gradient strokes with staggered animation delays
-3. **Floating city/country pills** — Small pill badges orbit or float around the rings. Indian cities on inner rings, international cities (with flag emoji) on outer rings. These fade in with stagger
-4. **Big stat numbers** — Three large animated counters below (821 Cities, 28 States, 13+ Countries) using the existing `AnimatedCounter` component
-5. **Subtle particle dots** — Tiny dots scattered along the rings that breathe/pulse, suggesting data points
-
-### Why This Is Better
-
-- No geographic accuracy issues — abstract visualization sidesteps the India outline problem entirely
-- Simpler code — no SVG path data, no viewBox animation, no coordinate mapping
-- More visually striking — concentric rings with glowing gradients look premium and cinematic
-- Faster to render — pure CSS/SVG circles instead of complex path data
-- Mobile-friendly — scales naturally without needing separate mobile viewBox calculations
-
-### Implementation Plan
-
-1. **Rewrite `GeoReachScene.tsx`** — Replace the entire map SVG with the concentric rings layout. Use simple SVG circles with CSS animations for the rings, Framer Motion for staggered pill reveals
-2. **Add ring animations to `index.css`** — Keyframes for ring expansion, pulse, and pill float
-3. **Remove unused dependencies** — Delete imports of `worldMapData.ts`, `IndiaStatesMap.tsx`, `world-map.svg`. These files can stay but won't be imported by the scene anymore
-4. **Data** — Reuse existing city/country data from `worldMapData.ts` for the pill labels and flags, or inline a simpler list
-
-### Technical Details
-
-- Rings: 3-4 `<circle>` elements with `stroke-dasharray` animation, gradient strokes via `<linearGradient>`
-- City pills: Absolutely positioned `<div>` elements arranged in a circle using `transform: rotate(Xdeg) translateX(Rpx) rotate(-Xdeg)`
-- Stats: Reuse existing `AnimatedCounter` component
-- Animation trigger: Reuse existing `useScrollReveal` hook
-- All within the existing `ImpactScene` wrapper — no structural changes to the section system
+**Recommended implementation:**
+- Change `@keyframes text-shimmer` so `100%` is `background-position: 0% center` (same as start, so text is visible)
+- Keep the sweep effect by going `0% → 200% → 0%` or simply `0% → 100%` with adjusted sizing
+- The shimmer sweeps across once and the text remains visible at its resting position
 
