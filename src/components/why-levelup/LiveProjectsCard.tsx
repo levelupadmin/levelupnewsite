@@ -4,12 +4,13 @@ import forge4 from "@/assets/forge-4.jpg";
 import testimonial1 from "@/assets/testimonial-1.jpg";
 import testimonial5 from "@/assets/testimonial-5.jpg";
 import testimonial2 from "@/assets/testimonial-2.jpg";
-import { Film, Briefcase, MessageCircle } from "lucide-react";
+import testimonial4 from "@/assets/testimonial-4.jpg";
+import { Film, Briefcase, MessageCircle, Trophy, Sparkles } from "lucide-react";
 
 const portfolioProjects = [
-  { img: forge1, title: "Debut Short Film", origin: "BFP · Week 10" },
-  { img: forge2, title: "YouTube Showreel", origin: "Video Editing Academy" },
-  { img: forge4, title: "Screenplay Pilot", origin: "Screenwriting Workshop" },
+  { img: forge1, title: "Debut Short Film", origin: "BFP · Week 10", views: ["127", "184", "231"] },
+  { img: forge2, title: "YouTube Showreel", origin: "Video Editing Academy", views: ["89", "143", "198"] },
+  { img: forge4, title: "Screenplay Pilot", origin: "Screenwriting Workshop", views: ["64", "112", "167"] },
 ];
 
 const LiveProjectsCard = () => {
@@ -26,6 +27,10 @@ const LiveProjectsCard = () => {
         <div className="flex items-center gap-1.5 px-3 py-2 border-b border-primary/10">
           <Film size={10} className="text-primary/60" />
           <span className="text-[9px] font-medium text-foreground/80">My Work</span>
+          <div className="ml-auto flex items-center gap-1">
+            <span className="w-[5px] h-[5px] rounded-full bg-accent animate-pulse" />
+            <span className="text-[5px] text-foreground/30">Live</span>
+          </div>
         </div>
 
         {/* ── Portfolio grid — 3 thumbnails with view counts ── */}
@@ -47,11 +52,10 @@ const LiveProjectsCard = () => {
                   <span className={`text-[5px] text-primary/70 font-mono leading-tight animate-pf-views-${i + 1}`}>
                     {p.origin}
                   </span>
-                  {/* View counter — ticks up via CSS opacity swap */}
                   <span className={`text-[5px] text-foreground/40 font-mono animate-pf-viewcount-${i + 1}`}>
-                    <span className="pf-vc-a">127</span>
-                    <span className="pf-vc-b">184</span>
-                    <span className="pf-vc-c">231</span>
+                    <span className="pf-vc-a">{p.views[0]}</span>
+                    <span className="pf-vc-b">{p.views[1]}</span>
+                    <span className="pf-vc-c">{p.views[2]}</span>
                     {" views"}
                   </span>
                 </div>
@@ -61,15 +65,15 @@ const LiveProjectsCard = () => {
         </div>
 
         {/* ── "What happened next" — rotating outcomes ── */}
-        <div className="px-3 pb-1 flex-1 min-h-0 flex flex-col gap-1.5">
+        <div className="px-3 pb-1 flex-1 min-h-0 flex flex-col gap-1">
           <div className="flex items-center gap-1 mb-0.5">
             <span className="text-[6px] uppercase tracking-widest text-foreground/25">What happened next</span>
             <div className="flex-1 h-px bg-primary/10" />
           </div>
 
-          {/* DM rotation — all 3 share the same space */}
+          {/* DM rotation — all 4 share the same space */}
           <div className="relative" style={{ minHeight: 50 }}>
-            {/* DM #1: Priya — references BFP short */}
+            {/* DM #1: Priya — a producer discovers the BFP short film */}
             <div
               className="absolute inset-x-0 top-0 rounded-lg px-2 py-1.5 animate-pf-notif-1"
               style={{
@@ -90,7 +94,7 @@ const LiveProjectsCard = () => {
                     <span className="text-[5px] text-primary/50">Pixel Studios</span>
                   </div>
                   <p className="text-[6.5px] text-foreground/55 leading-relaxed animate-pf-type-1">
-                    "Saw your BFP short — can we talk about a shoot?"
+                    "Loved your BFP short — we're crewing up for a docu series. Interested?"
                   </p>
                   <div className="flex items-center gap-1 mt-0.5 animate-pf-typing-1">
                     <div className="flex gap-[2px]">
@@ -108,7 +112,7 @@ const LiveProjectsCard = () => {
               </div>
             </div>
 
-            {/* DM #2: Arjun — references screenplay */}
+            {/* DM #2: Arjun — noticed the screenplay on a mentor's recommendation */}
             <div
               className="absolute inset-x-0 top-0 rounded-lg px-2 py-1.5 animate-pf-notif-1b"
               style={{
@@ -129,13 +133,13 @@ const LiveProjectsCard = () => {
                     <span className="text-[5px] text-primary/50">TVF</span>
                   </div>
                   <p className="text-[6.5px] text-foreground/55 leading-relaxed animate-pf-type-1b">
-                    "Your screenplay pilot is fire — let's chat?"
+                    "Our writer's room loved your pilot — can we set up a call this week?"
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* DM #3: Rohan — references showreel */}
+            {/* DM #3: Rohan — showreel caught attention on social */}
             <div
               className="absolute inset-x-0 top-0 rounded-lg px-2 py-1.5 animate-pf-notif-1c"
               style={{
@@ -156,14 +160,41 @@ const LiveProjectsCard = () => {
                     <span className="text-[5px] text-primary/50">Dharma Productions</span>
                   </div>
                   <p className="text-[6.5px] text-foreground/55 leading-relaxed animate-pf-type-1c">
-                    "Love the showreel — got a project for you"
+                    "Shared your showreel with our post team — they want you on the next edit"
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* DM #4: Kavitha — festival selection news */}
+            <div
+              className="absolute inset-x-0 top-0 rounded-lg px-2 py-1.5 animate-pf-notif-1d"
+              style={{
+                background: "hsl(30 30% 15% / 0.8)",
+                border: "1px solid hsl(var(--primary) / 0.15)",
+              }}
+            >
+              <div className="flex gap-1.5">
+                <div className="relative shrink-0">
+                  <div className="w-[18px] h-[18px] rounded-full overflow-hidden border border-primary/20">
+                    <img src={testimonial4} alt="" className="w-full h-full object-cover" loading="lazy" />
+                  </div>
+                  <div className="absolute -bottom-[1px] -right-[1px] w-[5px] h-[5px] rounded-full bg-accent border" style={{ borderColor: "hsl(30 30% 15%)" }} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1 mb-0.5">
+                    <span className="text-[7px] font-medium text-foreground/80">Kavitha Rajan</span>
+                    <span className="text-[5px] text-primary/50">MAMI Festival</span>
+                  </div>
+                  <p className="text-[6.5px] text-foreground/55 leading-relaxed animate-pf-type-1d">
+                    "Congrats — your short's been selected for the student showcase 🎬"
                   </p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Freelance enquiry — two gigs cycling */}
+          {/* Freelance enquiries — three gigs cycling */}
           <div
             className="rounded-lg px-2 py-1.5 animate-pf-notif-2"
             style={{
@@ -178,24 +209,56 @@ const LiveProjectsCard = () => {
               <div className="flex-1 min-w-0">
                 <span className="text-[7px] font-medium text-foreground/75">Freelance enquiry</span>
                 <div className="flex items-center gap-1.5 mt-0.5">
-                  {/* Gig A */}
                   <span className="pf-gig-a">
                     <span className="text-[6.5px] text-foreground/55">Wedding Film</span>
                     <span className="text-[6px] text-foreground/30 mx-1">·</span>
                     <span className="text-[7px] font-semibold text-primary/80">₹45K</span>
                   </span>
-                  {/* Gig B */}
                   <span className="pf-gig-b">
                     <span className="text-[6.5px] text-foreground/55">Brand Video</span>
                     <span className="text-[6px] text-foreground/30 mx-1">·</span>
                     <span className="text-[7px] font-semibold text-primary/80">₹60K</span>
+                  </span>
+                  <span className="pf-gig-c">
+                    <span className="text-[6.5px] text-foreground/55">Music Video</span>
+                    <span className="text-[6px] text-foreground/30 mx-1">·</span>
+                    <span className="text-[7px] font-semibold text-primary/80">₹80K</span>
                   </span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Cohort reactions — counters increment */}
+          {/* Milestone notification — festival / achievement */}
+          <div
+            className="rounded-lg px-2 py-1 animate-pf-notif-milestone"
+            style={{
+              background: "linear-gradient(135deg, hsl(30 40% 14% / 0.9), hsl(30 20% 12% / 0.8))",
+              border: "1px solid hsl(var(--primary) / 0.18)",
+            }}
+          >
+            <div className="flex items-center gap-1.5">
+              <div className="w-[18px] h-[18px] rounded-md bg-primary/15 flex items-center justify-center shrink-0">
+                <Trophy size={8} className="text-primary/70" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-1">
+                  <span className="text-[7px] font-medium text-foreground/75">Milestone</span>
+                  <Sparkles size={6} className="text-primary/50" />
+                </div>
+                <div className="mt-0.5">
+                  <span className="pf-mile-a">
+                    <span className="text-[6.5px] text-foreground/55">Short film crossed 10K views</span>
+                  </span>
+                  <span className="pf-mile-b">
+                    <span className="text-[6.5px] text-foreground/55">First paid client signed ✨</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Cohort reactions */}
           <div
             className="rounded-lg px-2 py-1.5 animate-pf-notif-3"
             style={{
@@ -217,15 +280,18 @@ const LiveProjectsCard = () => {
                     <span className="text-[8px] px-1 py-[1px] rounded-full bg-destructive/10 border border-destructive/15">
                       ❤️ <span className="pf-rc-a">18</span><span className="pf-rc-b">26</span>
                     </span>
+                    <span className="text-[8px] px-1 py-[1px] rounded-full bg-accent/10 border border-accent/15">
+                      👏 <span className="pf-rc-a">12</span><span className="pf-rc-b">19</span>
+                    </span>
                   </div>
                   <div className="flex -space-x-1.5 animate-pf-avatars">
-                    {[testimonial1, testimonial2, testimonial5].map((av, i) => (
+                    {[testimonial1, testimonial2, testimonial5, testimonial4].map((av, i) => (
                       <div key={i} className="w-[12px] h-[12px] rounded-full overflow-hidden border border-[hsl(30,25%,14%)]">
                         <img src={av} alt="" className="w-full h-full object-cover" loading="lazy" />
                       </div>
                     ))}
                     <div className="w-[12px] h-[12px] rounded-full bg-primary/10 border border-primary/15 flex items-center justify-center">
-                      <span className="text-[5px] text-primary/60">+14</span>
+                      <span className="text-[5px] text-primary/60">+22</span>
                     </div>
                   </div>
                 </div>
@@ -239,7 +305,7 @@ const LiveProjectsCard = () => {
           <div className="flex items-center justify-between">
             <span className="text-[7px] text-foreground/50 font-mono animate-pf-earned">
               <span className="pf-sum-a">3 projects · 1 paid gig</span>
-              <span className="pf-sum-b">3 projects · 2 paid gigs</span>
+              <span className="pf-sum-b">3 projects · 3 paid gigs</span>
             </span>
             <span className="text-[6px] text-primary/40">Built during LevelUp programs</span>
           </div>
