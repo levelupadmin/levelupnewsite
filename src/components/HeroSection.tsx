@@ -7,7 +7,7 @@ import { AnimatePresence, m } from "framer-motion";
 import HeroCarousel from "@/components/HeroCarousel";
 const StarField = lazy(() => import("@/components/StarField"));
 
-const rotatingWords = ["filmmakers", "editors", "storytellers", "writers", "cinematographers", "designers", "musicians", "directors"];
+import { rotatingWords } from "@/data/rotatingWords";
 
 
 // No fixed width needed — mode="wait" ensures only one word renders at a time

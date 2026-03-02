@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import { AnimatePresence, m } from "framer-motion";
 import CareerQuizDialog from "./CareerQuizDialog";
 import AccentLine from "./AccentLine";
 import FadeInSection from "./FadeInSection";
 import { ArrowRight, Clock, Radio, CalendarDays, Play } from "lucide-react";
 import careerQuizBanner from "@/assets/career-quiz-banner.jpg";
 import { showcasePrograms } from "@/data/programs";
+import { rotatingWords } from "@/data/rotatingWords";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 const activeGradients = [
@@ -25,9 +27,17 @@ const LiveProgramsSection = () => {
   const [youtubeOpen, setYoutubeOpen] = useState(false);
   const [quizOpen, setQuizOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [wordIndex, setWordIndex] = useState(0);
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const activeProgram = showcasePrograms[activeShowcase];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % rotatingWords.length);
+    }, 1400);
+    return () => clearInterval(interval);
+  }, []);
 
   // Deep-link: read hash to auto-select a program and scroll into view
   useEffect(() => {
@@ -97,8 +107,36 @@ const LiveProgramsSection = () => {
       {/* Section header */}
       <FadeInSection className="text-center px-6 md:px-12 mb-10 md:mb-12">
         <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-hero-headline leading-[1.2] tracking-tight">
-          Your craft,{" "}
-          <em className="italic font-normal text-primary">guided live</em>
+          Mentorship Programs, For the{" "}
+          <span className="inline-flex items-baseline overflow-hidden align-baseline">
+            <AnimatePresence mode="wait">
+              <m.em
+                key={rotatingWords[wordIndex]}
+                initial={{ y: "100%", opacity: 0 }}
+                animate={{ y: "0%", opacity: 1 }}
+                exit={{ y: "-100%", opacity: 0 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                className="italic font-normal text-primary inline-block"
+              >
+                {rotatingWords[wordIndex]}
+              </m.em>
+            </AnimatePresence>
+          </span>
+          , By{" "}
+          <span className="inline-flex items-baseline overflow-hidden align-baseline">
+            <AnimatePresence mode="wait">
+              <m.em
+                key={`by-${rotatingWords[wordIndex]}`}
+                initial={{ y: "100%", opacity: 0 }}
+                animate={{ y: "0%", opacity: 1 }}
+                exit={{ y: "-100%", opacity: 0 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
+                className="italic font-normal text-primary inline-block"
+              >
+                {rotatingWords[wordIndex]}
+              </m.em>
+            </AnimatePresence>
+          </span>
         </h2>
         <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-5 md:mt-6 max-w-xl mx-auto leading-relaxed text-center">
           Work alongside industry mentors in intensive live programs. Real projects, real feedback, real progress — in 12 weeks or less.
