@@ -133,6 +133,33 @@ const LiveProjectsCard = () => {
             </div>
           </div>
 
+          {/* DM #3: Rohan — references showreel */}
+          <div
+            className="rounded-lg px-2 py-1.5 animate-pf-notif-1c"
+            style={{
+              background: "hsl(30 30% 15% / 0.8)",
+              border: "1px solid hsl(var(--primary) / 0.15)",
+            }}
+          >
+            <div className="flex gap-1.5">
+              <div className="relative shrink-0">
+                <div className="w-[18px] h-[18px] rounded-full overflow-hidden border border-primary/20">
+                  <img src={testimonial1} alt="" className="w-full h-full object-cover" loading="lazy" />
+                </div>
+                <div className="absolute -bottom-[1px] -right-[1px] w-[5px] h-[5px] rounded-full bg-accent border" style={{ borderColor: "hsl(30 30% 15%)" }} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-1 mb-0.5">
+                  <span className="text-[7px] font-medium text-foreground/80">Rohan Mehta</span>
+                  <span className="text-[5px] text-primary/50">Dharma Productions</span>
+                </div>
+                <p className="text-[6.5px] text-foreground/55 leading-relaxed animate-pf-type-1c">
+                  "Love the showreel — got a project for you"
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* Freelance enquiry — two gigs cycling */}
           <div
             className="rounded-lg px-2 py-1.5 animate-pf-notif-2"
