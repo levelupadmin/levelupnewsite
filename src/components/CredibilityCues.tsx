@@ -14,7 +14,7 @@ const CredibilityCues = () => {
       aria-label="Key stats and credibility"
       className="relative pt-20 pb-12 md:pt-28 md:pb-16"
       style={{
-        background: `linear-gradient(to bottom, hsl(220 12% 7%) 0%, hsl(0 0% 4%) 100%)`,
+        background: `var(--gradient-cinematic)`,
       }}
     >
       {/* Subtle dot grid overlay */}
