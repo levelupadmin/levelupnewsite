@@ -16,9 +16,9 @@ const tabs = [
 ];
 
 const livePrograms = [
-  { title: "Breakthrough Filmmakers' Program", format: "12 weeks · Live", status: "Enrolling" },
-  { title: "Video Editing Academy", format: "12 weeks · Cohort", status: "Enrolling" },
-  { title: "Screenwriting Workshop", format: "8 weeks · Live", status: "Upcoming" },
+  { title: "Breakthrough Filmmakers' Program", format: "12 weeks · Live", status: "Enrolling", live: true },
+  { title: "Video Editing Academy", format: "12 weeks · Cohort", status: "Enrolling", live: true },
+  { title: "Screenwriting Workshop", format: "8 weeks · Live", status: "Upcoming", live: false },
 ];
 
 const projectBriefs = [
@@ -67,11 +67,17 @@ const LiveScreen = () => (
           <span className="text-[7px] text-foreground/70 block truncate">{p.title}</span>
           <span className="text-[5.5px] text-foreground/35">{p.format}</span>
         </div>
-        <span className={`text-[5px] px-1.5 py-0.5 rounded-full font-medium shrink-0 ${
-          p.status === "Enrolling" 
-            ? "bg-green-500/15 text-green-400/80 border border-green-500/20" 
-            : "bg-primary/10 text-primary/70 border border-primary/15"
-        }`}>{p.status}</span>
+        {p.live ? (
+          <span className="flex items-center gap-1 text-[5px] px-1.5 py-0.5 rounded-full font-medium shrink-0 bg-green-500/15 text-green-400/80 border border-green-500/20">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="animate-ping absolute inset-0 rounded-full bg-green-400 opacity-60" />
+              <span className="relative rounded-full h-1.5 w-1.5 bg-green-400" />
+            </span>
+            Live Now
+          </span>
+        ) : (
+          <span className="text-[5px] px-1.5 py-0.5 rounded-full font-medium shrink-0 bg-primary/10 text-primary/70 border border-primary/15">{p.status}</span>
+        )}
       </div>
     ))}
   </div>
