@@ -182,7 +182,7 @@ const GeoReachScene = () => {
                 </feMerge>
               </filter>
               <filter id="india-glow" x="-100%" y="-100%" width="300%" height="300%">
-                <feGaussianBlur stdDeviation="2" result="blur" />
+                <feGaussianBlur stdDeviation="1" result="blur" />
                 <feMerge>
                   <feMergeNode in="blur" />
                   <feMergeNode in="SourceGraphic" />
