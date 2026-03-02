@@ -68,7 +68,7 @@ const LiveProjectsCard = () => {
           </div>
 
           {/* DM rotation — all 3 share the same space */}
-          <div className="relative" style={{ minHeight: 42 }}>
+          <div className="relative" style={{ minHeight: 50 }}>
             {/* DM #1: Priya — references BFP short */}
             <div
               className="absolute inset-x-0 top-0 rounded-lg px-2 py-1.5 animate-pf-notif-1"
