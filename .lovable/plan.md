@@ -1,72 +1,66 @@
 
 
-## Redesign ExpertMembershipCard: Multi-Screen LMS with Cursor Navigation
+## Plan: Redesign ImpactBentoGrid with India Dot Map
 
-Transform the static player+sidebar layout into a dynamic LMS that cycles through 4 distinct screens. The cursor navigates between sidebar tabs, each click transitions the main content area.
+### Overview
+Three deliverables: (1) new `IndiaDotsMap.tsx` SVG component, (2) restructured grid layout in `ImpactBentoGrid.tsx`, (3) CSS keyframes for dot animations.
 
-### Architecture
+### 1. New file: `src/components/IndiaDotsMap.tsx`
+
+A pure SVG component (~75 dots) positioned to form the recognizable shape of India within a `viewBox="0 0 200 280"`. Key city clusters (Mumbai, Delhi, Bangalore, Chennai, Hyderabad, Kolkata, Pune, Jaipur, etc.) get slightly larger dots. International presence shown as 5-6 labeled dots around the perimeter (UAE, US, UK, Singapore, etc.) with faint connecting arcs.
+
+- Dots use framer-motion `m.circle` with `staggerChildren` (0.015s) for a ripple-in effect from center outward
+- On card hover: dots pulse with amber glow via CSS animation
+- Dots colored in `hsl(var(--primary))` with varying opacity for depth
+- Country dots in a muted tone with tiny 4px text labels
+
+### 2. Restructured `src/components/ImpactBentoGrid.tsx`
+
+New grid layout (desktop):
 
 ```text
-┌─────────────────────────────────────┐
-│  ┌──────────┐  ┌──────────────────┐ │
-│  │ 🎬 Sessions│  │                  │ │
-│  │ 📚 Resources│  │   MAIN CONTENT   │ │
-│  │ 📖 Guides  │  │   (crossfades    │ │
-│  │ 🤖 AI Learn│  │    between 4     │ │
-│  │           │  │    screens)      │ │
-│  └──────────┘  └──────────────────┘ │
-│         ↑ cursor clicks tabs         │
-└─────────────────────────────────────┘
+┌─────────────┬──────────────────────┬─────────────┐
+│  4.86/5     │                      │  58,746     │
+│  Rating     │   Community Mosaic   │  Learners   │
+│  Stars      │   300,000+           │  (orange)   │
+│  (dark)     │   (spans 2 rows)     │             │
+├─────────────┤                      ├─────────────┤
+│  821 Cities │                      │  3,000+     │
+│  13 Countries                      │  Collabs    │
+│  India Map  │                      │  Handshake  │
+│  (dark)     │                      │  (dark)     │
+└─────────────┴──────────────────────┴─────────────┘
 ```
 
-### The 4 Screens
+- Grid: `grid-cols-1 md:grid-cols-[1fr_1.6fr_1fr]`
+- Community mosaic moves to center, spans 2 rows -- it's the visual anchor with the photo grid
+- Cities/Countries card switches from orange to dark theme, uses `IndiaDotsMap` instead of the `Globe` icon
+- Add "OUR IMPACT" section label above the grid (uppercase, tracking-widest, muted text)
+- Remove `Globe` import from lucide-react
+- Mobile: single column stack, all cards full width
 
-1. **Recorded Sessions** — Video thumbnail with play button, mentor name, progress bar (similar to current player)
-2. **Resources** — List of 3-4 downloadable items (PDF icon + title like "Shot Composition Guide", "Script Template")
-3. **Guides** — Step-by-step checklist (3-4 steps with checkmarks, like "Set up your project → Write your logline → Draft scene 1")
-4. **AI Learning** — Mini chat interface showing a user question and an AI response with a typing indicator
+Card order in markup:
+1. Rating (top-left)
+2. Community mosaic (center, `row-span-2`)
+3. Learners (top-right, orange)
+4. Cities/Countries with India map (bottom-left, dark)
+5. Collaborations (bottom-right, dark)
 
-### Animation Cycle (~16s loop)
+### 3. CSS additions in `src/index.css`
 
-- **0-4s**: Cursor on "Sessions" tab (highlighted), main area shows video player
-- **4-8s**: Cursor moves to "Resources" tab, clicks, main crossfades to resources view
-- **8-12s**: Cursor moves to "Guides" tab, clicks, main crossfades to guides view
-- **12-16s**: Cursor moves to "AI Learning" tab, clicks, main crossfades to AI chat view
-- Loop back to Sessions
+```css
+@keyframes dot-breathe {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+```
 
-### Implementation
+Remove the now-unused `globe-spin` keyframes and classes.
 
-**`src/components/why-levelup/ExpertMembershipCard.tsx`** — Full rewrite:
-- Sidebar with 4 nav items (icons + labels), each highlighted via CSS animation classes synced to the cursor
-- 4 content panels stacked absolutely, each with opacity animation synced to the cycle
-- Cursor SVG (reused) with updated keyframes visiting 4 tab positions
-- Click ripples at each tab position
-- Floating elements: mentor avatars, "LIVE" badge, discipline tags (kept but repositioned)
+### Technical Details
 
-**`src/index.css`** — Replace existing LMS keyframes:
-- `lms-cursor-flow`: 4-stop path visiting each sidebar tab (~16s)
-- `lms-screen-1` through `lms-screen-4`: Opacity keyframes showing each screen for its quarter of the cycle
-- `lms-tab-1` through `lms-tab-4`: Highlight keyframes for active tab state
-- `lms-ripple-tab-*`: Click ripples at each tab position
-- Keep the hover-to-pause behavior for all new animation classes
-
-### Content Details
-
-**Resources screen**: 3 rows with file icon + title + "PDF" badge:
-- "Shot Composition Guide"  
-- "Script Formatting Template"
-- "Color Grading Cheat Sheet"
-
-**Guides screen**: 3 steps with status indicators:
-- ✅ "Set up your project workspace"
-- ✅ "Write your logline & synopsis"  
-- 🔵 "Draft your opening scene" (in progress)
-
-**AI Learning screen**: 2 chat bubbles:
-- User: "How do I build tension in a chase sequence?"
-- AI (with sparkle icon): "Start with rhythm — alternate between wide establishing shots and tight close-ups. Cut pace should accelerate..."
-
-### Files to edit
-- `src/components/why-levelup/ExpertMembershipCard.tsx` — full component rewrite
-- `src/index.css` — replace LMS animation keyframes (lines ~458-573)
+- India dot coordinates: ~75 `[cx, cy]` pairs hardcoded, grouped by region with a `delay` index for stagger ordering (center-out ripple)
+- No external map libraries -- pure SVG circles
+- The map component accepts an `isHovered` prop to trigger the breathing animation
+- Country arcs: simple quadratic bezier `<path>` elements with low opacity
 
