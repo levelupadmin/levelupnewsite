@@ -527,6 +527,17 @@
   animation: city-fade-in 0.6s ease-out both;
 }
 
+/* India city labels appearing wave-by-wave */
+@keyframes india-city-appear {
+  0% { opacity: 0; transform: scale(0.5); }
+  60% { opacity: 1; transform: scale(1.15); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.animate-india-city-appear {
+  opacity: 0;
+  animation: india-city-appear 0.5s ease-out both;
+}
+
 @keyframes handshake-wiggle {
   0% { transform: rotate(0deg); }
   15% { transform: rotate(-12deg); }
