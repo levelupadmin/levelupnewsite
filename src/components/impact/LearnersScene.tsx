@@ -5,10 +5,15 @@ import ImpactScene from "./ImpactScene";
 import community8 from "@/assets/community/community-8.jpg";
 
 const PROGRAMS = [
-  { name: "Breakthrough Filmmakers' Program", count: "18,400+" },
-  { name: "Video Editing Academy", count: "12,200+" },
-  { name: "UI/UX Design Academy", count: "9,800+" },
-  { name: "Screenwriting Workshop", count: "8,600+" },
+  { name: "Breakthrough Filmmakers' Program" },
+  { name: "Video Editing Academy" },
+  { name: "UI/UX Design Academy" },
+  { name: "Screenwriting Workshop" },
+  { name: "Karthik Subbaraj Masterclass" },
+  { name: "Anthony Gonsalvez Masterclass" },
+  { name: "Lokesh Kanagaraj Masterclass" },
+  { name: "The Forge Filmmaking" },
+  { name: "The Forge Writing Retreat" },
 ];
 
 const LearnersScene = () => {
@@ -114,9 +119,6 @@ const LearnersScene = () => {
                   <span className="w-1.5 h-1.5 rounded-full bg-primary/50 group-hover:bg-primary/80 transition-colors duration-300" />
                   <span className="text-[11px] font-medium text-foreground/85 whitespace-nowrap">
                     {p.name}
-                  </span>
-                  <span className="text-[10px] text-muted-foreground whitespace-nowrap group-hover:text-primary/70 transition-colors duration-300">
-                    {p.count}
                   </span>
                 </div>
               ))}
