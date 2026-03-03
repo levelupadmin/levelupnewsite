@@ -275,7 +275,7 @@ const Navbar = () => {
                               "--card-accent-bg": activeAccent.replace(")", " / 0.1)").replace("hsl(", "hsl("),
                             } as React.CSSProperties}
                           >
-                            <div className="aspect-[3/2] overflow-hidden bg-white/5">
+                            <div className="aspect-[4/3] overflow-hidden rounded-md bg-white/5">
                               {item.image ? (
                                 <img
                                   src={item.image}
@@ -290,27 +290,6 @@ const Navbar = () => {
                                   <span className="font-sans-body text-[10px] uppercase tracking-wider text-muted-foreground/50">Coming Soon</span>
                                 </div>
                               )}
-                            </div>
-                            <div className="px-2.5 py-2">
-                              <p className="nav-card-title font-sans-body text-xs font-medium text-foreground leading-snug transition-colors duration-200 truncate">
-                                {item.title}
-                              </p>
-                              <p className="font-sans-body text-[10px] text-muted-foreground mt-0.5 truncate">
-                                {item.subtitle}
-                              </p>
-                              <div className="flex items-center gap-1.5 mt-1">
-                                {activeFormatBadge && (
-                                  <span
-                                    className="font-sans-body text-[9px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded-full"
-                                    style={{
-                                      color: activeAccent,
-                                      backgroundColor: activeAccent.replace(")", " / 0.12)").replace("hsl(", "hsl("),
-                                    }}
-                                  >
-                                    {activeFormatBadge}
-                                  </span>
-                                )}
-                              </div>
                             </div>
                           </m.a>
                         ))}
@@ -422,7 +401,7 @@ const Navbar = () => {
                                     onClick={() => setMobileOpen(false)}
                                     className="block rounded-sm overflow-hidden bg-white/5 active:bg-white/10 transition-colors"
                                   >
-                                    <div className="aspect-[16/10] overflow-hidden">
+                                    <div className="aspect-[4/3] overflow-hidden rounded-md">
                                       <img
                                         src={item.image}
                                         alt={item.title}
@@ -431,27 +410,6 @@ const Navbar = () => {
                                         loading="lazy"
                                         decoding="async"
                                       />
-                                    </div>
-                                    <div className="px-2.5 py-2">
-                                      <p className="font-serif-display text-sm text-foreground leading-tight">
-                                        {item.title}
-                                      </p>
-                                      <div className="flex items-center gap-1 mt-0.5">
-                                        <p className="font-sans-body text-[10px] text-muted-foreground">
-                                          {item.subtitle}
-                                        </p>
-                                        {badge && (
-                                          <span
-                                            className="font-sans-body text-[8px] font-semibold uppercase tracking-wider px-1 py-0.5 rounded-full"
-                                            style={{
-                                              color: linkAccent,
-                                              backgroundColor: linkAccent.replace(")", " / 0.12)").replace("hsl(", "hsl("),
-                                            }}
-                                          >
-                                            {badge}
-                                          </span>
-                                        )}
-                                      </div>
                                     </div>
                                   </m.a>
                                 ))}
