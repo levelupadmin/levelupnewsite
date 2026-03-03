@@ -28,6 +28,10 @@ const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: St
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
+    // Cached dimensions to avoid layout thrashing
+    let cachedW = 0;
+    let cachedH = 0;
+
     // Initialize stars
     const stars: Star[] = Array.from({ length: starCount }, () => ({
       x: (Math.random() - 0.5) * 2000,
@@ -53,7 +57,7 @@ const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: St
         data[i] = v;
         data[i + 1] = v;
         data[i + 2] = v;
-        data[i + 3] = 18; // ~7% opacity — subtle, no flicker
+        data[i + 3] = 18;
       }
       grainCtx.putImageData(imageData, 0, 0);
       if (grainRef.current) {
@@ -62,10 +66,10 @@ const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: St
     };
 
     const resize = () => {
-      const w = canvas.clientWidth;
-      const h = canvas.clientHeight;
-      canvas.width = w * dpr;
-      canvas.height = h * dpr;
+      cachedW = canvas.clientWidth;
+      cachedH = canvas.clientHeight;
+      canvas.width = cachedW * dpr;
+      canvas.height = cachedH * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
@@ -76,8 +80,8 @@ const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: St
     let raf: number;
 
     const render = () => {
-      const w = canvas.clientWidth;
-      const h = canvas.clientHeight;
+      const w = cachedW;
+      const h = cachedH;
       const cx = w / 2;
       const cy = h / 2;
 
@@ -102,7 +106,6 @@ const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: St
         const size = Math.max(0.5, (1 - star.z / DEFAULT_MAX_DEPTH) * 3.5) * star.sizeScale;
         const opacity = Math.max(0.1, (1 - star.z / DEFAULT_MAX_DEPTH) * 1);
 
-        // ~20% of stars get an amber tint
         const isAmber = star.x * star.y % 5 < 1;
         const color = isAmber
           ? `rgba(230, 104, 29, ${opacity})`

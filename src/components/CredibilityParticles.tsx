@@ -52,11 +52,17 @@ const CredibilityParticles = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    // Cache dimensions to avoid forced reflow in render loop
+    let cachedW = 0;
+    let cachedH = 0;
+
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      particlesRef.current = generateParticles(rect.width, rect.height);
+      cachedW = rect.width;
+      cachedH = rect.height;
+      canvas.width = cachedW * dpr;
+      canvas.height = cachedH * dpr;
+      particlesRef.current = generateParticles(cachedW, cachedH);
     };
     resize();
     window.addEventListener("resize", resize);
@@ -75,7 +81,8 @@ const CredibilityParticles = () => {
     const render = () => {
       timeRef.current += 0.016;
       const t = timeRef.current;
-      const { width: cw, height: ch } = canvas;
+      const cw = cachedW * dpr;
+      const ch = cachedH * dpr;
       const mouse = mouseRef.current;
 
       ctx.clearRect(0, 0, cw, ch);
