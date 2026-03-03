@@ -98,12 +98,11 @@ const WhyLevelUp = () => {
       <FadeInSection className="max-w-7xl mx-auto px-6 md:px-12 mb-10 md:mb-14">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 md:gap-12">
           <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-medium text-hero-headline leading-[1.15] tracking-tight max-w-lg">
-            The most intentional way to learn{" "}
-            <span className="text-gradient-amber">the craft.</span>
+            Where creators stop consuming{" "}
+            <span className="text-gradient-amber">and start building.</span>
           </h2>
           <p className="font-sans-body text-sm md:text-base text-hero-subtext leading-relaxed max-w-sm md:pb-2">
-            We changed how creators learn. Build real skills with mentors who
-            built careers — not PowerPoint decks.
+            Mentors who've done the work. Projects that prove yours. A community that won't let you coast.
           </p>
         </div>
       </FadeInSection>
