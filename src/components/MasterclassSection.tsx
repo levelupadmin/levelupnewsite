@@ -153,8 +153,16 @@ const MasterclassSection = () => {
         }}
       />
 
+      {/* Section tag */}
+      <FadeInSection className="text-center px-6 md:px-12 mb-4">
+        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-[11px] tracking-[0.18em] uppercase font-sans-body text-primary/80">
+          <span className="w-1.5 h-1.5 rounded-full bg-primary/60" />
+          On-Demand Masterclasses
+        </span>
+      </FadeInSection>
+
       {/* Section headline */}
-      <FadeInSection className="text-center px-6 md:px-12 mb-10 md:mb-14">
+      <FadeInSection className="text-center px-6 md:px-12 mb-10 md:mb-14" delay={80}>
         <h2 className="font-serif-display text-[1.6rem] sm:text-4xl md:text-5xl lg:text-6xl font-medium text-hero-headline tracking-[-0.03em] max-w-3xl mx-auto" style={{ lineHeight: 1.15 }}>
           <span>India's greatest creative minds.</span>{" "}
           <em className="not-italic font-normal text-gradient-amber">Now your mentors.</em>
