@@ -60,12 +60,23 @@ function seededRandom(seed: number) {
 
 function generateNodes(w: number, h: number): Node[] {
   const rand = seededRandom(42);
-  const padding = 0.08;
   const nodes: Node[] = [];
 
+  // Distribute nodes evenly using a grid with jitter
+  const cols = Math.ceil(Math.sqrt(NODE_COUNT * (w / h)));
+  const rows = Math.ceil(NODE_COUNT / cols);
+  const cellW = w / cols;
+  const cellH = h / rows;
+  const jitterX = cellW * 0.25;
+  const jitterY = cellH * 0.25;
+
   for (let i = 0; i < NODE_COUNT; i++) {
-    const x = (padding + rand() * (1 - 2 * padding)) * w;
-    const y = (padding + rand() * (1 - 2 * padding)) * h;
+    const col = i % cols;
+    const row = Math.floor(i / cols);
+    const cx = (col + 0.5) * cellW + (rand() - 0.5) * 2 * jitterX;
+    const cy = (row + 0.5) * cellH + (rand() - 0.5) * 2 * jitterY;
+    const x = Math.max(w * 0.05, Math.min(w * 0.95, cx));
+    const y = Math.max(h * 0.05, Math.min(h * 0.95, cy));
     nodes.push({
       x,
       y,
