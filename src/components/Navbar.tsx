@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useMemo, useEffect } from "react";
+import { useState, useCallback, useRef, useMemo } from "react";
 import { m, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -20,6 +20,7 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileExpandedIndex, setMobileExpandedIndex] = useState<number | null>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [hoveredCardIndex, setHoveredCardIndex] = useState<number | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [navData, setNavData] = useState<NavLink[] | null>(null);
   const loadStarted = useRef(false);
@@ -167,19 +168,15 @@ const Navbar = () => {
                     style={isActive ? { color: linkAccent } : undefined}
                   >
                     <span className="relative z-10">{link.label}</span>
-                    {/* Accent dot indicator */}
-                    <AnimatePresence>
-                      {isActive && (
-                        <m.span
-                          initial={{ scale: 0, opacity: 0 }}
-                          animate={{ scale: 1, opacity: 1 }}
-                          exit={{ scale: 0, opacity: 0 }}
-                          transition={{ duration: 0.2 }}
-                          className="absolute -bottom-0.5 w-1 h-1 rounded-full"
-                          style={{ backgroundColor: linkAccent }}
-                        />
-                      )}
-                    </AnimatePresence>
+                    {/* Sliding accent underline */}
+                    {isActive && (
+                      <m.span
+                        layoutId="nav-underline"
+                        className="absolute -bottom-0.5 h-[2px] rounded-full left-3 right-3"
+                        style={{ backgroundColor: linkAccent }}
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      />
+                    )}
                   </a>
                 );
               })}
@@ -262,25 +259,55 @@ const Navbar = () => {
                             href={item.href}
                             target={item.href.startsWith("http") ? "_blank" : undefined}
                             rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                            initial={{ opacity: 0, y: 6 }}
-                            animate={{ opacity: 1, y: 0 }}
+                            initial={{ opacity: 0, y: 8, rotateZ: -1.5, scale: 0.96 }}
+                            animate={{
+                              opacity: hoveredCardIndex !== null && hoveredCardIndex !== i ? 0.65 : 1,
+                              y: 0,
+                              rotateZ: 0,
+                              scale: 1,
+                            }}
+                            whileHover={{ scale: 1.03, y: -4 }}
                             transition={{
-                              duration: 0.2,
+                              duration: 0.25,
                               delay: 0.04 * i,
                               ease: "easeOut",
+                              scale: { duration: 0.2 },
+                              y: { duration: 0.2 },
                             }}
-                            className="nav-card-accent block rounded-sm overflow-hidden bg-white/5 transition-all duration-200"
+                            onMouseEnter={(e) => {
+                              setHoveredCardIndex(i);
+                              const rect = e.currentTarget.getBoundingClientRect();
+                              e.currentTarget.style.setProperty("--glow-x", `${((e.clientX - rect.left) / rect.width) * 100}%`);
+                              e.currentTarget.style.setProperty("--glow-y", `${((e.clientY - rect.top) / rect.height) * 100}%`);
+                            }}
+                            onMouseMove={(e) => {
+                              const rect = e.currentTarget.getBoundingClientRect();
+                              e.currentTarget.style.setProperty("--glow-x", `${((e.clientX - rect.left) / rect.width) * 100}%`);
+                              e.currentTarget.style.setProperty("--glow-y", `${((e.clientY - rect.top) / rect.height) * 100}%`);
+                            }}
+                            onMouseLeave={() => setHoveredCardIndex(null)}
+                            className="nav-card-accent group/card relative block rounded-sm overflow-hidden bg-white/5 transition-shadow duration-200"
                             style={{
                               "--card-accent": activeAccent,
                               "--card-accent-bg": activeAccent.replace(")", " / 0.1)").replace("hsl(", "hsl("),
+                              boxShadow: hoveredCardIndex === i
+                                ? `0 8px 24px -4px ${activeAccent.replace(")", " / 0.25)").replace("hsl(", "hsl(")}`
+                                : "none",
                             } as React.CSSProperties}
                           >
-                            <div className="aspect-[4/3] overflow-hidden rounded-md bg-white/5">
+                            {/* Cursor-following glow */}
+                            <div
+                              className="pointer-events-none absolute inset-0 z-10 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 rounded-sm"
+                              style={{
+                                background: `radial-gradient(circle 120px at var(--glow-x, 50%) var(--glow-y, 50%), ${activeAccent.replace(")", " / 0.1)").replace("hsl(", "hsl(")}, transparent 70%)`,
+                              }}
+                            />
+                            <div className="aspect-[4/3] overflow-hidden rounded-md bg-white/5 relative">
                               {item.image ? (
                                 <img
                                   src={item.image}
                                   alt={item.title}
-                                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                                  className="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105"
                                   style={{ objectPosition: item.objectPosition || "top" }}
                                   loading="lazy"
                                   decoding="async"
@@ -290,6 +317,15 @@ const Navbar = () => {
                                   <span className="font-sans-body text-[10px] uppercase tracking-wider text-muted-foreground/50">Coming Soon</span>
                                 </div>
                               )}
+                              {/* Title + subtitle reveal overlay */}
+                              <div className="absolute inset-x-0 bottom-0 translate-y-full group-hover/card:translate-y-0 transition-transform duration-300 ease-out bg-black/60 backdrop-blur-sm px-2.5 py-2">
+                                <p className="text-[11px] font-medium leading-tight truncate" style={{ color: activeAccent }}>
+                                  {item.title}
+                                </p>
+                                <p className="text-[10px] text-white/60 leading-tight truncate mt-0.5">
+                                  {item.subtitle}
+                                </p>
+                              </div>
                             </div>
                           </m.a>
                         ))}
