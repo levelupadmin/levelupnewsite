@@ -267,11 +267,12 @@ const Navbar = () => {
                               scale: 1,
                             }}
                             whileHover={{ scale: 1.03, y: -4 }}
+                            whileTap={{ scale: 0.97 }}
                             transition={{
                               duration: 0.25,
                               delay: 0.04 * i,
                               ease: "easeOut",
-                              scale: { duration: 0.2 },
+                              scale: { type: "spring", stiffness: 500, damping: 15 },
                               y: { duration: 0.2 },
                             }}
                             onMouseEnter={(e) => {
@@ -301,6 +302,10 @@ const Navbar = () => {
                               style={{
                                 background: `radial-gradient(circle 120px at var(--glow-x, 50%) var(--glow-y, 50%), ${activeAccent.replace(")", " / 0.1)").replace("hsl(", "hsl(")}, transparent 70%)`,
                               }}
+                            />
+                            {/* Haptic border flash */}
+                            <div
+                              className="pointer-events-none absolute inset-0 z-20 rounded-sm border border-transparent group-hover/card:border-white/15 transition-[border-color] duration-150"
                             />
                             <div className="aspect-[4/3] overflow-hidden rounded-md bg-white/5 relative">
                               {item.image ? (
