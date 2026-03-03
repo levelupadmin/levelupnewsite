@@ -85,10 +85,6 @@ const TrustedCTASection = () => {
           </div>
         </div>
 
-        {/* Social proof */}
-        <p className="text-xs md:text-sm text-muted-foreground">
-          9,000+ learners across 821 cities
-        </p>
 
         {/* CTA */}
         <MagneticButton>
