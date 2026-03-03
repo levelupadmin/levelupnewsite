@@ -440,9 +440,10 @@ const Navbar = () => {
                                       delay: 0.04 * i,
                                     }}
                                     onClick={() => setMobileOpen(false)}
-                                    className="block rounded-sm overflow-hidden bg-white/5 active:bg-white/10 transition-colors"
+                                    className="block rounded-sm overflow-hidden bg-white/5 active:scale-[0.97] transition-all duration-150 relative"
+                                    style={{ borderLeft: `3px solid ${linkAccent}` }}
                                   >
-                                    <div className="aspect-[4/3] overflow-hidden rounded-md">
+                                    <div className="aspect-[4/3] overflow-hidden rounded-md relative">
                                       <img
                                         src={item.image}
                                         alt={item.title}
@@ -451,6 +452,11 @@ const Navbar = () => {
                                         loading="lazy"
                                         decoding="async"
                                       />
+                                      {/* Always-visible title overlay for mobile */}
+                                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-2.5 pb-2 pt-6">
+                                        <p className="text-[13px] font-semibold leading-tight" style={{ color: linkAccent }}>{item.title}</p>
+                                        <p className="text-[11px] text-white/60 leading-tight mt-0.5">{item.subtitle}</p>
+                                      </div>
                                     </div>
                                   </m.a>
                                 ))}
