@@ -4,7 +4,7 @@ import Autoplay from "embla-carousel-autoplay";
 import { m } from "framer-motion";
 import { useEmblaSelect } from "@/hooks/useEmblaSelect";
 
-import heroPoster1 from "@/assets/hero-poster-1.jpg";
+
 import heroPoster2 from "@/assets/hero-poster-2.jpg";
 import heroPoster3 from "@/assets/hero-poster-3.jpg";
 import heroPoster4 from "@/assets/hero-poster-4.jpg";
@@ -14,7 +14,7 @@ import heroPoster6 from "@/assets/hero-poster-6.jpg";
 const slides = [
   {
     video: "/videos/pvr-trailer.mp4",
-    poster: heroPoster1,
+    poster: "/images/hero-poster-1.jpg",
     alt: "PVR Trailer - LevelUp filmmaking showcase",
   },
   {
@@ -114,6 +114,8 @@ const HeroCarousel = () => {
                     loop
                     playsInline
                     preload={index === 0 ? "auto" : "none"}
+                    // @ts-ignore - fetchPriority is valid HTML but not yet in React types
+                    fetchPriority={index === 0 ? "high" : undefined}
                     className="w-full aspect-[16/9] object-cover object-center bg-card scale-[1.3]"
                   />
                 </div>
