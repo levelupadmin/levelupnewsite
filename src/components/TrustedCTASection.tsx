@@ -12,16 +12,16 @@ import yourstoryLogo from "@/assets/press/yourstory.svg";
 import abnLogo from "@/assets/press/abn-telugu.svg";
 
 const pressLogos = [
-  { name: "Outlook India", src: outlookLogo },
-  { name: "The Quint", src: quintLogo },
-  { name: "Hindustan Times", src: htLogo },
-  { name: "YourStory", src: yourstoryLogo },
-  { name: "ABN", src: abnLogo },
-];
+{ name: "Outlook India", src: outlookLogo },
+{ name: "The Quint", src: quintLogo },
+{ name: "Hindustan Times", src: htLogo },
+{ name: "YourStory", src: yourstoryLogo },
+{ name: "ABN", src: abnLogo }];
+
 
 const disciplines = [
-  "Filmmaking", "Photography", "Editing", "Music", "Writing", "Design"
-];
+"Filmmaking", "Photography", "Editing", "Music", "Writing", "Design"];
+
 
 const TrustedCTASection = () => {
   return (
@@ -35,13 +35,13 @@ const TrustedCTASection = () => {
         {/* Masters group photo */}
         <div className="relative w-full max-w-md md:max-w-lg">
           <img
-            src={allMastersImg}
+
             alt="LevelUp's master instructors"
             className="w-full h-auto object-contain"
             width={1080}
             height={810}
-            loading="lazy"
-          />
+            loading="lazy" src="/lovable-uploads/bded7ac9-4461-4363-bf02-5298f0b77158.png" />
+          
           {/* Bottom vignette blend */}
           <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background via-background/60 to-transparent pointer-events-none" />
         </div>
@@ -54,14 +54,14 @@ const TrustedCTASection = () => {
 
         {/* Discipline keywords */}
         <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
-          {disciplines.map((d, i) => (
-            <span key={d} className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground tracking-wide">
+          {disciplines.map((d, i) =>
+          <span key={d} className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground tracking-wide">
               {d}
-              {i < disciplines.length - 1 && (
-                <span className="text-muted-foreground/40">·</span>
-              )}
+              {i < disciplines.length - 1 &&
+            <span className="text-muted-foreground/40">·</span>
+            }
             </span>
-          ))}
+          )}
         </div>
 
         {/* Subline */}
@@ -75,16 +75,16 @@ const TrustedCTASection = () => {
             Featured in
           </p>
           <div className="flex flex-wrap items-center justify-center gap-5 md:gap-8">
-            {pressLogos.map((logo) => (
-              <img
-                key={logo.name}
-                src={logo.src}
-                alt={logo.name}
-                className="h-4 md:h-5 w-auto object-contain opacity-50 grayscale brightness-200"
-                style={{ mixBlendMode: "screen" }}
-                loading="lazy"
-              />
-            ))}
+            {pressLogos.map((logo) =>
+            <img
+              key={logo.name}
+              src={logo.src}
+              alt={logo.name}
+              className="h-4 md:h-5 w-auto object-contain opacity-50 grayscale brightness-200"
+              style={{ mixBlendMode: "screen" }}
+              loading="lazy" />
+
+            )}
           </div>
         </div>
 
@@ -98,15 +98,15 @@ const TrustedCTASection = () => {
           <a href="#masterclasses">
             <Button
               size="lg"
-              className="cta-sweep cta-glow rounded-sm gap-2 text-sm font-sans-body"
-            >
+              className="cta-sweep cta-glow rounded-sm gap-2 text-sm font-sans-body">
+              
               Start Your Journey
               <ArrowRight className="w-4 h-4" />
             </Button>
           </a>
         </MagneticButton>
       </FadeInSection>
-    </section>
-  );
+    </section>);
+
 };
 export default TrustedCTASection;
