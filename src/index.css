@@ -860,7 +860,96 @@
   animation-play-state: paused;
 }
 
-/* ── Logo Marquee Premium Interactions ── */
+/* ── Portfolio Card Animations (~20s loop for 5 projects) ── */
+
+/* Scroll the activity feed upward in a seamless loop */
+@keyframes scroll-portfolio-up {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+.animate-scroll-portfolio-up {
+  animation: scroll-portfolio-up 32s linear infinite;
+}
+
+/* Featured project cycling — 5 projects, 4s each = 20s loop */
+@keyframes pf-featured-1 {
+  0%, 2%   { opacity: 1; z-index: 2; }
+  18%      { opacity: 1; z-index: 2; }
+  20%      { opacity: 0; z-index: 0; }
+  96%      { opacity: 0; z-index: 0; }
+  98%      { opacity: 0; z-index: 0; }
+  100%     { opacity: 1; z-index: 2; }
+}
+@keyframes pf-featured-2 {
+  0%, 18%  { opacity: 0; z-index: 0; }
+  20%      { opacity: 1; z-index: 2; }
+  38%      { opacity: 1; z-index: 2; }
+  40%      { opacity: 0; z-index: 0; }
+  100%     { opacity: 0; z-index: 0; }
+}
+@keyframes pf-featured-3 {
+  0%, 38%  { opacity: 0; z-index: 0; }
+  40%      { opacity: 1; z-index: 2; }
+  58%      { opacity: 1; z-index: 2; }
+  60%      { opacity: 0; z-index: 0; }
+  100%     { opacity: 0; z-index: 0; }
+}
+@keyframes pf-featured-4 {
+  0%, 58%  { opacity: 0; z-index: 0; }
+  60%      { opacity: 1; z-index: 2; }
+  78%      { opacity: 1; z-index: 2; }
+  80%      { opacity: 0; z-index: 0; }
+  100%     { opacity: 0; z-index: 0; }
+}
+@keyframes pf-featured-5 {
+  0%, 78%  { opacity: 0; z-index: 0; }
+  80%      { opacity: 1; z-index: 2; }
+  98%      { opacity: 1; z-index: 2; }
+  100%     { opacity: 0; z-index: 0; }
+}
+
+.pf-featured-1 { animation: pf-featured-1 20s ease infinite; }
+.pf-featured-2 { animation: pf-featured-2 20s ease infinite; }
+.pf-featured-3 { animation: pf-featured-3 20s ease infinite; }
+.pf-featured-4 { animation: pf-featured-4 20s ease infinite; }
+.pf-featured-5 { animation: pf-featured-5 20s ease infinite; }
+
+/* Notification toast — appears every 20s, stays for 3s */
+@keyframes pf-notification-pop {
+  0%, 55%  { opacity: 0; transform: translateY(-8px) scale(0.95); }
+  58%      { opacity: 1; transform: translateY(0) scale(1); }
+  72%      { opacity: 1; transform: translateY(0) scale(1); }
+  75%      { opacity: 0; transform: translateY(-4px) scale(0.98); }
+  100%     { opacity: 0; transform: translateY(-8px) scale(0.95); }
+}
+
+.pf-notification {
+  animation: pf-notification-pop 20s ease infinite;
+}
+
+/* Progress bar fill animation */
+.pf-progress-fill {
+  animation: pf-progress 1.2s ease-out both;
+}
+
+@keyframes pf-progress {
+  0% { transform: scaleX(0); transform-origin: left; }
+  100% { transform: scaleX(1); transform-origin: left; }
+}
+
+/* Pause all portfolio animations on card hover */
+.group\/portfolio:hover .animate-scroll-portfolio-up,
+.group\/portfolio:hover .pf-featured-1,
+.group\/portfolio:hover .pf-featured-2,
+.group\/portfolio:hover .pf-featured-3,
+.group\/portfolio:hover .pf-featured-4,
+.group\/portfolio:hover .pf-featured-5,
+.group\/portfolio:hover .pf-notification {
+  animation-play-state: paused;
+}
+
+
 .logo-marquee-item {
   opacity: 0.5;
   filter: grayscale(1) brightness(1.5);
