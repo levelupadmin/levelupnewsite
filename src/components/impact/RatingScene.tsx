@@ -5,11 +5,26 @@ import { AnimatedCounter } from "@/components/AnimatedCounter";
 import FadeInSection from "@/components/FadeInSection";
 import ImpactScene from "./ImpactScene";
 
-const reviews = [
+const reviewsCol1 = [
   "\"Completely changed how I approach filmmaking.\"",
   "\"The mentors here are world-class. 10/10.\"",
   "\"Best investment I've made in my creative career.\"",
   "\"I learned more in 8 weeks than 4 years of college.\"",
+  "\"Finally found a place that takes craft seriously.\"",
+  "\"The feedback alone is worth 10x the price.\"",
+  "\"Went from hobbyist to working professional in months.\"",
+  "\"Every session felt like sitting with a master.\"",
+];
+
+const reviewsCol2 = [
+  "\"My portfolio went from zero to getting me hired.\"",
+  "\"This community is unlike anything else out there.\"",
+  "\"Real projects, real deadlines, real growth.\"",
+  "\"I cried after my first mentor review — in a good way.\"",
+  "\"Hands down the most practical creative education.\"",
+  "\"The network I built here changed my trajectory.\"",
+  "\"No fluff, no filler. Just craft and honest feedback.\"",
+  "\"I recommend LevelUp to every creative I know.\"",
 ];
 
 const RatingScene = () => {
@@ -23,10 +38,15 @@ const RatingScene = () => {
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
         >
-          {/* Background review scroll */}
-          <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none opacity-[0.07]">
+          {/* Background review scroll — two columns, opposite directions */}
+          <div className="absolute inset-0 flex gap-8 md:gap-16 items-center justify-center overflow-hidden pointer-events-none opacity-[0.07]">
             <div className="animate-impact-review-scroll space-y-6 text-center">
-              {[...reviews, ...reviews].map((r, i) => (
+              {[...reviewsCol1, ...reviewsCol1].map((r, i) => (
+                <p key={i} className="text-xs md:text-2xl font-sans-body text-foreground whitespace-nowrap">{r}</p>
+              ))}
+            </div>
+            <div className="animate-impact-review-scroll-reverse space-y-6 text-center">
+              {[...reviewsCol2, ...reviewsCol2].map((r, i) => (
                 <p key={i} className="text-xs md:text-2xl font-sans-body text-foreground whitespace-nowrap">{r}</p>
               ))}
             </div>
