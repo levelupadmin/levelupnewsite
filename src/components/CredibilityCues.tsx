@@ -1,5 +1,6 @@
 import { AnimatedCounter } from "./AnimatedCounter";
 import FadeInSection from "./FadeInSection";
+import CredibilityParticles from "./CredibilityParticles";
 
 const cues = [
   { value: "57,660+", numericValue: 57660, label: "Learners enrolled", suffix: "+", hasComma: true },
@@ -17,16 +18,7 @@ const CredibilityCues = () => {
         background: `var(--gradient-cinematic)`,
       }}
     >
-      {/* Subtle dot grid overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)',
-          backgroundSize: '30px 30px',
-          maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 75%)',
-          WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 75%)',
-        }}
-      />
+      <CredibilityParticles />
       <div className="max-w-5xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8">
           {cues.map((cue, i) => (
