@@ -104,8 +104,16 @@ const LiveProgramsSection = () => {
         }} />
 
 
+      {/* Section tag */}
+      <FadeInSection className="text-center px-6 md:px-12 mb-4">
+        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[hsl(200_35%_55%/0.25)] bg-[hsl(200_35%_55%/0.06)] text-[11px] tracking-[0.18em] uppercase font-sans-body text-[hsl(200_35%_55%/0.85)]">
+          <span className="w-1.5 h-1.5 rounded-full bg-[hsl(200_35%_55%/0.65)]" />
+          Live Programs
+        </span>
+      </FadeInSection>
+
       {/* Section header */}
-      <FadeInSection className="text-center px-6 md:px-12 mb-10 md:mb-12">
+      <FadeInSection className="text-center px-6 md:px-12 mb-10 md:mb-12" delay={80}>
         <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-hero-headline leading-[1.35] tracking-tight">
           <span className="block sm:inline">Mentorship Programs,</span>{" "}
           <span className="block sm:inline whitespace-nowrap">

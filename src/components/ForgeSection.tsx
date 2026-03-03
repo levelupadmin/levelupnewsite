@@ -157,6 +157,14 @@ const ForgeSection = () => {
 
 
 
+      {/* Section tag */}
+      <FadeInSection className="text-center px-5 md:px-12 mb-4">
+        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[hsl(15_65%_55%/0.25)] bg-[hsl(15_65%_55%/0.06)] text-[11px] tracking-[0.18em] uppercase font-sans-body text-[hsl(15_65%_55%/0.85)]">
+          <span className="w-1.5 h-1.5 rounded-full bg-[hsl(15_65%_55%/0.65)]" />
+          Offline Residencies
+        </span>
+      </FadeInSection>
+
       {/* ─── Top: Split Two-Column Layout ─── */}
       <FadeInSection delay={100} className="max-w-[1600px] mx-auto px-5 md:px-12 text-center">
         <img
