@@ -11,7 +11,7 @@ import {
   Coins, Gem, Wallet,
   GraduationCap, Radio, Hammer, Users
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 
 interface CareerQuizDialogProps {
@@ -210,7 +210,6 @@ const CareerQuizDialog = ({ open, onOpenChange }: CareerQuizDialogProps) => {
           <div className="px-6 pt-5 pb-0">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs text-muted-foreground font-sans-body">Question {questionNumber} of 5</span>
-              {/* Step icons */}
               <div className="flex gap-1.5">
                 {[1, 2, 3, 4, 5].map((n) => (
                   <div
@@ -228,7 +227,7 @@ const CareerQuizDialog = ({ open, onOpenChange }: CareerQuizDialogProps) => {
 
         <div className="px-6 pb-6 pt-4 min-h-[340px] flex flex-col">
           <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
+            <m.div
               key={step}
               custom={direction}
               variants={variants}
@@ -245,13 +244,13 @@ const CareerQuizDialog = ({ open, onOpenChange }: CareerQuizDialogProps) => {
                     <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center border border-primary/10">
                       <Sparkles className="w-8 h-8 text-primary" />
                     </div>
-                    <motion.div
+                    <m.div
                       className="absolute -top-1 -right-1 text-lg"
                       animate={{ rotate: [0, 15, -15, 0] }}
                       transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                     >
                       ✨
-                    </motion.div>
+                    </m.div>
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-foreground mb-2">Find Your Creative Path</h3>
@@ -259,10 +258,9 @@ const CareerQuizDialog = ({ open, onOpenChange }: CareerQuizDialogProps) => {
                       Answer 5 quick questions and we'll recommend the perfect program for your goals.
                     </p>
                   </div>
-                  {/* Mini preview of what's inside */}
                   <div className="flex gap-3 mt-1">
                     {[Clapperboard, Camera, Music, PenTool].map((Icon, i) => (
-                      <motion.div
+                      <m.div
                         key={i}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -270,7 +268,7 @@ const CareerQuizDialog = ({ open, onOpenChange }: CareerQuizDialogProps) => {
                         className="w-9 h-9 rounded-lg bg-muted/60 flex items-center justify-center"
                       >
                         <Icon className="w-4 h-4 text-muted-foreground" />
-                      </motion.div>
+                      </m.div>
                     ))}
                   </div>
                   <Button onClick={goNext} className="mt-2 gap-2 rounded-full px-8">
@@ -308,7 +306,7 @@ const CareerQuizDialog = ({ open, onOpenChange }: CareerQuizDialogProps) => {
                 </QuestionLayout>
               )}
 
-              {/* Q2: Single select with icons */}
+              {/* Q2 */}
               {step === "q2" && (
                 <QuestionLayout
                   question="How would you describe your experience?"
@@ -364,7 +362,7 @@ const CareerQuizDialog = ({ open, onOpenChange }: CareerQuizDialogProps) => {
               {/* RESULT */}
               {step === "result" && result && (
                 <div className="flex flex-col items-center text-center gap-4 py-2">
-                  <motion.div
+                  <m.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ type: "spring", stiffness: 200, damping: 15 }}
@@ -373,16 +371,16 @@ const CareerQuizDialog = ({ open, onOpenChange }: CareerQuizDialogProps) => {
                     <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center border border-primary/10">
                       <result.icon className="w-8 h-8 text-primary" />
                     </div>
-                    <motion.span
+                    <m.span
                       className="absolute -top-2 -right-2 text-xl"
                       initial={{ opacity: 0, scale: 0 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 0.3 }}
                     >
                       {result.emoji}
-                    </motion.span>
-                  </motion.div>
-                  <motion.div
+                    </m.span>
+                  </m.div>
+                  <m.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.15 }}
@@ -390,16 +388,16 @@ const CareerQuizDialog = ({ open, onOpenChange }: CareerQuizDialogProps) => {
                     <p className="text-xs text-muted-foreground font-sans-body uppercase tracking-wider mb-3">We recommend</p>
                     <h3 className="text-xl font-semibold text-foreground mb-1">{result.title}</h3>
                     <p className="text-sm text-primary font-sans-body">{result.subtitle}</p>
-                  </motion.div>
-                  <motion.p
+                  </m.div>
+                  <m.p
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3 }}
                     className="text-sm text-muted-foreground font-sans-body leading-relaxed max-w-xs"
                   >
                     {result.description}
-                  </motion.p>
-                  <motion.div
+                  </m.p>
+                  <m.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
@@ -420,10 +418,10 @@ const CareerQuizDialog = ({ open, onOpenChange }: CareerQuizDialogProps) => {
                     <Button variant="ghost" size="sm" onClick={reset} className="text-muted-foreground text-xs">
                       Retake Quiz
                     </Button>
-                  </motion.div>
+                  </m.div>
                 </div>
               )}
-            </motion.div>
+            </m.div>
           </AnimatePresence>
         </div>
       </DialogContent>
@@ -461,16 +459,16 @@ function QuestionLayout({
           </div>
         )}
         <div>
-          <h3 className="text-lg font-semibold text-foreground">{question}</h3>
+          <h3 className="text-base font-semibold text-foreground leading-snug">{question}</h3>
           {hint && <p className="text-xs text-muted-foreground font-sans-body mt-1">{hint}</p>}
         </div>
       </div>
       <div className="flex-1">{children}</div>
-      <div className="flex items-center justify-between pt-2">
+      <div className="flex justify-between items-center pt-2 border-t border-border/50">
         <Button variant="ghost" size="sm" onClick={onBack} className="gap-1 text-muted-foreground">
           <ArrowLeft className="w-3.5 h-3.5" /> Back
         </Button>
-        <Button onClick={onNext} disabled={!canProceed} size="sm" className="gap-1 rounded-full px-6">
+        <Button onClick={onNext} disabled={!canProceed} size="sm" className="gap-1 rounded-full px-5">
           {nextLabel} <ArrowRight className="w-3.5 h-3.5" />
         </Button>
       </div>
@@ -493,21 +491,22 @@ function IconSingleSelect({
         <button
           key={label}
           onClick={() => onChange(label)}
-          className={`flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-all border ${
+          className={`flex items-center gap-3 px-3.5 py-3 rounded-lg text-left transition-all border ${
             value === label
-              ? "bg-primary/15 border-primary text-foreground"
-              : "bg-muted/50 border-transparent text-muted-foreground hover:bg-muted hover:text-foreground"
+              ? "bg-primary/15 border-primary"
+              : "bg-muted/50 border-transparent hover:bg-muted"
           }`}
         >
-          <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+          <div className={`w-8 h-8 rounded-md flex items-center justify-center shrink-0 ${
             value === label ? "bg-primary/20" : "bg-muted"
           }`}>
-            <Icon className="w-4 h-4" />
+            <Icon className={`w-4 h-4 ${value === label ? "text-primary" : "text-muted-foreground"}`} />
           </div>
           <div>
-            <span className="text-sm font-sans-body font-medium block">{label}</span>
-            <span className="text-xs text-muted-foreground font-sans-body">{desc}</span>
+            <p className={`text-sm font-medium ${value === label ? "text-foreground" : "text-foreground/80"}`}>{label}</p>
+            <p className="text-xs text-muted-foreground font-sans-body">{desc}</p>
           </div>
+          {value === label && <CheckCircle2 className="w-4 h-4 text-primary ml-auto shrink-0" />}
         </button>
       ))}
     </div>
