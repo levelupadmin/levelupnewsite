@@ -156,14 +156,14 @@ const StudentLogosSection = () => {
               }}
             >
               <div
-                className={`flex whitespace-nowrap items-center gap-10 md:gap-24 lg:gap-32 w-max ${row.direction} marquee-track`}
+                className={`flex whitespace-nowrap items-center gap-8 md:gap-16 lg:gap-20 w-max ${row.direction} marquee-track`}
               >
                 {[...row.brands, ...row.brands].map((brand, i) => (
                   <img
                     key={`${brand.name}-${i}`}
                     src={brand.logo}
                     alt={brand.name}
-                    className="h-10 md:h-20 lg:h-24 w-auto object-contain select-none logo-marquee-item"
+                    className="h-7 md:h-12 lg:h-14 max-w-[80px] md:max-w-[140px] lg:max-w-[160px] w-auto object-contain select-none logo-marquee-item"
                     style={{ filter: "brightness(0) invert(1)" }}
                     loading="lazy"
                   />
