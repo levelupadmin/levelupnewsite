@@ -41,9 +41,11 @@ const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: St
     grainCanvas.width = 128;
     grainCanvas.height = 128;
     const grainCtx = grainCanvas.getContext("2d")!;
-    let grainFrame = 0;
+    let grainGenerated = false;
 
     const generateGrain = () => {
+      if (grainGenerated) return;
+      grainGenerated = true;
       const imageData = grainCtx.createImageData(128, 128);
       const data = imageData.data;
       for (let i = 0; i < data.length; i += 4) {
@@ -51,7 +53,7 @@ const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: St
         data[i] = v;
         data[i + 1] = v;
         data[i + 2] = v;
-        data[i + 3] = 52; // ~20% opacity
+        data[i + 3] = 18; // ~7% opacity — subtle, no flicker
       }
       grainCtx.putImageData(imageData, 0, 0);
       if (grainRef.current) {
@@ -119,10 +121,6 @@ const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: St
       ctx.fillStyle = vg;
       ctx.fillRect(0, 0, w, h);
 
-      // Regenerate grain every ~3 frames
-      grainFrame++;
-      if (grainFrame % 3 === 0) generateGrain();
-
       raf = requestAnimationFrame(render);
     };
 
@@ -145,7 +143,7 @@ const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: St
         ref={grainRef}
         className="absolute inset-0 pointer-events-none"
         aria-hidden="true"
-        style={{ backgroundRepeat: "repeat", mixBlendMode: "overlay", opacity: 0.85 }}
+        style={{ backgroundRepeat: "repeat", mixBlendMode: "overlay", opacity: 0.4 }}
       />
     </>
   );
