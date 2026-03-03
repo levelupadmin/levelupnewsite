@@ -52,14 +52,18 @@ const CredibilityParticles = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    // Cache dimensions to avoid forced reflow in render loop
+    // Cache dimensions and rect to avoid forced reflow in render loop and mouse handler
     let cachedW = 0;
     let cachedH = 0;
+    let cachedLeft = 0;
+    let cachedTop = 0;
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
       cachedW = rect.width;
       cachedH = rect.height;
+      cachedLeft = rect.left;
+      cachedTop = rect.top;
       canvas.width = cachedW * dpr;
       canvas.height = cachedH * dpr;
       particlesRef.current = generateParticles(cachedW, cachedH);
@@ -67,10 +71,17 @@ const CredibilityParticles = () => {
     resize();
     window.addEventListener("resize", resize);
 
+    // Also update cached position on scroll (rect changes without resize)
+    const onScroll = () => {
+      const rect = canvas.getBoundingClientRect();
+      cachedLeft = rect.left;
+      cachedTop = rect.top;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
     const parent = canvas.parentElement;
     const onMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      mouseRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      mouseRef.current = { x: e.clientX - cachedLeft, y: e.clientY - cachedTop };
     };
     const onLeave = () => { mouseRef.current = null; };
     parent?.addEventListener("mousemove", onMove);
@@ -166,6 +177,7 @@ const CredibilityParticles = () => {
 
     return () => {
       window.removeEventListener("resize", resize);
+      window.removeEventListener("scroll", onScroll);
       parent?.removeEventListener("mousemove", onMove);
       parent?.removeEventListener("mouseleave", onLeave);
       cancelAnimationFrame(rafRef.current);
