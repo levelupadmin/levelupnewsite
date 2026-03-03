@@ -3,7 +3,7 @@ import { Handshake } from "lucide-react";
 import { m, AnimatePresence } from "framer-motion";
 import FadeInSection from "@/components/FadeInSection";
 import ImpactScene from "./ImpactScene";
-import ThreadWeave from "./ThreadWeave";
+import CollabNetwork from "./CollabNetwork";
 
 const COLLAB_TAGS = [
   { label: "Film × Music", top: "10%", left: "6%", delay: 0 },
@@ -48,7 +48,7 @@ const CollaborationsScene = () => {
           onMouseLeave={() => setHovered(false)}
         >
           {/* Thread weave background */}
-          <ThreadWeave progress={counterProgress} isVisible />
+          <CollabNetwork progress={counterProgress} isVisible />
 
           {/* Refined glassmorphic tags */}
           <AnimatePresence>
