@@ -63,14 +63,14 @@ const CommunitySection = () => {
       />
       <div className="max-w-[1300px] mx-auto px-6">
         <FadeInSection className="mb-10">
-          <div>
+          <div className="text-center">
             <span className="text-primary text-xs uppercase tracking-[0.25em] font-semibold mb-3 block">
               Dive into our community
             </span>
             <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold leading-tight mb-3 text-foreground">
               Learn Online, Connect Offline
             </h2>
-            <p className="text-muted-foreground text-sm md:text-base max-w-lg leading-relaxed">
+            <p className="text-muted-foreground text-sm md:text-base max-w-lg mx-auto leading-relaxed">
               Engage with other learners, alumni, and mentors and attend community sessions to learn from each other in our curated community.
             </p>
           </div>
