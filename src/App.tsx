@@ -42,7 +42,7 @@ const AnimatedRoutes = () => {
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <LazyMotion features={domAnimation} strict>
+    <LazyMotion features={domAnimation}>
       <TooltipProvider>
         <Toaster />
         <Sonner />
