@@ -1,23 +1,12 @@
 
 
-## Fix Masterclass Section Headline Line Break
+## Replace Forge Writing Navbar Thumbnail
 
-**File: `src/components/MasterclassSection.tsx`**
+**What**: Replace the current `nav-forge-writing.jpg` thumbnail used in the navbar dropdown for "The Forge → Writing Retreat" with the user's uploaded image.
 
-Change the headline so "India's greatest creative minds." is on line 1 and "Now your mentors." is on line 2, using a `<br />` instead of the current inline `{" "}` spacer.
+**Steps**:
+1. Copy `user-uploads://Screenshot_2026-03-03_at_6.02.18 PM.png` to `src/assets/nav-forge-writing.jpg` (overwriting the existing file)
+2. No code changes needed — `navbarData.ts` already imports from `@/assets/nav-forge-writing.jpg`
 
-Current:
-```tsx
-<span>India's greatest creative minds.</span>{" "}
-<em className="...">Now your mentors.</em>
-```
-
-Change to:
-```tsx
-<span>India's greatest creative minds.</span>
-<br />
-<em className="...">Now your mentors.</em>
-```
-
-Single-line edit, no other changes needed.
+Single file copy, zero code edits.
 
