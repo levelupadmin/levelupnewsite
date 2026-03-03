@@ -110,7 +110,9 @@ const LiveProgramsSection = () => {
           <span className="block sm:inline">Mentorship Programs,</span>{" "}
           <span className="block sm:inline whitespace-nowrap">
             For{" "}
-            <span className="inline-flex items-baseline overflow-hidden align-baseline justify-center" style={{ minWidth: "7ch" }}>
+            <span className="relative inline-flex items-baseline overflow-hidden align-baseline">
+              {/* Invisible sizer: renders the current word to set natural width */}
+              <span className="invisible font-normal" aria-hidden="true">{rotatingWords[wordIndex]}</span>
               <AnimatePresence mode="wait">
                 <m.em
                   key={rotatingWords[wordIndex]}
@@ -118,7 +120,7 @@ const LiveProgramsSection = () => {
                   animate={{ y: "0%", opacity: 1 }}
                   exit={{ y: "-100%", opacity: 0 }}
                   transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className="not-italic font-normal text-gradient-amber inline-block"
+                  className="absolute left-0 not-italic font-normal text-gradient-amber inline-block"
                 >
                   {rotatingWords[wordIndex]}
                 </m.em>
@@ -128,7 +130,8 @@ const LiveProgramsSection = () => {
           </span>{" "}
           <span className="block sm:inline whitespace-nowrap">
             By{" "}
-            <span className="inline-flex items-baseline overflow-hidden align-baseline justify-center" style={{ minWidth: "7ch" }}>
+            <span className="relative inline-flex items-baseline overflow-hidden align-baseline">
+              <span className="invisible font-normal" aria-hidden="true">{rotatingWords[wordIndex]}</span>
               <AnimatePresence mode="wait">
                 <m.em
                   key={`by-${rotatingWords[wordIndex]}`}
@@ -136,7 +139,7 @@ const LiveProgramsSection = () => {
                   animate={{ y: "0%", opacity: 1 }}
                   exit={{ y: "-100%", opacity: 0 }}
                   transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
-                  className="not-italic font-normal text-gradient-amber inline-block"
+                  className="absolute left-0 not-italic font-normal text-gradient-amber inline-block"
                 >
                   {rotatingWords[wordIndex]}
                 </m.em>
