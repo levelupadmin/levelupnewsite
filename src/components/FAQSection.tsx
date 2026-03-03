@@ -92,7 +92,7 @@ const FAQSection = () => {
       />
       <div className="relative max-w-6xl mx-auto px-5 md:px-6">
         <FadeInSection>
-          <h2 className="font-serif-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-10 md:mb-12">
+          <h2 className="font-serif-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-10 md:mb-12 text-center">
             Frequently asked questions
           </h2>
         </FadeInSection>
