@@ -86,7 +86,7 @@ const ThreadWeave = ({ progress, isVisible }: ThreadWeaveProps) => {
   const smoothMouseRef = useRef<{ x: number; y: number } | null>(null);
   const dpr = typeof window !== "undefined" ? Math.min(window.devicePixelRatio || 1, 2) : 1;
 
-  const THREAD_COUNT = 22;
+  const THREAD_COUNT = 18;
 
   const initThreads = useCallback((w: number, h: number) => {
     threadsRef.current = Array.from({ length: THREAD_COUNT }, (_, i) =>
@@ -241,21 +241,21 @@ const ThreadWeave = ({ progress, isVisible }: ThreadWeaveProps) => {
               const dy = hp.y - vp.y;
               const dist = Math.sqrt(dx * dx + dy * dy);
               if (dist < 15) {
-                const pulse = 0.35 + 0.25 * Math.sin(timeRef.current * 2 + p * 0.7);
+                const pulse = 0.2 + 0.15 * Math.sin(timeRef.current * 2 + p * 0.7);
                 const cursorBoost = mouse
-                  ? Math.max(0, 1 - Math.sqrt((mouse.x - hp.x) ** 2 + (mouse.y - hp.y) ** 2) / GLOW_RADIUS) * 0.5
+                  ? Math.max(0, 1 - Math.sqrt((mouse.x - hp.x) ** 2 + (mouse.y - hp.y) ** 2) / GLOW_RADIUS) * 0.3
                   : 0;
                 // Outer glow ring
                 ctx.beginPath();
-                ctx.arc(hp.x, hp.y, 8 + cursorBoost * 6, 0, Math.PI * 2);
+                ctx.arc(hp.x, hp.y, 6 + cursorBoost * 4, 0, Math.PI * 2);
                 ctx.fillStyle = thread.color;
-                ctx.globalAlpha = (pulse * 0.15) + cursorBoost * 0.1;
+                ctx.globalAlpha = (pulse * 0.1) + cursorBoost * 0.06;
                 ctx.fill();
                 // Bright core
                 ctx.beginPath();
-                ctx.arc(hp.x, hp.y, 3.5 + cursorBoost * 3, 0, Math.PI * 2);
+                ctx.arc(hp.x, hp.y, 2.5 + cursorBoost * 2, 0, Math.PI * 2);
                 ctx.fillStyle = "hsl(24 95% 65%)";
-                ctx.globalAlpha = pulse + cursorBoost;
+                ctx.globalAlpha = pulse * 0.7 + cursorBoost;
                 ctx.fill();
                 ctx.globalAlpha = 1;
               }
