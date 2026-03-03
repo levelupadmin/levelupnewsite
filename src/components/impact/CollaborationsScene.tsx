@@ -1,48 +1,42 @@
 import { useState, useCallback, useRef } from "react";
 import { Handshake } from "lucide-react";
 import { m, AnimatePresence } from "framer-motion";
-import { AnimatedCounter } from "@/components/AnimatedCounter";
 import FadeInSection from "@/components/FadeInSection";
 import ImpactScene from "./ImpactScene";
-import NetworkGraph from "./NetworkGraph";
+import ThreadWeave from "./ThreadWeave";
 
 const COLLAB_TAGS = [
-  { label: "Film × Music", top: "8%", left: "5%", delay: 0 },
-  { label: "Design × Code", top: "18%", right: "8%", delay: 0.3 },
-  { label: "Writing × Direction", bottom: "22%", left: "3%", delay: 0.6 },
-  { label: "VFX × Cinematography", bottom: "12%", right: "5%", delay: 0.9 },
-  { label: "Acting × Editing", top: "45%", left: "1%", delay: 1.2 },
+  { label: "Film × Music", top: "10%", left: "6%", delay: 0 },
+  { label: "Design × Code", top: "16%", right: "8%", delay: 0.15 },
+  { label: "Writing × Direction", bottom: "22%", left: "4%", delay: 0.3 },
+  { label: "VFX × Cinematography", bottom: "14%", right: "6%", delay: 0.45 },
+  { label: "Acting × Editing", top: "48%", left: "2%", delay: 0.6 },
 ];
 
 const TICKER_ITEMS = [
-  "Priya × Arjun — Documentary Edit • 2h ago",
-  "Sneha × Vikram — Music Video • 5h ago",
-  "Rahul × Meera — Short Film • 1d ago",
-  "Ananya × Dev — Podcast Series • 2d ago",
-  "Karthik × Lakshmi — Ad Film • 3d ago",
-  "Ravi × Sanya — Web Series • 4d ago",
-  "Nisha × Aditya — Animation • 5d ago",
-  "Deepak × Pooja — Photo Essay • 6d ago",
+  { names: "Priya × Arjun", project: "Documentary Edit", time: "2h ago" },
+  { names: "Sneha × Vikram", project: "Music Video", time: "5h ago" },
+  { names: "Rahul × Meera", project: "Short Film", time: "1d ago" },
+  { names: "Ananya × Dev", project: "Podcast Series", time: "2d ago" },
+  { names: "Karthik × Lakshmi", project: "Ad Film", time: "3d ago" },
+  { names: "Ravi × Sanya", project: "Web Series", time: "4d ago" },
+  { names: "Nisha × Aditya", project: "Animation", time: "5d ago" },
+  { names: "Deepak × Pooja", project: "Photo Essay", time: "6d ago" },
 ];
 
 const CollaborationsScene = () => {
   const [hovered, setHovered] = useState(false);
   const [counterProgress, setCounterProgress] = useState(0);
   const [counterDone, setCounterDone] = useState(false);
-  const [showRings, setShowRings] = useState(false);
   const [showTags, setShowTags] = useState(false);
-  const counterStarted = useRef(false);
 
-  // Track counter rolling progress (0→1)
   const handleCounterFrame = useCallback((value: number) => {
     setCounterProgress(Math.min(value / 3000, 1));
   }, []);
 
   const handleCounterComplete = useCallback(() => {
     setCounterDone(true);
-    setShowRings(true);
-    setTimeout(() => setShowTags(true), 400);
-    setTimeout(() => setShowRings(false), 2500);
+    setTimeout(() => setShowTags(true), 300);
   }, []);
 
   return (
@@ -53,56 +47,36 @@ const CollaborationsScene = () => {
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
         >
-          {/* Network graph background */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="w-full max-w-2xl pointer-events-auto">
-              <NetworkGraph
-                isVisible
-                counterProgress={counterProgress}
-              />
-            </div>
-          </div>
+          {/* Thread weave background */}
+          <ThreadWeave progress={counterProgress} isVisible />
 
-          {/* Floating collaboration type tags */}
+          {/* Refined glassmorphic tags */}
           <AnimatePresence>
-            {showTags && COLLAB_TAGS.map((tag, i) => (
-              <m.div
-                key={tag.label}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: tag.delay, duration: 0.5 }}
-                className="absolute hidden md:block px-3 py-1.5 rounded-full text-[10px] font-medium tracking-wide
-                  bg-card/60 backdrop-blur-md border border-border/40 text-muted-foreground
-                  animate-collab-float pointer-events-none"
-                style={{
-                  top: tag.top,
-                  left: tag.left,
-                  right: tag.right,
-                  bottom: tag.bottom,
-                  animationDelay: `${tag.delay}s`,
-                }}
-              >
-                {tag.label}
-              </m.div>
-            ))}
-          </AnimatePresence>
-
-          {/* Expanding sonar rings on counter complete */}
-          {showRings && (
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              {[0, 1, 2].map((ring) => (
-                <div
-                  key={ring}
-                  className="absolute rounded-full border border-primary/40 animate-collab-sonar"
+            {showTags &&
+              COLLAB_TAGS.map((tag) => (
+                <m.div
+                  key={tag.label}
+                  initial={{ opacity: 0, scale: 0.85, filter: "blur(4px)" }}
+                  animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                  transition={{ delay: tag.delay, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  className="absolute hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full
+                    text-[10px] font-medium tracking-wide
+                    bg-card/40 backdrop-blur-xl border border-primary/10
+                    text-muted-foreground/80 shadow-[0_2px_12px_-4px_hsl(24_95%_53%/0.15)]
+                    animate-collab-float pointer-events-none"
                   style={{
-                    width: 60,
-                    height: 60,
-                    animationDelay: `${ring * 0.35}s`,
+                    top: tag.top,
+                    left: tag.left,
+                    right: tag.right,
+                    bottom: tag.bottom,
+                    animationDelay: `${tag.delay}s`,
                   }}
-                />
+                >
+                  <span className="w-1 h-1 rounded-full bg-primary/60" />
+                  {tag.label}
+                </m.div>
               ))}
-            </div>
-          )}
+          </AnimatePresence>
 
           {/* Handshake icon */}
           <m.div
@@ -110,14 +84,18 @@ const CollaborationsScene = () => {
             initial={{ rotate: 0 }}
             animate={
               hovered
-                ? { rotate: [0, -12, 10, -8, 6, -3, 0], transition: { duration: 0.8, ease: [0.36, 0.07, 0.19, 0.97] } }
+                ? {
+                    rotate: [0, -12, 10, -8, 6, -3, 0],
+                    transition: { duration: 0.8, ease: [0.36, 0.07, 0.19, 0.97] },
+                  }
                 : undefined
             }
             className="relative z-10 mb-4"
           >
-            <Handshake className="w-10 h-10 md:w-14 md:h-14 text-primary" />
+            <Handshake className="w-10 h-10 md:w-14 md:h-14 text-primary drop-shadow-[0_0_12px_hsl(24_95%_53%/0.3)]" />
           </m.div>
 
+          {/* Counter */}
           <div className="relative z-10 text-center">
             <p className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-semibold text-foreground tracking-tight">
               <AnimatedCounterWithProgress
@@ -134,22 +112,18 @@ const CollaborationsScene = () => {
             </p>
           </div>
 
-          {/* Live activity ticker */}
+          {/* Glass card ticker */}
           {counterDone && (
             <m.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-              className="relative z-10 mt-8 w-full max-w-xl overflow-hidden group"
+              transition={{ delay: 0.4, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="relative z-10 mt-10 w-full max-w-2xl overflow-hidden
+                [mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)]"
             >
-              <div className="flex animate-collab-ticker group-hover:[animation-play-state:paused]">
+              <div className="flex gap-3 animate-collab-ticker group hover:[animation-play-state:paused]">
                 {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
-                  <span
-                    key={i}
-                    className="flex-shrink-0 px-4 py-1.5 text-[11px] text-muted-foreground/70 whitespace-nowrap"
-                  >
-                    {item}
-                  </span>
+                  <GlassTickerCard key={i} {...item} />
                 ))}
               </div>
             </m.div>
@@ -160,9 +134,34 @@ const CollaborationsScene = () => {
   );
 };
 
-/**
- * Wrapper around AnimatedCounter that also reports frame-by-frame progress.
- */
+/* ── Glass Ticker Card ── */
+const GlassTickerCard = ({
+  names,
+  project,
+  time,
+}: {
+  names: string;
+  project: string;
+  time: string;
+}) => (
+  <div
+    className="flex-shrink-0 flex items-center gap-2.5 px-4 py-2.5 rounded-xl
+      bg-card/30 backdrop-blur-xl border border-border/30
+      shadow-[0_1px_8px_-2px_hsl(24_95%_53%/0.08)]
+      hover:border-primary/20 transition-colors duration-300"
+  >
+    <span className="w-1.5 h-1.5 rounded-full bg-primary/70 animate-pulse" />
+    <span className="text-[11px] font-medium text-foreground/80 whitespace-nowrap">
+      {names}
+    </span>
+    <span className="text-[10px] text-muted-foreground/60 whitespace-nowrap">
+      — {project}
+    </span>
+    <span className="text-[9px] text-muted-foreground/40 whitespace-nowrap">{time}</span>
+  </div>
+);
+
+/* ── Counter with progress reporting ── */
 const AnimatedCounterWithProgress = ({
   target,
   suffix,
@@ -183,7 +182,6 @@ const AnimatedCounterWithProgress = ({
   const hasAnimated = useRef(false);
   const elRef = useRef<HTMLSpanElement>(null);
 
-  // Inline counter logic so we can tap into each frame
   const runAnimation = useCallback(() => {
     if (hasAnimated.current) return;
     hasAnimated.current = true;
@@ -210,12 +208,6 @@ const AnimatedCounterWithProgress = ({
     requestAnimationFrame(animate);
   }, [target, onProgress, onComplete]);
 
-  // Intersection observer
-  useState(() => {
-    // Effect-like via lazy init won't work – use useEffect below
-  });
-
-  // Use a ref callback approach to observe
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   const setRef = useCallback(
@@ -235,7 +227,6 @@ const AnimatedCounterWithProgress = ({
       );
       observerRef.current.observe(node);
 
-      // Fallback
       setTimeout(() => {
         if (!hasAnimated.current) runAnimation();
       }, 2500);
