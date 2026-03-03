@@ -165,7 +165,7 @@ const ForgeSection = () => {
           className="h-16 sm:h-20 md:h-28 lg:h-32 w-auto object-contain mx-auto" />
 
         <p className="font-serif-display text-lg md:text-xl text-hero-headline mt-2">
-          Where you <em className="italic font-normal text-primary">become</em>
+          Where you <em className="not-italic font-normal text-gradient-amber">become</em>
         </p>
 
         <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-4 md:mt-6 max-w-2xl mx-auto leading-relaxed">

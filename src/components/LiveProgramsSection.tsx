@@ -118,7 +118,7 @@ const LiveProgramsSection = () => {
                   animate={{ y: "0%", opacity: 1 }}
                   exit={{ y: "-100%", opacity: 0 }}
                   transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className="italic font-normal text-primary inline-block"
+                  className="not-italic font-normal text-gradient-amber inline-block"
                 >
                   {rotatingWords[wordIndex]}
                 </m.em>
@@ -136,7 +136,7 @@ const LiveProgramsSection = () => {
                   animate={{ y: "0%", opacity: 1 }}
                   exit={{ y: "-100%", opacity: 0 }}
                   transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
-                  className="italic font-normal text-primary inline-block"
+                  className="not-italic font-normal text-gradient-amber inline-block"
                 >
                   {rotatingWords[wordIndex]}
                 </m.em>

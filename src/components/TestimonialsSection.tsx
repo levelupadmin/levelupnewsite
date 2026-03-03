@@ -203,7 +203,7 @@ const TestimonialsSection = () => {
           <div>
             <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl font-medium text-hero-headline leading-[1.15] tracking-tight max-w-xl">
               Real transformations. No scripts, no exaggeration — just{" "}
-              <em className="italic font-normal text-primary">
+              <em className="not-italic font-normal text-gradient-amber">
                 honest creative growth.
               </em>
             </h2>

@@ -121,7 +121,7 @@ const HeroSection = () => {
               </span>
 
               <em
-                className="font-serif-display italic font-normal whitespace-nowrap text-primary"
+                className="font-serif-display not-italic font-normal whitespace-nowrap text-gradient-amber"
                 style={{
                   lineHeight: 1.15,
                   opacity: isAreMadeFading ? 0.78 : 1,
