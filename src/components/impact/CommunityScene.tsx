@@ -123,17 +123,11 @@ const CommunityScene = () => {
             >
               {[
                 { target: 821, suffix: "+", label: "Cities" },
-                { target: 28, suffix: "", label: "States" },
                 { target: 13, suffix: "+", label: "Countries" },
               ].map((stat, i) => (
                 <div key={stat.label} className="text-center group">
                   <p
-                    className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight transition-transform duration-200 group-hover:scale-110"
-                    style={{
-                      background: "linear-gradient(180deg, hsl(var(--foreground)), hsl(var(--foreground) / 0.65))",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                    }}
+                    className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground transition-transform duration-200 group-hover:scale-110"
                   >
                     {labelVisible && (
                       <AnimatedCounter target={stat.target} suffix={stat.suffix} celebrate delay={i * 200} />
