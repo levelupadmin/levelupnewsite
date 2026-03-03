@@ -15,9 +15,9 @@ import { rotatingWords } from "@/data/rotatingWords";
 const HeroSection = () => {
   const [wordIndex, setWordIndex] = useState(0);
   const [wordWidth, setWordWidth] = useState<number | undefined>(undefined);
-  const [isAreMadeFading, setIsAreMadeFading] = useState(false);
+  
   const measureRef = useRef<HTMLSpanElement>(null);
-  const hasMountedRef = useRef(false);
+  
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -40,17 +40,6 @@ const HeroSection = () => {
     return () => window.removeEventListener("resize", updateWidth);
   }, [measuredWord]);
 
-  // Slightly dim "are made" during each word transition for a polished drift
-  useEffect(() => {
-    if (!hasMountedRef.current) {
-      hasMountedRef.current = true;
-      return;
-    }
-
-    setIsAreMadeFading(true);
-    const timeout = window.setTimeout(() => setIsAreMadeFading(false), 260);
-    return () => window.clearTimeout(timeout);
-  }, [wordIndex]);
 
   return (
     <section
@@ -124,8 +113,6 @@ const HeroSection = () => {
                 className="font-serif-display not-italic font-normal whitespace-nowrap text-gradient-amber"
                 style={{
                   lineHeight: 1.15,
-                  opacity: isAreMadeFading ? 0.78 : 1,
-                  transition: "opacity 0.52s cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
               >
                 are made
