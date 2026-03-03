@@ -33,7 +33,7 @@ const TrustedCTASection = () => {
 
       <FadeInSection className="relative max-w-4xl mx-auto flex flex-col items-center text-center gap-8">
         {/* Masters group photo */}
-        <div className="relative w-full max-w-md md:max-w-lg" style={{ maskImage: 'radial-gradient(ellipse 80% 70% at 50% 40%, black 40%, transparent 100%)', WebkitMaskImage: 'radial-gradient(ellipse 80% 70% at 50% 40%, black 40%, transparent 100%)' }}>
+        <div className="relative w-full max-w-lg md:max-w-2xl">
           <img
             alt="LevelUp's master instructors"
             className="w-full h-auto object-contain"
