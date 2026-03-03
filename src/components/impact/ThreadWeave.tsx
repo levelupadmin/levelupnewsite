@@ -15,19 +15,23 @@ interface Thread {
 }
 
 const THREAD_COLORS = [
-  "hsl(24 95% 53%)",   // primary amber
-  "hsl(30 90% 60%)",   // gold
-  "hsl(340 50% 45%)",  // muted rose
-  "hsl(200 50% 45%)",  // muted sky
-  "hsl(160 40% 40%)",  // muted teal
-  "hsl(270 40% 50%)",  // muted violet
-  "hsl(45 70% 50%)",   // warm gold
-  "hsl(20 85% 48%)",   // deep amber
+  "hsl(24 95% 58%)",   // bright amber
+  "hsl(30 95% 65%)",   // vivid gold
+  "hsl(340 75% 55%)",  // vibrant rose
+  "hsl(200 80% 55%)",  // electric sky
+  "hsl(160 70% 50%)",  // bright teal
+  "hsl(270 70% 60%)",  // vivid violet
+  "hsl(45 90% 58%)",   // hot gold
+  "hsl(20 90% 55%)",   // bright deep amber
+  "hsl(310 60% 55%)",  // magenta
+  "hsl(180 65% 50%)",  // cyan
+  "hsl(50 85% 55%)",   // yellow gold
+  "hsl(15 85% 50%)",   // burnt orange
 ];
 
-const MAGNETIC_RADIUS = 120;
-const MAGNETIC_STRENGTH = 18;
-const GLOW_RADIUS = 150;
+const MAGNETIC_RADIUS = 140;
+const MAGNETIC_STRENGTH = 22;
+const GLOW_RADIUS = 180;
 
 function generateThread(
   index: number,
@@ -37,7 +41,7 @@ function generateThread(
 ): Thread {
   const isHorizontal = index < total / 2;
   const points: { x: number; y: number }[] = [];
-  const segments = 80;
+  const segments = 100;
 
   if (isHorizontal) {
     const baseY = (canvasH * (index + 1)) / (total / 2 + 1);
@@ -63,9 +67,9 @@ function generateThread(
   return {
     points,
     color: THREAD_COLORS[index % THREAD_COLORS.length],
-    width: 0.8 + Math.random() * 0.8,
-    speed: 0.3 + Math.random() * 0.4,
-    offset: index * 0.12,
+    width: 1.0 + Math.random() * 1.0,
+    speed: 0.4 + Math.random() * 0.5,
+    offset: index * 0.06,
   };
 }
 
@@ -82,7 +86,7 @@ const ThreadWeave = ({ progress, isVisible }: ThreadWeaveProps) => {
   const smoothMouseRef = useRef<{ x: number; y: number } | null>(null);
   const dpr = typeof window !== "undefined" ? Math.min(window.devicePixelRatio || 1, 2) : 1;
 
-  const THREAD_COUNT = 14;
+  const THREAD_COUNT = 22;
 
   const initThreads = useCallback((w: number, h: number) => {
     threadsRef.current = Array.from({ length: THREAD_COUNT }, (_, i) =>
@@ -186,8 +190,8 @@ const ThreadWeave = ({ progress, isVisible }: ThreadWeaveProps) => {
 
         const shimmer =
           threadProgress >= 1
-            ? 0.3 + 0.15 * Math.sin(timeRef.current * thread.speed * 2 + ti) + proximityGlow
-            : 0.2 + 0.1 * threadProgress;
+            ? 0.4 + 0.2 * Math.sin(timeRef.current * thread.speed * 2 + ti) + proximityGlow
+            : 0.25 + 0.15 * threadProgress;
 
         // Main thread stroke
         ctx.beginPath();
@@ -209,12 +213,12 @@ const ThreadWeave = ({ progress, isVisible }: ThreadWeaveProps) => {
         ctx.stroke();
 
         // Glow layer — wider stroke near cursor or for primary threads
-        const shouldGlow = (ti < 3 && threadProgress >= 1) || proximityGlow > 0.1;
+        const shouldGlow = (ti < 5 && threadProgress >= 1) || proximityGlow > 0.08;
         if (shouldGlow) {
           ctx.beginPath();
           ctx.strokeStyle = thread.color;
-          ctx.lineWidth = thread.width + 4 + proximityGlow * 4;
-          ctx.globalAlpha = 0.04 + 0.03 * Math.sin(timeRef.current + ti * 2) + proximityGlow * 0.12;
+          ctx.lineWidth = thread.width + 6 + proximityGlow * 6;
+          ctx.globalAlpha = 0.06 + 0.05 * Math.sin(timeRef.current + ti * 2) + proximityGlow * 0.18;
           ctx.moveTo(drawPts[0].x, drawPts[0].y);
           for (let i = 1; i < drawPts.length - 1; i++) {
             const xc = (drawPts[i].x + drawPts[i + 1].x) / 2;
@@ -236,14 +240,21 @@ const ThreadWeave = ({ progress, isVisible }: ThreadWeaveProps) => {
               const dx = hp.x - vp.x;
               const dy = hp.y - vp.y;
               const dist = Math.sqrt(dx * dx + dy * dy);
-              if (dist < 12) {
-                const pulse = 0.15 + 0.1 * Math.sin(timeRef.current * 1.5 + p);
+              if (dist < 15) {
+                const pulse = 0.35 + 0.25 * Math.sin(timeRef.current * 2 + p * 0.7);
                 const cursorBoost = mouse
-                  ? Math.max(0, 1 - Math.sqrt((mouse.x - hp.x) ** 2 + (mouse.y - hp.y) ** 2) / GLOW_RADIUS) * 0.25
+                  ? Math.max(0, 1 - Math.sqrt((mouse.x - hp.x) ** 2 + (mouse.y - hp.y) ** 2) / GLOW_RADIUS) * 0.5
                   : 0;
+                // Outer glow ring
                 ctx.beginPath();
-                ctx.arc(hp.x, hp.y, 3 + cursorBoost * 3, 0, Math.PI * 2);
-                ctx.fillStyle = "hsl(24 95% 53%)";
+                ctx.arc(hp.x, hp.y, 8 + cursorBoost * 6, 0, Math.PI * 2);
+                ctx.fillStyle = thread.color;
+                ctx.globalAlpha = (pulse * 0.15) + cursorBoost * 0.1;
+                ctx.fill();
+                // Bright core
+                ctx.beginPath();
+                ctx.arc(hp.x, hp.y, 3.5 + cursorBoost * 3, 0, Math.PI * 2);
+                ctx.fillStyle = "hsl(24 95% 65%)";
                 ctx.globalAlpha = pulse + cursorBoost;
                 ctx.fill();
                 ctx.globalAlpha = 1;
@@ -255,11 +266,12 @@ const ThreadWeave = ({ progress, isVisible }: ThreadWeaveProps) => {
 
       // Cursor glow halo
       if (mouse) {
-        const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 60);
-        gradient.addColorStop(0, "hsla(24, 95%, 53%, 0.06)");
+        const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 80);
+        gradient.addColorStop(0, "hsla(24, 95%, 58%, 0.1)");
+        gradient.addColorStop(0.5, "hsla(24, 95%, 53%, 0.04)");
         gradient.addColorStop(1, "hsla(24, 95%, 53%, 0)");
         ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, 60, 0, Math.PI * 2);
+        ctx.arc(mouse.x, mouse.y, 80, 0, Math.PI * 2);
         ctx.fillStyle = gradient;
         ctx.globalAlpha = 1;
         ctx.fill();
