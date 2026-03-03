@@ -443,7 +443,7 @@ const Navbar = () => {
                                     className="block rounded-sm overflow-hidden bg-white/5 active:scale-[0.97] transition-all duration-150 relative"
                                     style={{ borderLeft: `3px solid ${linkAccent}` }}
                                   >
-                                    <div className="aspect-[4/3] overflow-hidden rounded-md relative">
+                                    <div className="aspect-[4/3] overflow-hidden rounded-md">
                                       <img
                                         src={item.image}
                                         alt={item.title}
@@ -452,11 +452,11 @@ const Navbar = () => {
                                         loading="lazy"
                                         decoding="async"
                                       />
-                                      {/* Always-visible title overlay for mobile */}
-                                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-2.5 pb-2 pt-6">
-                                        <p className="text-[13px] font-semibold leading-tight" style={{ color: linkAccent }}>{item.title}</p>
-                                        <p className="text-[11px] text-white/60 leading-tight mt-0.5">{item.subtitle}</p>
-                                      </div>
+                                    </div>
+                                    {/* Always-visible title + subtitle below card */}
+                                    <div className="px-1 pt-1.5 pb-1">
+                                      <p className="text-[13px] font-semibold leading-tight truncate" style={{ color: linkAccent }}>{item.title}</p>
+                                      <p className="text-[11px] text-white/60 leading-tight mt-0.5 truncate">{item.subtitle}</p>
                                     </div>
                                   </m.a>
                                 ))}
