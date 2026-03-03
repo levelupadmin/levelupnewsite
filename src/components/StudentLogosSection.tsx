@@ -9,14 +9,14 @@ import logoWhistlingWoods from "@/assets/logos/whistling-woods.png";
 import logoYrf from "@/assets/logos/yrf.png";
 import logoExcel from "@/assets/logos/excel-entertainment.png";
 import logoTvf from "@/assets/logos/tvf.png";
-import logoGoogle from "@/assets/logos/google.png";
-import logoAmazonPrime from "@/assets/logos/amazon-prime.png";
-import logoViacom18 from "@/assets/logos/viacom18.png";
 import logoDharma from "@/assets/logos/dharma.png";
 import logoRedChillies from "@/assets/logos/red-chillies.png";
-import logoAdobe from "@/assets/logos/adobe.png";
+import logoViacom18 from "@/assets/logos/viacom18.png";
 
-// Real SVG logos — Tech (from Simple Icons / svgl)
+// Real SVG logos — downloaded from simple-icons / svgl
+import logoGoogle from "@/assets/logos/google-real.svg";
+import logoAdobe from "@/assets/logos/adobe-real.svg";
+import logoAmazonPrime from "@/assets/logos/amazon-prime-real.svg";
 import logoMicrosoft from "@/assets/logos/microsoft-real.svg";
 import logoMeta from "@/assets/logos/meta-real.svg";
 import logoFlipkart from "@/assets/logos/flipkart.svg";
@@ -26,17 +26,15 @@ import logoWipro from "@/assets/logos/wipro-real.svg";
 import logoZoho from "@/assets/logos/zoho-real.svg";
 import logoSwiggy from "@/assets/logos/swiggy-real.svg";
 import logoRazorpay from "@/assets/logos/razorpay-real.svg";
-
-// Real SVG logos — Consumer/Media
 import logoTata from "@/assets/logos/tata-real.svg";
 import logoReliance from "@/assets/logos/reliance.svg";
-import logoItc from "@/assets/logos/itc.svg";
 import logoHul from "@/assets/logos/hul.svg";
 import logoSonyPictures from "@/assets/logos/sony-real.svg";
 import logoStarIndia from "@/assets/logos/star-india.svg";
 import logoZee from "@/assets/logos/zee.svg";
+import logoItc from "@/assets/logos/itc.svg";
 
-// Institutions (text SVGs kept for those without downloadable logos)
+// Institutions (wordmark SVGs)
 import logoIit from "@/assets/logos/iit-real.svg";
 import logoIim from "@/assets/logos/iim.svg";
 import logoNift from "@/assets/logos/nift.svg";
@@ -165,7 +163,8 @@ const StudentLogosSection = () => {
                     alt={brand.name}
                     className="h-7 md:h-12 lg:h-14 max-w-[80px] md:max-w-[140px] lg:max-w-[160px] w-auto object-contain select-none logo-marquee-item"
                     style={{ filter: "brightness(0) invert(1)" }}
-                    loading="lazy"
+                    loading="eager"
+                    decoding="async"
                   />
                 ))}
               </div>
