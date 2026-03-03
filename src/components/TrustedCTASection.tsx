@@ -68,20 +68,19 @@ const TrustedCTASection = () => {
         </p>
 
         {/* Featured in - press logos */}
-        <div className="flex flex-col items-center gap-4 w-full">
-          <p className="text-xs md:text-sm text-muted-foreground/60 uppercase tracking-widest">
+        <div className="flex flex-col items-center gap-5 w-full mt-2">
+          <p className="text-sm md:text-base text-muted-foreground/80 uppercase tracking-[0.2em] font-medium">
             Featured in
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-5 md:gap-8">
+          <div className="flex flex-wrap items-center justify-center gap-7 md:gap-10">
             {pressLogos.map((logo) =>
             <img
               key={logo.name}
               src={logo.src}
               alt={logo.name}
-              className="h-4 md:h-5 w-auto object-contain opacity-50 grayscale brightness-200"
+              className="h-5 md:h-7 w-auto object-contain opacity-60 grayscale brightness-200"
               style={{ mixBlendMode: "screen" }}
               loading="lazy" />
-
             )}
           </div>
         </div>
