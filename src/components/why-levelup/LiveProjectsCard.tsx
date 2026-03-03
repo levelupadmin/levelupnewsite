@@ -142,19 +142,19 @@ const LiveProjectsCard = () => {
         </div>
 
         {/* Bottom summary with animated counters */}
-        <div className="px-4 py-2 border-t border-primary/10">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1">
+        <div className="px-4 py-2.5 border-t border-primary/10">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="flex items-center gap-1 shrink-0">
                 <Film size={8} className="text-primary/50" />
-                <span className="text-[9px] text-foreground/50 font-mono pf-counter-projects">5 projects</span>
+                <span className="text-[9px] text-foreground/50 font-mono leading-none pf-counter-projects">5 projects</span>
               </div>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1 shrink-0">
                 <Briefcase size={8} className="text-primary/50" />
-                <span className="text-[9px] text-foreground/50 font-mono pf-counter-gigs">2 paid gigs</span>
+                <span className="text-[9px] text-foreground/50 font-mono leading-none pf-counter-gigs">2 paid gigs</span>
               </div>
             </div>
-            <span className="text-[8px] text-primary/40 pf-built-tag">Built during LevelUp</span>
+            <span className="text-[8px] text-primary/40 shrink-0 pf-built-tag">Built during LevelUp</span>
           </div>
         </div>
       </div>
