@@ -1,12 +1,19 @@
 
 
-## Plan: Remove bottom fade and enlarge masters image
+## Plan: Thumbnail-only navbar dropdown cards
 
-**What changes:**
-In `src/components/TrustedCTASection.tsx`:
+Remove the text overlay and bottom text panel from dropdown cards in both desktop and mobile views, showing only the thumbnail images.
 
-1. **Remove the radial gradient mask** — the current `maskImage` / `WebkitMaskImage` style on the image wrapper creates the fade effect on all edges including the bottom. Remove it entirely.
-2. **Increase image size** — change `max-w-md md:max-w-lg` to `max-w-lg md:max-w-2xl` so the group photo is significantly larger.
+### Changes in `src/components/Navbar.tsx`
 
-Single file edit, two property changes.
+**Desktop dropdown cards (lines 260-315):**
+- Remove the `<div className="px-2.5 py-2">` block containing title, subtitle, and format badge
+- Change aspect ratio from `aspect-[3/2]` to something slightly taller like `aspect-[4/3]` to give thumbnails more presence
+- Add `rounded-md` to the card for cleaner edges
+
+**Mobile dropdown cards (lines 402-456):**
+- Remove the `<div className="px-2.5 py-2">` block containing title, subtitle, and badge
+- Adjust aspect ratio similarly
+
+Both desktop and mobile cards will become just clickable thumbnail images with hover scale effect, no text underneath.
 
