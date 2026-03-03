@@ -6,14 +6,10 @@ import ImpactScene from "./ImpactScene";
 import community8 from "@/assets/community/community-8.jpg";
 
 const PROGRAMS = [
-  { name: "Breakfree Program", count: "12,400+" },
-  { name: "Screenwriting Workshop", count: "8,200+" },
-  { name: "Video Editing Bootcamp", count: "9,800+" },
-  { name: "UI/UX Design Lab", count: "7,600+" },
-  { name: "Cinematography Intensive", count: "5,400+" },
-  { name: "Sound Design Course", count: "4,100+" },
-  { name: "Direction Masterclass", count: "6,300+" },
-  { name: "Acting Fundamentals", count: "4,900+" },
+  { name: "Breakthrough Filmmakers' Program", count: "18,400+" },
+  { name: "Video Editing Academy", count: "12,200+" },
+  { name: "UI/UX Design Academy", count: "9,800+" },
+  { name: "Screenwriting Workshop", count: "8,600+" },
 ];
 
 const LearnersScene = () => {
