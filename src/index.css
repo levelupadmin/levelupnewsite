@@ -339,6 +339,13 @@
 .animate-impact-review-scroll {
   animation: impact-review-scroll 18s linear infinite;
 }
+@keyframes impact-review-scroll-reverse {
+  0% { transform: translateY(-50%); }
+  100% { transform: translateY(0); }
+}
+.animate-impact-review-scroll-reverse {
+  animation: impact-review-scroll-reverse 22s linear infinite;
+}
 
 @keyframes impact-photo-drift {
   0%, 100% { transform: scale(1) translate(0, 0); }
