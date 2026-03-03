@@ -565,6 +565,24 @@
   will-change: opacity;
 }
 
+/* Shimmer for dark-on-primary backgrounds (Learners scene) */
+.learner-shimmer {
+  color: hsl(0 0% 98%);
+  background-image: linear-gradient(
+    110deg,
+    hsl(0 0% 98%) 25%,
+    hsl(45 100% 90%) 45%,
+    hsl(45 100% 95%) 50%,
+    hsl(45 100% 90%) 55%,
+    hsl(0 0% 98%) 75%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: text-shimmer 1.5s ease-in-out forwards;
+}
+
 
 /* Bento grid award-winning keyframes */
 @keyframes ken-burns {

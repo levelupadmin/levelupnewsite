@@ -46,7 +46,7 @@ const LearnersScene = () => {
           {/* Counter */}
           <div className="relative z-10 text-center">
             <p
-              className={`text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-semibold text-primary-foreground tracking-tight leading-none ${done ? "text-shimmer" : ""}`}
+              className={`text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-semibold tracking-tight leading-none ${done ? "learner-shimmer" : "text-primary-foreground"}`}
             >
               <AnimatedCounter
                 target={58746}
