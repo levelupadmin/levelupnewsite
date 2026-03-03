@@ -181,26 +181,34 @@ const LiveProgramsSection = () => {
 
             {/* Mini CTA Banner */}
             <div className="hidden md:flex mt-auto p-4 flex-1 flex-col justify-end">
-              <div className="relative rounded-lg overflow-hidden border border-primary/50 flex-1 flex flex-col">
-                <div className="flex-1 flex flex-col justify-end relative" style={{ maskImage: 'linear-gradient(to left, black, transparent)', WebkitMaskImage: 'linear-gradient(to left, black, transparent)' }}>
-                  <img
-                    src={careerQuizBanner}
-                    alt="Career quiz"
-                    className="absolute inset-0 w-full h-full object-cover"
-                    loading="lazy" />
+              <div
+                className="group/quiz relative rounded-lg overflow-hidden border border-border hover:border-primary/40 flex-1 flex flex-col cursor-pointer transition-all duration-500"
+                style={{ boxShadow: "0 0 0px transparent" }}
+                onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 0 20px hsl(38 75% 55% / 0.15)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 0 0px transparent"; }}
+                onClick={() => setQuizOpen(true)}
+              >
+                {/* Background image — visible, scales on hover */}
+                <img
+                  src={careerQuizBanner}
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover/quiz:opacity-40 group-hover/quiz:scale-110 transition-all duration-700 ease-out"
+                  loading="lazy"
+                />
 
-                  <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
-                  <div className="relative p-5">
-                    <p className="font-sans-body text-sm text-muted-foreground leading-snug mb-2">
-                      Not sure which creator<br />path fits you?
-                    </p>
-                    <button
-                      onClick={() => setQuizOpen(true)}
-                      className="inline-flex items-center gap-1 font-sans-body text-sm text-primary hover:text-primary/80 transition-colors">
+                {/* Warm gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-amber-950/60 group-hover/quiz:via-background/50 transition-all duration-500" />
 
-                      Take our quiz <ArrowRight className="w-3 h-3 animate-slide-right" />
-                    </button>
-                  </div>
+                {/* Content */}
+                <div className="relative flex-1 flex flex-col justify-end p-5">
+                  <p className="font-sans-body text-sm text-foreground/80 leading-snug mb-3">
+                    Not sure which creator<br />path fits you?
+                  </p>
+                  <span className="inline-flex items-center gap-1.5 self-start px-4 py-1.5 rounded-full bg-primary/15 border border-primary/30 font-sans-body text-xs text-primary group-hover/quiz:bg-primary/25 group-hover/quiz:border-primary/50 transition-all duration-300">
+                    <span className="text-base leading-none">?</span>
+                    Take our quiz
+                    <ArrowRight className="w-3 h-3 group-hover/quiz:translate-x-0.5 transition-transform" />
+                  </span>
                 </div>
               </div>
             </div>
