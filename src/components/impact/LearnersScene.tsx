@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import { m } from "framer-motion";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import ImpactScene from "./ImpactScene";
@@ -13,18 +13,39 @@ const PROGRAMS = [
 
 const LearnersScene = () => {
   const [done, setDone] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [mouse, setMouse] = useState<{ rx: number; ry: number; x: number; y: number } | null>(null);
+
+  const onMouseMove = useCallback((e: React.MouseEvent) => {
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    setMouse({
+      rx: (e.clientX - rect.left) / rect.width,
+      ry: (e.clientY - rect.top) / rect.height,
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  }, []);
 
   return (
     <ImpactScene>
-      <section className="relative flex flex-col items-center justify-center min-h-[340px] md:min-h-[460px] px-6 py-16 md:py-24 bg-background overflow-hidden">
-        {/* Ken Burns background */}
+      <section
+        ref={containerRef}
+        className="relative flex flex-col items-center justify-center min-h-[340px] md:min-h-[460px] px-6 py-16 md:py-24 bg-background overflow-hidden"
+        onMouseMove={onMouseMove}
+        onMouseLeave={() => setMouse(null)}
+      >
+        {/* Ken Burns background with cursor parallax */}
         <div
           className="absolute inset-0 animate-ken-burns opacity-20"
           style={{
             backgroundImage: `url(${community8})`,
             backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundPosition: mouse
+              ? `${50 + (mouse.rx - 0.5) * 4}% ${50 + (mouse.ry - 0.5) * 4}%`
+              : "center",
             mixBlendMode: "multiply",
+            transition: "background-position 0.4s ease-out",
           }}
         />
 
@@ -36,13 +57,30 @@ const LearnersScene = () => {
               "radial-gradient(ellipse 80% 70% at 50% 50%, transparent 28%, hsl(var(--background) / 0.72) 100%)",
           }}
         />
+
+        {/* Cursor-tracking glow */}
+        <div
+          className="absolute inset-0 pointer-events-none transition-opacity duration-500"
+          style={{
+            opacity: mouse ? 1 : 0,
+            background: mouse
+              ? `radial-gradient(circle at ${mouse.rx * 100}% ${mouse.ry * 100}%, hsl(24 95% 53% / 0.12), transparent 40%)`
+              : undefined,
+          }}
+        />
+
         <div className="noise-overlay absolute inset-0 opacity-[0.06] pointer-events-none" />
 
-        {/* Counter */}
+        {/* Counter with dynamic text-shadow */}
         <div className="relative z-20 text-center">
           <p
             className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-semibold text-foreground tracking-tight leading-none whitespace-nowrap"
-            style={{ textShadow: "0 0 28px hsl(var(--primary) / 0.35)" }}
+            style={{
+              textShadow: mouse
+                ? `0 0 ${28 + Math.max(0, 1 - Math.abs(mouse.rx - 0.5) * 2) * 20}px hsl(var(--primary) / ${0.3 + Math.max(0, 1 - Math.abs(mouse.rx - 0.5) * 2) * 0.2})`
+                : "0 0 28px hsl(var(--primary) / 0.35)",
+              transition: "text-shadow 0.3s ease-out",
+            }}
           >
             <AnimatedCounter
               target={58746}
@@ -56,7 +94,7 @@ const LearnersScene = () => {
           </p>
         </div>
 
-        {/* Program ticker */}
+        {/* Program ticker with hover glow cards */}
         {done && (
           <m.div
             initial={{ opacity: 0, y: 12 }}
@@ -68,12 +106,16 @@ const LearnersScene = () => {
               {[...PROGRAMS, ...PROGRAMS].map((p, i) => (
                 <div
                   key={i}
-                  className="flex-shrink-0 flex items-center gap-2.5 px-4 py-2 rounded-xl bg-card/40 backdrop-blur-xl border border-border/50 hover:border-primary/40 transition-colors duration-300"
+                  className="flex-shrink-0 flex items-center gap-2.5 px-4 py-2 rounded-xl
+                    bg-card/40 backdrop-blur-xl border border-border/50
+                    hover:border-primary/40 hover:shadow-[0_0_16px_-4px_hsl(24_95%_53%/0.2)]
+                    transition-all duration-300 group"
                 >
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary/50 group-hover:bg-primary/80 transition-colors duration-300" />
                   <span className="text-[11px] font-medium text-foreground/85 whitespace-nowrap">
                     {p.name}
                   </span>
-                  <span className="text-[10px] text-muted-foreground whitespace-nowrap">
+                  <span className="text-[10px] text-muted-foreground whitespace-nowrap group-hover:text-primary/70 transition-colors duration-300">
                     {p.count}
                   </span>
                 </div>
