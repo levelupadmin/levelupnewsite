@@ -33,17 +33,15 @@ const TrustedCTASection = () => {
 
       <FadeInSection className="relative max-w-4xl mx-auto flex flex-col items-center text-center gap-8">
         {/* Masters group photo */}
-        <div className="relative w-full max-w-md md:max-w-lg">
+        <div className="relative w-full max-w-md md:max-w-lg" style={{ maskImage: 'radial-gradient(ellipse 80% 70% at 50% 40%, black 40%, transparent 100%)', WebkitMaskImage: 'radial-gradient(ellipse 80% 70% at 50% 40%, black 40%, transparent 100%)' }}>
           <img
-
             alt="LevelUp's master instructors"
             className="w-full h-auto object-contain"
             width={1080}
             height={810}
-            loading="lazy" src="/lovable-uploads/bded7ac9-4461-4363-bf02-5298f0b77158.png" />
-          
-          {/* Bottom vignette blend */}
-          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background via-background/60 to-transparent pointer-events-none" />
+            loading="lazy"
+            src="/lovable-uploads/bded7ac9-4461-4363-bf02-5298f0b77158.png"
+          />
         </div>
 
         {/* Headline */}
