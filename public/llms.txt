@@ -1,0 +1,50 @@
+# LevelUp Learning
+
+> India's leading creative education ecosystem for filmmakers, editors, writers, designers, and creators.
+
+## About
+
+LevelUp Learning is a creative education platform that brings together masterclasses, mentor-led live programs, and immersive offline residencies. It is designed for serious creators who want to deepen their craft, sharpen their voice, and connect with a community that cares about the work.
+
+Founded in India, LevelUp serves students and working professionals across disciplines — filmmaking, video editing, screenwriting, UI/UX design, and content creation.
+
+## Programs
+
+### Masterclasses
+On-demand masterclasses taught by celebrated industry professionals including Lokesh Kanagaraj (filmmaker), Nelson Dilipkumar (filmmaker), Dr. Kiran (cinematographer), Anthony Gonsalvez (editor), Ravi Basrur (music director), and Venket Ram (photographer).
+
+### Live Mentor-Led Programs
+Cohort-based, intensive live programs with direct mentorship:
+
+- **Breakthrough Filmmakers' Program**: 12-week online program covering storytelling, screenwriting, direction, cinematography, and post-production. Live weekend classes with industry mentors and hands-on projects.
+- **Video Editing Academy**: 12-week cohort to turn video editing into a high-paying career. Learn from mentors who've worked with creators like Ali Abdaal, Ankur Warikoo, and Sharan Hegde.
+- **UI/UX Design Academy**: 12-week AI-first Product Design Accelerator. Go from brief to interview-ready portfolio.
+- **Screenwriting Workshop**: 8-week program to master storytelling and shape scripts into blockbuster screenplays.
+
+### The Forge (Offline Residencies)
+Immersive, offline learning experiences combining travel, hands-on creation, and community. Built for filmmakers, writers, founders, builders, artists, and creators.
+
+- **Forge Filmmaking Bootcamp**: Intensive bootcamp with online + offline phases. Participants create their own short film.
+- **Forge Writing Retreat**: 6-day fully offline retreat for writers and storytellers.
+- **Forge Creators Bootcamp**: Build, collaborate, and ship creative work with fellow creators.
+
+Locations include Goa, Dehradun, Delhi, Bangalore, Mumbai, and Bali. Over 25 editions across 10 cities with 500+ alumni.
+
+## Impact
+
+- Students from 28+ Indian states and 6 countries
+- Alumni at Google, Amazon, Adobe, Meta, Flipkart, Infosys, TCS, Wipro, Razorpay, Swiggy, Zoho, and more
+- Students from IIT, IIM, ISB, NID, NIFT, MICA, FTII, Christ University, Manipal, and other top institutions
+- Featured in The Hindu, Hindustan Times, Outlook India, YourStory, ABN Telugu, and The Quint
+
+## Contact
+
+- Website: https://www.leveluplearning.live
+- Email: hello@leveluplearning.com
+
+## Pages
+
+- Home: https://www.leveluplearning.live/
+- Student Stories: https://www.leveluplearning.live/student-stories
+- Terms of Service: https://www.leveluplearning.live/terms
+- Privacy Policy: https://www.leveluplearning.live/privacy-policy
