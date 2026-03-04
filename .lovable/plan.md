@@ -1,33 +1,15 @@
 
 
-## Mobile Navbar Cards: Always-Visible Labels + Tap Feedback
+## Fix: Bottom spacing for expanded card illustration
 
-**Problem**: On mobile, hover effects (title reveal, glow, lift) don't work. Currently mobile cards are thumbnail-only with no text — users have to guess what each card is.
+**Problem**: In the expanded "Expert Mentors" card (second card visually, index 0), the left-column illustration has no bottom padding — it touches the card edge.
 
-**Solution**: Always show the title and subtitle on mobile cards (no hover needed), and add tap feedback to replace the hover micro-animations.
+**Change**: Add `pb-4` to the illustration wrapper div on line 200 in `src/components/WhyLevelUp.tsx`.
 
----
+```
+Line 200: <div className="flex-1 flex items-center justify-center min-h-0">
+→        <div className="flex-1 flex items-center justify-center min-h-0 pb-4">
+```
 
-### Changes (all in `src/components/Navbar.tsx`)
-
-**1. Always-visible title + subtitle overlay on mobile cards (lines 443-454)**
-
-Replace the current image-only mobile cards with a version that permanently shows a gradient overlay at the bottom with the item's title and subtitle. This uses the category accent color for the title — same style as the desktop hover reveal, but always visible.
-
-**2. Active-state tap feedback**
-
-The mobile cards already have `active:bg-white/10`. Enhance with a slight `active:scale-[0.97]` transform and a subtle accent-colored left border on tap, giving the same tactile feel as the desktop `whileTap`.
-
-**3. Accent dot indicator per card**
-
-Add a small accent-colored dot or thin accent bar on the left edge of each mobile card to visually tie them to their category, matching the desktop accent theming.
-
----
-
-### Technical detail
-
-- The overlay will use `absolute inset-x-0 bottom-0` with `bg-gradient-to-t from-black/70 to-transparent` and show `item.title` + `item.subtitle`
-- Title styled with `style={{ color: linkAccent }}` matching desktop behavior
-- Tap transform via Tailwind `active:scale-[0.97] transition-transform`
-- No new components or files needed — contained to the mobile card rendering block (~lines 422-455)
+Single line change, no visual/functional impact beyond adding breathing room at the bottom of the illustration in expanded cards.
 
