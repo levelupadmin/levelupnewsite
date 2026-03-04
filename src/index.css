@@ -1392,3 +1392,127 @@
 .group\/portfolio:hover .pf-sum-b {
   animation-play-state: paused;
 }
+
+/* ═══ Wall of Love — Gradient Mesh ═══ */
+@keyframes reviews-mesh-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(30px, -20px) scale(1.05); }
+  50% { transform: translate(-20px, 15px) scale(0.98); }
+  75% { transform: translate(15px, 25px) scale(1.03); }
+}
+
+.reviews-gradient-mesh {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.reviews-gradient-mesh::before,
+.reviews-gradient-mesh::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+}
+
+.reviews-gradient-mesh::before {
+  width: 500px;
+  height: 500px;
+  top: -10%;
+  left: -5%;
+  background: radial-gradient(circle, hsl(24 90% 70% / 0.15) 0%, transparent 70%);
+  animation: reviews-mesh-drift 20s ease-in-out infinite;
+}
+
+.reviews-gradient-mesh::after {
+  width: 400px;
+  height: 400px;
+  top: 5%;
+  right: -5%;
+  background: radial-gradient(circle, hsl(30 80% 75% / 0.12) 0%, transparent 70%);
+  animation: reviews-mesh-drift 25s ease-in-out infinite reverse;
+}
+
+.reviews-mesh-blob-3 {
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  top: 20%;
+  left: 40%;
+  border-radius: 50%;
+  background: radial-gradient(circle, hsl(20 60% 85% / 0.1) 0%, transparent 70%);
+  filter: blur(60px);
+  animation: reviews-mesh-drift 22s ease-in-out 3s infinite;
+  pointer-events: none;
+}
+
+/* ═══ Wall of Love — Marquee ═══ */
+@keyframes reviews-marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes reviews-marquee-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.reviews-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 2rem;
+}
+
+.reviews-marquee-left {
+  animation: reviews-marquee-left 40s linear infinite;
+}
+
+.reviews-marquee-right {
+  animation: reviews-marquee-right 45s linear infinite;
+}
+
+/* Fade edges */
+.reviews-marquee-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.reviews-marquee-container::before,
+.reviews-marquee-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.reviews-marquee-container::before {
+  left: 0;
+  background: linear-gradient(to right, hsl(30 20% 97%), transparent);
+}
+
+.reviews-marquee-container::after {
+  right: 0;
+  background: linear-gradient(to left, hsl(30 20% 97%), transparent);
+}
+
+/* ═══ Wall of Love — Hover Spotlight ═══ */
+.reviews-grid-spotlight:hover > * {
+  opacity: 0.45;
+  transition: opacity 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.reviews-grid-spotlight:hover > *:hover {
+  opacity: 1;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px -8px hsl(24 95% 53% / 0.12);
+}
+
+.reviews-grid-spotlight > * {
+  transition: opacity 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+}
