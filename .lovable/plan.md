@@ -1,48 +1,24 @@
 
 
-## Wall of Love — From Generic SaaS to Cinematic Editorial
+## Fix: Portfolio-Driven Learning Card (Card #2) Overflow and Spacing
 
-The core problem: the reviews page looks like a white-label testimonial widget, completely disconnected from the dark, cinematic brand identity of the rest of the site. There are also two bugs to fix (empty grid, truncated featured reviews).
+The second card ("Portfolio-Driven Learning" with `LiveProjectsCard`) is overflowing in its expanded state. The illustration bleeds past the card boundary because the `2fr_3fr` grid gives the right column too much space relative to the container, and the illustration wrapper lacks overflow constraints.
 
-### Critical Bug Fix: Empty Reviews Grid
+### Changes in `src/components/WhyLevelUp.tsx`
 
-The masonry grid shows filter counts but renders no cards. The `columns` CSS layout combined with framer-motion `m.div` wrappers is likely causing a rendering issue. Will investigate and fix the grid rendering.
+**Only targeting features[1] behavior — no changes to the other two cards.**
 
-### Design Direction: Dark Cinematic Theme
+1. **Add `overflow-hidden` to the illustration wrapper** (line 200) — the `<div className="flex-1 flex items-center justify-center min-h-0 pb-4">` that wraps `<Illustration />` in the expanded left column needs `overflow-hidden` so `LiveProjectsCard`'s internal content clips properly.
 
-Switch the reviews page from the light `.theme-reviews` to the site's native dark theme — matching the homepage's black/amber/orange palette. This immediately eliminates the "SaaS app" feeling and creates brand continuity.
+2. **Constrain the expanded grid proportions** — Change `grid-cols-[2fr_3fr]` (line 194) to `grid-cols-[2fr_3fr]` → `grid-cols-2` (equal columns) so the illustration and text each get 50% width, preventing the text column from pushing content out of bounds.
 
-### Changes
+3. **Standardize expanded padding** — The compressed state uses `p-7 md:p-10` while expanded uses `p-6 md:p-8`. Align the expanded state to `p-6 md:p-8` consistently (already the case, so just confirm no drift).
 
-**1. Remove `.theme-reviews` light theme**
-- Delete the `theme-reviews` wrapper so the page uses the site's native dark palette (dark bg, white text, orange accents)
-- Review cards become dark glass-morphic cards (`bg-card` in dark mode = `hsl(22 12% 9%)`) with subtle borders
-- Marquee pills, filter tags, stats — all naturally inherit the dark palette
+4. **Add `overflow-hidden` to the card's outer flex container** (line 128-141) — ensure `overflow-hidden` is on the card wrapper div so nothing escapes the rounded corners.
 
-**2. Featured Reviews: Vertical Stack with Full Text**
-- Change from `grid-cols-3` horizontal to single-column vertical stack
-- Remove text truncation — show the complete review
-- Make them larger, more editorial — generous padding, prominent quote marks, full-width layout
-- Add a subtle left accent border per program (reuse existing `PROGRAM_BORDER_COLORS`)
-
-**3. Hero: Dark Background with Cinematic Depth**
-- Remove the gradient mesh blobs (designed for light bg)
-- Add the site's ambient vignette and film grain naturally (they were being hidden by `.theme-reviews`)
-- Keep the marquee but restyle pills for dark mode
-
-**4. Review Cards: Cinematic Glass Style**
-- Dark card backgrounds with subtle warm border glow on hover
-- Remove the blockquote left-border (too clinical) — use a more editorial opening quote mark
-- Warmer, more readable text colors against dark backgrounds
-
-**5. Fix Grid Rendering Bug**
-- Debug why the masonry grid is empty despite data being loaded
-- Likely a CSS `columns` + framer-motion interaction issue
-
-### Files to Edit
+### Files
 
 | File | Change |
 |------|--------|
-| `src/pages/Reviews.tsx` | Remove `theme-reviews` wrapper, restructure featured reviews to vertical stack with full text, fix grid bug, restyle cards for dark theme |
-| `src/index.css` | Remove/adapt `.theme-reviews` overrides, update gradient mesh for dark, adjust marquee pill styles |
+| `src/components/WhyLevelUp.tsx` | Add `overflow-hidden` to illustration wrapper, change expanded grid to equal columns, ensure card wrapper clips overflow |
 
