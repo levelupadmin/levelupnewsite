@@ -12,7 +12,7 @@ import Index from "./pages/Index";
 const About = lazy(() => import("./pages/About"));
 const Reviews = lazy(() => import("./pages/Reviews"));
 const StudentStory = lazy(() => import("./pages/StudentStory"));
-const StudentStoriesIndex = lazy(() => import("./pages/StudentStoriesIndex"));
+
 const Terms = lazy(() => import("./pages/Terms"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -34,7 +34,7 @@ const AnimatedRoutes = () => {
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
           <Route path="/reviews" element={<Reviews />} />
-          <Route path="/student-stories" element={<StudentStoriesIndex />} />
+          
           <Route path="/student-stories/:slug" element={<StudentStory />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
