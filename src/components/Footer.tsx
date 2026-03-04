@@ -8,6 +8,7 @@ const footerLinks = {
     { label: "Masterclasses", href: "#masterclasses" },
     { label: "LevelUp Live", href: "#live-programs" },
     { label: "The Forge", href: "#forge" },
+    { label: "Reviews", href: "/reviews" },
   ],
   Company: [
     { label: "Careers", href: "https://www.leveluplearning.in/contact-us" },
