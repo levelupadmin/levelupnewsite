@@ -3,10 +3,10 @@ import FadeInSection from "./FadeInSection";
 import CredibilityParticles from "./CredibilityParticles";
 
 const cues = [
-  { value: "57,660+", numericValue: 57660, label: "Learners enrolled", suffix: "+", hasComma: true },
-  { value: "4.85", numericValue: 4.85, label: "Rating (15,000+ reviews)", suffix: "", decimals: 2 },
-  { value: "6+", numericValue: 6, label: "Masterclasses", suffix: "+" },
-  { value: "20+", numericValue: 20, label: "Hours of content", suffix: "+" },
+  { value: "58,746+", numericValue: 58746, label: "Paid Learners", suffix: "+", hasComma: true },
+  { value: "4.86", numericValue: 4.86, label: "Rating (15,000+ reviews)", suffix: "", decimals: 2 },
+  { value: "821+", numericValue: 821, label: "Cities", suffix: "+" },
+  { value: "3,000+", numericValue: 3000, label: "Collaborations", suffix: "+", hasComma: true },
 ];
 
 const CredibilityCues = () => {
