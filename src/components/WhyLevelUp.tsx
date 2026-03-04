@@ -197,7 +197,7 @@ const WhyLevelUp = () => {
                         <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-4 whitespace-pre-line">
                           {feature.title}
                         </h3>
-                        <div className="flex-1 flex items-center justify-center min-h-0">
+                        <div className="flex-1 flex items-center justify-center min-h-0 pb-4">
                           <Illustration />
                         </div>
                         {(feature as any).microLine && (
