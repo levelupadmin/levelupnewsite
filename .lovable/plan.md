@@ -1,33 +1,50 @@
 
 
-## Merge Student Stories into Wall of Love (Single Page)
+## Making the Student Stories Section Visually Stunning
 
-### What changes
-
-Instead of two separate pages (`/reviews` and `/student-stories`), combine everything onto `/reviews`. The Student Stories section currently shows only 3 cards with a "Read all stories" link — we will replace that with the full filterable Student Stories grid directly on the page.
+Currently, the Student Stories section is a plain grid of text-only cards with minimal visual hierarchy. Here's how to elevate it:
 
 ### Changes
 
-**`src/pages/Reviews.tsx`** (lines 635-656)
-- Replace the current 3-card teaser section with the full Student Stories content from `StudentStoriesIndex.tsx`:
-  - Add program filter state for stories (separate from review filters)
-  - Show all stories in a filterable grid with program filter pills
-  - Remove the "Read all stories →" link (no longer needed)
-  - Add a "Student Stories" heading styled consistently with "Featured Reviews"
+**1. Featured Story Hero Card** (`src/pages/Reviews.tsx` — `StudentStoriesSection`)
+- Make the first story in the filtered list render as a **large hero card** spanning full width, with a gradient overlay, larger typography, and a prominent pull-quote from the first section body.
+- Remaining stories render in the existing 2/3-column grid below.
 
-**`src/App.tsx`**
-- Remove the `/student-stories` route (the index page route only — keep `/student-stories/:slug` for individual articles)
-- Remove the lazy import for `StudentStoriesIndex`
+**2. Upgraded StoryCard Design** (`src/components/stories/StoryCard.tsx`)
+- Add a **program-colored top accent bar** (4px gradient strip at the top of each card) using program-specific colors.
+- Add a subtle **hover glow effect** matching the program color (consistent with the site's interactive glow motif).
+- Add a **decorative quote icon** (faint, positioned top-right) to reinforce the editorial feel.
+- Increase card padding and add a subtle inner shadow for depth.
+- Add a **rating display** (star icons) since stories have ratings but don't currently show them on cards.
 
-**`src/pages/StudentStoriesIndex.tsx`**
-- Delete this file (content merged into Reviews)
+**3. Section Header Enhancement** (`src/pages/Reviews.tsx` — `StudentStoriesSection`)
+- Replace the plain "Student Stories" label with a more editorial-style header: larger serif font with a subtitle line.
+- Add a thin decorative `AccentLine` divider above the section for visual separation.
 
-### Layout order on `/reviews`
-1. Hero + Marquee
-2. Stats Banner
-3. Featured Reviews
-4. **Student Stories** (full grid with program filters) — expanded from the current 3-card teaser
-5. Sticky Filter Bar (for reviews)
-6. Reviews Masonry Grid
-7. CTA Section
+**4. Animated Filter Pills** (`src/pages/Reviews.tsx` — `StudentStoriesSection`)
+- Wrap the filter pill transitions with `AnimatePresence` + `layoutId` so the active pill indicator slides smoothly between options instead of snapping.
+
+### Layout Flow
+```text
+──── AccentLine divider ────
+   "Student Stories" (serif, larger)
+   "Long-form journeys from our community"
+   [ All ] [ Filmmaking ] [ Screenwriting ] ...
+
+┌─────────────────────────────────────────┐
+│  HERO CARD (first story, full width)    │
+│  Gradient bg · Large title · Pull-quote │
+│  Author · Program badge · Arrow →       │
+└─────────────────────────────────────────┘
+
+┌──────────┐ ┌──────────┐ ┌──────────┐
+│ Card 2   │ │ Card 3   │ │ Card 4   │
+│ accent   │ │ accent   │ │ accent   │
+│ bar+glow │ │ bar+glow │ │ bar+glow │
+└──────────┘ └──────────┘ └──────────┘
+```
+
+### Files Modified
+- `src/components/stories/StoryCard.tsx` — accent bar, hover glow, quote icon, rating stars
+- `src/pages/Reviews.tsx` — `StudentStoriesSection` gets hero card layout, enhanced header, animated pills
 
