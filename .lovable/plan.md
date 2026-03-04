@@ -1,15 +1,16 @@
 
 
-## Fix: Bottom spacing for expanded card illustration
+## Fix: LiveProjectsCard overflowing its container
 
-**Problem**: In the expanded "Expert Mentors" card (second card visually, index 0), the left-column illustration has no bottom padding — it touches the card edge.
+**Problem**: The notification toast (line 166) is absolutely positioned within the outer wrapper div but *outside* the inner rounded card (line 69). This causes it to visually overflow beyond the card boundaries visible in the WhyLevelUp section.
 
-**Change**: Add `pb-4` to the illustration wrapper div on line 200 in `src/components/WhyLevelUp.tsx`.
+**Solution**: Move the notification toast *inside* the inner card container (the `w-[90%] h-[94%] rounded-xl overflow-hidden` div) so it gets properly clipped by its `overflow-hidden` and `rounded-xl` boundaries.
 
-```
-Line 200: <div className="flex-1 flex items-center justify-center min-h-0">
-→        <div className="flex-1 flex items-center justify-center min-h-0 pb-4">
-```
+**Change in `src/components/why-levelup/LiveProjectsCard.tsx`**:
 
-Single line change, no visual/functional impact beyond adding breathing room at the bottom of the illustration in expanded cards.
+1. Move the notification toast div (lines 166-183) from being a sibling of the inner card to being a child inside it — place it just before the closing `</div>` of the inner card (before line 160).
+
+2. Adjust positioning from `top-6 right-6` to `top-2 right-2` since it's now relative to the smaller inner card.
+
+This keeps the exact same visual appearance while ensuring proper clipping within the card boundaries.
 
