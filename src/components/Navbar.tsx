@@ -202,7 +202,7 @@ const Navbar = () => {
             <div className="flex items-center gap-2.5">
               {/* Sign In */}
               <a
-                href="https://www.leveluplearning.in"
+                href="https://study.leveluplearning.in/web/login"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={[
@@ -213,7 +213,7 @@ const Navbar = () => {
                     : "text-xs md:text-sm px-3.5 md:px-4 py-1.5",
                 ].join(" ")}
               >
-                Sign In
+                Sign In / Sign Up
               </a>
 
               {/* Mobile hamburger */}
@@ -503,7 +503,7 @@ const Navbar = () => {
               })}
 
               <m.a
-                href="https://www.leveluplearning.in"
+                href="https://study.leveluplearning.in/web/login"
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 15 }}
@@ -515,7 +515,7 @@ const Navbar = () => {
                 onClick={() => setMobileOpen(false)}
                 className="mt-6 self-center font-sans-body text-base text-primary border border-primary/30 rounded-full px-6 py-2.5 active:bg-primary/10 transition-colors"
               >
-                Sign In
+                Sign In / Sign Up
               </m.a>
             </div>
           </m.div>
