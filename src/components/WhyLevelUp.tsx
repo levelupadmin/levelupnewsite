@@ -128,7 +128,7 @@ const WhyLevelUp = () => {
               <div
                 key={index}
                 ref={(el) => { cardRefs.current[index] = el; }}
-                className={`flex flex-col ${isExpanded ? "" : "cursor-pointer"}`}
+                className={`flex flex-col overflow-hidden ${isExpanded ? "" : "cursor-pointer"}`}
                 style={{
                   width: cardWidth,
                   minWidth: cardWidth,
@@ -191,13 +191,13 @@ const WhyLevelUp = () => {
                     onClick={(e) => e.stopPropagation()}
                   >
                     {/* 2-column layout — scrollable on mobile */}
-                    <div className={`flex-1 p-6 md:p-8 ${isMobile ? "flex flex-col gap-5 overflow-y-auto" : "grid grid-cols-[2fr_3fr] gap-8"}`}>
+                    <div className={`flex-1 p-6 md:p-8 ${isMobile ? "flex flex-col gap-5 overflow-y-auto" : `grid ${index === 1 ? "grid-cols-2" : "grid-cols-[2fr_3fr]"} gap-8`}`}>
                       {/* Left column: Title, Illustration, Stat */}
                       <div className="flex flex-col">
                         <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-4 whitespace-pre-line">
                           {feature.title}
                         </h3>
-                        <div className="flex-1 flex items-center justify-center min-h-0 pb-4">
+                        <div className="flex-1 flex items-center justify-center min-h-0 pb-4 overflow-hidden">
                           <Illustration />
                         </div>
                         {(feature as any).microLine && (
