@@ -1,9 +1,11 @@
 
 
-## Replace masters group photo in Trusted CTA section
+## Replace Screenwriting Workshop nav image
 
-**Change**: Copy the uploaded image to `src/assets/` and update `TrustedCTASection.tsx` to use it instead of the current lovable-uploads image.
+**Change**: Replace the Screenwriting Workshop navigation thumbnail with the uploaded image.
 
-1. Copy `user-uploads://Masterclass_2.png` to `src/assets/all-masters-new.png`
-2. In `src/components/TrustedCTASection.tsx`, update the `<img>` src from the lovable-uploads path to an imported asset reference
+1. Copy `user-uploads://SW_LU.png` to `src/assets/nav-sw.png` (overwriting the existing file)
+2. No code changes needed — `navbarData.ts` already imports from `@/assets/nav-sw.png`
+
+Single file copy, zero code edits.
 
