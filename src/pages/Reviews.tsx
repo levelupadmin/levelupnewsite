@@ -348,8 +348,8 @@ const StatsBanner = ({ reviewCount }: { reviewCount: number }) => (
 /* ─── Featured Review Card ─── */
 
 const FeaturedReviewCard = ({ review, index }: { review: Review; index: number }) => {
-  const tintColor = PROGRAM_TINT_COLORS[review.program] || "bg-gray-50";
   const dotColor = PROGRAM_DOT_COLORS[review.program] || "bg-gray-400";
+  const truncated = review.text.length > 220 ? review.text.slice(0, 220).trimEnd() + "…" : review.text;
 
   return (
     <m.article
@@ -357,31 +357,28 @@ const FeaturedReviewCard = ({ review, index }: { review: Review; index: number }
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
-      className={`relative rounded-2xl ${tintColor} p-6 md:p-8 border border-border/40`}
+      className="relative rounded-2xl bg-card p-6 md:p-7 border border-border/50 shadow-sm hover:shadow-md transition-shadow duration-300"
     >
-      {/* Big quote mark */}
-      <Quote
-        className="absolute top-4 right-4 w-12 h-12 text-primary/[0.07] rotate-180"
-        strokeWidth={1.5}
-      />
+      {/* Large decorative quote */}
+      <span className="block font-serif text-5xl leading-none text-primary/20 mb-2 select-none">"</span>
 
       <blockquote className="relative z-10">
-        <p className="font-sans-body text-sm md:text-base text-foreground/85 leading-relaxed whitespace-pre-line">
-          {review.text}
+        <p className="font-sans-body text-sm md:text-[15px] text-foreground/80 leading-relaxed line-clamp-5">
+          {truncated}
         </p>
       </blockquote>
 
       <div className="flex items-center gap-3 mt-5 pt-4 border-t border-border/30">
         <div
-          className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 font-sans-body text-xs font-semibold ${getAvatarColor(review.name)}`}
+          className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 font-sans-body text-[11px] font-semibold ${getAvatarColor(review.name)}`}
         >
           {getInitials(review.name)}
         </div>
         <div className="flex-1 min-w-0">
-          <p className="font-serif-display text-sm font-medium text-hero-headline truncate">
+          <p className="font-serif-display text-sm font-medium text-foreground truncate">
             {review.name}
           </p>
-          <div className="flex items-center gap-2 mt-0.5">
+          <div className="flex items-center gap-1.5 mt-0.5">
             <span className={`w-1.5 h-1.5 rounded-full ${dotColor}`} />
             <span className="font-sans-body text-[10px] text-muted-foreground uppercase tracking-wider">
               {review.program}
@@ -390,7 +387,7 @@ const FeaturedReviewCard = ({ review, index }: { review: Review; index: number }
         </div>
         <div className="flex items-center gap-0.5">
           {Array.from({ length: 5 }).map((_, i) => (
-            <Star key={i} className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
+            <Star key={i} className="w-3 h-3 fill-amber-500 text-amber-500" />
           ))}
         </div>
       </div>
