@@ -15,7 +15,7 @@ type ReviewProgram =
   | "Screenwriting"
   | "Filmmaking"
   | "Video Editing"
-  | "BFP"
+  | "Breakthrough Filmmaker Program"
   | "The Forge"
   | "Photography"
   | "Cinematography"
@@ -24,11 +24,11 @@ type ReviewProgram =
 
 const REVIEW_PROGRAMS: ReviewProgram[] = [
   "All",
+  "Breakthrough Filmmaker Program",
+  "Video Editing",
+  "The Forge",
   "Screenwriting",
   "Filmmaking",
-  "Video Editing",
-  "BFP",
-  "The Forge",
   "Photography",
   "Cinematography",
   "Community",
@@ -50,7 +50,7 @@ const PROGRAM_MAP: Record<string, ReviewProgram> = {
   "LevelUp Filmmaking": "Filmmaking",
   "LevelUp Photography": "Photography",
   "LevelUp Video Editing": "Video Editing",
-  "LevelUp BFP": "BFP",
+  "LevelUp BFP": "Breakthrough Filmmaker Program",
   "LevelUp Cinematography": "Cinematography",
   "Forge Writing": "The Forge",
   "Forge Filmmaking": "The Forge",
@@ -70,7 +70,7 @@ const PROGRAM_BORDER_COLORS: Record<string, string> = {
   Screenwriting: "border-l-amber-500",
   Filmmaking: "border-l-rose-500",
   "Video Editing": "border-l-violet-500",
-  BFP: "border-l-blue-500",
+  "Breakthrough Filmmaker Program": "border-l-blue-500",
   "The Forge": "border-l-emerald-500",
   Photography: "border-l-cyan-500",
   Cinematography: "border-l-fuchsia-500",
@@ -82,7 +82,7 @@ const PROGRAM_DOT_COLORS: Record<string, string> = {
   Screenwriting: "bg-amber-500",
   Filmmaking: "bg-rose-500",
   "Video Editing": "bg-violet-500",
-  BFP: "bg-blue-500",
+  "Breakthrough Filmmaker Program": "bg-blue-500",
   "The Forge": "bg-emerald-500",
   Photography: "bg-cyan-500",
   Cinematography: "bg-fuchsia-500",
@@ -94,7 +94,7 @@ const PROGRAM_TINT_COLORS: Record<string, string> = {
   Screenwriting: "bg-amber-50",
   Filmmaking: "bg-rose-50",
   "Video Editing": "bg-violet-50",
-  BFP: "bg-blue-50",
+  "Breakthrough Filmmaker Program": "bg-blue-50",
   "The Forge": "bg-emerald-50",
   Photography: "bg-cyan-50",
   Cinematography: "bg-fuchsia-50",
