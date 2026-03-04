@@ -110,11 +110,9 @@ const HeroSection = () => {
               </span>
 
               <em
-                className="font-serif-display not-italic font-medium whitespace-nowrap"
+                className="font-serif-display not-italic font-medium whitespace-nowrap text-gradient-amber"
                 style={{
                   lineHeight: 1.15,
-                  color: "hsl(24 95% 53%)",
-                  textShadow: "0 0 20px hsl(24 95% 53% / 0.5), 0 0 40px hsl(24 95% 53% / 0.25)",
                 }}
               >
                 are made
