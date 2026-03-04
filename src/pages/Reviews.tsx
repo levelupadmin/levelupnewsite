@@ -1,5 +1,6 @@
-import { useState, useEffect, useMemo } from "react";
-import { Star, ArrowRight, ChevronDown, Quote } from "lucide-react";
+import { useState, useEffect, useMemo, useCallback } from "react";
+import { Star, ArrowRight, ChevronDown, Quote, ArrowUp } from "lucide-react";
+import { m, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import FadeInSection from "@/components/FadeInSection";
 import Navbar from "@/components/Navbar";
@@ -331,6 +332,40 @@ const SkeletonCard = () => (
   </div>
 );
 
+/* ─── Scroll to Top Button ─── */
+
+const ScrollToTopButton = () => {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 600);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <m.button
+          initial={{ opacity: 0, scale: 0.8, y: 10 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.8, y: 10 }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
+          onClick={scrollToTop}
+          className="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/20 flex items-center justify-center hover:bg-primary/90 transition-colors"
+          aria-label="Scroll to top"
+        >
+          <ArrowUp className="w-5 h-5" />
+        </m.button>
+      )}
+    </AnimatePresence>
+  );
+};
+
 /* ─── Main Page ─── */
 
 const ITEMS_PER_PAGE = 30;
@@ -538,6 +573,10 @@ const Reviews = () => {
           </FadeInSection>
         </section>
       </main>
+
+      {/* Scroll to top button */}
+      <ScrollToTopButton />
+
       <Footer />
     </div>
   );
