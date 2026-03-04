@@ -1,65 +1,65 @@
 
 
-## Wall of Love — Light Mode Visual Overhaul
+## Wall of Love — Structural & Visual Elevation
 
-The About page already uses a `theme-warm` class that flips CSS variables to a warm white palette. We'll create a similar but distinct `theme-reviews` light theme for the Wall of Love, then redesign the page with premium visual touches.
+The current page is functional but reads like a standard reviews listing. The goal is to make it feel like a curated editorial experience — a magazine-quality showcase that builds trust and emotional connection before the user even starts scrolling through cards.
 
-### 1. New Light Theme: `theme-reviews`
+### 1. Hero Overhaul: Animated Gradient Mesh + Marquee
 
-Add a new scoped theme in `src/index.css` (similar to `.theme-warm` but with a cooler, crisper feel):
+Replace the flat dot-grid background with a soft animated gradient mesh (warm amber, peach, cream blobs that slowly drift using CSS `@keyframes`). This creates an organic, premium feel similar to Apple's marketing pages.
 
-- Background: warm off-white (`hsl(30 20% 97%)`)
-- Cards: pure white with subtle warm shadows
-- Text: near-black headlines, warm gray body text
-- Primary accent stays orange — it pops beautifully on white
-- Borders: very light warm gray
-- Muted foreground slightly darker for readability on white
+Below the hero heading, add a **horizontal auto-scrolling marquee strip** of short pull-quotes (15-20 word excerpts from top reviews). Two rows scrolling in opposite directions, slightly faded at the edges. This creates immediate social proof and visual energy before the grid.
 
-Apply via `<div className="theme-reviews">` wrapper around the page content (same pattern as About page's `theme-warm`).
+### 2. Animated Stats Banner
 
-### 2. Visual Enhancements to Reviews.tsx
+A horizontal strip between hero and filter bar with 4 animated counters:
+- **500+** Reviews
+- **4.9** Average Rating  
+- **10+** Programs
+- **15+** States
 
-**Hero Section**
-- Large decorative quote marks (typographic `"`) behind the heading as a faded watermark element
-- Animated gradient text on "Wall of Love" using the amber gradient
-- Subtitle gets slightly tighter, more editorial feel
+Uses the existing `AnimatedCounter` component. Counters animate on scroll-into-view. Clean layout with subtle dividers between each stat.
 
-**Filter Bar**
-- Rounded pill buttons instead of squared-off chips
-- Active pill: solid orange with a subtle shadow glow
-- Inactive pills: light gray background with smooth hover transitions
-- Sticky bar gets a clean white/frosted glass look
+### 3. Featured Reviews Section
 
-**Review Cards — Premium Redesign**
-- White cards with rounded-xl corners and subtle warm shadow (`shadow-sm` + hover elevation)
-- Thin left border accent in a program-specific color
-- Avatar initials get softer pastel backgrounds (adjusted for light mode)
-- Star ratings use filled amber on white — high contrast
-- Program tags: small rounded pills with light tinted backgrounds
-- Hover: gentle lift + shadow increase (no harsh glow)
-- Blockquote text gets a faint left border accent
+Before the main grid, showcase **3 hand-picked or highest-rated reviews** in a larger, editorial card format:
+- Larger text with a big opening quotation mark
+- Full review text visible (no truncation)
+- Slightly tinted background per card matching program color
+- Horizontal layout on desktop (3 columns), stacked on mobile
 
-**Grid Layout**
-- Keep masonry 2-col on desktop, 1-col on mobile
-- Slightly wider gap between cards for breathing room
-- 3-column layout on xl screens for more visual density
+These are randomly selected 5-star reviews with longer text (>300 chars) to ensure quality content.
 
-**CTA Section**
-- Gradient background panel (warm orange to amber) with white text
-- Rounded corners, stands out as a distinct block at the bottom
+### 4. Staggered Waterfall Card Entrance
 
-**Ambient Details**
-- Subtle dot pattern or grid overlay on the hero background (CSS only)
-- Soft radial gradient blush behind the hero heading
+Replace `FadeInSection` wrapping each card with framer-motion `m.div` that uses `whileInView` with staggered delays based on column position. Cards slide up and fade in with a waterfall cascade effect — left column first, then middle, then right.
 
-### 3. Navbar/Footer Handling
+### 5. Hover Spotlight Effect
 
-The Navbar and Footer are shared components using CSS variable-driven colors. Wrapping the entire page (including Navbar/Footer) in `theme-reviews` will automatically flip them to light mode — same approach as the About page. The Navbar already handles this gracefully.
+When a user hovers over a review card:
+- The hovered card lifts (`translateY(-4px)`) and gains a subtle warm glow shadow
+- Sibling cards dim to `opacity: 0.5` with a CSS transition
+- Achieved via a parent container with `group/grid` and `group-hover/grid` utilities, or via a lightweight React state approach
+
+### 6. Card Design Refinements
+
+- Add a small decorative `"` quote icon at the top-right of each card (very faint, 4% opacity)
+- Review text gets a subtle left border in muted primary color (blockquote style)
+- Slightly more padding and breathing room
+- Program pill gets a colored dot indicator matching the left border color
 
 ### Files to Edit
 
 | File | Change |
 |------|--------|
-| `src/index.css` | Add `.theme-reviews` scoped CSS variables |
-| `src/pages/Reviews.tsx` | Wrap in `theme-reviews`, redesign cards/hero/filters/CTA with light-mode-appropriate classes and visual upgrades |
+| `src/index.css` | Add gradient mesh keyframes animation, marquee animation |
+| `src/pages/Reviews.tsx` | Add gradient mesh hero bg, marquee strip, stats banner, featured reviews section, waterfall entrance, hover spotlight, card refinements |
+
+### Approach Notes
+
+- The marquee uses pure CSS `@keyframes` for performance (no JS)
+- Stats banner reuses existing `AnimatedCounter` component
+- Featured reviews are auto-selected from loaded data (5-star, longest text)
+- Hover spotlight uses CSS `has()` selector or a simple parent hover state
+- All additions are scoped within the existing `theme-reviews` wrapper
 
