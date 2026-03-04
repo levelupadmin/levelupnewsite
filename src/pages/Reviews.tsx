@@ -6,6 +6,8 @@ import FadeInSection from "@/components/FadeInSection";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import StoryCard from "@/components/stories/StoryCard";
+import { studentStories } from "@/data/studentStories";
 import * as XLSX from "xlsx";
 
 /* ─── Types ─── */
@@ -629,6 +631,29 @@ const Reviews = () => {
             </div>
           </section>
         )}
+
+        {/* ─── Student Stories Section ─── */}
+        <section className="max-w-5xl mx-auto px-6 md:px-12 pb-10">
+          <FadeInSection>
+            <div className="flex items-center justify-between mb-6">
+              <p className="font-sans-body text-xs text-muted-foreground uppercase tracking-widest">
+                Student Stories
+              </p>
+              <Link
+                to="/student-stories"
+                className="inline-flex items-center gap-1 font-sans-body text-xs text-primary font-medium hover:text-primary/80 transition-colors"
+              >
+                Read all stories
+                <ArrowRight className="w-3 h-3" />
+              </Link>
+            </div>
+          </FadeInSection>
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
+            {studentStories.slice(0, 3).map((story, i) => (
+              <StoryCard key={story.slug} story={story} index={i} />
+            ))}
+          </div>
+        </section>
 
         {/* ─── Sticky Filter Bar ─── */}
         <div className="sticky top-16 z-30 bg-background/80 backdrop-blur-xl border-b border-border/40">
