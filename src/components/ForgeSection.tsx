@@ -42,29 +42,29 @@ import forgeCreators from "@/assets/forge-creators-banner.jpg";
 
 const featurePoints = [
 {
-  headline: "Pressure that transforms",
+  headline: "Learn by doing",
   description:
-  "Not comfort. Not theory. Real creative intensity, shoulder to shoulder.",
+  "Move beyond theory. Apply what you learn in real time with practicing creators and mentors.",
   icon: Flame,
 },
 {
-  headline: "Mentorship without filters",
+  headline: "Build with a community",
   description:
-  "Work directly with creators who've shaped the industry. No layers between you and the work.",
+  "Collaborate with like-minded filmmakers, writers, founders, builders, and artists.",
   icon: Users,
 },
 {
-  headline: "Offline. Immersive. Real.",
+  headline: "Immersive & offline",
   description:
-  "Step away from screens. Live, create, and break through — together, in one place.",
+  "Travel, create, and grow over an intensive week in an environment built for breakthroughs.",
   icon: MapPin,
 }];
 
 
 const stats = [
-{ value: "7", label: "Cities" },
-{ value: "11", label: "Editions" },
-{ value: "248", label: "Shortfilms" }];
+{ value: "10", label: "Cities Explored" },
+{ value: "25+", label: "Editions" },
+{ value: "500+", label: "Dreamers" }];
 
 
 const forgeCards = [
@@ -206,11 +206,15 @@ const ForgeSection = () => {
           className="h-16 sm:h-20 md:h-28 lg:h-32 w-auto object-contain mx-auto" />
 
         <p className="font-serif-display text-lg md:text-xl text-hero-headline mt-2">
-          Where you <em className="not-italic font-normal text-gradient-amber">become</em>
+          <em className="not-italic font-normal text-gradient-amber">Learn. Do. Become.</em>
         </p>
 
         <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-4 md:mt-6 max-w-2xl mx-auto leading-relaxed">
-          A filmmaking bootcamp for aspiring filmmakers, creators, and storytellers — where in 12 days we teach you filmmaking hands-on and you create your very own short film.
+          The Forge is an offline, immersive learning experience that brings together travel, hands-on creation, and a like-minded community — built for filmmakers, writers, founders, builders, artists, and creators.
+        </p>
+
+        <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-3 max-w-2xl mx-auto leading-relaxed">
+          Over an intensive week with practicing creators and mentors, participants move beyond theory. They apply what they learn in real time, collaborate with peers, and build a complete project of their own.
         </p>
 
         {/* Feature points — 3-column grid */}
