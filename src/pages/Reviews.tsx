@@ -312,7 +312,6 @@ const StatsBanner = ({ reviewCount }: { reviewCount: number }) => (
           { target: reviewCount || 500, suffix: "+", label: "Reviews", hasComma: true },
           { target: 4.9, suffix: "", label: "Avg Rating", decimals: 1 },
           { target: 10, suffix: "+", label: "Programs" },
-          { target: 15, suffix: "+", label: "States" },
         ].map((stat, i) => (
           <div key={stat.label} className="flex flex-col items-center px-6 md:px-10">
             <span className="font-serif-display text-3xl md:text-4xl text-hero-headline font-semibold tabular-nums">
