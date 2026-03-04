@@ -709,9 +709,6 @@ const Reviews = () => {
                     }`}
                   >
                     {program}
-                    {!loading && (
-                      <span className="ml-1.5 text-[10px] opacity-60">({count})</span>
-                    )}
                   </button>
                 );
               })}
