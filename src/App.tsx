@@ -9,7 +9,7 @@ import { Analytics } from "@vercel/analytics/react";
 
 import { lazy, Suspense } from "react";
 import Index from "./pages/Index";
-const About = lazy(() => import("./pages/About"));
+
 const Reviews = lazy(() => import("./pages/Reviews"));
 const StudentStory = lazy(() => import("./pages/StudentStory"));
 
@@ -32,8 +32,8 @@ const AnimatedRoutes = () => {
       >
         <Routes location={location}>
           <Route path="/" element={<Index />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/reviews" element={<Reviews />} />
+          
+          <Route path="/student-stories" element={<Reviews />} />
           
           <Route path="/student-stories/:slug" element={<StudentStory />} />
           <Route path="/terms" element={<Terms />} />

@@ -220,7 +220,7 @@ const TestimonialsSection = () => {
       {/* See all reviews link */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 mt-6">
         <Link
-          to="/reviews"
+          to="/student-stories"
           className="inline-flex items-center gap-2 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors cta-underline"
         >
           See all reviews

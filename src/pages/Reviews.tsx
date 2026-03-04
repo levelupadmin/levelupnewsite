@@ -149,7 +149,7 @@ const PAGE_TITLE = "Student Reviews & Testimonials | LevelUp Learning";
 const PAGE_DESCRIPTION =
   "Read honest reviews from 500+ creators who transformed their careers through LevelUp Learning's filmmaking, video editing, screenwriting, and UI/UX programs. Real stories, real creative growth.";
 import { SITE_URL } from "@/lib/constants";
-const CANONICAL_URL = `${SITE_URL}/reviews`;
+const CANONICAL_URL = `${SITE_URL}/student-stories`;
 
 function usePageSEO(reviews: Review[]) {
   useEffect(() => {
