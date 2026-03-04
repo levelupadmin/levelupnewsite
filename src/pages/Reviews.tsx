@@ -8,6 +8,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StoryCard from "@/components/stories/StoryCard";
 import { studentStories } from "@/data/studentStories";
+
+const STORY_PROGRAMS = ["All", "Filmmaking", "Screenwriting", "The Forge", "Breakthrough Filmmaker Program", "Photography"] as const;
 import * as XLSX from "xlsx";
 
 /* ─── Types ─── */
@@ -515,6 +517,54 @@ const ScrollToTopButton = () => {
   );
 };
 
+/* ─── Student Stories Section (inline) ─── */
+
+const StudentStoriesSection = () => {
+  const [storyFilter, setStoryFilter] = useState<string>("All");
+
+  const filteredStories = useMemo(
+    () => storyFilter === "All" ? studentStories : studentStories.filter(s => s.program === storyFilter),
+    [storyFilter]
+  );
+
+  return (
+    <section className="max-w-5xl mx-auto px-6 md:px-12 pb-10">
+      <FadeInSection>
+        <p className="font-sans-body text-xs text-muted-foreground uppercase tracking-widest text-center mb-6">
+          Student Stories
+        </p>
+      </FadeInSection>
+
+      {/* Program filter pills */}
+      <div className="flex items-center justify-center gap-2 flex-wrap mb-8">
+        {STORY_PROGRAMS.map(p => (
+          <button
+            key={p}
+            onClick={() => setStoryFilter(p)}
+            className={`shrink-0 px-4 py-2 rounded-full font-sans-body text-sm font-medium transition-all duration-300 ${
+              storyFilter === p
+                ? "bg-primary text-primary-foreground shadow-md shadow-primary/20"
+                : "bg-muted/60 text-muted-foreground hover:text-foreground hover:bg-muted"
+            }`}
+          >
+            {p}
+          </button>
+        ))}
+      </div>
+
+      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
+        {filteredStories.map((story, i) => (
+          <StoryCard key={story.slug} story={story} index={i} />
+        ))}
+      </div>
+
+      {filteredStories.length === 0 && (
+        <p className="text-center text-muted-foreground font-sans-body py-20">No stories for this program yet.</p>
+      )}
+    </section>
+  );
+};
+
 /* ─── Main Page ─── */
 
 const ITEMS_PER_PAGE = 30;
@@ -632,28 +682,8 @@ const Reviews = () => {
           </section>
         )}
 
-        {/* ─── Student Stories Section ─── */}
-        <section className="max-w-5xl mx-auto px-6 md:px-12 pb-10">
-          <FadeInSection>
-            <div className="flex items-center justify-between mb-6">
-              <p className="font-sans-body text-xs text-muted-foreground uppercase tracking-widest">
-                Student Stories
-              </p>
-              <Link
-                to="/student-stories"
-                className="inline-flex items-center gap-1 font-sans-body text-xs text-primary font-medium hover:text-primary/80 transition-colors"
-              >
-                Read all stories
-                <ArrowRight className="w-3 h-3" />
-              </Link>
-            </div>
-          </FadeInSection>
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
-            {studentStories.slice(0, 3).map((story, i) => (
-              <StoryCard key={story.slug} story={story} index={i} />
-            ))}
-          </div>
-        </section>
+        {/* ─── Student Stories Section (Full Grid) ─── */}
+        <StudentStoriesSection />
 
         {/* ─── Sticky Filter Bar ─── */}
         <div className="sticky top-16 z-30 bg-background/80 backdrop-blur-xl border-b border-border/40">
