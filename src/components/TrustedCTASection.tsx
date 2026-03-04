@@ -1,5 +1,5 @@
 import FadeInSection from "./FadeInSection";
-import allMastersImg from "@/assets/all-masters.png";
+import allMastersNewImg from "@/assets/all-masters-new.png";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import MagneticButton from "@/components/MagneticButton";
@@ -40,7 +40,7 @@ const TrustedCTASection = () => {
             width={1080}
             height={810}
             loading="lazy"
-            src="/lovable-uploads/bded7ac9-4461-4363-bf02-5298f0b77158.png"
+            src={allMastersNewImg}
           />
         </div>
 
