@@ -548,12 +548,12 @@ const StudentStoriesSection = () => {
       </FadeInSection>
 
       {/* Underline-style tabs */}
-      <div className="flex items-center justify-center gap-1 flex-wrap mb-12 border-b border-border/40 pb-px">
+      <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide mb-12 border-b border-border/40 pb-px md:justify-center">
         {STORY_PROGRAMS.map(p => (
           <button
             key={p}
             onClick={() => setStoryFilter(p)}
-            className={`relative px-4 py-2.5 font-sans-body text-sm transition-colors duration-200 ${
+            className={`relative shrink-0 px-4 py-2.5 font-sans-body text-sm whitespace-nowrap transition-colors duration-200 ${
               storyFilter === p
                 ? "text-foreground font-medium"
                 : "text-muted-foreground hover:text-foreground"
@@ -823,7 +823,7 @@ const Reviews = () => {
         </section>
 
         {/* ═══ Visual Break ═══ */}
-        <div className="relative py-16 md:py-20">
+        <div className="relative py-10 md:py-20">
           <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/30 to-muted/50" />
           <div className="relative max-w-xl mx-auto px-6">
             <div className="h-px w-full bg-gradient-to-r from-transparent via-border to-transparent" />
