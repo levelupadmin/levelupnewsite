@@ -1,65 +1,48 @@
 
 
-## Wall of Love — Structural & Visual Elevation
+## Wall of Love — From Generic SaaS to Cinematic Editorial
 
-The current page is functional but reads like a standard reviews listing. The goal is to make it feel like a curated editorial experience — a magazine-quality showcase that builds trust and emotional connection before the user even starts scrolling through cards.
+The core problem: the reviews page looks like a white-label testimonial widget, completely disconnected from the dark, cinematic brand identity of the rest of the site. There are also two bugs to fix (empty grid, truncated featured reviews).
 
-### 1. Hero Overhaul: Animated Gradient Mesh + Marquee
+### Critical Bug Fix: Empty Reviews Grid
 
-Replace the flat dot-grid background with a soft animated gradient mesh (warm amber, peach, cream blobs that slowly drift using CSS `@keyframes`). This creates an organic, premium feel similar to Apple's marketing pages.
+The masonry grid shows filter counts but renders no cards. The `columns` CSS layout combined with framer-motion `m.div` wrappers is likely causing a rendering issue. Will investigate and fix the grid rendering.
 
-Below the hero heading, add a **horizontal auto-scrolling marquee strip** of short pull-quotes (15-20 word excerpts from top reviews). Two rows scrolling in opposite directions, slightly faded at the edges. This creates immediate social proof and visual energy before the grid.
+### Design Direction: Dark Cinematic Theme
 
-### 2. Animated Stats Banner
+Switch the reviews page from the light `.theme-reviews` to the site's native dark theme — matching the homepage's black/amber/orange palette. This immediately eliminates the "SaaS app" feeling and creates brand continuity.
 
-A horizontal strip between hero and filter bar with 4 animated counters:
-- **500+** Reviews
-- **4.9** Average Rating  
-- **10+** Programs
-- **15+** States
+### Changes
 
-Uses the existing `AnimatedCounter` component. Counters animate on scroll-into-view. Clean layout with subtle dividers between each stat.
+**1. Remove `.theme-reviews` light theme**
+- Delete the `theme-reviews` wrapper so the page uses the site's native dark palette (dark bg, white text, orange accents)
+- Review cards become dark glass-morphic cards (`bg-card` in dark mode = `hsl(22 12% 9%)`) with subtle borders
+- Marquee pills, filter tags, stats — all naturally inherit the dark palette
 
-### 3. Featured Reviews Section
+**2. Featured Reviews: Vertical Stack with Full Text**
+- Change from `grid-cols-3` horizontal to single-column vertical stack
+- Remove text truncation — show the complete review
+- Make them larger, more editorial — generous padding, prominent quote marks, full-width layout
+- Add a subtle left accent border per program (reuse existing `PROGRAM_BORDER_COLORS`)
 
-Before the main grid, showcase **3 hand-picked or highest-rated reviews** in a larger, editorial card format:
-- Larger text with a big opening quotation mark
-- Full review text visible (no truncation)
-- Slightly tinted background per card matching program color
-- Horizontal layout on desktop (3 columns), stacked on mobile
+**3. Hero: Dark Background with Cinematic Depth**
+- Remove the gradient mesh blobs (designed for light bg)
+- Add the site's ambient vignette and film grain naturally (they were being hidden by `.theme-reviews`)
+- Keep the marquee but restyle pills for dark mode
 
-These are randomly selected 5-star reviews with longer text (>300 chars) to ensure quality content.
+**4. Review Cards: Cinematic Glass Style**
+- Dark card backgrounds with subtle warm border glow on hover
+- Remove the blockquote left-border (too clinical) — use a more editorial opening quote mark
+- Warmer, more readable text colors against dark backgrounds
 
-### 4. Staggered Waterfall Card Entrance
-
-Replace `FadeInSection` wrapping each card with framer-motion `m.div` that uses `whileInView` with staggered delays based on column position. Cards slide up and fade in with a waterfall cascade effect — left column first, then middle, then right.
-
-### 5. Hover Spotlight Effect
-
-When a user hovers over a review card:
-- The hovered card lifts (`translateY(-4px)`) and gains a subtle warm glow shadow
-- Sibling cards dim to `opacity: 0.5` with a CSS transition
-- Achieved via a parent container with `group/grid` and `group-hover/grid` utilities, or via a lightweight React state approach
-
-### 6. Card Design Refinements
-
-- Add a small decorative `"` quote icon at the top-right of each card (very faint, 4% opacity)
-- Review text gets a subtle left border in muted primary color (blockquote style)
-- Slightly more padding and breathing room
-- Program pill gets a colored dot indicator matching the left border color
+**5. Fix Grid Rendering Bug**
+- Debug why the masonry grid is empty despite data being loaded
+- Likely a CSS `columns` + framer-motion interaction issue
 
 ### Files to Edit
 
 | File | Change |
 |------|--------|
-| `src/index.css` | Add gradient mesh keyframes animation, marquee animation |
-| `src/pages/Reviews.tsx` | Add gradient mesh hero bg, marquee strip, stats banner, featured reviews section, waterfall entrance, hover spotlight, card refinements |
-
-### Approach Notes
-
-- The marquee uses pure CSS `@keyframes` for performance (no JS)
-- Stats banner reuses existing `AnimatedCounter` component
-- Featured reviews are auto-selected from loaded data (5-star, longest text)
-- Hover spotlight uses CSS `has()` selector or a simple parent hover state
-- All additions are scoped within the existing `theme-reviews` wrapper
+| `src/pages/Reviews.tsx` | Remove `theme-reviews` wrapper, restructure featured reviews to vertical stack with full text, fix grid bug, restyle cards for dark theme |
+| `src/index.css` | Remove/adapt `.theme-reviews` overrides, update gradient mesh for dark, adjust marquee pill styles |
 
