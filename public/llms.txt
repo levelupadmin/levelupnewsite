@@ -1,50 +1,189 @@
 # LevelUp Learning
 
-> India's leading creative education ecosystem for filmmakers, editors, writers, designers, and creators.
+> India's leading creative education ecosystem — masterclasses, mentor-led live programs, and immersive offline residencies for filmmakers, editors, writers, designers, and creators.
 
-## About
+Website: https://www.leveluplearning.live
+Email: hello@leveluplearning.com
 
-LevelUp Learning is a creative education platform that brings together masterclasses, mentor-led live programs, and immersive offline residencies. It is designed for serious creators who want to deepen their craft, sharpen their voice, and connect with a community that cares about the work.
+---
 
-Founded in India, LevelUp serves students and working professionals across disciplines — filmmaking, video editing, screenwriting, UI/UX design, and content creation.
+## Who We Are
 
-## Programs
+LevelUp Learning is a creative education platform built for serious creators. We bring together on-demand masterclasses from India's top film and creative professionals, intensive cohort-based live programs with direct mentorship, and immersive offline residencies called The Forge — all designed to deepen craft, sharpen creative voice, and build lasting community.
 
-### Masterclasses
-On-demand masterclasses taught by celebrated industry professionals including Lokesh Kanagaraj (filmmaker), Nelson Dilipkumar (filmmaker), Dr. Kiran (cinematographer), Anthony Gonsalvez (editor), Ravi Basrur (music director), and Venket Ram (photographer).
+We serve students, working professionals, and career-changers across India and internationally. Our learners come from backgrounds as diverse as construction work, medicine, IT, business, and fine arts — united by a commitment to creative growth.
 
-### Live Mentor-Led Programs
-Cohort-based, intensive live programs with direct mentorship:
+---
 
-- **Breakthrough Filmmakers' Program**: 12-week online program covering storytelling, screenwriting, direction, cinematography, and post-production. Live weekend classes with industry mentors and hands-on projects.
-- **Video Editing Academy**: 12-week cohort to turn video editing into a high-paying career. Learn from mentors who've worked with creators like Ali Abdaal, Ankur Warikoo, and Sharan Hegde.
-- **UI/UX Design Academy**: 12-week AI-first Product Design Accelerator. Go from brief to interview-ready portfolio.
-- **Screenwriting Workshop**: 8-week program to master storytelling and shape scripts into blockbuster screenplays.
+## Our Three Formats
 
-### The Forge (Offline Residencies)
-Immersive, offline learning experiences combining travel, hands-on creation, and community. Built for filmmakers, writers, founders, builders, artists, and creators.
+### 1. Masterclasses (On-Demand)
 
-- **Forge Filmmaking Bootcamp**: Intensive bootcamp with online + offline phases. Participants create their own short film.
-- **Forge Writing Retreat**: 6-day fully offline retreat for writers and storytellers.
-- **Forge Creators Bootcamp**: Build, collaborate, and ship creative work with fellow creators.
+Pre-recorded, in-depth courses taught by celebrated industry professionals. Available on-demand after purchase. Each comes with a signed certificate of completion.
 
-Locations include Goa, Dehradun, Delhi, Bangalore, Mumbai, and Bali. Over 25 editions across 10 cities with 500+ alumni.
+| Instructor | Role | Topic | Link |
+|---|---|---|---|
+| Karthik Subbaraj | Filmmaker | Storytelling, editing, working with actors | https://masterclass.leveluplearning.in/karthik-subbaraj |
+| Anthony Gonsalvez | Film Editor | Practical editing experience | https://masterclass.leveluplearning.in/anthony |
+| G Venket Ram | Photographer | Capturing the perfect image through case studies | https://masterclass.leveluplearning.in/g-venket-ram |
+| DRK Kiran | Art Director | Set designing, creative problem-solving, miniatures | https://masterclass.leveluplearning.in/kiran |
+| Ravi Basrur | Music Director | From the village of Basrur to revolutionizing Sandalwood music | https://masterclass.leveluplearning.in/ravi-basrur |
+| Lokesh Kanagaraj | Filmmaker | The art and craft of filmmaking | https://masterclass.leveluplearning.in/lokesh-kanagaraj |
+| Nelson Dilipkumar | Filmmaker | The art of commercial filmmaking | https://masterclass.leveluplearning.in/nelson-dilipkumar |
 
-## Impact
+### 2. Live Mentor-Led Programs (Cohort-Based)
+
+Intensive, cohort-based programs with live classes, direct mentor feedback, peer collaboration, and real project work. All programs include certificates of completion.
+
+#### Breakthrough Filmmakers' Program
+- Duration: 12 weeks
+- Format: Live weekend classes, online
+- Description: Covers every aspect of filmmaking — storytelling, screenwriting, direction, cinematography, and post-production. Hands-on projects with industry mentors.
+- Status: Enrolling
+- Learn more: https://www.leveluplearning.live/bfp-2
+
+#### Video Editing Academy
+- Duration: 12 weeks
+- Format: Live cohort, online
+- Description: India's most exclusive Video Editing cohort. Turn your passion for video editing into a high-paying career. Learn from mentors who've worked with creators like Ali Abdaal, Ankur Warikoo, and Sharan Hegde.
+- Status: Enrolling
+- Learn more: https://www.leveluplearning.live/ve
+
+#### UI/UX Design Academy
+- Duration: 12 weeks
+- Format: Live weekends, online
+- Description: India's most exclusive AI-first Product Design Accelerator. Go from brief to interview-ready portfolio using practical AI workflows designed for designers who want measurable progress.
+- Status: Enrolling
+- Apply: https://tally.so/r/wd7eqN
+
+#### Screenwriting Workshop
+- Duration: 8 weeks
+- Format: Live, online
+- Description: Master the art of writing captivating stories and shape them into blockbuster screenplays and binge-worthy shows. Taught by 4 industry mentors.
+- Status: Enrolling
+- Apply: https://tally.so/r/mOd4ek
+
+### 3. The Forge (Offline Residencies)
+
+The Forge is an offline, immersive learning experience that brings together travel, hands-on creation, and a like-minded community. Built for filmmakers, writers, founders, builders, artists, and creators. Over an intensive week with practicing creators and mentors, participants move beyond theory — they apply what they learn in real time, collaborate with peers, and build a complete project of their own.
+
+**Tagline:** Learn. Do. Become.
+
+**Impact:** 10 cities explored · 25+ editions · 500+ dreamers
+
+#### Upcoming Forge Calendar
+
+| Edition | Format | Location | Dates | Apply |
+|---|---|---|---|---|
+| Writing Retreat — Edition 5 | 6-day retreat (fully offline) | Dehradun | Mar 7–12, 2026 | https://www.forgebylevelup.com/writingresidency |
+| Filmmaking Bootcamp — Edition 16 | Bootcamp (online + offline) | Goa | Online: Apr 15–23 · Offline: Apr 25 – May 2 | https://www.forgebylevelup.com/ |
+| Filmmaking Bootcamp — Edition 17 | Bootcamp (online + offline) | Goa | Online: Apr 17–25 · Offline: Apr 27 – May 4 | https://www.forgebylevelup.com/ |
+| Forge Creators — Edition 5 | Bootcamp (online + offline) | Goa | Online: Apr 28 – May 2 · Offline: May 4–10 | https://creators.forgebylevelup.com/ |
+| Forge Creators — Edition 6 | Bootcamp (online + offline) | Goa | Online: May 2–8 · Offline: May 10–16 | https://creators.forgebylevelup.com/ |
+| Forge Creators — Edition 7 | Bootcamp (online + offline) | Bali | Online: May 24–29 · Offline: Jun 1–7 | https://creators.forgebylevelup.com/ |
+
+---
+
+## Impact & Credibility
 
 - Students from 28+ Indian states and 6 countries
-- Alumni at Google, Amazon, Adobe, Meta, Flipkart, Infosys, TCS, Wipro, Razorpay, Swiggy, Zoho, and more
-- Students from IIT, IIM, ISB, NID, NIFT, MICA, FTII, Christ University, Manipal, and other top institutions
-- Featured in The Hindu, Hindustan Times, Outlook India, YourStory, ABN Telugu, and The Quint
+- 500+ creators trained through The Forge alone
+- 4.8+ average rating across all programs
 
-## Contact
+### Alumni Work At
+Google, Amazon, Adobe, Meta, Flipkart, Infosys, TCS, Wipro, Razorpay, Swiggy, Zoho, Reliance, HUL, ITC, Sony Pictures, Star India, Viacom18, Dharma Productions, Excel Entertainment, Red Chillies Entertainment, YRF, TVF
 
-- Website: https://www.leveluplearning.live
-- Email: hello@leveluplearning.com
+### Alumni Study At
+IIT, IIM, ISB, NID, NIFT, MICA, FTII, SRFTI, Whistling Woods, Christ University, Manipal University, Symbiosis, Ashoka University, Pearl Academy
 
-## Pages
+### Featured In
+The Hindu, Hindustan Times, Outlook India, YourStory, ABN Telugu, The Quint
+
+---
+
+## Student Stories
+
+Real, long-form editorial stories from LevelUp students — documenting their creative journeys and career transformations.
+
+### From Construction Sites to Cinema
+Akhil Billy Varghese went from working at construction sites in Kerala to pursuing film direction after attending LevelUp's filmmaking workshop.
+Read: https://www.leveluplearning.live/student-stories/from-construction-sites-to-cinema-kerala-worker-filmmaking
+
+### 18-Year-Old Chose Filmmaking Over Engineering
+Rithu Nanda scored 92% in her boards but took a gap year to explore filmmaking instead of engineering.
+Read: https://www.leveluplearning.live/student-stories/18-year-old-kerala-student-chose-filmmaking-over-engineering
+
+### Business Executive Reclaimed His Creative Life
+Debajit Dutta, a business development executive, rediscovered his creative passion through LevelUp's screenwriting workshop after 4 years away from any creative pursuit.
+Read: https://www.leveluplearning.live/student-stories/business-executive-reclaimed-creative-life
+
+### IT Professional Found His Creative Voice
+Ankur Paliwal, an IT professional, spent years watching cinema but never told his own stories — until LevelUp's screenwriting workshop gave him the tools and confidence.
+Read: https://www.leveluplearning.live/student-stories/it-professional-found-creative-voice-screenwriting
+
+### Delhi University Student Chasing Cinematic Legacy
+Suryansh, a Delhi University student, dreams of seeing "A Film By Suryansh" on the big screen.
+Read: https://www.leveluplearning.live/student-stories/delhi-university-student-chasing-cinematic-legacy
+
+### MBBS Student's Secret Life in Cinema
+Swathi Muthu is pursuing MBBS but has dreamed of cinema since childhood. LevelUp's screenwriting workshop became her first step from medicine to movies.
+Read: https://www.leveluplearning.live/student-stories/mbbs-student-secret-life-in-cinema
+
+---
+
+## Frequently Asked Questions
+
+**What is LevelUp Learning?**
+LevelUp is a creative education ecosystem built for serious creators. It brings together masterclasses, mentor-led live programs, and immersive residencies — all designed to deepen your craft, sharpen your voice, and connect you with a community that cares about the work as much as you do.
+
+**Who are the masterclasses for?**
+Anyone who wants to learn from working professionals at the top of their craft. Whether you're a filmmaker, editor, writer, or visual storyteller — our masterclasses are built for people who want depth, not shortcuts.
+
+**How do live programs work?**
+LevelUp Live programs are cohort-based, mentor-led experiences that run over a set number of weeks. You'll work alongside a small group, receive direct feedback from industry mentors, and build real projects throughout the program.
+
+**What is The Forge?**
+The Forge is our most immersive format — an offline creative residency designed for creators ready to go deeper. A focused, distraction-free space where your next body of work begins to take shape.
+
+**Do I need prior experience?**
+It depends on the program. Some masterclasses are accessible to beginners, while live programs and The Forge are better suited for creators with some experience. Each listing clearly notes what level it's designed for.
+
+**How much does it cost?**
+Pricing varies by format and program. Masterclasses are individually priced, live programs have a cohort fee, and The Forge operates on an application basis. We believe in transparent pricing — you'll always know the cost before committing.
+
+**Can I access content after the program ends?**
+Yes. Masterclass content is available on-demand after purchase. For live programs, recorded sessions and materials remain accessible to you after the cohort wraps.
+
+**How do I get invited to The Forge?**
+The Forge is invite-only, but you can express interest through our site. We look for creators with a clear sense of direction and a genuine commitment to their craft — not credentials or follower counts.
+
+**What kind of support do I get during a program?**
+Every live program includes direct mentor feedback, peer collaboration, and access to our community channels. You're never learning in isolation — the experience is built around dialogue and shared growth.
+
+**Do you offer certificates?**
+Yes. All masterclasses and live programs come with a signed certificate of completion from your instructor.
+
+**Can I gift a masterclass to someone?**
+Absolutely. Gifting is available for all masterclasses.
+
+**Is there a community I can join?**
+Yes. When you enrol in any program, you become part of the LevelUp community — a network of serious creators across disciplines. It's a space for honest feedback, collaboration, and long-term creative relationships.
+
+---
+
+## Site Map
 
 - Home: https://www.leveluplearning.live/
 - Student Stories: https://www.leveluplearning.live/student-stories
 - Terms of Service: https://www.leveluplearning.live/terms
 - Privacy Policy: https://www.leveluplearning.live/privacy-policy
+- Masterclasses: https://masterclass.leveluplearning.in
+- The Forge: https://www.forgebylevelup.com/
+- Forge Creators: https://creators.forgebylevelup.com/
+
+---
+
+## Contact
+
+- Email: hello@leveluplearning.com
+- Website: https://www.leveluplearning.live
