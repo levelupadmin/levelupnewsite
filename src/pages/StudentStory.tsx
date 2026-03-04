@@ -89,7 +89,7 @@ export default function StudentStory() {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
-        { "@type": "ListItem", position: 2, name: "Wall of Love", item: `${SITE_URL}/reviews` },
+        { "@type": "ListItem", position: 2, name: "Wall of Love", item: `${SITE_URL}/student-stories` },
         { "@type": "ListItem", position: 3, name: "Student Stories", item: `${SITE_URL}/student-stories` },
         { "@type": "ListItem", position: 4, name: story.h1 },
       ],
@@ -148,7 +148,7 @@ export default function StudentStory() {
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink asChild><Link to="/reviews">Wall of Love</Link></BreadcrumbLink>
+                  <BreadcrumbLink asChild><Link to="/student-stories">Wall of Love</Link></BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>

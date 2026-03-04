@@ -144,8 +144,8 @@ export const navLinks: NavLink[] = [
     ],
   },
   {
-    label: "About",
-    href: "/about",
+    label: "Student Stories",
+    href: "/student-stories",
     description: "",
     items: [],
   },
