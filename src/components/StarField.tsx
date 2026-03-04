@@ -31,6 +31,7 @@ const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: St
     // Cached dimensions to avoid layout thrashing
     let cachedW = 0;
     let cachedH = 0;
+    let isVisible = true;
 
     // Initialize stars
     const stars: Star[] = Array.from({ length: starCount }, () => ({
@@ -80,6 +81,8 @@ const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: St
     let raf: number;
 
     const render = () => {
+      if (!isVisible) return;
+
       const w = cachedW;
       const h = cachedH;
       const cx = w / 2;
@@ -129,9 +132,22 @@ const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: St
 
     raf = requestAnimationFrame(render);
 
+    // Pause animation when off-screen
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible && !raf) {
+          raf = requestAnimationFrame(render);
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(canvas);
+
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
+      observer.disconnect();
     };
   }, []);
 

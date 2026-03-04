@@ -163,7 +163,7 @@ const StudentLogosSection = () => {
                     alt={brand.name}
                     className="h-7 md:h-12 lg:h-14 max-w-[80px] md:max-w-[140px] lg:max-w-[160px] w-auto object-contain select-none logo-marquee-item"
                     style={{ filter: "brightness(0) invert(1)" }}
-                    loading="eager"
+                    loading="lazy"
                     decoding="async"
                   />
                 ))}

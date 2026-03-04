@@ -54,7 +54,7 @@ const HeroCarousel = () => {
 
   const selectedIndex = useEmblaSelect(emblaApi);
 
-  // Only play active + next slide, pause all others
+  // Only play active slide, preload next via canplaythrough
   useEffect(() => {
     if (!isVisible) return;
     const total = slides.length;
@@ -63,17 +63,24 @@ const HeroCarousel = () => {
     videoRefs.current.forEach((video, index) => {
       if (!video) return;
 
-      if (index === selectedIndex || index === nextIndex) {
+      if (index === selectedIndex) {
         if (video.preload !== "auto") {
           video.preload = "auto";
         }
-        // Ensure muted for mobile autoplay compliance
         video.muted = true;
         video.play().catch(() => {
-          // Retry muted if blocked
           video.muted = true;
           video.play().catch(() => {});
         });
+        // Preload next slide once current is ready
+        const next = videoRefs.current[nextIndex];
+        if (next && next.preload !== "auto") {
+          const onReady = () => {
+            if (next.preload !== "auto") next.preload = "auto";
+            video.removeEventListener("canplaythrough", onReady);
+          };
+          video.addEventListener("canplaythrough", onReady);
+        }
       } else {
         video.pause();
       }
