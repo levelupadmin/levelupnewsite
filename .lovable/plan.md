@@ -1,76 +1,106 @@
 
 
-## Restructure Wall of Love Page: Separate Sections + Medium-Style Student Stories
+# Full Speed Audit — LevelUp Learning
 
-The user wants two visually distinct sections on this page:
-1. **Wall of Love** — the reviews/testimonials (hero, marquee, stats, featured reviews, masonry grid)
-2. **Student Stories** — repositioned as a separate, Medium/blog-style editorial section with its own visual identity
+## Summary
 
-### Changes
+The site is well-architected with code-splitting, lazy loading, and Intersection Observer patterns already in place. The main bottlenecks are **image weight**, **CSS bloat**, **always-running canvas animations**, and **excessive DOM from duplicated marquee elements**. Below is a prioritized list.
 
-**1. Visual Separation Between Sections** (`src/pages/Reviews.tsx`)
-- Add a clear visual break between the Wall of Love reviews section and the Student Stories section
-- Give Student Stories its own full-width background treatment (e.g., slightly different background tone or a subtle divider) to make it feel like a distinct destination
-- Add a distinct editorial header for Student Stories — something like "Stories" or "The Journal" with a tagline like "Long-form stories worth reading" in a more blog/editorial style
+---
 
-**2. Medium-Style Student Stories Layout** (`src/pages/Reviews.tsx` — `StudentStoriesSection`)
-- Redesign the section to feel like a Medium-style blog listing:
-  - Clean, generous whitespace with a centered narrow column (max-w-3xl)
-  - Each story renders as a **horizontal card** (image-less, text-forward): title on the left, metadata on the right — resembling Medium article previews
-  - Show: title (large serif), excerpt (2-3 lines), author name, program pill, reading time, and a subtle separator between entries
-  - The hero/featured story at the top gets extra prominence: larger title, longer excerpt
-- Remove the current 3-column grid layout in favor of a **single-column vertical list** (the Medium pattern)
-- Keep the animated filter pills but style them more subtly (underline-based tabs instead of filled pills) to match the editorial feel
+## Critical (High Impact)
 
-**3. Wall of Love Header Fix** (`src/pages/Reviews.tsx`)
-- Ensure "Wall of Love" heading is prominent and clearly the page title
-- Student Stories heading should use a different visual treatment (e.g., different weight, a "publication" feel with a thin rule above and below)
+### 1. Images are not in modern formats (WebP/AVIF)
+Most images are `.png` and `.jpg`. The masterclass cards alone load 7 large PNG/JPG portraits. Community section loads **15 images** (many `.png`), then **duplicates each 6× for marquee** (90 `<img>` tags rendered).
 
-### Layout Flow
-```text
-NAVBAR
-──────────────────────────────────
+**Fix:** Convert all `.png` portraits and community photos to `.webp` (50-70% smaller). Use `<picture>` with AVIF fallback where possible. This is the single biggest win.
 
-  "Wall of Love"  (hero, gradient text)
-   subtitle + marquee + stats
+### 2. Community section renders 90 images
+`repeat(row, 6)` creates 30 images per row × 3 rows = **90 `<img>` elements** for the scrolling marquee. Most are off-screen.
 
-  ── Featured Reviews ──
-  [Editorial review cards]
+**Fix:** Reduce repeat count from 6 to 3 (still enough for seamless loop). That cuts DOM nodes and network requests in half.
 
-  ── Sticky Filter Bar ──
-  [Masonry review grid]
+### 3. StarField canvas runs continuously (750 stars)
+The `StarField` component renders 750 stars with `requestAnimationFrame` running **forever**, even when scrolled past the hero. It also generates a grain texture via `toDataURL()`.
 
-══════════════════════════════════
-  VISUAL BREAK (bg change + divider)
-══════════════════════════════════
+**Fix:** Pause the animation loop when the hero section is not in the viewport using Intersection Observer. Reduce star count to ~400 on mobile.
 
-  ─── thin rule ───
-  "Student Stories"  (editorial serif, different style)
-  "Long-form journeys worth reading"
-  
-  [ All ] [ Filmmaking ] [ Screenwriting ] ...
-           (underline-style tabs)
+### 4. CredibilityParticles canvas also runs forever
+40 particles + proximity line calculations (O(n²) = 780 pair checks per frame) + scroll listener for rect updates.
 
-  ┌─────────────────────────────┐
-  │ FEATURED STORY              │
-  │ Large serif title           │
-  │ 3-line excerpt...           │
-  │ Author · Program · 5 min   │
-  └─────────────────────────────┘
-  ─── separator ───
-  ┌─────────────────────────────┐
-  │ Story title (serif)         │
-  │ 2-line excerpt...           │
-  │ Author · Program · 3 min   │
-  └─────────────────────────────┘
-  ─── separator ───
-  ... more stories ...
+**Fix:** Pause when out of viewport. The scroll listener for `getBoundingClientRect` should be throttled or replaced with a cached approach on intersection.
 
-  CTA Section
-  FOOTER
-```
+---
 
-### Files Modified
-- `src/pages/Reviews.tsx` — restructure `StudentStoriesSection` to Medium-style vertical list, add visual separation, update headers
-- `src/components/stories/StoryCard.tsx` — may add an alternate "list" variant for the vertical layout (or inline the new design directly in the section)
+## Important (Medium Impact)
+
+### 5. StudentLogos section: 78 logo images loaded eagerly
+All logo images have `loading="eager"` — but this section is far below the fold.
+
+**Fix:** Change to `loading="lazy"`.
+
+### 6. CSS file is ~1500 lines with many unused animation keyframes
+`index.css` contains dozens of animation keyframes for the Impact scenes (`impact-*`, `collab-*`, `geo-*`) that only apply to lazy-loaded components. These all ship in the initial CSS bundle.
+
+**Fix:** Move section-specific keyframes into their respective component files using `<style>` tags or CSS modules so they're code-split with the components.
+
+### 7. Three hero videos load simultaneously
+The HeroCarousel loads 3 videos. The first has `preload="auto"` and `fetchPriority="high"`. The effect then sets `preload="auto"` on the next slide too, so 2 videos buffer immediately.
+
+**Fix:** Only preload slide 0 initially. Preload slide 1 after the first slide has loaded (via `canplaythrough` event) rather than immediately.
+
+### 8. LiveProgramsSection loads ALL 4 videos at once when visible
+When the section enters viewport, it calls `.load()` on all 4 videos simultaneously.
+
+**Fix:** Only load the active video and prefetch the next one. Load others on tab switch.
+
+### 9. Navbar data chunk loaded on hover — good, but images inside aren't lazy
+`navbarData.ts` imports 14 images (nav thumbnails) that get bundled into this chunk. When the user hovers, all 14 images are fetched.
+
+**Fix:** These are small thumbnails so impact is moderate, but consider using lower-resolution thumbnails or WebP.
+
+---
+
+## Nice-to-Have (Low Impact)
+
+### 10. `body::after` film grain SVG filter re-renders
+The `feTurbulence` SVG filter used as a CSS background is rendered by the browser on every composite. On some devices this can cause jank.
+
+**Fix:** Replace with a pre-generated small PNG tile (already done in StarField's grain — reuse that pattern).
+
+### 11. `App.css` is unused boilerplate
+The file contains default Vite template styles (`.logo`, `.card`, `.read-the-docs`) that aren't used anywhere.
+
+**Fix:** Delete `src/App.css`.
+
+### 12. Font loading
+Sora font is preloaded via `<link rel="preload">` which is good. However, `font-display: swap` isn't explicitly set in the Google Fonts URL.
+
+**Fix:** Append `&display=swap` to the Google Fonts URL (it may already be included by default, but making it explicit ensures FOUT over FOIT).
+
+---
+
+## Estimated Impact Summary
+
+| Fix | Effort | LCP Impact | TBT Impact |
+|-----|--------|------------|------------|
+| Convert images to WebP | Medium | High | — |
+| Reduce community image duplication | Low | Medium | Low |
+| Pause canvas when off-screen | Low | — | High |
+| Lazy-load logo images | Trivial | Medium | — |
+| Move CSS keyframes to components | Medium | Low | Low |
+| Stagger video preloading | Low | High | — |
+| Delete App.css | Trivial | — | — |
+
+---
+
+## Recommended Priority Order
+
+1. Convert images to WebP (biggest payload reduction)
+2. Pause StarField + CredibilityParticles when off-viewport
+3. Change logo images from `eager` to `lazy`
+4. Reduce community marquee repeats from 6→3
+5. Stagger video preloading in HeroCarousel and LiveProgramsSection
+6. Move impact/collab CSS keyframes out of index.css
+7. Delete unused App.css
 
