@@ -157,30 +157,30 @@ const LiveProjectsCard = () => {
             <span className="text-[8px] text-primary/40 shrink-0 pf-built-tag">Built during LevelUp</span>
           </div>
         </div>
+
+        {/* Notification toast — pops in periodically */}
+        <div className="pf-notification absolute top-2 right-2 z-20 pointer-events-none">
+          <div
+            className="flex items-center gap-2 px-3 py-2 rounded-lg border border-primary/20"
+            style={{
+              background: "hsl(30 20% 12% / 0.97)",
+              boxShadow: "0 8px 24px -4px hsl(22 14% 0% / 0.6), 0 0 12px 1px hsl(30 80% 45% / 0.08)",
+              backdropFilter: "blur(8px)",
+            }}
+          >
+            <div className="w-5 h-5 rounded-full bg-primary/15 flex items-center justify-center">
+              <Trophy size={10} className="text-primary" />
+            </div>
+            <div>
+              <p className="text-[8px] font-medium text-foreground/90">Festival Selected! 🏆</p>
+              <p className="text-[6px] text-foreground/40">Mumbai Short Film Festival</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Ambient glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_hsl(30,80%,50%,0.04)_0%,_transparent_70%)] pointer-events-none" />
-
-      {/* Notification toast — pops in periodically */}
-      <div className="pf-notification absolute top-6 right-6 z-20 pointer-events-none">
-        <div
-          className="flex items-center gap-2 px-3 py-2 rounded-lg border border-primary/20"
-          style={{
-            background: "hsl(30 20% 12% / 0.97)",
-            boxShadow: "0 8px 24px -4px hsl(22 14% 0% / 0.6), 0 0 12px 1px hsl(30 80% 45% / 0.08)",
-            backdropFilter: "blur(8px)",
-          }}
-        >
-          <div className="w-5 h-5 rounded-full bg-primary/15 flex items-center justify-center">
-            <Trophy size={10} className="text-primary" />
-          </div>
-          <div>
-            <p className="text-[8px] font-medium text-foreground/90">Festival Selected! 🏆</p>
-            <p className="text-[6px] text-foreground/40">Mumbai Short Film Festival</p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
