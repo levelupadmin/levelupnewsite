@@ -1,21 +1,39 @@
 
 
-## Fix OG/Social URLs — Remove Lovable Domain References
+## Plan: Remove About, Add Student Stories to Nav, Rename `/reviews` to `/student-stories`
 
-When the site link is shared on WhatsApp (or any social platform), the Open Graph URLs currently point to `levelupnewsite.lovable.app` instead of your custom domain. Additionally, the `og:image` points to a generic Lovable placeholder.
+### 1. Remove "About" from navbar and footer
 
-### Changes
+**`src/components/navbarData.ts`** — Remove the About entry from `navLinks` array (lines 146-150).
 
-**`index.html`**
-- Update `og:image` and `twitter:image` from `https://lovable.dev/opengraph-image-p98pqg.png` to a proper LevelUp branded image (e.g. `/favicon.png` or a dedicated OG image you upload)
-- Optionally add `og:url` meta tag with your custom domain
+**`src/components/Navbar.tsx`** — Remove About from `navLabels` fallback array (line 16).
 
-**`src/pages/Reviews.tsx`**
-- Replace all 2 instances of `https://levelupnewsite.lovable.app` with your custom domain URL
+**`src/components/Footer.tsx`** — Remove the Company section entries that link to About (the Company category links to contact-us, not /about, so those stay). No About link exists in footer currently — confirmed.
 
-**`src/pages/StudentStory.tsx`**
-- Replace all 7 instances of `https://levelupnewsite.lovable.app` with your custom domain URL
+### 2. Add "Student Stories" link to navbar
 
-### What I need from you
-Do you have a custom domain already connected (e.g. `leveluplearning.in` or similar)? If so, I'll use that. Otherwise I can extract these into a single `SITE_URL` constant so you only need to update it in one place later.
+**`src/components/navbarData.ts`** — Add a new entry: `{ label: "Student Stories", href: "/student-stories", description: "", items: [] }` (simple link, no dropdown).
+
+**`src/components/Navbar.tsx`** — Add matching entry to `navLabels` fallback.
+
+### 3. Rename `/reviews` route to `/student-stories`
+
+**`src/App.tsx`** — Change `<Route path="/reviews"` to `<Route path="/student-stories"`. Keep individual story routes at `/student-stories/:slug`.
+
+**`src/pages/Reviews.tsx`** — Update `CANONICAL_URL` from `/reviews` to `/student-stories`.
+
+**`src/pages/StudentStory.tsx`** — Update breadcrumb link and JSON-LD URLs from `/reviews` to `/student-stories`.
+
+**`src/components/Footer.tsx`** — Change `{ label: "Reviews", href: "/reviews" }` to `{ label: "Student Stories", href: "/student-stories" }`.
+
+**`src/components/TestimonialsSection.tsx`** — Update `<Link to="/reviews"` to `/student-stories`.
+
+### Files modified
+- `src/components/navbarData.ts`
+- `src/components/Navbar.tsx`
+- `src/components/Footer.tsx`
+- `src/App.tsx`
+- `src/pages/Reviews.tsx`
+- `src/pages/StudentStory.tsx`
+- `src/components/TestimonialsSection.tsx`
 
