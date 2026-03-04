@@ -8,7 +8,7 @@ import { AnimatedCounter } from "@/components/AnimatedCounter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StoryCard from "@/components/stories/StoryCard";
-import { studentStories } from "@/data/studentStories";
+import { studentStories, getReadingTime } from "@/data/studentStories";
 
 const STORY_PROGRAMS = ["All", "Filmmaking", "Screenwriting", "The Forge", "Breakthrough Filmmaker Program", "Photography"] as const;
 import * as XLSX from "xlsx";
@@ -519,7 +519,7 @@ const ScrollToTopButton = () => {
   );
 };
 
-/* ─── Student Stories Section (inline) ─── */
+/* ─── Student Stories Section (Medium-style) ─── */
 
 const StudentStoriesSection = () => {
   const [storyFilter, setStoryFilter] = useState<string>("All");
@@ -532,84 +532,95 @@ const StudentStoriesSection = () => {
   const [heroStory, ...restStories] = filteredStories;
 
   return (
-    <section className="relative max-w-5xl mx-auto px-6 md:px-12 pb-10">
-      {/* AccentLine divider */}
-      <AccentLine />
-
+    <section className="relative max-w-3xl mx-auto px-6 md:px-12 py-16 md:py-24">
       {/* Editorial header */}
       <FadeInSection>
-        <div className="text-center pt-8 mb-8">
-          <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl font-medium text-foreground tracking-tight mb-2">
+        <div className="text-center mb-12">
+          <div className="h-px w-16 bg-foreground/20 mx-auto mb-6" />
+          <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl font-medium text-foreground tracking-tight mb-3" style={{ fontStyle: 'italic' }}>
             Student Stories
           </h2>
           <p className="font-sans-body text-sm md:text-base text-muted-foreground max-w-md mx-auto">
-            Long-form journeys from our community
+            Long-form journeys worth reading
           </p>
+          <div className="h-px w-16 bg-foreground/20 mx-auto mt-6" />
         </div>
       </FadeInSection>
 
-      {/* Animated filter pills */}
-      <div className="flex items-center justify-center gap-2 flex-wrap mb-10">
+      {/* Underline-style tabs */}
+      <div className="flex items-center justify-center gap-1 flex-wrap mb-12 border-b border-border/40 pb-px">
         {STORY_PROGRAMS.map(p => (
           <button
             key={p}
             onClick={() => setStoryFilter(p)}
-            className={`relative shrink-0 px-4 py-2 rounded-full font-sans-body text-sm font-medium transition-colors duration-200 ${
+            className={`relative px-4 py-2.5 font-sans-body text-sm transition-colors duration-200 ${
               storyFilter === p
-                ? "text-primary-foreground"
+                ? "text-foreground font-medium"
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
+            {p}
             {storyFilter === p && (
-              <m.span
-                layoutId="storyPillBg"
-                className="absolute inset-0 rounded-full bg-primary shadow-md shadow-primary/20"
+              <m.div
+                layoutId="storyTabUnderline"
+                className="absolute bottom-0 left-0 right-0 h-0.5 bg-foreground"
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
               />
             )}
-            <span className="relative z-10">{p}</span>
           </button>
         ))}
       </div>
 
-      {/* Hero card (first story) */}
+      {/* Featured / hero story */}
       {heroStory && (
-        <FadeInSection className="mb-8">
+        <FadeInSection className="mb-0">
           <Link
             to={`/student-stories/${heroStory.slug}`}
-            className="group relative block overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-card via-card to-primary/[0.04] p-8 md:p-10 shadow-sm hover:shadow-lg transition-all duration-300 hover:border-primary/20"
+            className="group block py-8 border-b border-border/30"
           >
-            <Quote
-              className="absolute top-6 right-6 w-16 h-16 text-primary/[0.06] rotate-180"
-              strokeWidth={1}
-              aria-hidden="true"
-            />
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider border bg-primary/10 text-primary border-primary/20 mb-4">
+            <span className="inline-block font-sans-body text-[10px] font-semibold uppercase tracking-widest text-primary mb-3">
               {heroStory.program}
             </span>
-            <h3 className="font-serif-display text-xl sm:text-2xl md:text-3xl font-medium text-foreground leading-snug mb-3 group-hover:text-primary transition-colors max-w-2xl">
+            <h3 className="font-serif-display text-2xl sm:text-3xl md:text-4xl font-medium text-foreground leading-snug mb-3 group-hover:text-primary transition-colors">
               {heroStory.h1}
             </h3>
-            <p className="font-sans-body text-sm md:text-base text-muted-foreground leading-relaxed mb-5 max-w-2xl line-clamp-3">
-              "{heroStory.sections[0]?.body.slice(0, 220)}…"
+            <p className="font-sans-body text-base text-muted-foreground leading-relaxed mb-4 line-clamp-3 max-w-2xl">
+              {heroStory.sections[0]?.body.slice(0, 280)}…
             </p>
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="font-sans-body text-sm font-medium text-foreground">{heroStory.authorName}</p>
-                <p className="font-sans-body text-xs text-muted-foreground">{heroStory.authorRole}{heroStory.location ? ` · ${heroStory.location}` : ""}</p>
-              </div>
-              <ArrowRight className="w-5 h-5 text-primary opacity-60 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+            <div className="flex items-center gap-2 font-sans-body text-xs text-muted-foreground">
+              <span className="font-medium text-foreground">{heroStory.authorName}</span>
+              <span>·</span>
+              <span>{heroStory.program}</span>
+              <span>·</span>
+              <span>{getReadingTime(heroStory)} min read</span>
             </div>
           </Link>
         </FadeInSection>
       )}
 
-      {/* Remaining cards grid */}
-      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
-        {restStories.map((story, i) => (
-          <StoryCard key={story.slug} story={story} index={i} />
-        ))}
-      </div>
+      {/* Vertical list of remaining stories */}
+      {restStories.map((story, i) => (
+        <FadeInSection key={story.slug} delay={i * 60}>
+          <Link
+            to={`/student-stories/${story.slug}`}
+            className="group block py-7 border-b border-border/30"
+          >
+            <h3 className="font-serif-display text-lg sm:text-xl md:text-2xl font-medium text-foreground leading-snug mb-2 group-hover:text-primary transition-colors">
+              {story.h1}
+            </h3>
+            <p className="font-sans-body text-sm text-muted-foreground leading-relaxed mb-3 line-clamp-2 max-w-2xl">
+              {story.sections[0]?.body.slice(0, 180)}…
+            </p>
+            <div className="flex items-center gap-2 font-sans-body text-xs text-muted-foreground">
+              <span className="font-medium text-foreground">{story.authorName}</span>
+              <span>·</span>
+              <span>{story.program}</span>
+              <span>·</span>
+              <span>{getReadingTime(story)} min read</span>
+            </div>
+          </Link>
+        </FadeInSection>
+      ))}
 
       {filteredStories.length === 0 && (
         <p className="text-center text-muted-foreground font-sans-body py-20">No stories for this program yet.</p>
@@ -735,9 +746,6 @@ const Reviews = () => {
           </section>
         )}
 
-        {/* ─── Student Stories Section (Full Grid) ─── */}
-        <StudentStoriesSection />
-
         {/* ─── Sticky Filter Bar ─── */}
         <div className="sticky top-16 z-30 bg-background/80 backdrop-blur-xl border-b border-border/40">
           <div className="max-w-5xl mx-auto px-6 md:px-12 py-3">
@@ -813,6 +821,19 @@ const Reviews = () => {
             </>
           )}
         </section>
+
+        {/* ═══ Visual Break ═══ */}
+        <div className="relative py-16 md:py-20">
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/30 to-muted/50" />
+          <div className="relative max-w-xl mx-auto px-6">
+            <div className="h-px w-full bg-gradient-to-r from-transparent via-border to-transparent" />
+          </div>
+        </div>
+
+        {/* ─── Student Stories Section (Medium-style) ─── */}
+        <div className="relative bg-muted/30">
+          <StudentStoriesSection />
+        </div>
 
         {/* ─── CTA Section ─── */}
         <section className="max-w-5xl mx-auto px-6 md:px-12 pb-16 md:pb-24">
