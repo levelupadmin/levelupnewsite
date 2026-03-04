@@ -1,11 +1,7 @@
 
 
-## Replace Screenwriting Workshop nav image
+## Replace UI/UX Academy nav image
 
-**Change**: Replace the Screenwriting Workshop navigation thumbnail with the uploaded image.
-
-1. Copy `user-uploads://SW_LU.png` to `src/assets/nav-sw.png` (overwriting the existing file)
-2. No code changes needed — `navbarData.ts` already imports from `@/assets/nav-sw.png`
-
-Single file copy, zero code edits.
+1. Copy `user-uploads://UIUX_LU.png` to `src/assets/nav-uiux.png` (overwriting existing)
+2. No code changes needed — `navbarData.ts` already imports from `@/assets/nav-uiux.png`
 
