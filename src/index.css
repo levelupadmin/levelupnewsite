@@ -104,6 +104,51 @@
   .theme-warm footer img[src$=".svg"] {
     filter: invert(1);
   }
+
+  /* Wall of Love — crisp warm-white light theme */
+  .theme-reviews {
+    --background: 30 20% 97%;
+    --foreground: 20 10% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 20 10% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 10% 12%;
+
+    --primary: 24 95% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 30 15% 93%;
+    --secondary-foreground: 20 10% 30%;
+
+    --muted: 30 10% 94%;
+    --muted-foreground: 20 5% 40%;
+
+    --accent: 24 95% 53%;
+    --accent-foreground: 0 0% 100%;
+
+    --border: 30 10% 89%;
+    --input: 30 10% 89%;
+    --ring: 24 95% 53%;
+
+    --hero-headline: 20 10% 8%;
+    --hero-subtext: 20 5% 38%;
+    --cue-text: 20 5% 45%;
+    --cue-value: 20 10% 15%;
+    --gradient-amber-glow: radial-gradient(ellipse at 50% 0%, hsl(24 95% 53% / 0.08) 0%, transparent 60%);
+    --shadow-cinematic: 0 2px 12px -2px hsl(20 20% 0% / 0.06);
+  }
+
+  /* Disable dark vignette & grain in reviews light theme */
+  .theme-reviews body::before,
+  .theme-reviews body::after {
+    display: none;
+  }
+
+  .theme-reviews footer img[src$=".svg"] {
+    filter: invert(1);
+  }
 }
 
 @layer base {
