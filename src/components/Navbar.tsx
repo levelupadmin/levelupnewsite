@@ -26,6 +26,13 @@ const Navbar = () => {
   const loadStarted = useRef(false);
   const { scrollY } = useScroll();
   const isMobile = useIsMobile();
+  const navRef = useRef<HTMLDivElement>(null);
+
+  // Detect if navbar is inside a light theme
+  const isLightTheme = useMemo(() => {
+    if (typeof document === "undefined") return false;
+    return !!document.querySelector(".theme-reviews, .theme-warm");
+  }, []);
 
   const loadNavData = useCallback(() => {
     if (loadStarted.current) return;
@@ -108,11 +115,19 @@ const Navbar = () => {
             opacity: 1,
             y: 0,
             borderRadius: expanded ? 16 : 9999,
-            backgroundColor: scrolled ? "hsla(0, 0%, 7%, 0.7)" : "hsla(0, 0%, 7%, 0.4)",
-            borderColor: scrolled ? "hsla(0, 0%, 15%, 0.4)" : "hsla(0, 0%, 15%, 0.2)",
-            boxShadow: scrolled
-              ? "0 8px 32px hsla(0, 0%, 0%, 0.4)"
-              : "0 4px 20px hsla(0, 0%, 0%, 0.25)",
+            backgroundColor: isLightTheme
+              ? scrolled ? "hsla(30, 20%, 97%, 0.85)" : "hsla(30, 20%, 97%, 0.7)"
+              : scrolled ? "hsla(0, 0%, 7%, 0.7)" : "hsla(0, 0%, 7%, 0.4)",
+            borderColor: isLightTheme
+              ? scrolled ? "hsla(30, 10%, 85%, 0.6)" : "hsla(30, 10%, 85%, 0.3)"
+              : scrolled ? "hsla(0, 0%, 15%, 0.4)" : "hsla(0, 0%, 15%, 0.2)",
+            boxShadow: isLightTheme
+              ? scrolled
+                ? "0 8px 32px hsla(20, 10%, 0%, 0.08)"
+                : "0 4px 20px hsla(20, 10%, 0%, 0.05)"
+              : scrolled
+                ? "0 8px 32px hsla(0, 0%, 0%, 0.4)"
+                : "0 4px 20px hsla(0, 0%, 0%, 0.25)",
           }}
           transition={{
             opacity: { duration: 0.8, delay: 0.2 },
@@ -142,6 +157,7 @@ const Navbar = () => {
                 className={[
                   "w-auto transition-all duration-500 ease-out",
                   scrolled ? "h-5 md:h-6" : "h-6 md:h-8",
+                  isLightTheme ? "invert" : "",
                 ].join(" ")}
               />
             </a>
@@ -191,7 +207,7 @@ const Navbar = () => {
                 rel="noopener noreferrer"
                 className={[
                   "hidden md:inline-flex font-sans-body text-foreground rounded-full hover:border-primary hover:text-primary transition-all duration-500",
-                  `border border-[#5c5c5c]`,
+                  isLightTheme ? "border border-border" : "border border-[#5c5c5c]",
                   scrolled
                     ? "text-xs px-3 py-1.5"
                     : "text-xs md:text-sm px-3.5 md:px-4 py-1.5",
