@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { Star, ArrowRight, ChevronDown, Quote, ArrowUp } from "lucide-react";
+import { Star, ArrowRight, ChevronDown, Quote, ArrowUp, ArrowDown } from "lucide-react";
 import { m, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import FadeInSection from "@/components/FadeInSection";
@@ -549,6 +549,13 @@ const StudentStoriesSection = () => {
             Long-form journeys worth reading
           </p>
           <div className="h-px w-16 bg-foreground/20 mx-auto mt-6" />
+          <a
+            href="#wall-of-love"
+            className="inline-flex items-center gap-2 mt-5 font-sans-body text-xs md:text-sm text-muted-foreground hover:text-foreground transition-colors group"
+          >
+            Jump to Wall of Love
+            <ArrowDown className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />
+          </a>
         </div>
       </FadeInSection>
 
@@ -731,7 +738,7 @@ const Reviews = () => {
         </div>
 
         {/* ─── Wall of Love Hero ─── */}
-        <section className="relative max-w-5xl mx-auto px-6 md:px-12 pb-4 md:pb-6 text-center">
+        <section id="wall-of-love" className="relative max-w-5xl mx-auto px-6 md:px-12 pb-4 md:pb-6 text-center scroll-mt-20">
           {/* Decorative watermark quotes */}
           <div className="absolute inset-0 flex items-start justify-center pointer-events-none overflow-hidden" aria-hidden="true">
             <Quote className="w-48 h-48 md:w-64 md:h-64 text-primary/[0.04] -mt-4 rotate-180" strokeWidth={1} />
