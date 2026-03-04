@@ -9,6 +9,7 @@ import { getStoryBySlug, getReadingTime, studentStories } from "@/data/studentSt
 import {
   Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage
 } from "@/components/ui/breadcrumb";
+import { SITE_URL } from "@/lib/constants";
 
 const PROGRAM_BORDER: Record<string, string> = {
   Filmmaking: "border-l-rose-500",
@@ -36,7 +37,7 @@ export default function StudentStory() {
       "og:title": story.seoTitle,
       "og:description": story.metaDescription,
       "og:type": "article",
-      "og:url": `https://levelupnewsite.lovable.app/student-stories/${story.slug}`,
+      "og:url": `${SITE_URL}/student-stories/${story.slug}`,
       "twitter:card": "summary_large_image",
       "twitter:title": story.seoTitle,
       "twitter:description": story.metaDescription,
@@ -62,7 +63,7 @@ export default function StudentStory() {
       canonical.setAttribute("rel", "canonical");
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute("href", `https://levelupnewsite.lovable.app/student-stories/${story.slug}`);
+    canonical.setAttribute("href", `${SITE_URL}/student-stories/${story.slug}`);
 
     // JSON-LD Article
     const articleLd = {
@@ -74,10 +75,10 @@ export default function StudentStory() {
       publisher: {
         "@type": "EducationalOrganization",
         name: "LevelUp Learning",
-        url: "https://levelupnewsite.lovable.app",
+        url: SITE_URL,
       },
       datePublished: "2026-03-01",
-      url: `https://levelupnewsite.lovable.app/student-stories/${story.slug}`,
+      url: `${SITE_URL}/student-stories/${story.slug}`,
       keywords: story.targetKeywords.join(", "),
       ...(story.location ? { contentLocation: { "@type": "Place", name: story.location } } : {}),
     };
@@ -87,9 +88,9 @@ export default function StudentStory() {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: "https://levelupnewsite.lovable.app/" },
-        { "@type": "ListItem", position: 2, name: "Wall of Love", item: "https://levelupnewsite.lovable.app/reviews" },
-        { "@type": "ListItem", position: 3, name: "Student Stories", item: "https://levelupnewsite.lovable.app/student-stories" },
+        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: "Wall of Love", item: `${SITE_URL}/reviews` },
+        { "@type": "ListItem", position: 3, name: "Student Stories", item: `${SITE_URL}/student-stories` },
         { "@type": "ListItem", position: 4, name: story.h1 },
       ],
     };
