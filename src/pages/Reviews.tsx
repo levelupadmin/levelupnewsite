@@ -236,14 +236,14 @@ function getInitials(name: string): string {
 }
 
 const AVATAR_COLORS = [
-  "bg-orange-900/50 text-orange-300",
-  "bg-blue-900/50 text-blue-300",
-  "bg-emerald-900/50 text-emerald-300",
-  "bg-violet-900/50 text-violet-300",
-  "bg-rose-900/50 text-rose-300",
-  "bg-amber-900/50 text-amber-300",
-  "bg-cyan-900/50 text-cyan-300",
-  "bg-fuchsia-900/50 text-fuchsia-300",
+  "bg-orange-100 text-orange-700",
+  "bg-blue-100 text-blue-700",
+  "bg-emerald-100 text-emerald-700",
+  "bg-violet-100 text-violet-700",
+  "bg-rose-100 text-rose-700",
+  "bg-amber-100 text-amber-700",
+  "bg-cyan-100 text-cyan-700",
+  "bg-fuchsia-100 text-fuchsia-700",
 ];
 
 function getAvatarColor(name: string): string {
@@ -346,10 +346,10 @@ const FeaturedReviewCard = ({ review, index }: { review: Review; index: number }
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
-      className={`relative rounded-2xl bg-card/80 backdrop-blur-sm p-8 md:p-10 border border-border/40 border-l-[3px] ${borderColor} hover:border-border/60 transition-colors duration-300`}
+      className={`relative rounded-2xl bg-card p-8 md:p-10 border border-border/50 border-l-[3px] ${borderColor} shadow-sm hover:shadow-md transition-all duration-300`}
     >
       {/* Opening quote */}
-      <span className="block font-serif text-6xl leading-none text-primary/15 mb-3 select-none">"</span>
+      <span className="block font-serif text-6xl leading-none text-primary/20 mb-3 select-none" style={{ fontStyle: 'italic' }}>"</span>
 
       <blockquote className="relative z-10">
         <p className="font-sans-body text-sm md:text-base text-foreground/80 leading-relaxed whitespace-pre-line">
@@ -394,7 +394,7 @@ const ReviewCard = ({ review }: { review: Review }) => {
 
   return (
     <article
-      className={`relative break-inside-avoid mb-5 rounded-xl border border-border/40 bg-card/70 backdrop-blur-sm p-5 md:p-6 border-l-[3px] ${borderColor} hover:border-border/60 transition-colors duration-300`}
+      className={`relative break-inside-avoid mb-5 rounded-xl border border-border/50 bg-card p-5 md:p-6 border-l-[3px] ${borderColor} shadow-sm hover:shadow-md transition-all duration-300`}
     >
       {/* Header: avatar + name */}
       <figure className="flex items-center gap-3 mb-4">
@@ -585,9 +585,11 @@ const Reviews = () => {
   );
 
   return (
-    <div>
+    <div className="theme-reviews">
       <Navbar />
       <main className="relative min-h-screen bg-background pt-20">
+        {/* Warm editorial ambient glow */}
+        <div className="reviews-editorial-glow" aria-hidden="true" />
 
         {/* ─── Hero ─── */}
         <section className="relative max-w-5xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-4 md:pb-6 text-center">

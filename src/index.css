@@ -105,7 +105,55 @@
     filter: invert(1);
   }
 
-  /* Wall of Love theme removed — uses site's native dark palette */
+  /* Wall of Love — warm editorial light theme with texture */
+  .theme-reviews {
+    --background: 28 25% 95%;
+    --foreground: 20 15% 15%;
+
+    --card: 30 20% 98%;
+    --card-foreground: 20 15% 15%;
+
+    --popover: 30 20% 98%;
+    --popover-foreground: 20 15% 15%;
+
+    --primary: 24 95% 48%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 28 18% 90%;
+    --secondary-foreground: 20 12% 30%;
+
+    --muted: 28 12% 91%;
+    --muted-foreground: 20 8% 42%;
+
+    --accent: 24 95% 48%;
+    --accent-foreground: 0 0% 100%;
+
+    --border: 28 12% 85%;
+    --input: 28 12% 85%;
+    --ring: 24 95% 48%;
+
+    --hero-headline: 20 18% 10%;
+    --hero-subtext: 20 8% 38%;
+    --cue-text: 20 5% 45%;
+    --cue-value: 20 12% 15%;
+    --gradient-amber-glow: radial-gradient(ellipse at 50% 0%, hsl(24 80% 55% / 0.08) 0%, transparent 60%);
+    --shadow-cinematic: 0 2px 12px -2px hsl(20 20% 0% / 0.06);
+  }
+
+  /* Disable dark vignette in light reviews theme */
+  .theme-reviews body::before {
+    display: none;
+  }
+
+  /* Replace film grain with subtle warm paper texture */
+  .theme-reviews body::after {
+    opacity: 0.04;
+    mix-blend-mode: multiply;
+  }
+
+  .theme-reviews footer img[src$=".svg"] {
+    filter: invert(1);
+  }
 }
 
 @layer base {
@@ -1358,7 +1406,38 @@
   75% { transform: translate(15px, 25px) scale(1.03); }
 }
 
-/* Gradient mesh removed — dark theme uses site's native vignette + grain */
+/* Warm editorial ambient glow for reviews page */
+.reviews-editorial-glow {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.reviews-editorial-glow::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  top: -15%;
+  right: -10%;
+  border-radius: 50%;
+  background: radial-gradient(circle, hsl(24 80% 65% / 0.08) 0%, transparent 70%);
+  filter: blur(80px);
+}
+
+.reviews-editorial-glow::after {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  bottom: 10%;
+  left: -10%;
+  border-radius: 50%;
+  background: radial-gradient(circle, hsl(30 70% 70% / 0.06) 0%, transparent 70%);
+  filter: blur(60px);
+}
 
 /* ═══ Wall of Love — Marquee ═══ */
 @keyframes reviews-marquee-left {
@@ -1404,12 +1483,12 @@
 
 .reviews-marquee-container::before {
   left: 0;
-  background: linear-gradient(to right, hsl(22 14% 6%), transparent);
+  background: linear-gradient(to right, hsl(28 25% 95%), transparent);
 }
 
 .reviews-marquee-container::after {
   right: 0;
-  background: linear-gradient(to left, hsl(22 14% 6%), transparent);
+  background: linear-gradient(to left, hsl(28 25% 95%), transparent);
 }
 
 /* ═══ Wall of Love — Hover Spotlight ═══ */
@@ -1421,7 +1500,7 @@
 .reviews-grid-spotlight:hover > *:hover {
   opacity: 1;
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px -8px hsl(24 95% 53% / 0.18);
+  box-shadow: 0 12px 32px -8px hsl(24 60% 40% / 0.12);
 }
 
 .reviews-grid-spotlight > * {
