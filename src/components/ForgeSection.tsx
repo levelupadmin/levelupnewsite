@@ -69,34 +69,67 @@ const stats = [
 
 const forgeCards = [
 {
-  title: "Forge Filmmaking",
-  tag: "10-DAY WORKSHOP",
-  location: "Delhi · Bangalore",
+  title: "Writing Retreat — Edition 5",
+  tag: "6-DAY RETREAT",
+  location: "Dehradun",
   subtitle:
-  "Shape raw footage into compelling stories. Learn rhythm, pacing, and the art of emotional beats from working editors.",
-  cohort: "Dec 2025",
-  image: forgeFilmmaking,
-  cta: "https://www.forgebylevelup.com/",
-  learnMore: "https://www.forgebylevelup.com/"
-},
-{
-  title: "Forge Writers",
-  tag: "12-DAY RETREAT",
-  location: "Goa",
-  subtitle:
-  "Immersive retreat for writers and storytellers. Develop your voice and craft your narrative.",
-  cohort: "Jan 2026",
+  "Immersive retreat for writers and storytellers. Develop your voice and craft your narrative. 6 days fully offline.",
+  cohort: "Mar 7–12, 2026",
   image: forgeWriting,
   cta: "https://tally.so/r/nPJydd",
   learnMore: "https://www.forgebylevelup.com/writingresidency"
 },
 {
-  title: "Forge Creators",
-  tag: "10-DAY BOOTCAMP",
-  location: "Mumbai · Delhi",
+  title: "Filmmaking Bootcamp — Edition 16",
+  tag: "BOOTCAMP",
+  location: "Goa",
   subtitle:
-  "Build, collaborate, and ship creative work with fellow creators.",
-  cohort: "Feb 2026",
+  "Shape raw footage into compelling stories. Online Apr 15–23, then offline Apr 25 – May 2.",
+  cohort: "Apr 2026",
+  image: forgeFilmmaking,
+  cta: "https://www.forgebylevelup.com/",
+  learnMore: "https://www.forgebylevelup.com/"
+},
+{
+  title: "Filmmaking Bootcamp — Edition 17",
+  tag: "BOOTCAMP",
+  location: "Goa",
+  subtitle:
+  "Shape raw footage into compelling stories. Online Apr 17–25, then offline Apr 27 – May 4.",
+  cohort: "Apr 2026",
+  image: forgeFilmmaking,
+  cta: "https://www.forgebylevelup.com/",
+  learnMore: "https://www.forgebylevelup.com/"
+},
+{
+  title: "Forge Creators — Edition 5",
+  tag: "BOOTCAMP",
+  location: "Goa",
+  subtitle:
+  "Build, collaborate, and ship creative work. Online Apr 28 – May 2, offline May 4–10.",
+  cohort: "May 2026",
+  image: forgeCreators,
+  cta: "https://creators.forgebylevelup.com/",
+  learnMore: "https://creators.forgebylevelup.com/"
+},
+{
+  title: "Forge Creators — Edition 6",
+  tag: "BOOTCAMP",
+  location: "Goa",
+  subtitle:
+  "Build, collaborate, and ship creative work. Online May 2–8, offline May 10–16.",
+  cohort: "May 2026",
+  image: forgeCreators,
+  cta: "https://creators.forgebylevelup.com/",
+  learnMore: "https://creators.forgebylevelup.com/"
+},
+{
+  title: "Forge Creators — Edition 7",
+  tag: "BOOTCAMP",
+  location: "Bali",
+  subtitle:
+  "Build, collaborate, and ship creative work. Online May 24–29, offline Jun 1–7.",
+  cohort: "May–Jun 2026",
   image: forgeCreators,
   cta: "https://creators.forgebylevelup.com/",
   learnMore: "https://creators.forgebylevelup.com/"
