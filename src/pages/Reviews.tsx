@@ -90,17 +90,7 @@ const PROGRAM_DOT_COLORS: Record<string, string> = {
   Other: "bg-gray-400",
 };
 
-const PROGRAM_TINT_COLORS: Record<string, string> = {
-  Screenwriting: "bg-amber-50",
-  Filmmaking: "bg-rose-50",
-  "Video Editing": "bg-violet-50",
-  "Breakthrough Filmmaker Program": "bg-blue-50",
-  "The Forge": "bg-emerald-50",
-  Photography: "bg-cyan-50",
-  Cinematography: "bg-fuchsia-50",
-  Community: "bg-orange-50",
-  Other: "bg-gray-50",
-};
+/* PROGRAM_TINT_COLORS removed — dark theme uses card bg with border accents */
 
 /* ─── xlsx loader ─── */
 
@@ -245,15 +235,15 @@ function getInitials(name: string): string {
     .toUpperCase();
 }
 
-const AVATAR_COLORS_LIGHT = [
-  "bg-orange-100 text-orange-700",
-  "bg-blue-100 text-blue-700",
-  "bg-emerald-100 text-emerald-700",
-  "bg-violet-100 text-violet-700",
-  "bg-rose-100 text-rose-700",
-  "bg-amber-100 text-amber-700",
-  "bg-cyan-100 text-cyan-700",
-  "bg-fuchsia-100 text-fuchsia-700",
+const AVATAR_COLORS = [
+  "bg-orange-900/50 text-orange-300",
+  "bg-blue-900/50 text-blue-300",
+  "bg-emerald-900/50 text-emerald-300",
+  "bg-violet-900/50 text-violet-300",
+  "bg-rose-900/50 text-rose-300",
+  "bg-amber-900/50 text-amber-300",
+  "bg-cyan-900/50 text-cyan-300",
+  "bg-fuchsia-900/50 text-fuchsia-300",
 ];
 
 function getAvatarColor(name: string): string {
@@ -261,7 +251,7 @@ function getAvatarColor(name: string): string {
   for (let i = 0; i < name.length; i++) {
     hash = name.charCodeAt(i) + ((hash << 5) - hash);
   }
-  return AVATAR_COLORS_LIGHT[Math.abs(hash) % AVATAR_COLORS_LIGHT.length];
+  return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
 }
 
 /* ─── Marquee Pull-Quotes ─── */
@@ -345,32 +335,32 @@ const StatsBanner = ({ reviewCount }: { reviewCount: number }) => (
   </FadeInSection>
 );
 
-/* ─── Featured Review Card ─── */
+/* ─── Featured Review Card (Vertical Editorial) ─── */
 
 const FeaturedReviewCard = ({ review, index }: { review: Review; index: number }) => {
+  const borderColor = PROGRAM_BORDER_COLORS[review.program] || "border-l-gray-400";
   const dotColor = PROGRAM_DOT_COLORS[review.program] || "bg-gray-400";
-  const truncated = review.text.length > 220 ? review.text.slice(0, 220).trimEnd() + "…" : review.text;
 
   return (
     <m.article
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
-      className="relative rounded-2xl bg-card p-6 md:p-7 border border-border/50 shadow-sm hover:shadow-md transition-shadow duration-300"
+      transition={{ duration: 0.6, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
+      className={`relative rounded-2xl bg-card/80 backdrop-blur-sm p-8 md:p-10 border border-border/40 border-l-[3px] ${borderColor} hover:border-border/60 transition-colors duration-300`}
     >
-      {/* Large decorative quote */}
-      <span className="block font-serif text-5xl leading-none text-primary/20 mb-2 select-none">"</span>
+      {/* Opening quote */}
+      <span className="block font-serif text-6xl leading-none text-primary/15 mb-3 select-none">"</span>
 
       <blockquote className="relative z-10">
-        <p className="font-sans-body text-sm md:text-[15px] text-foreground/80 leading-relaxed line-clamp-5">
-          {truncated}
+        <p className="font-sans-body text-sm md:text-base text-foreground/80 leading-relaxed whitespace-pre-line">
+          {review.text}
         </p>
       </blockquote>
 
-      <div className="flex items-center gap-3 mt-5 pt-4 border-t border-border/30">
+      <div className="flex items-center gap-3 mt-6 pt-5 border-t border-border/20">
         <div
-          className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 font-sans-body text-[11px] font-semibold ${getAvatarColor(review.name)}`}
+          className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 font-sans-body text-xs font-semibold ${getAvatarColor(review.name)}`}
         >
           {getInitials(review.name)}
         </div>
@@ -387,7 +377,7 @@ const FeaturedReviewCard = ({ review, index }: { review: Review; index: number }
         </div>
         <div className="flex items-center gap-0.5">
           {Array.from({ length: 5 }).map((_, i) => (
-            <Star key={i} className="w-3 h-3 fill-amber-500 text-amber-500" />
+            <Star key={i} className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
           ))}
         </div>
       </div>
@@ -400,20 +390,13 @@ const FeaturedReviewCard = ({ review, index }: { review: Review; index: number }
 const ReviewCard = ({ review }: { review: Review }) => {
   const [expanded, setExpanded] = useState(false);
   const needsTruncation = review.text.length > 200;
-  const borderColor = PROGRAM_BORDER_COLORS[review.program] || "border-l-gray-300";
+  const borderColor = PROGRAM_BORDER_COLORS[review.program] || "border-l-gray-400";
   const dotColor = PROGRAM_DOT_COLORS[review.program] || "bg-gray-400";
 
   return (
     <article
-      className={`relative break-inside-avoid mb-5 rounded-xl border border-border/60 bg-card p-5 md:p-6 border-l-[3px] ${borderColor}`}
+      className={`relative break-inside-avoid mb-5 rounded-xl border border-border/40 bg-card/70 backdrop-blur-sm p-5 md:p-6 border-l-[3px] ${borderColor} hover:border-border/60 transition-colors duration-300`}
     >
-      {/* Decorative quote watermark */}
-      <Quote
-        className="absolute top-3 right-3 w-8 h-8 text-primary/[0.04] rotate-180 pointer-events-none"
-        strokeWidth={1.5}
-        aria-hidden="true"
-      />
-
       {/* Header: avatar + name */}
       <figure className="flex items-center gap-3 mb-4">
         <div
@@ -422,7 +405,7 @@ const ReviewCard = ({ review }: { review: Review }) => {
           {getInitials(review.name)}
         </div>
         <figcaption>
-          <p className="font-serif-display text-sm font-medium text-hero-headline leading-tight">
+          <p className="font-serif-display text-sm font-medium text-foreground leading-tight">
             {review.name}
           </p>
           {review.role && (
@@ -447,8 +430,8 @@ const ReviewCard = ({ review }: { review: Review }) => {
         </div>
       </div>
 
-      {/* Review text with blockquote left border */}
-      <blockquote cite="LevelUp Learning" className="border-l-2 border-primary/15 pl-3">
+      {/* Review text */}
+      <blockquote>
         <div
           className={`overflow-hidden transition-all duration-500 ${expanded ? "max-h-[5000px]" : "max-h-[6rem]"}`}
         >
@@ -461,7 +444,7 @@ const ReviewCard = ({ review }: { review: Review }) => {
       {needsTruncation && (
         <button
           onClick={() => setExpanded(!expanded)}
-          className="mt-2 ml-3 inline-flex items-center gap-1 font-sans-body text-xs text-primary font-medium hover:text-primary/80 transition-colors"
+          className="mt-2 inline-flex items-center gap-1 font-sans-body text-xs text-primary font-medium hover:text-primary/80 transition-colors"
           aria-expanded={expanded}
         >
           {expanded ? "Show less" : "Read more"}
@@ -603,13 +586,9 @@ const Reviews = () => {
   );
 
   return (
-    <div className="theme-reviews">
+    <div>
       <Navbar />
       <main className="relative min-h-screen bg-background pt-20">
-        {/* Animated gradient mesh background */}
-        <div className="reviews-gradient-mesh" aria-hidden="true">
-          <div className="reviews-mesh-blob-3" />
-        </div>
 
         {/* ─── Hero ─── */}
         <section className="relative max-w-5xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-4 md:pb-6 text-center">
@@ -642,7 +621,7 @@ const Reviews = () => {
                 Featured Reviews
               </p>
             </FadeInSection>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div className="flex flex-col gap-6">
               {featuredReviews.map((review, i) => (
                 <FeaturedReviewCard key={`featured-${review.name}-${i}`} review={review} index={i} />
               ))}
@@ -698,19 +677,11 @@ const Reviews = () => {
             <>
               <div className="columns-1 md:columns-2 xl:columns-3 gap-5 reviews-grid-spotlight">
                 {visible.map((review, i) => (
-                  <m.div
+                  <div
                     key={`${review.name}-${i}`}
-                    initial={{ opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-30px" }}
-                    transition={{
-                      duration: 0.5,
-                      delay: Math.min((i % 3) * 0.08, 0.2),
-                      ease: [0.16, 1, 0.3, 1],
-                    }}
                   >
                     <ReviewCard review={review} />
-                  </m.div>
+                  </div>
                 ))}
               </div>
 
