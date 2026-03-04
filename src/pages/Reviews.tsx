@@ -537,14 +537,14 @@ const StudentStoriesSection = () => {
   const [heroStory, ...restStories] = filteredStories;
 
   return (
-    <section className="relative max-w-3xl mx-auto px-6 md:px-12 py-16 md:py-24">
+    <section className="relative max-w-3xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-16 md:pb-24">
       {/* Editorial header */}
       <FadeInSection>
         <div className="text-center mb-12">
           <div className="h-px w-16 bg-foreground/20 mx-auto mb-6" />
-          <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl font-medium text-foreground tracking-tight mb-3" style={{ fontStyle: 'italic' }}>
+          <h1 className="font-serif-display text-3xl sm:text-4xl md:text-5xl font-medium text-foreground tracking-tight mb-3" style={{ fontStyle: 'italic' }}>
             Student Stories
-          </h2>
+          </h1>
           <p className="font-sans-body text-sm md:text-base text-muted-foreground max-w-md mx-auto">
             Long-form journeys worth reading
           </p>
@@ -717,17 +717,30 @@ const Reviews = () => {
         {/* Warm editorial ambient glow */}
         <div className="reviews-editorial-glow" aria-hidden="true" />
 
-        {/* ─── Hero ─── */}
-        <section className="relative max-w-5xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-4 md:pb-6 text-center">
+        {/* ─── Student Stories as Hero Section ─── */}
+        <div className="relative">
+          <StudentStoriesSection />
+        </div>
+
+        {/* ═══ Visual Break ═══ */}
+        <div className="relative py-10 md:py-20">
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/30 to-muted/50" />
+          <div className="relative max-w-xl mx-auto px-6">
+            <div className="h-px w-full bg-gradient-to-r from-transparent via-border to-transparent" />
+          </div>
+        </div>
+
+        {/* ─── Wall of Love Hero ─── */}
+        <section className="relative max-w-5xl mx-auto px-6 md:px-12 pb-4 md:pb-6 text-center">
           {/* Decorative watermark quotes */}
           <div className="absolute inset-0 flex items-start justify-center pointer-events-none overflow-hidden" aria-hidden="true">
             <Quote className="w-48 h-48 md:w-64 md:h-64 text-primary/[0.04] -mt-4 rotate-180" strokeWidth={1} />
           </div>
 
           <FadeInSection>
-            <h1 className="relative font-serif-display text-4xl sm:text-5xl md:text-6xl font-medium leading-[1.1] tracking-tight mb-4">
+            <h2 className="relative font-serif-display text-3xl sm:text-4xl md:text-5xl font-medium leading-[1.1] tracking-tight mb-4">
               <span className="text-gradient-amber">Wall of Love</span>
-            </h1>
+            </h2>
             <p className="font-sans-body text-base md:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
               Real reviews from creators who transformed their careers through our programs. No scripts — just honest creative growth.
             </p>
@@ -831,19 +844,6 @@ const Reviews = () => {
             </>
           )}
         </section>
-
-        {/* ═══ Visual Break ═══ */}
-        <div className="relative py-10 md:py-20">
-          <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/30 to-muted/50" />
-          <div className="relative max-w-xl mx-auto px-6">
-            <div className="h-px w-full bg-gradient-to-r from-transparent via-border to-transparent" />
-          </div>
-        </div>
-
-        {/* ─── Student Stories Section (Medium-style) ─── */}
-        <div className="relative bg-muted/30">
-          <StudentStoriesSection />
-        </div>
 
         {/* ─── CTA Section ─── */}
         <section className="max-w-5xl mx-auto px-6 md:px-12 pb-16 md:pb-24">
