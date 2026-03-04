@@ -1,18 +1,22 @@
 
 
-## Fix: Standardize Bottom Padding in Expanded Card to Match Other Cards
+## Make WhyLevelUp Expanded Cards Consistent
 
-The expanded state uses `p-6 md:p-8` while the compressed state uses `p-7 md:p-10`. The illustration wrapper also has `pb-4` which creates inconsistent bottom spacing. The bottom of the expanded card content likely clips or sits too close to the card edge.
+Two inconsistencies to fix:
 
-### Changes in `src/components/WhyLevelUp.tsx`
+### 1. Grid column ratio (line 194)
+Card 1 (Portfolio-Driven Learning) uses `grid-cols-2` while cards 0 and 2 use `grid-cols-[2fr_3fr]`. Change to use the same ratio for all three cards: `grid-cols-[2fr_3fr]`.
 
-1. **Match expanded padding to compressed padding** — Change the expanded state wrapper (line 194) from `p-6 md:p-8` to `p-7 md:p-10` to match the compressed state's padding, ensuring consistent spacing across all states.
+**Note:** The memory says card 1 uses `grid-cols-2` "to prevent text clipping." This may reintroduce clipping — but uniformity is what you asked for. If text clips, we can adjust the right column content instead.
 
-2. **Ensure illustration wrapper bottom padding is consistent** — The illustration wrapper (line 200) currently has `pb-4`. This is fine and matches the memory note about Expert Membership Card's `pb-4` breathing room.
+### 2. Remove microLine from card 1 (lines 203-207)
+Only card 1 has a `microLine` property. Remove it from the features data (line 42) and remove the rendering code (lines 203-207) to make all cards structurally identical.
 
-### Single file change
+### Changes
 
-| File | Change |
-|------|--------|
-| `src/components/WhyLevelUp.tsx` | Line 194: change `p-6 md:p-8` → `p-7 md:p-10` in expanded state wrapper |
+| File | Line | Change |
+|------|------|--------|
+| `src/components/WhyLevelUp.tsx` | 42 | Remove `microLine` property from card 1 data |
+| `src/components/WhyLevelUp.tsx` | 194 | Remove conditional `index === 1 ? "grid-cols-2" :` — use `grid-cols-[2fr_3fr]` for all |
+| `src/components/WhyLevelUp.tsx` | 203-207 | Remove microLine rendering block |
 
