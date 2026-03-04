@@ -32,15 +32,20 @@ export default function StudentStory() {
 
     document.title = story.seoTitle;
 
+    const OG_IMAGE = `${SITE_URL}/og-image.jpg`;
     const metaTags: Record<string, string> = {
       description: story.metaDescription,
       "og:title": story.seoTitle,
       "og:description": story.metaDescription,
       "og:type": "article",
       "og:url": `${SITE_URL}/student-stories/${story.slug}`,
+      "og:image": OG_IMAGE,
+      "og:image:width": "1200",
+      "og:image:height": "630",
       "twitter:card": "summary_large_image",
       "twitter:title": story.seoTitle,
       "twitter:description": story.metaDescription,
+      "twitter:image": OG_IMAGE,
     };
 
     const createdTags: HTMLElement[] = [];

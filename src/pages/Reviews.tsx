@@ -155,15 +155,20 @@ function usePageSEO(reviews: Review[]) {
   useEffect(() => {
     document.title = PAGE_TITLE;
 
+    const OG_IMAGE = `${SITE_URL}/og-student-stories.jpg`;
     const metaTags: Record<string, string> = {
       description: PAGE_DESCRIPTION,
       "og:title": PAGE_TITLE,
       "og:description": PAGE_DESCRIPTION,
       "og:type": "website",
       "og:url": CANONICAL_URL,
+      "og:image": OG_IMAGE,
+      "og:image:width": "1200",
+      "og:image:height": "630",
       "twitter:card": "summary_large_image",
       "twitter:title": PAGE_TITLE,
       "twitter:description": PAGE_DESCRIPTION,
+      "twitter:image": OG_IMAGE,
     };
 
     const createdTags: HTMLElement[] = [];
