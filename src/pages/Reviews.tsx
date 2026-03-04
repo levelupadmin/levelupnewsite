@@ -3,6 +3,7 @@ import { Star, ArrowRight, ChevronDown, Quote, ArrowUp } from "lucide-react";
 import { m, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import FadeInSection from "@/components/FadeInSection";
+import AccentLine from "@/components/AccentLine";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -527,33 +528,84 @@ const StudentStoriesSection = () => {
     [storyFilter]
   );
 
+  const [heroStory, ...restStories] = filteredStories;
+
   return (
-    <section className="max-w-5xl mx-auto px-6 md:px-12 pb-10">
+    <section className="relative max-w-5xl mx-auto px-6 md:px-12 pb-10">
+      {/* AccentLine divider */}
+      <AccentLine />
+
+      {/* Editorial header */}
       <FadeInSection>
-        <p className="font-sans-body text-xs text-muted-foreground uppercase tracking-widest text-center mb-6">
-          Student Stories
-        </p>
+        <div className="text-center pt-8 mb-8">
+          <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl font-medium text-foreground tracking-tight mb-2">
+            Student Stories
+          </h2>
+          <p className="font-sans-body text-sm md:text-base text-muted-foreground max-w-md mx-auto">
+            Long-form journeys from our community
+          </p>
+        </div>
       </FadeInSection>
 
-      {/* Program filter pills */}
-      <div className="flex items-center justify-center gap-2 flex-wrap mb-8">
+      {/* Animated filter pills */}
+      <div className="flex items-center justify-center gap-2 flex-wrap mb-10">
         {STORY_PROGRAMS.map(p => (
           <button
             key={p}
             onClick={() => setStoryFilter(p)}
-            className={`shrink-0 px-4 py-2 rounded-full font-sans-body text-sm font-medium transition-all duration-300 ${
+            className={`relative shrink-0 px-4 py-2 rounded-full font-sans-body text-sm font-medium transition-colors duration-200 ${
               storyFilter === p
-                ? "bg-primary text-primary-foreground shadow-md shadow-primary/20"
-                : "bg-muted/60 text-muted-foreground hover:text-foreground hover:bg-muted"
+                ? "text-primary-foreground"
+                : "text-muted-foreground hover:text-foreground"
             }`}
           >
-            {p}
+            {storyFilter === p && (
+              <m.span
+                layoutId="storyPillBg"
+                className="absolute inset-0 rounded-full bg-primary shadow-md shadow-primary/20"
+                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+              />
+            )}
+            <span className="relative z-10">{p}</span>
           </button>
         ))}
       </div>
 
+      {/* Hero card (first story) */}
+      {heroStory && (
+        <FadeInSection className="mb-8">
+          <Link
+            to={`/student-stories/${heroStory.slug}`}
+            className="group relative block overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-card via-card to-primary/[0.04] p-8 md:p-10 shadow-sm hover:shadow-lg transition-all duration-300 hover:border-primary/20"
+          >
+            <Quote
+              className="absolute top-6 right-6 w-16 h-16 text-primary/[0.06] rotate-180"
+              strokeWidth={1}
+              aria-hidden="true"
+            />
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider border bg-primary/10 text-primary border-primary/20 mb-4">
+              {heroStory.program}
+            </span>
+            <h3 className="font-serif-display text-xl sm:text-2xl md:text-3xl font-medium text-foreground leading-snug mb-3 group-hover:text-primary transition-colors max-w-2xl">
+              {heroStory.h1}
+            </h3>
+            <p className="font-sans-body text-sm md:text-base text-muted-foreground leading-relaxed mb-5 max-w-2xl line-clamp-3">
+              "{heroStory.sections[0]?.body.slice(0, 220)}…"
+            </p>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-sans-body text-sm font-medium text-foreground">{heroStory.authorName}</p>
+                <p className="font-sans-body text-xs text-muted-foreground">{heroStory.authorRole}{heroStory.location ? ` · ${heroStory.location}` : ""}</p>
+              </div>
+              <ArrowRight className="w-5 h-5 text-primary opacity-60 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+            </div>
+          </Link>
+        </FadeInSection>
+      )}
+
+      {/* Remaining cards grid */}
       <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
-        {filteredStories.map((story, i) => (
+        {restStories.map((story, i) => (
           <StoryCard key={story.slug} story={story} index={i} />
         ))}
       </div>
