@@ -1,15 +1,18 @@
 
 
-## Fix: Remove Gap Between Title and Illustration in Expanded Left Column
+## Fix: Standardize Bottom Padding in Expanded Card to Match Other Cards
 
-The `mb-4` on the `h3` (line 197) and the `flex-1` + `items-center justify-center` on the illustration wrapper (line 200) create vertical space between the title and the illustration. The `flex-1` makes the illustration wrapper expand to fill all available space, centering the illustration in the middle — leaving a visible gap below the title.
+The expanded state uses `p-6 md:p-8` while the compressed state uses `p-7 md:p-10`. The illustration wrapper also has `pb-4` which creates inconsistent bottom spacing. The bottom of the expanded card content likely clips or sits too close to the card edge.
 
-### Change in `src/components/WhyLevelUp.tsx`
+### Changes in `src/components/WhyLevelUp.tsx`
 
-1. **Remove `mb-4`** from the expanded `h3` (line 197) → change to `mb-2` for minimal breathing room
-2. **Remove `flex-1` and `items-center justify-center`** from the illustration wrapper (line 200) → change to `flex items-start min-h-0 pb-4 overflow-hidden` so the illustration sits directly below the title without centering in extra space
+1. **Match expanded padding to compressed padding** — Change the expanded state wrapper (line 194) from `p-6 md:p-8` to `p-7 md:p-10` to match the compressed state's padding, ensuring consistent spacing across all states.
+
+2. **Ensure illustration wrapper bottom padding is consistent** — The illustration wrapper (line 200) currently has `pb-4`. This is fine and matches the memory note about Expert Membership Card's `pb-4` breathing room.
+
+### Single file change
 
 | File | Change |
 |------|--------|
-| `src/components/WhyLevelUp.tsx` | Remove vertical centering from illustration wrapper, reduce title margin |
+| `src/components/WhyLevelUp.tsx` | Line 194: change `p-6 md:p-8` → `p-7 md:p-10` in expanded state wrapper |
 
