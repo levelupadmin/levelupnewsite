@@ -3,6 +3,7 @@ import { Star, ArrowRight, ChevronDown, Quote, ArrowUp } from "lucide-react";
 import { m, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import FadeInSection from "@/components/FadeInSection";
+import { AnimatedCounter } from "@/components/AnimatedCounter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import * as XLSX from "xlsx";
@@ -63,7 +64,7 @@ function mapProgram(raw: string): ReviewProgram {
   return PROGRAM_MAP[raw] || "Other";
 }
 
-/* ─── Program accent colors for left border ─── */
+/* ─── Program accent colors ─── */
 
 const PROGRAM_BORDER_COLORS: Record<string, string> = {
   Screenwriting: "border-l-amber-500",
@@ -75,6 +76,30 @@ const PROGRAM_BORDER_COLORS: Record<string, string> = {
   Cinematography: "border-l-fuchsia-500",
   Community: "border-l-orange-500",
   Other: "border-l-gray-400",
+};
+
+const PROGRAM_DOT_COLORS: Record<string, string> = {
+  Screenwriting: "bg-amber-500",
+  Filmmaking: "bg-rose-500",
+  "Video Editing": "bg-violet-500",
+  BFP: "bg-blue-500",
+  "The Forge": "bg-emerald-500",
+  Photography: "bg-cyan-500",
+  Cinematography: "bg-fuchsia-500",
+  Community: "bg-orange-500",
+  Other: "bg-gray-400",
+};
+
+const PROGRAM_TINT_COLORS: Record<string, string> = {
+  Screenwriting: "bg-amber-50",
+  Filmmaking: "bg-rose-50",
+  "Video Editing": "bg-violet-50",
+  BFP: "bg-blue-50",
+  "The Forge": "bg-emerald-50",
+  Photography: "bg-cyan-50",
+  Cinematography: "bg-fuchsia-50",
+  Community: "bg-orange-50",
+  Other: "bg-gray-50",
 };
 
 /* ─── xlsx loader ─── */
@@ -239,17 +264,159 @@ function getAvatarColor(name: string): string {
   return AVATAR_COLORS_LIGHT[Math.abs(hash) % AVATAR_COLORS_LIGHT.length];
 }
 
+/* ─── Marquee Pull-Quotes ─── */
+
+const MARQUEE_QUOTES = [
+  "This program completely changed my perspective on storytelling",
+  "Best investment I've ever made in my creative career",
+  "The mentors genuinely care about your growth as an artist",
+  "I went from amateur to confident filmmaker in 8 weeks",
+  "The community alone is worth every penny — incredible people",
+  "Finally learned the craft properly after years of self-teaching",
+  "Got my first paid gig within a month of completing the program",
+  "The live feedback sessions were absolute game-changers",
+  "I never thought I could write a screenplay — now I've written three",
+  "More practical and hands-on than any film school I've seen",
+  "The editing techniques I learned here tripled my freelance rate",
+  "Incredible depth of knowledge packed into every session",
+];
+
+const MarqueeStrip = () => {
+  const row1 = MARQUEE_QUOTES.slice(0, 6);
+  const row2 = MARQUEE_QUOTES.slice(6, 12);
+
+  const renderQuotes = (quotes: string[]) =>
+    [...quotes, ...quotes].map((q, i) => (
+      <span
+        key={i}
+        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card border border-border/50 font-sans-body text-xs text-muted-foreground whitespace-nowrap shadow-sm"
+      >
+        <Quote className="w-3 h-3 text-primary/40 shrink-0" />
+        {q}
+      </span>
+    ));
+
+  return (
+    <div className="w-full space-y-3 mt-8">
+      <div className="reviews-marquee-container">
+        <div className="reviews-marquee-track reviews-marquee-left">
+          {renderQuotes(row1)}
+        </div>
+      </div>
+      <div className="reviews-marquee-container">
+        <div className="reviews-marquee-track reviews-marquee-right">
+          {renderQuotes(row2)}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ─── Stats Banner ─── */
+
+const StatsBanner = ({ reviewCount }: { reviewCount: number }) => (
+  <FadeInSection>
+    <div className="max-w-4xl mx-auto px-6 md:px-12 py-8">
+      <div className="flex flex-wrap items-center justify-center gap-6 md:gap-0 md:divide-x md:divide-border">
+        {[
+          { target: reviewCount || 500, suffix: "+", label: "Reviews", hasComma: true },
+          { target: 4.9, suffix: "", label: "Avg Rating", decimals: 1 },
+          { target: 10, suffix: "+", label: "Programs" },
+          { target: 15, suffix: "+", label: "States" },
+        ].map((stat, i) => (
+          <div key={stat.label} className="flex flex-col items-center px-6 md:px-10">
+            <span className="font-serif-display text-3xl md:text-4xl text-hero-headline font-semibold tabular-nums">
+              <AnimatedCounter
+                target={stat.target}
+                suffix={stat.suffix}
+                hasComma={stat.hasComma}
+                decimals={stat.decimals}
+                delay={i * 150}
+                celebrate
+              />
+            </span>
+            <span className="font-sans-body text-xs text-muted-foreground mt-1 uppercase tracking-wider">
+              {stat.label}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </FadeInSection>
+);
+
+/* ─── Featured Review Card ─── */
+
+const FeaturedReviewCard = ({ review, index }: { review: Review; index: number }) => {
+  const tintColor = PROGRAM_TINT_COLORS[review.program] || "bg-gray-50";
+  const dotColor = PROGRAM_DOT_COLORS[review.program] || "bg-gray-400";
+
+  return (
+    <m.article
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
+      className={`relative rounded-2xl ${tintColor} p-6 md:p-8 border border-border/40`}
+    >
+      {/* Big quote mark */}
+      <Quote
+        className="absolute top-4 right-4 w-12 h-12 text-primary/[0.07] rotate-180"
+        strokeWidth={1.5}
+      />
+
+      <blockquote className="relative z-10">
+        <p className="font-sans-body text-sm md:text-base text-foreground/85 leading-relaxed whitespace-pre-line">
+          {review.text}
+        </p>
+      </blockquote>
+
+      <div className="flex items-center gap-3 mt-5 pt-4 border-t border-border/30">
+        <div
+          className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 font-sans-body text-xs font-semibold ${getAvatarColor(review.name)}`}
+        >
+          {getInitials(review.name)}
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="font-serif-display text-sm font-medium text-hero-headline truncate">
+            {review.name}
+          </p>
+          <div className="flex items-center gap-2 mt-0.5">
+            <span className={`w-1.5 h-1.5 rounded-full ${dotColor}`} />
+            <span className="font-sans-body text-[10px] text-muted-foreground uppercase tracking-wider">
+              {review.program}
+            </span>
+          </div>
+        </div>
+        <div className="flex items-center gap-0.5">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Star key={i} className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
+          ))}
+        </div>
+      </div>
+    </m.article>
+  );
+};
+
 /* ─── Review Card ─── */
 
 const ReviewCard = ({ review }: { review: Review }) => {
   const [expanded, setExpanded] = useState(false);
   const needsTruncation = review.text.length > 200;
   const borderColor = PROGRAM_BORDER_COLORS[review.program] || "border-l-gray-300";
+  const dotColor = PROGRAM_DOT_COLORS[review.program] || "bg-gray-400";
 
   return (
     <article
-      className={`break-inside-avoid mb-5 rounded-xl border border-border/60 bg-card p-5 md:p-6 transition-all duration-400 hover:-translate-y-0.5 hover:shadow-lg border-l-[3px] ${borderColor}`}
+      className={`relative break-inside-avoid mb-5 rounded-xl border border-border/60 bg-card p-5 md:p-6 border-l-[3px] ${borderColor}`}
     >
+      {/* Decorative quote watermark */}
+      <Quote
+        className="absolute top-3 right-3 w-8 h-8 text-primary/[0.04] rotate-180 pointer-events-none"
+        strokeWidth={1.5}
+        aria-hidden="true"
+      />
+
       {/* Header: avatar + name */}
       <figure className="flex items-center gap-3 mb-4">
         <div
@@ -269,7 +436,8 @@ const ReviewCard = ({ review }: { review: Review }) => {
 
       {/* Program tag + rating */}
       <div className="flex items-center justify-between mb-3">
-        <span className="inline-block px-2.5 py-1 rounded-full bg-primary/10 text-primary font-sans-body text-[10px] tracking-wider uppercase font-medium">
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 text-primary font-sans-body text-[10px] tracking-wider uppercase font-medium">
+          <span className={`w-1.5 h-1.5 rounded-full ${dotColor}`} />
           {review.program}
         </span>
         <div className="flex items-center gap-0.5" aria-label={`${review.rating} out of 5 stars`}>
@@ -282,8 +450,8 @@ const ReviewCard = ({ review }: { review: Review }) => {
         </div>
       </div>
 
-      {/* Review text */}
-      <blockquote cite="LevelUp Learning">
+      {/* Review text with blockquote left border */}
+      <blockquote cite="LevelUp Learning" className="border-l-2 border-primary/15 pl-3">
         <div
           className={`overflow-hidden transition-all duration-500 ${expanded ? "max-h-[5000px]" : "max-h-[6rem]"}`}
         >
@@ -296,7 +464,7 @@ const ReviewCard = ({ review }: { review: Review }) => {
       {needsTruncation && (
         <button
           onClick={() => setExpanded(!expanded)}
-          className="mt-2 inline-flex items-center gap-1 font-sans-body text-xs text-primary font-medium hover:text-primary/80 transition-colors"
+          className="mt-2 ml-3 inline-flex items-center gap-1 font-sans-body text-xs text-primary font-medium hover:text-primary/80 transition-colors"
           aria-expanded={expanded}
         >
           {expanded ? "Show less" : "Read more"}
@@ -381,7 +549,6 @@ const Reviews = () => {
   useEffect(() => {
     loadReviews()
       .then((data) => {
-        // Shuffle so "All" view mixes programs instead of showing one block
         for (let i = data.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           [data[i], data[j]] = [data[j], data[i]];
@@ -418,30 +585,37 @@ const Reviews = () => {
     return counts;
   }, [reviews]);
 
+  // Featured: 3 random 5-star reviews with longest text
+  const featuredReviews = useMemo(() => {
+    const fiveStars = reviews
+      .filter((r) => r.rating >= 5 && r.text.length > 300)
+      .sort((a, b) => b.text.length - a.text.length);
+    // Pick 3 from top 10 longest, shuffled
+    const pool = fiveStars.slice(0, 10);
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    return pool.slice(0, 3);
+  }, [reviews]);
+
+  // Unique programs count
+  const uniquePrograms = useMemo(
+    () => Object.keys(programCounts).length,
+    [programCounts]
+  );
+
   return (
     <div className="theme-reviews">
       <Navbar />
       <main className="relative min-h-screen bg-background pt-20">
-        {/* Subtle dot grid pattern */}
-        <div
-          className="absolute inset-0 pointer-events-none opacity-[0.35]"
-          style={{
-            backgroundImage: "radial-gradient(circle, hsl(20 10% 70%) 0.5px, transparent 0.5px)",
-            backgroundSize: "24px 24px",
-          }}
-        />
-
-        {/* Soft radial blush behind hero */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(ellipse 50% 40% at 50% 5%, hsl(24 95% 53% / 0.06) 0%, transparent 70%)",
-          }}
-        />
+        {/* Animated gradient mesh background */}
+        <div className="reviews-gradient-mesh" aria-hidden="true">
+          <div className="reviews-mesh-blob-3" />
+        </div>
 
         {/* ─── Hero ─── */}
-        <section className="relative max-w-5xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-8 md:pb-12 text-center">
+        <section className="relative max-w-5xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-4 md:pb-6 text-center">
           {/* Decorative watermark quotes */}
           <div className="absolute inset-0 flex items-start justify-center pointer-events-none overflow-hidden" aria-hidden="true">
             <Quote className="w-48 h-48 md:w-64 md:h-64 text-primary/[0.04] -mt-4 rotate-180" strokeWidth={1} />
@@ -451,28 +625,33 @@ const Reviews = () => {
             <h1 className="relative font-serif-display text-4xl sm:text-5xl md:text-6xl font-medium leading-[1.1] tracking-tight mb-4">
               <span className="text-gradient-amber">Wall of Love</span>
             </h1>
-            <p className="font-sans-body text-base md:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed mb-8">
+            <p className="font-sans-body text-base md:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
               Real reviews from creators who transformed their careers through our programs. No scripts — just honest creative growth.
             </p>
           </FadeInSection>
 
-          {/* Rating badge */}
-          <FadeInSection delay={150}>
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-card shadow-sm">
-                <div className="flex items-center gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-amber-500 text-amber-500" />
-                  ))}
-                </div>
-                <span className="font-sans-body text-sm text-hero-headline font-medium">4.9/5</span>
-                <span className="font-sans-body text-xs text-muted-foreground">
-                  from {reviews.length || "500"}+ creators
-                </span>
-              </div>
-            </div>
-          </FadeInSection>
+          {/* Marquee pull-quotes */}
+          <MarqueeStrip />
         </section>
+
+        {/* ─── Animated Stats Banner ─── */}
+        <StatsBanner reviewCount={reviews.length} />
+
+        {/* ─── Featured Reviews ─── */}
+        {!loading && featuredReviews.length >= 3 && (
+          <section className="max-w-5xl mx-auto px-6 md:px-12 pb-8">
+            <FadeInSection>
+              <p className="font-sans-body text-xs text-muted-foreground uppercase tracking-widest text-center mb-6">
+                Featured Reviews
+              </p>
+            </FadeInSection>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {featuredReviews.map((review, i) => (
+                <FeaturedReviewCard key={`featured-${review.name}-${i}`} review={review} index={i} />
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* ─── Sticky Filter Bar ─── */}
         <div className="sticky top-16 z-30 bg-background/80 backdrop-blur-xl border-b border-border/40">
@@ -508,7 +687,7 @@ const Reviews = () => {
           </div>
         </div>
 
-        {/* ─── Reviews Grid (Masonry) ─── */}
+        {/* ─── Reviews Grid (Masonry) with Waterfall + Spotlight ─── */}
         <section className="max-w-5xl mx-auto px-6 md:px-12 py-10 md:py-14">
           <h2 className="sr-only">Student Reviews</h2>
 
@@ -520,11 +699,21 @@ const Reviews = () => {
             </div>
           ) : (
             <>
-              <div className="columns-1 md:columns-2 xl:columns-3 gap-5">
+              <div className="columns-1 md:columns-2 xl:columns-3 gap-5 reviews-grid-spotlight">
                 {visible.map((review, i) => (
-                  <FadeInSection key={`${review.name}-${i}`} delay={Math.min(i * 40, 400)}>
+                  <m.div
+                    key={`${review.name}-${i}`}
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-30px" }}
+                    transition={{
+                      duration: 0.5,
+                      delay: Math.min((i % 3) * 0.08, 0.2),
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                  >
                     <ReviewCard review={review} />
-                  </FadeInSection>
+                  </m.div>
                 ))}
               </div>
 
