@@ -80,8 +80,25 @@ const cardStyles = [
 const featuredStyle = "bg-[hsl(24_10%_8%)] border-primary/20";
 
 const FAQSection = () => {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((faq) => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer,
+      },
+    })),
+  };
+
   return (
     <section id="faq" aria-label="Frequently asked questions" className="relative py-12 md:py-16 overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       {/* Warm gradient overlay at the bottom */}
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 h-[80%]"

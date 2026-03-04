@@ -95,8 +95,32 @@ const LiveProgramsSection = () => {
     });
   }, [activeShowcase, isVisible]);
 
+  const coursesJsonLd = {
+    "@context": "https://schema.org",
+    "@graph": showcasePrograms.map((p) => ({
+      "@type": "Course",
+      "name": p.title,
+      "description": p.description,
+      "provider": {
+        "@type": "Organization",
+        "name": "LevelUp Learning",
+        "url": "https://www.leveluplearning.live",
+      },
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "courseMode": p.format.includes("Live") ? "Blended" : "Online",
+        "duration": p.duration,
+      },
+      "url": p.learnMoreLink,
+    })),
+  };
+
   return (
     <section ref={sectionRef} id="live-programs" aria-label="Live programs" className="relative py-14 md:py-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(coursesJsonLd) }}
+      />
       <AccentLine />
 
       {/* Subtle top glow */}
