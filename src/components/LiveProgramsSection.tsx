@@ -75,14 +75,18 @@ const LiveProgramsSection = () => {
     return () => observer.disconnect();
   }, []);
 
-  // When visible, eagerly load all videos; play active, pause others
+  // When visible, only load active + next video; play active, pause others
   useEffect(() => {
     if (!isVisible) return;
+    const total = showcasePrograms.length;
+    const nextIndex = (activeShowcase + 1) % total;
+
     videoRefs.current.forEach((v, i) => {
       if (!v) return;
-      // Force all videos to start buffering
-      if (v.preload === "none") v.preload = "auto";
-      v.load();
+      if (i === activeShowcase || i === nextIndex) {
+        if (v.preload === "none") v.preload = "auto";
+        v.load();
+      }
       if (i === activeShowcase) {
         v.play().catch(() => {});
       } else {

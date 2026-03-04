@@ -88,8 +88,11 @@ const CredibilityParticles = () => {
     parent?.addEventListener("mouseleave", onLeave);
 
     const ctx = canvas.getContext("2d")!;
+    let isVisible = true;
 
     const render = () => {
+      if (!isVisible) return;
+
       timeRef.current += 0.016;
       const t = timeRef.current;
       const cw = cachedW * dpr;
@@ -102,12 +105,10 @@ const CredibilityParticles = () => {
 
       const particles = particlesRef.current;
 
-      // Update positions with drift
       const positions = particles.map((p) => {
         let x = p.baseX + Math.sin(t * p.speed + p.phase) * p.ampX;
         let y = p.baseY + Math.cos(t * p.speed * 0.7 + p.phase) * p.ampY;
 
-        // Cursor repulsion
         if (mouse) {
           const dx = x - mouse.x;
           const dy = y - mouse.y;
@@ -121,7 +122,6 @@ const CredibilityParticles = () => {
         return { x, y };
       });
 
-      // Proximity lines
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const a = positions[i], b = positions[j];
@@ -139,25 +139,21 @@ const CredibilityParticles = () => {
         }
       }
 
-      // Draw particles
       particles.forEach((p, i) => {
         const pos = positions[i];
         const pulse = 0.6 + 0.4 * Math.sin(t * 1.2 + p.phase);
 
-        // Glow
         ctx.beginPath();
         ctx.arc(pos.x, pos.y, p.radius + 4, 0, Math.PI * 2);
         ctx.fillStyle = p.color.replace("1)", `${0.06 * pulse})`);
         ctx.fill();
 
-        // Core
         ctx.beginPath();
         ctx.arc(pos.x, pos.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = p.color.replace("1)", `${0.5 + 0.3 * pulse})`);
         ctx.fill();
       });
 
-      // Cursor glow
       if (mouse) {
         const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 100);
         g.addColorStop(0, "hsla(24, 95%, 58%, 0.08)");
@@ -175,12 +171,27 @@ const CredibilityParticles = () => {
 
     rafRef.current = requestAnimationFrame(render);
 
+    // Pause when off-screen
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          rafRef.current = requestAnimationFrame(render);
+        } else {
+          cancelAnimationFrame(rafRef.current);
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(canvas);
+
     return () => {
       window.removeEventListener("resize", resize);
       window.removeEventListener("scroll", onScroll);
       parent?.removeEventListener("mousemove", onMove);
       parent?.removeEventListener("mouseleave", onLeave);
       cancelAnimationFrame(rafRef.current);
+      observer.disconnect();
     };
   }, [dpr]);
 
