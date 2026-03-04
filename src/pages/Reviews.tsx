@@ -148,7 +148,8 @@ async function loadReviews(): Promise<Review[]> {
 const PAGE_TITLE = "Student Reviews & Testimonials | LevelUp Learning";
 const PAGE_DESCRIPTION =
   "Read honest reviews from 500+ creators who transformed their careers through LevelUp Learning's filmmaking, video editing, screenwriting, and UI/UX programs. Real stories, real creative growth.";
-const CANONICAL_URL = "https://levelupnewsite.lovable.app/reviews";
+import { SITE_URL } from "@/lib/constants";
+const CANONICAL_URL = `${SITE_URL}/reviews`;
 
 function usePageSEO(reviews: Review[]) {
   useEffect(() => {
@@ -209,7 +210,7 @@ function usePageSEO(reviews: Review[]) {
           itemReviewed: {
             "@type": "EducationalOrganization",
             name: "LevelUp Learning",
-            url: "https://levelupnewsite.lovable.app",
+            url: SITE_URL,
           },
         },
       })),
