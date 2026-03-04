@@ -10,6 +10,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { lazy, Suspense } from "react";
 import Index from "./pages/Index";
 const About = lazy(() => import("./pages/About"));
+const Reviews = lazy(() => import("./pages/Reviews"));
 const Terms = lazy(() => import("./pages/Terms"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -30,6 +31,7 @@ const AnimatedRoutes = () => {
         <Routes location={location}>
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
+          <Route path="/reviews" element={<Reviews />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

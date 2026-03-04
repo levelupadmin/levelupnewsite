@@ -1,21 +1,15 @@
 import { useEffect, useCallback, useState } from "react";
+import { Link } from "react-router-dom";
 import FadeInSection from "./FadeInSection";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { ChevronLeft, ChevronRight, ArrowUpRight, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowUpRight, ArrowRight, X } from "lucide-react";
 import {
   Dialog,
   DialogContent,
   DialogClose,
 } from "@/components/ui/dialog";
-
-import testimonial1 from "@/assets/testimonial-1.jpg";
-import testimonial2 from "@/assets/testimonial-2.jpg";
-import testimonial4 from "@/assets/testimonial-4.jpg";
-import testimonial5 from "@/assets/testimonial-5.jpg";
-import testimonial6 from "@/assets/testimonial-6.jpg";
-import testimonial7 from "@/assets/testimonial-7.jpg";
-import testimonial8 from "@/assets/testimonial-8.jpg";
+import { testimonials as allTestimonials } from "@/data/testimonials";
 
 interface Testimonial {
   image: string;
@@ -26,58 +20,8 @@ interface Testimonial {
   fullStory: string;
 }
 
-const testimonials: Testimonial[] = [
-  {
-    image: testimonial1,
-    name: "Janani",
-    role: "Director",
-    context: "Enrolled in the Direction Masterclass",
-    pullQuote:
-      "I was blown away by the depth of knowledge shared. The instructors were passionate and experienced, providing valuable insights into the art of filmmaking.",
-    fullStory:
-      "Before joining LevelUp, I had been dabbling with short films for two years, feeling stuck and unsure of how to take my work to the next level. The Direction Masterclass completely changed how I think about storytelling and visual language. From the very first session, I realised I had been approaching scenes from the wrong angle — focusing too much on action and too little on emotion. The instructors broke down complex concepts like blocking, shot composition, and actor direction into frameworks I could immediately apply on set. What surprised me most was the feedback culture — every assignment was dissected with care and specificity, not just generic praise. I started getting callbacks for projects I submitted after the course. Within six months, I directed my first commissioned short for a regional streaming platform. The community that LevelUp built around the course was equally invaluable — I connected with cinematographers, writers, and producers who I continue to collaborate with today. If you're serious about directing, this isn't just a course — it's a career turning point. I recommend it to anyone who wants to move from aspiring to actually working in the industry.",
-  },
-  {
-    image: testimonial2,
-    name: "Karthik",
-    role: "Filmmaker",
-    context: "Took the Filmmaking Masterclass",
-    pullQuote:
-      "LevelUp Learning's Filmmaking Masterclass is a game-changer. The course content is comprehensive, covering every aspect of filmmaking.",
-    fullStory:
-      "I came into the Filmmaking Masterclass with a basic understanding of cameras and editing software, but no real grasp of how films actually get made from start to finish. The course bridged that gap completely. We covered everything — from scriptwriting fundamentals and pre-production planning to on-set etiquette and post-production workflows. What stood out was how each module connected to the next. By the time we got to the editing sessions, I understood why certain decisions had been made on the shoot, and vice versa. The guest sessions with working industry professionals gave me an honest picture of what the job actually looks like day-to-day. I stopped romanticising filmmaking and started treating it as a craft with learnable skills. After completing the course, I co-directed a documentary that was screened at a local film festival — something I would never have had the confidence to pursue before. The structured learning path, combined with real-world assignments, made the experience both rigorous and deeply engaging. LevelUp doesn't just teach you to make films. It teaches you to think like a filmmaker, and that shift in mindset has been the most valuable thing I have taken away.",
-  },
-  {
-    image: testimonial4,
-    name: "Kishore",
-    role: "Photographer",
-    context: "Enrolled in the Photography Masterclass",
-    pullQuote:
-      "LevelUp elevated my skills to a professional level. I particularly liked the emphasis on storytelling through photographs.",
-    fullStory:
-      "Photography had always been a weekend hobby for me — something I did to decompress from my nine-to-five. After years of posting on Instagram without any real growth or understanding of why certain images worked and others didn't, I decided to invest in the Photography Masterclass. The transformation was immediate. The very first module on light — how to read it, how to use it, and when to fight it — rewired how I see every environment I walk into. The sessions on composition went far beyond the rule of thirds that you find in every free tutorial. We discussed visual weight, leading lines in context, and how the human eye naturally moves through a frame. The emphasis on narrative — building a story within a single still image — was something I hadn't encountered before and it completely changed my approach to portrait and street photography. By the end of the course, I had a portfolio I was genuinely proud of. I started getting freelance inquiries within weeks of sharing the work. The instructors were accessible, thoughtful, and clearly invested in each student's individual growth. LevelUp gave me the technical confidence and the creative vocabulary to call myself a photographer with conviction.",
-  },
-  {
-    image: testimonial8,
-    name: "Avantika Sharma",
-    role: "Filmmaker",
-    context: "BFP Live Program participant",
-    pullQuote:
-      "Dedicated and focused teachers, present in the moment. This really blurs the online/offline divide and makes it feel like a community.",
-    fullStory:
-      "I was initially sceptical about a live online filmmaking program — my previous experience with virtual learning had been passive and isolating. The BFP Live Program at LevelUp was nothing like that. From the first session, the energy was collaborative and the instructors were genuinely present, not just reading from slides. Every class felt like a real workshop, with live feedback, group critiques, and spontaneous conversations that went far beyond the scheduled agenda. The program pushed me to make work consistently — short exercises, rapid assignments, and a final project that required real commitment. The accountability of a cohort was something I hadn't expected to value so much, but it made all the difference. Having peers who were at similar stages of their journey, facing the same creative and technical challenges, made the experience feel less lonely and far more dynamic. By the end of the program, I had a short film I was proud enough to submit to festivals. Two of my classmates have since become long-term collaborators. The live format truly erases the distance — I felt as connected to my instructors and peers as I would have in a physical classroom, sometimes even more so.",
-  },
-  {
-    image: testimonial4,
-    name: "Michael V",
-    role: "Engineering Student",
-    context: "BFP Live Program participant",
-    pullQuote:
-      "It was great learning filmmaking from the scratch. Many processes of films make more sense now after the sessions with industry mentors.",
-    fullStory:
-      "As an engineering student with zero formal background in film, I was nervous about joining the BFP Live Program. I had a passion for cinema but felt like I was missing a foundational vocabulary that everyone else seemed to already have. From the very first week, that anxiety disappeared. The program was built for people like me — curious, motivated, but starting from the beginning. The mentors were patient and specific in a way that made complex concepts approachable without ever feeling dumbed down. Understanding how a script becomes a shot list, how a shot list becomes a shooting schedule, and how that schedule shapes the final film gave me a clarity I had never had before. I started watching films completely differently — noticing choices I had always felt subconsciously but couldn't name. The industry mentor sessions were particularly revelatory. Hearing real accounts of how productions are structured, how decisions get made under pressure, and how the business side of filmmaking works alongside the creative side was invaluable context. I'm now developing my first short film as a writer-director. I never imagined saying that a year ago. LevelUp made it feel not just possible but inevitable.",
-  },
-];
+// Use first 5 for homepage carousel
+const testimonials: Testimonial[] = allTestimonials.slice(0, 5);
 
 /* ─── Modal ─── */
 
@@ -271,6 +215,17 @@ const TestimonialsSection = () => {
             </button>
           </div>
         </div>
+      </div>
+
+      {/* See all reviews link */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 mt-6">
+        <Link
+          to="/reviews"
+          className="inline-flex items-center gap-2 font-sans-body text-sm text-muted-foreground hover:text-foreground transition-colors cta-underline"
+        >
+          See all reviews
+          <ArrowRight className="w-4 h-4" />
+        </Link>
       </div>
 
       {/* Story Modal */}
