@@ -685,10 +685,15 @@ const Reviews = () => {
     return counts;
   }, [reviews]);
 
+  // Blocklist: reviews that are rambling or low-quality for featuring
+  const FEATURED_BLOCKLIST = [
+    "This is really The Best Thing to be joined",
+  ];
+
   // Featured: 3 random 5-star reviews with longest text
   const featuredReviews = useMemo(() => {
     const fiveStars = reviews
-      .filter((r) => r.rating >= 5 && r.text.length > 300)
+      .filter((r) => r.rating >= 5 && r.text.length > 300 && !FEATURED_BLOCKLIST.some(b => r.text.startsWith(b)))
       .sort((a, b) => b.text.length - a.text.length);
     // Pick 3 from top 10 longest, shuffled
     const pool = fiveStars.slice(0, 10);
