@@ -105,50 +105,7 @@
     filter: invert(1);
   }
 
-  /* Wall of Love — crisp warm-white light theme */
-  .theme-reviews {
-    --background: 30 20% 97%;
-    --foreground: 20 10% 12%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 20 10% 12%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 20 10% 12%;
-
-    --primary: 24 95% 53%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 30 15% 93%;
-    --secondary-foreground: 20 10% 30%;
-
-    --muted: 30 10% 94%;
-    --muted-foreground: 20 5% 40%;
-
-    --accent: 24 95% 53%;
-    --accent-foreground: 0 0% 100%;
-
-    --border: 30 10% 89%;
-    --input: 30 10% 89%;
-    --ring: 24 95% 53%;
-
-    --hero-headline: 20 10% 8%;
-    --hero-subtext: 20 5% 38%;
-    --cue-text: 20 5% 45%;
-    --cue-value: 20 10% 15%;
-    --gradient-amber-glow: radial-gradient(ellipse at 50% 0%, hsl(24 95% 53% / 0.08) 0%, transparent 60%);
-    --shadow-cinematic: 0 2px 12px -2px hsl(20 20% 0% / 0.06);
-  }
-
-  /* Disable dark vignette & grain in reviews light theme */
-  .theme-reviews body::before,
-  .theme-reviews body::after {
-    display: none;
-  }
-
-  .theme-reviews footer img[src$=".svg"] {
-    filter: invert(1);
-  }
+  /* Wall of Love theme removed — uses site's native dark palette */
 }
 
 @layer base {
@@ -1401,53 +1358,7 @@
   75% { transform: translate(15px, 25px) scale(1.03); }
 }
 
-.reviews-gradient-mesh {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.reviews-gradient-mesh::before,
-.reviews-gradient-mesh::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.5;
-}
-
-.reviews-gradient-mesh::before {
-  width: 500px;
-  height: 500px;
-  top: -10%;
-  left: -5%;
-  background: radial-gradient(circle, hsl(24 90% 70% / 0.15) 0%, transparent 70%);
-  animation: reviews-mesh-drift 20s ease-in-out infinite;
-}
-
-.reviews-gradient-mesh::after {
-  width: 400px;
-  height: 400px;
-  top: 5%;
-  right: -5%;
-  background: radial-gradient(circle, hsl(30 80% 75% / 0.12) 0%, transparent 70%);
-  animation: reviews-mesh-drift 25s ease-in-out infinite reverse;
-}
-
-.reviews-mesh-blob-3 {
-  position: absolute;
-  width: 350px;
-  height: 350px;
-  top: 20%;
-  left: 40%;
-  border-radius: 50%;
-  background: radial-gradient(circle, hsl(20 60% 85% / 0.1) 0%, transparent 70%);
-  filter: blur(60px);
-  animation: reviews-mesh-drift 22s ease-in-out 3s infinite;
-  pointer-events: none;
-}
+/* Gradient mesh removed — dark theme uses site's native vignette + grain */
 
 /* ═══ Wall of Love — Marquee ═══ */
 @keyframes reviews-marquee-left {
@@ -1493,12 +1404,12 @@
 
 .reviews-marquee-container::before {
   left: 0;
-  background: linear-gradient(to right, hsl(30 20% 97%), transparent);
+  background: linear-gradient(to right, hsl(22 14% 6%), transparent);
 }
 
 .reviews-marquee-container::after {
   right: 0;
-  background: linear-gradient(to left, hsl(30 20% 97%), transparent);
+  background: linear-gradient(to left, hsl(22 14% 6%), transparent);
 }
 
 /* ═══ Wall of Love — Hover Spotlight ═══ */
@@ -1510,7 +1421,7 @@
 .reviews-grid-spotlight:hover > *:hover {
   opacity: 1;
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px -8px hsl(24 95% 53% / 0.12);
+  box-shadow: 0 12px 32px -8px hsl(24 95% 53% / 0.18);
 }
 
 .reviews-grid-spotlight > * {
