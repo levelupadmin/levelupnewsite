@@ -194,10 +194,10 @@ const WhyLevelUp = () => {
                     <div className={`flex-1 p-6 md:p-8 ${isMobile ? "flex flex-col gap-5 overflow-y-auto" : `grid ${index === 1 ? "grid-cols-2" : "grid-cols-[2fr_3fr]"} gap-8`}`}>
                       {/* Left column: Title, Illustration, Stat */}
                       <div className="flex flex-col">
-                        <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-4 whitespace-pre-line">
+                        <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-2 whitespace-pre-line">
                           {feature.title}
                         </h3>
-                        <div className="flex-1 flex items-center justify-center min-h-0 pb-4 overflow-hidden">
+                        <div className="flex items-start min-h-0 pb-4 overflow-hidden">
                           <Illustration />
                         </div>
                         {(feature as any).microLine && (
