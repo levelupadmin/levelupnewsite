@@ -13,7 +13,8 @@ const activeGradients = [
 { active: "from-amber-600 to-amber-600/0", hoverBg: "linear-gradient(to right, rgba(217,119,6,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(217,119,6,0.15) 0%, transparent 60%)" },
 { active: "from-sky-600 to-sky-600/0", hoverBg: "linear-gradient(to right, rgba(2,132,199,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(2,132,199,0.15) 0%, transparent 60%)" },
 { active: "from-violet-600 to-violet-600/0", hoverBg: "linear-gradient(to right, rgba(124,58,237,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(124,58,237,0.15) 0%, transparent 60%)" },
-{ active: "from-rose-600 to-rose-600/0", hoverBg: "linear-gradient(to right, rgba(225,29,72,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(225,29,72,0.15) 0%, transparent 60%)" }];
+{ active: "from-rose-600 to-rose-600/0", hoverBg: "linear-gradient(to right, rgba(225,29,72,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(225,29,72,0.15) 0%, transparent 60%)" },
+{ active: "from-indigo-600 to-indigo-600/0", hoverBg: "linear-gradient(to right, rgba(79,70,229,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(79,70,229,0.15) 0%, transparent 60%)" }];
 
 
 const statusStyles: Record<string, string> = {
