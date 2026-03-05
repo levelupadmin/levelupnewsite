@@ -1,17 +1,12 @@
 
 
-## Sync CredibilityCues numbers with Impact section truth
+## Update Forge Navbar Card Links
 
-The CredibilityCues bar currently shows outdated/less-meaningful stats. Update to match the canonical numbers from the Impact section scenes:
+Update the three Forge dropdown cards in `src/components/navbarData.ts` to link to their respective external websites instead of the `#forge` anchor:
 
-**Current → New:**
+1. **Filmmaking Residency** → `https://www.forgebylevelup.com/`
+2. **Writing Retreat** → `https://www.forgebylevelup.com/writingresidency`
+3. **Creator Residency** → `https://creators.forgebylevelup.com/`
 
-| Slot | Current | New |
-|------|---------|-----|
-| 1 | 57,660+ Learners enrolled | **58,746+** Paid Learners |
-| 2 | 4.85 Rating (15,000+ reviews) | **4.86** Rating (15,000+ reviews) |
-| 3 | 6+ Masterclasses | **821+** Cities |
-| 4 | 20+ Hours of content | **3,000+** Collaborations |
-
-**File:** `src/components/CredibilityCues.tsx` — update the `cues` array (lines 5-10) with the corrected values, labels, and formatting flags (hasComma for 3,000).
+Single file change, lines 131, 136, and 141.
 
