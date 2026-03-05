@@ -38,9 +38,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/sora/v17/xMQbuFFYT72XzQUpDqW1KX4.woff2" />
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" />
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet" /></noscript>
 
     <link rel="preload" as="image" href="/images/hero-poster-1.jpg" fetchpriority="high" />
+
+    <style>
+      /* Inline critical CSS for instant FCP */
+      html, body { margin: 0; padding: 0; }
+      body { background-color: hsl(22, 14%, 6%); color: hsl(0, 0%, 93%); }
+      #root { min-height: 100vh; }
+    </style>
   </head>
 
   <body>
