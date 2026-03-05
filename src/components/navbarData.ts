@@ -2,6 +2,7 @@ import navBfp from "@/assets/nav-bfp.png";
 import navVe from "@/assets/nav-ve.png";
 import navUiux from "@/assets/nav-uiux.png";
 import navSw from "@/assets/nav-sw.png";
+import navAcp from "@/assets/live-acp.png";
 import navForgeFilmmaking from "@/assets/nav-forge-filmmaking.jpg";
 import navForgeWriting from "@/assets/nav-forge-writing.jpg";
 import navForgeCreators from "@/assets/nav-forge-creators.jpg";
@@ -113,6 +114,12 @@ export const navLinks: NavLink[] = [
         title: "Screenwriting Workshop",
         subtitle: "8-week program",
         href: "https://tally.so/r/mOd4ek",
+      },
+      {
+        image: navAcp,
+        title: "Advanced Cinematography Program",
+        subtitle: "4-week intensive",
+        href: "https://www.leveluplearning.live/acp-2",
       },
     ],
   },

@@ -21,6 +21,7 @@ import liveBfp from "@/assets/live-bfp.jpg";
 import liveVe from "@/assets/live-ve.png";
 import liveUiux from "@/assets/live-uiux.png";
 import liveSw from "@/assets/live-sw.png";
+import liveAcp from "@/assets/live-acp.png";
 
 export const showcasePrograms: ShowcaseProgram[] = [
   {
@@ -86,5 +87,21 @@ export const showcasePrograms: ShowcaseProgram[] = [
     youtubeId: "dQw4w9WgXcQ",
     ctaLink: "https://tally.so/r/mOd4ek",
     learnMoreLink: "https://tally.so/r/mOd4ek",
+  },
+  {
+    id: "acp",
+    title: "Advanced Cinematography Program",
+    description:
+      "A focused 4-week journey into cinematic thinking that covers visual storytelling, lighting logic, composition, and cinematography grammar.",
+    duration: "4 weeks",
+    format: "Live · Online",
+    instructor: "Industry Mentors",
+    startDate: "",
+    status: "Enrolling",
+    image: liveAcp,
+    previewVideo: "/videos/acp-preview.mp4",
+    youtubeId: "dQw4w9WgXcQ",
+    ctaLink: "https://www.leveluplearning.live/acp-2",
+    learnMoreLink: "https://www.leveluplearning.live/acp-2",
   },
 ];
