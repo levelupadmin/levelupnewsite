@@ -84,7 +84,7 @@ export const showcasePrograms: ShowcaseProgram[] = [
     status: "Enrolling",
     image: liveSw,
     previewVideo: "/videos/sw-preview.mp4",
-    youtubeId: "dQw4w9WgXcQ",
+    youtubeId: "OkJmqqsnQ0c",
     ctaLink: "https://tally.so/r/mOd4ek",
     learnMoreLink: "https://tally.so/r/mOd4ek",
   },
