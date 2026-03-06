@@ -1,10 +1,18 @@
 
 
-## Update Screenwriting Workshop YouTube ID
+## Remove Em Dash from Hero Subheading
 
-### Change
+In `src/components/HeroSection.tsx` line 127, change:
 
-In `src/data/programs.ts`, update the `youtubeId` for the Screenwriting Workshop (`id: "sw"`) from `"dQw4w9WgXcQ"` to `"OkJmqqsnQ0c"`.
+```
+India's largest creative education ecosystem —{" "}
+```
 
-This is the only change needed — the LiveProgramsSection already uses `youtubeId` to open an embedded YouTube player when the video is clicked.
+to:
+
+```
+India's largest creative education ecosystem{" "}
+```
+
+Single line change, removing the ` —` (em dash) from the subheading text.
 
