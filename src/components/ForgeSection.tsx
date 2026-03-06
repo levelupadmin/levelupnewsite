@@ -69,70 +69,43 @@ const stats = [
 
 const forgeCards = [
 {
-  title: "Writing Retreat — Edition 5",
+  title: "Writing Retreat",
   tag: "6-DAY RETREAT",
-  location: "Dehradun",
   subtitle:
   "Immersive retreat for writers and storytellers. Develop your voice and craft your narrative. 6 days fully offline.",
-  cohort: "Mar 7–12, 2026",
   image: forgeWriting,
   cta: "https://tally.so/r/nPJydd",
-  learnMore: "https://www.forgebylevelup.com/writingresidency"
+  learnMore: "https://www.forgebylevelup.com/writingresidency",
+  editions: [
+    { name: "Edition 5", location: "Dehradun", dates: "Mar 7–12, 2026" },
+  ],
 },
 {
-  title: "Filmmaking Bootcamp — Edition 16",
+  title: "Filmmaking Bootcamp",
   tag: "BOOTCAMP",
-  location: "Goa",
   subtitle:
-  "Shape raw footage into compelling stories. Online Apr 15–23, then offline Apr 25 – May 2.",
-  cohort: "Apr 2026",
+  "Shape raw footage into compelling stories. An intensive online + offline bootcamp for aspiring filmmakers.",
   image: forgeFilmmaking,
   cta: "https://www.forgebylevelup.com/",
-  learnMore: "https://www.forgebylevelup.com/"
+  learnMore: "https://www.forgebylevelup.com/",
+  editions: [
+    { name: "Edition 16", location: "Goa", dates: "Apr 15–23 (online) → Apr 25 – May 2 (offline)" },
+    { name: "Edition 17", location: "Goa", dates: "Apr 17–25 (online) → Apr 27 – May 4 (offline)" },
+  ],
 },
 {
-  title: "Filmmaking Bootcamp — Edition 17",
+  title: "Forge Creators",
   tag: "BOOTCAMP",
-  location: "Goa",
   subtitle:
-  "Shape raw footage into compelling stories. Online Apr 17–25, then offline Apr 27 – May 4.",
-  cohort: "Apr 2026",
-  image: forgeFilmmaking,
-  cta: "https://www.forgebylevelup.com/",
-  learnMore: "https://www.forgebylevelup.com/"
-},
-{
-  title: "Forge Creators — Edition 5",
-  tag: "BOOTCAMP",
-  location: "Goa",
-  subtitle:
-  "Build, collaborate, and ship creative work. Online Apr 28 – May 2, offline May 4–10.",
-  cohort: "May 2026",
+  "Build, collaborate, and ship creative work. An intensive bootcamp for founders, builders, artists, and creators.",
   image: forgeCreators,
   cta: "https://creators.forgebylevelup.com/",
-  learnMore: "https://creators.forgebylevelup.com/"
-},
-{
-  title: "Forge Creators — Edition 6",
-  tag: "BOOTCAMP",
-  location: "Goa",
-  subtitle:
-  "Build, collaborate, and ship creative work. Online May 2–8, offline May 10–16.",
-  cohort: "May 2026",
-  image: forgeCreators,
-  cta: "https://creators.forgebylevelup.com/",
-  learnMore: "https://creators.forgebylevelup.com/"
-},
-{
-  title: "Forge Creators — Edition 7",
-  tag: "BOOTCAMP",
-  location: "Bali",
-  subtitle:
-  "Build, collaborate, and ship creative work. Online May 24–29, offline Jun 1–7.",
-  cohort: "May–Jun 2026",
-  image: forgeCreators,
-  cta: "https://creators.forgebylevelup.com/",
-  learnMore: "https://creators.forgebylevelup.com/"
+  learnMore: "https://creators.forgebylevelup.com/",
+  editions: [
+    { name: "Edition 5", location: "Goa", dates: "Apr 28 – May 2 (online) → May 4–10 (offline)" },
+    { name: "Edition 6", location: "Goa", dates: "May 2–8 (online) → May 10–16 (offline)" },
+    { name: "Edition 7", location: "Bali", dates: "May 24–29 (online) → Jun 1–7 (offline)" },
+  ],
 }];
 
 
@@ -253,22 +226,30 @@ const ForgeSection = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
                   <div className="absolute top-4 right-4 md:top-6 md:right-6">
                     <span className="inline-block bg-background/80 backdrop-blur-sm text-foreground text-[10px] md:text-xs font-sans-body tracking-wide px-3 py-1.5 rounded-full">
-                      Next Cohort — {card.cohort}
+                      {card.editions.length} upcoming {card.editions.length === 1 ? "edition" : "editions"}
                     </span>
                   </div>
                   <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8">
                     <p className="font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase text-primary mb-1">
                       {card.tag}
                     </p>
-                    <p className="font-sans-body text-[10px] md:text-xs text-muted-foreground mb-2">
-                      {card.location}
-                    </p>
                     <h3 className="font-serif-display text-xl md:text-2xl lg:text-3xl font-medium text-white mb-2">
                       {card.title}
                     </h3>
-                    <p className="font-sans-body text-xs md:text-sm text-white/70 max-w-md leading-relaxed mb-4">
+                    <p className="font-sans-body text-xs md:text-sm text-white/70 max-w-md leading-relaxed mb-3">
                       {card.subtitle}
                     </p>
+                    <div className="flex flex-col gap-1.5 mb-4">
+                      {card.editions.map((ed, i) => (
+                        <div key={i} className="flex items-center gap-2 font-sans-body text-[10px] md:text-xs text-white/50">
+                          <span className="text-primary/80">{ed.name}</span>
+                          <span className="text-white/30">·</span>
+                          <span>{ed.location}</span>
+                          <span className="text-white/30">·</span>
+                          <span className="text-white/70">{ed.dates}</span>
+                        </div>
+                      ))}
+                    </div>
                     <div className="flex gap-3">
                       <a
                       href={card.cta}
