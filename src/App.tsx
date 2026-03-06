@@ -9,6 +9,7 @@ import { Analytics } from "@vercel/analytics/react";
 
 import { lazy, Suspense } from "react";
 import Index from "./pages/Index";
+import { useMetaPixel } from "./hooks/useMetaPixel";
 
 const Reviews = lazy(() => import("./pages/Reviews"));
 const StudentStory = lazy(() => import("./pages/StudentStory"));
@@ -21,6 +22,7 @@ const queryClient = new QueryClient();
 
 const AnimatedRoutes = () => {
   const location = useLocation();
+  useMetaPixel();
   return (
     <AnimatePresence mode="wait">
       <m.div
