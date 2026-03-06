@@ -125,7 +125,7 @@ const HeroSection = () => {
           className="font-sans-body text-sm md:text-lg text-hero-subtext text-center mt-4 md:mt-6 max-w-xl leading-relaxed tracking-[0.015em] text-shadow-hero animate-hero-stagger"
           style={{ animationDelay: "800ms" }}
         >
-          India's largest creative education ecosystem —{" "}
+          India's largest creative education ecosystem{" "}
           <br className="hidden md:block" />
           where you learn, practice, create, and become.
         </p>
