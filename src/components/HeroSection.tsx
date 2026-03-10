@@ -109,8 +109,9 @@ const HeroSection = () => {
                       WebkitTextFillColor: "transparent",
                       backgroundClip: "text",
                       textShadow: "none",
+                      lineHeight: 1.15,
+                      transformOrigin: "bottom left",
                     }}
-                    style={{ lineHeight: 1.15, transformOrigin: "bottom left" }}
                   >
                     {rotatingWords[wordIndex]}
                   </m.span>
