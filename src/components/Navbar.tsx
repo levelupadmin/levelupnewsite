@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef, useMemo } from "react";
 import { m, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { trackNavClick } from "@/lib/clarity";
 import { useIsMobile } from "@/hooks/use-mobile";
 import levelupLogo from "@/assets/levelup-logo.svg";
 import type { NavLink, NavItem } from "./navbarData";
@@ -174,6 +175,7 @@ const Navbar = () => {
                     href={link.href}
                     target={link.href.startsWith("http") ? "_blank" : undefined}
                     rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    onClick={() => trackNavClick(link.label)}
                     onMouseEnter={() => handleLinkEnter(index)}
                     className={[
                       "relative px-3 py-1.5 font-sans-body text-sm transition-colors duration-300 flex flex-col items-center",
@@ -455,7 +457,7 @@ const Navbar = () => {
                                       duration: 0.25,
                                       delay: 0.04 * i,
                                     }}
-                                    onClick={() => setMobileOpen(false)}
+                                    onClick={() => { trackNavClick(item.title); setMobileOpen(false); }}
                                     className="block rounded-sm overflow-hidden bg-white/5 active:scale-[0.97] transition-all duration-150 relative"
                                     style={{ borderLeft: `3px solid ${linkAccent}` }}
                                   >
@@ -492,7 +494,7 @@ const Navbar = () => {
                             ? "noopener noreferrer"
                             : undefined
                         }
-                        onClick={() => setMobileOpen(false)}
+                        onClick={() => { trackNavClick(link.label); setMobileOpen(false); }}
                         className="block py-4 font-serif-display text-xl text-foreground"
                       >
                         {link.label}

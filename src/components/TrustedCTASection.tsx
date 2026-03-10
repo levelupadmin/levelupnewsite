@@ -2,6 +2,7 @@ import FadeInSection from "./FadeInSection";
 import allMastersNewImg from "@/assets/all-masters-new.png";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { trackCTAClick } from "@/lib/clarity";
 import MagneticButton from "@/components/MagneticButton";
 import AccentLine from "./AccentLine";
 
@@ -25,7 +26,7 @@ const disciplines = [
 
 const TrustedCTASection = () => {
   return (
-    <section className="relative py-16 md:py-24 px-6 md:px-12 overflow-hidden bg-background">
+    <section id="trusted-cta" className="relative py-16 md:py-24 px-6 md:px-12 overflow-hidden bg-background">
       <AccentLine gradient="linear-gradient(90deg, transparent 20%, hsl(38 75% 55% / 0.5) 50%, transparent 80%)" className="w-48 left-1/2 -translate-x-1/2 right-auto" />
 
       {/* Radial amber glow */}
@@ -88,7 +89,7 @@ const TrustedCTASection = () => {
 
         {/* CTA */}
         <MagneticButton>
-          <a href="#masterclasses">
+          <a href="#masterclasses" onClick={() => trackCTAClick("trusted-cta", "Start Your Journey")}>
             <Button
               size="lg"
               className="cta-sweep cta-glow rounded-sm gap-2 text-sm font-sans-body">

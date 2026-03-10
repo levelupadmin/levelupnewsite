@@ -83,6 +83,7 @@ const WhyLevelUp = () => {
 
   return (
     <section
+      id="why-levelup"
       aria-label="Why choose LevelUp"
       className="relative py-12 md:py-16 overflow-hidden"
     >

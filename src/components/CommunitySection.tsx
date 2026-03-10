@@ -52,7 +52,7 @@ const CommunitySection = () => {
   const [paused, setPaused] = useState(false);
 
   return (
-    <section className="relative py-16 md:py-24 bg-background overflow-hidden">
+    <section id="community" className="relative py-16 md:py-24 bg-background overflow-hidden">
       <AccentLine />
       <div
         className="absolute top-0 left-0 right-0 h-64 pointer-events-none"
