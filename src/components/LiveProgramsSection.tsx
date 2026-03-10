@@ -229,41 +229,8 @@ const LiveProgramsSection = () => {
           ))}
         </div>
 
-        {/* Marquee */}
-        <FadeInSection className="mb-16 md:mb-24">
-          <div className="overflow-hidden relative" aria-label="Student testimonials">
-            <div className="absolute left-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-r from-[hsl(22_14%_5%)] to-transparent pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-l from-[hsl(22_14%_5%)] to-transparent pointer-events-none" />
-            <div className="marquee-track flex gap-6 hover:[animation-play-state:paused]">
-              {[...testimonials, ...testimonials].map((t, i) => (
-                <div key={i} className="flex-shrink-0 w-[340px] p-5 rounded-xl border border-border/40 bg-card/30">
-                  <p className="font-sans-body text-sm text-foreground/80 italic leading-relaxed mb-3">"{t.quote}"</p>
-                  <span className="font-sans-body text-xs text-primary font-medium">— {t.name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </FadeInSection>
 
-        {/* Bottom CTA */}
-        <FadeInSection className="text-center">
-          <h3 className="font-serif-display text-2xl md:text-3xl font-bold text-foreground mb-3">Not Sure Which Program Fits?</h3>
-          <p className="font-sans-body text-sm text-muted-foreground mb-6">Talk to our team. We'll help you pick the right cohort.</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="https://www.leveluplearning.live" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-primary text-primary-foreground font-sans-body text-sm font-semibold tracking-wide transition-all duration-200 hover:scale-[1.03] hover:shadow-[0_0_24px_hsl(24_95%_53%/0.35)]">
-              Book a Free Call <ArrowRight className="w-4 h-4" />
-            </a>
-            <a href="https://www.leveluplearning.live" target="_blank" rel="noopener noreferrer" className="font-sans-body text-sm text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors">
-              Explore All Programs →
-            </a>
-          </div>
-        </FadeInSection>
-      </div>
 
-      <style>{`
-        .marquee-track { animation: marquee-scroll 40s linear infinite; width: max-content; }
-        @keyframes marquee-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-      `}</style>
     </section>
   );
 };
