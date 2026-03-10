@@ -12,6 +12,7 @@ const cues = [
 const CredibilityCues = () => {
   return (
     <section
+      id="credibility"
       aria-label="Key stats and credibility"
       className="relative pt-20 pb-12 md:pt-28 md:pb-16"
       style={{

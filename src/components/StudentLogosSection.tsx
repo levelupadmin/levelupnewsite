@@ -120,6 +120,7 @@ const itemVariants = {
 const StudentLogosSection = () => {
   return (
     <section
+      id="student-logos"
       aria-label="LevelUp credibility and community"
       className="relative"
     >

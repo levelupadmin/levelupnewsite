@@ -18,6 +18,8 @@ const Footer = lazy(() => import("@/components/Footer"));
 const FloatingSupport = lazy(() => import("@/components/FloatingSupport"));
 
 const Index = () => {
+  useSectionViewTracking();
+
   return (
     <div className="min-h-screen bg-background">
       {/* Skip-to-content link for keyboard users */}
