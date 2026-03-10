@@ -90,7 +90,7 @@ const AboutHero = () => (
         transition={{ duration: 0.6, delay: 0.35 }}
         className="font-sans-body text-white/50 text-sm md:text-base max-w-xl leading-relaxed"
       >
-        Filmmakers, Musicians, Designers and Creators are building a new kind of career — driven by ideas, not job titles.
+        Filmmakers, Musicians, Designers and Creators are building a new kind of career, driven by ideas, not job titles.
       </m.p>
     </div>
   </section>
