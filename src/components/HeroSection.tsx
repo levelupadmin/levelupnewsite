@@ -102,7 +102,7 @@ const HeroSection = () => {
                     animate={{ opacity: 1, y: "0%" }}
                     exit={{ opacity: 0, y: "-100%" }}
                     transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute left-0 bottom-0 inline-block whitespace-nowrap text-white"
+                    className="absolute left-0 bottom-0 inline-block whitespace-nowrap text-gradient-amber"
                     style={{ lineHeight: 1.15, transformOrigin: "bottom left" }}
                   >
                     {rotatingWords[wordIndex]}
