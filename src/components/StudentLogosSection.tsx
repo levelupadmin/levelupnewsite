@@ -155,7 +155,8 @@ const StudentLogosSection = () => {
               }}
             >
               <div
-                className={`flex whitespace-nowrap items-center gap-8 md:gap-16 lg:gap-20 w-max ${row.direction} marquee-track`}
+                className="flex whitespace-nowrap items-center gap-8 md:gap-16 lg:gap-20 w-max marquee-track"
+                style={{ animation: row.animation }}
               >
                 {[...row.brands, ...row.brands].map((brand, i) => (
                   <img
