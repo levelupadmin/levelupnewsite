@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef, useMemo } from "react";
 import { m, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { trackNavClick } from "@/lib/clarity";
 import { useIsMobile } from "@/hooks/use-mobile";
 import levelupLogo from "@/assets/levelup-logo.svg";
 import type { NavLink, NavItem } from "./navbarData";
