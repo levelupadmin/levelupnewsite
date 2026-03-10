@@ -494,7 +494,7 @@ const Navbar = () => {
                             ? "noopener noreferrer"
                             : undefined
                         }
-                        onClick={() => setMobileOpen(false)}
+                        onClick={() => { trackNavClick(link.label); setMobileOpen(false); }}
                         className="block py-4 font-serif-display text-xl text-foreground"
                       >
                         {link.label}
