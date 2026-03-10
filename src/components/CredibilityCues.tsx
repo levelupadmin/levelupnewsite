@@ -40,8 +40,7 @@ const CredibilityCues = () => {
         </div>
 
         <FadeInSection delay={400} className="font-sans-body text-sm md:text-base text-white/40 text-center mt-10 md:mt-12 max-w-md mx-auto leading-relaxed tracking-wide">
-          From masterclasses to residencies, from community to career
-          {" "}— every layer designed for the serious creator.
+          From masterclasses to residencies, from community to career, every layer designed for the serious creator.
         </FadeInSection>
       </div>
     </section>

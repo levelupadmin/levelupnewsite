@@ -62,7 +62,7 @@ const faqs = [
   {
     question: "Is there a community I can join?",
     answer:
-      "Yes. When you enrol in any program, you become part of the LevelUp community — a network of serious creators across disciplines. It's a space for honest feedback, collaboration, and long-term creative relationships.",
+      "Yes. When you enrol in any program, you become part of the LevelUp community, a network of serious creators across disciplines. It's a space for honest feedback, collaboration, and long-term creative relationships.",
   },
 ];
 

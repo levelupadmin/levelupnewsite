@@ -16,7 +16,7 @@ const pillars = [
   {
     icon: Users,
     title: "Community Flywheel",
-    description: "300K+ creators fueling organic acquisition, peer learning, and real-world opportunity — a self-reinforcing ecosystem.",
+    description: "300K+ creators fueling organic acquisition, peer learning, and real-world opportunity. A self-reinforcing ecosystem.",
     image: shapeCommunity,
   },
   {

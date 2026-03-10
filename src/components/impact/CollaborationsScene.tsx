@@ -155,7 +155,7 @@ const GlassTickerCard = ({
       {names}
     </span>
     <span className="text-[10px] text-muted-foreground/60 whitespace-nowrap">
-      — {project}
+      · {project}
     </span>
     <span className="text-[9px] text-muted-foreground/40 whitespace-nowrap">{time}</span>
   </div>
