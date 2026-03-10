@@ -214,6 +214,7 @@ const LiveProgramsSection = () => {
                       href={program.ctaLink}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => trackCTAClick("live-programs", program.title)}
                       className="inline-flex items-center gap-2 self-start px-6 py-3 rounded-full bg-primary text-primary-foreground font-sans-body text-sm font-semibold tracking-wide transition-all duration-200 hover:scale-[1.03] hover:shadow-[0_0_24px_hsl(24_95%_53%/0.35)]"
                     >
                       {program.ctaLabel}

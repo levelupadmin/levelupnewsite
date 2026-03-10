@@ -98,6 +98,7 @@ const MasterclassCard = ({ mc }: { mc: typeof masterclasses[0] }) => {
       href={mc.href}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={() => trackCTAClick("masterclass", mc.name)}
       className="group relative cursor-pointer block transition-transform duration-500 ease-out"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
