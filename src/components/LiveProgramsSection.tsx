@@ -229,8 +229,20 @@ const LiveProgramsSection = () => {
           ))}
         </div>
 
-
-
+        {/* Bottom CTA */}
+        <FadeInSection className="text-center">
+          <h3 className="font-serif-display text-2xl md:text-3xl font-bold text-foreground mb-3">Not Sure Which Program Fits?</h3>
+          <p className="font-sans-body text-sm text-muted-foreground mb-6">Talk to our team. We'll help you pick the right cohort.</p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="https://www.leveluplearning.live" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-primary text-primary-foreground font-sans-body text-sm font-semibold tracking-wide transition-all duration-200 hover:scale-[1.03] hover:shadow-[0_0_24px_hsl(24_95%_53%/0.35)]">
+              Book a Free Call <ArrowRight className="w-4 h-4" />
+            </a>
+            <a href="https://www.leveluplearning.live" target="_blank" rel="noopener noreferrer" className="font-sans-body text-sm text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors">
+              Explore All Programs →
+            </a>
+          </div>
+        </FadeInSection>
+      </div>
     </section>
   );
 };
