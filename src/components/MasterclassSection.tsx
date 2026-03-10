@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import AccentLine from "./AccentLine";
 import { ArrowRight } from "lucide-react";
+import { trackCTAClick } from "@/lib/clarity";
 import FadeInSection, { useScrollReveal } from "./FadeInSection";
 import nelsonImg from "@/assets/nelson-dilipkumar.jpg";
 import comingSoonImg from "@/assets/coming-soon-silhouette.jpg";
