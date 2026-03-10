@@ -4,6 +4,7 @@ import FadeInSection from "./FadeInSection";
 import AccentLine from "./AccentLine";
 import { AnimatedCounter } from "./AnimatedCounter";
 import { ArrowRight, ChevronLeft, ChevronRight, Check } from "lucide-react";
+import { trackCTAClick } from "@/lib/clarity";
 import { showcasePrograms } from "@/data/programs";
 
 const filterPills = [
