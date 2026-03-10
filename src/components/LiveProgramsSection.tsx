@@ -14,20 +14,10 @@ const filterPills = [
   { label: "Write Stories", targetIndex: 4 },
 ];
 
-const testimonials = [
-  { quote: "Went from zero to shooting my first short film in 12 weeks.", name: "BFP Alumni" },
-  { quote: "I now edit for a 2M+ YouTube creator. This changed everything.", name: "VE Alumni" },
-  { quote: "21 posts in 12 weeks. My account went from 200 to 25K followers.", name: "Creator Academy Alumni" },
-  { quote: "Landed my first product design role 3 weeks after the program.", name: "UIUX Alumni" },
-  { quote: "I finally finished a screenplay. Not just started one — finished.", name: "Screenwriting Alumni" },
-  { quote: "The mentors don't let you hide. That's what makes this different.", name: "BFP Alumni" },
-];
-
 const stats = [
-  { value: 5, suffix: "", label: "Active Programs" },
-  { value: 12000, suffix: "+", label: "Hours of Live Teaching", hasComma: true },
-  { value: 50, suffix: "+", label: "Industry Mentors" },
-  { value: 80, suffix: "%+", label: "Completion Rate" },
+  { value: 1200, suffix: "+", label: "Students Trained", hasComma: true },
+  { value: 40, suffix: "+", label: "Cohorts Completed" },
+  { value: 0, suffix: "", label: "Industry Mentors", isText: true },
   { value: 0, suffix: "", label: "Weekends Only", isText: true },
 ];
 
@@ -92,18 +82,18 @@ const LiveProgramsSection = () => {
         </FadeInSection>
         <FadeInSection className="text-center mb-5" delay={60}>
           <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.15] tracking-tight">
-            Stop Watching. Start Making.
+            Your Portfolio Starts Here.
           </h2>
         </FadeInSection>
         <FadeInSection className="text-center mb-10 md:mb-14" delay={120}>
           <p className="font-sans-body text-sm md:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Our LIVE cohort programs are the opposite of "learn at your own pace." Small batches. Weekend classes. Industry mentors. Real deadlines. Real output.
+            12-week LIVE cohort programs that turn ambition into proof. Walk out with a portfolio, real skills, and industry connections — not just another certificate.
           </p>
         </FadeInSection>
 
         {/* Stats */}
         <FadeInSection delay={180}>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 md:gap-6 mb-14 md:mb-20">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-14 md:mb-20">
             {stats.map((stat, i) => (
               <div key={stat.label} className="text-center py-4 px-3 rounded-xl border border-border/50 bg-card/40">
                 <div className="font-serif-display text-2xl md:text-3xl font-bold text-foreground mb-1">
@@ -239,22 +229,6 @@ const LiveProgramsSection = () => {
           ))}
         </div>
 
-        {/* Marquee */}
-        <FadeInSection className="mb-16 md:mb-24">
-          <div className="overflow-hidden relative" aria-label="Student testimonials">
-            <div className="absolute left-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-r from-[hsl(22_14%_5%)] to-transparent pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-l from-[hsl(22_14%_5%)] to-transparent pointer-events-none" />
-            <div className="marquee-track flex gap-6 hover:[animation-play-state:paused]">
-              {[...testimonials, ...testimonials].map((t, i) => (
-                <div key={i} className="flex-shrink-0 w-[340px] p-5 rounded-xl border border-border/40 bg-card/30">
-                  <p className="font-sans-body text-sm text-foreground/80 italic leading-relaxed mb-3">"{t.quote}"</p>
-                  <span className="font-sans-body text-xs text-primary font-medium">— {t.name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </FadeInSection>
-
         {/* Bottom CTA */}
         <FadeInSection className="text-center">
           <h3 className="font-serif-display text-2xl md:text-3xl font-bold text-foreground mb-3">Not Sure Which Program Fits?</h3>
@@ -269,11 +243,6 @@ const LiveProgramsSection = () => {
           </div>
         </FadeInSection>
       </div>
-
-      <style>{`
-        .marquee-track { animation: marquee-scroll 40s linear infinite; width: max-content; }
-        @keyframes marquee-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-      `}</style>
     </section>
   );
 };
