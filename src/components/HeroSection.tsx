@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { ArrowRight } from "lucide-react";
+import { trackCTAClick } from "@/lib/clarity";
 import MagneticButton from "@/components/MagneticButton";
 import { AnimatePresence, m } from "framer-motion";
 
