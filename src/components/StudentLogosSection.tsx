@@ -34,18 +34,18 @@ import logoStarIndia from "@/assets/logos/star-india.svg";
 import logoZee from "@/assets/logos/zee.svg";
 import logoItc from "@/assets/logos/itc.svg";
 
-// Institutions (wordmark SVGs)
+// Institutions (improved SVG logos)
 import logoIit from "@/assets/logos/iit-real.svg";
-import logoIim from "@/assets/logos/iim.svg";
-import logoNift from "@/assets/logos/nift.svg";
-import logoSrfti from "@/assets/logos/srfti.svg";
-import logoSymbiosis from "@/assets/logos/symbiosis.svg";
-import logoChristUniversity from "@/assets/logos/christ-university.svg";
-import logoManipal from "@/assets/logos/manipal.svg";
-import logoMica from "@/assets/logos/mica.svg";
-import logoPearlAcademy from "@/assets/logos/pearl-academy.svg";
-import logoAshokaUniversity from "@/assets/logos/ashoka-university.svg";
-import logoIsb from "@/assets/logos/isb.svg";
+import logoIim from "@/assets/logos/iim-real.svg";
+import logoNift from "@/assets/logos/nift-real.svg";
+import logoSrfti from "@/assets/logos/srfti-real.svg";
+import logoSymbiosis from "@/assets/logos/symbiosis-real.svg";
+import logoChristUniversity from "@/assets/logos/christ-university-real.svg";
+import logoManipal from "@/assets/logos/manipal-real.svg";
+import logoMica from "@/assets/logos/mica-real.svg";
+import logoPearlAcademy from "@/assets/logos/pearl-academy-real.svg";
+import logoAshokaUniversity from "@/assets/logos/ashoka-university-real.svg";
+import logoIsb from "@/assets/logos/isb-real.svg";
 
 const row1 = [
   { name: "FTII", logo: logoFtii },
