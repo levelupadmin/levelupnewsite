@@ -70,42 +70,27 @@ const stats = [
 const forgeCards = [
 {
   title: "Writing Retreat",
-  tag: "6-DAY RETREAT",
   subtitle:
-  "Immersive retreat for writers and storytellers. Develop your voice and craft your narrative. 6 days fully offline.",
+  "A 6-day scenic retreat where writers unplug, immerse deeply, and learn from bestselling storytellers.",
   image: forgeWriting,
   cta: "https://tally.so/r/nPJydd",
-  learnMore: "https://www.forgebylevelup.com/writingresidency",
-  editions: [
-    { name: "Edition 5", location: "Dehradun", dates: "Mar 7–12, 2026" },
-  ],
+  locations: ["Coorg, July 2026"],
 },
 {
   title: "Filmmaking Bootcamp",
-  tag: "BOOTCAMP",
   subtitle:
-  "Shape raw footage into compelling stories. An intensive online + offline bootcamp for aspiring filmmakers.",
+  "An intensive 15-day bootcamp where filmmakers write, direct, and shoot short films with top mentors.",
   image: forgeFilmmaking,
   cta: "https://www.forgebylevelup.com/",
-  learnMore: "https://www.forgebylevelup.com/",
-  editions: [
-    { name: "Edition 16", location: "Goa", dates: "Apr 15–23 (online) → Apr 25 – May 2 (offline)" },
-    { name: "Edition 17", location: "Goa", dates: "Apr 17–25 (online) → Apr 27 – May 4 (offline)" },
-  ],
+  locations: ["Goa, April 2026"],
 },
 {
-  title: "Forge Creators",
-  tag: "BOOTCAMP",
+  title: "Creator Residency",
   subtitle:
-  "Build, collaborate, and ship creative work. An intensive bootcamp for founders, builders, artists, and creators.",
+  "An invite-only 12-day residency where founders build personal brands through daily content and creator mentorship.",
   image: forgeCreators,
   cta: "https://creators.forgebylevelup.com/",
-  learnMore: "https://creators.forgebylevelup.com/",
-  editions: [
-    { name: "Edition 5", location: "Goa", dates: "Apr 28 – May 2 (online) → May 4–10 (offline)" },
-    { name: "Edition 6", location: "Goa", dates: "May 2–8 (online) → May 10–16 (offline)" },
-    { name: "Edition 7", location: "Bali", dates: "May 24–29 (online) → Jun 1–7 (offline)" },
-  ],
+  locations: ["Goa, May 2026", "Bali, June 2026"],
 }];
 
 
