@@ -10,7 +10,7 @@ const pillars = [
   {
     icon: Sparkles,
     title: "Mentor IP",
-    description: "Exclusive masterclasses with India's top filmmakers, editors, photographers, and musicians — content you can't find anywhere else.",
+    description: "Exclusive masterclasses with India's top filmmakers, editors, photographers, and musicians. Content you can't find anywhere else.",
     image: allMasters,
   },
   {
