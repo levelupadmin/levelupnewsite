@@ -81,7 +81,7 @@ const AboutHero = () => (
         transition={{ duration: 0.6, delay: 0.25 }}
         className="font-sans-body text-white/70 text-base md:text-lg max-w-2xl leading-relaxed"
       >
-        India's next workforce isn't coding — it's creating.
+        India's next workforce isn't coding. It's creating.
       </m.p>
 
       <m.p
