@@ -457,7 +457,7 @@ const Navbar = () => {
                                       duration: 0.25,
                                       delay: 0.04 * i,
                                     }}
-                                    onClick={() => setMobileOpen(false)}
+                                    onClick={() => { trackNavClick(item.title); setMobileOpen(false); }}
                                     className="block rounded-sm overflow-hidden bg-white/5 active:scale-[0.97] transition-all duration-150 relative"
                                     style={{ borderLeft: `3px solid ${linkAccent}` }}
                                   >
