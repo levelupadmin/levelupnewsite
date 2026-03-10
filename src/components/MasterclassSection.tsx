@@ -158,7 +158,6 @@ const MasterclassSection = () => {
       {/* Section tag */}
       <FadeInSection className="text-center px-6 md:px-12 mb-4">
         <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-[11px] tracking-[0.18em] uppercase font-sans-body text-primary/80">
-          <span className="w-1.5 h-1.5 rounded-full bg-primary/60" />
           On-Demand Masterclasses
         </span>
       </FadeInSection>
