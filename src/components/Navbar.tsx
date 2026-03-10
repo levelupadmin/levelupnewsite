@@ -175,6 +175,7 @@ const Navbar = () => {
                     href={link.href}
                     target={link.href.startsWith("http") ? "_blank" : undefined}
                     rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    onClick={() => trackNavClick(link.label)}
                     onMouseEnter={() => handleLinkEnter(index)}
                     className={[
                       "relative px-3 py-1.5 font-sans-body text-sm transition-colors duration-300 flex flex-col items-center",
