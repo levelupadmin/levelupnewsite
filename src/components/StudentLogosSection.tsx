@@ -96,9 +96,9 @@ const row3 = [
 ];
 
 const rows = [
-  { brands: row1, direction: "animate-scroll-left" },
-  { brands: row2, direction: "animate-scroll-right" },
-  { brands: row3, direction: "animate-scroll-left" },
+  { brands: row1, animation: "scroll-left 40s linear infinite" },
+  { brands: row2, animation: "scroll-right 40s linear infinite" },
+  { brands: row3, animation: "scroll-left 40s linear infinite" },
 ];
 
 const containerVariants = {
@@ -155,7 +155,8 @@ const StudentLogosSection = () => {
               }}
             >
               <div
-                className={`flex whitespace-nowrap items-center gap-8 md:gap-16 lg:gap-20 w-max ${row.direction} marquee-track`}
+                className="flex whitespace-nowrap items-center gap-8 md:gap-16 lg:gap-20 w-max marquee-track"
+                style={{ animation: row.animation }}
               >
                 {[...row.brands, ...row.brands].map((brand, i) => (
                   <img
