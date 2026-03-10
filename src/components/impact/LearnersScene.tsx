@@ -95,7 +95,7 @@ const LearnersScene = () => {
             />
           </p>
           <p className="text-sm md:text-lg text-foreground/70 mt-4 tracking-widest uppercase font-medium">
-            paid learners
+            graduated learners
           </p>
         </div>
 

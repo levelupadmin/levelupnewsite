@@ -3,7 +3,7 @@ import FadeInSection from "./FadeInSection";
 import CredibilityParticles from "./CredibilityParticles";
 
 const cues = [
-  { value: "58,746+", numericValue: 58746, label: "Paid Learners", suffix: "+", hasComma: true },
+  { value: "58,746+", numericValue: 58746, label: "Graduated Learners", suffix: "+", hasComma: true },
   { value: "4.86", numericValue: 4.86, label: "Rating (15,000+ reviews)", suffix: "", decimals: 2 },
   { value: "821+", numericValue: 821, label: "Cities", suffix: "+" },
   { value: "3,000+", numericValue: 3000, label: "Collaborations", suffix: "+", hasComma: true },
