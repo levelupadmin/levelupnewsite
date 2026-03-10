@@ -1,383 +1,308 @@
-import { useState, useRef, useEffect, useCallback } from "react";
-import { AnimatePresence, m } from "framer-motion";
-import CareerQuizDialog from "./CareerQuizDialog";
-import AccentLine from "./AccentLine";
+import { useState, useRef, useCallback } from "react";
 import FadeInSection from "./FadeInSection";
-import { ArrowRight, Clock, Radio, CalendarDays, Play } from "lucide-react";
-import careerQuizBanner from "@/assets/career-quiz-banner.jpg";
+import AccentLine from "./AccentLine";
+import { AnimatedCounter } from "./AnimatedCounter";
+import { ArrowRight, Check } from "lucide-react";
 import { showcasePrograms } from "@/data/programs";
-import { rotatingWords } from "@/data/rotatingWords";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
-const activeGradients = [
-{ active: "from-amber-600 to-amber-600/0", hoverBg: "linear-gradient(to right, rgba(217,119,6,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(217,119,6,0.15) 0%, transparent 60%)" },
-{ active: "from-sky-600 to-sky-600/0", hoverBg: "linear-gradient(to right, rgba(2,132,199,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(2,132,199,0.15) 0%, transparent 60%)" },
-{ active: "from-violet-600 to-violet-600/0", hoverBg: "linear-gradient(to right, rgba(124,58,237,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(124,58,237,0.15) 0%, transparent 60%)" },
-{ active: "from-rose-600 to-rose-600/0", hoverBg: "linear-gradient(to right, rgba(225,29,72,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(225,29,72,0.15) 0%, transparent 60%)" },
-{ active: "from-indigo-600 to-indigo-600/0", hoverBg: "linear-gradient(to right, rgba(79,70,229,0.25), transparent)", detailBg: "linear-gradient(135deg, rgba(79,70,229,0.15) 0%, transparent 60%)" }];
+/* ─── Audience filter pills ─── */
+const filterPills = [
+  { label: "Make Films", targetId: "bfp" },
+  { label: "Edit Videos", targetId: "ve" },
+  { label: "Build a Creator Brand", targetId: "creator-academy" },
+  { label: "Design Products", targetId: "uiux" },
+  { label: "Write Stories", targetId: "sw" },
+];
 
+/* ─── Social proof testimonials ─── */
+const testimonials = [
+  { quote: "Went from zero to shooting my first short film in 12 weeks.", name: "BFP Alumni" },
+  { quote: "I now edit for a 2M+ YouTube creator. This changed everything.", name: "VE Alumni" },
+  { quote: "21 posts in 12 weeks. My account went from 200 to 25K followers.", name: "Creator Academy Alumni" },
+  { quote: "Landed my first product design role 3 weeks after the program.", name: "UIUX Alumni" },
+  { quote: "I finally finished a screenplay. Not just started one — finished.", name: "Screenwriting Alumni" },
+  { quote: "The mentors don't let you hide. That's what makes this different.", name: "BFP Alumni" },
+];
 
-const statusStyles: Record<string, string> = {
-  Enrolling: "bg-primary/10 text-primary border-primary/20",
-  Upcoming: "bg-secondary text-secondary-foreground border-border",
-  "Coming Soon": "bg-muted text-muted-foreground border-border"
-};
+/* ─── Stats data ─── */
+const stats = [
+  { value: 5, suffix: "", label: "Active Programs" },
+  { value: 12000, suffix: "+", label: "Hours of Live Teaching", hasComma: true },
+  { value: 50, suffix: "+", label: "Industry Mentors" },
+  { value: 80, suffix: "%+", label: "Completion Rate" },
+  { value: 0, suffix: "", label: "Weekends Only", isText: true },
+];
 
 const LiveProgramsSection = () => {
-  const [activeShowcase, setActiveShowcase] = useState(0);
-  const [youtubeOpen, setYoutubeOpen] = useState(false);
-  const [quizOpen, setQuizOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const [wordIndex, setWordIndex] = useState(0);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
-  const activeProgram = showcasePrograms[activeShowcase];
+  const [activePill, setActivePill] = useState<string | null>(null);
+  const [highlightedCard, setHighlightedCard] = useState<string | null>(null);
+  const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setWordIndex((prev) => (prev + 1) % rotatingWords.length);
-    }, 1400);
-    return () => clearInterval(interval);
+  const handlePillClick = useCallback((targetId: string) => {
+    setActivePill(targetId);
+    const card = cardRefs.current[targetId];
+    if (card) {
+      card.scrollIntoView({ behavior: "smooth", block: "center" });
+      setHighlightedCard(targetId);
+      setTimeout(() => setHighlightedCard(null), 1200);
+    }
   }, []);
 
-  // Deep-link: read hash to auto-select a program and scroll into view
-  useEffect(() => {
-    const handleHash = () => {
-      const hash = window.location.hash;
-      if (!hash.startsWith("#live-")) return;
-      const programId = hash.replace("#live-", "");
-      const idx = showcasePrograms.findIndex((p) => p.id === programId);
-      if (idx !== -1) {
-        setActiveShowcase(idx);
-        setTimeout(() => {
-          sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 100);
-      }
-    };
-    handleHash();
-    window.addEventListener("hashchange", handleHash);
-    return () => window.removeEventListener("hashchange", handleHash);
-  }, []);
-
-  // Start observing earlier (rootMargin) so videos begin loading before user scrolls to them
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0, rootMargin: "400px 0px" }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  // When visible, only load active + next video; play active, pause others
-  useEffect(() => {
-    if (!isVisible) return;
-    const total = showcasePrograms.length;
-    const nextIndex = (activeShowcase + 1) % total;
-
-    videoRefs.current.forEach((v, i) => {
-      if (!v) return;
-      if (i === activeShowcase || i === nextIndex) {
-        if (v.preload === "none") v.preload = "auto";
-        v.load();
-      }
-      if (i === activeShowcase) {
-        v.play().catch(() => {});
-      } else {
-        v.pause();
-      }
-    });
-  }, [activeShowcase, isVisible]);
-
+  /* JSON-LD for SEO */
   const coursesJsonLd = {
     "@context": "https://schema.org",
     "@graph": showcasePrograms.map((p) => ({
       "@type": "Course",
-      "name": p.title,
-      "description": p.description,
-      "provider": {
+      name: p.title,
+      description: p.description,
+      provider: {
         "@type": "Organization",
-        "name": "LevelUp Learning",
-        "url": "https://www.leveluplearning.live",
+        name: "LevelUp Learning",
+        url: "https://www.leveluplearning.live",
       },
-      "hasCourseInstance": {
+      hasCourseInstance: {
         "@type": "CourseInstance",
-        "courseMode": p.format.includes("Live") ? "Blended" : "Online",
-        "duration": p.duration,
+        courseMode: p.format.includes("Live") ? "Blended" : "Online",
+        duration: p.duration,
       },
-      "url": p.learnMoreLink,
+      url: p.learnMoreLink,
     })),
   };
 
   return (
-    <section ref={sectionRef} id="live-programs" aria-label="Live programs" className="relative py-14 md:py-20">
+    <section
+      id="live-programs"
+      aria-label="LevelUp LIVE cohort programs"
+      className="relative py-16 md:py-24"
+      style={{ background: "hsl(22 14% 5%)" }}
+    >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(coursesJsonLd) }}
       />
       <AccentLine />
 
-      {/* Subtle top glow */}
-      <div
-        className="absolute top-0 left-0 right-0 h-64 pointer-events-none"
-        style={{
-          background:
-          "radial-gradient(ellipse at 50% 0%, hsl(38 75% 55% / 0.03) 0%, transparent 70%)"
-        }} />
-
-
-      {/* Section tag */}
-      <FadeInSection className="text-center px-6 md:px-12 mb-4">
-        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[hsl(200_35%_55%/0.25)] bg-[hsl(200_35%_55%/0.06)] text-[11px] tracking-[0.18em] uppercase font-sans-body text-[hsl(200_35%_55%/0.85)]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[hsl(200_35%_55%/0.65)]" />
-          Live Programs
-        </span>
-      </FadeInSection>
-
-      {/* Section header */}
-      <FadeInSection className="text-center px-6 md:px-12 mb-10 md:mb-12" delay={80}>
-        <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-hero-headline leading-[1.35] tracking-tight">
-          <span className="block sm:inline">Mentorship Programs,</span>{" "}
-          <span className="block sm:inline whitespace-nowrap">
-            For{" "}
-            <span className="relative inline-flex items-baseline overflow-hidden align-baseline">
-              {/* Invisible sizer: renders the current word to set natural width */}
-              <span className="invisible font-normal" aria-hidden="true">{rotatingWords[wordIndex]}</span>
-              <AnimatePresence mode="wait">
-                <m.em
-                  key={rotatingWords[wordIndex]}
-                  initial={{ y: "100%", opacity: 0 }}
-                  animate={{ y: "0%", opacity: 1 }}
-                  exit={{ y: "-100%", opacity: 0 }}
-                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className="absolute left-0 not-italic font-normal text-gradient-amber inline-block"
-                >
-                  {rotatingWords[wordIndex]}
-                </m.em>
-              </AnimatePresence>
-            </span>
-            ,
-          </span>{" "}
-          <span className="block sm:inline whitespace-nowrap">
-            By{" "}
-            <span className="relative inline-flex items-baseline overflow-hidden align-baseline">
-              <span className="invisible font-normal" aria-hidden="true">{rotatingWords[wordIndex]}</span>
-              <AnimatePresence mode="wait">
-                <m.em
-                  key={`by-${rotatingWords[wordIndex]}`}
-                  initial={{ y: "100%", opacity: 0 }}
-                  animate={{ y: "0%", opacity: 1 }}
-                  exit={{ y: "-100%", opacity: 0 }}
-                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
-                  className="absolute left-0 not-italic font-normal text-gradient-amber inline-block"
-                >
-                  {rotatingWords[wordIndex]}
-                </m.em>
-              </AnimatePresence>
-            </span>
+      {/* ═══ 1. SECTION INTRO ═══ */}
+      <div className="max-w-6xl mx-auto px-6 md:px-12">
+        <FadeInSection className="text-center mb-6">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-sans-body text-[11px] tracking-[0.2em] uppercase font-semibold">
+            LevelUp LIVE
           </span>
-        </h2>
-        <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-5 md:mt-6 max-w-xl mx-auto leading-relaxed text-center">
-          Work alongside industry mentors in intensive live programs. Real projects, real feedback, real progress — in 12 weeks or less.
-        </p>
-      </FadeInSection>
+        </FadeInSection>
 
-      {/* Showcase layout */}
-      <div className="max-w-[1600px] mx-auto px-6 md:px-12">
-        <div className="flex flex-col md:flex-row rounded-sm overflow-hidden border border-border bg-card">
+        <FadeInSection className="text-center mb-5" delay={60}>
+          <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.15] tracking-tight">
+            Stop Watching. Start Making.
+          </h2>
+        </FadeInSection>
 
-          {/* Left sidebar */}
-          <div className="md:w-[340px] lg:w-[400px] flex-shrink-0 md:border-r border-border flex flex-col">
-            {showcasePrograms.map((prog, i) => <div key={prog.id}>
-                {i > 0 && <div className="h-px bg-border/40" />}
-                <button onClick={() => setActiveShowcase(i)} className={`group relative flex w-full items-center justify-between whitespace-nowrap rounded-lg pl-7 pr-5 py-4 text-left text-sm transition-all overflow-hidden ${activeShowcase === i ? `bg-gradient-to-r ${activeGradients[i].active} font-semibold text-foreground noise-overlay` : "text-muted-foreground hover:text-foreground"}`} style={activeShowcase !== i ? { backgroundImage: "none" } : undefined} onMouseEnter={(e) => {if (activeShowcase !== i) e.currentTarget.style.backgroundImage = activeGradients[i].hoverBg;}}
-                  onMouseLeave={(e) => {
-                    if (activeShowcase !== i) e.currentTarget.style.backgroundImage = "none";
-                  }}>
+        <FadeInSection className="text-center mb-10 md:mb-14" delay={120}>
+          <p className="font-sans-body text-sm md:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Our LIVE cohort programs are the opposite of "learn at your own pace." Small batches. Weekend classes. Industry mentors. Real deadlines. Real output.
+          </p>
+        </FadeInSection>
 
-                  {prog.title}
-                  {activeShowcase === i && <ArrowRight className="w-4 h-4 flex-shrink-0 ml-2 text-white" />}
-                </button>
-              </div>
-            )}
-
-            {/* Mini CTA Banner */}
-            <div className="hidden md:flex mt-auto p-4 flex-1 flex-col justify-end">
+        {/* Stats strip */}
+        <FadeInSection delay={180}>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 md:gap-6 mb-14 md:mb-20">
+            {stats.map((stat, i) => (
               <div
-                className="group/quiz relative rounded-lg overflow-hidden border border-border hover:border-primary/40 flex-1 flex flex-col cursor-pointer transition-all duration-500"
-                style={{ boxShadow: "0 0 0px transparent" }}
-                onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 0 20px hsl(38 75% 55% / 0.15)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 0 0px transparent"; }}
-                onClick={() => setQuizOpen(true)}
+                key={stat.label}
+                className="text-center py-4 px-3 rounded-xl border border-border/50 bg-card/40"
               >
-                {/* Background image — visible, scales on hover */}
-                <img
-                  src={careerQuizBanner}
-                  alt=""
-                  className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover/quiz:opacity-40 group-hover/quiz:scale-110 transition-all duration-700 ease-out"
-                  loading="lazy"
-                />
-
-                {/* Warm gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-amber-950/60 group-hover/quiz:via-background/50 transition-all duration-500" />
-
-                {/* Content */}
-                <div className="relative flex-1 flex flex-col justify-end p-5">
-                  <p className="font-sans-body text-sm text-foreground/80 leading-snug mb-3">
-                    Not sure which creator<br />path fits you?
-                  </p>
-                  <span className="inline-flex items-center gap-1.5 self-start px-4 py-1.5 rounded-full bg-primary/15 border border-primary/30 font-sans-body text-xs text-primary group-hover/quiz:bg-primary/25 group-hover/quiz:border-primary/50 transition-all duration-300">
-                    <span className="text-base leading-none">?</span>
-                    Take our quiz
-                    <ArrowRight className="w-3 h-3 group-hover/quiz:translate-x-0.5 transition-transform" />
-                  </span>
+                <div className="font-serif-display text-2xl md:text-3xl font-bold text-foreground mb-1">
+                  {stat.isText ? (
+                    <span>🗓️</span>
+                  ) : (
+                    <AnimatedCounter
+                      target={stat.value}
+                      suffix={stat.suffix}
+                      hasComma={stat.hasComma}
+                      delay={i * 100}
+                    />
+                  )}
+                </div>
+                <div className="font-sans-body text-xs text-muted-foreground tracking-wide">
+                  {stat.label}
                 </div>
               </div>
-            </div>
+            ))}
           </div>
+        </FadeInSection>
 
-          {/* Right content: Video stacked on top of details (desktop) */}
-          <div className="flex-1 flex flex-col">
-            {/* 16:9 Video Preview */}
-            <div className="relative aspect-video w-full overflow-hidden bg-black/50 group">
-              {/* Poster fallback shown until videos load */}
-              <img
-                src={activeProgram.image}
-                alt=""
-                className="absolute inset-0 w-full h-full object-cover" />
-
-              {/* All videos rendered, only active one visible — no remount flicker */}
-              {isVisible && showcasePrograms.map((prog, i) =>
-              <video
-                key={prog.id}
-                ref={(el) => {videoRefs.current[i] = el;}}
-                src={prog.previewVideo}
-                poster={prog.image}
-                muted
-                loop
-                playsInline
-                preload="none"
-                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
-                i === activeShowcase ? "opacity-100" : "opacity-0 pointer-events-none"}`
-                } />
-
-              )}
-              {/* Play Full Trailer button */}
+        {/* ═══ 2. AUDIENCE FILTER ═══ */}
+        <FadeInSection className="mb-14 md:mb-20" delay={240}>
+          <p className="font-sans-body text-sm text-muted-foreground text-center mb-4">
+            I want to...
+          </p>
+          <div className="flex flex-wrap justify-center gap-2.5" role="group" aria-label="Filter programs by interest">
+            {filterPills.map((pill) => (
               <button
-                onClick={() => setYoutubeOpen(true)}
-                className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-
-                <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-sans-body text-sm font-medium transition-colors hover:bg-white/20">
-                  <Play className="w-4 h-4 fill-white" />
-                  Play Full Trailer
-                </span>
+                key={pill.targetId}
+                onClick={() => handlePillClick(pill.targetId)}
+                className={`px-5 py-2 rounded-full font-sans-body text-sm font-medium transition-all duration-200 border ${
+                  activePill === pill.targetId
+                    ? "bg-primary text-primary-foreground border-primary shadow-[0_0_16px_hsl(24_95%_53%/0.3)]"
+                    : "bg-transparent text-muted-foreground border-border hover:border-foreground/30 hover:text-foreground"
+                }`}
+              >
+                {pill.label}
               </button>
-            </div>
+            ))}
+          </div>
+        </FadeInSection>
 
-            {/* Details panel */}
-            <div
-              className="flex-1 flex flex-col justify-between p-8 lg:p-10"
-              style={{ backgroundImage: activeGradients[activeShowcase].detailBg }}>
+        {/* ═══ 3. PROGRAM CARDS ═══ */}
+        <div className="flex flex-col gap-16 md:gap-20 mb-16 md:mb-24">
+          {showcasePrograms.map((program, idx) => (
+            <FadeInSection key={program.id} delay={idx * 60}>
+              <div
+                ref={(el) => { cardRefs.current[program.id] = el; }}
+                id={`program-${program.id}`}
+                className={`group relative flex flex-col md:flex-row rounded-2xl overflow-hidden border transition-all duration-500 ${
+                  highlightedCard === program.id
+                    ? "border-primary ring-2 ring-primary/40"
+                    : "border-border/50 hover:border-border"
+                }`}
+                style={{ background: "hsl(22 12% 8%)" }}
+              >
+                {/* Right: Image (mobile: top) */}
+                <div className="md:order-2 md:w-[40%] relative aspect-[16/10] md:aspect-auto overflow-hidden">
+                  <img
+                    src={program.image}
+                    alt={program.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[hsl(22_12%_8%)] via-transparent to-transparent hidden md:block" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[hsl(22_12%_8%)] via-transparent to-transparent md:hidden" />
+                </div>
 
-              <div>
-                <div className="flex flex-wrap items-center gap-2 mb-4">
-                  <span className="inline-flex items-center gap-1.5 font-sans-body text-xs tracking-wide px-2.5 py-1 rounded-full bg-secondary border border-border text-muted-foreground">
-                    <Clock className="w-3 h-3" /> {activeProgram.duration}
+                {/* Left: Content */}
+                <div className="md:order-1 md:w-[60%] p-6 md:p-8 lg:p-10 flex flex-col justify-center">
+                  {/* Tag */}
+                  <span className="inline-block self-start px-3 py-1 rounded-full bg-primary/10 text-primary font-sans-body text-[10px] tracking-[0.2em] uppercase font-semibold mb-4">
+                    {program.tag}
                   </span>
-                  <span className={`font-sans-body text-xs tracking-wide uppercase px-2.5 py-1 rounded-full border ${statusStyles[activeProgram.status]}`}>
-                    {activeProgram.status}
-                  </span>
-                  {activeProgram.spotsLeft &&
-                  <span className="inline-flex items-center gap-1.5 font-sans-body text-xs text-destructive">
-                      <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-destructive opacity-75" />
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-destructive" />
+
+                  {/* Headline */}
+                  <h3 className="font-serif-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground leading-tight tracking-tight mb-3">
+                    {program.headline}
+                  </h3>
+
+                  {/* One-liner */}
+                  <p className="font-sans-body text-sm text-muted-foreground leading-relaxed mb-5 max-w-lg">
+                    {program.oneLiner}
+                  </p>
+
+                  {/* Stats pills */}
+                  <div className="flex flex-wrap gap-2 mb-5">
+                    {program.stats.map((stat) => (
+                      <span
+                        key={stat}
+                        className="px-3 py-1 rounded-full bg-secondary/60 border border-border/40 font-sans-body text-[11px] text-muted-foreground tracking-wide"
+                      >
+                        {stat}
                       </span>
-                      {activeProgram.spotsLeft} spots left
-                    </span>
-                  }
-                </div>
+                    ))}
+                  </div>
 
-                <h3 className="font-serif-display text-2xl lg:text-4xl font-medium text-hero-headline leading-tight tracking-tight mb-3">
-                  {activeProgram.title}
-                </h3>
+                  {/* Bullets */}
+                  <ul className="space-y-2.5 mb-6" aria-label={`${program.title} highlights`}>
+                    {program.bullets.map((bullet, i) => (
+                      <li key={i} className="flex items-start gap-2.5">
+                        <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                        <span className="font-sans-body text-sm text-foreground/80 leading-snug">
+                          {bullet}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
 
-                <p className="font-sans-body text-sm text-muted-foreground leading-relaxed mb-5 max-w-md">
-                  {activeProgram.description}
-                </p>
-
-                <div className="flex flex-wrap items-center gap-4 mb-5">
-                  <span className="inline-flex items-center gap-1.5 text-muted-foreground font-sans-body text-xs">
-                    <Radio className="w-3.5 h-3.5" /> {activeProgram.format}
-                  </span>
-                  {activeProgram.startDate &&
-                  <span className="inline-flex items-center gap-1.5 text-muted-foreground font-sans-body text-xs">
-                      <CalendarDays className="w-3.5 h-3.5" /> Starts {activeProgram.startDate}
-                    </span>
-                  }
-                </div>
-              </div>
-
-              <div>
-                <div className="flex items-center justify-between pt-4 border-t border-border mb-5">
-                  <span className="font-sans-body text-xs text-muted-foreground">
-                    Led by{" "}
-                    <span className="text-hero-subtext font-medium">{activeProgram.instructor}</span>
-                  </span>
-                </div>
-
-                <div className="flex gap-3 flex-nowrap">
+                  {/* CTA */}
                   <a
-                    href={activeProgram.ctaLink}
+                    href={program.ctaLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="cta-sweep cta-glow inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-sans-body text-sm font-medium tracking-wide transition-colors hover:bg-primary/90 whitespace-nowrap">
-
-                    Request Invite
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
-                  <a
-                    href={activeProgram.learnMoreLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center font-sans-body text-sm px-5 py-2.5 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors whitespace-nowrap">
-
-                    Learn More
+                    className="inline-flex items-center gap-2 self-start px-6 py-3 rounded-full bg-primary text-primary-foreground font-sans-body text-sm font-semibold tracking-wide transition-all duration-200 hover:scale-[1.03] hover:shadow-[0_0_24px_hsl(24_95%_53%/0.35)]"
+                  >
+                    {program.ctaLabel}
+                    <ArrowRight className="w-4 h-4" />
                   </a>
                 </div>
               </div>
+            </FadeInSection>
+          ))}
+        </div>
+
+        {/* ═══ 4. SOCIAL PROOF MARQUEE ═══ */}
+        <FadeInSection className="mb-16 md:mb-24">
+          <div className="overflow-hidden relative" aria-label="Student testimonials">
+            {/* Fade edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-r from-[hsl(22_14%_5%)] to-transparent pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-l from-[hsl(22_14%_5%)] to-transparent pointer-events-none" />
+
+            <div className="marquee-track flex gap-6 hover:[animation-play-state:paused]">
+              {[...testimonials, ...testimonials].map((t, i) => (
+                <div
+                  key={i}
+                  className="flex-shrink-0 w-[340px] p-5 rounded-xl border border-border/40 bg-card/30"
+                >
+                  <p className="font-sans-body text-sm text-foreground/80 italic leading-relaxed mb-3">
+                    "{t.quote}"
+                  </p>
+                  <span className="font-sans-body text-xs text-primary font-medium">
+                    — {t.name}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
+        </FadeInSection>
+
+        {/* ═══ 5. BOTTOM CTA ═══ */}
+        <FadeInSection className="text-center">
+          <h3 className="font-serif-display text-2xl md:text-3xl font-bold text-foreground mb-3">
+            Not Sure Which Program Fits?
+          </h3>
+          <p className="font-sans-body text-sm text-muted-foreground mb-6">
+            Talk to our team. We'll help you pick the right cohort.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a
+              href="https://www.leveluplearning.live"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-primary text-primary-foreground font-sans-body text-sm font-semibold tracking-wide transition-all duration-200 hover:scale-[1.03] hover:shadow-[0_0_24px_hsl(24_95%_53%/0.35)]"
+            >
+              Book a Free Call
+              <ArrowRight className="w-4 h-4" />
+            </a>
+            <a
+              href="https://www.leveluplearning.live"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-sans-body text-sm text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors"
+            >
+              Explore All Programs →
+            </a>
+          </div>
+        </FadeInSection>
       </div>
 
-      {/* YouTube Embed Dialog */}
-      <Dialog open={youtubeOpen} onOpenChange={setYoutubeOpen}>
-        <DialogContent className="max-w-4xl p-0 bg-black border-border overflow-hidden">
-          <DialogTitle className="sr-only">{activeProgram.title} Trailer</DialogTitle>
-          <div className="aspect-video w-full">
-            {youtubeOpen &&
-            <iframe
-              src={`https://www.youtube.com/embed/${activeProgram.youtubeId}?autoplay=1&rel=0`}
-              title={`${activeProgram.title} Trailer`}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="w-full h-full" />
-
-            }
-          </div>
-        </DialogContent>
-      </Dialog>
-      <CareerQuizDialog open={quizOpen} onOpenChange={setQuizOpen} />
-    </section>);
-
+      {/* Marquee keyframes */}
+      <style>{`
+        .marquee-track {
+          animation: marquee-scroll 40s linear infinite;
+          width: max-content;
+        }
+        @keyframes marquee-scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `}</style>
+    </section>
+  );
 };
 
 export default LiveProgramsSection;
