@@ -2,6 +2,7 @@ import FadeInSection from "./FadeInSection";
 import allMastersNewImg from "@/assets/all-masters-new.png";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { trackCTAClick } from "@/lib/clarity";
 import MagneticButton from "@/components/MagneticButton";
 import AccentLine from "./AccentLine";
 
