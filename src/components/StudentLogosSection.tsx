@@ -96,9 +96,9 @@ const row3 = [
 ];
 
 const rows = [
-  { brands: row1, direction: "animate-scroll-left" },
-  { brands: row2, direction: "animate-scroll-right" },
-  { brands: row3, direction: "animate-scroll-left" },
+  { brands: row1, animation: "scroll-left 40s linear infinite" },
+  { brands: row2, animation: "scroll-right 40s linear infinite" },
+  { brands: row3, animation: "scroll-left 40s linear infinite" },
 ];
 
 const containerVariants = {
