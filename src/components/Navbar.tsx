@@ -208,8 +208,7 @@ const Navbar = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={[
-                  "hidden md:inline-flex font-sans-body text-foreground rounded-full hover:border-primary hover:text-primary transition-all duration-500",
-                  isLightTheme ? "border border-border" : "border border-[#5c5c5c]",
+                  "hidden md:inline-flex font-sans-body bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-all duration-500",
                   scrolled
                     ? "text-xs px-3 py-1.5"
                     : "text-xs md:text-sm px-3.5 md:px-4 py-1.5",
