@@ -102,7 +102,7 @@ const HeroSection = () => {
                     animate={{ opacity: 1, y: "0%" }}
                     exit={{ opacity: 0, y: "-100%" }}
                     transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute left-0 bottom-0 inline-block whitespace-nowrap text-white"
+                    className="absolute left-0 bottom-0 inline-block whitespace-nowrap text-gradient-amber"
                     style={{ lineHeight: 1.15, transformOrigin: "bottom left" }}
                   >
                     {rotatingWords[wordIndex]}
@@ -111,7 +111,7 @@ const HeroSection = () => {
               </span>
 
               <em
-                className="font-serif-display not-italic font-medium whitespace-nowrap text-gradient-amber"
+                className="font-serif-display not-italic font-medium whitespace-nowrap text-hero-headline"
                 style={{
                   lineHeight: 1.15,
                 }}
@@ -136,8 +136,7 @@ const HeroSection = () => {
             <a
               href="#masterclasses"
               onClick={() => trackCTAClick("hero", "See all Programs")}
-              className="cta-sweep cta-glow group inline-flex items-center gap-3 font-sans-body text-sm md:text-base text-foreground px-6 py-3 md:px-7 md:py-3.5 rounded-full hover:text-primary transition-all duration-500"
-              style={{ border: "1px solid #5c5c5c" }}
+              className="group inline-flex items-center gap-3 font-sans-body text-sm md:text-base bg-primary text-primary-foreground px-6 py-3 md:px-7 md:py-3.5 rounded-full hover:bg-primary/90 transition-all duration-500"
             >
               See all Programs
               <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />

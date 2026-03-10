@@ -4,7 +4,7 @@ const faqs = [
   {
     question: "What is LevelUp Learning?",
     answer:
-      "LevelUp is a creative education ecosystem built for serious creators. It brings together masterclasses, mentor-led live programs, and immersive residencies — all designed to deepen your craft, sharpen your voice, and connect you with a community that cares about the work as much as you do.",
+      "LevelUp is a creative education ecosystem built for serious creators. It brings together masterclasses, mentor-led live programs, and immersive residencies, all designed to deepen your craft, sharpen your voice, and connect you with a community that cares about the work as much as you do.",
     featured: true,
   },
   {
@@ -62,7 +62,7 @@ const faqs = [
   {
     question: "Is there a community I can join?",
     answer:
-      "Yes. When you enrol in any program, you become part of the LevelUp community — a network of serious creators across disciplines. It's a space for honest feedback, collaboration, and long-term creative relationships.",
+      "Yes. When you enrol in any program, you become part of the LevelUp community, a network of serious creators across disciplines. It's a space for honest feedback, collaboration, and long-term creative relationships.",
   },
 ];
 

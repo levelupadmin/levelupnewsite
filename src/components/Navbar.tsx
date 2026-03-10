@@ -208,8 +208,7 @@ const Navbar = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={[
-                  "hidden md:inline-flex font-sans-body text-foreground rounded-full hover:border-primary hover:text-primary transition-all duration-500",
-                  isLightTheme ? "border border-border" : "border border-[#5c5c5c]",
+                  "hidden md:inline-flex font-sans-body bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-all duration-500",
                   scrolled
                     ? "text-xs px-3 py-1.5"
                     : "text-xs md:text-sm px-3.5 md:px-4 py-1.5",
@@ -515,7 +514,7 @@ const Navbar = () => {
                   delay: 0.05 + links.length * 0.05,
                 }}
                 onClick={() => setMobileOpen(false)}
-                className="mt-6 self-center font-sans-body text-base text-primary border border-primary/30 rounded-full px-6 py-2.5 active:bg-primary/10 transition-colors"
+                className="mt-6 self-center font-sans-body text-base bg-primary text-primary-foreground rounded-full px-6 py-2.5 hover:bg-primary/90 active:bg-primary/80 transition-colors"
               >
                 Sign In / Sign Up
               </m.a>

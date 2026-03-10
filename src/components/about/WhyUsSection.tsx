@@ -10,13 +10,13 @@ const pillars = [
   {
     icon: Sparkles,
     title: "Mentor IP",
-    description: "Exclusive masterclasses with India's top filmmakers, editors, photographers, and musicians — content you can't find anywhere else.",
+    description: "Exclusive masterclasses with India's top filmmakers, editors, photographers, and musicians. Content you can't find anywhere else.",
     image: allMasters,
   },
   {
     icon: Users,
     title: "Community Flywheel",
-    description: "300K+ creators fueling organic acquisition, peer learning, and real-world opportunity — a self-reinforcing ecosystem.",
+    description: "300K+ creators fueling organic acquisition, peer learning, and real-world opportunity. A self-reinforcing ecosystem.",
     image: shapeCommunity,
   },
   {

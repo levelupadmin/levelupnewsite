@@ -272,7 +272,7 @@ const MARQUEE_QUOTES = [
   "Best investment I've ever made in my creative career",
   "The mentors genuinely care about your growth as an artist",
   "I went from amateur to confident filmmaker in 8 weeks",
-  "The community alone is worth every penny — incredible people",
+  "The community alone is worth every penny, incredible people",
   "Finally learned the craft properly after years of self-teaching",
   "Got my first paid gig within a month of completing the program",
   "The live feedback sessions were absolute game-changers",

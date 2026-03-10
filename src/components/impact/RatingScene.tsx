@@ -20,7 +20,7 @@ const reviewsCol2 = [
   "\"My portfolio went from zero to getting me hired.\"",
   "\"This community is unlike anything else out there.\"",
   "\"Real projects, real deadlines, real growth.\"",
-  "\"I cried after my first mentor review — in a good way.\"",
+  "\"I cried after my first mentor review, in a good way.\"",
   "\"Hands down the most practical creative education.\"",
   "\"The network I built here changed my trajectory.\"",
   "\"No fluff, no filler. Just craft and honest feedback.\"",

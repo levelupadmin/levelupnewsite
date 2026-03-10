@@ -146,7 +146,7 @@ const TestimonialsSection = () => {
         <FadeInSection className="flex flex-col items-center text-center gap-6 mb-10 md:mb-12">
           <div>
             <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl font-medium text-hero-headline leading-[1.15] tracking-tight max-w-xl mx-auto">
-              Real transformations. No scripts, no exaggeration — just{" "}
+              Real transformations. No scripts, no exaggeration. Just{" "}
               <em className="not-italic font-normal text-gradient-amber">
                 honest creative growth.
               </em>

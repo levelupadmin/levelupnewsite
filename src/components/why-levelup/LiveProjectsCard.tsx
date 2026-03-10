@@ -24,7 +24,7 @@ const activityFeed = [
   { icon: Eye, avatar: null, name: null, text: "3 industry views on your showreel", time: "5m", accent: true },
   { icon: MessageSquare, avatar: testimonial2, name: "Arjun", text: "Left feedback on your color grade 🎨", time: "12m", accent: false },
   { icon: Star, avatar: null, name: null, text: "Rated 4.8★ by peer reviewers", time: "18m", accent: true },
-  { icon: Trophy, avatar: null, name: null, text: "Mumbai Film Festival — Selected! 🏆", time: "1h", accent: true },
+  { icon: Trophy, avatar: null, name: null, text: "Mumbai Film Festival: Selected! 🏆", time: "1h", accent: true },
   { icon: Briefcase, avatar: null, name: null, text: "Freelance inquiry: Wedding film edit", time: "2h", accent: false },
   { icon: TrendingUp, avatar: null, name: null, text: "Portfolio views up 140% this week", time: "3h", accent: true },
   { icon: Share2, avatar: testimonial4, name: "Meera", text: "Shared your showreel with her network", time: "3h", accent: false },
