@@ -14,20 +14,10 @@ const filterPills = [
   { label: "Write Stories", targetIndex: 4 },
 ];
 
-const testimonials = [
-  { quote: "Went from zero to shooting my first short film in 12 weeks.", name: "BFP Alumni" },
-  { quote: "I now edit for a 2M+ YouTube creator. This changed everything.", name: "VE Alumni" },
-  { quote: "21 posts in 12 weeks. My account went from 200 to 25K followers.", name: "Creator Academy Alumni" },
-  { quote: "Landed my first product design role 3 weeks after the program.", name: "UIUX Alumni" },
-  { quote: "I finally finished a screenplay. Not just started one — finished.", name: "Screenwriting Alumni" },
-  { quote: "The mentors don't let you hide. That's what makes this different.", name: "BFP Alumni" },
-];
-
 const stats = [
-  { value: 5, suffix: "", label: "Active Programs" },
-  { value: 12000, suffix: "+", label: "Hours of Live Teaching", hasComma: true },
-  { value: 50, suffix: "+", label: "Industry Mentors" },
-  { value: 80, suffix: "%+", label: "Completion Rate" },
+  { value: 1200, suffix: "+", label: "Students Trained", hasComma: true },
+  { value: 40, suffix: "+", label: "Cohorts Completed" },
+  { value: 0, suffix: "", label: "Industry Mentors", isText: true },
   { value: 0, suffix: "", label: "Weekends Only", isText: true },
 ];
 
