@@ -126,26 +126,26 @@ export const navLinks: NavLink[] = [
   {
     label: "The Forge",
     href: "#forge",
-    description: "India's first residency for filmmakers and storytellers.",
+    description: "The world's only residency for filmmakers, creators, writers, and storytellers.",
     accent: "hsl(15 65% 55%)",
     formatBadge: "In-person",
     items: [
       {
         image: navForgeFilmmaking,
         title: "Filmmaking Residency",
-        subtitle: "10 days · 20 filmmakers · 1 location",
+        subtitle: "15 days · 24 filmmakers · 24 short films",
         href: "https://www.forgebylevelup.com/",
       },
       {
         image: navForgeWriting,
         title: "Writing Retreat",
-        subtitle: "Immersive screenwriting intensive",
+        subtitle: "20 writers · 6 days · 1 beautiful location",
         href: "https://www.forgebylevelup.com/writingresidency",
       },
       {
         image: navForgeCreators,
         title: "Creator Residency",
-        subtitle: "Build and ship creative work",
+        subtitle: "Build your personal brand in 12 days",
         href: "https://creators.forgebylevelup.com/",
       },
     ],

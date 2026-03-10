@@ -211,47 +211,24 @@ const ForgeSection = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
                   <div className="absolute top-4 right-4 md:top-6 md:right-6">
                     <span className="inline-block bg-background/80 backdrop-blur-sm text-foreground text-[10px] md:text-xs font-sans-body tracking-wide px-3 py-1.5 rounded-full">
-                      {card.editions.length} upcoming {card.editions.length === 1 ? "edition" : "editions"}
+                      {card.locations.join(" · ")}
                     </span>
                   </div>
                   <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8">
-                    <p className="font-sans-body text-[10px] md:text-xs tracking-[0.15em] uppercase text-primary mb-1">
-                      {card.tag}
-                    </p>
                     <h3 className="font-serif-display text-xl md:text-2xl lg:text-3xl font-medium text-white mb-2">
                       {card.title}
                     </h3>
-                    <p className="font-sans-body text-xs md:text-sm text-white/70 max-w-md leading-relaxed mb-3">
+                    <p className="font-sans-body text-xs md:text-sm text-white/70 max-w-md leading-relaxed mb-4">
                       {card.subtitle}
                     </p>
-                    <div className="flex flex-col gap-1.5 mb-4">
-                      {card.editions.map((ed, i) => (
-                        <div key={i} className="flex items-center gap-2 font-sans-body text-[10px] md:text-xs text-white/50">
-                          <span className="text-primary/80">{ed.name}</span>
-                          <span className="text-white/30">·</span>
-                          <span>{ed.location}</span>
-                          <span className="text-white/30">·</span>
-                          <span className="text-white/70">{ed.dates}</span>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="flex gap-3">
-                      <a
+                    <a
                       href={card.cta}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 bg-primary text-background font-sans-body text-xs md:text-sm font-medium px-4 py-2 rounded-full hover:bg-primary/90 transition-colors">
-                        Apply Now
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </a>
-                      <a
-                      href={card.learnMore}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center font-sans-body text-xs md:text-sm px-4 py-2 rounded-full border border-white/30 text-white hover:border-white/60 transition-colors">
-                        Learn More
-                      </a>
-                    </div>
+                      className="inline-flex items-center gap-2 bg-primary text-background font-sans-body text-[11px] md:text-xs font-semibold tracking-[0.12em] uppercase px-5 py-2.5 rounded-full hover:bg-primary/90 transition-colors">
+                      REQUEST AN INVITE
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </a>
                   </div>
                 </div>
               </div>
