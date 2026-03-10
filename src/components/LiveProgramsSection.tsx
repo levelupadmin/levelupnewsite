@@ -82,18 +82,18 @@ const LiveProgramsSection = () => {
         </FadeInSection>
         <FadeInSection className="text-center mb-5" delay={60}>
           <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.15] tracking-tight">
-            Stop Watching. Start Making.
+            Your Portfolio Starts Here.
           </h2>
         </FadeInSection>
         <FadeInSection className="text-center mb-10 md:mb-14" delay={120}>
           <p className="font-sans-body text-sm md:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Our LIVE cohort programs are the opposite of "learn at your own pace." Small batches. Weekend classes. Industry mentors. Real deadlines. Real output.
+            12-week LIVE cohort programs that turn ambition into proof. Walk out with a portfolio, real skills, and industry connections — not just another certificate.
           </p>
         </FadeInSection>
 
         {/* Stats */}
         <FadeInSection delay={180}>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 md:gap-6 mb-14 md:mb-20">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-14 md:mb-20">
             {stats.map((stat, i) => (
               <div key={stat.label} className="text-center py-4 px-3 rounded-xl border border-border/50 bg-card/40">
                 <div className="font-serif-display text-2xl md:text-3xl font-bold text-foreground mb-1">
