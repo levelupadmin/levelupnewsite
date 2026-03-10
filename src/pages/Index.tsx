@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import Navbar from "@/components/Navbar";
+import { useSectionViewTracking } from "@/hooks/useSectionViewTracking";
 import HeroSection from "@/components/HeroSection";
 
 // Lazy-load all below-fold sections to minimize initial JS bundle
