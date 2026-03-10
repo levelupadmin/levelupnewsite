@@ -168,7 +168,7 @@ const ForgeSection = () => {
         </p>
 
         <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-4 md:mt-6 max-w-2xl mx-auto leading-relaxed">
-          The Forge is an offline, immersive learning experience that brings together travel, hands-on creation, and a like-minded community — built for filmmakers, writers, founders, builders, artists, and creators.
+          The Forge is an offline, immersive learning experience that brings together travel, hands-on creation, and a like-minded community, built for filmmakers, writers, founders, builders, artists, and creators.
         </p>
 
         <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-3 max-w-2xl mx-auto leading-relaxed">
