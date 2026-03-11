@@ -212,7 +212,7 @@ const MasterclassDetail = () => {
 
               {/* Right — audience cards */}
               <div>
-                <h2 className="font-serif-display text-2xl md:text-3xl text-foreground font-medium mb-8">
+                <h2 className="font-display text-3xl md:text-4xl text-foreground uppercase tracking-wide mb-8">
                   Who is this <span className="text-primary">program</span> for?
                 </h2>
                 <div className="grid grid-cols-2 gap-3">
