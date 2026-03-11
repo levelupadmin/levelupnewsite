@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import FadeInSection from "./FadeInSection";
 import AccentLine from "./AccentLine";
@@ -15,6 +15,8 @@ const filterPills = [
   { label: "Write Stories", targetIndex: 4 },
 ];
 
+const rotatingWords = ["Creator", "Editor", "Designer", "Screenwriter", "Filmmaker"];
+
 const testimonials = [
   { quote: "Went from zero to shooting my first short film in 12 weeks.", name: "BFP Alumni" },
   { quote: "I now edit for a 2M+ YouTube creator. This changed everything.", name: "VE Alumni" },
@@ -25,10 +27,8 @@ const testimonials = [
 ];
 
 const stats = [
-  { value: 5, suffix: "", label: "Active Programs" },
-  { value: 12000, suffix: "+", label: "Hours of Live Teaching", hasComma: true },
-  { value: 50, suffix: "+", label: "Industry Mentors" },
-  { value: 80, suffix: "%+", label: "Completion Rate" },
+  { value: 750, suffix: "+", label: "Dreamers" },
+  { value: 40, suffix: "+", label: "Industry Mentors" },
   { value: 0, suffix: "", label: "Weekends Only", isText: true },
 ];
 
@@ -38,14 +38,42 @@ const cardVariants = {
   exit: (dir: number) => ({ x: dir > 0 ? -80 : 80, opacity: 0 }),
 };
 
+const wordVariants = {
+  enter: { y: 30, opacity: 0 },
+  center: { y: 0, opacity: 1 },
+  exit: { y: -30, opacity: 0 },
+};
+
 const LiveProgramsSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [wordIndex, setWordIndex] = useState(0);
+  const [autoPlay, setAutoPlay] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
   const touchStart = useRef(0);
+
+  // Rotating word animation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % rotatingWords.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Auto-advance carousel
+  useEffect(() => {
+    if (!autoPlay || isHovered) return;
+    const interval = setInterval(() => {
+      setDirection(1);
+      setActiveIndex((prev) => (prev + 1) % showcasePrograms.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [autoPlay, isHovered]);
 
   const navigate = useCallback((newIndex: number) => {
     setDirection(newIndex > activeIndex ? 1 : -1);
     setActiveIndex(newIndex);
+    setAutoPlay(false); // Freeze on pill click
   }, [activeIndex]);
 
   const prev = useCallback(() => {
@@ -91,24 +119,44 @@ const LiveProgramsSection = () => {
             LevelUp LIVE
           </span>
         </FadeInSection>
+
+        {/* Heading with rotating word */}
         <FadeInSection className="text-center mb-5" delay={60}>
           <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.15] tracking-tight">
-            Stop Watching. Start Making.
+            <span>From Learner to </span>
+            <span className="inline-block relative overflow-hidden align-bottom" style={{ minWidth: "4ch" }}>
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={rotatingWords[wordIndex]}
+                  variants={wordVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+                  className="inline-block text-primary"
+                >
+                  {rotatingWords[wordIndex]}
+                </motion.span>
+              </AnimatePresence>
+            </span>
+            <span>.</span>
           </h2>
         </FadeInSection>
+
+        {/* Subheading */}
         <FadeInSection className="text-center mb-10 md:mb-14" delay={120}>
           <p className="font-sans-body text-sm md:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Our LIVE cohort programs are the opposite of "learn at your own pace." Small batches. Weekend classes. Industry mentors. Real deadlines. Real output.
+            LIVE intensive cohorts designed for one thing — taking you from "I know about it" to "I can actually do it." With industry mentors, live feedback, real work, and placement assistance to get you where you want to be.
           </p>
         </FadeInSection>
 
         {/* Stats */}
         <FadeInSection delay={180}>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 md:gap-6 mb-14 md:mb-20">
+          <div className="grid grid-cols-3 gap-4 md:gap-6 mb-14 md:mb-20 max-w-lg mx-auto">
             {stats.map((stat, i) => (
               <div key={stat.label} className="text-center py-4 px-3 rounded-xl border border-border/50 bg-card/40">
                 <div className="font-serif-display text-2xl md:text-3xl font-bold text-foreground mb-1">
-                  {stat.isText ? <span>🗓️</span> : <AnimatedCounter target={stat.value} suffix={stat.suffix} hasComma={stat.hasComma} delay={i * 100} />}
+                  {stat.isText ? <span>🗓️</span> : <AnimatedCounter target={stat.value} suffix={stat.suffix} delay={i * 100} />}
                 </div>
                 <div className="font-sans-body text-xs text-muted-foreground tracking-wide">{stat.label}</div>
               </div>
@@ -142,6 +190,8 @@ const LiveProgramsSection = () => {
         <FadeInSection className="mb-6" delay={300}>
           <div
             className="relative"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
             onTouchStart={(e) => { touchStart.current = e.touches[0].clientX; }}
             onTouchEnd={(e) => {
               const diff = touchStart.current - e.changedTouches[0].clientX;
@@ -248,26 +298,12 @@ const LiveProgramsSection = () => {
             <div className="absolute right-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-l from-[hsl(22_14%_5%)] to-transparent pointer-events-none" />
             <div className="marquee-track flex gap-6 hover:[animation-play-state:paused]">
               {[...testimonials, ...testimonials].map((t, i) => (
-                <div key={i} className="flex-shrink-0 w-[340px] p-5 rounded-xl border border-border/40 bg-card/30">
-                  <p className="font-sans-body text-sm text-foreground/80 italic leading-relaxed mb-3">"{t.quote}"</p>
+                <div key={i} className="flex-shrink-0 w-[380px] p-6 rounded-xl border border-border/40 bg-card/30 min-h-[120px] flex flex-col justify-between">
+                  <p className="font-sans-body text-base text-foreground/80 italic leading-relaxed mb-3">"{t.quote}"</p>
                   <span className="font-sans-body text-xs text-primary font-medium">— {t.name}</span>
                 </div>
               ))}
             </div>
-          </div>
-        </FadeInSection>
-
-        {/* Bottom CTA */}
-        <FadeInSection className="text-center">
-          <h3 className="font-serif-display text-2xl md:text-3xl font-bold text-foreground mb-3">Not Sure Which Program Fits?</h3>
-          <p className="font-sans-body text-sm text-muted-foreground mb-6">Talk to our team. We'll help you pick the right cohort.</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="https://www.leveluplearning.live" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-primary text-primary-foreground font-sans-body text-sm font-semibold tracking-wide transition-all duration-200 hover:scale-[1.03] hover:shadow-[0_0_24px_hsl(24_95%_53%/0.35)]">
-              Book a Free Call <ArrowRight className="w-4 h-4" />
-            </a>
-            <a href="https://www.leveluplearning.live" target="_blank" rel="noopener noreferrer" className="font-sans-body text-sm text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors">
-              Explore All Programs →
-            </a>
           </div>
         </FadeInSection>
       </div>
