@@ -13,6 +13,7 @@ import { useMetaPixel } from "./hooks/useMetaPixel";
 
 const Reviews = lazy(() => import("./pages/Reviews"));
 const StudentStory = lazy(() => import("./pages/StudentStory"));
+const MasterclassDetail = lazy(() => import("./pages/MasterclassDetail"));
 
 const Terms = lazy(() => import("./pages/Terms"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
