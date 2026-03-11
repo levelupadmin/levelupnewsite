@@ -101,12 +101,6 @@ const MasterclassDetail = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
           </div>
 
-          {/* Name overlay — large, semi-transparent behind the person */}
-          <div className="absolute top-16 md:top-20 inset-x-0 z-[1] text-center pointer-events-none select-none">
-            <h1 className="font-display text-[12vw] md:text-[10vw] lg:text-[9vw] text-foreground/20 uppercase tracking-wider leading-none whitespace-nowrap">
-              {data.name}
-            </h1>
-          </div>
         </div>
 
         {/* Content BELOW the image — not overlapping the face */}
