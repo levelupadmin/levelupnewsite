@@ -128,7 +128,7 @@ const MasterclassDetail = () => {
       <section id="trailer" className="py-16 md:py-24 border-t border-border">
         <div className="max-w-6xl mx-auto px-6">
           <FadeInSection>
-            <h2 className="font-serif-display text-2xl md:text-3xl text-foreground font-medium mb-2">Class Info</h2>
+            <h2 className="font-display text-3xl md:text-4xl text-foreground uppercase tracking-wide mb-2">Class Info</h2>
             <p className="text-sm text-muted-foreground mb-8">
               {data.courseDetails.chapters} video lessons ({data.courseDetails.duration})
             </p>
