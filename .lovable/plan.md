@@ -1,23 +1,68 @@
+## LevelUp LIVE Section — Content & Metrics Update
 
-## Add Meta Pixel Tracking
+### 1. Heading with Rotating Word Animation
 
-### What
-Integrate Meta Pixel (Facebook Pixel) with ID `662214098433203` to track user behavior for advertising and analytics purposes.
+**New heading:** "From Learner to `<rotating word>`."
 
-### How
-1. **Add Meta Pixel ID to constants**
-   - Update `src/lib/constants.ts` to include `META_PIXEL_ID = "662214098433203"`
+The rotating word cycles through: **Creator → Editor → Designer → Screenwriter → Filmmaker**, highlighted in the brand primary color (orange/amber). Uses `AnimatePresence` with a vertical slide-fade transition (slide up to exit, slide up from below to enter), cycling every ~2.5s.
 
-2. **Create Meta Pixel initialization hook**
-   - Create `src/hooks/useMetaPixel.ts` to initialize the Meta Pixel script and track page views when routes change
+```text
+From Learner to [Creator].
+                 ^^^^^^^^^ primary color, vertical slide animation
+```
 
-3. **Initialize in App.tsx**
-   - Call the `useMetaPixel` hook in the root App component to activate tracking across all pages
+**Implementation:** Replace the static `<h2>` (lines 94-98) with a flex layout where "From Learner to" is static white text and the last word is wrapped in an `AnimatePresence` block with `motion.span`. Add a `useEffect` interval to cycle through the words array. The rotating word gets `text-primary` styling.
 
-4. **Add Meta Pixel script to index.html (backup)**
-   - Include the Meta Pixel base code in `<head>` as a fallback for server-side rendering
+### 2. New Subheading
 
-### Why This Approach
-- Meta Pixel ID is public (not a secret), so it's safe in the codebase
-- Hook-based approach integrates with existing React router for proper page view tracking
-- Hooks with Meta Pixel's `fbq()` API ensure events are tracked on all page navigations
+Replace current subheading (lines 99-103) with:
+
+> "LIVE intensive cohorts designed for one thing — taking you from "I know about it" to "I can actually do it." With industry mentors, live feedback, real work, and placement assistance to get you where you want to be."
+
+### 3. Updated Metrics Strip
+
+Replace the current 5-stat grid (lines 27-33) with just 3 metrics in a `grid-cols-3` layout:
+
+
+| Value | Label            |
+| ----- | ---------------- |
+| 750+  | Dreamers         |
+| 40+   | Industry Mentors |
+| 🗓️   | Weekends Only    |
+
+
+This simplifies the strip and keeps it punchy. The grid changes from `md:grid-cols-5` to `grid-cols-3`.  
+  
+4. Auto-Advancing Carousel with Pause-on-Hover/Click
+
+Currently the program carousel is fully static (manual navigation only). Changes:
+
+- Add a `useEffect` interval that auto-advances to the next program every **4 seconds**
+- **Pause on hover** (`onMouseEnter` / `onMouseLeave`) over the card area
+- **Freeze on pill click** — when a user clicks a filter pill, clear the interval and stop auto-advancing
+- The dot indicators and pill active state stay synced with the auto-advance
+
+---
+
+### 5. Bigger Testimonial Cards
+
+Increase the testimonial marquee card dimensions:
+
+- Width: `340px` → `380px`
+- Padding: `p-5` → `p-6`
+- Quote text: `text-sm` → `text-base`
+- Add more vertical breathing room (`min-h-[120px]`)
+
+---
+
+### 6. Remove Bottom CTA ("Not Sure Which Program Fits?")
+
+Remove the entire "Book a Free Call" / "Explore All Programs" block at the bottom of the section (lines 260-272).
+
+---
+
+
+
+### Files Modified
+
+- `src/components/LiveProgramsSection.tsx` — heading, subheading, metrics, rotating word state/effect
