@@ -13,6 +13,7 @@ import { useMetaPixel } from "./hooks/useMetaPixel";
 
 const Reviews = lazy(() => import("./pages/Reviews"));
 const StudentStory = lazy(() => import("./pages/StudentStory"));
+const MasterclassDetail = lazy(() => import("./pages/MasterclassDetail"));
 
 const Terms = lazy(() => import("./pages/Terms"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
@@ -36,6 +37,7 @@ const AnimatedRoutes = () => {
           <Route path="/" element={<Index />} />
           
           <Route path="/student-stories" element={<Reviews />} />
+          <Route path="/masterclass/:slug" element={<MasterclassDetail />} />
           
           <Route path="/student-stories/:slug" element={<StudentStory />} />
           <Route path="/terms" element={<Terms />} />
