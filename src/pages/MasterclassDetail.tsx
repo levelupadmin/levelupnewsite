@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { trackCTAClick } from "@/lib/clarity";
 import { cn } from "@/lib/utils";
+import certificateImg from "@/assets/gvr-certificate.png";
 
 const MasterclassDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -85,7 +86,7 @@ const MasterclassDetail = () => {
         <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
           <FadeInSection>
             <p className="text-sm tracking-[0.2em] uppercase text-muted-foreground mb-2">Teaches</p>
-            <h1 className="font-serif-display text-5xl sm:text-7xl md:text-8xl font-bold text-foreground tracking-[-0.04em] leading-[0.9]">
+            <h1 className="font-display text-6xl sm:text-8xl md:text-9xl text-foreground tracking-wide leading-[0.9] uppercase">
               {data.discipline}
             </h1>
           </FadeInSection>
@@ -127,7 +128,7 @@ const MasterclassDetail = () => {
       <section id="trailer" className="py-16 md:py-24 border-t border-border">
         <div className="max-w-6xl mx-auto px-6">
           <FadeInSection>
-            <h2 className="font-serif-display text-2xl md:text-3xl text-foreground font-medium mb-2">Class Info</h2>
+            <h2 className="font-display text-3xl md:text-4xl text-foreground uppercase tracking-wide mb-2">Class Info</h2>
             <p className="text-sm text-muted-foreground mb-8">
               {data.courseDetails.chapters} video lessons ({data.courseDetails.duration})
             </p>
@@ -180,7 +181,7 @@ const MasterclassDetail = () => {
       <section className="py-16 md:py-24 border-t border-border">
         <div className="max-w-6xl mx-auto px-6">
           <FadeInSection>
-            <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl text-foreground font-medium text-center max-w-lg mx-auto leading-tight">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-foreground uppercase tracking-wide text-center max-w-lg mx-auto leading-tight">
               {data.portfolioHeadline}
             </h2>
           </FadeInSection>
@@ -211,7 +212,7 @@ const MasterclassDetail = () => {
 
               {/* Right — audience cards */}
               <div>
-                <h2 className="font-serif-display text-2xl md:text-3xl text-foreground font-medium mb-8">
+                <h2 className="font-display text-3xl md:text-4xl text-foreground uppercase tracking-wide mb-8">
                   Who is this <span className="text-primary">program</span> for?
                 </h2>
                 <div className="grid grid-cols-2 gap-3">
@@ -235,7 +236,7 @@ const MasterclassDetail = () => {
       <section className="py-16 md:py-24 border-t border-border">
         <div className="max-w-6xl mx-auto px-6">
           <FadeInSection>
-            <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl text-foreground font-medium text-center mb-12 md:mb-16">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-foreground uppercase tracking-wide text-center mb-12 md:mb-16">
               Why is this masterclass<br />for you?
             </h2>
           </FadeInSection>
@@ -290,7 +291,7 @@ const MasterclassDetail = () => {
           <FadeInSection>
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
-                <h2 className="font-serif-display text-3xl md:text-4xl text-foreground font-medium leading-tight mb-8">
+                <h2 className="font-display text-4xl md:text-5xl text-foreground uppercase tracking-wide leading-tight mb-8">
                   <span className="text-primary">Certificate</span> of<br />Completion
                 </h2>
                 <ul className="space-y-4">
@@ -307,16 +308,8 @@ const MasterclassDetail = () => {
               </div>
 
               {/* Certificate preview */}
-              <div className="bg-card border border-border rounded-xl p-8 md:p-12">
-                <div className="border border-primary/20 rounded-lg p-6 md:p-8 space-y-4 text-center">
-                  <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground">Certificate of Completion</p>
-                  <p className="font-serif-display text-2xl text-primary">LevelUp Learning</p>
-                  <div className="w-16 h-px bg-border mx-auto" />
-                  <p className="text-sm text-muted-foreground">This certifies that</p>
-                  <p className="font-serif-display text-xl text-foreground">Your Name Here</p>
-                  <p className="text-sm text-muted-foreground">has successfully completed</p>
-                  <p className="font-serif-display text-base text-foreground">{data.name}'s Masterclass on {data.discipline}</p>
-                </div>
+              <div className="rounded-xl overflow-hidden">
+                <img src={certificateImg} alt="Certificate of Completion" className="w-full h-auto rounded-xl shadow-2xl" />
               </div>
             </div>
           </FadeInSection>
@@ -327,7 +320,7 @@ const MasterclassDetail = () => {
       <section className="py-16 md:py-24 border-t border-border overflow-hidden">
         <div className="max-w-6xl mx-auto px-6">
           <FadeInSection>
-            <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl text-foreground font-medium text-center mb-4">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-foreground uppercase tracking-wide text-center mb-4">
               This makes our heart beat faster every day
             </h2>
             <div className="flex justify-center gap-1 mb-10">
@@ -417,7 +410,7 @@ const MasterclassDetail = () => {
           <FadeInSection>
             <div className="grid md:grid-cols-2 gap-10 items-center">
               <div>
-                <h2 className="font-serif-display text-3xl md:text-4xl text-foreground font-medium leading-tight">
+                <h2 className="font-display text-4xl md:text-5xl text-foreground uppercase tracking-wide leading-tight">
                   Grab the offer while<br />it lasts...
                 </h2>
 
@@ -463,7 +456,7 @@ const MasterclassDetail = () => {
       <section className="py-16 md:py-24 border-t border-border">
         <div className="max-w-3xl mx-auto px-6">
           <FadeInSection>
-            <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl text-foreground font-medium mb-2">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-foreground uppercase tracking-wide mb-2">
               Questions?
             </h2>
             <p className="text-lg text-foreground font-medium mb-2">We've got you covered</p>
@@ -509,7 +502,7 @@ const MasterclassDetail = () => {
             <div className="flex flex-col md:flex-row items-center justify-between gap-8">
               <div className="text-center md:text-left">
                 <p className="text-sm text-primary-foreground/70 uppercase tracking-wide mb-2">What are you waiting for?</p>
-                <h2 className="font-serif-display text-2xl md:text-3xl text-primary-foreground font-bold leading-tight">
+                <h2 className="font-display text-3xl md:text-4xl text-primary-foreground uppercase tracking-wide leading-tight">
                   Learn Photography with<br />Venket today!
                 </h2>
               </div>
