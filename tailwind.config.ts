@@ -126,6 +126,10 @@ export default {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(-360deg)" },
         },
+        "ticker": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -144,6 +148,7 @@ export default {
         "orbit-ccw": "orbit-ccw 90s linear infinite",
         "orbit-cw-slow": "orbit-cw 120s linear infinite",
         "orbit-ccw-slow": "orbit-ccw 120s linear infinite",
+        "ticker": "ticker 30s linear infinite",
       },
     },
   },
