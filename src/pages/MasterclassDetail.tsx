@@ -31,6 +31,23 @@ import { cn } from "@/lib/utils";
 import certificateImg from "@/assets/gvr-certificate.png";
 import gvrHeroBg from "@/assets/gvr-hero-bg.png";
 
+// Audience icons
+import iconModelPhotographers from "@/assets/icons/model-photographers.png";
+import iconCinematographers from "@/assets/icons/cinematographers.png";
+import iconFoodPhotographers from "@/assets/icons/food-photographers.png";
+import iconWildlifePhotographers from "@/assets/icons/wildlife-photographers.png";
+import iconCinephiles from "@/assets/icons/cinephiles.png";
+import iconCinemaAspirants from "@/assets/icons/cinema-aspirants.png";
+
+const audienceIcons: Record<string, string> = {
+  "Model Photographers": iconModelPhotographers,
+  "Cinematographers": iconCinematographers,
+  "Food Photographers": iconFoodPhotographers,
+  "Wildlife Photographers": iconWildlifePhotographers,
+  "Cinephiles": iconCinephiles,
+  "Cinema Aspirants": iconCinemaAspirants,
+};
+
 // Portfolio images
 import portfolioTheri from "@/assets/portfolio/theri-poster.png";
 import portfolioKamal from "@/assets/portfolio/kamal-vishwaroopam.png";
@@ -228,18 +245,22 @@ const MasterclassDetail = () => {
 
               {/* Right — audience cards */}
               <div>
-                <h2 className="font-display text-3xl md:text-4xl text-foreground uppercase tracking-wide mb-8">
+                <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground uppercase tracking-wide mb-8">
                   Who is this <span className="text-primary">program</span> for?
                 </h2>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-4">
                   {data.audienceTargets.map((target) => (
-                    <div key={target} className="flex items-center gap-3 bg-card border border-border rounded-lg px-4 py-3 hover:border-primary/30 transition-colors">
-                      <Camera className="w-4 h-4 text-primary shrink-0" />
-                      <span className="text-sm text-foreground/80">{target}</span>
+                    <div key={target} className="flex items-center gap-4 bg-card border border-border rounded-lg px-5 py-4 hover:border-primary/30 transition-colors">
+                      <img
+                        src={audienceIcons[target]}
+                        alt={target}
+                        className="w-12 h-12 rounded-full shrink-0 object-contain"
+                      />
+                      <span className="text-sm md:text-base font-semibold text-foreground">{target}</span>
                     </div>
                   ))}
                 </div>
-                <div className="mt-6">
+                <div className="mt-8 flex justify-center">
                   <CTAButton />
                 </div>
               </div>
