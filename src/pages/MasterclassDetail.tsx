@@ -155,7 +155,7 @@ const MasterclassDetail = () => {
 
             {/* Lesson list accordion — scrollable column */}
             <FadeInSection delay={100}>
-              <div className="max-h-[420px] overflow-y-auto pr-1 space-y-3 scrollbar-thin scrollbar-track-card scrollbar-thumb-border">
+              <div className="max-h-[340px] overflow-y-auto pr-1 space-y-3 scrollbar-thin scrollbar-track-card scrollbar-thumb-border">
                 {data.lessons.map((lesson) => (
                   <Accordion key={lesson.number} type="single" collapsible>
                     <AccordionItem
