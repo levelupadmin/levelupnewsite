@@ -209,7 +209,7 @@ const MasterclassDetail = () => {
 
         {/* Ticker – duplicated list for seamless loop */}
         <div className="relative w-full">
-          <div className="flex gap-4 animate-[ticker_30s_linear_infinite] w-max">
+          <div className="flex gap-4 animate-ticker w-max">
             {[...portfolioImages, ...portfolioImages].map((src, i) => (
               <div
                 key={i}
