@@ -410,7 +410,7 @@ const MasterclassDetail = () => {
           <FadeInSection>
             <div className="grid md:grid-cols-2 gap-10 items-center">
               <div>
-                <h2 className="font-serif-display text-3xl md:text-4xl text-foreground font-medium leading-tight">
+                <h2 className="font-display text-4xl md:text-5xl text-foreground uppercase tracking-wide leading-tight">
                   Grab the offer while<br />it lasts...
                 </h2>
 
