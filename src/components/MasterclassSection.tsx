@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 import AccentLine from "./AccentLine";
 import { ArrowRight } from "lucide-react";
 import { trackCTAClick } from "@/lib/clarity";
