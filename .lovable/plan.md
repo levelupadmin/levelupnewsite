@@ -1,23 +1,26 @@
 
-## Add Meta Pixel Tracking
 
-### What
-Integrate Meta Pixel (Facebook Pixel) with ID `662214098433203` to track user behavior for advertising and analytics purposes.
+## Apply Style Guide & Replace Certificate Image
 
-### How
-1. **Add Meta Pixel ID to constants**
-   - Update `src/lib/constants.ts` to include `META_PIXEL_ID = "662214098433203"`
+### Changes
 
-2. **Create Meta Pixel initialization hook**
-   - Create `src/hooks/useMetaPixel.ts` to initialize the Meta Pixel script and track page views when routes change
+**1. Copy certificate image to project**
+- Copy `user-uploads://GVR-certificate-p-800.png` → `src/assets/gvr-certificate.png`
 
-3. **Initialize in App.tsx**
-   - Call the `useMetaPixel` hook in the root App component to activate tracking across all pages
+**2. Replace certificate section (Section 6) in `MasterclassDetail.tsx`**
+- Remove the text-based certificate mockup (lines 310-320)
+- Replace with the actual certificate image: `<img src={certificateImg} />`
+- Import the certificate image at the top of the file
 
-4. **Add Meta Pixel script to index.html (backup)**
-   - Include the Meta Pixel base code in `<head>` as a fallback for server-side rendering
+**3. Typography alignment from style guide**
+The Webflow style guide uses these fonts: **Bebas Neue** (display headings), **Sora** (body), **Forum** (serif accents). The project already uses Sora as the primary font. Key adjustment:
+- Add **Bebas Neue** as a display heading font for large section headers (like "Photography", the hero discipline heading) — this matches the original Webflow site's bold, condensed headings
+- Add the font import to `index.html` and extend `tailwind.config.ts` with a `font-display` family
+- Update hero `h1` and major section headings to use `font-display` (Bebas Neue) instead of `font-serif-display` (Sora)
 
-### Why This Approach
-- Meta Pixel ID is public (not a secret), so it's safe in the codebase
-- Hook-based approach integrates with existing React router for proper page view tracking
-- Hooks with Meta Pixel's `fbq()` API ensure events are tracked on all page navigations
+### Files Modified
+- `src/assets/gvr-certificate.png` — new asset (copied from upload)
+- `src/pages/MasterclassDetail.tsx` — certificate section + heading font classes
+- `tailwind.config.ts` — add Bebas Neue font family
+- `index.html` — add Google Fonts import for Bebas Neue
+
