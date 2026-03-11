@@ -297,10 +297,23 @@ const MasterclassDetail = () => {
                       i % 2 === 1 && "md:[direction:rtl] md:*:[direction:ltr]"
                     )}>
                       <div className="aspect-video rounded-xl overflow-hidden bg-card border border-border relative">
-                        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5" />
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <Camera className="w-10 h-10 text-muted-foreground/20" />
-                        </div>
+                        {["/videos/gvr-why-1.webm", "/videos/gvr-why-2.webm", "/videos/gvr-why-3.webm"][i] ? (
+                          <video
+                            src={["/videos/gvr-why-1.webm", "/videos/gvr-why-2.webm", "/videos/gvr-why-3.webm"][i]}
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <>
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5" />
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              <Camera className="w-10 h-10 text-muted-foreground/20" />
+                            </div>
+                          </>
+                        )}
                       </div>
                       <div>
                         <div className="md:hidden w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm mb-4">
