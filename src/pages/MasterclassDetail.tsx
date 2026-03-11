@@ -135,43 +135,47 @@ const MasterclassDetail = () => {
             </p>
           </FadeInSection>
 
-          <div className="grid md:grid-cols-2 gap-10 items-start">
-            {/* Trailer embed placeholder */}
+          <div className="grid md:grid-cols-[1.2fr_1fr] gap-6 items-start">
+            {/* YouTube trailer embed */}
             <FadeInSection>
-              <div className="aspect-video rounded-xl overflow-hidden bg-card border border-border relative">
-                <img src={data.portraitImage} alt={data.name} className="w-full h-full object-cover opacity-60" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center shadow-lg">
-                    <Play className="w-7 h-7 text-primary-foreground ml-1" fill="currentColor" />
-                  </div>
-                </div>
+              <div className="aspect-video rounded-xl overflow-hidden bg-card border border-border">
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src="https://www.youtube.com/embed/j8bJXiHLmmE?si=PbebiugOjIA1wzk3"
+                  title="G Venketram Teaches Photography | Trailer"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                  className="w-full h-full"
+                />
               </div>
             </FadeInSection>
 
-            {/* Lesson list accordion */}
+            {/* Lesson list accordion — scrollable column */}
             <FadeInSection delay={100}>
-              <div className="max-h-[500px] overflow-y-auto pr-2 scrollbar-thin scrollbar-track-card scrollbar-thumb-border">
-                <Accordion type="single" collapsible className="space-y-2">
-                  {data.lessons.map((lesson) => (
+              <div className="max-h-[420px] overflow-y-auto pr-1 space-y-3 scrollbar-thin scrollbar-track-card scrollbar-thumb-border">
+                {data.lessons.map((lesson) => (
+                  <Accordion key={lesson.number} type="single" collapsible>
                     <AccordionItem
-                      key={lesson.number}
                       value={`lesson-${lesson.number}`}
                       className="bg-card border border-border rounded-xl overflow-hidden"
                     >
                       <AccordionTrigger className="px-5 py-4 hover:no-underline">
-                        <div className="flex items-center gap-3 text-left">
-                          <span className="text-xs text-primary font-bold shrink-0 uppercase">
+                        <div className="text-left">
+                          <span className="block text-[11px] text-muted-foreground font-semibold uppercase tracking-wider mb-1">
                             Lesson {lesson.number}
                           </span>
-                          <span className="text-sm text-foreground font-medium">{lesson.title}</span>
+                          <span className="text-sm md:text-base text-foreground font-bold">{lesson.title}</span>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent className="px-5 pb-4">
                         <p className="text-sm text-muted-foreground leading-relaxed">{lesson.description}</p>
                       </AccordionContent>
                     </AccordionItem>
-                  ))}
-                </Accordion>
+                  </Accordion>
+                ))}
               </div>
             </FadeInSection>
           </div>
