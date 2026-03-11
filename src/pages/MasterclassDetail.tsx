@@ -29,6 +29,7 @@ import {
 import { trackCTAClick } from "@/lib/clarity";
 import { cn } from "@/lib/utils";
 import certificateImg from "@/assets/gvr-certificate.png";
+import gvrHeroBg from "@/assets/gvr-hero-bg.png";
 
 const MasterclassDetail = () => {
   const { slug } = useParams<{ slug: string }>();
