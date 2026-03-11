@@ -78,22 +78,24 @@ const MasterclassDetail = () => {
       <Navbar />
 
       {/* ═══ 1. HERO ═══ */}
-      <section className="relative overflow-hidden min-h-[90vh] flex flex-col items-center justify-end">
-        {/* Full-bleed background image */}
-        <div className="absolute inset-0 z-0">
-          <img src={gvrHeroBg} alt="" className="w-full h-full object-cover object-top" aria-hidden="true" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+      <section className="relative overflow-hidden">
+        {/* Full-bleed background image — takes up the visual hero area */}
+        <div className="relative min-h-[80vh] md:min-h-[85vh] flex items-center justify-center">
+          <div className="absolute inset-0 z-0">
+            <img src={gvrHeroBg} alt="" className="w-full h-full object-cover object-top" aria-hidden="true" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+          </div>
+
+          {/* Name overlay — large, semi-transparent behind the person */}
+          <div className="absolute top-16 md:top-20 inset-x-0 z-[1] text-center pointer-events-none select-none">
+            <h1 className="font-display text-[12vw] md:text-[10vw] lg:text-[9vw] text-foreground/20 uppercase tracking-wider leading-none whitespace-nowrap">
+              {data.name}
+            </h1>
+          </div>
         </div>
 
-        {/* Name overlay — large, semi-transparent behind the person */}
-        <div className="absolute top-16 md:top-20 inset-x-0 z-[1] text-center pointer-events-none select-none">
-          <h1 className="font-display text-[12vw] md:text-[10vw] lg:text-[9vw] text-foreground/20 uppercase tracking-wider leading-none whitespace-nowrap">
-            {data.name}
-          </h1>
-        </div>
-
-        {/* Bottom content overlay */}
-        <div className="relative z-10 w-full max-w-5xl mx-auto px-6 pb-12 md:pb-16 text-center">
+        {/* Content BELOW the image — not overlapping the face */}
+        <div className="relative z-10 bg-background w-full max-w-5xl mx-auto px-6 py-12 md:py-16 text-center -mt-16">
           <FadeInSection>
             <p className="font-display text-2xl md:text-3xl text-foreground/80 uppercase tracking-[0.15em] mb-1">Teaches</p>
             <h2 className="font-display text-5xl sm:text-7xl md:text-8xl text-foreground uppercase tracking-wide leading-[0.9]">
