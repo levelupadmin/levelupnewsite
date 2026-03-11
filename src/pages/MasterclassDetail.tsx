@@ -197,26 +197,28 @@ const MasterclassDetail = () => {
         </div>
       </section>
 
-      {/* ═══ 3. PORTFOLIO SHOWCASE ═══ */}
-      <section className="py-16 md:py-24 border-t border-border">
-        <div className="max-w-6xl mx-auto px-6">
+      {/* ═══ 3. PORTFOLIO SHOWCASE — Infinite Ticker ═══ */}
+      <section className="py-16 md:py-24 border-t border-border overflow-hidden">
+        <div className="max-w-6xl mx-auto px-6 mb-10 md:mb-14">
           <FadeInSection>
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-foreground uppercase tracking-wide text-center max-w-lg mx-auto leading-tight">
               {data.portfolioHeadline}
             </h2>
           </FadeInSection>
-          <FadeInSection delay={100}>
-            <div className="mt-10 md:mt-14 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="aspect-square rounded-lg overflow-hidden bg-card border border-border relative group">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Camera className="w-8 h-8 text-muted-foreground/30" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </FadeInSection>
+        </div>
+
+        {/* Ticker – duplicated list for seamless loop */}
+        <div className="relative w-full">
+          <div className="flex gap-4 animate-[ticker_30s_linear_infinite] w-max">
+            {[...portfolioImages, ...portfolioImages].map((src, i) => (
+              <div
+                key={i}
+                className="flex-shrink-0 w-[260px] md:w-[320px] aspect-[3/4] rounded-xl overflow-hidden border border-border"
+              >
+                <img src={src} alt="Portfolio work by G Venket Ram" className="w-full h-full object-cover" loading="lazy" />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
