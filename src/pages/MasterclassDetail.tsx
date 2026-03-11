@@ -428,25 +428,73 @@ const MasterclassDetail = () => {
       </section>
 
       {/* ═══ 9. WATCH ON ANY DEVICE ═══ */}
-      <section className="py-16 md:py-24 border-t border-border">
+      <section className="py-16 md:py-24 border-t border-border overflow-hidden">
         <div className="max-w-5xl mx-auto px-6">
           <FadeInSection>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {data.deviceFeatures.map((feature, i) => {
-                const icons = [
-                  <Monitor className="w-8 h-8 text-primary" />,
-                  <Play className="w-8 h-8 text-primary" />,
-                  <Award className="w-8 h-8 text-primary" />,
-                  <BookOpen className="w-8 h-8 text-primary" />,
-                ];
-                return (
-                  <div key={i} className="bg-card border border-border rounded-xl p-6 flex flex-col items-center text-center gap-4">
-                    {icons[i]}
-                    <p className="text-sm text-foreground font-medium">{feature}</p>
+            <div className="relative flex flex-col items-center">
+              {/* Concentric rings background */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+                {[320, 480, 640, 800, 960].map((s, i) => (
+                  <div
+                    key={i}
+                    className="absolute rounded-full border border-white/[0.06]"
+                    style={{ width: s, height: s }}
+                  />
+                ))}
+              </div>
+
+              {/* 4 corner feature labels */}
+              <div className="relative z-10 w-full grid grid-cols-2 gap-y-4 md:gap-y-0">
+                {/* Top row */}
+                <div className="flex flex-col items-center md:items-start gap-2 text-center md:text-left">
+                  <Monitor className="w-6 h-6 text-primary" />
+                  <p className="text-sm font-semibold text-foreground">Watch on any Device</p>
+                </div>
+                <div className="flex flex-col items-center md:items-end gap-2 text-center md:text-right">
+                  <Award className="w-6 h-6 text-primary" />
+                  <p className="text-sm font-semibold text-foreground">Get Certified</p>
+                </div>
+              </div>
+
+              {/* Device mockup */}
+              <img
+                src={devicesShowcase}
+                alt="Watch on laptop, tablet or phone"
+                className="relative z-10 w-full max-w-2xl mx-auto my-6 md:my-10"
+                loading="lazy"
+              />
+
+              {/* Bottom row */}
+              <div className="relative z-10 w-full grid grid-cols-2">
+                <div className="flex flex-col items-center md:items-start gap-2 text-center md:text-left">
+                  <Infinity className="w-6 h-6 text-primary" />
+                  <p className="text-sm font-semibold text-foreground">Pay Once, Play Forever</p>
+                </div>
+                <div className="flex flex-col items-center md:items-end gap-2 text-center md:text-right">
+                  <Clock className="w-6 h-6 text-primary" />
+                  <p className="text-sm font-semibold text-foreground">Learn at your own Pace</p>
+                </div>
+              </div>
+
+              {/* App store badges */}
+              <div className="relative z-10 flex items-center justify-center gap-4 mt-8">
+                <a href="https://play.google.com/store" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-card border border-border rounded-lg px-4 py-2 hover:bg-accent transition-colors">
+                  <Play className="w-5 h-5 text-foreground" />
+                  <div className="text-left leading-tight">
+                    <span className="text-[10px] text-muted-foreground uppercase tracking-wide">Get it on</span>
+                    <p className="text-sm font-semibold text-foreground">Google Play</p>
                   </div>
-                );
-              })}
+                </a>
+                <a href="https://apps.apple.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-card border border-border rounded-lg px-4 py-2 hover:bg-accent transition-colors">
+                  <svg className="w-5 h-5 text-foreground" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                  <div className="text-left leading-tight">
+                    <span className="text-[10px] text-muted-foreground uppercase tracking-wide">Download on the</span>
+                    <p className="text-sm font-semibold text-foreground">App Store</p>
+                  </div>
+                </a>
+              </div>
             </div>
+
             <div className="text-center mt-8">
               <CTAButton />
             </div>
