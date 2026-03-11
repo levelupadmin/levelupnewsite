@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { trackCTAClick } from "@/lib/clarity";
 import { cn } from "@/lib/utils";
+import certificateImg from "@/assets/gvr-certificate.png";
 
 const MasterclassDetail = () => {
   const { slug } = useParams<{ slug: string }>();
