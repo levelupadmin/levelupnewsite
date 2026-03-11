@@ -94,11 +94,15 @@ const MasterclassCard = ({ mc }: { mc: typeof masterclasses[0] }) => {
     e.currentTarget.style.transform = '';
   };
 
+  const isInternal = mc.href.startsWith("/");
+  const Wrapper = isInternal ? Link : "a";
+  const linkProps = isInternal
+    ? { to: mc.href }
+    : { href: mc.href, target: "_blank" as const, rel: "noopener noreferrer" };
+
   return (
-    <a
-      href={mc.href}
-      target="_blank"
-      rel="noopener noreferrer"
+    <Wrapper
+      {...(linkProps as any)}
       onClick={() => trackCTAClick("masterclass", mc.name)}
       className="group relative cursor-pointer block transition-transform duration-500 ease-out"
       onMouseMove={handleMouseMove}
@@ -115,7 +119,7 @@ const MasterclassCard = ({ mc }: { mc: typeof masterclasses[0] }) => {
         />
         <div className="absolute inset-0 rounded-sm ring-1 ring-inset ring-white/0 group-hover:ring-primary/40 transition-all duration-500 pointer-events-none" />
       </div>
-    </a>
+    </Wrapper>
   );
 };
 
