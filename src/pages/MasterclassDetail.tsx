@@ -31,6 +31,21 @@ import { cn } from "@/lib/utils";
 import certificateImg from "@/assets/gvr-certificate.png";
 import gvrHeroBg from "@/assets/gvr-hero-bg.png";
 
+// Portfolio images
+import portfolioTheri from "@/assets/portfolio/theri-poster.png";
+import portfolioKamal from "@/assets/portfolio/kamal-vishwaroopam.png";
+import portfolioJaanu from "@/assets/portfolio/jaanu-poster.png";
+import portfolioRaviVarma from "@/assets/portfolio/ravi-varma-calendar.png";
+import portfolioSuriya from "@/assets/portfolio/suriya-24.png";
+import portfolioKadaram from "@/assets/portfolio/kadaram-kondan.png";
+import portfolioRaviVarma2 from "@/assets/portfolio/ravi-varma-calendar-2.png";
+import portfolioRaangi from "@/assets/portfolio/raangi-poster.png";
+
+const portfolioImages = [
+  portfolioTheri, portfolioKamal, portfolioJaanu, portfolioRaviVarma,
+  portfolioSuriya, portfolioKadaram, portfolioRaviVarma2, portfolioRaangi,
+];
+
 const MasterclassDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const data = slug ? masterclassPages[slug] : undefined;
