@@ -10,7 +10,7 @@ import { showcasePrograms } from "@/data/programs";
 const filterPills = [
   { label: "Make Films", targetIndex: 0 },
   { label: "Edit Videos", targetIndex: 1 },
-  { label: "Build a Creator Brand", targetIndex: 2 },
+  { label: "Create Content", targetIndex: 2 },
   { label: "Design Products", targetIndex: 3 },
   { label: "Write Stories", targetIndex: 4 },
 ];
