@@ -320,7 +320,7 @@ const MasterclassDetail = () => {
       <section className="py-16 md:py-24 border-t border-border overflow-hidden">
         <div className="max-w-6xl mx-auto px-6">
           <FadeInSection>
-            <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl text-foreground font-medium text-center mb-4">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-foreground uppercase tracking-wide text-center mb-4">
               This makes our heart beat faster every day
             </h2>
             <div className="flex justify-center gap-1 mb-10">
