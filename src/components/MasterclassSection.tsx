@@ -35,7 +35,7 @@ const masterclasses = [
     descriptor: "Capturing the perfect image through diverse case studies",
     format: "Photographer",
     category: "Photography",
-    href: "https://masterclass.leveluplearning.in/g-venket-ram",
+    href: "/masterclass/g-venket-ram",
   },
   {
     image: kiranImg,
