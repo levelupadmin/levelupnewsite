@@ -291,7 +291,7 @@ const MasterclassDetail = () => {
           <FadeInSection>
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
-                <h2 className="font-serif-display text-3xl md:text-4xl text-foreground font-medium leading-tight mb-8">
+                <h2 className="font-display text-4xl md:text-5xl text-foreground uppercase tracking-wide leading-tight mb-8">
                   <span className="text-primary">Certificate</span> of<br />Completion
                 </h2>
                 <ul className="space-y-4">
