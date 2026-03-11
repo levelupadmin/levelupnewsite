@@ -86,7 +86,7 @@ const MasterclassDetail = () => {
         <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
           <FadeInSection>
             <p className="text-sm tracking-[0.2em] uppercase text-muted-foreground mb-2">Teaches</p>
-            <h1 className="font-serif-display text-5xl sm:text-7xl md:text-8xl font-bold text-foreground tracking-[-0.04em] leading-[0.9]">
+            <h1 className="font-display text-6xl sm:text-8xl md:text-9xl text-foreground tracking-wide leading-[0.9] uppercase">
               {data.discipline}
             </h1>
           </FadeInSection>
