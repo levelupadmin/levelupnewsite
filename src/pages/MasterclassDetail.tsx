@@ -502,7 +502,7 @@ const MasterclassDetail = () => {
             <div className="flex flex-col md:flex-row items-center justify-between gap-8">
               <div className="text-center md:text-left">
                 <p className="text-sm text-primary-foreground/70 uppercase tracking-wide mb-2">What are you waiting for?</p>
-                <h2 className="font-serif-display text-2xl md:text-3xl text-primary-foreground font-bold leading-tight">
+                <h2 className="font-display text-3xl md:text-4xl text-primary-foreground uppercase tracking-wide leading-tight">
                   Learn Photography with<br />Venket today!
                 </h2>
               </div>
