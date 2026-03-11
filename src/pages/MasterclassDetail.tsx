@@ -31,6 +31,23 @@ import { cn } from "@/lib/utils";
 import certificateImg from "@/assets/gvr-certificate.png";
 import gvrHeroBg from "@/assets/gvr-hero-bg.png";
 
+// Audience icons
+import iconModelPhotographers from "@/assets/icons/model-photographers.png";
+import iconCinematographers from "@/assets/icons/cinematographers.png";
+import iconFoodPhotographers from "@/assets/icons/food-photographers.png";
+import iconWildlifePhotographers from "@/assets/icons/wildlife-photographers.png";
+import iconCinephiles from "@/assets/icons/cinephiles.png";
+import iconCinemaAspirants from "@/assets/icons/cinema-aspirants.png";
+
+const audienceIcons: Record<string, string> = {
+  "Model Photographers": iconModelPhotographers,
+  "Cinematographers": iconCinematographers,
+  "Food Photographers": iconFoodPhotographers,
+  "Wildlife Photographers": iconWildlifePhotographers,
+  "Cinephiles": iconCinephiles,
+  "Cinema Aspirants": iconCinemaAspirants,
+};
+
 // Portfolio images
 import portfolioTheri from "@/assets/portfolio/theri-poster.png";
 import portfolioKamal from "@/assets/portfolio/kamal-vishwaroopam.png";
