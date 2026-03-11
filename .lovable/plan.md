@@ -1,23 +1,13 @@
 
-## Add Meta Pixel Tracking
 
-### What
-Integrate Meta Pixel (Facebook Pixel) with ID `662214098433203` to track user behavior for advertising and analytics purposes.
+## Show Only 4 Lessons Visible, Rest Scrollable
 
-### How
-1. **Add Meta Pixel ID to constants**
-   - Update `src/lib/constants.ts` to include `META_PIXEL_ID = "662214098433203"`
+### Change
 
-2. **Create Meta Pixel initialization hook**
-   - Create `src/hooks/useMetaPixel.ts` to initialize the Meta Pixel script and track page views when routes change
+In `src/pages/MasterclassDetail.tsx` (around line 158), reduce `max-h-[420px]` on the lesson scroll container to approximately `max-h-[340px]` — sized so exactly 4 collapsed lesson cards are visible. The container already has `overflow-y-auto`, so the remaining 17 lessons will be accessible by scrolling.
 
-3. **Initialize in App.tsx**
-   - Call the `useMetaPixel` hook in the root App component to activate tracking across all pages
+The YouTube embed's aspect ratio at the current grid width is roughly 340px tall, so this will align the two columns visually.
 
-4. **Add Meta Pixel script to index.html (backup)**
-   - Include the Meta Pixel base code in `<head>` as a fallback for server-side rendering
+### File
+- `src/pages/MasterclassDetail.tsx` — change `max-h-[420px]` → `max-h-[340px]` on the lesson list container (line 158)
 
-### Why This Approach
-- Meta Pixel ID is public (not a secret), so it's safe in the codebase
-- Hook-based approach integrates with existing React router for proper page view tracking
-- Hooks with Meta Pixel's `fbq()` API ensure events are tracked on all page navigations
