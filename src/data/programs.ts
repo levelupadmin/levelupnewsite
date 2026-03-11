@@ -75,9 +75,9 @@ export const showcasePrograms: ShowcaseProgram[] = [
     learnMoreLink: "https://www.leveluplearning.live/ve",
     stats: ["12 Weeks", "Weekends Only", "LIVE Online", "Application-Only"],
     bullets: [
-      "Taught by viral social media editors + National Award-winning filmmaker + DaVinci Resolve certified colorist",
+      "Taught by viral editors, a National Award-winning filmmaker & DaVinci Resolve certified colorist",
       "Storytelling through editing, color grading, sound design & client-ready workflows",
-      "Industry tool discounts included",
+      "Industry tool discounts included with enrollment",
     ],
   },
   {
@@ -100,9 +100,9 @@ export const showcasePrograms: ShowcaseProgram[] = [
     learnMoreLink: "https://www.leveluplearning.live/creator-academy",
     stats: ["12 Weeks", "21 Posts", "Pods of 5", "80%+ Completion"],
     bullets: [
-      "Publish by 10 PM IST or your streak resets. No \"learn at your own pace.\"",
-      "Mentor reviews every draft before you post",
-      "Alumni grown to 440K+, 340K+, 230K+ followers",
+      "Publish by 10 PM IST or your streak resets — no hiding here",
+      "Mentor reviews every draft before you post, not after",
+      "Alumni have grown to 440K+, 340K+, 230K+ followers",
     ],
   },
   {
@@ -126,7 +126,7 @@ export const showcasePrograms: ShowcaseProgram[] = [
     stats: ["12 Weeks", "Weekends Only", "LIVE Online", "Top 5% Accepted"],
     bullets: [
       "AI-first curriculum woven into research, synthesis, UX copy & prototyping",
-      "Mentors from Zepto, Spinny, Mondee (ex-Unacademy), Royal Enfield",
+      "Mentors from Zepto, Spinny, Mondee (ex-Unacademy) & Royal Enfield",
       "You leave with a shipped case study, not a Figma file nobody saw",
     ],
   },
@@ -151,7 +151,7 @@ export const showcasePrograms: ShowcaseProgram[] = [
     stats: ["8 Weeks", "128 Concepts", "15 Assignments", "4 Mentors"],
     bullets: [
       "Psychology of storytelling, visual storytelling, and pitching & selling",
-      "Sunday masterclass + Saturday 1:1 feedback + weekday execution",
+      "Sunday masterclass + Saturday 1:1 feedback + weekday writing execution",
       "Covers OTT writing, short-form hooks, screenplay structures — full modern toolkit",
     ],
   },
