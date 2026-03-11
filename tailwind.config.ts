@@ -16,6 +16,7 @@ export default {
       fontFamily: {
         serif: ['"Sora"', 'system-ui', 'sans-serif'],
         sans: ['"Sora"', 'system-ui', 'sans-serif'],
+        display: ['"Bebas Neue"', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

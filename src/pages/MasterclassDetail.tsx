@@ -308,16 +308,8 @@ const MasterclassDetail = () => {
               </div>
 
               {/* Certificate preview */}
-              <div className="bg-card border border-border rounded-xl p-8 md:p-12">
-                <div className="border border-primary/20 rounded-lg p-6 md:p-8 space-y-4 text-center">
-                  <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground">Certificate of Completion</p>
-                  <p className="font-serif-display text-2xl text-primary">LevelUp Learning</p>
-                  <div className="w-16 h-px bg-border mx-auto" />
-                  <p className="text-sm text-muted-foreground">This certifies that</p>
-                  <p className="font-serif-display text-xl text-foreground">Your Name Here</p>
-                  <p className="text-sm text-muted-foreground">has successfully completed</p>
-                  <p className="font-serif-display text-base text-foreground">{data.name}'s Masterclass on {data.discipline}</p>
-                </div>
+              <div className="rounded-xl overflow-hidden">
+                <img src={certificateImg} alt="Certificate of Completion" className="w-full h-auto rounded-xl shadow-2xl" />
               </div>
             </div>
           </FadeInSection>
