@@ -456,7 +456,7 @@ const MasterclassDetail = () => {
       <section className="py-16 md:py-24 border-t border-border">
         <div className="max-w-3xl mx-auto px-6">
           <FadeInSection>
-            <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl text-foreground font-medium mb-2">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-foreground uppercase tracking-wide mb-2">
               Questions?
             </h2>
             <p className="text-lg text-foreground font-medium mb-2">We've got you covered</p>
