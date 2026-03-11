@@ -29,6 +29,7 @@ import {
 import { trackCTAClick } from "@/lib/clarity";
 import { cn } from "@/lib/utils";
 import certificateImg from "@/assets/gvr-certificate.png";
+import gvrHeroBg from "@/assets/gvr-hero-bg.png";
 
 const MasterclassDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -77,34 +78,32 @@ const MasterclassDetail = () => {
       <Navbar />
 
       {/* ═══ 1. HERO ═══ */}
-      <section className="relative overflow-hidden pt-20 pb-16 md:pt-28 md:pb-24">
+      <section className="relative overflow-hidden min-h-[90vh] flex flex-col items-center justify-end">
+        {/* Full-bleed background image */}
         <div className="absolute inset-0 z-0">
-          <img src={data.heroImage} alt="" className="w-full h-full object-cover scale-110 blur-2xl opacity-30" aria-hidden="true" />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background" />
+          <img src={gvrHeroBg} alt="" className="w-full h-full object-cover object-top" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
         </div>
 
-        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+        {/* Name overlay — large, semi-transparent behind the person */}
+        <div className="absolute top-16 md:top-20 inset-x-0 z-[1] text-center pointer-events-none select-none">
+          <h1 className="font-display text-[12vw] md:text-[10vw] lg:text-[9vw] text-foreground/20 uppercase tracking-wider leading-none whitespace-nowrap">
+            {data.name}
+          </h1>
+        </div>
+
+        {/* Bottom content overlay */}
+        <div className="relative z-10 w-full max-w-5xl mx-auto px-6 pb-12 md:pb-16 text-center">
           <FadeInSection>
-            <p className="text-sm tracking-[0.2em] uppercase text-muted-foreground mb-2">Teaches</p>
-            <h1 className="font-display text-6xl sm:text-8xl md:text-9xl text-foreground tracking-wide leading-[0.9] uppercase">
+            <p className="font-display text-2xl md:text-3xl text-foreground/80 uppercase tracking-[0.15em] mb-1">Teaches</p>
+            <h2 className="font-display text-5xl sm:text-7xl md:text-8xl text-foreground uppercase tracking-wide leading-[0.9]">
               {data.discipline}
-            </h1>
+            </h2>
           </FadeInSection>
 
           <FadeInSection delay={100}>
-            <div className="mt-8 md:mt-10 inline-block">
-              <div className="relative w-64 sm:w-72 md:w-80 mx-auto">
-                <img src={data.portraitImage} alt={data.name} className="w-full aspect-[3/4] object-cover rounded-lg shadow-2xl" />
-                <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-primary/90 hover:bg-primary flex items-center justify-center transition-colors shadow-lg">
-                  <Play className="w-7 h-7 text-primary-foreground ml-1" fill="currentColor" />
-                </button>
-              </div>
-            </div>
-          </FadeInSection>
-
-          <FadeInSection delay={150}>
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a href="#trailer" className="inline-flex items-center gap-2 border border-border text-foreground font-sans-body font-bold text-sm tracking-wide px-8 py-3.5 rounded-lg hover:bg-card transition-colors uppercase">
+              <a href="#trailer" className="inline-flex items-center gap-2 bg-card/80 backdrop-blur-sm border border-border text-foreground font-sans font-bold text-sm tracking-wide px-10 py-4 rounded-lg hover:bg-card transition-colors uppercase">
                 <Play className="w-4 h-4" /> Watch Trailer
               </a>
               <CTAButton />
@@ -113,7 +112,7 @@ const MasterclassDetail = () => {
 
           <FadeInSection delay={200}>
             <blockquote className="mt-10 max-w-2xl mx-auto">
-              <p className="font-serif-display text-sm md:text-base text-foreground/80 italic leading-relaxed">
+              <p className="text-sm md:text-base text-foreground/80 italic leading-relaxed">
                 {data.pullQuote}
               </p>
             </blockquote>
