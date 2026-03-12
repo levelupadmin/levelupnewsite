@@ -1,15 +1,23 @@
 
+## Add Meta Pixel Tracking
 
-## Zoom Out Pricing Section Image
+### What
+Integrate Meta Pixel (Facebook Pixel) with ID `662214098433203` to track user behavior for advertising and analytics purposes.
 
-### Change
+### How
+1. **Add Meta Pixel ID to constants**
+   - Update `src/lib/constants.ts` to include `META_PIXEL_ID = "662214098433203"`
 
-In `src/pages/MasterclassDetail.tsx` line 545, change the image's `object-cover` to include `scale-90` (or similar) so the image is slightly zoomed out, fitting the name/head fully within the frame without changing the container size or margins.
+2. **Create Meta Pixel initialization hook**
+   - Create `src/hooks/useMetaPixel.ts` to initialize the Meta Pixel script and track page views when routes change
 
-**Line 545**: Change `className="w-full h-full object-cover"` → `className="w-full h-full object-cover scale-[0.85] object-top"`
+3. **Initialize in App.tsx**
+   - Call the `useMetaPixel` hook in the root App component to activate tracking across all pages
 
-This scales the image down ~15% within its container so the top of the head/name is fully visible, while `object-top` anchors it to show the top portion.
+4. **Add Meta Pixel script to index.html (backup)**
+   - Include the Meta Pixel base code in `<head>` as a fallback for server-side rendering
 
-### Files Modified
-- `src/pages/MasterclassDetail.tsx` (line 545 only)
-
+### Why This Approach
+- Meta Pixel ID is public (not a secret), so it's safe in the codebase
+- Hook-based approach integrates with existing React router for proper page view tracking
+- Hooks with Meta Pixel's `fbq()` API ensure events are tracked on all page navigations
