@@ -609,39 +609,40 @@ const MasterclassDetail = () => {
 
       {/* ═══ 12. FOOTER CTA ═══ */}
       <section className="pt-24 md:pt-32 pb-12 md:pb-20 px-6">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-sm mx-auto">
           <FadeInSection>
-            <div className="relative rounded-2xl overflow-visible" style={{ background: "linear-gradient(135deg, hsl(24 95% 53%) 0%, hsl(30 90% 55%) 50%, hsl(38 95% 55%) 100%)" }}>
-              <div className="relative flex flex-col md:flex-row items-end">
-                {/* Text + CTA side */}
-                <div className="flex-1 px-8 py-10 md:px-12 md:py-14 flex flex-col gap-4 z-10">
-                  <h2 className="font-serif-display text-3xl md:text-4xl lg:text-5xl text-white font-medium leading-tight">
-                    What are you waiting for?
-                  </h2>
-                  <p className="font-sans-body text-base md:text-lg text-white/90">
-                    Learn Photography with Venket today!
-                  </p>
-                  <div className="mt-2">
-                    <a
-                      href={data.ctaLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => trackCTAClick("masterclass-footer-cta", data.name)}
-                      className="inline-block bg-white hover:bg-white/90 text-primary font-sans-body font-bold text-sm tracking-wide px-8 py-3.5 rounded-full transition-colors shadow-lg uppercase"
-                    >
-                      {data.ctaText}
-                    </a>
-                  </div>
-                </div>
-                {/* Instructor sitting image — feet at bottom, head overflows top */}
-                <div className="hidden md:block w-[340px] lg:w-[420px] shrink-0 self-end relative overflow-visible" style={{ marginTop: '-80px' }}>
-                  <img
-                    src={gvrSittingImg}
-                    alt={data.name}
-                    className="w-full h-auto object-contain drop-shadow-2xl"
-                    loading="lazy"
-                  />
-                </div>
+            <div className="rounded-2xl overflow-hidden border border-primary/30 bg-[#1a1a1a]">
+              {/* Hero image with name overlay */}
+              <div className="relative">
+                <img
+                  src={data.heroImage}
+                  alt={data.name}
+                  className="w-full h-[320px] object-cover object-top"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent" />
+                <h2 className="absolute bottom-4 left-0 right-0 text-center font-serif-display text-4xl md:text-5xl text-white tracking-wide uppercase">
+                  {data.name}
+                </h2>
+              </div>
+              {/* Bottom content */}
+              <div className="px-6 pb-8 pt-4 flex flex-col gap-5">
+                <p className="font-sans-body text-white text-lg md:text-xl font-semibold leading-snug">
+                  Learn from the Ace art director
+                </p>
+                <a
+                  href={data.ctaLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackCTAClick("masterclass-footer-cta", data.name)}
+                  className="block w-full text-center font-sans-body font-bold text-base tracking-wide px-8 py-4 rounded-full text-white uppercase transition-all shadow-lg"
+                  style={{ background: "linear-gradient(135deg, hsl(24 95% 53%) 0%, hsl(38 95% 55%) 100%)" }}
+                >
+                  {data.ctaText}
+                </a>
+                <p className="font-sans-body text-sm text-white/50 text-center leading-relaxed">
+                  Enroll now and get bonuses worth Rs.19,999 for free. There was never a better time to grab this on-demand program.
+                </p>
               </div>
             </div>
           </FadeInSection>
