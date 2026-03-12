@@ -1,6 +1,7 @@
 import venketImg from "@/assets/venket-ram.png";
 import testimonialLisa from "@/assets/testimonial-lisa.png";
 import testimonialPrathyaksh from "@/assets/testimonial-prathyaksh.png";
+import testimonialJanani from "@/assets/testimonial-janani.png";
 
 export interface MasterclassFAQ {
   question: string;
@@ -155,6 +156,7 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
       {
         name: "Janani",
         role: "Theater Artist",
+        image: testimonialJanani,
         quote:
           "If you want to elevate your photography skills, Venket Ram's course is the way to go. His expertise and the diverse range of case studies are eye-opening. I learned so much about lighting, composition, and finding my own photographic voice. This course is a must for anyone serious about photography!",
       },

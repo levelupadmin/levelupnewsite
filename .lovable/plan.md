@@ -1,22 +1,23 @@
 
+## Add Meta Pixel Tracking
 
-## Add Janani Profile Image & Fix Testimonial Card Spacing
+### What
+Integrate Meta Pixel (Facebook Pixel) with ID `662214098433203` to track user behavior for advertising and analytics purposes.
 
-### Changes
+### How
+1. **Add Meta Pixel ID to constants**
+   - Update `src/lib/constants.ts` to include `META_PIXEL_ID = "662214098433203"`
 
-1. **Copy uploaded image** — Save `2nd-new-circle-img.png` as `src/assets/testimonial-janani.png`
+2. **Create Meta Pixel initialization hook**
+   - Create `src/hooks/useMetaPixel.ts` to initialize the Meta Pixel script and track page views when routes change
 
-2. **Update data** (`src/data/masterclassPages.ts`)
-   - Import `testimonialJanani` from the new asset
-   - Add `image: testimonialJanani` to Janani's testimonial entry (line 156)
+3. **Initialize in App.tsx**
+   - Call the `useMetaPixel` hook in the root App component to activate tracking across all pages
 
-3. **Fix uniform spacing in testimonial cards** (`src/pages/MasterclassDetail.tsx`, lines 386-402)
-   - Change the card layout so the bottom name/avatar row is always pushed to the bottom using `flex flex-col justify-between h-full` on each card
-   - This ensures all 3 cards have the name row at the same vertical position regardless of quote length
-   - All 3 cards will now show a circular avatar since all have images
+4. **Add Meta Pixel script to index.html (backup)**
+   - Include the Meta Pixel base code in `<head>` as a fallback for server-side rendering
 
-### Files Modified
-- `src/assets/testimonial-janani.png` (new)
-- `src/data/masterclassPages.ts` (add import + image field)
-- `src/pages/MasterclassDetail.tsx` (card layout for uniform bottom alignment)
-
+### Why This Approach
+- Meta Pixel ID is public (not a secret), so it's safe in the codebase
+- Hook-based approach integrates with existing React router for proper page view tracking
+- Hooks with Meta Pixel's `fbq()` API ensure events are tracked on all page navigations

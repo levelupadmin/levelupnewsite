@@ -383,14 +383,14 @@ const MasterclassDetail = () => {
           <FadeInSection delay={100}>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {data.testimonials.map((t, i) => (
-                <div key={i} className="bg-card border border-border rounded-xl p-6 space-y-4">
-                  <div className="flex gap-0.5">
+                <div key={i} className="bg-card border border-border rounded-xl p-6 flex flex-col h-full">
+                  <div className="flex gap-0.5 mb-4">
                     {Array.from({ length: 5 }).map((_, j) => (
                       <Star key={j} className="w-3.5 h-3.5 text-primary fill-primary" />
                     ))}
                   </div>
-                  <p className="text-sm text-foreground/80 leading-relaxed">"{t.quote}"</p>
-                  <div className="flex items-center gap-3">
+                  <p className="text-sm text-foreground/80 leading-relaxed flex-1">"{t.quote}"</p>
+                  <div className="flex items-center gap-3 mt-4">
                     {t.image && (
                       <img src={t.image} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
                     )}
