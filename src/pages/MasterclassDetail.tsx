@@ -26,7 +26,14 @@ import {
   Smartphone,
   Users,
   CheckCircle,
+  Scissors,
+  Heart,
+  Briefcase,
+  GraduationCap,
+  Clapperboard,
+  Video,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import testimonial1 from "@/assets/testimonial-1.jpg";
 import karthikImg from "@/assets/karthik-subbaraj-masterclass.png";
 import anthonyImg from "@/assets/anthony-gonsalvez-masterclass.png";
@@ -68,6 +75,15 @@ const audienceIcons: Record<string, string> = {
   "Wildlife Photographers": iconWildlifePhotographers,
   "Cinephiles": iconCinephiles,
   "Cinema Aspirants": iconCinemaAspirants,
+};
+
+const audienceLucideIcons: Record<string, LucideIcon> = {
+  "Film Editors": Scissors,
+  "Film Enthusiasts": Heart,
+  "Freelancing Editors": Briefcase,
+  "Aspiring Editors": GraduationCap,
+  "Filmmakers": Clapperboard,
+  "Cinema Aspirants": Video,
 };
 
 // Portfolio images (GVR specific)
@@ -270,6 +286,7 @@ const MasterclassDetail = () => {
                 <div className="grid grid-cols-2 gap-4">
                   {data.audienceTargets.map((target) => {
                     const iconSrc = target.icon || audienceIcons[target.label];
+                    const LucideIcon = audienceLucideIcons[target.label];
                     return (
                       <div key={target.label} className="flex items-center gap-4 bg-card border border-border rounded-lg px-5 py-4 hover:border-primary/30 transition-colors">
                         {iconSrc ? (
@@ -280,7 +297,7 @@ const MasterclassDetail = () => {
                           />
                         ) : (
                           <div className="w-12 h-12 rounded-full shrink-0 bg-primary/10 flex items-center justify-center">
-                            <Film className="w-6 h-6 text-primary" />
+                            {LucideIcon ? <LucideIcon className="w-6 h-6 text-primary" /> : <Film className="w-6 h-6 text-primary" />}
                           </div>
                         )}
                         <span className="text-sm md:text-base font-semibold text-foreground">{target.label}</span>
