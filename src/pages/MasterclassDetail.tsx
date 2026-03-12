@@ -28,6 +28,23 @@ import {
   CheckCircle,
 } from "lucide-react";
 import testimonial1 from "@/assets/testimonial-1.jpg";
+import karthikImg from "@/assets/karthik-subbaraj-masterclass.png";
+import anthonyImg from "@/assets/anthony-gonsalvez-masterclass.png";
+import venketImg from "@/assets/venket-ram.png";
+import kiranImg from "@/assets/drk-kiran.webp";
+import raviImg from "@/assets/ravi-basrur.webp";
+import lokeshImg from "@/assets/lokesh-kanagaraj.png";
+import nelsonImg from "@/assets/nelson-dilipkumar.jpg";
+
+const otherMasterclasses = [
+  { name: "Karthik Subbaraj", image: karthikImg, href: "https://masterclass.leveluplearning.in/karthik-subbaraj" },
+  { name: "Anthony Gonsalvez", image: anthonyImg, href: "https://masterclass.leveluplearning.in/anthony" },
+  { name: "G Venket Ram", image: venketImg, href: "/masterclass/g-venket-ram" },
+  { name: "DRK Kiran", image: kiranImg, href: "https://masterclass.leveluplearning.in/kiran" },
+  { name: "Ravi Basrur", image: raviImg, href: "https://masterclass.leveluplearning.in/ravi-basrur" },
+  { name: "Lokesh Kanagaraj", image: lokeshImg, href: "https://masterclass.leveluplearning.in/lokesh-kanagaraj" },
+  { name: "Nelson Dilipkumar", image: nelsonImg, href: "https://masterclass.leveluplearning.in/nelson-dilipkumar" },
+];
 import testimonial2 from "@/assets/testimonial-2.jpg";
 import testimonial4 from "@/assets/testimonial-4.jpg";
 import { trackCTAClick } from "@/lib/clarity";
