@@ -77,6 +77,15 @@ const audienceIcons: Record<string, string> = {
   "Cinema Aspirants": iconCinemaAspirants,
 };
 
+const audienceLucideIcons: Record<string, LucideIcon> = {
+  "Film Editors": Scissors,
+  "Film Enthusiasts": Heart,
+  "Freelancing Editors": Briefcase,
+  "Aspiring Editors": GraduationCap,
+  "Filmmakers": Clapperboard,
+  "Cinema Aspirants": Video,
+};
+
 // Portfolio images (GVR specific)
 import portfolioTheri from "@/assets/portfolio/theri-poster.png";
 import portfolioKamal from "@/assets/portfolio/kamal-vishwaroopam.png";
