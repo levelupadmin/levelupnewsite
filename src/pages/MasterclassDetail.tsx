@@ -460,12 +460,12 @@ const MasterclassDetail = () => {
               {/* 4 corner feature labels */}
               <div className="relative z-10 w-full grid grid-cols-2 gap-y-4 md:gap-y-0 px-4 md:px-12">
                 {/* Top row */}
-                <div className="flex flex-col items-center md:items-start gap-2 text-center md:text-left">
-                  <Monitor className="w-7 h-7 text-primary" />
+              <div className="flex flex-col items-center md:items-start gap-1 text-center md:text-left">
+                  <Monitor className="w-9 h-9 text-primary" />
                   <p className="text-base font-semibold text-foreground">Watch on any Device</p>
                 </div>
-                <div className="flex flex-col items-center md:items-end gap-2 text-center md:text-right">
-                  <Award className="w-7 h-7 text-primary" />
+                <div className="flex flex-col items-center md:items-end gap-1 text-center md:text-right">
+                  <Award className="w-9 h-9 text-primary" />
                   <p className="text-base font-semibold text-foreground">Get Certified</p>
                 </div>
               </div>
