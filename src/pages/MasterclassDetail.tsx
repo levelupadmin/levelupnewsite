@@ -666,7 +666,47 @@ const MasterclassDetail = () => {
         </div>
       </section>
 
-      {/* Back link */}
+      {/* Other Masterclasses */}
+      <section className="relative bg-background py-12 md:py-16">
+        <FadeInSection className="text-center px-6 md:px-12 mb-8 md:mb-10">
+          <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl font-medium text-hero-headline tracking-[-0.03em]">
+            Check out our{" "}
+            <em className="not-italic font-normal text-gradient-amber">other masterclasses</em>
+          </h2>
+        </FadeInSection>
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="flex gap-5 md:gap-6 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-hide">
+            {otherMasterclasses
+              .filter((mc) => mc.name !== data.name)
+              .map((mc) => {
+                const isInternal = mc.href.startsWith("/");
+                const Wrapper = isInternal ? Link : "a";
+                const linkProps = isInternal
+                  ? { to: mc.href }
+                  : { href: mc.href, target: "_blank" as const, rel: "noopener noreferrer" };
+                return (
+                  <Wrapper
+                    key={mc.name}
+                    {...(linkProps as any)}
+                    className="group flex-shrink-0 snap-start w-[180px] md:w-[220px]"
+                  >
+                    <div className="relative aspect-[3/4] overflow-hidden rounded-sm bg-card shadow-md transition-shadow duration-500 group-hover:shadow-[0_0_20px_2px_hsl(38_75%_55%/0.35)]">
+                      <img
+                        src={mc.image}
+                        alt={mc.name}
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <div className="absolute inset-0 rounded-sm ring-1 ring-inset ring-white/0 group-hover:ring-primary/40 transition-all duration-500 pointer-events-none" />
+                    </div>
+                  </Wrapper>
+                );
+              })}
+          </div>
+        </div>
+      </section>
+
       <div className="max-w-6xl mx-auto px-6 py-8">
         <Link to="/#masterclasses" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
           <ArrowLeft className="w-4 h-4" /> Back to all masterclasses
