@@ -2,6 +2,7 @@ import venketImg from "@/assets/venket-ram.png";
 import anthonyImg from "@/assets/anthony-gonsalvez.png";
 import anthonyHeroBg from "@/assets/anthony-hero-bg.png";
 import anthonyCertificate from "@/assets/anthony-certificate.png";
+import anthonyPricing from "@/assets/anthony-pricing.png";
 import testimonialLisa from "@/assets/testimonial-lisa.png";
 import testimonialPrathyaksh from "@/assets/testimonial-prathyaksh.png";
 import testimonialJanani from "@/assets/testimonial-janani.png";
@@ -282,6 +283,7 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
     heroBgImage: anthonyHeroBg,
     portraitImage: anthonyImg,
     certificateImage: anthonyCertificate,
+    pricingImage: anthonyPricing,
     pullQuote:
       "\"If you think you need a high spec system to be a great editor, you're lying to yourself.\"",
     courseDescription:
