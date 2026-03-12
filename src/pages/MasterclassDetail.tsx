@@ -608,20 +608,20 @@ const MasterclassDetail = () => {
       </section>
 
       {/* ═══ 12. FOOTER CTA ═══ */}
-      <section className="py-12 md:py-20 px-6">
-        <div className="max-w-5xl mx-auto">
+      <section className="pt-24 md:pt-32 pb-12 md:pb-20 px-6">
+        <div className="max-w-4xl mx-auto">
           <FadeInSection>
-            <div className="relative rounded-3xl overflow-visible" style={{ background: "linear-gradient(135deg, hsl(24 95% 53%) 0%, hsl(30 90% 55%) 50%, hsl(38 95% 55%) 100%)" }}>
+            <div className="relative rounded-2xl overflow-visible" style={{ background: "linear-gradient(135deg, hsl(24 95% 53%) 0%, hsl(30 90% 55%) 50%, hsl(38 95% 55%) 100%)" }}>
               <div className="relative flex flex-col md:flex-row items-end">
                 {/* Text + CTA side */}
-                <div className="flex-1 px-8 py-10 md:px-12 md:py-14 flex flex-col gap-5 z-10">
+                <div className="flex-1 px-8 py-10 md:px-12 md:py-14 flex flex-col gap-4 z-10">
                   <h2 className="font-serif-display text-3xl md:text-4xl lg:text-5xl text-white font-medium leading-tight">
                     What are you waiting for?
                   </h2>
                   <p className="font-sans-body text-base md:text-lg text-white/90">
                     Learn Photography with Venket today!
                   </p>
-                  <div>
+                  <div className="mt-2">
                     <a
                       href={data.ctaLink}
                       target="_blank"
@@ -634,11 +634,11 @@ const MasterclassDetail = () => {
                   </div>
                 </div>
                 {/* Instructor sitting image — overflows top of card */}
-                <div className="hidden md:block w-[340px] lg:w-[400px] shrink-0 self-end relative overflow-visible">
+                <div className="hidden md:block w-[280px] lg:w-[320px] shrink-0 self-end relative overflow-visible">
                   <img
                     src={gvrSittingImg}
                     alt={data.name}
-                    className="w-[130%] h-auto object-contain drop-shadow-2xl relative -top-16 lg:-top-20 -left-[15%]"
+                    className="w-full h-auto object-contain drop-shadow-2xl relative -top-24 lg:-top-28"
                     loading="lazy"
                   />
                 </div>
