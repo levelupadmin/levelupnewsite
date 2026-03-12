@@ -161,6 +161,7 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
       {
         name: "Prathyaksh",
         role: "Director",
+        image: testimonialPrathyaksh,
         quote:
           "Venket Ram's course not only taught me the technical aspects of photography but also how to infuse my personality and creativity into every shot. I've gained the confidence to stand out as a photographer, and I'm capturing images like never before. Thank you, Venket Ram!",
       },
