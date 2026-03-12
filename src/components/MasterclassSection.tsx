@@ -28,7 +28,7 @@ const masterclasses = [
     descriptor: "An all-out practical editing experience",
     format: "Film Editor",
     category: "Editing",
-    href: "https://masterclass.leveluplearning.in/anthony",
+    href: "/masterclass/anthony-gonsalvez",
   },
   {
     image: venketImg,
