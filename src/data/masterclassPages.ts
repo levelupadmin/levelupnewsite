@@ -322,7 +322,7 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
       { number: 19, title: "Send us your work!", description: "Anthony is hopeful that the practical session will provide participants with a worthwhile opportunity to learn more about editing. He encourages everyone to take advantage of this chance and come prepared with questions related to editing, so as to further their knowledge." },
     ],
     portfolioHeadline: "Learn from the Editor Behind these Films",
-    showPortfolio: false,
+    showPortfolio: true,
     audienceTargets: [
       { label: "Film Editors" },
       { label: "Film Enthusiasts" },

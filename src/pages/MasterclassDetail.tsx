@@ -158,7 +158,7 @@ const MasterclassDetail = () => {
     </a>
   );
 
-  const portfolioImages = data.portfolioImages ?? defaultPortfolioImages;
+  const portfolioImages = slug === "anthony-gonsalvez" ? anthonyPortfolioImages : (data.portfolioImages ?? defaultPortfolioImages);
   const showPortfolio = data.showPortfolio !== false;
 
   return (
