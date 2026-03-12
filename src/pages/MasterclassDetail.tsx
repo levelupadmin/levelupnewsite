@@ -95,9 +95,14 @@ import portfolioSuriya from "@/assets/portfolio/suriya-24.png";
 import portfolioKadaram from "@/assets/portfolio/kadaram-kondan.png";
 import portfolioRaviVarma2 from "@/assets/portfolio/ravi-varma-calendar-2.png";
 import portfolioRaangi from "@/assets/portfolio/raangi-poster.png";
+import portfolioSamantha from "@/assets/portfolio/ravi-varma-samantha.png";
 
-const defaultPortfolioImages = [
+type PortfolioItem = string | { src: string; objectPosition: string };
+
+const defaultPortfolioImages: PortfolioItem[] = [
   portfolioTheri, portfolioKamal, portfolioJaanu, portfolioRaviVarma,
+  { src: portfolioSamantha, objectPosition: "left center" },
+  { src: portfolioSamantha, objectPosition: "right center" },
   portfolioSuriya, portfolioKadaram, portfolioRaviVarma2, portfolioRaangi,
 ];
 
