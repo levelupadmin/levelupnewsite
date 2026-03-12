@@ -277,14 +277,18 @@ const MasterclassDetail = () => {
 
           <div className="relative w-full">
             <div className="flex gap-4 animate-ticker w-max">
-              {[...portfolioImages, ...portfolioImages].map((src, i) => (
-                <div
-                  key={i}
-                  className="flex-shrink-0 w-[260px] md:w-[320px] aspect-[3/4] rounded-xl overflow-hidden border border-border"
-                >
-                  <img src={src} alt={`Portfolio work by ${data.name}`} className="w-full h-full object-cover" loading="lazy" />
-                </div>
-              ))}
+              {[...portfolioImages, ...portfolioImages].map((item, i) => {
+                const src = typeof item === "string" ? item : item.src;
+                const objectPosition = typeof item === "string" ? undefined : item.objectPosition;
+                return (
+                  <div
+                    key={i}
+                    className="flex-shrink-0 w-[260px] md:w-[320px] aspect-[3/4] rounded-xl overflow-hidden border border-border"
+                  >
+                    <img src={src} alt={`Portfolio work by ${data.name}`} className="w-full h-full object-cover" style={objectPosition ? { objectPosition } : undefined} loading="lazy" />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
