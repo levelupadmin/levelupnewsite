@@ -627,7 +627,7 @@ const MasterclassDetail = () => {
                   </div>
                 </div>
                 {/* Instructor sitting image — overflows top of card */}
-                <div className="hidden md:block w-[280px] lg:w-[320px] shrink-0 self-end relative">
+                <div className="hidden md:block w-[340px] lg:w-[400px] shrink-0 self-end relative">
                   <img
                     src={gvrSittingImg}
                     alt={data.name}
