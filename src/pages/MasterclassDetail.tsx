@@ -37,6 +37,8 @@ import gvrHeroBg from "@/assets/gvr-hero-bg.png";
 import devicesShowcase from "@/assets/devices-showcase.png";
 import gvrSittingImg from "@/assets/gvr-sitting.png";
 import gvrPricingImg from "@/assets/gvr-pricing.png";
+import googlePlayBadge from "@/assets/google-play-badge.svg";
+import appStoreBadge from "@/assets/app-store-badge.svg";
 
 // Audience icons
 import iconModelPhotographers from "@/assets/icons/model-photographers.png";
