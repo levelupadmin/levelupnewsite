@@ -32,6 +32,7 @@ import certificateImg from "@/assets/gvr-certificate.png";
 import gvrHeroBg from "@/assets/gvr-hero-bg.png";
 import devicesShowcase from "@/assets/devices-showcase.png";
 import gvrSittingImg from "@/assets/gvr-sitting.png";
+import gvrPricingImg from "@/assets/gvr-pricing.png";
 
 // Audience icons
 import iconModelPhotographers from "@/assets/icons/model-photographers.png";
