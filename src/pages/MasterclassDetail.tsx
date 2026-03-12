@@ -25,7 +25,11 @@ import {
   Award,
   Smartphone,
   Users,
+  CheckCircle,
 } from "lucide-react";
+import testimonial1 from "@/assets/testimonial-1.jpg";
+import testimonial2 from "@/assets/testimonial-2.jpg";
+import testimonial4 from "@/assets/testimonial-4.jpg";
 import { trackCTAClick } from "@/lib/clarity";
 import { cn } from "@/lib/utils";
 import certificateImg from "@/assets/gvr-certificate.png";
