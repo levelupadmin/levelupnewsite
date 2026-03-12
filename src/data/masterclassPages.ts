@@ -6,6 +6,9 @@ import anthonyPricing from "@/assets/anthony-pricing.png";
 import testimonialLisa from "@/assets/testimonial-lisa.png";
 import testimonialPrathyaksh from "@/assets/testimonial-prathyaksh.png";
 import testimonialJanani from "@/assets/testimonial-janani.png";
+import testimonialHarita from "@/assets/testimonial-harita.png";
+import testimonialShalini from "@/assets/testimonial-shalini.png";
+import testimonialJagadeesh from "@/assets/testimonial-jagadeesh.png";
 import gvrHeroBg from "@/assets/gvr-hero-bg.png";
 import gvrCertificate from "@/assets/gvr-certificate.png";
 
