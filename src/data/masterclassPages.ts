@@ -283,6 +283,7 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
     heroBgImage: anthonyHeroBg,
     portraitImage: anthonyImg,
     certificateImage: anthonyCertificate,
+    pricingImage: anthonyPricing,
     pullQuote:
       "\"If you think you need a high spec system to be a great editor, you're lying to yourself.\"",
     courseDescription:
