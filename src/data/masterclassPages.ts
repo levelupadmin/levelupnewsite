@@ -6,6 +6,9 @@ import anthonyPricing from "@/assets/anthony-pricing.png";
 import testimonialLisa from "@/assets/testimonial-lisa.png";
 import testimonialPrathyaksh from "@/assets/testimonial-prathyaksh.png";
 import testimonialJanani from "@/assets/testimonial-janani.png";
+import testimonialHarita from "@/assets/testimonial-harita.png";
+import testimonialShalini from "@/assets/testimonial-shalini.png";
+import testimonialJagadeesh from "@/assets/testimonial-jagadeesh.png";
 import gvrHeroBg from "@/assets/gvr-hero-bg.png";
 import gvrCertificate from "@/assets/gvr-certificate.png";
 
@@ -357,18 +360,21 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
       {
         name: "Harita",
         role: "Actor",
+        image: testimonialHarita,
         quote:
           "Anthony Gonsalvez's online editing class was an eye-opener! Watching a seasoned professional at work, explaining his every move, was invaluable. His approach blends artistry with technical finesse seamlessly. I feel equipped with the skills to edit like a pro now!",
       },
       {
         name: "Shalini",
         role: "Theater Artist",
+        image: testimonialShalini,
         quote:
           "As a budding filmmaker, I couldn't have asked for a better mentor than Anthony Gonsalvez. His class was a masterclass in itself! The way he effortlessly maneuvered through the editing process, demystifying complexities, left me inspired and confident. This course is a game-changer!",
       },
       {
         name: "Jagadeesh",
         role: "Director",
+        image: testimonialJagadeesh,
         quote:
           "Anthony Gonsalvez's course exceeded my expectations. His hands-on approach to teaching editing, along with the insights he shared, made it an unparalleled learning experience. I now approach editing with a newfound perspective, thanks to his expert guidance.",
       },
