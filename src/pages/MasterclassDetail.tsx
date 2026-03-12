@@ -31,6 +31,7 @@ import { cn } from "@/lib/utils";
 import certificateImg from "@/assets/gvr-certificate.png";
 import gvrHeroBg from "@/assets/gvr-hero-bg.png";
 import devicesShowcase from "@/assets/devices-showcase.png";
+import gvrSittingImg from "@/assets/gvr-sitting.png";
 
 // Audience icons
 import iconModelPhotographers from "@/assets/icons/model-photographers.png";
@@ -600,25 +601,41 @@ const MasterclassDetail = () => {
       </section>
 
       {/* ═══ 12. FOOTER CTA ═══ */}
-      <section className="relative py-16 md:py-20 overflow-hidden bg-gradient-to-r from-primary via-[hsl(30_90%_55%)] to-primary">
-        <div className="relative z-10 max-w-5xl mx-auto px-6">
+      <section className="py-12 md:py-20 px-6">
+        <div className="max-w-5xl mx-auto">
           <FadeInSection>
-            <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-              <div className="text-center md:text-left">
-                <p className="text-sm text-primary-foreground/70 uppercase tracking-wide mb-2">What are you waiting for?</p>
-                <h2 className="font-display text-3xl md:text-4xl text-primary-foreground uppercase tracking-wide leading-tight">
-                  Learn Photography with<br />Venket today!
-                </h2>
+            <div className="relative rounded-3xl overflow-hidden" style={{ background: "linear-gradient(135deg, hsl(24 95% 53%) 0%, hsl(30 90% 55%) 50%, hsl(38 95% 55%) 100%)" }}>
+              <div className="relative flex flex-col md:flex-row items-end">
+                {/* Text + CTA side */}
+                <div className="flex-1 px-8 py-10 md:px-12 md:py-14 flex flex-col gap-5 z-10">
+                  <h2 className="font-serif-display text-3xl md:text-4xl lg:text-5xl text-white font-medium leading-tight">
+                    What are you waiting for?
+                  </h2>
+                  <p className="font-sans-body text-base md:text-lg text-white/90">
+                    Learn Photography with Venket today!
+                  </p>
+                  <div>
+                    <a
+                      href={data.ctaLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackCTAClick("masterclass-footer-cta", data.name)}
+                      className="inline-block bg-white hover:bg-white/90 text-primary font-sans-body font-bold text-sm tracking-wide px-8 py-3.5 rounded-full transition-colors shadow-lg uppercase"
+                    >
+                      {data.ctaText}
+                    </a>
+                  </div>
+                </div>
+                {/* Instructor sitting image */}
+                <div className="hidden md:block w-[280px] lg:w-[320px] shrink-0 self-end">
+                  <img
+                    src={gvrSittingImg}
+                    alt={data.name}
+                    className="w-full h-auto object-contain drop-shadow-2xl"
+                    loading="lazy"
+                  />
+                </div>
               </div>
-              <a
-                href={data.ctaLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackCTAClick("masterclass-footer-cta", data.name)}
-                className="inline-block bg-background hover:bg-background/90 text-foreground font-sans-body font-bold text-sm tracking-wide px-8 py-3.5 rounded-lg transition-colors shadow-lg uppercase shrink-0"
-              >
-                {data.ctaText}
-              </a>
             </div>
           </FadeInSection>
         </div>
