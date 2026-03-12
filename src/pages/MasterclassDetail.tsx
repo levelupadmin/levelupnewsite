@@ -36,6 +36,7 @@ import certificateImg from "@/assets/gvr-certificate.png";
 import gvrHeroBg from "@/assets/gvr-hero-bg.png";
 import devicesShowcase from "@/assets/devices-showcase.png";
 import gvrSittingImg from "@/assets/gvr-sitting.png";
+import gvrFooterCtaImg from "@/assets/gvr-footer-cta.png";
 import gvrPricingImg from "@/assets/gvr-pricing.png";
 import googlePlayBadge from "@/assets/google-play-badge.svg";
 import appStoreBadge from "@/assets/app-store-badge.svg";
