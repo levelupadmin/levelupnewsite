@@ -624,47 +624,6 @@ const MasterclassDetail = () => {
         </div>
       </section>
 
-      {/* ═══ 12. FOOTER CTA ═══ */}
-      <section className="pt-24 md:pt-32 pb-12 md:pb-20 px-6">
-        <div className="max-w-sm mx-auto">
-          <FadeInSection>
-            <div className="rounded-2xl overflow-hidden border border-primary/30 bg-[#1a1a1a]">
-              {/* Hero image with name overlay */}
-              <div className="relative">
-                <img
-                  src={data.heroImage}
-                  alt={data.name}
-                  className="w-full h-[320px] object-cover object-top"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent" />
-                <h2 className="absolute bottom-4 left-0 right-0 text-center font-serif-display text-4xl md:text-5xl text-white tracking-wide uppercase">
-                  {data.name}
-                </h2>
-              </div>
-              {/* Bottom content */}
-              <div className="px-6 pb-8 pt-4 flex flex-col gap-5">
-                <p className="font-sans-body text-white text-lg md:text-xl font-semibold leading-snug">
-                  Learn from the Ace art director
-                </p>
-                <a
-                  href={data.ctaLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => trackCTAClick("masterclass-footer-cta", data.name)}
-                  className="block w-full text-center font-sans-body font-bold text-base tracking-wide px-8 py-4 rounded-full text-white uppercase transition-all shadow-lg"
-                  style={{ background: "linear-gradient(135deg, hsl(24 95% 53%) 0%, hsl(38 95% 55%) 100%)" }}
-                >
-                  {data.ctaText}
-                </a>
-                <p className="font-sans-body text-sm text-white/50 text-center leading-relaxed">
-                  Enroll now and get bonuses worth Rs.19,999 for free. There was never a better time to grab this on-demand program.
-                </p>
-              </div>
-            </div>
-          </FadeInSection>
-        </div>
-      </section>
 
       {/* Other Masterclasses */}
       <section className="relative bg-background py-12 md:py-16">
