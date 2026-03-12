@@ -633,12 +633,12 @@ const MasterclassDetail = () => {
                     </a>
                   </div>
                 </div>
-                {/* Instructor sitting image — overflows top of card */}
-                <div className="hidden md:block w-[340px] lg:w-[400px] shrink-0 self-end relative overflow-visible">
+                {/* Instructor sitting image — feet at bottom, head overflows top */}
+                <div className="hidden md:block w-[340px] lg:w-[420px] shrink-0 self-end relative overflow-visible" style={{ marginTop: '-80px' }}>
                   <img
                     src={gvrSittingImg}
                     alt={data.name}
-                    className="w-full h-auto object-contain drop-shadow-2xl relative -top-32 lg:-top-40"
+                    className="w-full h-auto object-contain drop-shadow-2xl"
                     loading="lazy"
                   />
                 </div>
