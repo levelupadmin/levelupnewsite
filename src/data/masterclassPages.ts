@@ -156,6 +156,7 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
       {
         name: "Janani",
         role: "Theater Artist",
+        image: testimonialJanani,
         quote:
           "If you want to elevate your photography skills, Venket Ram's course is the way to go. His expertise and the diverse range of case studies are eye-opening. I learned so much about lighting, composition, and finding my own photographic voice. This course is a must for anyone serious about photography!",
       },
