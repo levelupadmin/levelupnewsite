@@ -442,8 +442,8 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
     price: 499,
     originalPrice: 7999,
     currency: "₹",
-    ctaLink: "https://study.leveluplearning.in/l/d657fd335d",
-    ctaText: "SUBSCRIBE FOR ₹499",
+    ctaLink: "https://study.leveluplearning.in/web/checkout/63bb56ee63f1437ecb2cb17c",
+    ctaText: "BUY FOR ₹1999",
     seo: {
       title: "Anthony Gonsalvez Film Editing Masterclass | LevelUp Learning",
       description:
