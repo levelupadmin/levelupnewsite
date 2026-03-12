@@ -38,7 +38,7 @@ import nelsonImg from "@/assets/nelson-dilipkumar.jpg";
 
 const otherMasterclasses = [
   { name: "Karthik Subbaraj", image: karthikImg, href: "https://masterclass.leveluplearning.in/karthik-subbaraj" },
-  { name: "Anthony Gonsalvez", image: anthonyImg, href: "https://masterclass.leveluplearning.in/anthony" },
+  { name: "Anthony Gonsalvez", image: anthonyImg, href: "/masterclass/anthony-gonsalvez" },
   { name: "G Venket Ram", image: venketImg, href: "/masterclass/g-venket-ram" },
   { name: "DRK Kiran", image: kiranImg, href: "https://masterclass.leveluplearning.in/kiran" },
   { name: "Ravi Basrur", image: raviImg, href: "https://masterclass.leveluplearning.in/ravi-basrur" },
@@ -49,15 +49,11 @@ import testimonial2 from "@/assets/testimonial-2.jpg";
 import testimonial4 from "@/assets/testimonial-4.jpg";
 import { trackCTAClick } from "@/lib/clarity";
 import { cn } from "@/lib/utils";
-import certificateImg from "@/assets/gvr-certificate.png";
-import gvrHeroBg from "@/assets/gvr-hero-bg.png";
 import devicesShowcase from "@/assets/devices-showcase.png";
-import gvrSittingImg from "@/assets/gvr-sitting.png";
-import gvrPricingImg from "@/assets/gvr-pricing.png";
 import googlePlayBadge from "@/assets/google-play-badge.svg";
 import appStoreBadge from "@/assets/app-store-badge.svg";
 
-// Audience icons
+// Audience icons (used for GVR)
 import iconModelPhotographers from "@/assets/icons/model-photographers.png";
 import iconCinematographers from "@/assets/icons/cinematographers.png";
 import iconFoodPhotographers from "@/assets/icons/food-photographers.png";
@@ -74,7 +70,7 @@ const audienceIcons: Record<string, string> = {
   "Cinema Aspirants": iconCinemaAspirants,
 };
 
-// Portfolio images
+// Portfolio images (GVR specific)
 import portfolioTheri from "@/assets/portfolio/theri-poster.png";
 import portfolioKamal from "@/assets/portfolio/kamal-vishwaroopam.png";
 import portfolioJaanu from "@/assets/portfolio/jaanu-poster.png";
@@ -84,7 +80,7 @@ import portfolioKadaram from "@/assets/portfolio/kadaram-kondan.png";
 import portfolioRaviVarma2 from "@/assets/portfolio/ravi-varma-calendar-2.png";
 import portfolioRaangi from "@/assets/portfolio/raangi-poster.png";
 
-const portfolioImages = [
+const defaultPortfolioImages = [
   portfolioTheri, portfolioKamal, portfolioJaanu, portfolioRaviVarma,
   portfolioSuriya, portfolioKadaram, portfolioRaviVarma2, portfolioRaangi,
 ];
@@ -131,22 +127,22 @@ const MasterclassDetail = () => {
     </a>
   );
 
+  const portfolioImages = data.portfolioImages ?? defaultPortfolioImages;
+  const showPortfolio = data.showPortfolio !== false;
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
 
       {/* ═══ 1. HERO ═══ */}
       <section className="relative overflow-hidden">
-        {/* Full-bleed background image — takes up the visual hero area */}
         <div className="relative min-h-[80vh] md:min-h-[85vh] flex items-center justify-center">
           <div className="absolute inset-0 z-0">
-            <img src={gvrHeroBg} alt="" className="w-full h-full object-cover object-top" aria-hidden="true" />
+            <img src={data.heroBgImage} alt="" className="w-full h-full object-cover object-top" aria-hidden="true" />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
           </div>
-
         </div>
 
-        {/* Content BELOW the image — not overlapping the face */}
         <div className="relative z-10 bg-background w-full max-w-5xl mx-auto px-6 py-12 md:py-16 text-center -mt-16">
           <FadeInSection>
             <p className="font-display text-2xl md:text-3xl text-foreground/80 uppercase tracking-[0.15em] mb-1">Teaches</p>
@@ -188,14 +184,13 @@ const MasterclassDetail = () => {
           </FadeInSection>
 
           <div className="grid md:grid-cols-[1.2fr_1fr] gap-6 items-start">
-            {/* YouTube trailer embed */}
             <FadeInSection>
               <div className="aspect-video rounded-xl overflow-hidden bg-card border border-border">
                 <iframe
                   width="100%"
                   height="100%"
-                  src="https://www.youtube.com/embed/j8bJXiHLmmE?si=PbebiugOjIA1wzk3"
-                  title="G Venketram Teaches Photography | Trailer"
+                  src={data.trailerEmbedUrl}
+                  title={`${data.name} | Trailer`}
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
@@ -205,7 +200,6 @@ const MasterclassDetail = () => {
               </div>
             </FadeInSection>
 
-            {/* Lesson list accordion — scrollable column */}
             <FadeInSection delay={100}>
               <div className="max-h-[340px] overflow-y-auto pr-1 space-y-3 scrollbar-thin scrollbar-track-card scrollbar-thumb-border">
                 {data.lessons.map((lesson) => (
@@ -235,56 +229,64 @@ const MasterclassDetail = () => {
       </section>
 
       {/* ═══ 3. PORTFOLIO SHOWCASE — Infinite Ticker ═══ */}
-      <section className="py-16 md:py-24 border-t border-border overflow-hidden">
-        <div className="max-w-6xl mx-auto px-6 mb-10 md:mb-14">
-          <FadeInSection>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-foreground uppercase tracking-wide text-center max-w-lg mx-auto leading-tight">
-              {data.portfolioHeadline}
-            </h2>
-          </FadeInSection>
-        </div>
-
-        {/* Ticker – duplicated list for seamless loop */}
-        <div className="relative w-full">
-          <div className="flex gap-4 animate-ticker w-max">
-            {[...portfolioImages, ...portfolioImages].map((src, i) => (
-              <div
-                key={i}
-                className="flex-shrink-0 w-[260px] md:w-[320px] aspect-[3/4] rounded-xl overflow-hidden border border-border"
-              >
-                <img src={src} alt="Portfolio work by G Venket Ram" className="w-full h-full object-cover" loading="lazy" />
-              </div>
-            ))}
+      {showPortfolio && (
+        <section className="py-16 md:py-24 border-t border-border overflow-hidden">
+          <div className="max-w-6xl mx-auto px-6 mb-10 md:mb-14">
+            <FadeInSection>
+              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-foreground uppercase tracking-wide text-center max-w-lg mx-auto leading-tight">
+                {data.portfolioHeadline}
+              </h2>
+            </FadeInSection>
           </div>
-        </div>
-      </section>
+
+          <div className="relative w-full">
+            <div className="flex gap-4 animate-ticker w-max">
+              {[...portfolioImages, ...portfolioImages].map((src, i) => (
+                <div
+                  key={i}
+                  className="flex-shrink-0 w-[260px] md:w-[320px] aspect-[3/4] rounded-xl overflow-hidden border border-border"
+                >
+                  <img src={src} alt={`Portfolio work by ${data.name}`} className="w-full h-full object-cover" loading="lazy" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ═══ 4. WHO IS THIS PROGRAM FOR ═══ */}
       <section className="py-16 md:py-24 border-t border-border">
         <div className="max-w-6xl mx-auto px-6">
           <FadeInSection>
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              {/* Left portrait */}
               <div className="relative max-w-sm mx-auto md:mx-0">
                 <img src={data.portraitImage} alt={data.name} className="w-full aspect-[3/4] object-cover rounded-lg" />
               </div>
 
-              {/* Right — audience cards */}
               <div>
                 <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground uppercase tracking-wide mb-8">
                   Who is this <span className="text-primary">program</span> for?
                 </h2>
                 <div className="grid grid-cols-2 gap-4">
-                  {data.audienceTargets.map((target) => (
-                    <div key={target} className="flex items-center gap-4 bg-card border border-border rounded-lg px-5 py-4 hover:border-primary/30 transition-colors">
-                      <img
-                        src={audienceIcons[target]}
-                        alt={target}
-                        className="w-12 h-12 rounded-full shrink-0 object-contain"
-                      />
-                      <span className="text-sm md:text-base font-semibold text-foreground">{target}</span>
-                    </div>
-                  ))}
+                  {data.audienceTargets.map((target) => {
+                    const iconSrc = target.icon || audienceIcons[target.label];
+                    return (
+                      <div key={target.label} className="flex items-center gap-4 bg-card border border-border rounded-lg px-5 py-4 hover:border-primary/30 transition-colors">
+                        {iconSrc ? (
+                          <img
+                            src={iconSrc}
+                            alt={target.label}
+                            className="w-12 h-12 rounded-full shrink-0 object-contain"
+                          />
+                        ) : (
+                          <div className="w-12 h-12 rounded-full shrink-0 bg-primary/10 flex items-center justify-center">
+                            <Film className="w-6 h-6 text-primary" />
+                          </div>
+                        )}
+                        <span className="text-sm md:text-base font-semibold text-foreground">{target.label}</span>
+                      </div>
+                    );
+                  })}
                 </div>
                 <div className="mt-8 flex justify-center">
                   <CTAButton />
@@ -304,16 +306,13 @@ const MasterclassDetail = () => {
             </h2>
           </FadeInSection>
 
-          {/* Timeline layout */}
           <div className="relative">
-            {/* Vertical line */}
             <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-border hidden md:block" />
 
             <div className="space-y-16 md:space-y-24">
               {data.valueProps.map((vp, i) => (
                 <FadeInSection key={i} delay={i * 80}>
                   <div className="relative">
-                    {/* Numbered dot */}
                     <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 -top-4 w-10 h-10 rounded-full bg-primary text-primary-foreground items-center justify-center font-bold text-sm z-10">
                       {i + 1}
                     </div>
@@ -323,9 +322,9 @@ const MasterclassDetail = () => {
                       i % 2 === 1 && "md:[direction:rtl] md:*:[direction:ltr]"
                     )}>
                       <div className="aspect-video rounded-xl overflow-hidden bg-card border border-border relative">
-                        {["/videos/gvr-why-1.webm", "/videos/gvr-why-2.webm", "/videos/gvr-why-3.webm"][i] ? (
+                        {vp.videoUrl ? (
                           <video
-                            src={["/videos/gvr-why-1.webm", "/videos/gvr-why-2.webm", "/videos/gvr-why-3.webm"][i]}
+                            src={vp.videoUrl}
                             autoPlay
                             muted
                             loop
@@ -383,9 +382,8 @@ const MasterclassDetail = () => {
                 </div>
               </div>
 
-              {/* Certificate preview */}
               <div className="rounded-xl overflow-hidden">
-                <img src={certificateImg} alt="Certificate of Completion" className="w-full h-auto rounded-xl shadow-2xl" />
+                <img src={data.certificateImage} alt="Certificate of Completion" className="w-full h-auto rounded-xl shadow-2xl" />
               </div>
             </div>
           </FadeInSection>
@@ -463,7 +461,6 @@ const MasterclassDetail = () => {
         <div className="max-w-5xl mx-auto px-6">
           <FadeInSection>
             <div className="relative flex flex-col items-center">
-              {/* Concentric rings background */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
                 {[400, 600, 800, 1000, 1200].map((s, i) => (
                   <div
@@ -474,9 +471,7 @@ const MasterclassDetail = () => {
                 ))}
               </div>
 
-              {/* 4 corner feature labels */}
               <div className="relative z-10 w-full grid grid-cols-2 gap-y-4 md:gap-y-0 px-4 md:px-12">
-                {/* Top row */}
               <div className="flex flex-col items-center md:items-start gap-1 text-center md:text-left">
                   <Monitor className="w-9 h-9 text-primary" />
                   <p className="text-base font-semibold text-foreground">Watch on any Device</p>
@@ -487,7 +482,6 @@ const MasterclassDetail = () => {
                 </div>
               </div>
 
-              {/* Device mockup */}
               <img
                 src={devicesShowcase}
                 alt="Watch on laptop, tablet or phone"
@@ -495,7 +489,6 @@ const MasterclassDetail = () => {
                 loading="lazy"
               />
 
-              {/* Bottom row */}
               <div className="relative z-10 w-full grid grid-cols-2 px-4 md:px-12">
                 <div className="flex flex-col items-center md:items-start gap-1 text-center md:text-left">
                   <svg className="w-9 h-9 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4Zm0 0c2 2.67 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.33-6 4Z"/></svg>
@@ -507,7 +500,6 @@ const MasterclassDetail = () => {
                 </div>
               </div>
 
-              {/* App store badges */}
               <div className="relative z-10 flex items-center justify-center gap-4 mt-8">
                 <a href="https://play.google.com/store" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
                   <img src={googlePlayBadge} alt="Get it on Google Play" className="h-12" />
@@ -564,11 +556,15 @@ const MasterclassDetail = () => {
               <div className="rounded-xl p-[2px] bg-gradient-to-b from-primary/40 via-primary/20 to-primary/5">
                 <div className="bg-card rounded-xl overflow-hidden">
                   <div className="relative aspect-[4/3]">
-                    <img src={gvrPricingImg} alt={data.name} className="w-full h-full object-cover object-top" />
+                    <img src={data.pricingImage || data.heroBgImage} alt={data.name} className="w-full h-full object-cover object-top" />
                     <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
                   </div>
                   <div className="p-6 text-center space-y-3">
-                    <h3 className="font-serif-display text-lg text-foreground">Learn from an Award-Winning Cinematic Photographer</h3>
+                    <h3 className="font-serif-display text-lg text-foreground">{data.pricingCardHeadline}</h3>
+                    <div className="flex items-center justify-center gap-3">
+                      <span className="text-3xl font-bold text-primary">{data.currency}{data.price}</span>
+                      <span className="text-lg text-muted-foreground line-through">{data.currency}{data.originalPrice}</span>
+                    </div>
                     <CTAButton />
                     <p className="text-xs text-muted-foreground leading-relaxed">
                       Enroll now and get bonuses worth Rs.19,999 for free. There was never a better time to grab this on-demand program.
