@@ -1,4 +1,6 @@
 import venketImg from "@/assets/venket-ram.png";
+import testimonialLisa from "@/assets/testimonial-lisa.png";
+import testimonialPrathyaksh from "@/assets/testimonial-prathyaksh.png";
 
 export interface MasterclassFAQ {
   question: string;
@@ -20,6 +22,7 @@ export interface Testimonial {
   name: string;
   role: string;
   quote: string;
+  image?: string;
 }
 
 export interface Benefit {
@@ -145,6 +148,7 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
       {
         name: "Lisa M",
         role: "Actor",
+        image: testimonialLisa,
         quote:
           "Venket Ram's photography course is a game-changer! I've always had a passion for photography, but this course took my skills to a whole new level. The case studies were incredibly insightful, and Venket Ram's guidance on finding my unique creative style was invaluable. I can confidently say I'm a better photographer now!",
       },
@@ -157,6 +161,7 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
       {
         name: "Prathyaksh",
         role: "Director",
+        image: testimonialPrathyaksh,
         quote:
           "Venket Ram's course not only taught me the technical aspects of photography but also how to infuse my personality and creativity into every shot. I've gained the confidence to stand out as a photographer, and I'm capturing images like never before. Thank you, Venket Ram!",
       },

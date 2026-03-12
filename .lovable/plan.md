@@ -1,21 +1,23 @@
 
+## Add Meta Pixel Tracking
 
-## Add Profile Images to Testimonial Cards
+### What
+Integrate Meta Pixel (Facebook Pixel) with ID `662214098433203` to track user behavior for advertising and analytics purposes.
 
-### What Changes
-Add the two uploaded profile images to the Lisa M and Prathyaksh testimonial cards in the masterclass reviews section.
+### How
+1. **Add Meta Pixel ID to constants**
+   - Update `src/lib/constants.ts` to include `META_PIXEL_ID = "662214098433203"`
 
-### Technical Approach
+2. **Create Meta Pixel initialization hook**
+   - Create `src/hooks/useMetaPixel.ts` to initialize the Meta Pixel script and track page views when routes change
 
-1. **Copy assets** — Save `Ellipse-389ppp-p-130x130q80.png` as `src/assets/testimonial-lisa.png` and `new-boy-circle.png` as `src/assets/testimonial-prathyaksh.png`
+3. **Initialize in App.tsx**
+   - Call the `useMetaPixel` hook in the root App component to activate tracking across all pages
 
-2. **Update data model** (`src/data/masterclassPages.ts`) — Add optional `image` field to the Lisa M and Prathyaksh testimonial objects. Import the assets.
+4. **Add Meta Pixel script to index.html (backup)**
+   - Include the Meta Pixel base code in `<head>` as a fallback for server-side rendering
 
-3. **Update testimonial card rendering** (`src/pages/MasterclassDetail.tsx`, ~lines 393-396) — Add an avatar image next to the name/role when `t.image` exists. Use a circular `img` element (~40px) in a flex row with the text.
-
-### Files Modified
-- `src/assets/testimonial-lisa.png` (new)
-- `src/assets/testimonial-prathyaksh.png` (new)
-- `src/data/masterclassPages.ts` (add image imports + fields)
-- `src/pages/MasterclassDetail.tsx` (render avatar in testimonial card)
-
+### Why This Approach
+- Meta Pixel ID is public (not a secret), so it's safe in the codebase
+- Hook-based approach integrates with existing React router for proper page view tracking
+- Hooks with Meta Pixel's `fbq()` API ensure events are tracked on all page navigations
