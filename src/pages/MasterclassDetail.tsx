@@ -95,9 +95,14 @@ import portfolioSuriya from "@/assets/portfolio/suriya-24.png";
 import portfolioKadaram from "@/assets/portfolio/kadaram-kondan.png";
 import portfolioRaviVarma2 from "@/assets/portfolio/ravi-varma-calendar-2.png";
 import portfolioRaangi from "@/assets/portfolio/raangi-poster.png";
+import portfolioSamantha from "@/assets/portfolio/ravi-varma-samantha.png";
 
-const defaultPortfolioImages = [
+type PortfolioItem = string | { src: string; objectPosition: string };
+
+const defaultPortfolioImages: PortfolioItem[] = [
   portfolioTheri, portfolioKamal, portfolioJaanu, portfolioRaviVarma,
+  { src: portfolioSamantha, objectPosition: "left center" },
+  { src: portfolioSamantha, objectPosition: "right center" },
   portfolioSuriya, portfolioKadaram, portfolioRaviVarma2, portfolioRaangi,
 ];
 
@@ -272,14 +277,18 @@ const MasterclassDetail = () => {
 
           <div className="relative w-full">
             <div className="flex gap-4 animate-ticker w-max">
-              {[...portfolioImages, ...portfolioImages].map((src, i) => (
-                <div
-                  key={i}
-                  className="flex-shrink-0 w-[260px] md:w-[320px] aspect-[3/4] rounded-xl overflow-hidden border border-border"
-                >
-                  <img src={src} alt={`Portfolio work by ${data.name}`} className="w-full h-full object-cover" loading="lazy" />
-                </div>
-              ))}
+              {[...portfolioImages, ...portfolioImages].map((item, i) => {
+                const src = typeof item === "string" ? item : item.src;
+                const objectPosition = typeof item === "string" ? undefined : item.objectPosition;
+                return (
+                  <div
+                    key={i}
+                    className="flex-shrink-0 w-[260px] md:w-[320px] aspect-[3/4] rounded-xl overflow-hidden border border-border"
+                  >
+                    <img src={src} alt={`Portfolio work by ${data.name}`} className="w-full h-full object-cover" style={objectPosition ? { objectPosition } : undefined} loading="lazy" />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
