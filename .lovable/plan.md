@@ -1,15 +1,23 @@
 
+## Add Meta Pixel Tracking
 
-## Make Corner Feature Icons Consistent & Bigger
+### What
+Integrate Meta Pixel (Facebook Pixel) with ID `662214098433203` to track user behavior for advertising and analytics purposes.
 
-The 4 corner labels in the "Watch on Any Device" section need consistency. Currently the bottom-left "Pay Once, Play Forever" uses a horizontal layout while the other three use vertical (icon above text). All icons are `w-7 h-7`.
+### How
+1. **Add Meta Pixel ID to constants**
+   - Update `src/lib/constants.ts` to include `META_PIXEL_ID = "662214098433203"`
 
-### Changes in `src/pages/MasterclassDetail.tsx`
+2. **Create Meta Pixel initialization hook**
+   - Create `src/hooks/useMetaPixel.ts` to initialize the Meta Pixel script and track page views when routes change
 
-1. **All 4 icons**: Increase from `w-7 h-7` to `w-9 h-9` (lines 464, 468, 484, 488)
-2. **Bottom-left label** (line 483): Change from `flex items-center gap-2` (horizontal) to `flex flex-col items-center md:items-start gap-1` (vertical, matching the others)
-3. **Reduce gap** on all 4 labels from `gap-2` to `gap-1` so icons sit closer to text
+3. **Initialize in App.tsx**
+   - Call the `useMetaPixel` hook in the root App component to activate tracking across all pages
 
-### Files Modified
-- `src/pages/MasterclassDetail.tsx` — lines 461–490 only
+4. **Add Meta Pixel script to index.html (backup)**
+   - Include the Meta Pixel base code in `<head>` as a fallback for server-side rendering
 
+### Why This Approach
+- Meta Pixel ID is public (not a secret), so it's safe in the codebase
+- Hook-based approach integrates with existing React router for proper page view tracking
+- Hooks with Meta Pixel's `fbq()` API ensure events are tracked on all page navigations
