@@ -1,23 +1,28 @@
 
-## Add Meta Pixel Tracking
 
-### What
-Integrate Meta Pixel (Facebook Pixel) with ID `662214098433203` to track user behavior for advertising and analytics purposes.
+## Plan: Redesign Footer CTA to Match Reference
 
-### How
-1. **Add Meta Pixel ID to constants**
-   - Update `src/lib/constants.ts` to include `META_PIXEL_ID = "662214098433203"`
+The current footer CTA is an orange gradient card with text + sitting instructor image side by side. The reference (first image) shows a completely different design:
 
-2. **Create Meta Pixel initialization hook**
-   - Create `src/hooks/useMetaPixel.ts` to initialize the Meta Pixel script and track page views when routes change
+### Target Design
+- **Dark rounded card** (dark background, subtle orange border)
+- **Hero image** at top occupying ~60% of the card, with "G VENKAT RAM" name overlaid in large serif text
+- **Heading**: "Learn from the Ace art director" (white, bold, left-aligned)
+- **CTA button**: Full-width orange gradient pill button labeled "BUY NOW AT ₹ 2499"
+- **Subtext**: "Enroll now and get bonuses worth Rs.19,999 for free. There was never a better time to grab this on-demand program."
 
-3. **Initialize in App.tsx**
-   - Call the `useMetaPixel` hook in the root App component to activate tracking across all pages
+### Changes in `src/pages/MasterclassDetail.tsx` (lines 610–648)
 
-4. **Add Meta Pixel script to index.html (backup)**
-   - Include the Meta Pixel base code in `<head>` as a fallback for server-side rendering
+1. **Replace the orange gradient card** with a dark card (`bg-[#1a1a1a]` or similar) with a subtle orange/amber border (`border border-primary/30`), `rounded-2xl`, `overflow-hidden`
+2. **Top section**: Use the existing hero background image (`data.heroImage`) filling the top portion with the instructor's name overlaid in large Bebas Neue / serif-display text
+3. **Bottom section**: Dark area with:
+   - Heading: "Learn from the Ace art director"
+   - Full-width orange gradient button: "BUY NOW AT ₹ 2499" linking to `data.ctaLink`
+   - Muted subtext about bonuses
+4. **Remove** the separate sitting instructor image (`gvrSittingImg`) from this section
+5. **Update `ctaText`** in `src/data/masterclassPages.ts` to "BUY NOW AT ₹ 2499"
 
-### Why This Approach
-- Meta Pixel ID is public (not a secret), so it's safe in the codebase
-- Hook-based approach integrates with existing React router for proper page view tracking
-- Hooks with Meta Pixel's `fbq()` API ensure events are tracked on all page navigations
+### Changes in `src/data/masterclassPages.ts`
+- Update `ctaText` to `"BUY NOW AT ₹ 2499"`
+- Add a new field (e.g., `footerHeading`) for "Learn from the Ace art director" or hardcode it in the component
+
