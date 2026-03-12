@@ -148,6 +148,7 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
       {
         name: "Lisa M",
         role: "Actor",
+        image: testimonialLisa,
         quote:
           "Venket Ram's photography course is a game-changer! I've always had a passion for photography, but this course took my skills to a whole new level. The case studies were incredibly insightful, and Venket Ram's guidance on finding my unique creative style was invaluable. I can confidently say I'm a better photographer now!",
       },
