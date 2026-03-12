@@ -616,7 +616,7 @@ const MasterclassDetail = () => {
               {/* Hero image with name overlay */}
               <div className="relative">
                 <img
-                  src={data.heroImage}
+                  src={gvrFooterCtaImg}
                   alt={data.name}
                   className="w-full h-[320px] object-cover object-top"
                   loading="lazy"
