@@ -524,18 +524,24 @@ const MasterclassDetail = () => {
                   Grab the offer while<br />it lasts...
                 </h2>
 
-                <div className="mt-6 inline-flex items-center gap-2 bg-card border border-border rounded-full px-4 py-2">
-                  <Users className="w-4 h-4 text-primary" />
-                  <span className="text-sm text-foreground font-medium">{data.studentCount} Students</span>
-                  <span className="text-xs text-muted-foreground">have attended this workshop</span>
+                <div className="mt-6 flex items-center gap-3">
+                  <div className="flex -space-x-2">
+                    {[testimonial1, testimonial2, testimonial4].map((img, i) => (
+                      <img key={i} src={img} alt="Student" className="w-8 h-8 rounded-full border-2 border-background object-cover" />
+                    ))}
+                  </div>
+                  <div>
+                    <span className="text-sm text-foreground font-bold">{data.studentCount}+ Students</span>
+                    <span className="text-xs text-muted-foreground ml-1">have attended this workshop</span>
+                  </div>
                 </div>
 
                 <div className="mt-8">
-                  <h3 className="font-serif-display text-lg text-foreground font-medium mb-4">What you'll get...</h3>
+                  <h3 className="font-serif-display text-lg text-primary font-medium mb-4">What you'll get...</h3>
                   <ul className="space-y-3">
                     {data.pricingPoints.map((point, i) => (
-                      <li key={i} className="flex items-start gap-3">
-                        <ChevronRight className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                      <li key={i} className="flex items-center gap-3 bg-card border border-border rounded-lg px-4 py-3">
+                        <CheckCircle className="w-5 h-5 text-primary shrink-0" />
                         <span className="text-sm text-foreground/80">{point}</span>
                       </li>
                     ))}
@@ -544,17 +550,19 @@ const MasterclassDetail = () => {
               </div>
 
               {/* Instructor card */}
-              <div className="bg-card border border-primary/20 rounded-xl overflow-hidden">
-                <div className="relative aspect-[4/3]">
-                  <img src={gvrPricingImg} alt={data.name} className="w-full h-full object-cover scale-[0.85] object-top" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
-                </div>
-                <div className="p-6 text-center space-y-3">
-                  <h3 className="font-serif-display text-lg text-foreground">Learn from an Award-Winning Cinematic Photographer</h3>
-                  <CTAButton />
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    Enroll now and get bonuses worth Rs.19,999 for free. There was never a better time to grab this on-demand program.
-                  </p>
+              <div className="rounded-xl p-[2px] bg-gradient-to-b from-primary/40 via-primary/20 to-primary/5">
+                <div className="bg-card rounded-xl overflow-hidden">
+                  <div className="relative aspect-[4/3]">
+                    <img src={gvrPricingImg} alt={data.name} className="w-full h-full object-cover object-top" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+                  </div>
+                  <div className="p-6 text-center space-y-3">
+                    <h3 className="font-serif-display text-lg text-foreground">Learn from an Award-Winning Cinematic Photographer</h3>
+                    <CTAButton />
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      Enroll now and get bonuses worth Rs.19,999 for free. There was never a better time to grab this on-demand program.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
