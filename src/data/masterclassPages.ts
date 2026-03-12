@@ -238,7 +238,7 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
     originalPrice: 2999,
     currency: "₹",
     ctaLink: "https://study.leveluplearning.in/web/checkout/631f6d223938790196fb7a31",
-    ctaText: "BUY FOR ₹2499",
+    ctaText: "BUY NOW AT ₹ 2499",
     seo: {
       title: "G Venket Ram Photography Masterclass | LevelUp Learning",
       description:
