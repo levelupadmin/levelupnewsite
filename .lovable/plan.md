@@ -1,21 +1,23 @@
 
+## Add Meta Pixel Tracking
 
-## Plan: Add "Other Masterclasses" Horizontal Scroll Section
+### What
+Integrate Meta Pixel (Facebook Pixel) with ID `662214098433203` to track user behavior for advertising and analytics purposes.
 
-Insert a new section between the footer CTA (line 650) and the back link (line 652) showing other masterclass posters in a horizontal scrollable row.
+### How
+1. **Add Meta Pixel ID to constants**
+   - Update `src/lib/constants.ts` to include `META_PIXEL_ID = "662214098433203"`
 
-### Changes in `src/pages/MasterclassDetail.tsx`
+2. **Create Meta Pixel initialization hook**
+   - Create `src/hooks/useMetaPixel.ts` to initialize the Meta Pixel script and track page views when routes change
 
-1. **Import** all masterclass images (same ones from `MasterclassSection.tsx`: karthikImg, anthonyImg, venketImg, kiranImg, raviImg, lokeshImg, nelsonImg)
+3. **Initialize in App.tsx**
+   - Call the `useMetaPixel` hook in the root App component to activate tracking across all pages
 
-2. **Define** an inline `otherMasterclasses` array with name, image, and href for each masterclass
+4. **Add Meta Pixel script to index.html (backup)**
+   - Include the Meta Pixel base code in `<head>` as a fallback for server-side rendering
 
-3. **Filter** out the current masterclass by matching `data.name`
-
-4. **New section** (~30 lines of JSX) inserted after line 650:
-   - Section with `py-16` dark background
-   - Centered heading: "Check out our other masterclasses" (font-serif-display, amber gradient on "other masterclasses")
-   - Horizontal scroll container: `overflow-x-auto`, `scrollbar-hide`, `snap-x`, `flex gap-6`
-   - Cards: 3:4 aspect ratio (~200px wide mobile, ~220px desktop), rounded, image cover, hover glow shadow matching homepage style
-   - Each card links to its respective masterclass page (internal Link or external anchor)
-
+### Why This Approach
+- Meta Pixel ID is public (not a secret), so it's safe in the codebase
+- Hook-based approach integrates with existing React router for proper page view tracking
+- Hooks with Meta Pixel's `fbq()` API ensure events are tracked on all page navigations
