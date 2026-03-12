@@ -480,12 +480,12 @@ const MasterclassDetail = () => {
 
               {/* Bottom row */}
               <div className="relative z-10 w-full grid grid-cols-2 px-4 md:px-12">
-                <div className="flex items-center md:items-center gap-2 text-center md:text-left">
-                  <svg className="w-7 h-7 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4Zm0 0c2 2.67 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.33-6 4Z"/></svg>
+                <div className="flex flex-col items-center md:items-start gap-1 text-center md:text-left">
+                  <svg className="w-9 h-9 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4Zm0 0c2 2.67 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.33-6 4Z"/></svg>
                   <p className="text-base font-semibold text-foreground">Pay Once, Play Forever</p>
                 </div>
-                <div className="flex flex-col items-center md:items-end gap-2 text-center md:text-right">
-                  <Clock className="w-7 h-7 text-primary" />
+                <div className="flex flex-col items-center md:items-end gap-1 text-center md:text-right">
+                  <Clock className="w-9 h-9 text-primary" />
                   <p className="text-base font-semibold text-foreground">Learn at your own Pace</p>
                 </div>
               </div>
