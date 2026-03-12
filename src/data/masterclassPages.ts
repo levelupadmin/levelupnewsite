@@ -1,6 +1,7 @@
 import venketImg from "@/assets/venket-ram.png";
 import testimonialLisa from "@/assets/testimonial-lisa.png";
 import testimonialPrathyaksh from "@/assets/testimonial-prathyaksh.png";
+import testimonialJanani from "@/assets/testimonial-janani.png";
 
 export interface MasterclassFAQ {
   question: string;
