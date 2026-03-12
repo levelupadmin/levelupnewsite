@@ -101,6 +101,21 @@ const defaultPortfolioImages = [
   portfolioSuriya, portfolioKadaram, portfolioRaviVarma2, portfolioRaangi,
 ];
 
+// Portfolio images (Anthony Gonsalvez specific)
+import portfolioSarvam from "@/assets/portfolio/sarvam-thaala-mayam.png";
+import portfolioIShankar from "@/assets/portfolio/i-shankar.png";
+import portfolioKaakha from "@/assets/portfolio/kaakha-kaakha.png";
+import portfolioSivaji from "@/assets/portfolio/sivaji-the-boss.png";
+import portfolioVaaranam from "@/assets/portfolio/vaaranam-aayiram.png";
+import portfolioEnthiran from "@/assets/portfolio/enthiran.png";
+import portfolioYennai from "@/assets/portfolio/yennai-arindhaal.png";
+import portfolioStalin from "@/assets/portfolio/stalin.png";
+
+const anthonyPortfolioImages = [
+  portfolioSarvam, portfolioIShankar, portfolioKaakha, portfolioSivaji,
+  portfolioVaaranam, portfolioEnthiran, portfolioYennai, portfolioStalin,
+];
+
 const MasterclassDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const data = slug ? masterclassPages[slug] : undefined;
