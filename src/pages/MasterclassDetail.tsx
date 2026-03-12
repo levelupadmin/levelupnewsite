@@ -542,7 +542,7 @@ const MasterclassDetail = () => {
               {/* Instructor card */}
               <div className="bg-card border border-primary/20 rounded-xl overflow-hidden">
                 <div className="relative aspect-[4/3]">
-                  <img src={data.portraitImage} alt={data.name} className="w-full h-full object-cover" />
+                  <img src={gvrPricingImg} alt={data.name} className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
                 </div>
                 <div className="p-6 text-center space-y-3">
