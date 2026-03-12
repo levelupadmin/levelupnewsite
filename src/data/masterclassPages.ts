@@ -439,7 +439,7 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
         answer: "You can access LevelUp Learning across various devices - Mobiles, Tablets, Desktops or Laptops. You can access classes on mobile by downloading the LevelUp Learning App for Android and iOS devices.",
       },
     ],
-    price: 499,
+    price: 1999,
     originalPrice: 7999,
     currency: "₹",
     ctaLink: "https://study.leveluplearning.in/web/checkout/63bb56ee63f1437ecb2cb17c",
