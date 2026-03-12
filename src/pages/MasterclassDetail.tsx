@@ -525,7 +525,7 @@ const MasterclassDetail = () => {
                     ))}
                   </div>
                   <div>
-                    <span className="text-sm text-foreground font-bold">{data.studentCount}+ Students</span>
+                    <span className="text-sm text-foreground font-bold">{data.studentCount} Students</span>
                     <span className="text-xs text-muted-foreground ml-1">have attended this workshop</span>
                   </div>
                 </div>
