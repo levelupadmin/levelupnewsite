@@ -434,13 +434,13 @@ const MasterclassDetail = () => {
       </section>
 
       {/* ═══ 9. WATCH ON ANY DEVICE ═══ */}
-      <section className="py-16 md:py-24 border-t border-border overflow-hidden">
+      <section className="py-24 md:py-32 border-t border-border overflow-hidden">
         <div className="max-w-5xl mx-auto px-6">
           <FadeInSection>
             <div className="relative flex flex-col items-center">
               {/* Concentric rings background */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-                {[320, 480, 640, 800, 960].map((s, i) => (
+                {[400, 600, 800, 1000, 1200].map((s, i) => (
                   <div
                     key={i}
                     className="absolute rounded-full border border-white/[0.06]"
@@ -450,15 +450,15 @@ const MasterclassDetail = () => {
               </div>
 
               {/* 4 corner feature labels */}
-              <div className="relative z-10 w-full grid grid-cols-2 gap-y-4 md:gap-y-0">
+              <div className="relative z-10 w-full grid grid-cols-2 gap-y-4 md:gap-y-0 px-4 md:px-12">
                 {/* Top row */}
                 <div className="flex flex-col items-center md:items-start gap-2 text-center md:text-left">
-                  <Monitor className="w-6 h-6 text-primary" />
-                  <p className="text-sm font-semibold text-foreground">Watch on any Device</p>
+                  <Monitor className="w-7 h-7 text-primary" />
+                  <p className="text-base font-semibold text-foreground">Watch on any Device</p>
                 </div>
                 <div className="flex flex-col items-center md:items-end gap-2 text-center md:text-right">
-                  <Award className="w-6 h-6 text-primary" />
-                  <p className="text-sm font-semibold text-foreground">Get Certified</p>
+                  <Award className="w-7 h-7 text-primary" />
+                  <p className="text-base font-semibold text-foreground">Get Certified</p>
                 </div>
               </div>
 
@@ -466,19 +466,19 @@ const MasterclassDetail = () => {
               <img
                 src={devicesShowcase}
                 alt="Watch on laptop, tablet or phone"
-                className="relative z-10 w-full max-w-2xl mx-auto my-6 md:my-10"
+                className="relative z-10 w-full max-w-2xl mx-auto my-10 md:my-16"
                 loading="lazy"
               />
 
               {/* Bottom row */}
-              <div className="relative z-10 w-full grid grid-cols-2">
+              <div className="relative z-10 w-full grid grid-cols-2 px-4 md:px-12">
                 <div className="flex flex-col items-center md:items-start gap-2 text-center md:text-left">
-                  <svg className="w-6 h-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4Zm0 0c2 2.67 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.33-6 4Z"/></svg>
-                  <p className="text-sm font-semibold text-foreground">Pay Once, Play Forever</p>
+                  <svg className="w-7 h-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4Zm0 0c2 2.67 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.33-6 4Z"/></svg>
+                  <p className="text-base font-semibold text-foreground">Pay Once, Play Forever</p>
                 </div>
                 <div className="flex flex-col items-center md:items-end gap-2 text-center md:text-right">
-                  <Clock className="w-6 h-6 text-primary" />
-                  <p className="text-sm font-semibold text-foreground">Learn at your own Pace</p>
+                  <Clock className="w-7 h-7 text-primary" />
+                  <p className="text-base font-semibold text-foreground">Learn at your own Pace</p>
                 </div>
               </div>
 
