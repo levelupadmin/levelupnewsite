@@ -26,7 +26,14 @@ import {
   Smartphone,
   Users,
   CheckCircle,
+  Scissors,
+  Heart,
+  Briefcase,
+  GraduationCap,
+  Clapperboard,
+  Video,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import testimonial1 from "@/assets/testimonial-1.jpg";
 import karthikImg from "@/assets/karthik-subbaraj-masterclass.png";
 import anthonyImg from "@/assets/anthony-gonsalvez-masterclass.png";
