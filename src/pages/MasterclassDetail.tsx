@@ -640,11 +640,11 @@ const MasterclassDetail = () => {
                   </div>
                 </div>
                 {/* Instructor sitting image — overflows top of card */}
-                <div className="hidden md:block w-[440px] lg:w-[520px] shrink-0 self-end relative">
+                <div className="hidden md:block w-[340px] lg:w-[400px] shrink-0 self-end relative overflow-visible">
                   <img
                     src={gvrSittingImg}
                     alt={data.name}
-                    className="w-full h-auto object-contain drop-shadow-2xl relative -top-16 lg:-top-20"
+                    className="w-[130%] h-auto object-contain drop-shadow-2xl relative -top-16 lg:-top-20 -left-[15%]"
                     loading="lazy"
                   />
                 </div>
