@@ -1,6 +1,7 @@
 import venketImg from "@/assets/venket-ram.png";
 import anthonyImg from "@/assets/anthony-gonsalvez.png";
-import anthonyHeroBg from "@/assets/anthony-hero-bg.png";
+import anthonyHeroBg from "@/assets/anthony-hero-person.png";
+import anthonyHeroName from "@/assets/anthony-hero-name.png";
 import anthonyCertificate from "@/assets/anthony-certificate.png";
 import anthonyPricing from "@/assets/anthony-pricing.png";
 import testimonialLisa from "@/assets/testimonial-lisa.png";
@@ -53,6 +54,7 @@ export interface MasterclassPageData {
   discipline: string;
   heroImage: string;
   heroBgImage: string;
+  heroNameOverlay?: string;
   portraitImage: string;
   certificateImage: string;
   pricingImage?: string;
@@ -284,6 +286,7 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
     discipline: "Film Editing",
     heroImage: anthonyImg,
     heroBgImage: anthonyHeroBg,
+    heroNameOverlay: anthonyHeroName,
     portraitImage: anthonyImg,
     certificateImage: anthonyCertificate,
     pricingImage: anthonyPricing,
