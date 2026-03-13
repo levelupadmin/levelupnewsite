@@ -70,9 +70,9 @@ export const showcasePrograms: ShowcaseProgram[] = [
     image: liveVe,
     previewVideo: "/videos/ve-preview.mp4",
     youtubeId: "dQw4w9WgXcQ",
-    ctaLink: "https://www.leveluplearning.live/ve",
+    ctaLink: "https://www.leveluplearning.in/ve",
     ctaLabel: "Request Invite",
-    learnMoreLink: "https://www.leveluplearning.live/ve",
+    learnMoreLink: "https://www.leveluplearning.in/ve",
     stats: ["12 Weeks", "Weekends Only", "LIVE Online", "Application-Only"],
     bullets: [
       "Taught by viral social media editors + National Award-winning filmmaker + DaVinci Resolve certified colorist",
