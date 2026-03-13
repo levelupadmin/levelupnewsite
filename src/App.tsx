@@ -15,6 +15,7 @@ const Reviews = lazy(() => import("./pages/Reviews"));
 const StudentStory = lazy(() => import("./pages/StudentStory"));
 const MasterclassDetail = lazy(() => import("./pages/MasterclassDetail"));
 
+const Careers = lazy(() => import("./pages/Careers"));
 const Terms = lazy(() => import("./pages/Terms"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const NotFound = lazy(() => import("./pages/NotFound"));
