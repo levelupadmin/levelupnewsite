@@ -16,6 +16,7 @@ import gvrCertificate from "@/assets/gvr-certificate.png";
 import kiranImg from "@/assets/drk-kiran.webp";
 import kiranHeroDesktop from "@/assets/drk-kiran-hero-desktop.png";
 import kiranHeroMobile from "@/assets/drk-kiran-hero-mobile.png";
+import kiranCertificate from "@/assets/drk-kiran-certificate.png";
 
 export interface MasterclassFAQ {
   question: string;
@@ -470,7 +471,7 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
     heroBgImage: kiranHeroMobile,
     heroDesktopBg: kiranHeroDesktop,
     portraitImage: kiranImg,
-    certificateImage: kiranImg,
+    certificateImage: kiranCertificate,
     pricingImage: kiranHeroDesktop,
     pullQuote:
       "\"An art director expresses his vision through sets and properties\"",
