@@ -1,21 +1,23 @@
 
+## Add Meta Pixel Tracking
 
-## Plan: Inline "More" Dropdown
+### What
+Integrate Meta Pixel (Facebook Pixel) with ID `662214098433203` to track user behavior for advertising and analytics purposes.
 
-Currently, hovering "More" expands the full-width panel inside the navbar pill (same as Masterclasses/Live). Instead, "More" should show a small floating dropdown anchored directly below the "More" label — independent of the expandable panel.
+### How
+1. **Add Meta Pixel ID to constants**
+   - Update `src/lib/constants.ts` to include `META_PIXEL_ID = "662214098433203"`
 
-### Changes — `src/components/Navbar.tsx` only
+2. **Create Meta Pixel initialization hook**
+   - Create `src/hooks/useMetaPixel.ts` to initialize the Meta Pixel script and track page views when routes change
 
-1. **Exclude "More" from the expandable panel**: Change the `expanded` condition (line 86) to also exclude compact links, so hovering "More" no longer triggers the full-width panel.
+3. **Initialize in App.tsx**
+   - Call the `useMetaPixel` hook in the root App component to activate tracking across all pages
 
-2. **Add a small positioned dropdown** next to the "More" nav link on desktop: Wrap the "More" link in a `relative` container. When `activeIndex` points to a compact link, render a small `absolute` dropdown below it with:
-   - Frosted glass background matching the navbar aesthetic (`bg-black/70 backdrop-blur-md border border-white/10 rounded-lg shadow-xl`)
-   - Two text links: "Student Stories" and "Careers"
-   - Subtle fade+slide-down animation via framer-motion
-   - `onMouseLeave` on the dropdown container closes it
+4. **Add Meta Pixel script to index.html (backup)**
+   - Include the Meta Pixel base code in `<head>` as a fallback for server-side rendering
 
-3. **Styling**: The dropdown will be ~160px wide, positioned `top-full right-0`, with `py-1 px-1` padding and each item styled as `px-3 py-2 text-sm hover:bg-white/8 rounded-md`.
-
-### Files to Edit
-- `src/components/Navbar.tsx`
-
+### Why This Approach
+- Meta Pixel ID is public (not a secret), so it's safe in the codebase
+- Hook-based approach integrates with existing React router for proper page view tracking
+- Hooks with Meta Pixel's `fbq()` API ensure events are tracked on all page navigations
