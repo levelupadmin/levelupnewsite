@@ -56,26 +56,10 @@ const Careers = () => {
           </h1>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 pt-8 border-t border-primary/20">
+        <div className="pt-8 border-t border-primary/20">
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-lg">
             We're building India's largest creative education ecosystem — 70,000+ learners, 300,000+ community members, and a team of superstars who refuse to be ordinary. Come break things with us.
           </p>
-          <div className="flex items-start gap-8 md:gap-12">
-            {[
-              { num: "70K+", label: "Learners" },
-              { num: "300K", label: "Community" },
-              { num: "9", label: "Open Roles" },
-            ].map((s) => (
-              <div key={s.label} className="text-center">
-                <p className="text-3xl md:text-4xl font-display text-primary">
-                  {s.num}
-                </p>
-                <p className="text-[10px] md:text-xs tracking-widest uppercase text-muted-foreground">
-                  {s.label}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
