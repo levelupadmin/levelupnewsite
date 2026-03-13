@@ -481,7 +481,7 @@ const MasterclassDetail = () => {
                   <p className="text-sm text-foreground/80 leading-relaxed flex-1">"{t.quote}"</p>
                   <div className="flex items-center gap-3 mt-4">
                     {t.image && (
-                      <img src={t.image} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
+                      <img src={t.image} alt={`Portrait of ${t.name}, LevelUp Learning student`} className="w-10 h-10 rounded-full object-cover" />
                     )}
                     <div>
                       <p className="text-sm text-foreground font-medium">{t.name}</p>
