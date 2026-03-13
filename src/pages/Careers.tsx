@@ -92,7 +92,9 @@ const Careers = () => {
           {roles.map((role) => (
             <a
               key={role.num}
-              href="#apply"
+              href="https://tally.so/r/mO8eZ8"
+              target="_blank"
+              rel="noopener noreferrer"
               className="careers-role-card group relative overflow-hidden px-6 py-8 flex flex-col justify-between min-h-[180px] border border-primary/15 transition-colors"
             >
               <span className="absolute inset-0 origin-bottom transition-transform duration-[350ms] ease-out scale-y-0 group-hover:scale-y-100 bg-primary" />
