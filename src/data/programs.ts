@@ -45,9 +45,9 @@ export const showcasePrograms: ShowcaseProgram[] = [
     image: liveBfp,
     previewVideo: "/videos/bfp-preview.mp4",
     youtubeId: "5-kNI2eSLpo",
-    ctaLink: "https://www.leveluplearning.live/bfp-2",
+    ctaLink: "https://www.leveluplearning.in/bfp-2",
     ctaLabel: "Request Invite",
-    learnMoreLink: "https://www.leveluplearning.live/bfp-2",
+    learnMoreLink: "https://www.leveluplearning.in/bfp-2",
     stats: ["12 Weeks", "Weekends Only", "LIVE Online", "Application-Only"],
     bullets: [
       "Full pipeline — screenwriting, directing, cinematography, editing, distribution",
