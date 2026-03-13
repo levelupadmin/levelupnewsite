@@ -139,6 +139,7 @@ const MasterclassDetail = () => {
     title: data?.seo.title ?? "Masterclass | LevelUp Learning",
     description: data?.seo.description ?? "",
     path: `/masterclass/${slug}`,
+    ogImage: data?.pricingImage ? undefined : undefined,
   });
 
   if (!data) {
