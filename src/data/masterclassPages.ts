@@ -12,6 +12,8 @@ import testimonialHarita from "@/assets/testimonial-harita.png";
 import testimonialShalini from "@/assets/testimonial-shalini.png";
 import testimonialJagadeesh from "@/assets/testimonial-jagadeesh.png";
 import gvrHeroBg from "@/assets/gvr-hero-bg.png";
+import gvrHeroMobile from "@/assets/gvr-hero-mobile.png";
+import gvrHeroName from "@/assets/gvr-hero-name.png";
 import gvrCertificate from "@/assets/gvr-certificate.png";
 import kiranImg from "@/assets/drk-kiran.webp";
 import kiranHeroDesktop from "@/assets/drk-kiran-hero-desktop.png";
