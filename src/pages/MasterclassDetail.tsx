@@ -307,7 +307,7 @@ const MasterclassDetail = () => {
                 <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground uppercase tracking-wide mb-8">
                   Who is this <span className="text-primary">program</span> for?
                 </h2>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   {data.audienceTargets.map((target) => {
                     const iconSrc = target.icon || audienceIcons[target.label];
                     const LucideIcon = audienceLucideIcons[target.label];
