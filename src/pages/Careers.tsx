@@ -92,7 +92,9 @@ const Careers = () => {
           {roles.map((role) => (
             <a
               key={role.num}
-              href="#apply"
+              href="https://tally.so/r/mO8eZ8"
+              target="_blank"
+              rel="noopener noreferrer"
               className="careers-role-card group relative overflow-hidden px-6 py-8 flex flex-col justify-between min-h-[180px] border border-primary/15 transition-colors"
             >
               <span className="absolute inset-0 origin-bottom transition-transform duration-[350ms] ease-out scale-y-0 group-hover:scale-y-100 bg-primary" />
@@ -128,7 +130,9 @@ const Careers = () => {
           </div>
           <div className="flex md:justify-end">
             <a
-              href="#apply"
+              href="https://tally.so/r/mO8eZ8"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-8 py-4 text-sm font-semibold tracking-widest uppercase transition-all duration-300 border-2 border-primary bg-primary text-primary-foreground hover:bg-transparent hover:text-primary"
             >
               Apply Now <ArrowRight className="w-4 h-4" />
