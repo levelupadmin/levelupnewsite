@@ -192,7 +192,7 @@ const MasterclassDetail = () => {
           {/* Desktop: single combined image if available, otherwise fallback */}
           <div className="absolute inset-0 z-0 hidden md:block">
             {data.heroDesktopBg ? (
-              <img src={data.heroDesktopBg} alt="" className="w-full h-full object-cover object-top z-[1]" aria-hidden="true" />
+              <img src={data.heroDesktopBg} alt="" className="w-full h-full object-cover z-[1]" style={{ objectPosition: data.heroDesktopObjectPosition ?? "top" }} aria-hidden="true" />
             ) : (
               <>
                 {data.heroNameOverlay && (

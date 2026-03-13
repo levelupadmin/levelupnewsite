@@ -478,6 +478,7 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
     heroImage: kiranImg,
     heroBgImage: kiranHeroMobile,
     heroDesktopBg: kiranHeroDesktop,
+    heroDesktopObjectPosition: "center center",
     portraitImage: kiranImg,
     certificateImage: kiranCertificate,
     pricingImage: kiranHeroDesktop,
