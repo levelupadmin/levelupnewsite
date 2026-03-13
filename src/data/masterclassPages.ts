@@ -12,6 +12,8 @@ import testimonialHarita from "@/assets/testimonial-harita.png";
 import testimonialShalini from "@/assets/testimonial-shalini.png";
 import testimonialJagadeesh from "@/assets/testimonial-jagadeesh.png";
 import gvrHeroBg from "@/assets/gvr-hero-bg.png";
+import gvrHeroMobile from "@/assets/gvr-hero-mobile.png";
+import gvrHeroName from "@/assets/gvr-hero-name.png";
 import gvrCertificate from "@/assets/gvr-certificate.png";
 import kiranImg from "@/assets/drk-kiran.webp";
 import kiranHeroDesktop from "@/assets/drk-kiran-hero-desktop.png";
@@ -69,6 +71,7 @@ export interface MasterclassPageData {
   heroNameOverlay?: string;
   heroDesktopBg?: string;
   heroDesktopObjectPosition?: string;
+  heroMobileBg?: string;
   portraitImage: string;
   certificateImage: string;
   pricingImage?: string;
@@ -117,6 +120,8 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
     discipline: "Photography",
     heroImage: venketImg,
     heroBgImage: gvrHeroBg,
+    heroMobileBg: gvrHeroMobile,
+    heroNameOverlay: gvrHeroName,
     portraitImage: venketImg,
     certificateImage: gvrCertificate,
     pullQuote:
