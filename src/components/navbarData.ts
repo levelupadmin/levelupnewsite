@@ -29,6 +29,7 @@ export interface NavLink {
   items: NavItem[];
   accent?: string;
   formatBadge?: string;
+  compact?: boolean;
 }
 
 export const navLinks: NavLink[] = [
