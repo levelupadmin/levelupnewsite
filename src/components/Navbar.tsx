@@ -84,6 +84,7 @@ const Navbar = () => {
   const links = navData ?? navLabels.map((l) => ({ ...l, description: "", items: [] as NavItem[] }));
 
   const expanded = activeIndex !== null && links[activeIndex]?.items.length > 0;
+  const isCompact = activeIndex !== null && !!(links[activeIndex] as NavLink).compact;
 
   // Active link accent color
   const activeAccent = useMemo(() => {
