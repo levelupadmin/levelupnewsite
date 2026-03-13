@@ -13,6 +13,9 @@ import testimonialShalini from "@/assets/testimonial-shalini.png";
 import testimonialJagadeesh from "@/assets/testimonial-jagadeesh.png";
 import gvrHeroBg from "@/assets/gvr-hero-bg.png";
 import gvrCertificate from "@/assets/gvr-certificate.png";
+import kiranImg from "@/assets/drk-kiran.webp";
+import kiranHeroDesktop from "@/assets/drk-kiran-hero-desktop.png";
+import kiranHeroMobile from "@/assets/drk-kiran-hero-mobile.png";
 
 export interface MasterclassFAQ {
   question: string;
