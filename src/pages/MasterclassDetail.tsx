@@ -32,6 +32,9 @@ import {
   GraduationCap,
   Clapperboard,
   Video,
+  Palette,
+  Ruler,
+  Sparkles,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import testimonial1 from "@/assets/testimonial-1.jpg";
