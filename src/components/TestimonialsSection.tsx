@@ -252,7 +252,7 @@ const TestimonialSlide = ({
         <div className="relative aspect-[4/5] md:aspect-auto md:h-full overflow-hidden">
           <img
             src={testimonial.image}
-            alt={`${testimonial.name}, ${testimonial.role}`}
+            alt={`Portrait of ${testimonial.name}, ${testimonial.role} at LevelUp Learning`}
             className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             loading="lazy"
             decoding="async"
