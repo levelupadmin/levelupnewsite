@@ -4,6 +4,7 @@ import anthonyHeroBg from "@/assets/anthony-hero-person.png";
 import anthonyHeroName from "@/assets/anthony-hero-name.png";
 import anthonyCertificate from "@/assets/anthony-certificate.png";
 import anthonyPricing from "@/assets/anthony-pricing.png";
+import anthonyHeroDesktop from "@/assets/anthony-hero-desktop.png";
 import testimonialLisa from "@/assets/testimonial-lisa.png";
 import testimonialPrathyaksh from "@/assets/testimonial-prathyaksh.png";
 import testimonialJanani from "@/assets/testimonial-janani.png";
@@ -55,6 +56,7 @@ export interface MasterclassPageData {
   heroImage: string;
   heroBgImage: string;
   heroNameOverlay?: string;
+  heroDesktopBg?: string;
   portraitImage: string;
   certificateImage: string;
   pricingImage?: string;
@@ -287,6 +289,7 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
     heroImage: anthonyImg,
     heroBgImage: anthonyHeroBg,
     heroNameOverlay: anthonyHeroName,
+    heroDesktopBg: anthonyHeroDesktop,
     portraitImage: anthonyImg,
     certificateImage: anthonyCertificate,
     pricingImage: anthonyPricing,
