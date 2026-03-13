@@ -16,6 +16,7 @@ import gvrCertificate from "@/assets/gvr-certificate.png";
 import kiranImg from "@/assets/drk-kiran.webp";
 import kiranHeroDesktop from "@/assets/drk-kiran-hero-desktop.png";
 import kiranHeroMobile from "@/assets/drk-kiran-hero-mobile.png";
+import kiranCertificate from "@/assets/drk-kiran-certificate.png";
 
 export interface MasterclassFAQ {
   question: string;
