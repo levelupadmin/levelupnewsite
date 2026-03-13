@@ -3,6 +3,7 @@ import { ArrowUp } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import usePageSeo from "@/hooks/usePageSeo";
 
 const tocSections = [
   { id: "info-collect", label: "1. Information We Collect" },
@@ -20,6 +21,12 @@ const PrivacyPolicy = () => {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [activeId, setActiveId] = useState<string>("");
   const observerRef = useRef<IntersectionObserver | null>(null);
+
+  usePageSeo({
+    title: "Privacy Policy — LevelUp Learning",
+    description: "Read LevelUp Learning's privacy policy. Learn how we collect, use, and protect your personal information across our creative education platform.",
+    path: "/privacy-policy",
+  });
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 

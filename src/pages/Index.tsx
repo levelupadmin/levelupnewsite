@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import Navbar from "@/components/Navbar";
 import { useSectionViewTracking } from "@/hooks/useSectionViewTracking";
+import usePageSeo from "@/hooks/usePageSeo";
 import HeroSection from "@/components/HeroSection";
 
 // Lazy-load all below-fold sections to minimize initial JS bundle
@@ -19,6 +20,11 @@ const FloatingSupport = lazy(() => import("@/components/FloatingSupport"));
 
 const Index = () => {
   useSectionViewTracking();
+  usePageSeo({
+    title: "LevelUp Learning — Online Filmmaking & Creative Courses India",
+    description: "Learn filmmaking, screenwriting, editing & design from India's top directors. Masterclasses by Lokesh Kanagaraj & Nelson DilipKumar. Join 18,000+ creators.",
+    path: "/",
+  });
 
   return (
     <div className="min-h-screen bg-background">
