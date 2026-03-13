@@ -325,7 +325,7 @@ const MasterclassDetail = () => {
           <FadeInSection>
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="relative max-w-sm mx-auto md:mx-0">
-                <img src={data.portraitImage} alt={data.name} className="w-full aspect-[3/4] object-cover rounded-lg" />
+                <img src={data.portraitImage} alt={`Portrait of ${data.name}, Instructor at LevelUp Learning`} className="w-full aspect-[3/4] object-cover rounded-lg" />
               </div>
 
               <div>
