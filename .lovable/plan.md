@@ -1,23 +1,26 @@
 
-## Add Meta Pixel Tracking
 
-### What
-Integrate Meta Pixel (Facebook Pixel) with ID `662214098433203` to track user behavior for advertising and analytics purposes.
+## Update DRK Kiran CTAs
 
-### How
-1. **Add Meta Pixel ID to constants**
-   - Update `src/lib/constants.ts` to include `META_PIXEL_ID = "662214098433203"`
+### Change in `src/data/masterclassPages.ts` (lines 626-630)
 
-2. **Create Meta Pixel initialization hook**
-   - Create `src/hooks/useMetaPixel.ts` to initialize the Meta Pixel script and track page views when routes change
+Update the drk-kiran entry's CTA link, price, and label:
 
-3. **Initialize in App.tsx**
-   - Call the `useMetaPixel` hook in the root App component to activate tracking across all pages
+```ts
+// From:
+price: 499,
+originalPrice: 2999,
+currency: "₹",
+ctaLink: "https://study.leveluplearning.in/l/38f10118da",
+ctaText: "SUBSCRIBE FOR ₹499",
 
-4. **Add Meta Pixel script to index.html (backup)**
-   - Include the Meta Pixel base code in `<head>` as a fallback for server-side rendering
+// To:
+price: 999,
+originalPrice: 2999,
+currency: "₹",
+ctaLink: "https://study.leveluplearning.in/web/checkout/64e7670a1e642660e96fc8e9",
+ctaText: "BUY FOR ₹999",
+```
 
-### Why This Approach
-- Meta Pixel ID is public (not a secret), so it's safe in the codebase
-- Hook-based approach integrates with existing React router for proper page view tracking
-- Hooks with Meta Pixel's `fbq()` API ensure events are tracked on all page navigations
+This updates the checkout URL, price, and CTA label across all CTA buttons on the DRK Kiran page (hero, sticky bar, pricing section) since they all read from `data.ctaLink` and `data.ctaText`.
+
