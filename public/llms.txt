@@ -2,7 +2,7 @@
 
 > India's leading creative education ecosystem - masterclasses, mentor-led live programs, and immersive offline residencies for filmmakers, editors, writers, designers, and creators.
 
-Website: https://www.leveluplearning.live
+Website: https://www.leveluplearning.in
 Email: hello@leveluplearning.com
 
 ---
@@ -40,14 +40,14 @@ Intensive, cohort-based programs with live classes, direct mentor feedback, peer
 - Format: Live weekend classes, online
 - Description: Covers every aspect of filmmaking - storytelling, screenwriting, direction, cinematography, and post-production. Hands-on projects with industry mentors.
 - Status: Enrolling
-- Learn more: https://www.leveluplearning.live/bfp-2
+- Learn more: https://www.leveluplearning.in/bfp-2
 
 #### Video Editing Academy
 - Duration: 12 weeks
 - Format: Live cohort, online
 - Description: India's most exclusive Video Editing cohort. Turn your passion for video editing into a high-paying career. Learn from mentors who've worked with creators like Ali Abdaal, Ankur Warikoo, and Sharan Hegde.
 - Status: Enrolling
-- Learn more: https://www.leveluplearning.live/ve
+- Learn more: https://www.leveluplearning.in/ve
 
 #### UI/UX Design Academy
 - Duration: 12 weeks
@@ -107,27 +107,27 @@ Real, long-form editorial stories from LevelUp students documenting their creati
 
 ### From Construction Sites to Cinema
 Akhil Billy Varghese went from working at construction sites in Kerala to pursuing film direction after attending LevelUp's filmmaking workshop.
-Read: https://www.leveluplearning.live/student-stories/from-construction-sites-to-cinema-kerala-worker-filmmaking
+Read: https://www.leveluplearning.in/student-stories/from-construction-sites-to-cinema-kerala-worker-filmmaking
 
 ### 18-Year-Old Chose Filmmaking Over Engineering
 Rithu Nanda scored 92% in her boards but took a gap year to explore filmmaking instead of engineering.
-Read: https://www.leveluplearning.live/student-stories/18-year-old-kerala-student-chose-filmmaking-over-engineering
+Read: https://www.leveluplearning.in/student-stories/18-year-old-kerala-student-chose-filmmaking-over-engineering
 
 ### Business Executive Reclaimed His Creative Life
 Debajit Dutta, a business development executive, rediscovered his creative passion through LevelUp's screenwriting workshop after 4 years away from any creative pursuit.
-Read: https://www.leveluplearning.live/student-stories/business-executive-reclaimed-creative-life
+Read: https://www.leveluplearning.in/student-stories/business-executive-reclaimed-creative-life
 
 ### IT Professional Found His Creative Voice
 Ankur Paliwal, an IT professional, spent years watching cinema but never told his own stories until LevelUp's screenwriting workshop gave him the tools and confidence.
-Read: https://www.leveluplearning.live/student-stories/it-professional-found-creative-voice-screenwriting
+Read: https://www.leveluplearning.in/student-stories/it-professional-found-creative-voice-screenwriting
 
 ### Delhi University Student Chasing Cinematic Legacy
 Suryansh, a Delhi University student, dreams of seeing "A Film By Suryansh" on the big screen.
-Read: https://www.leveluplearning.live/student-stories/delhi-university-student-chasing-cinematic-legacy
+Read: https://www.leveluplearning.in/student-stories/delhi-university-student-chasing-cinematic-legacy
 
 ### MBBS Student's Secret Life in Cinema
 Swathi Muthu is pursuing MBBS but has dreamed of cinema since childhood. LevelUp's screenwriting workshop became her first step from medicine to movies.
-Read: https://www.leveluplearning.live/student-stories/mbbs-student-secret-life-in-cinema
+Read: https://www.leveluplearning.in/student-stories/mbbs-student-secret-life-in-cinema
 
 ---
 
@@ -173,10 +173,10 @@ Yes. When you enrol in any program, you become part of the LevelUp community - a
 
 ## Site Map
 
-- Home: https://www.leveluplearning.live/
-- Student Stories: https://www.leveluplearning.live/student-stories
-- Terms of Service: https://www.leveluplearning.live/terms
-- Privacy Policy: https://www.leveluplearning.live/privacy-policy
+- Home: https://www.leveluplearning.in/
+- Student Stories: https://www.leveluplearning.in/student-stories
+- Terms of Service: https://www.leveluplearning.in/terms
+- Privacy Policy: https://www.leveluplearning.in/privacy-policy
 - Masterclasses: https://masterclass.leveluplearning.in
 - The Forge: https://www.forgebylevelup.com/
 - Forge Creators: https://creators.forgebylevelup.com/
@@ -186,4 +186,4 @@ Yes. When you enrol in any program, you become part of the LevelUp community - a
 ## Contact
 
 - Email: hello@leveluplearning.com
-- Website: https://www.leveluplearning.live
+- Website: https://www.leveluplearning.in

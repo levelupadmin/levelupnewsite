@@ -37,4 +37,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://www.leveluplearning.live/sitemap.xml
+Sitemap: https://www.leveluplearning.in/sitemap.xml

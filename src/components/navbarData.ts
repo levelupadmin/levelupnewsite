@@ -120,7 +120,7 @@ export const navLinks: NavLink[] = [
         image: navAcp,
         title: "Advanced Cinematography Program",
         subtitle: "4-week intensive",
-        href: "https://www.leveluplearning.live/acp-2",
+        href: "https://www.leveluplearning.in/acp-2",
       },
     ],
   },
