@@ -1,23 +1,23 @@
 
-## Add Meta Pixel Tracking
 
-### What
-Integrate Meta Pixel (Facebook Pixel) with ID `662214098433203` to track user behavior for advertising and analytics purposes.
+## Plan: Add Portfolio Ticker to DRK Kiran Page
 
-### How
-1. **Add Meta Pixel ID to constants**
-   - Update `src/lib/constants.ts` to include `META_PIXEL_ID = "662214098433203"`
+### Assets
+Copy 7 uploaded movie poster images to `src/assets/portfolio/`:
+- `image-141.png` → `doctor-poster.png`
+- `image-142.png` → `beast-poster.png`
+- `image-143.png` → `jailer-poster.png`
+- `image-144.png` → `naanum-rowdy-dhaan-poster.png`
+- `image-145.png` → `3-poster.png`
+- `image-146.png` → `thaanaa-serndha-koottam-poster.png`
+- `image-147.png` → `aranmanai-poster.png`
 
-2. **Create Meta Pixel initialization hook**
-   - Create `src/hooks/useMetaPixel.ts` to initialize the Meta Pixel script and track page views when routes change
+### Data Change (`src/data/masterclassPages.ts`)
+1. Import all 7 poster images
+2. In the `drk-kiran` entry:
+   - Set `showPortfolio: true`
+   - Set `portfolioImages` to the array of imported poster assets
+   - `portfolioHeadline` is already set to "Learn from the Art Director Behind these Films"
 
-3. **Initialize in App.tsx**
-   - Call the `useMetaPixel` hook in the root App component to activate tracking across all pages
+No other files need changes — the `MasterclassDetail.tsx` template already renders the infinite ticker section when `showPortfolio` is true.
 
-4. **Add Meta Pixel script to index.html (backup)**
-   - Include the Meta Pixel base code in `<head>` as a fallback for server-side rendering
-
-### Why This Approach
-- Meta Pixel ID is public (not a secret), so it's safe in the codebase
-- Hook-based approach integrates with existing React router for proper page view tracking
-- Hooks with Meta Pixel's `fbq()` API ensure events are tracked on all page navigations
