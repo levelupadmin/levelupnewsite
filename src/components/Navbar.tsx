@@ -14,8 +14,7 @@ const navLabels = [
   { label: "Masterclasses", href: "#masterclasses" },
   { label: "LevelUp Live", href: "#live-programs" },
   { label: "The Forge", href: "#forge" },
-  { label: "Student Stories", href: "/student-stories" },
-  { label: "Careers", href: "/careers" },
+  { label: "More", href: "#" },
 ];
 
 const Navbar = () => {
@@ -85,6 +84,7 @@ const Navbar = () => {
   const links = navData ?? navLabels.map((l) => ({ ...l, description: "", items: [] as NavItem[] }));
 
   const expanded = activeIndex !== null && links[activeIndex]?.items.length > 0;
+  const isCompact = activeIndex !== null && !!(links[activeIndex] as NavLink).compact;
 
   // Active link accent color
   const activeAccent = useMemo(() => {
@@ -262,97 +262,124 @@ const Navbar = () => {
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.15 }}
                     >
-                      <p
-                        className="font-sans-body text-xs mb-3 tracking-wide"
-                        style={{ color: activeAccent, opacity: 0.6 }}
-                      >
-                        {links[activeIndex!].description}
-                      </p>
+                      {links[activeIndex!].description && (
+                        <p
+                          className="font-sans-body text-xs mb-3 tracking-wide"
+                          style={{ color: activeAccent, opacity: 0.6 }}
+                        >
+                          {links[activeIndex!].description}
+                        </p>
+                      )}
 
-                      {/* Course/item cards */}
-                      <div className={`grid ${gridCols} gap-3`}>
-                        {activeItems.map((item, i) => (
-                          <m.a
-                            key={item.title}
-                            href={item.href}
-                            target={item.href.startsWith("http") ? "_blank" : undefined}
-                            rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                            initial={{ opacity: 0, y: 8, rotateZ: -1.5, scale: 0.96 }}
-                            animate={{
-                              opacity: hoveredCardIndex !== null && hoveredCardIndex !== i ? 0.65 : 1,
-                              y: 0,
-                              rotateZ: 0,
-                              scale: 1,
-                            }}
-                            whileHover={{ scale: 1.03, y: -4 }}
-                            whileTap={{ scale: 0.97 }}
-                            transition={{
-                              duration: 0.25,
-                              delay: 0.04 * i,
-                              ease: "easeOut",
-                              scale: { type: "spring", stiffness: 500, damping: 15 },
-                              y: { duration: 0.2 },
-                            }}
-                            onMouseEnter={(e) => {
-                              setHoveredCardIndex(i);
-                              const rect = e.currentTarget.getBoundingClientRect();
-                              e.currentTarget.style.setProperty("--glow-x", `${((e.clientX - rect.left) / rect.width) * 100}%`);
-                              e.currentTarget.style.setProperty("--glow-y", `${((e.clientY - rect.top) / rect.height) * 100}%`);
-                            }}
-                            onMouseMove={(e) => {
-                              const rect = e.currentTarget.getBoundingClientRect();
-                              e.currentTarget.style.setProperty("--glow-x", `${((e.clientX - rect.left) / rect.width) * 100}%`);
-                              e.currentTarget.style.setProperty("--glow-y", `${((e.clientY - rect.top) / rect.height) * 100}%`);
-                            }}
-                            onMouseLeave={() => setHoveredCardIndex(null)}
-                            className="nav-card-accent group/card relative block rounded-sm overflow-hidden bg-white/5 transition-shadow duration-200"
-                            style={{
-                              "--card-accent": activeAccent,
-                              "--card-accent-bg": activeAccent.replace(")", " / 0.1)").replace("hsl(", "hsl("),
-                              boxShadow: hoveredCardIndex === i
-                                ? `0 8px 24px -4px ${activeAccent.replace(")", " / 0.25)").replace("hsl(", "hsl(")}`
-                                : "none",
-                            } as React.CSSProperties}
-                          >
-                            {/* Cursor-following glow */}
-                            <div
-                              className="pointer-events-none absolute inset-0 z-10 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 rounded-sm"
-                              style={{
-                                background: `radial-gradient(circle 120px at var(--glow-x, 50%) var(--glow-y, 50%), ${activeAccent.replace(")", " / 0.1)").replace("hsl(", "hsl(")}, transparent 70%)`,
+                      {isCompact ? (
+                        /* Compact text-only dropdown for "More" */
+                        <div className="flex flex-col gap-1">
+                          {activeItems.map((item, i) => (
+                            <m.a
+                              key={item.title}
+                              href={item.href}
+                              target={item.href.startsWith("http") ? "_blank" : undefined}
+                              rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                              initial={{ opacity: 0, x: -8 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ duration: 0.2, delay: 0.04 * i }}
+                              onClick={() => trackNavClick(item.title)}
+                              className="group/compact flex items-center gap-2 px-3 py-2 rounded-md text-sm font-sans-body text-muted-foreground hover:text-foreground transition-colors duration-200 hover:bg-white/5"
+                            >
+                              <span
+                                className="w-0.5 h-4 rounded-full opacity-0 group-hover/compact:opacity-100 transition-opacity duration-200"
+                                style={{ backgroundColor: activeAccent }}
+                              />
+                              {item.title}
+                            </m.a>
+                          ))}
+                        </div>
+                      ) : (
+                        /* Course/item cards */
+                        <div className={`grid ${gridCols} gap-3`}>
+                          {activeItems.map((item, i) => (
+                            <m.a
+                              key={item.title}
+                              href={item.href}
+                              target={item.href.startsWith("http") ? "_blank" : undefined}
+                              rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                              initial={{ opacity: 0, y: 8, rotateZ: -1.5, scale: 0.96 }}
+                              animate={{
+                                opacity: hoveredCardIndex !== null && hoveredCardIndex !== i ? 0.65 : 1,
+                                y: 0,
+                                rotateZ: 0,
+                                scale: 1,
                               }}
-                            />
-                            {/* Haptic border flash */}
-                            <div
-                              className="pointer-events-none absolute inset-0 z-20 rounded-sm border border-transparent group-hover/card:border-white/15 transition-[border-color] duration-150"
-                            />
-                            <div className="aspect-[4/3] overflow-hidden rounded-md bg-white/5 relative">
-                              {item.image ? (
-                                <img
-                                  src={item.image}
-                                  alt={item.title}
-                                  className="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105"
-                                  style={{ objectPosition: item.objectPosition || "top" }}
-                                  loading="lazy"
-                                  decoding="async"
-                                />
-                              ) : (
-                                <div className="w-full h-full flex items-center justify-center">
-                                  <span className="font-sans-body text-[10px] uppercase tracking-wider text-muted-foreground/50">Coming Soon</span>
+                              whileHover={{ scale: 1.03, y: -4 }}
+                              whileTap={{ scale: 0.97 }}
+                              transition={{
+                                duration: 0.25,
+                                delay: 0.04 * i,
+                                ease: "easeOut",
+                                scale: { type: "spring", stiffness: 500, damping: 15 },
+                                y: { duration: 0.2 },
+                              }}
+                              onMouseEnter={(e) => {
+                                setHoveredCardIndex(i);
+                                const rect = e.currentTarget.getBoundingClientRect();
+                                e.currentTarget.style.setProperty("--glow-x", `${((e.clientX - rect.left) / rect.width) * 100}%`);
+                                e.currentTarget.style.setProperty("--glow-y", `${((e.clientY - rect.top) / rect.height) * 100}%`);
+                              }}
+                              onMouseMove={(e) => {
+                                const rect = e.currentTarget.getBoundingClientRect();
+                                e.currentTarget.style.setProperty("--glow-x", `${((e.clientX - rect.left) / rect.width) * 100}%`);
+                                e.currentTarget.style.setProperty("--glow-y", `${((e.clientY - rect.top) / rect.height) * 100}%`);
+                              }}
+                              onMouseLeave={() => setHoveredCardIndex(null)}
+                              className="nav-card-accent group/card relative block rounded-sm overflow-hidden bg-white/5 transition-shadow duration-200"
+                              style={{
+                                "--card-accent": activeAccent,
+                                "--card-accent-bg": activeAccent.replace(")", " / 0.1)").replace("hsl(", "hsl("),
+                                boxShadow: hoveredCardIndex === i
+                                  ? `0 8px 24px -4px ${activeAccent.replace(")", " / 0.25)").replace("hsl(", "hsl(")}`
+                                  : "none",
+                              } as React.CSSProperties}
+                            >
+                              {/* Cursor-following glow */}
+                              <div
+                                className="pointer-events-none absolute inset-0 z-10 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 rounded-sm"
+                                style={{
+                                  background: `radial-gradient(circle 120px at var(--glow-x, 50%) var(--glow-y, 50%), ${activeAccent.replace(")", " / 0.1)").replace("hsl(", "hsl(")}, transparent 70%)`,
+                                }}
+                              />
+                              {/* Haptic border flash */}
+                              <div
+                                className="pointer-events-none absolute inset-0 z-20 rounded-sm border border-transparent group-hover/card:border-white/15 transition-[border-color] duration-150"
+                              />
+                              <div className="aspect-[4/3] overflow-hidden rounded-md bg-white/5 relative">
+                                {item.image ? (
+                                  <img
+                                    src={item.image}
+                                    alt={item.title}
+                                    className="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105"
+                                    style={{ objectPosition: item.objectPosition || "top" }}
+                                    loading="lazy"
+                                    decoding="async"
+                                  />
+                                ) : (
+                                  <div className="w-full h-full flex items-center justify-center">
+                                    <span className="font-sans-body text-[10px] uppercase tracking-wider text-muted-foreground/50">Coming Soon</span>
+                                  </div>
+                                )}
+                                {/* Title + subtitle reveal overlay */}
+                                <div className="absolute inset-x-0 bottom-0 translate-y-full group-hover/card:translate-y-0 transition-transform duration-300 ease-out bg-black/60 backdrop-blur-sm px-2.5 py-2">
+                                  <p className="text-[11px] font-medium leading-tight truncate" style={{ color: activeAccent }}>
+                                    {item.title}
+                                  </p>
+                                  <p className="text-[10px] text-white/60 leading-tight truncate mt-0.5">
+                                    {item.subtitle}
+                                  </p>
                                 </div>
-                              )}
-                              {/* Title + subtitle reveal overlay */}
-                              <div className="absolute inset-x-0 bottom-0 translate-y-full group-hover/card:translate-y-0 transition-transform duration-300 ease-out bg-black/60 backdrop-blur-sm px-2.5 py-2">
-                                <p className="text-[11px] font-medium leading-tight truncate" style={{ color: activeAccent }}>
-                                  {item.title}
-                                </p>
-                                <p className="text-[10px] text-white/60 leading-tight truncate mt-0.5">
-                                  {item.subtitle}
-                                </p>
                               </div>
-                            </div>
-                          </m.a>
-                        ))}
-                      </div>
+                            </m.a>
+                          ))}
+                        </div>
+                      )}
 
                     </m.div>
                   </AnimatePresence>
@@ -433,52 +460,78 @@ const Navbar = () => {
                                   {link.description}
                                 </p>
                               )}
-                              <div
-                                className="grid grid-cols-2 gap-2.5 pb-4 pl-3 border-l-2"
-                                style={{ borderColor: linkAccent + "33" }}
-                              >
-                                {link.items.map((item, i) => (
-                                  <m.a
-                                    key={item.title}
-                                    href={item.href}
-                                    target={
-                                      item.href.startsWith("http")
-                                        ? "_blank"
-                                        : undefined
-                                    }
-                                    rel={
-                                      item.href.startsWith("http")
-                                        ? "noopener noreferrer"
-                                        : undefined
-                                    }
-                                    initial={{ opacity: 0, y: 8 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{
-                                      duration: 0.25,
-                                      delay: 0.04 * i,
-                                    }}
-                                    onClick={() => { trackNavClick(item.title); setMobileOpen(false); }}
-                                    className="block rounded-sm overflow-hidden bg-white/5 active:scale-[0.97] transition-all duration-150 relative"
-                                    style={{ borderLeft: `3px solid ${linkAccent}` }}
-                                  >
-                                    <div className="aspect-[4/3] overflow-hidden rounded-md">
-                                      <img
-                                        src={item.image}
-                                        alt={item.title}
-                                        className="w-full h-full object-cover"
-                                        style={{ objectPosition: item.objectPosition || "top" }}
-                                        loading="lazy"
-                                        decoding="async"
-                                      />
-                                    </div>
-                                    {/* Always-visible title + subtitle below card */}
-                                    <div className="px-1 pt-1.5 pb-1">
-                                      <p className="text-[13px] font-semibold leading-tight truncate" style={{ color: linkAccent }}>{item.title}</p>
-                                      <p className="text-[11px] text-white/60 leading-tight mt-0.5 truncate">{item.subtitle}</p>
-                                    </div>
-                                  </m.a>
-                                ))}
-                              </div>
+
+                              {(link as NavLink).compact ? (
+                                /* Compact text-only list for "More" */
+                                <div
+                                  className="flex flex-col gap-1 pb-4 pl-3 border-l-2"
+                                  style={{ borderColor: linkAccent + "33" }}
+                                >
+                                  {link.items.map((item, i) => (
+                                    <m.a
+                                      key={item.title}
+                                      href={item.href}
+                                      target={item.href.startsWith("http") ? "_blank" : undefined}
+                                      rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                                      initial={{ opacity: 0, x: -8 }}
+                                      animate={{ opacity: 1, x: 0 }}
+                                      transition={{ duration: 0.2, delay: 0.04 * i }}
+                                      onClick={() => { trackNavClick(item.title); setMobileOpen(false); }}
+                                      className="px-3 py-2.5 text-base font-sans-body text-muted-foreground hover:text-foreground transition-colors duration-200"
+                                      style={{ borderLeft: `3px solid ${linkAccent}` }}
+                                    >
+                                      {item.title}
+                                    </m.a>
+                                  ))}
+                                </div>
+                              ) : (
+                                <div
+                                  className="grid grid-cols-2 gap-2.5 pb-4 pl-3 border-l-2"
+                                  style={{ borderColor: linkAccent + "33" }}
+                                >
+                                  {link.items.map((item, i) => (
+                                    <m.a
+                                      key={item.title}
+                                      href={item.href}
+                                      target={
+                                        item.href.startsWith("http")
+                                          ? "_blank"
+                                          : undefined
+                                      }
+                                      rel={
+                                        item.href.startsWith("http")
+                                          ? "noopener noreferrer"
+                                          : undefined
+                                      }
+                                      initial={{ opacity: 0, y: 8 }}
+                                      animate={{ opacity: 1, y: 0 }}
+                                      transition={{
+                                        duration: 0.25,
+                                        delay: 0.04 * i,
+                                      }}
+                                      onClick={() => { trackNavClick(item.title); setMobileOpen(false); }}
+                                      className="block rounded-sm overflow-hidden bg-white/5 active:scale-[0.97] transition-all duration-150 relative"
+                                      style={{ borderLeft: `3px solid ${linkAccent}` }}
+                                    >
+                                      <div className="aspect-[4/3] overflow-hidden rounded-md">
+                                        <img
+                                          src={item.image}
+                                          alt={item.title}
+                                          className="w-full h-full object-cover"
+                                          style={{ objectPosition: item.objectPosition || "top" }}
+                                          loading="lazy"
+                                          decoding="async"
+                                        />
+                                      </div>
+                                      {/* Always-visible title + subtitle below card */}
+                                      <div className="px-1 pt-1.5 pb-1">
+                                        <p className="text-[13px] font-semibold leading-tight truncate" style={{ color: linkAccent }}>{item.title}</p>
+                                        <p className="text-[11px] text-white/60 leading-tight mt-0.5 truncate">{item.subtitle}</p>
+                                      </div>
+                                    </m.a>
+                                  ))}
+                                </div>
+                              )}
                             </m.div>
                           )}
                         </AnimatePresence>
