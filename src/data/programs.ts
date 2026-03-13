@@ -145,9 +145,9 @@ export const showcasePrograms: ShowcaseProgram[] = [
     image: liveSw,
     previewVideo: "/videos/sw-preview.mp4",
     youtubeId: "OkJmqqsnQ0c",
-    ctaLink: "https://www.leveluplearning.live/sw",
+    ctaLink: "https://www.leveluplearning.in/sw",
     ctaLabel: "Request Invite",
-    learnMoreLink: "https://www.leveluplearning.live/sw",
+    learnMoreLink: "https://www.leveluplearning.in/sw",
     stats: ["8 Weeks", "128 Concepts", "15 Assignments", "4 Mentors"],
     bullets: [
       "Psychology of storytelling, visual storytelling, and pitching & selling",
