@@ -44,7 +44,7 @@ const masterclasses = [
     descriptor: "Set designing, creative problem-solving, and miniatures",
     format: "Art Director",
     category: "Art Direction",
-    href: "https://masterclass.leveluplearning.in/kiran",
+    href: "/masterclass/drk-kiran",
   },
   {
     image: raviImg,

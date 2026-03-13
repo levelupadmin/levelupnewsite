@@ -32,6 +32,9 @@ import {
   GraduationCap,
   Clapperboard,
   Video,
+  Palette,
+  Ruler,
+  Sparkles,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import testimonial1 from "@/assets/testimonial-1.jpg";
@@ -47,7 +50,7 @@ const otherMasterclasses = [
   { name: "Karthik Subbaraj", image: karthikImg, href: "https://masterclass.leveluplearning.in/karthik-subbaraj" },
   { name: "Anthony Gonsalvez", image: anthonyImg, href: "/masterclass/anthony-gonsalvez" },
   { name: "G Venket Ram", image: venketImg, href: "/masterclass/g-venket-ram" },
-  { name: "DRK Kiran", image: kiranImg, href: "https://masterclass.leveluplearning.in/kiran" },
+  { name: "DRK Kiran", image: kiranImg, href: "/masterclass/drk-kiran" },
   { name: "Ravi Basrur", image: raviImg, href: "https://masterclass.leveluplearning.in/ravi-basrur" },
   { name: "Lokesh Kanagaraj", image: lokeshImg, href: "https://masterclass.leveluplearning.in/lokesh-kanagaraj" },
   { name: "Nelson Dilipkumar", image: nelsonImg, href: "https://masterclass.leveluplearning.in/nelson-dilipkumar" },
@@ -84,6 +87,9 @@ const audienceLucideIcons: Record<string, LucideIcon> = {
   "Aspiring Editors": GraduationCap,
   "Filmmakers": Clapperboard,
   "Cinema Aspirants": Video,
+  "Art Directors": Palette,
+  "Set Directors": Ruler,
+  "Art Direction Aspirants": Sparkles,
 };
 
 // Portfolio images (GVR specific)
