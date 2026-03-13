@@ -203,7 +203,7 @@ const ForgeSection = () => {
                 <div className="relative aspect-[3/4] md:aspect-[16/10] rounded-sm overflow-hidden group">
                   <img
                   src={card.image}
-                  alt={card.title}
+                  alt={`LevelUp Learning ${card.title} course thumbnail`}
                   className="absolute inset-0 w-full h-full object-cover"
                   loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />

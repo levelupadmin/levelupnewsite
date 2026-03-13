@@ -106,7 +106,7 @@ const SuccessStories = () => (
             <div className="flex items-center gap-4 p-5 pb-4 border-b border-border/30">
               <img
                 src={s.avatar}
-                alt={s.name}
+                alt={`Portrait of ${s.name}, ${s.role} at LevelUp Learning`}
                 className="w-14 h-14 rounded-full object-cover ring-2 ring-primary/20"
               />
               <div className="flex-1 min-w-0">

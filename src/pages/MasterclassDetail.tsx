@@ -714,7 +714,7 @@ const MasterclassDetail = () => {
                     <div className="relative aspect-[3/4] overflow-hidden rounded-sm bg-card shadow-md transition-shadow duration-500 group-hover:shadow-[0_0_20px_2px_hsl(38_75%_55%/0.35)]">
                       <img
                         src={mc.image}
-                        alt={mc.name}
+                        alt={`Portrait of ${mc.name}, Instructor at LevelUp Learning`}
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
                         loading="lazy"
                         decoding="async"
