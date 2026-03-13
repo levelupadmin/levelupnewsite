@@ -120,9 +120,9 @@ export const showcasePrograms: ShowcaseProgram[] = [
     image: liveUiux,
     previewVideo: "/videos/ve-trailer.mp4",
     youtubeId: "dQw4w9WgXcQ",
-    ctaLink: "https://www.leveluplearning.live/uiux-academy",
+    ctaLink: "https://www.leveluplearning.in/uiux-academy",
     ctaLabel: "Request Invite",
-    learnMoreLink: "https://www.leveluplearning.live/uiux-academy",
+    learnMoreLink: "https://www.leveluplearning.in/uiux-academy",
     stats: ["12 Weeks", "Weekends Only", "LIVE Online", "Top 5% Accepted"],
     bullets: [
       "AI-first curriculum woven into research, synthesis, UX copy & prototyping",
