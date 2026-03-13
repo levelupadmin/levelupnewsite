@@ -1,49 +1,38 @@
 
 
-## Plan: Consolidate All Domain References to `leveluplearning.in`
+## Condense "Student Stories" and "Careers" into a "More" Dropdown
 
-The codebase currently scatters authority across `leveluplearning.live`, `masterclass.leveluplearning.in`, `study.leveluplearning.in`, and `forgebylevelup.com`. This plan unifies every self-referencing URL to use `www.leveluplearning.in` as the canonical domain.
-
-**Note:** External product subdomains (`masterclass.leveluplearning.in`, `study.leveluplearning.in`) and third-party domains (`forgebylevelup.com`, `tally.so`) are intentional cross-links to separate apps and will remain unchanged. The fix targets only the **main site's own canonical identity**.
-
----
+Currently, "Student Stories" and "Careers" are separate top-level nav links (indices 3 and 4) with no dropdown items. We'll merge them into a single "More" label with a minimal dropdown.
 
 ### Changes
 
-**1. `src/lib/constants.ts`**
-- Change `SITE_URL` from `"https://levelupnewsite.lovable.app"` to `"https://www.leveluplearning.in"`
+**1. `src/components/navbarData.ts`**
+- Remove the standalone "Student Stories" and "Careers" entries
+- Add a new "More" entry with two simple items (no images):
+  - Student Stories → `/student-stories`
+  - Careers → `/careers`
 
-**2. `public/robots.txt`**
-- Change sitemap URL from `https://www.leveluplearning.live/sitemap.xml` to `https://www.leveluplearning.in/sitemap.xml`
+**2. `src/components/Navbar.tsx`**
+- Update `navLabels` array: replace the two entries with a single `{ label: "More", href: "#" }`
+- For the "More" dropdown on desktop: detect when the active link has items but no images (or a flag like `compact: true`), and render a compact text-only dropdown list instead of the image card grid. This will be a simple vertical list with link labels, styled with the same accent line and frosted glass panel.
+- On mobile: the existing accordion expand logic already handles items with sub-links — it will just show the two text links without image cards (since items won't have images).
 
-**3. `public/sitemap.xml`**
-- Replace all `https://www.leveluplearning.live/` URLs with `https://www.leveluplearning.in/`
+**3. Desktop compact dropdown rendering (inside the expandable panel)**
+- Add a condition: if `activeItems` exist but none have images (or the link has a `compact` flag), render a narrow text list instead of the 4-column card grid:
+```text
+┌──────────────────────────────┐
+│  More                        │
+│  ─────────────────────────── │
+│  Student Stories              │
+│  Careers                      │
+└──────────────────────────────┘
+```
+- Style: `flex flex-col gap-1`, each item as a link with `text-sm text-muted-foreground hover:text-foreground` and left accent border on hover.
 
-**4. `public/llms.txt`**
-- Replace all `https://www.leveluplearning.live/` references with `https://www.leveluplearning.in/`
-- Keep `masterclass.leveluplearning.in` and `forgebylevelup.com` links as-is (separate products)
-
-**5. `src/components/LiveProgramsSection.tsx`**
-- Update the JSON-LD Organization URL from `.live` to `https://www.leveluplearning.in`
-
-**6. `src/components/navbarData.ts`**
-- Replace 3 live program `href` values from `leveluplearning.live` to `leveluplearning.in`
-
-**7. `src/components/CareerQuizDialog.tsx`**
-- Update the BFP href from `.live` to `.in`
-
-**8. `src/pages/PrivacyPolicy.tsx`**
-- Already uses `leveluplearning.in` -- no change needed
-
-**9. `src/pages/MasterclassDetail.tsx`**
-- Support email already uses `leveluplearning.in` -- no change needed
+**4. Mobile compact rendering**
+- When expanded, skip the image grid and render a simple list of text links with the category accent left-border styling.
 
 ### Files to Edit
-1. `src/lib/constants.ts`
-2. `public/robots.txt`
-3. `public/sitemap.xml`
-4. `public/llms.txt`
-5. `src/components/LiveProgramsSection.tsx`
-6. `src/components/navbarData.ts`
-7. `src/components/CareerQuizDialog.tsx`
+1. `src/components/navbarData.ts` — restructure last two entries into "More"
+2. `src/components/Navbar.tsx` — add compact dropdown variant, update `navLabels`
 
