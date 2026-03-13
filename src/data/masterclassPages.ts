@@ -68,6 +68,7 @@ export interface MasterclassPageData {
   heroBgImage: string;
   heroNameOverlay?: string;
   heroDesktopBg?: string;
+  heroDesktopObjectPosition?: string;
   portraitImage: string;
   certificateImage: string;
   pricingImage?: string;
@@ -477,6 +478,7 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
     heroImage: kiranImg,
     heroBgImage: kiranHeroMobile,
     heroDesktopBg: kiranHeroDesktop,
+    heroDesktopObjectPosition: "center center",
     portraitImage: kiranImg,
     certificateImage: kiranCertificate,
     pricingImage: kiranHeroDesktop,
