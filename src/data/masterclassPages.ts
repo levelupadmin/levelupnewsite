@@ -286,6 +286,7 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
     discipline: "Film Editing",
     heroImage: anthonyImg,
     heroBgImage: anthonyHeroBg,
+    heroNameOverlay: anthonyHeroName,
     portraitImage: anthonyImg,
     certificateImage: anthonyCertificate,
     pricingImage: anthonyPricing,
