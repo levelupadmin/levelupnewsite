@@ -99,7 +99,7 @@ const LiveProgramsSection = () => {
       "@type": "Course",
       name: p.title,
       description: p.description,
-      provider: { "@type": "Organization", name: "LevelUp Learning", url: "https://www.leveluplearning.live" },
+      provider: { "@type": "Organization", name: "LevelUp Learning", url: "https://www.leveluplearning.in" },
       hasCourseInstance: {
         "@type": "CourseInstance",
         courseMode: p.format.includes("Live") ? "Blended" : "Online",

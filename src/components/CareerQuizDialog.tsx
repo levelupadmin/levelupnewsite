@@ -102,7 +102,7 @@ const RESULTS: Record<Result, ResultData> = {
     subtitle: "For those ready to make the leap.",
     description: "A rigorous, mentor-led program designed for experienced creators who want to break into the professional industry with guided portfolio building.",
     cta: "Apply for Mentorship",
-    href: "https://www.leveluplearning.live/bfp",
+    href: "https://www.leveluplearning.in/bfp",
     external: true,
     icon: Users,
     emoji: "🚀",
