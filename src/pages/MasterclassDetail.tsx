@@ -172,7 +172,7 @@ const MasterclassDetail = () => {
 
       {/* ═══ 1. HERO ═══ */}
       <section className="relative overflow-hidden">
-        <div className="relative min-h-[80vh] md:min-h-[85vh] flex items-center justify-center">
+        <div className="relative min-h-[55vh] sm:min-h-[70vh] md:min-h-[85vh] flex items-center justify-center">
           <div className="absolute inset-0 z-0">
             <img src={data.heroBgImage} alt="" className="w-full h-full object-cover object-top" aria-hidden="true" />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
@@ -182,7 +182,7 @@ const MasterclassDetail = () => {
         <div className="relative z-10 bg-background w-full max-w-5xl mx-auto px-6 py-12 md:py-16 text-center -mt-16">
           <FadeInSection>
             <p className="font-display text-2xl md:text-3xl text-foreground/80 uppercase tracking-[0.15em] mb-1">Teaches</p>
-            <h2 className="font-display text-5xl sm:text-7xl md:text-8xl text-foreground uppercase tracking-wide leading-[0.9]">
+            <h2 className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl text-foreground uppercase tracking-wide leading-[0.9]">
               {data.discipline}
             </h2>
           </FadeInSection>
@@ -307,7 +307,7 @@ const MasterclassDetail = () => {
                 <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground uppercase tracking-wide mb-8">
                   Who is this <span className="text-primary">program</span> for?
                 </h2>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   {data.audienceTargets.map((target) => {
                     const iconSrc = target.icon || audienceIcons[target.label];
                     const LucideIcon = audienceLucideIcons[target.label];
