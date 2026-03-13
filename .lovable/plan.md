@@ -1,23 +1,25 @@
 
-## Add Meta Pixel Tracking
 
-### What
-Integrate Meta Pixel (Facebook Pixel) with ID `662214098433203` to track user behavior for advertising and analytics purposes.
+## Fix: Remove fade from hero name text, match reference image
 
-### How
-1. **Add Meta Pixel ID to constants**
-   - Update `src/lib/constants.ts` to include `META_PIXEL_ID = "662214098433203"`
+### Problem
+The hero has a gradient overlay fading the name text, and the name opacity is reduced to 70-80%. The reference image shows the name at full visibility with no fade effect.
 
-2. **Create Meta Pixel initialization hook**
-   - Create `src/hooks/useMetaPixel.ts` to initialize the Meta Pixel script and track page views when routes change
+### Changes in `src/pages/MasterclassDetail.tsx`
 
-3. **Initialize in App.tsx**
-   - Call the `useMetaPixel` hook in the root App component to activate tracking across all pages
+**Line 178** — Name overlay: Set full opacity (`opacity-100`) on all breakpoints.
 
-4. **Add Meta Pixel script to index.html (backup)**
-   - Include the Meta Pixel base code in `<head>` as a fallback for server-side rendering
+**Line 181** — Remove or reduce the gradient overlay so it doesn't wash out the name text. Change from `from-background via-background/30 to-transparent` to only a subtle bottom fade: `from-background via-transparent to-transparent` so the bottom blends but the name text area stays clean.
 
-### Why This Approach
-- Meta Pixel ID is public (not a secret), so it's safe in the codebase
-- Hook-based approach integrates with existing React router for proper page view tracking
-- Hooks with Meta Pixel's `fbq()` API ensure events are tracked on all page navigations
+```tsx
+// Line 178: Full opacity name
+<img src={data.heroNameOverlay} alt="" 
+  className="absolute inset-x-0 top-16 sm:top-24 md:top-32 lg:top-40 bottom-0 w-full h-auto object-contain z-0" 
+  aria-hidden="true" />
+
+// Line 181: Only bottom fade, not covering the name area
+<div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-[2]" />
+```
+
+This matches the reference: bold, fully visible name text behind the person with only a subtle bottom gradient for content transition.
+
