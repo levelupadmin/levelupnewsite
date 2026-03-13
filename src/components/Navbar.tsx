@@ -169,17 +169,18 @@ const Navbar = () => {
               {links.map((link, index) => {
                 const linkAccent = (link as NavLink).accent || DEFAULT_ACCENT;
                 const isActive = activeIndex === index;
+                const linkIsCompact = !!(link as NavLink).compact;
 
-                return (
+                const linkEl = (
                   <a
                     key={link.label}
-                    href={link.href}
+                    href={linkIsCompact ? undefined : link.href}
                     target={link.href.startsWith("http") ? "_blank" : undefined}
                     rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                     onClick={() => trackNavClick(link.label)}
                     onMouseEnter={() => handleLinkEnter(index)}
                     className={[
-                      "relative px-3 py-1.5 font-sans-body text-sm transition-colors duration-300 flex flex-col items-center",
+                      "relative px-3 py-1.5 font-sans-body text-sm transition-colors duration-300 flex flex-col items-center cursor-pointer",
                       isActive
                         ? "text-foreground"
                         : "text-muted-foreground hover:text-foreground",
@@ -188,7 +189,7 @@ const Navbar = () => {
                   >
                     <span className="relative z-10">{link.label}</span>
                     {/* Sliding accent underline */}
-                    {isActive && (
+                    {isActive && !linkIsCompact && (
                       <m.span
                         layoutId="nav-underline"
                         className="absolute -bottom-0.5 h-[2px] rounded-full left-3 right-3"
@@ -198,6 +199,45 @@ const Navbar = () => {
                     )}
                   </a>
                 );
+
+                if (linkIsCompact) {
+                  return (
+                    <div
+                      key={link.label}
+                      className="relative"
+                      onMouseEnter={() => handleLinkEnter(index)}
+                      onMouseLeave={() => setActiveIndex(null)}
+                    >
+                      {linkEl}
+                      <AnimatePresence>
+                        {isActive && link.items.length > 0 && (
+                          <m.div
+                            initial={{ opacity: 0, y: 4 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 4 }}
+                            transition={{ duration: 0.15, ease: "easeOut" }}
+                            className="absolute top-full right-0 mt-2 w-44 rounded-lg border border-white/10 bg-black/70 backdrop-blur-md shadow-xl py-1 px-1"
+                          >
+                            {link.items.map((item) => (
+                              <a
+                                key={item.title}
+                                href={item.href}
+                                target={item.href.startsWith("http") ? "_blank" : undefined}
+                                rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                                onClick={() => trackNavClick(item.title)}
+                                className="block px-3 py-2 text-sm font-sans-body text-muted-foreground hover:text-foreground hover:bg-white/[0.08] rounded-md transition-colors duration-150"
+                              >
+                                {item.title}
+                              </a>
+                            ))}
+                          </m.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                }
+
+                return linkEl;
               })}
             </div>
 
