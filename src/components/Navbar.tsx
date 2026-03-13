@@ -400,7 +400,7 @@ const Navbar = () => {
                                 {item.image ? (
                                   <img
                                     src={item.image}
-                                    alt={item.title}
+                                    alt={`LevelUp Learning ${item.title} course thumbnail`}
                                     className="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105"
                                     style={{ objectPosition: item.objectPosition || "top" }}
                                     loading="lazy"
@@ -561,7 +561,7 @@ const Navbar = () => {
                                       <div className="aspect-[4/3] overflow-hidden rounded-md">
                                         <img
                                           src={item.image}
-                                          alt={item.title}
+                                          alt={`LevelUp Learning ${item.title} course thumbnail`}
                                           className="w-full h-full object-cover"
                                           style={{ objectPosition: item.objectPosition || "top" }}
                                           loading="lazy"

@@ -112,7 +112,7 @@ const MasterclassCard = ({ mc }: { mc: typeof masterclasses[0] }) => {
       <div className="relative aspect-[3/4] overflow-hidden rounded-sm bg-card shadow-md transition-shadow duration-500 group-hover:shadow-[0_0_20px_2px_hsl(38_75%_55%/0.35)]">
         <img
           src={mc.image}
-          alt={`${mc.name} — ${mc.descriptor}`}
+          alt={`Portrait of ${mc.name}, ${mc.format} at LevelUp Learning`}
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
           loading="lazy"
           decoding="async"
@@ -128,7 +128,7 @@ const ComingSoonCard = () => (
     <div className="relative aspect-[3/4] overflow-hidden rounded-sm shadow-md transition-shadow duration-500 group-hover:shadow-[0_0_20px_2px_hsl(38_75%_55%/0.35)]" style={{ backgroundColor: "#1C1208" }}>
       <img
         src={comingSoonImg}
-        alt="Coming soon masterclass"
+        alt=""
         className="absolute inset-0 w-full h-full object-cover opacity-60"
         loading="lazy"
         decoding="async"

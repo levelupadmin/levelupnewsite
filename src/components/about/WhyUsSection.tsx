@@ -66,7 +66,7 @@ const WhyUsSection = () => (
             <div className="relative h-36 overflow-hidden">
               <img
                 src={p.image}
-                alt={p.title}
+                alt={`LevelUp Learning ${p.title} — ${p.description.substring(0, 60)}`}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 loading="lazy"
               />

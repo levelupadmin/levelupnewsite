@@ -258,7 +258,7 @@ const LiveProgramsSection = () => {
                   <div className="md:order-2 md:w-[40%] relative aspect-[16/10] md:aspect-auto overflow-hidden">
                     <img
                       src={program.image}
-                      alt={program.title}
+                      alt={`LevelUp Learning ${program.title} course thumbnail`}
                       loading="lazy"
                       className="w-full h-full object-cover"
                     />

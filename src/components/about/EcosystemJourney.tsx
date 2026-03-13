@@ -87,7 +87,7 @@ const EcosystemJourney = () => (
             <div className="relative aspect-[4/3] overflow-hidden">
               <img
                 src={layer.image}
-                alt={layer.title}
+                alt={`LevelUp Learning ${layer.title} program`}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 loading="lazy"
               />

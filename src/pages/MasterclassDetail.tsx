@@ -325,7 +325,7 @@ const MasterclassDetail = () => {
           <FadeInSection>
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="relative max-w-sm mx-auto md:mx-0">
-                <img src={data.portraitImage} alt={data.name} className="w-full aspect-[3/4] object-cover rounded-lg" />
+                <img src={data.portraitImage} alt={`Portrait of ${data.name}, Instructor at LevelUp Learning`} className="w-full aspect-[3/4] object-cover rounded-lg" />
               </div>
 
               <div>
@@ -481,7 +481,7 @@ const MasterclassDetail = () => {
                   <p className="text-sm text-foreground/80 leading-relaxed flex-1">"{t.quote}"</p>
                   <div className="flex items-center gap-3 mt-4">
                     {t.image && (
-                      <img src={t.image} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
+                      <img src={t.image} alt={`Portrait of ${t.name}, LevelUp Learning student`} className="w-10 h-10 rounded-full object-cover" />
                     )}
                     <div>
                       <p className="text-sm text-foreground font-medium">{t.name}</p>
@@ -596,7 +596,7 @@ const MasterclassDetail = () => {
                 <div className="mt-6 flex items-center gap-3">
                   <div className="flex -space-x-2">
                     {[testimonial1, testimonial2, testimonial4].map((img, i) => (
-                      <img key={i} src={img} alt="Student" className="w-8 h-8 rounded-full border-2 border-background object-cover" />
+                      <img key={i} src={img} alt="" className="w-8 h-8 rounded-full border-2 border-background object-cover" />
                     ))}
                   </div>
                   <div>
@@ -622,7 +622,7 @@ const MasterclassDetail = () => {
               <div className="rounded-xl p-[2px] bg-gradient-to-b from-primary/40 via-primary/20 to-primary/5">
                 <div className="bg-card rounded-xl overflow-hidden">
                   <div className="relative aspect-[4/3]">
-                    <img src={data.pricingImage || data.heroBgImage} alt={data.name} className="w-full h-full object-cover object-top" />
+                    <img src={data.pricingImage || data.heroBgImage} alt={`LevelUp Learning ${data.name} Masterclass course thumbnail`} className="w-full h-full object-cover object-top" />
                     <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
                   </div>
                   <div className="p-6 text-center space-y-3">
@@ -714,7 +714,7 @@ const MasterclassDetail = () => {
                     <div className="relative aspect-[3/4] overflow-hidden rounded-sm bg-card shadow-md transition-shadow duration-500 group-hover:shadow-[0_0_20px_2px_hsl(38_75%_55%/0.35)]">
                       <img
                         src={mc.image}
-                        alt={mc.name}
+                        alt={`Portrait of ${mc.name}, Instructor at LevelUp Learning`}
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
                         loading="lazy"
                         decoding="async"
