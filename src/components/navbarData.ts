@@ -101,7 +101,7 @@ export const navLinks: NavLink[] = [
         image: navVe,
         title: "Video Editing Academy",
         subtitle: "12-week cohort",
-        href: "https://www.leveluplearning.live/ve",
+        href: "https://www.leveluplearning.in/ve",
         objectPosition: "center 30%",
       },
       {
