@@ -61,7 +61,7 @@ export const navLinks: NavLink[] = [
         image: kiranImg,
         title: "DRK Kiran",
         subtitle: "Art Direction",
-        href: "https://masterclass.leveluplearning.in/kiran",
+        href: "/masterclass/drk-kiran",
       },
       {
         image: raviImg,
