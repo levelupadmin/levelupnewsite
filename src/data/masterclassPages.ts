@@ -17,6 +17,13 @@ import kiranImg from "@/assets/drk-kiran.webp";
 import kiranHeroDesktop from "@/assets/drk-kiran-hero-desktop.png";
 import kiranHeroMobile from "@/assets/drk-kiran-hero-mobile.png";
 import kiranCertificate from "@/assets/drk-kiran-certificate.png";
+import doctorPoster from "@/assets/portfolio/doctor-poster.png";
+import beastPoster from "@/assets/portfolio/beast-poster.png";
+import jailerPoster from "@/assets/portfolio/jailer-poster.png";
+import naanumRowdyPoster from "@/assets/portfolio/naanum-rowdy-dhaan-poster.png";
+import threePoster from "@/assets/portfolio/3-poster.png";
+import tskPoster from "@/assets/portfolio/thaanaa-serndha-koottam-poster.png";
+import aranmanaiPoster from "@/assets/portfolio/aranmanai-poster.png";
 
 export interface MasterclassFAQ {
   question: string;
@@ -509,7 +516,8 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
       { number: 20, title: "Small Scene, Big Impact: The Significance of Details", description: "Uncover the essence of cinematic mastery in the finale. Explore the significance of detail through a scene, and understand how even the smallest moments demand careful attention." },
     ],
     portfolioHeadline: "Learn from the Art Director Behind these Films",
-    showPortfolio: false,
+    showPortfolio: true,
+    portfolioImages: [doctorPoster, beastPoster, jailerPoster, naanumRowdyPoster, threePoster, tskPoster, aranmanaiPoster],
     audienceTargets: [
       { label: "Art Directors" },
       { label: "Filmmakers" },
