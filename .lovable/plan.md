@@ -1,23 +1,23 @@
 
-## Add Meta Pixel Tracking
 
-### What
-Integrate Meta Pixel (Facebook Pixel) with ID `662214098433203` to track user behavior for advertising and analytics purposes.
+## Fix: Name Overlay Overflowing on Desktop
 
-### How
-1. **Add Meta Pixel ID to constants**
-   - Update `src/lib/constants.ts` to include `META_PIXEL_ID = "662214098433203"`
+The name overlay image currently uses `top-16 sm:top-20` which isn't enough offset on larger screens, causing the text to overlap Anthony's head on desktop.
 
-2. **Create Meta Pixel initialization hook**
-   - Create `src/hooks/useMetaPixel.ts` to initialize the Meta Pixel script and track page views when routes change
+### Change in `src/pages/MasterclassDetail.tsx` (line 178)
 
-3. **Initialize in App.tsx**
-   - Call the `useMetaPixel` hook in the root App component to activate tracking across all pages
+Update the name overlay positioning to push it further down on desktop breakpoints:
 
-4. **Add Meta Pixel script to index.html (backup)**
-   - Include the Meta Pixel base code in `<head>` as a fallback for server-side rendering
+```tsx
+<img src={data.heroNameOverlay} alt="" 
+  className="absolute inset-x-0 top-16 sm:top-24 md:top-32 lg:top-40 bottom-0 w-full h-auto object-contain z-0 opacity-70 sm:opacity-80" 
+  aria-hidden="true" />
+```
 
-### Why This Approach
-- Meta Pixel ID is public (not a secret), so it's safe in the codebase
-- Hook-based approach integrates with existing React router for proper page view tracking
-- Hooks with Meta Pixel's `fbq()` API ensure events are tracked on all page navigations
+- `top-16` — mobile (stays as-is, already looks good)
+- `sm:top-24` — small tablets, slightly more offset
+- `md:top-32` — medium screens, pushes name well below nav
+- `lg:top-40` — large desktops, ensures name sits at chest/waist level behind Anthony, not on his head
+
+This keeps the mobile layout unchanged while fixing the desktop overflow.
+
