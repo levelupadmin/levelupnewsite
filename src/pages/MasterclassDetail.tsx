@@ -175,7 +175,7 @@ const MasterclassDetail = () => {
         <div className="relative min-h-[55vh] sm:min-h-[70vh] md:min-h-[85vh] flex items-center justify-center">
           <div className="absolute inset-0 z-0">
             {data.heroNameOverlay && (
-              <img src={data.heroNameOverlay} alt="" className="absolute inset-x-0 top-16 sm:top-24 md:top-32 lg:top-40 bottom-0 w-full h-auto object-contain z-0" aria-hidden="true" />
+              <img src={data.heroNameOverlay} alt="" className="absolute inset-x-0 top-16 sm:top-24 md:top-20 lg:top-16 bottom-0 w-full h-auto object-contain z-0" aria-hidden="true" />
             )}
             <img src={data.heroBgImage} alt="" className="w-full h-full object-cover object-center z-[1]" aria-hidden="true" />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-[2]" />
