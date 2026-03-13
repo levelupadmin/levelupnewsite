@@ -3,6 +3,7 @@ import { ArrowUp } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import usePageSeo from "@/hooks/usePageSeo";
 
 const tocSections = [
   { id: "welcome", label: "1. Welcome to Level Up Learning!" },
@@ -29,6 +30,12 @@ const Terms = () => {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [activeId, setActiveId] = useState<string>("");
   const observerRef = useRef<IntersectionObserver | null>(null);
+
+  usePageSeo({
+    title: "Terms & Conditions — LevelUp Learning",
+    description: "Review the terms and conditions for using LevelUp Learning's creative education platform, courses, and services.",
+    path: "/terms",
+  });
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
