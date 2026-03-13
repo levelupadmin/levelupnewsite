@@ -1,23 +1,20 @@
 
-## Add Meta Pixel Tracking
 
-### What
-Integrate Meta Pixel (Facebook Pixel) with ID `662214098433203` to track user behavior for advertising and analytics purposes.
+## Plan: Make Hero Background Image Show Full Name on Mobile
 
-### How
-1. **Add Meta Pixel ID to constants**
-   - Update `src/lib/constants.ts` to include `META_PIXEL_ID = "662214098433203"`
+**Problem**: On mobile (390px), the hero background image at `object-cover object-top` crops the image so Anthony's full name isn't visible — the image is zoomed in too much.
 
-2. **Create Meta Pixel initialization hook**
-   - Create `src/hooks/useMetaPixel.ts` to initialize the Meta Pixel script and track page views when routes change
+**Fix** in `src/pages/MasterclassDetail.tsx` (line 177):
 
-3. **Initialize in App.tsx**
-   - Call the `useMetaPixel` hook in the root App component to activate tracking across all pages
+Change the hero background `<img>` to use `object-contain` on mobile and `object-cover` on larger screens, so the full image (including the name) is visible on small viewports:
 
-4. **Add Meta Pixel script to index.html (backup)**
-   - Include the Meta Pixel base code in `<head>` as a fallback for server-side rendering
+```tsx
+// Before:
+<img src={data.heroBgImage} alt="" className="w-full h-full object-cover object-top" />
 
-### Why This Approach
-- Meta Pixel ID is public (not a secret), so it's safe in the codebase
-- Hook-based approach integrates with existing React router for proper page view tracking
-- Hooks with Meta Pixel's `fbq()` API ensure events are tracked on all page navigations
+// After:
+<img src={data.heroBgImage} alt="" className="w-full h-full object-contain sm:object-cover object-top" />
+```
+
+This switches to `object-contain` on mobile so the entire image fits within the hero area (showing the full name), while keeping `object-cover` on sm+ screens for the cinematic fill effect. The dark background color will fill any letterbox areas naturally.
+
