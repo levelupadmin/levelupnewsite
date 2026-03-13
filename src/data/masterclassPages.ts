@@ -56,6 +56,7 @@ export interface MasterclassPageData {
   heroImage: string;
   heroBgImage: string;
   heroNameOverlay?: string;
+  heroDesktopBg?: string;
   portraitImage: string;
   certificateImage: string;
   pricingImage?: string;
