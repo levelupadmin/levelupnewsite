@@ -156,4 +156,10 @@ export const navLinks: NavLink[] = [
     description: "",
     items: [],
   },
+  {
+    label: "Careers",
+    href: "/careers",
+    description: "",
+    items: [],
+  },
 ];
