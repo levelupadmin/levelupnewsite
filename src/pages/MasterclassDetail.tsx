@@ -596,7 +596,7 @@ const MasterclassDetail = () => {
                 <div className="mt-6 flex items-center gap-3">
                   <div className="flex -space-x-2">
                     {[testimonial1, testimonial2, testimonial4].map((img, i) => (
-                      <img key={i} src={img} alt="Student" className="w-8 h-8 rounded-full border-2 border-background object-cover" />
+                      <img key={i} src={img} alt="" className="w-8 h-8 rounded-full border-2 border-background object-cover" />
                     ))}
                   </div>
                   <div>
