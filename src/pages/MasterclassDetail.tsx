@@ -87,6 +87,9 @@ const audienceLucideIcons: Record<string, LucideIcon> = {
   "Aspiring Editors": GraduationCap,
   "Filmmakers": Clapperboard,
   "Cinema Aspirants": Video,
+  "Art Directors": Palette,
+  "Set Directors": Ruler,
+  "Art Direction Aspirants": Sparkles,
 };
 
 // Portfolio images (GVR specific)
