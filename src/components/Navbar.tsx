@@ -218,20 +218,20 @@ const Navbar = () => {
                             transition={{ duration: 0.15, ease: "easeOut" }}
                             className="absolute top-full right-0 pt-2 w-44"
                           >
-                          <div className="rounded-lg border border-white/10 bg-black/70 backdrop-blur-md shadow-xl py-1 px-1">
-                          >
-                            {link.items.map((item) => (
-                              <a
-                                key={item.title}
-                                href={item.href}
-                                target={item.href.startsWith("http") ? "_blank" : undefined}
-                                rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                                onClick={() => trackNavClick(item.title)}
-                                className="block px-3 py-2 text-sm font-sans-body text-muted-foreground hover:text-foreground hover:bg-white/[0.08] rounded-md transition-colors duration-150"
-                              >
-                                {item.title}
-                              </a>
-                            ))}
+                            <div className="rounded-lg border border-white/10 bg-black/70 backdrop-blur-md shadow-xl py-1 px-1">
+                              {link.items.map((item) => (
+                                <a
+                                  key={item.title}
+                                  href={item.href}
+                                  target={item.href.startsWith("http") ? "_blank" : undefined}
+                                  rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                                  onClick={() => trackNavClick(item.title)}
+                                  className="block px-3 py-2 text-sm font-sans-body text-muted-foreground hover:text-foreground hover:bg-white/[0.08] rounded-md transition-colors duration-150"
+                                >
+                                  {item.title}
+                                </a>
+                              ))}
+                            </div>
                           </m.div>
                         )}
                       </AnimatePresence>
