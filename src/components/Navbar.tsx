@@ -216,7 +216,9 @@ const Navbar = () => {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 4 }}
                             transition={{ duration: 0.15, ease: "easeOut" }}
-                            className="absolute top-full right-0 mt-2 w-44 rounded-lg border border-white/10 bg-black/70 backdrop-blur-md shadow-xl py-1 px-1"
+                            className="absolute top-full right-0 pt-2 w-44"
+                          >
+                          <div className="rounded-lg border border-white/10 bg-black/70 backdrop-blur-md shadow-xl py-1 px-1">
                           >
                             {link.items.map((item) => (
                               <a
