@@ -471,7 +471,7 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
     heroBgImage: kiranHeroMobile,
     heroDesktopBg: kiranHeroDesktop,
     portraitImage: kiranImg,
-    certificateImage: kiranImg,
+    certificateImage: kiranCertificate,
     pricingImage: kiranHeroDesktop,
     pullQuote:
       "\"An art director expresses his vision through sets and properties\"",
