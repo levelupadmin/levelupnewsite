@@ -280,7 +280,7 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
           "You can access classes on mobile by downloading the LevelUp Learning App for Android and iOS devices.",
       },
     ],
-    price: 499,
+    price: 2499,
     originalPrice: 2999,
     currency: "₹",
     ctaLink: "https://study.leveluplearning.in/web/checkout/631f6d223938790196fb7a31",
