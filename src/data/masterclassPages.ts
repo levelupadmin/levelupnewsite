@@ -289,6 +289,7 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
     heroImage: anthonyImg,
     heroBgImage: anthonyHeroBg,
     heroNameOverlay: anthonyHeroName,
+    heroDesktopBg: anthonyHeroDesktop,
     portraitImage: anthonyImg,
     certificateImage: anthonyCertificate,
     pricingImage: anthonyPricing,
