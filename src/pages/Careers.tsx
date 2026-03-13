@@ -130,7 +130,9 @@ const Careers = () => {
           </div>
           <div className="flex md:justify-end">
             <a
-              href="#apply"
+              href="https://tally.so/r/mO8eZ8"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-8 py-4 text-sm font-semibold tracking-widest uppercase transition-all duration-300 border-2 border-primary bg-primary text-primary-foreground hover:bg-transparent hover:text-primary"
             >
               Apply Now <ArrowRight className="w-4 h-4" />
