@@ -18,22 +18,25 @@ const About = () => {
     description: "LevelUp Learning is India's largest creative education platform. Learn filmmaking, editing, writing & design from 40+ industry mentors. 18,000+ creators trained.",
     path: "/about",
   });
-  <div className="min-h-screen bg-background theme-warm">
-    <Navbar />
-    <main>
-      <AboutHero />
-      <ProblemSection />
-      <OpportunityStats />
-      <EcosystemJourney />
-      <ImpactNumbers />
-      <ManifestoSection />
-      <SuccessStories />
-      <WhyUsSection />
-      <ClosingVision />
-      <FeaturedInSection />
-    </main>
-    <Footer />
-  </div>
-);
+
+  return (
+    <div className="min-h-screen bg-background theme-warm">
+      <Navbar />
+      <main>
+        <AboutHero />
+        <ProblemSection />
+        <OpportunityStats />
+        <EcosystemJourney />
+        <ImpactNumbers />
+        <ManifestoSection />
+        <SuccessStories />
+        <WhyUsSection />
+        <ClosingVision />
+        <FeaturedInSection />
+      </main>
+      <Footer />
+    </div>
+  );
+};
 
 export default About;

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import usePageSeo from "@/hooks/usePageSeo";
 
 const roles = [
   { num: "01", title: "Business Development Executive", dept: "Growth" },
@@ -19,8 +20,13 @@ const marqueeText =
   "Supercharge Your Growth · Create Real Impact · India's Largest Creative Ecosystem · 70,000+ Learners · 300K Community · ";
 
 const Careers = () => {
+  usePageSeo({
+    title: "Careers — LevelUp Learning",
+    description: "Join India's largest creative education ecosystem. Explore open roles in growth, product, design, marketing, and operations at LevelUp Learning.",
+    path: "/careers",
+  });
+
   useEffect(() => {
-    document.title = "Careers — LevelUp Learning";
     window.scrollTo(0, 0);
   }, []);
 
