@@ -95,7 +95,7 @@ export const navLinks: NavLink[] = [
         image: navBfp,
         title: "Breakthrough Filmmakers' Program",
         subtitle: "12-week live program",
-        href: "https://www.leveluplearning.live/bfp-2",
+        href: "https://www.leveluplearning.in/bfp-2",
       },
       {
         image: navVe,
