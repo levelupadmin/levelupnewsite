@@ -623,11 +623,11 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
         answer: "The masterclass explores the creative potential of using miniatures in art direction. Learning about this unique technique can add depth and innovation to your visual storytelling skills.",
       },
     ],
-    price: 499,
+    price: 999,
     originalPrice: 2999,
     currency: "₹",
-    ctaLink: "https://study.leveluplearning.in/l/38f10118da",
-    ctaText: "SUBSCRIBE FOR ₹499",
+    ctaLink: "https://study.leveluplearning.in/web/checkout/64e7670a1e642660e96fc8e9",
+    ctaText: "BUY FOR ₹999",
     seo: {
       title: "DRK Kiran Art Direction Masterclass | LevelUp Learning",
       description:
