@@ -107,8 +107,6 @@ type PortfolioItem = string | { src: string; objectPosition: string };
 
 const defaultPortfolioImages: PortfolioItem[] = [
   portfolioTheri, portfolioKamal, portfolioJaanu, portfolioRaviVarma,
-  { src: portfolioSamantha, objectPosition: "left center" },
-  { src: portfolioSamantha, objectPosition: "right center" },
   portfolioSuriya, portfolioKadaram, portfolioRaviVarma2, portfolioRaangi,
 ];
 
