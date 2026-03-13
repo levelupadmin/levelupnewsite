@@ -193,7 +193,7 @@ const MasterclassDetail = () => {
               <img src={data.heroDesktopBg} alt="" className="w-full h-full object-cover z-[1]" style={{ objectPosition: data.heroDesktopObjectPosition ?? "top" }} aria-hidden="true" />
             ) : (
               <>
-                {data.heroNameOverlay && (
+                {data.heroNameOverlay && !data.heroMobileBg && (
                   <img src={data.heroNameOverlay} alt="" className="absolute inset-x-0 md:top-20 lg:top-16 bottom-0 w-full h-auto object-contain z-0" aria-hidden="true" />
                 )}
                 <img src={data.heroBgImage} alt="" className="w-full h-full object-cover object-center z-[1]" aria-hidden="true" />
