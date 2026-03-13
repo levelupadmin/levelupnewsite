@@ -139,7 +139,10 @@ const Navbar = () => {
             borderColor: { duration: 0.5, ease: "easeOut" },
             boxShadow: { duration: 0.5, ease: "easeOut" },
           }}
-          className="mx-auto w-[95%] max-w-5xl flex flex-col overflow-hidden border backdrop-blur-md"
+          className={[
+            "mx-auto w-[95%] max-w-5xl flex flex-col border backdrop-blur-md",
+            expanded ? "overflow-hidden" : "overflow-visible",
+          ].join(" ")}
         >
           {/* Top bar — logo + nav links + menu icon */}
           <div
@@ -216,9 +219,9 @@ const Navbar = () => {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 4 }}
                             transition={{ duration: 0.15, ease: "easeOut" }}
-                            className="absolute top-full right-0 pt-2 w-44"
+                            className="absolute top-full right-0 z-50 pt-2 w-44"
                           >
-                            <div className="rounded-lg border border-white/10 bg-black/70 backdrop-blur-md shadow-xl py-1 px-1">
+                            <div className="rounded-lg border border-border/60 bg-popover/95 text-popover-foreground backdrop-blur-md shadow-xl py-1 px-1">
                               {link.items.map((item) => (
                                 <a
                                   key={item.title}
@@ -226,7 +229,7 @@ const Navbar = () => {
                                   target={item.href.startsWith("http") ? "_blank" : undefined}
                                   rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
                                   onClick={() => trackNavClick(item.title)}
-                                  className="block px-3 py-2 text-sm font-sans-body text-muted-foreground hover:text-foreground hover:bg-white/[0.08] rounded-md transition-colors duration-150"
+                                  className="block px-3 py-2 text-sm font-sans-body text-muted-foreground hover:text-accent-foreground hover:bg-accent/40 rounded-md transition-colors duration-150"
                                 >
                                   {item.title}
                                 </a>
