@@ -1508,3 +1508,12 @@
 .reviews-grid-spotlight > * {
   transition: opacity 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
 }
+
+/* ═══ Careers Marquee ═══ */
+@keyframes careers-marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.careers-marquee {
+  animation: careers-marquee-scroll 20s linear infinite;
+}
