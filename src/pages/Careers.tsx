@@ -16,7 +16,7 @@ const roles = [
 ];
 
 const marqueeText =
-  "Supercharge Your Growth · Work Weird Hours · Create Real Impact · India's Largest Creative Ecosystem · 70,000+ Learners · 300K Community · Let The Hunger Games Begin · ";
+  "Supercharge Your Growth · Work Weird Hours · Create Real Impact · India's Largest Creative Ecosystem · 70,000+ Learners · 300K Community · ";
 
 const Careers = () => {
   useEffect(() => {
