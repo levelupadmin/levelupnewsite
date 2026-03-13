@@ -151,15 +151,23 @@ export const navLinks: NavLink[] = [
     ],
   },
   {
-    label: "Student Stories",
-    href: "/student-stories",
+    label: "More",
+    href: "#",
     description: "",
-    items: [],
-  },
-  {
-    label: "Careers",
-    href: "/careers",
-    description: "",
-    items: [],
+    compact: true,
+    items: [
+      {
+        image: "",
+        title: "Student Stories",
+        subtitle: "",
+        href: "/student-stories",
+      },
+      {
+        image: "",
+        title: "Careers",
+        subtitle: "",
+        href: "/careers",
+      },
+    ],
   },
 ];
