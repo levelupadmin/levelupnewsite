@@ -83,8 +83,8 @@ const Navbar = () => {
   // Use loaded data or fall back to labels-only
   const links = navData ?? navLabels.map((l) => ({ ...l, description: "", items: [] as NavItem[] }));
 
-  const expanded = activeIndex !== null && links[activeIndex]?.items.length > 0;
   const isCompact = activeIndex !== null && !!(links[activeIndex] as NavLink).compact;
+  const expanded = activeIndex !== null && links[activeIndex]?.items.length > 0 && !isCompact;
 
   // Active link accent color
   const activeAccent = useMemo(() => {
