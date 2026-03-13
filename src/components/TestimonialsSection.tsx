@@ -47,7 +47,7 @@ const TestimonialModal = ({
             <div className="relative w-full md:w-[260px] shrink-0 h-48 md:h-auto">
               <img
                 src={testimonial.image}
-                alt={`${testimonial.name}, ${testimonial.role}`}
+                alt={`Portrait of ${testimonial.name}, ${testimonial.role} at LevelUp Learning`}
                 className="absolute inset-0 w-full h-full object-cover object-top"
               />
               {/* Bottom gradient with name overlay */}
