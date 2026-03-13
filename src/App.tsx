@@ -15,6 +15,7 @@ const Reviews = lazy(() => import("./pages/Reviews"));
 const StudentStory = lazy(() => import("./pages/StudentStory"));
 const MasterclassDetail = lazy(() => import("./pages/MasterclassDetail"));
 
+const Careers = lazy(() => import("./pages/Careers"));
 const Terms = lazy(() => import("./pages/Terms"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -40,6 +41,7 @@ const AnimatedRoutes = () => {
           <Route path="/masterclass/:slug" element={<MasterclassDetail />} />
           
           <Route path="/student-stories/:slug" element={<StudentStory />} />
+          <Route path="/careers" element={<Careers />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

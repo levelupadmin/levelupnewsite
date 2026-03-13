@@ -15,6 +15,7 @@ const navLabels = [
   { label: "LevelUp Live", href: "#live-programs" },
   { label: "The Forge", href: "#forge" },
   { label: "Student Stories", href: "/student-stories" },
+  { label: "Careers", href: "/careers" },
 ];
 
 const Navbar = () => {
