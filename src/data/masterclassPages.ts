@@ -120,6 +120,8 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
     discipline: "Photography",
     heroImage: venketImg,
     heroBgImage: gvrHeroBg,
+    heroMobileBg: gvrHeroMobile,
+    heroNameOverlay: gvrHeroName,
     portraitImage: venketImg,
     certificateImage: gvrCertificate,
     pullQuote:
