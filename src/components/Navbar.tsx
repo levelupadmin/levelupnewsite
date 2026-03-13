@@ -460,52 +460,78 @@ const Navbar = () => {
                                   {link.description}
                                 </p>
                               )}
-                              <div
-                                className="grid grid-cols-2 gap-2.5 pb-4 pl-3 border-l-2"
-                                style={{ borderColor: linkAccent + "33" }}
-                              >
-                                {link.items.map((item, i) => (
-                                  <m.a
-                                    key={item.title}
-                                    href={item.href}
-                                    target={
-                                      item.href.startsWith("http")
-                                        ? "_blank"
-                                        : undefined
-                                    }
-                                    rel={
-                                      item.href.startsWith("http")
-                                        ? "noopener noreferrer"
-                                        : undefined
-                                    }
-                                    initial={{ opacity: 0, y: 8 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{
-                                      duration: 0.25,
-                                      delay: 0.04 * i,
-                                    }}
-                                    onClick={() => { trackNavClick(item.title); setMobileOpen(false); }}
-                                    className="block rounded-sm overflow-hidden bg-white/5 active:scale-[0.97] transition-all duration-150 relative"
-                                    style={{ borderLeft: `3px solid ${linkAccent}` }}
-                                  >
-                                    <div className="aspect-[4/3] overflow-hidden rounded-md">
-                                      <img
-                                        src={item.image}
-                                        alt={item.title}
-                                        className="w-full h-full object-cover"
-                                        style={{ objectPosition: item.objectPosition || "top" }}
-                                        loading="lazy"
-                                        decoding="async"
-                                      />
-                                    </div>
-                                    {/* Always-visible title + subtitle below card */}
-                                    <div className="px-1 pt-1.5 pb-1">
-                                      <p className="text-[13px] font-semibold leading-tight truncate" style={{ color: linkAccent }}>{item.title}</p>
-                                      <p className="text-[11px] text-white/60 leading-tight mt-0.5 truncate">{item.subtitle}</p>
-                                    </div>
-                                  </m.a>
-                                ))}
-                              </div>
+
+                              {(link as NavLink).compact ? (
+                                /* Compact text-only list for "More" */
+                                <div
+                                  className="flex flex-col gap-1 pb-4 pl-3 border-l-2"
+                                  style={{ borderColor: linkAccent + "33" }}
+                                >
+                                  {link.items.map((item, i) => (
+                                    <m.a
+                                      key={item.title}
+                                      href={item.href}
+                                      target={item.href.startsWith("http") ? "_blank" : undefined}
+                                      rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                                      initial={{ opacity: 0, x: -8 }}
+                                      animate={{ opacity: 1, x: 0 }}
+                                      transition={{ duration: 0.2, delay: 0.04 * i }}
+                                      onClick={() => { trackNavClick(item.title); setMobileOpen(false); }}
+                                      className="px-3 py-2.5 text-base font-sans-body text-muted-foreground hover:text-foreground transition-colors duration-200"
+                                      style={{ borderLeft: `3px solid ${linkAccent}` }}
+                                    >
+                                      {item.title}
+                                    </m.a>
+                                  ))}
+                                </div>
+                              ) : (
+                                <div
+                                  className="grid grid-cols-2 gap-2.5 pb-4 pl-3 border-l-2"
+                                  style={{ borderColor: linkAccent + "33" }}
+                                >
+                                  {link.items.map((item, i) => (
+                                    <m.a
+                                      key={item.title}
+                                      href={item.href}
+                                      target={
+                                        item.href.startsWith("http")
+                                          ? "_blank"
+                                          : undefined
+                                      }
+                                      rel={
+                                        item.href.startsWith("http")
+                                          ? "noopener noreferrer"
+                                          : undefined
+                                      }
+                                      initial={{ opacity: 0, y: 8 }}
+                                      animate={{ opacity: 1, y: 0 }}
+                                      transition={{
+                                        duration: 0.25,
+                                        delay: 0.04 * i,
+                                      }}
+                                      onClick={() => { trackNavClick(item.title); setMobileOpen(false); }}
+                                      className="block rounded-sm overflow-hidden bg-white/5 active:scale-[0.97] transition-all duration-150 relative"
+                                      style={{ borderLeft: `3px solid ${linkAccent}` }}
+                                    >
+                                      <div className="aspect-[4/3] overflow-hidden rounded-md">
+                                        <img
+                                          src={item.image}
+                                          alt={item.title}
+                                          className="w-full h-full object-cover"
+                                          style={{ objectPosition: item.objectPosition || "top" }}
+                                          loading="lazy"
+                                          decoding="async"
+                                        />
+                                      </div>
+                                      {/* Always-visible title + subtitle below card */}
+                                      <div className="px-1 pt-1.5 pb-1">
+                                        <p className="text-[13px] font-semibold leading-tight truncate" style={{ color: linkAccent }}>{item.title}</p>
+                                        <p className="text-[11px] text-white/60 leading-tight mt-0.5 truncate">{item.subtitle}</p>
+                                      </div>
+                                    </m.a>
+                                  ))}
+                                </div>
+                              )}
                             </m.div>
                           )}
                         </AnimatePresence>
