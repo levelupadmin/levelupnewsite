@@ -516,7 +516,8 @@ export const masterclassPages: Record<string, MasterclassPageData> = {
       { number: 20, title: "Small Scene, Big Impact: The Significance of Details", description: "Uncover the essence of cinematic mastery in the finale. Explore the significance of detail through a scene, and understand how even the smallest moments demand careful attention." },
     ],
     portfolioHeadline: "Learn from the Art Director Behind these Films",
-    showPortfolio: false,
+    showPortfolio: true,
+    portfolioImages: [doctorPoster, beastPoster, jailerPoster, naanumRowdyPoster, threePoster, tskPoster, aranmanaiPoster],
     audienceTargets: [
       { label: "Art Directors" },
       { label: "Filmmakers" },
