@@ -622,7 +622,7 @@ const MasterclassDetail = () => {
               <div className="rounded-xl p-[2px] bg-gradient-to-b from-primary/40 via-primary/20 to-primary/5">
                 <div className="bg-card rounded-xl overflow-hidden">
                   <div className="relative aspect-[4/3]">
-                    <img src={data.pricingImage || data.heroBgImage} alt={data.name} className="w-full h-full object-cover object-top" />
+                    <img src={data.pricingImage || data.heroBgImage} alt={`LevelUp Learning ${data.name} Masterclass course thumbnail`} className="w-full h-full object-cover object-top" />
                     <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
                   </div>
                   <div className="p-6 text-center space-y-3">
