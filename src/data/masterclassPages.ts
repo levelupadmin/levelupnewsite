@@ -17,6 +17,13 @@ import kiranImg from "@/assets/drk-kiran.webp";
 import kiranHeroDesktop from "@/assets/drk-kiran-hero-desktop.png";
 import kiranHeroMobile from "@/assets/drk-kiran-hero-mobile.png";
 import kiranCertificate from "@/assets/drk-kiran-certificate.png";
+import doctorPoster from "@/assets/portfolio/doctor-poster.png";
+import beastPoster from "@/assets/portfolio/beast-poster.png";
+import jailerPoster from "@/assets/portfolio/jailer-poster.png";
+import naanumRowdyPoster from "@/assets/portfolio/naanum-rowdy-dhaan-poster.png";
+import threePoster from "@/assets/portfolio/3-poster.png";
+import tskPoster from "@/assets/portfolio/thaanaa-serndha-koottam-poster.png";
+import aranmanaiPoster from "@/assets/portfolio/aranmanai-poster.png";
 
 export interface MasterclassFAQ {
   question: string;
