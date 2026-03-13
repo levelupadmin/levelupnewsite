@@ -95,9 +95,9 @@ export const showcasePrograms: ShowcaseProgram[] = [
     image: liveAcp,
     previewVideo: "/videos/ve-trailer.mp4",
     youtubeId: "dQw4w9WgXcQ",
-    ctaLink: "https://www.leveluplearning.live/creator-academy",
+    ctaLink: "https://www.leveluplearning.in/creator-academy",
     ctaLabel: "Begin Today",
-    learnMoreLink: "https://www.leveluplearning.live/creator-academy",
+    learnMoreLink: "https://www.leveluplearning.in/creator-academy",
     stats: ["12 Weeks", "21 Posts", "Pods of 5", "80%+ Completion"],
     bullets: [
       "Publish by 10 PM IST or your streak resets. No \"learn at your own pace.\"",
