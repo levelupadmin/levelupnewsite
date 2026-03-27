@@ -9,11 +9,11 @@ export const HookScene: React.FC = () => {
   const words = ["We", "rebuilt", "everything."];
 
   // Orange accent line draws across
-  const lineProgress = interpolate(frame, [5, 50], [0, 100], { extrapolateRight: "clamp", extrapolateLeft: "clamp" });
-  const lineOpacity = interpolate(frame, [5, 15, 70, 90], [0, 0.8, 0.8, 0], { extrapolateRight: "clamp", extrapolateLeft: "clamp" });
+  const lineProgress = interpolate(frame, [0, 38], [10, 100], { extrapolateRight: "clamp", extrapolateLeft: "clamp" });
+  const lineOpacity = interpolate(frame, [0, 8, 72, 90], [0.4, 0.85, 0.85, 0], { extrapolateRight: "clamp", extrapolateLeft: "clamp" });
 
   // Whole scene fade out
-  const sceneOpacity = interpolate(frame, [75, 90], [1, 0], { extrapolateRight: "clamp", extrapolateLeft: "clamp" });
+  const sceneOpacity = interpolate(frame, [78, 90], [1, 0], { extrapolateRight: "clamp", extrapolateLeft: "clamp" });
 
   return (
     <AbsoluteFill style={{ backgroundColor: BG, opacity: sceneOpacity }}>
@@ -43,10 +43,10 @@ export const HookScene: React.FC = () => {
         }}
       >
         {words.map((word, i) => {
-          const delay = i * 4;
-          const s = spring({ frame: frame - delay, fps, config: { damping: 18, stiffness: 200 } });
-          const y = interpolate(s, [0, 1], [36, 0]);
-          const opacity = interpolate(s, [0, 1], [0.55, 1]);
+          const delay = i * 3;
+          const s = spring({ frame: frame + 2 - delay, fps, config: { damping: 16, stiffness: 220 } });
+          const y = interpolate(s, [0, 1], [24, 0]);
+          const opacity = interpolate(s, [0, 1], [0.78, 1]);
 
           return (
             <span

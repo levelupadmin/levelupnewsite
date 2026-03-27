@@ -29,7 +29,7 @@ const FilmGrain: React.FC = () => {
     <AbsoluteFill
       style={{
         background: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' seed='${seed}'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-        opacity: 0.04,
+        opacity: 0.022,
         mixBlendMode: "overlay",
       }}
     />
@@ -39,12 +39,12 @@ const FilmGrain: React.FC = () => {
 // Ambient vignette
 const Vignette: React.FC = () => {
   const frame = useCurrentFrame();
-  const pulse = Math.sin(frame * 0.02) * 0.02 + 0.15;
+  const pulse = Math.sin(frame * 0.02) * 0.015 + 0.08;
   return (
     <AbsoluteFill
       style={{
-        background: `radial-gradient(ellipse 70% 60% at 50% 50%, transparent 40%, ${BG} 100%)`,
-        opacity: 0.7 + pulse,
+        background: `radial-gradient(ellipse 70% 60% at 50% 50%, transparent 45%, ${BG} 100%)`,
+        opacity: 0.33 + pulse,
       }}
     />
   );
@@ -53,11 +53,11 @@ const Vignette: React.FC = () => {
 // Orange glow that persists
 const AmbientGlow: React.FC = () => {
   const frame = useCurrentFrame();
-  const drift = Math.sin(frame * 0.015) * 5;
+  const drift = Math.sin(frame * 0.015) * 4;
   return (
     <AbsoluteFill
       style={{
-        background: `radial-gradient(ellipse 50% 40% at ${50 + drift}% 20%, ${ACCENT}15, transparent 70%)`,
+        background: `radial-gradient(ellipse 48% 36% at ${50 + drift}% 18%, ${ACCENT}12, transparent 72%)`,
       }}
     />
   );
