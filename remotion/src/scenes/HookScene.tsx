@@ -43,10 +43,10 @@ export const HookScene: React.FC = () => {
         }}
       >
         {words.map((word, i) => {
-          const delay = i * 8 + 10;
-          const s = spring({ frame: frame - delay, fps, config: { damping: 20, stiffness: 180 } });
-          const y = interpolate(s, [0, 1], [60, 0]);
-          const opacity = interpolate(s, [0, 1], [0, 1]);
+          const delay = i * 4;
+          const s = spring({ frame: frame - delay, fps, config: { damping: 18, stiffness: 200 } });
+          const y = interpolate(s, [0, 1], [36, 0]);
+          const opacity = interpolate(s, [0, 1], [0.55, 1]);
 
           return (
             <span

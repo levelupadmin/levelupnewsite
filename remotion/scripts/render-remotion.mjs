@@ -28,7 +28,7 @@ await renderMedia({
   composition,
   serveUrl: bundled,
   codec: "h264",
-  outputLocation: "/mnt/documents/levelup-site-launch.mp4",
+  outputLocation: "/mnt/documents/levelup-site-launch_v2.mp4",
   puppeteerInstance: browser,
   muted: true,
   concurrency: 1,
