@@ -230,7 +230,7 @@ const portraitVideo: VideoTestimonial = {
   type: "video",
   tag: "The Forge",
   quote:
-    "Nelson's process of starting with just five lines was so simple but powerful. After that module, I finally got unstuck and rewrote my opening scene.",
+    "Earlier I used to think that films should only educate and they shouldn't be entertaining. Taking your stand is the major learning that I am taking from here. People from various backgrounds, are here.",
   name: "Swetha",
   role: "Screenwriting Student · Mumbai",
   avatar: aanchalThumb,
