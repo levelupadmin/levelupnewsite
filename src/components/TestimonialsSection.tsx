@@ -304,7 +304,7 @@ const videoRow1: VideoTestimonial = {
   tag: "Masterclass",
   quote:
     "The way he breaks down scene transitions changed how I approach editing. Every cut now has intention behind it.",
-  name: "Amirtha Fazina",
+  name: "Stinson Thomas",
   role: "Film Student · Bangalore",
   avatar: stinsonThumb,
   thumbnail: stinsonThumb,
