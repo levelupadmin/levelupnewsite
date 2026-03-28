@@ -287,6 +287,30 @@ const bottomCard2: TextTestimonial = {
   avatar: testimonial4,
 };
 
+const videoRow1: VideoTestimonial = {
+  type: "video",
+  tag: "Masterclass",
+  quote:
+    "The way he breaks down scene transitions changed how I approach editing. Every cut now has intention behind it.",
+  name: "Amirtha Fazina",
+  role: "Film Student · Bangalore",
+  avatar: testimonial5,
+  thumbnail: testimonial5,
+  duration: "3:12",
+};
+
+const videoRow2: VideoTestimonial = {
+  type: "video",
+  tag: "Online Cohort",
+  quote:
+    "I joined skeptical, but by week two I had rewritten my entire short film script. The feedback loop is incredible.",
+  name: "Karthik",
+  role: "Independent Filmmaker · Delhi",
+  avatar: testimonial1,
+  thumbnail: testimonial1,
+  duration: "2:48",
+};
+
 /* ─── Main Section ─── */
 
 const TestimonialsSection = () => {
@@ -351,6 +375,14 @@ const TestimonialsSection = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
             <TextCard t={bottomCard1} />
             <TextCard t={bottomCard2} />
+          </div>
+        </FadeInSection>
+
+        {/* Video Row */}
+        <FadeInSection className="mt-4 md:mt-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+            <HorizontalVideoCard t={videoRow1} />
+            <HorizontalVideoCard t={videoRow2} />
           </div>
         </FadeInSection>
 
