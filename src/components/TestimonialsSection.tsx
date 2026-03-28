@@ -287,6 +287,30 @@ const bottomCard2: TextTestimonial = {
   avatar: testimonial4,
 };
 
+const videoRow1: VideoTestimonial = {
+  type: "video",
+  tag: "Masterclass",
+  quote:
+    "The way he breaks down scene transitions changed how I approach editing. Every cut now has intention behind it.",
+  name: "Amirtha Fazina",
+  role: "Film Student · Bangalore",
+  avatar: testimonial5,
+  thumbnail: testimonial5,
+  duration: "3:12",
+};
+
+const videoRow2: VideoTestimonial = {
+  type: "video",
+  tag: "Online Cohort",
+  quote:
+    "I joined skeptical, but by week two I had rewritten my entire short film script. The feedback loop is incredible.",
+  name: "Karthik",
+  role: "Independent Filmmaker · Delhi",
+  avatar: testimonial1,
+  thumbnail: testimonial1,
+  duration: "2:48",
+};
+
 /* ─── Main Section ─── */
 
 const TestimonialsSection = () => {
