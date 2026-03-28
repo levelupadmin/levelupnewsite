@@ -34,6 +34,8 @@ const TAG_STYLES: Record<string, string> = {
     "bg-teal-500/15 text-teal-400 border-teal-500/25",
   Forge:
     "bg-violet-500/15 text-violet-400 border-violet-500/25",
+  "The Forge":
+    "bg-violet-500/15 text-violet-400 border-violet-500/25",
 };
 
 /* ─── Cards ─── */
@@ -225,7 +227,7 @@ import testimonial5 from "@/assets/testimonial-5.jpg";
 
 const portraitVideo: VideoTestimonial = {
   type: "video",
-  tag: "Masterclass",
+  tag: "The Forge",
   quote:
     "Nelson's process of starting with just five lines was so simple but powerful. After that module, I finally got unstuck and rewrote my opening scene.",
   name: "Swetha",
