@@ -9,7 +9,7 @@ const stars = Array.from({ length: 5 });
 
 interface TextTestimonial {
   type: "text";
-  tag: "Masterclass" | "Online Cohort" | "Forge";
+  tag: "Masterclass" | "Online Cohort" | "Forge" | "The Forge";
   quote: string;
   name: string;
   role: string;
@@ -18,7 +18,7 @@ interface TextTestimonial {
 
 interface VideoTestimonial {
   type: "video";
-  tag: "Masterclass" | "Online Cohort" | "Forge";
+  tag: "Masterclass" | "Online Cohort" | "Forge" | "The Forge";
   quote: string;
   name: string;
   role: string;
@@ -33,6 +33,8 @@ const TAG_STYLES: Record<string, string> = {
   "Online Cohort":
     "bg-teal-500/15 text-teal-400 border-teal-500/25",
   Forge:
+    "bg-violet-500/15 text-violet-400 border-violet-500/25",
+  "The Forge":
     "bg-violet-500/15 text-violet-400 border-violet-500/25",
 };
 
@@ -225,7 +227,7 @@ import testimonial5 from "@/assets/testimonial-5.jpg";
 
 const portraitVideo: VideoTestimonial = {
   type: "video",
-  tag: "Masterclass",
+  tag: "The Forge",
   quote:
     "Nelson's process of starting with just five lines was so simple but powerful. After that module, I finally got unstuck and rewrote my opening scene.",
   name: "Swetha",
