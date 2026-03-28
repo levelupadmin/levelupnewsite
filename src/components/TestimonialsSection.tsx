@@ -378,6 +378,14 @@ const TestimonialsSection = () => {
           </div>
         </FadeInSection>
 
+        {/* Video Row */}
+        <FadeInSection className="mt-4 md:mt-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+            <HorizontalVideoCard t={videoRow1} />
+            <HorizontalVideoCard t={videoRow2} />
+          </div>
+        </FadeInSection>
+
         {/* CTA */}
         <FadeInSection className="mt-10 md:mt-14 flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <p className="font-sans-body text-sm text-muted-foreground">
