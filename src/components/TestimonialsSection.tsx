@@ -9,7 +9,7 @@ const stars = Array.from({ length: 5 });
 
 interface TextTestimonial {
   type: "text";
-  tag: "Masterclass" | "Online Cohort" | "Forge";
+  tag: "Masterclass" | "Online Cohort" | "Forge" | "The Forge";
   quote: string;
   name: string;
   role: string;
@@ -18,7 +18,7 @@ interface TextTestimonial {
 
 interface VideoTestimonial {
   type: "video";
-  tag: "Masterclass" | "Online Cohort" | "Forge";
+  tag: "Masterclass" | "Online Cohort" | "Forge" | "The Forge";
   quote: string;
   name: string;
   role: string;
