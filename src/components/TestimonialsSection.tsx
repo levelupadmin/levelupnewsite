@@ -301,7 +301,7 @@ const bottomCard2: TextTestimonial = {
 
 const videoRow1: VideoTestimonial = {
   type: "video",
-  tag: "Masterclass",
+  tag: "Online Cohort",
   quote:
     "The way he breaks down scene transitions changed how I approach editing. Every cut now has intention behind it.",
   name: "Stinson Thomas",
