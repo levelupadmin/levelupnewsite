@@ -224,6 +224,7 @@ import testimonial1 from "@/assets/testimonial-1.jpg";
 import testimonial2 from "@/assets/testimonial-2.jpg";
 import testimonial4 from "@/assets/testimonial-4.jpg";
 import testimonial5 from "@/assets/testimonial-5.jpg";
+import aanchalThumb from "@/assets/aanchal-thumb.jpg";
 
 const portraitVideo: VideoTestimonial = {
   type: "video",
@@ -232,8 +233,8 @@ const portraitVideo: VideoTestimonial = {
     "Nelson's process of starting with just five lines was so simple but powerful. After that module, I finally got unstuck and rewrote my opening scene.",
   name: "Swetha",
   role: "Screenwriting Student · Mumbai",
-  avatar: testimonial1,
-  thumbnail: testimonial1,
+  avatar: aanchalThumb,
+  thumbnail: aanchalThumb,
   duration: "2:34",
 };
 
