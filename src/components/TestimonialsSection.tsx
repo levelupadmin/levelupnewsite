@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Star, Play, ArrowRight } from "lucide-react";
+import { Star, Play, ArrowRight, X } from "lucide-react";
 import FadeInSection from "./FadeInSection";
 import AccentLine from "./AccentLine";
 
@@ -25,6 +26,7 @@ interface VideoTestimonial {
   avatar: string;
   thumbnail: string;
   duration?: string;
+  vimeoUrl?: string;
 }
 
 const TAG_STYLES: Record<string, string> = {
@@ -94,8 +96,11 @@ const TextCard = ({ t }: { t: TextTestimonial }) => (
   </div>
 );
 
-const PortraitVideoCard = ({ t }: { t: VideoTestimonial }) => (
-  <div className="group relative rounded-xl border border-border/50 overflow-hidden transition-all duration-500 hover:border-primary/30 hover:shadow-[0_0_24px_-4px_hsl(24_95%_53%/0.12)] h-full min-h-[480px]">
+const PortraitVideoCard = ({ t, onPlay }: { t: VideoTestimonial; onPlay?: (url: string) => void }) => (
+  <div
+    className="group relative rounded-xl border border-border/50 overflow-hidden transition-all duration-500 hover:border-primary/30 hover:shadow-[0_0_24px_-4px_hsl(24_95%_53%/0.12)] h-full min-h-[480px] cursor-pointer"
+    onClick={() => t.vimeoUrl && onPlay?.(t.vimeoUrl)}
+  >
     {/* Thumbnail */}
     <img
       src={t.thumbnail}
@@ -159,8 +164,11 @@ const PortraitVideoCard = ({ t }: { t: VideoTestimonial }) => (
   </div>
 );
 
-const HorizontalVideoCard = ({ t }: { t: VideoTestimonial }) => (
-  <div className="group relative flex flex-col sm:flex-row rounded-xl border border-border/50 overflow-hidden bg-card transition-all duration-500 hover:border-primary/30 hover:shadow-[0_0_24px_-4px_hsl(24_95%_53%/0.12)] h-full">
+const HorizontalVideoCard = ({ t, onPlay }: { t: VideoTestimonial; onPlay?: (url: string) => void }) => (
+  <div
+    className="group relative flex flex-col sm:flex-row rounded-xl border border-border/50 overflow-hidden bg-card transition-all duration-500 hover:border-primary/30 hover:shadow-[0_0_24px_-4px_hsl(24_95%_53%/0.12)] h-full cursor-pointer"
+    onClick={() => t.vimeoUrl && onPlay?.(t.vimeoUrl)}
+  >
     {/* Thumbnail */}
     <div className="relative w-full sm:w-[200px] shrink-0 aspect-video sm:aspect-auto">
       <img
@@ -225,6 +233,7 @@ import testimonial2 from "@/assets/testimonial-2.jpg";
 import testimonial4 from "@/assets/testimonial-4.jpg";
 import testimonial5 from "@/assets/testimonial-5.jpg";
 import aanchalThumb from "@/assets/aanchal-thumb.jpg";
+import stinsonThumb from "@/assets/stinson-thumb.png";
 
 const portraitVideo: VideoTestimonial = {
   type: "video",
@@ -297,9 +306,10 @@ const videoRow1: VideoTestimonial = {
     "The way he breaks down scene transitions changed how I approach editing. Every cut now has intention behind it.",
   name: "Amirtha Fazina",
   role: "Film Student · Bangalore",
-  avatar: testimonial5,
-  thumbnail: testimonial5,
+  avatar: stinsonThumb,
+  thumbnail: stinsonThumb,
   duration: "3:12",
+  vimeoUrl: "https://player.vimeo.com/video/1162748387?autoplay=1",
 };
 
 const videoRow2: VideoTestimonial = {
@@ -316,7 +326,34 @@ const videoRow2: VideoTestimonial = {
 
 /* ─── Main Section ─── */
 
+const VideoModal = ({ url, onClose }: { url: string; onClose: () => void }) => (
+  <div
+    className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+    onClick={onClose}
+  >
+    <div
+      className="relative w-[90vw] max-w-4xl aspect-video rounded-xl overflow-hidden"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <button
+        onClick={onClose}
+        className="absolute -top-10 right-0 text-white/70 hover:text-white transition-colors"
+      >
+        <X className="w-6 h-6" />
+      </button>
+      <iframe
+        src={url}
+        className="w-full h-full"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowFullScreen
+      />
+    </div>
+  </div>
+);
+
 const TestimonialsSection = () => {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+
   return (
     <section
       id="testimonials"
@@ -324,6 +361,9 @@ const TestimonialsSection = () => {
       className="relative bg-background py-16 md:py-24 overflow-hidden"
     >
       <AccentLine />
+
+      {/* Video Modal */}
+      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
 
       {/* Ambient glow */}
       <div
@@ -359,7 +399,7 @@ const TestimonialsSection = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
             {/* Left: Portrait video — spans 2 rows */}
             <div className="md:row-span-2">
-              <PortraitVideoCard t={portraitVideo} />
+              <PortraitVideoCard t={portraitVideo} onPlay={setActiveVideo} />
             </div>
 
             {/* Top-right: two text cards */}
@@ -368,7 +408,7 @@ const TestimonialsSection = () => {
 
             {/* Bottom-right: horizontal video — spans 2 cols */}
             <div className="md:col-span-2">
-              <HorizontalVideoCard t={horizontalVideo} />
+              <HorizontalVideoCard t={horizontalVideo} onPlay={setActiveVideo} />
             </div>
           </div>
         </FadeInSection>
@@ -384,8 +424,8 @@ const TestimonialsSection = () => {
         {/* Video Row */}
         <FadeInSection className="mt-4 md:mt-5">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
-            <HorizontalVideoCard t={videoRow1} />
-            <HorizontalVideoCard t={videoRow2} />
+            <HorizontalVideoCard t={videoRow1} onPlay={setActiveVideo} />
+            <HorizontalVideoCard t={videoRow2} onPlay={setActiveVideo} />
           </div>
         </FadeInSection>
 
