@@ -241,7 +241,7 @@ const portraitVideo: VideoTestimonial = {
   type: "video",
   tag: "The Forge",
   quote:
-    "Earlier I used to think that films should only educate and they shouldn't be entertaining. Taking your stand is the major learning that I am taking from here. People from various backgrounds, are here",
+    "What I learnt over 3 years at Film School they covered in 10 days by actually doing rather than just learning.",
   name: "Aanchal",
   role: "Content Creator - Delhi",
   avatar: aanchalThumb,

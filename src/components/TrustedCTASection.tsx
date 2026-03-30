@@ -92,7 +92,7 @@ const TrustedCTASection = () => {
           <a href="#masterclasses" onClick={() => trackCTAClick("trusted-cta", "Start Your Journey")}>
             <Button
               size="lg"
-              className="cta-sweep cta-glow rounded-sm gap-2 text-sm font-sans-body">
+              className="cta-sweep cta-glow rounded-full gap-2 text-sm font-sans-body">
               
               Start Your Journey
               <ArrowRight className="w-4 h-4" />
