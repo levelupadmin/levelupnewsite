@@ -235,6 +235,7 @@ import testimonial5 from "@/assets/testimonial-5.jpg";
 import aanchalThumb from "@/assets/aanchal-thumb.jpg";
 import stinsonThumb from "@/assets/stinson-thumb.png";
 import ashwinThumb from "@/assets/ashwin-thumb.jpg";
+import ashwinVideo from "@/assets/ashwin.mp4";
 
 const portraitVideo: VideoTestimonial = {
   type: "video",
@@ -323,34 +324,42 @@ const videoRow2: VideoTestimonial = {
   avatar: ashwinThumb,
   thumbnail: ashwinThumb,
   duration: "2:48",
+  vimeoUrl: ashwinVideo,
 };
 
 /* ─── Main Section ─── */
 
-const VideoModal = ({ url, onClose }: { url: string; onClose: () => void }) => (
-  <div
-    className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
-    onClick={onClose}
-  >
+const VideoModal = ({ url, onClose }: { url: string; onClose: () => void }) => {
+  const isMp4 = url.endsWith(".mp4");
+  return (
     <div
-      className="relative w-[90vw] max-w-4xl aspect-video rounded-xl overflow-hidden"
-      onClick={(e) => e.stopPropagation()}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+      onClick={onClose}
     >
-      <button
-        onClick={onClose}
-        className="absolute -top-10 right-0 text-white/70 hover:text-white transition-colors"
+      <div
+        className="relative w-[90vw] max-w-4xl aspect-video rounded-xl overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
       >
-        <X className="w-6 h-6" />
-      </button>
-      <iframe
-        src={url}
-        className="w-full h-full"
-        allow="autoplay; fullscreen; picture-in-picture"
-        allowFullScreen
-      />
+        <button
+          onClick={onClose}
+          className="absolute -top-10 right-0 text-white/70 hover:text-white transition-colors"
+        >
+          <X className="w-6 h-6" />
+        </button>
+        {isMp4 ? (
+          <video src={url} className="w-full h-full" controls autoPlay />
+        ) : (
+          <iframe
+            src={url}
+            className="w-full h-full"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
+          />
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const TestimonialsSection = () => {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
