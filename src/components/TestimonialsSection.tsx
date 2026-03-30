@@ -235,6 +235,7 @@ import testimonial5 from "@/assets/testimonial-5.jpg";
 import aanchalThumb from "@/assets/aanchal-thumb.jpg";
 import stinsonThumb from "@/assets/stinson-thumb.png";
 import ashwinThumb from "@/assets/ashwin-thumb.jpg";
+import ashwinVideo from "@/assets/ashwin.mp4";
 
 const portraitVideo: VideoTestimonial = {
   type: "video",
