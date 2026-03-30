@@ -33,7 +33,7 @@ const MagneticButton = ({ children, className = "", strength = 5 }: MagneticButt
   return (
     <div
       ref={ref}
-      className={`inline-block ${className}`}
+      className={`inline-block opacity-100 border-primary bg-primary text-primary-foreground ${className}`}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={style}
