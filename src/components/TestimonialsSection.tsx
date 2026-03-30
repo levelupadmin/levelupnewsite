@@ -318,7 +318,7 @@ const videoRow2: VideoTestimonial = {
   type: "video",
   tag: "Forge",
   quote:
-    "I joined skeptical, but by week two I had rewritten my entire short film script. The feedback loop is incredible.",
+    "I was stuck for a while and I needed an experience that could teach me everything about filmmaking, and I exactly got that over here at Forge",
   name: "Ashwin",
   role: "Independent Filmmaker · Delhi",
   avatar: ashwinThumb,
