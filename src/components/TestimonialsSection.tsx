@@ -234,6 +234,7 @@ import testimonial4 from "@/assets/testimonial-4.jpg";
 import testimonial5 from "@/assets/testimonial-5.jpg";
 import aanchalThumb from "@/assets/aanchal-thumb.jpg";
 import stinsonThumb from "@/assets/stinson-thumb.png";
+import ashwinThumb from "@/assets/ashwin-thumb.jpg";
 
 const portraitVideo: VideoTestimonial = {
   type: "video",
@@ -314,13 +315,13 @@ const videoRow1: VideoTestimonial = {
 
 const videoRow2: VideoTestimonial = {
   type: "video",
-  tag: "Online Cohort",
+  tag: "Forge",
   quote:
     "I joined skeptical, but by week two I had rewritten my entire short film script. The feedback loop is incredible.",
-  name: "Karthik",
+  name: "Ashwin",
   role: "Independent Filmmaker · Delhi",
-  avatar: testimonial1,
-  thumbnail: testimonial1,
+  avatar: ashwinThumb,
+  thumbnail: ashwinThumb,
   duration: "2:48",
 };
 
