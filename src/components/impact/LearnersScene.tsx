@@ -88,14 +88,14 @@ const LearnersScene = () => {
             }}
           >
             <AnimatedCounter
-              target={58746}
+              target={67746}
               hasComma
               celebrate
               onComplete={() => setDone(true)}
             />
           </p>
           <p className="text-sm md:text-lg text-foreground/70 mt-4 tracking-widest uppercase font-medium">
-            graduated learners
+            LEARNERS
           </p>
         </div>
 
