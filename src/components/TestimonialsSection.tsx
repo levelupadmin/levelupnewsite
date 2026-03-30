@@ -320,7 +320,7 @@ const videoRow2: VideoTestimonial = {
   quote:
     "I was stuck for a while and I needed an experience that could teach me everything about filmmaking, and I exactly got that over here at Forge",
   name: "Ashwin",
-  role: "Independent Filmmaker · Delhi",
+  role: "Key Account Manager - Chennai",
   avatar: ashwinThumb,
   thumbnail: ashwinThumb,
   duration: "2:48",
