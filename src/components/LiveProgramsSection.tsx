@@ -27,7 +27,7 @@ const testimonials = [
 ];
 
 const stats = [
-  { value: 750, suffix: "+", label: "Dreamers" },
+  { value: 750, suffix: "+", label: "Learners" },
   { value: 40, suffix: "+", label: "Industry Mentors" },
   { value: 0, suffix: "", label: "Weekends Only", isText: true },
 ];

@@ -35,7 +35,7 @@ export const showcasePrograms: ShowcaseProgram[] = [
     tag: "FILMMAKING",
     title: "Breakthrough Filmmakers' Program",
     headline: "Become a Filmmaker in 12 Weeks",
-    oneLiner: "From script to screen — live weekend classes with the creators behind your favourite Indian films.",
+    oneLiner: "From script to screen  live weekend classes with the creators behind your favourite Indian films.",
     description: "A 12-week online learning experience covering every aspect of filmmaking — from storytelling and screenwriting to direction, cinematography, and post-production.",
     duration: "12 weeks",
     format: "Live · Weekends",

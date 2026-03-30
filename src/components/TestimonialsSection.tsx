@@ -400,7 +400,7 @@ const TestimonialsSection = () => {
                 <Star key={i} className="w-3.5 h-3.5 fill-primary text-primary" />
               ))}
             </span>
-            Rated 4.8+ by 2,100+ masterclass students across India
+            Rated 4.8+ by 15,000+ learners across the globe.
           </p>
         </FadeInSection>
 

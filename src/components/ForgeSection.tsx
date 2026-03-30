@@ -74,7 +74,7 @@ const forgeCards = [
   "A 6-day scenic retreat where writers unplug, immerse deeply, and learn from bestselling storytellers.",
   image: forgeWriting,
   cta: "https://tally.so/r/nPJydd",
-  locations: ["Coorg, July 2026"],
+  locations: ["Coorg, June 2026"],
 },
 {
   title: "Filmmaking Bootcamp",

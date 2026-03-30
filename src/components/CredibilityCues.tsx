@@ -6,7 +6,7 @@ const cues = [
   { value: "67,746+", numericValue: 67746, label: "Graduated Learners", suffix: "+", hasComma: true },
   { value: "4.86", numericValue: 4.86, label: "Rating (15,000+ reviews)", suffix: "", decimals: 2 },
   { value: "821+", numericValue: 821, label: "Cities", suffix: "+" },
-  { value: "3,000+", numericValue: 3000, label: "Collaborations", suffix: "+", hasComma: true },
+  { value: "3,000+", numericValue: 3000, label: "Collaborations enabled", suffix: "+", hasComma: true },
 ];
 
 const CredibilityCues = () => {
