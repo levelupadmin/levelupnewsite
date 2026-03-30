@@ -243,7 +243,7 @@ const portraitVideo: VideoTestimonial = {
   quote:
     "Earlier I used to think that films should only educate and they shouldn't be entertaining. Taking your stand is the major learning that I am taking from here. People from various backgrounds, are here",
   name: "Aanchal",
-  role: "Screenwriting Student · Mumbai",
+  role: "Content Creator - Delhi",
   avatar: aanchalThumb,
   thumbnail: aanchalThumb,
   duration: "2:34",

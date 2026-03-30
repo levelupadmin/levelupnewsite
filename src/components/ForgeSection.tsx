@@ -62,7 +62,7 @@ const featurePoints = [
 
 
 const stats = [
-{ value: "10", label: "Cities Explored" },
+{ value: "11", label: "Cities Explored" },
 { value: "25+", label: "Editions" },
 { value: "500+", label: "Dreamers" }];
 
