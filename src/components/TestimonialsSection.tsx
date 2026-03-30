@@ -243,7 +243,7 @@ const portraitVideo: VideoTestimonial = {
   quote:
     "Earlier I used to think that films should only educate and they shouldn't be entertaining. Taking your stand is the major learning that I am taking from here. People from various backgrounds, are here",
   name: "Aanchal",
-  role: "Screenwriting Student · Mumbai",
+  role: "Content Creator - Delhi",
   avatar: aanchalThumb,
   thumbnail: aanchalThumb,
   duration: "2:34",
@@ -320,7 +320,7 @@ const videoRow2: VideoTestimonial = {
   quote:
     "I was stuck for a while and I needed an experience that could teach me everything about filmmaking, and I exactly got that over here at Forge",
   name: "Ashwin",
-  role: "Independent Filmmaker · Delhi",
+  role: "Key Account Manager - Chennai",
   avatar: ashwinThumb,
   thumbnail: ashwinThumb,
   duration: "2:48",
@@ -388,7 +388,7 @@ const TestimonialsSection = () => {
         {/* Header */}
         <FadeInSection className="mb-12 md:mb-16">
           <p className="font-sans-body text-[11px] tracking-[0.2em] uppercase text-primary mb-4">
-            What Students Say
+            HEAR FROM OUR LEARNERS
           </p>
           <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl font-medium text-hero-headline leading-[1.15] tracking-tight max-w-lg">
             Real stories.{" "}
@@ -400,7 +400,7 @@ const TestimonialsSection = () => {
                 <Star key={i} className="w-3.5 h-3.5 fill-primary text-primary" />
               ))}
             </span>
-            Rated 4.8+ by 2,100+ masterclass students across India
+            Rated 4.8+ by 15,000+ learners across the globe.
           </p>
         </FadeInSection>
 

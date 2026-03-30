@@ -62,9 +62,9 @@ const featurePoints = [
 
 
 const stats = [
-{ value: "10", label: "Cities Explored" },
+{ value: "11", label: "Cities Explored" },
 { value: "25+", label: "Editions" },
-{ value: "500+", label: "Dreamers" }];
+{ value: "600+", label: "Dreamers" }];
 
 
 const forgeCards = [
@@ -74,7 +74,7 @@ const forgeCards = [
   "A 6-day scenic retreat where writers unplug, immerse deeply, and learn from bestselling storytellers.",
   image: forgeWriting,
   cta: "https://tally.so/r/nPJydd",
-  locations: ["Coorg, July 2026"],
+  locations: ["Coorg, June 2026"],
 },
 {
   title: "Filmmaking Bootcamp",
