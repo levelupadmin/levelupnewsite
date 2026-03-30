@@ -388,7 +388,7 @@ const TestimonialsSection = () => {
         {/* Header */}
         <FadeInSection className="mb-12 md:mb-16">
           <p className="font-sans-body text-[11px] tracking-[0.2em] uppercase text-primary mb-4">
-            What Students Say
+            HEAR FROM OUR LEARNERS
           </p>
           <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl font-medium text-hero-headline leading-[1.15] tracking-tight max-w-lg">
             Real stories.{" "}
