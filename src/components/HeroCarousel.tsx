@@ -123,7 +123,7 @@ const HeroCarousel = () => {
                     preload={index === 0 ? "auto" : "none"}
                     // @ts-ignore - fetchPriority is valid HTML but not yet in React types
                     fetchPriority={index === 0 ? "high" : undefined}
-                    className="w-full aspect-[16/9] object-cover object-center bg-card scale-[1.3]"
+                    className="w-full aspect-[16/9] object-contain object-center bg-card"
                   />
                 </div>
               </div>
