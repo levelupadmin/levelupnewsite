@@ -273,7 +273,7 @@ const horizontalVideo: VideoTestimonial = {
   type: "video",
   tag: "Masterclass",
   quote:
-    "This masterclass won't give you a shot list — it'll give you sanity",
+    "I was stuck for a while and I needed an experience that could teach me everything about filmmaking, and I exactly got that over here at Forge",
   name: "Hari",
   role: "Assistant Director · Hyderabad",
   avatar: testimonial4,
