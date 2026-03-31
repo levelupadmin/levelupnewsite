@@ -252,9 +252,9 @@ const Careers = () => {
                 <div className="mt-8 flex items-center gap-6">
                   <div>
                     <p className="text-xs font-bold tracking-wider uppercase text-[#1A1208]/60">
-                      Eric & Karim
+                      The LevelUp Team
                     </p>
-                    <p className="text-[10px] text-[#1A1208]/40 mt-0.5">Co-Founders</p>
+                    <p className="text-[10px] text-[#1A1208]/40 mt-0.5">Founders</p>
                   </div>
                 </div>
               </m.div>
