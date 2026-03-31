@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { ArrowRight, ChevronDown, Search, Plus, Minus } from "lucide-react";
+import TeamPhotoCarousel from "@/components/careers/TeamPhotoCarousel";
 import { m, LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -142,47 +143,9 @@ const Careers = () => {
           </div>
         </section>
 
-        {/* ═══════════════════════ SECTION 2 — TEAM PHOTO CAROUSEL ═══════════════════════ */}
         <section className="py-16 md:py-24 overflow-hidden">
-          <div className="flex items-end justify-center gap-3 md:gap-5 px-6 max-w-7xl mx-auto">
-            {teamCards.slice(0, 5).map((card, i) => {
-              const isCenter = i === 2;
-              const heights = ["h-[280px] md:h-[360px]", "h-[340px] md:h-[440px]", "h-[400px] md:h-[520px]", "h-[340px] md:h-[440px]", "h-[280px] md:h-[360px]"];
-              const widths = ["w-[140px] md:w-[200px]", "w-[180px] md:w-[260px]", "w-[220px] md:w-[340px]", "w-[180px] md:w-[260px]", "w-[140px] md:w-[200px]"];
-              return (
-                <m.div
-                  key={card.name}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: i * 0.1 }}
-                  className={`relative flex-shrink-0 ${widths[i]} ${heights[i]} rounded-xl overflow-hidden shadow-lg`}
-                >
-                  {/* Placeholder photo background */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-[#f0ede8] to-[#e5e1da]" />
-                  {/* Silhouette placeholder */}
-                  <div className="absolute inset-0 flex items-end justify-center">
-                    <div className="w-[60%] h-[70%] bg-[#d8d4cc] rounded-t-full" />
-                  </div>
-
-                  {/* Text overlay — only on larger cards */}
-                  {(isCenter || i === 1 || i === 3) && (
-                    <div className="absolute top-0 left-0 right-0 p-3 md:p-5 z-10">
-                      <span className="inline-block px-2.5 py-1 text-[10px] md:text-xs tracking-wide font-medium rounded-md bg-white/60 text-[#1A1208]/70 backdrop-blur-sm mb-2">
-                        {card.name}
-                      </span>
-                      <p className={`text-[#1A1208] leading-snug ${isCenter ? "text-lg md:text-2xl font-bold" : "text-sm md:text-base font-semibold"}`}>
-                        {card.achievement}
-                      </p>
-                    </div>
-                  )}
-                </m.div>
-              );
-            })}
-          </div>
+          <TeamPhotoCarousel cards={teamCards} />
         </section>
-
-        {/* ═══════════════════════ SECTION 3 — FOUNDERS LETTER ═══════════════════════ */}
         <section className="px-6 md:px-12 lg:px-20 py-20 md:py-32">
           <div className="max-w-6xl mx-auto">
             {/* Section headline */}
