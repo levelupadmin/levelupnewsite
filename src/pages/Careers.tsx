@@ -228,65 +228,108 @@ const Careers = () => {
         </section>
 
         {/* ═══════════════════════ SECTION 4 — FAQ ═══════════════════════ */}
-        <section className="px-6 md:px-12 lg:px-20 py-20 md:py-28">
-          <div className="max-w-3xl mx-auto">
-            <m.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-              className="text-center mb-12 md:mb-16"
-            >
-              <h2 className="font-display text-3xl md:text-5xl lg:text-6xl uppercase leading-tight font-bold">
-                Not a <span className="text-[#FF6500]">"normal"</span> startup job.
-              </h2>
-              <p className="mt-4 text-[#888] max-w-xl mx-auto text-sm md:text-base leading-relaxed">
-                Ready to do the best work of your career? We'll give you the autonomy and ridiculously talented co-workers to make it happen.
-              </p>
-            </m.div>
-
-            <div className="space-y-0">
-              {faqs.map((faq, i) => (
+        <section className="px-6 md:px-12 lg:px-20 py-24 md:py-36">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
+              {/* Left column — headline + accordion */}
+              <div className="flex-1 lg:max-w-[50%]">
                 <m.div
-                  key={i}
-                  initial={{ opacity: 0, y: 15 }}
+                  initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="border-b border-white/10"
+                  transition={{ duration: 0.7 }}
+                  className="mb-10 md:mb-14"
                 >
-                  <button
-                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                    className="w-full flex items-center justify-between py-6 text-left group"
-                  >
-                    <h3 className="text-base md:text-lg font-semibold text-white group-hover:text-[#FF6500] transition-colors">
-                      {faq.q}
-                    </h3>
-                    <span className="flex-shrink-0 ml-4 w-8 h-8 rounded-full border border-white/15 flex items-center justify-center text-[#FF6500] transition-colors group-hover:border-[#FF6500]/40">
-                      {openFaq === i ? (
-                        <Minus className="w-4 h-4" />
-                      ) : (
-                        <Plus className="w-4 h-4" />
-                      )}
-                    </span>
-                  </button>
-                  <AnimatePresence>
-                    {openFaq === i && (
-                      <m.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="overflow-hidden"
-                      >
-                        <p className="pb-6 text-sm text-[#888] leading-relaxed whitespace-pre-line">
-                          {faq.a}
-                        </p>
-                      </m.div>
-                    )}
-                  </AnimatePresence>
+                  <h2 className="font-display text-4xl md:text-5xl lg:text-[3.5rem] uppercase leading-[0.95] font-bold">
+                    Not a <span className="text-[#FF6500]">"normal"</span>
+                    <br />
+                    startup job.
+                  </h2>
+                  <p className="mt-5 text-[#888] text-sm md:text-[15px] leading-relaxed max-w-md">
+                    Ready to do the best work of your career? We'll give you the autonomy and ridiculously talented co-workers to make it happen.
+                  </p>
                 </m.div>
-              ))}
+
+                {/* Accordion */}
+                <div>
+                  {faqs.map((faq, i) => (
+                    <m.div
+                      key={i}
+                      initial={{ opacity: 0, y: 15 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: i * 0.08 }}
+                      className="border-b border-white/10"
+                    >
+                      <button
+                        onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                        className="w-full flex items-center justify-between py-6 md:py-7 text-left group"
+                      >
+                        <h3 className="text-base md:text-lg font-semibold text-white group-hover:text-[#FF6500] transition-colors">
+                          {faq.q}
+                        </h3>
+                        <span className="flex-shrink-0 ml-4 w-8 h-8 rounded-full border border-white/15 flex items-center justify-center text-[#FF6500] transition-colors group-hover:border-[#FF6500]/40">
+                          {openFaq === i ? (
+                            <Minus className="w-4 h-4" />
+                          ) : (
+                            <Plus className="w-4 h-4" />
+                          )}
+                        </span>
+                      </button>
+                      <AnimatePresence>
+                        {openFaq === i && (
+                          <m.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="overflow-hidden"
+                          >
+                            <p className="pb-6 text-sm text-[#888] leading-relaxed whitespace-pre-line">
+                              {faq.a}
+                            </p>
+                          </m.div>
+                        )}
+                      </AnimatePresence>
+                    </m.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right column — placeholder image collage */}
+              <m.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="flex-1 hidden lg:flex items-start justify-center pt-8"
+              >
+                <div className="relative w-full max-w-[520px] aspect-[4/5]">
+                  {/* Stacked photo collage placeholders */}
+                  {[
+                    { rotate: -6, top: "5%", left: "5%", w: "65%", h: "55%", z: 1 },
+                    { rotate: 3, top: "0%", left: "30%", w: "70%", h: "50%", z: 2 },
+                    { rotate: -2, top: "35%", left: "8%", w: "60%", h: "50%", z: 3 },
+                    { rotate: 5, top: "25%", left: "35%", w: "65%", h: "55%", z: 4 },
+                    { rotate: -4, top: "15%", left: "20%", w: "55%", h: "45%", z: 5 },
+                  ].map((pos, i) => (
+                    <div
+                      key={i}
+                      className="absolute rounded-lg overflow-hidden shadow-2xl border border-white/5"
+                      style={{
+                        transform: `rotate(${pos.rotate}deg)`,
+                        top: pos.top,
+                        left: pos.left,
+                        width: pos.w,
+                        height: pos.h,
+                        zIndex: pos.z,
+                      }}
+                    >
+                      <div className="w-full h-full bg-gradient-to-br from-[#1a1510] to-[#2a1e10]" />
+                    </div>
+                  ))}
+                </div>
+              </m.div>
             </div>
           </div>
         </section>
