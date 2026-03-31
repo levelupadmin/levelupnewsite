@@ -143,7 +143,7 @@ const Careers = () => {
         </section>
 
         {/* ═══════════════════════ SECTION 2 — TEAM PHOTO CAROUSEL ═══════════════════════ */}
-        <section className="py-16 md:py-24 overflow-hidden bg-[#f5f2ed]">
+        <section className="py-16 md:py-24 overflow-hidden">
           <div className="flex items-end justify-center gap-3 md:gap-5 px-6 max-w-7xl mx-auto">
             {teamCards.slice(0, 5).map((card, i) => {
               const isCenter = i === 2;
@@ -159,16 +159,16 @@ const Careers = () => {
                   className={`relative flex-shrink-0 ${widths[i]} ${heights[i]} rounded-xl overflow-hidden shadow-lg`}
                 >
                   {/* Placeholder photo background */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-[#e8e4de] to-[#d5d0c8]" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-[#f0ede8] to-[#e5e1da]" />
                   {/* Silhouette placeholder */}
                   <div className="absolute inset-0 flex items-end justify-center">
-                    <div className="w-[60%] h-[70%] bg-[#c8c3ba] rounded-t-full" />
+                    <div className="w-[60%] h-[70%] bg-[#d8d4cc] rounded-t-full" />
                   </div>
 
                   {/* Text overlay — only on larger cards */}
                   {(isCenter || i === 1 || i === 3) && (
                     <div className="absolute top-0 left-0 right-0 p-3 md:p-5 z-10">
-                      <span className="inline-block px-2.5 py-1 text-[10px] md:text-xs tracking-wide font-medium rounded-md bg-[#e8e4de]/80 text-[#1A1208]/70 backdrop-blur-sm mb-2">
+                      <span className="inline-block px-2.5 py-1 text-[10px] md:text-xs tracking-wide font-medium rounded-md bg-white/60 text-[#1A1208]/70 backdrop-blur-sm mb-2">
                         {card.name}
                       </span>
                       <p className={`text-[#1A1208] leading-snug ${isCenter ? "text-lg md:text-2xl font-bold" : "text-sm md:text-base font-semibold"}`}>
