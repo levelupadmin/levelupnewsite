@@ -197,7 +197,7 @@ const Careers = () => {
                 with <span className="text-[#FF6500]">hardcore people.</span>
               </h2>
               <p className="mt-4 text-[#888] max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
-                Our two founders, Eric and Karim, thought it'd be a good idea to write a letter persuading you not to apply.
+                Our founder thought it'd be a good idea to write a letter persuading you not to apply.
               </p>
             </m.div>
 
