@@ -143,7 +143,7 @@ const Careers = () => {
         </section>
 
         {/* ═══════════════════════ SECTION 2 — TEAM PHOTO CAROUSEL ═══════════════════════ */}
-        <section className="py-16 md:py-24 overflow-hidden bg-[#f5f2ed]">
+        <section className="py-16 md:py-24 overflow-hidden">
           <div className="flex items-end justify-center gap-3 md:gap-5 px-6 max-w-7xl mx-auto">
             {teamCards.slice(0, 5).map((card, i) => {
               const isCenter = i === 2;
