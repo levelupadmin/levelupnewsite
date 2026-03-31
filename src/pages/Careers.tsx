@@ -6,79 +6,60 @@ import Footer from "@/components/Footer";
 import StarField from "@/components/StarField";
 import usePageSeo from "@/hooks/usePageSeo";
 
-/* ─── Team carousel data (Ramp verbatim) ─── */
+/* ─── Team carousel data ─── */
 const teamCards = [
-  { name: "Olivia G.", achievement: "Built the debugging agent that saves our developers sanity" },
-  { name: "Jen Z.", achievement: "Rewrote this careers page in one weekend" },
-  { name: "Nilu K.", achievement: "Built an offer coach that upped accept rate by 10%" },
-  { name: "Alexander S.", achievement: "Built an AI spreadsheet editor in two weekends" },
-  { name: "Andrew C.", achievement: "Shipped GBP currency with one single PR" },
-  { name: "Anthony H.", achievement: "Broke the record for GitHub commits in Jan" },
-  { name: "Eashan I.", achievement: "Onboarded 950 new customers in January" },
-  { name: "Kendall T.", achievement: 'Locked "Brian in a box" with 600,000 receipts' },
-  { name: "Amy Z.", achievement: "Cleared 50+ products for launch last year" },
-  { name: "Alexandra G.", achievement: "Created our first ever user conference" },
-  { name: "Taylor F.", achievement: "Allocated spend that drove $1B+ in pipeline" },
-  { name: "Junho C.", achievement: "Built an AI agent that applied for its own credit card" },
-  { name: "Jacob D.", achievement: "Built the GTM brain used in every sales call" },
-  { name: "Parth G.", achievement: "Built agents that power our entire GTM team" },
-  { name: "Paola N.", achievement: "Turned card payable bills into millions in cashback" },
-  { name: "David O.", achievement: "Manages $55M in marketing spend at age 23" },
-  { name: "Sabrina N.", achievement: "Launched our first International market" },
-  { name: "Jake F.", achievement: "Closed our first Fortune 500 customer" },
-  { name: "Veeral P.", achievement: "Wrote the code that killed expense reports" },
-  { name: "Anne K.", achievement: "Produced our first Super Bowl ad in under a week" },
-  { name: "Yash W.", achievement: "Deployed agents that run their own lead-gen" },
+  { name: "Aarav S.", achievement: "Designed the masterclass platform that 70K+ learners use daily" },
+  { name: "Priya M.", achievement: "Built our community engine that scaled to 300K members" },
+  { name: "Rohan K.", achievement: "Shipped the entire student dashboard in one sprint" },
+  { name: "Meera D.", achievement: "Created our first celebrity masterclass series from scratch" },
+  { name: "Vikram T.", achievement: "Automated event ops for 100+ live programs" },
+  { name: "Ananya R.", achievement: "Designed the brand system you're looking at right now" },
+  { name: "Karthik P.", achievement: "Grew Instagram to 200K followers in 6 months" },
+  { name: "Sneha G.", achievement: "Built the learner review system — 15,000+ reviews and counting" },
+  { name: "Arjun V.", achievement: "Launched LevelUp in 3 new cities in one quarter" },
+  { name: "Divya N.", achievement: "Produced 50+ masterclass trailers that went viral" },
+  { name: "Rahul B.", achievement: "Closed partnerships with India's top creative universities" },
+  { name: "Ishita L.", achievement: "Built The Forge — our flagship creative accelerator" },
 ];
 
-/* ─── FAQ data (Ramp verbatim) ─── */
+/* ─── FAQ data ─── */
 const faqs = [
   {
-    q: "What is Ramp?",
-    a: `We're the all-in-one AI finance platform, designed around one simple principle:\n\n"If it doesn't save you time or money, we don't build it."\n\nThe result? 50,000+ companies—from family farms to Shopify—saving billions of dollars and hours each year.`,
+    q: "What is LevelUp Learning?",
+    a: `We're India's largest creative education ecosystem, designed around one simple principle:\n\n"If it doesn't help creators level up, we don't build it."\n\nThe result? 70,000+ learners, 300K+ community members, and a generation of creators discovering their creative calling.`,
   },
   {
     q: "What's the culture like?",
-    a: `"Hands off" doesn't exist at Ramp.\n\nOur marketers are coding. Our PMs are rewriting copy. Our devs are building their own agent.\n\nWe're a proud meritocracy. Titles and roles are the least interesting thing about Ramp employees.\n\nAnd last but not least: Pizza Fridays are tradition. Dinner is every night of the week.`,
+    a: `"Hands off" doesn't exist at LevelUp.\n\nOur designers are strategizing. Our ops team is building products. Our marketers are directing films.\n\nWe're a proud meritocracy. Titles and roles are the least interesting thing about LevelUp team members.\n\nAnd last but not least: chai breaks are tradition. Late-night shipping sessions are every week.`,
   },
   {
-    q: "Why choose Ramp?",
-    a: `Well, we're growing 10x faster than the median publicly traded SaaS company. But that's not why you should choose Ramp.\n\nWorking at Ramp is a bet on yourself.\n\nName another tech company that locks Brian Baumgartner in a box with 600,000 receipts—or builds its own coding agent.\n\nIf you have talent and drive we will back you like the Medici family backed Michelangelo.`,
+    q: "Why choose LevelUp?",
+    a: `Well, we've grown from zero to India's largest creative education community. But that's not why you should choose LevelUp.\n\nWorking at LevelUp is a bet on yourself.\n\nName another company where a 22-year-old builds an entire masterclass platform — or a designer ships a brand refresh in a weekend.\n\nIf you have talent and drive, we will back you like nobody else.`,
   },
   {
-    q: "Does Ramp offer benefits?",
-    a: `Yes, lots and lots.\n\nA competitive salary. Equity. Medical, dental, and vision insurance. One Medical Membership. 401(k) including an employer match. Flexible PTO. Parental leave. Monthly wellness stipend. WFH stipend. Transit benefits. Relocation support to move to NYC. Pet insurance. Oh, and unlimited tokens.`,
+    q: "Does LevelUp offer benefits?",
+    a: `Yes, lots and lots.\n\nA competitive salary. ESOPs for early team members. Health insurance. Annual learning budget for courses, books, and conferences. Flexible hybrid work. Creative freedom to experiment. Direct access to India's top creative professionals. And the chance to shape how an entire generation discovers their passion.`,
   },
 ];
 
-/* ─── Job departments (Ramp verbatim) ─── */
+/* ─── Job departments ─── */
 const jobDepartments = [
-  { name: "Business Development", count: 3 },
-  { name: "Compliance", count: 1 },
-  { name: "Corporate", count: 2 },
-  { name: "Customer Experience", count: 5 },
-  { name: "Data", count: 2 },
-  { name: "Design", count: 3 },
-  { name: "Emerging Talent", count: 5 },
-  { name: "Engineering", count: 28 },
-  { name: "Finance", count: 6 },
-  { name: "IT", count: 1 },
-  { name: "Legal", count: 2 },
-  { name: "Marketing", count: 11 },
-  { name: "People & Talent", count: 5 },
-  { name: "Product", count: 6 },
-  { name: "Risk", count: 2 },
-  { name: "Sales", count: 47 },
-  { name: "Security", count: 3 },
+  { name: "Growth", count: 2 },
+  { name: "Product", count: 2 },
+  { name: "Leadership", count: 1 },
+  { name: "Operations", count: 2 },
+  { name: "Learning Design", count: 1 },
+  { name: "Creative", count: 3 },
+  { name: "Marketing", count: 2 },
 ];
 
-/* ─── Founders letter text (Ramp verbatim) ─── */
+/* ─── Founders letter ─── */
 const founderLetterParagraphs = [
-  `When we started hiring for Ramp we had one simple criterion:`,
+  `When we started hiring for LevelUp we had one simple criterion:`,
   `"If this person started a company would we join them?"`,
-  `This made our first call easy. We persuaded Calvin to join as founding engineer. At 11, he was fluent in Python. At 15, his code was running on the International Space Station.`,
-  `That first year, we hired 60 more brilliant misfits. And that group of misfits built the fastest-growing company in New York City.`,
-  `Fast forward to year seven. And we're growing 10x faster than the median publicly traded SaaS company.`,
+  `This made our first call easy. We found people who were obsessed with the intersection of creativity and education — people who believed India's creative talent deserved world-class learning.`,
+  `That first year, we assembled a small crew of brilliant misfits. And that group of misfits built India's largest creative education ecosystem.`,
+  `Fast forward to today. 70,000+ learners. 300K+ community. 100+ masterclasses with India's best creative minds.`,
   `We didn't get here by hiring "normal" people.`,
   `You'll be given too much responsibility. You'll never be bored.`,
   `You'll be pushed to do the best work of your career — at the fastest pace of your career.`,
@@ -216,7 +197,7 @@ const Careers = () => {
                 with <span className="text-[#FF6500]">hardcore people.</span>
               </h2>
               <p className="mt-4 text-[#888] max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
-                Our two founders, Eric and Karim, thought it'd be a good idea to write a letter persuading you not to apply.
+                Our founder thought it'd be a good idea to write a letter persuading you not to apply.
               </p>
             </m.div>
 
@@ -271,9 +252,9 @@ const Careers = () => {
                 <div className="mt-8 flex items-center gap-6">
                   <div>
                     <p className="text-xs font-bold tracking-wider uppercase text-[#1A1208]/60">
-                      Eric & Karim
+                      The LevelUp Team
                     </p>
-                    <p className="text-[10px] text-[#1A1208]/40 mt-0.5">Co-Founders</p>
+                    <p className="text-[10px] text-[#1A1208]/40 mt-0.5">Founders</p>
                   </div>
                 </div>
               </m.div>
