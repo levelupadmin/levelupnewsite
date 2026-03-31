@@ -142,38 +142,40 @@ const Careers = () => {
           </div>
         </section>
 
-        {/* ═══════════════════════ SECTION 2 — TEAM CAROUSEL ═══════════════════════ */}
-        <section className="py-16 md:py-24 overflow-hidden">
-          <div
-            ref={carouselRef}
-            className="flex gap-4 md:gap-6 px-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-4"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          >
-            {teamCards.map((card, i) => {
-              const isCenter = i === Math.floor(teamCards.length / 2);
+        {/* ═══════════════════════ SECTION 2 — TEAM PHOTO CAROUSEL ═══════════════════════ */}
+        <section className="py-16 md:py-24 overflow-hidden bg-[#f5f2ed]">
+          <div className="flex items-end justify-center gap-3 md:gap-5 px-6 max-w-7xl mx-auto">
+            {teamCards.slice(0, 5).map((card, i) => {
+              const isCenter = i === 2;
+              const heights = ["h-[280px] md:h-[360px]", "h-[340px] md:h-[440px]", "h-[400px] md:h-[520px]", "h-[340px] md:h-[440px]", "h-[280px] md:h-[360px]"];
+              const widths = ["w-[140px] md:w-[200px]", "w-[180px] md:w-[260px]", "w-[220px] md:w-[340px]", "w-[180px] md:w-[260px]", "w-[140px] md:w-[200px]"];
               return (
                 <m.div
                   key={card.name}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-20px" }}
-                  transition={{ duration: 0.5, delay: Math.min(i * 0.04, 0.4) }}
-                  className={`flex-shrink-0 snap-center w-[260px] md:w-[300px] rounded-xl p-5 md:p-6 relative transition-all duration-500 ${
-                    isCenter
-                      ? "scale-105 opacity-100"
-                      : "opacity-70 hover:opacity-100"
-                  }`}
-                  style={{ backgroundColor: "#1A1208" }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  className={`relative flex-shrink-0 ${widths[i]} ${heights[i]} rounded-xl overflow-hidden shadow-lg`}
                 >
-                  {/* Name badge */}
-                  <span className="inline-block px-3 py-1 text-[10px] tracking-[0.15em] uppercase font-medium rounded-full bg-[#FF6500]/15 text-[#FF6500] mb-4">
-                    {card.name}
-                  </span>
-                  <p className="text-white font-bold text-base md:text-lg leading-snug">
-                    {card.achievement}
-                  </p>
-                  {/* Subtle bottom glow */}
-                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-[#FF6500]/20 to-transparent" />
+                  {/* Placeholder photo background */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-[#e8e4de] to-[#d5d0c8]" />
+                  {/* Silhouette placeholder */}
+                  <div className="absolute inset-0 flex items-end justify-center">
+                    <div className="w-[60%] h-[70%] bg-[#c8c3ba] rounded-t-full" />
+                  </div>
+
+                  {/* Text overlay — only on larger cards */}
+                  {(isCenter || i === 1 || i === 3) && (
+                    <div className="absolute top-0 left-0 right-0 p-3 md:p-5 z-10">
+                      <span className="inline-block px-2.5 py-1 text-[10px] md:text-xs tracking-wide font-medium rounded-md bg-[#e8e4de]/80 text-[#1A1208]/70 backdrop-blur-sm mb-2">
+                        {card.name}
+                      </span>
+                      <p className={`text-[#1A1208] leading-snug ${isCenter ? "text-lg md:text-2xl font-bold" : "text-sm md:text-base font-semibold"}`}>
+                        {card.achievement}
+                      </p>
+                    </div>
+                  )}
                 </m.div>
               );
             })}
