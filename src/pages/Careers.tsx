@@ -1,8 +1,6 @@
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ArrowRight, ChevronDown, Search, Plus, Minus } from "lucide-react";
-import useEmblaCarousel from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
-import { useEmblaSelect } from "@/hooks/useEmblaSelect";
+import TeamPhotoCarousel from "@/components/careers/TeamPhotoCarousel";
 import { m, LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
