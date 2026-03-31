@@ -91,7 +91,7 @@ const Careers = () => {
         <div className="fixed inset-0 bg-[url('/grain.png')] opacity-[0.07] pointer-events-none z-50 mix-blend-overlay" />
 
         {/* ═══ HERO ═══ */}
-        <section className="relative px-6 md:px-12 lg:px-20 pt-32 pb-20 md:pt-44 md:pb-28 overflow-hidden">
+        <section className="relative px-6 md:px-12 lg:px-20 pt-32 pb-8 md:pt-44 md:pb-12 overflow-hidden">
           {/* Ambient glow */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-primary/8 rounded-full blur-[140px] pointer-events-none" />
 
@@ -129,6 +129,80 @@ const Careers = () => {
                 See Open Roles <ArrowRight className="w-4 h-4" />
               </a>
             </m.div>
+          </div>
+
+          {/* Scattered achievement cards — Ramp-style collage */}
+          <div className="relative z-10 mt-14 md:mt-20 max-w-6xl mx-auto h-[260px] md:h-[340px] hidden md:block">
+            {/* Card 1 — top left */}
+            <m.div
+              initial={{ opacity: 0, y: 30, rotate: -6 }}
+              animate={{ opacity: 1, y: 0, rotate: -6 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="absolute left-[2%] top-[10%] w-44 bg-card border border-border rounded-sm p-4 shadow-lg"
+            >
+              <p className="text-[10px] tracking-[0.2em] uppercase text-primary/60 mb-1">Impact</p>
+              <p className="text-sm font-semibold text-foreground leading-snug">
+                Built a creative ecosystem reaching <span className="text-primary">70K+ learners</span>
+              </p>
+            </m.div>
+
+            {/* Card 2 — top center-left */}
+            <m.div
+              initial={{ opacity: 0, y: 30, rotate: 3 }}
+              animate={{ opacity: 1, y: 0, rotate: 3 }}
+              transition={{ duration: 0.6, delay: 0.65 }}
+              className="absolute left-[22%] top-[0%] w-40 bg-primary rounded-sm p-4 shadow-lg"
+            >
+              <p className="text-[10px] tracking-[0.2em] uppercase text-primary-foreground/60 mb-1">Growth</p>
+              <p className="text-sm font-bold text-primary-foreground leading-snug">
+                Scaled community to 300K+ members
+              </p>
+            </m.div>
+
+            {/* Card 3 — center */}
+            <m.div
+              initial={{ opacity: 0, y: 30, rotate: -2 }}
+              animate={{ opacity: 1, y: 0, rotate: -2 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="absolute left-[38%] top-[15%] w-48 bg-card border border-primary/20 rounded-sm p-4 shadow-lg"
+            >
+              <p className="text-[10px] tracking-[0.2em] uppercase text-primary/60 mb-1">Recognition</p>
+              <p className="text-sm font-semibold text-foreground leading-snug">
+                Featured in <span className="text-primary">YourStory, The Hindu</span> & more
+              </p>
+            </m.div>
+
+            {/* Card 4 — center-right */}
+            <m.div
+              initial={{ opacity: 0, y: 30, rotate: 5 }}
+              animate={{ opacity: 1, y: 0, rotate: 5 }}
+              transition={{ duration: 0.6, delay: 0.95 }}
+              className="absolute right-[20%] top-[5%] w-44 bg-card border border-border rounded-sm p-4 shadow-lg"
+            >
+              <p className="text-[10px] tracking-[0.2em] uppercase text-primary/60 mb-1">Rating</p>
+              <p className="text-sm font-semibold text-foreground leading-snug">
+                <span className="text-primary font-display text-2xl">4.86</span>
+                <span className="text-muted-foreground text-xs ml-1">/ 5 avg rating</span>
+              </p>
+            </m.div>
+
+            {/* Card 5 — far right */}
+            <m.div
+              initial={{ opacity: 0, y: 30, rotate: -4 }}
+              animate={{ opacity: 1, y: 0, rotate: -4 }}
+              transition={{ duration: 0.6, delay: 1.1 }}
+              className="absolute right-[1%] top-[12%] w-40 bg-card border border-border rounded-sm p-4 shadow-lg"
+            >
+              <p className="text-[10px] tracking-[0.2em] uppercase text-primary/60 mb-1">Programs</p>
+              <p className="text-sm font-semibold text-foreground leading-snug">
+                100+ masterclasses & programs delivered
+              </p>
+            </m.div>
+
+            {/* Decorative dots */}
+            <div className="absolute left-[18%] bottom-[10%] w-3 h-3 rounded-full bg-primary/30" />
+            <div className="absolute right-[35%] bottom-[5%] w-2 h-2 rounded-full bg-primary/20" />
+            <div className="absolute right-[12%] bottom-[20%] w-4 h-4 rounded-full bg-primary/15" />
           </div>
         </section>
 
