@@ -39,7 +39,7 @@ const faqs = [
   },
   {
     q: "Does LevelUp offer benefits?",
-    a: `Yes, lots and lots.\n\nA competitive salary. ESOPs for early team members. Health insurance. Annual learning budget for courses, books, and conferences. Flexible hybrid work. Creative freedom to experiment. Direct access to India's top creative professionals. And the chance to shape how an entire generation discovers their passion.`,
+    a: `Yes, lots and lots.\n\nA competitive salary. Creative freedom to experiment. Direct access to India's top creative professionals. And the chance to shape how an entire generation discovers their passion.`,
   },
 ];
 
