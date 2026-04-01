@@ -43,15 +43,19 @@ const faqs = [
   },
 ];
 
-/* ─── Job departments ─── */
-const jobDepartments = [
-  { name: "Growth", count: 2 },
-  { name: "Product", count: 2 },
-  { name: "Leadership", count: 1 },
-  { name: "Operations", count: 2 },
-  { name: "Learning Design", count: 1 },
-  { name: "Creative", count: 3 },
-  { name: "Marketing", count: 2 },
+/* ─── Open positions ─── */
+const openPositions = [
+  "Content Creator / Marketing",
+  "Business Development Executive",
+  "Human Resource Associate",
+  "Operations Associate",
+  "Graphic Designer",
+  "Video Editor",
+  "Product Manager",
+  "No Code Website Designer",
+  "Founder's Office",
+  "Event Operations",
+  "Instructional Designer",
 ];
 
 /* ─── Founders letter ─── */
@@ -81,15 +85,7 @@ const Careers = () => {
   }, []);
 
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [expandedDept, setExpandedDept] = useState<string | null>(null);
-  const [teamFilter, setTeamFilter] = useState("All teams");
-  const [locationFilter, setLocationFilter] = useState("All locations");
-  const [searchQuery, setSearchQuery] = useState("");
   const carouselRef = useRef<HTMLDivElement>(null);
-
-  const filteredDepts = jobDepartments.filter((d) =>
-    d.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   return (
     <LazyMotion features={domAnimation}>
@@ -352,97 +348,21 @@ const Careers = () => {
               </p>
             </m.div>
 
-            {/* Filters row */}
-            <div className="flex flex-col sm:flex-row gap-3 mb-8">
-              {/* Team dropdown */}
-              <div className="relative">
-                <select
-                  value={teamFilter}
-                  onChange={(e) => setTeamFilter(e.target.value)}
-                  className="appearance-none w-full sm:w-48 px-4 py-3 pr-10 text-sm bg-[#1A1208] border border-white/10 rounded-xl text-white focus:outline-none focus:border-[#FF6500]/50 cursor-pointer"
-                >
-                  <option>All teams</option>
-                  {jobDepartments.map((d) => (
-                    <option key={d.name}>{d.name}</option>
-                  ))}
-                </select>
-                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#888] pointer-events-none" />
-              </div>
-
-              {/* Location dropdown */}
-              <div className="relative">
-                <select
-                  value={locationFilter}
-                  onChange={(e) => setLocationFilter(e.target.value)}
-                  className="appearance-none w-full sm:w-48 px-4 py-3 pr-10 text-sm bg-[#1A1208] border border-white/10 rounded-xl text-white focus:outline-none focus:border-[#FF6500]/50 cursor-pointer"
-                >
-                  <option>All locations</option>
-                </select>
-                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#888] pointer-events-none" />
-              </div>
-
-              {/* Search */}
-              <div className="relative flex-1">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#888]" />
-                <input
-                  type="text"
-                  placeholder="Search open positions"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-11 pr-4 py-3 text-sm bg-[#1A1208] border border-white/10 rounded-xl text-white placeholder:text-[#888]/60 focus:outline-none focus:border-[#FF6500]/50 transition-colors"
-                />
-              </div>
-            </div>
-
-            {/* Departments accordion */}
+            {/* Positions list */}
             <div className="border-t border-white/10">
-              {filteredDepts.map((dept) => (
-                <div key={dept.name} className="border-b border-white/10">
-                  <button
-                    onClick={() =>
-                      setExpandedDept(expandedDept === dept.name ? null : dept.name)
-                    }
-                    className="w-full flex items-center justify-between py-5 px-1 text-left group"
-                  >
-                    <h3 className="text-base md:text-lg font-semibold text-white group-hover:text-[#FF6500] transition-colors">
-                      {dept.name}{" "}
-                      <span className="text-[#888] font-normal">({dept.count})</span>
-                    </h3>
-                    <ChevronDown
-                      className={`w-5 h-5 text-[#FF6500] transition-transform duration-200 ${
-                        expandedDept === dept.name ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-                  <AnimatePresence>
-                    {expandedDept === dept.name && (
-                      <m.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.25 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="pb-5 px-1 space-y-3">
-                          {Array.from({ length: dept.count }, (_, j) => (
-                            <a
-                              key={j}
-                              href="https://tally.so/r/mO8eZ8"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center justify-between py-3 px-4 rounded-xl bg-[#1A1208]/60 hover:bg-[#1A1208] border border-white/5 hover:border-[#FF6500]/20 transition-all group/job"
-                            >
-                              <span className="text-sm text-white group-hover/job:text-[#FF6500] transition-colors">
-                                {dept.name} — Role {j + 1}
-                              </span>
-                              <ArrowRight className="w-4 h-4 text-[#FF6500] opacity-0 group-hover/job:opacity-100 transition-opacity" />
-                            </a>
-                          ))}
-                        </div>
-                      </m.div>
-                    )}
-                  </AnimatePresence>
-                </div>
+              {openPositions.map((role) => (
+                <a
+                  key={role}
+                  href="https://tally.so/r/mO8eZ8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between py-5 px-1 border-b border-white/10 group"
+                >
+                  <span className="text-base md:text-lg font-semibold text-white group-hover:text-[#FF6500] transition-colors">
+                    {role}
+                  </span>
+                  <ArrowRight className="w-5 h-5 text-[#FF6500] opacity-0 group-hover:opacity-100 transition-opacity" />
+                </a>
               ))}
             </div>
           </div>
