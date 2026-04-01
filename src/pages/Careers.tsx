@@ -85,15 +85,7 @@ const Careers = () => {
   }, []);
 
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [expandedDept, setExpandedDept] = useState<string | null>(null);
-  const [teamFilter, setTeamFilter] = useState("All teams");
-  const [locationFilter, setLocationFilter] = useState("All locations");
-  const [searchQuery, setSearchQuery] = useState("");
   const carouselRef = useRef<HTMLDivElement>(null);
-
-  const filteredDepts = jobDepartments.filter((d) =>
-    d.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   return (
     <LazyMotion features={domAnimation}>
