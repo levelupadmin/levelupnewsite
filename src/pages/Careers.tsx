@@ -43,15 +43,19 @@ const faqs = [
   },
 ];
 
-/* ─── Job departments ─── */
-const jobDepartments = [
-  { name: "Growth", count: 2 },
-  { name: "Product", count: 2 },
-  { name: "Leadership", count: 1 },
-  { name: "Operations", count: 2 },
-  { name: "Learning Design", count: 1 },
-  { name: "Creative", count: 3 },
-  { name: "Marketing", count: 2 },
+/* ─── Open positions ─── */
+const openPositions = [
+  "Content Creator / Marketing",
+  "Business Development Executive",
+  "Human Resource Associate",
+  "Operations Associate",
+  "Graphic Designer",
+  "Video Editor",
+  "Product Manager",
+  "No Code Website Designer",
+  "Founder's Office",
+  "Event Operations",
+  "Instructional Designer",
 ];
 
 /* ─── Founders letter ─── */
