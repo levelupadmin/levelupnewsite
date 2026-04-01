@@ -348,20 +348,20 @@ const Careers = () => {
               </p>
             </m.div>
 
-            {/* Positions list */}
-            <div className="border-t border-white/10">
+            {/* Positions grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {openPositions.map((role) => (
                 <a
                   key={role}
                   href="https://tally.so/r/mO8eZ8"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between py-5 px-1 border-b border-white/10 group"
+                  className="flex items-center justify-between px-5 py-5 rounded-xl bg-[#1A1208]/60 border border-white/5 hover:border-[#FF6500]/40 hover:bg-[#FF6500]/10 transition-all duration-200 group"
                 >
-                  <span className="text-base md:text-lg font-semibold text-white group-hover:text-[#FF6500] transition-colors">
+                  <span className="text-sm md:text-base font-semibold text-white group-hover:text-[#FF6500] transition-colors">
                     {role}
                   </span>
-                  <ArrowRight className="w-5 h-5 text-[#FF6500] opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <ArrowRight className="w-4 h-4 text-[#FF6500] opacity-0 group-hover:opacity-100 transition-opacity shrink-0 ml-3" />
                 </a>
               ))}
             </div>
