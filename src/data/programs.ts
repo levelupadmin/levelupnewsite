@@ -92,7 +92,7 @@ export const showcasePrograms: ShowcaseProgram[] = [
     instructor: "Creator Mentors",
     startDate: "",
     status: "Enrolling",
-    image: liveAcp,
+    image: liveCreator,
     previewVideo: "/videos/ve-trailer.mp4",
     youtubeId: "dQw4w9WgXcQ",
     ctaLink: "https://www.leveluplearning.in/creator-academy",
