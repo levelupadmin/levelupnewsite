@@ -124,7 +124,7 @@ export const navLinks: NavLink[] = [
         href: "https://www.leveluplearning.in/acp-2",
       },
       {
-        image: navAcp,
+        image: navCreator,
         title: "The LevelUp Creator Academy",
         subtitle: "12-week cohort",
         href: "https://www.leveluplearning.live/creator-academy",
