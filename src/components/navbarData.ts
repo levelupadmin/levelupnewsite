@@ -3,6 +3,7 @@ import navVe from "@/assets/nav-ve.png";
 import navUiux from "@/assets/nav-uiux.png";
 import navSw from "@/assets/nav-sw.png";
 import navAcp from "@/assets/live-acp.png";
+import navCreator from "@/assets/live-creator-logo.jpg";
 import navForgeFilmmaking from "@/assets/nav-forge-filmmaking.jpg";
 import navForgeWriting from "@/assets/nav-forge-writing.jpg";
 import navForgeCreators from "@/assets/nav-forge-creators.jpg";
@@ -123,7 +124,7 @@ export const navLinks: NavLink[] = [
         href: "https://www.leveluplearning.in/acp-2",
       },
       {
-        image: navAcp,
+        image: navCreator,
         title: "The LevelUp Creator Academy",
         subtitle: "12-week cohort",
         href: "https://www.leveluplearning.live/creator-academy",
