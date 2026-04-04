@@ -255,12 +255,12 @@ const LiveProgramsSection = () => {
                   className="flex flex-col md:flex-row"
                 >
                   {/* Image */}
-                  <div className="md:order-2 md:w-[40%] relative aspect-[16/10] md:aspect-auto overflow-hidden">
+                  <div className="md:order-2 md:w-[40%] relative aspect-[16/10] md:aspect-auto overflow-hidden md:min-h-[380px]">
                     <img
                       src={program.image}
                       alt={`LevelUp Learning ${program.title} course thumbnail`}
                       loading="lazy"
-                      className="w-full h-full object-cover"
+                      className="absolute inset-0 w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-[hsl(22_12%_8%)] via-transparent to-transparent hidden md:block" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[hsl(22_12%_8%)] via-transparent to-transparent md:hidden" />
