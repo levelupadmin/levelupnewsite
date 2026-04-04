@@ -23,11 +23,11 @@ export interface ShowcaseProgram {
   bullets: string[];
 }
 
-import liveBfp from "@/assets/live-bfp.jpg";
-import liveVe from "@/assets/live-ve.png";
-import liveUiux from "@/assets/live-uiux.png";
-import liveSw from "@/assets/live-sw.png";
-import liveAcp from "@/assets/live-acp.png";
+import liveBfp from "@/assets/live-bfp-logo.png";
+import liveVe from "@/assets/live-ve-logo.png";
+import liveUiux from "@/assets/live-uiux-logo.png";
+import liveSw from "@/assets/live-sw-logo.png";
+import liveCreator from "@/assets/live-creator-logo.jpg";
 
 export const showcasePrograms: ShowcaseProgram[] = [
   {
