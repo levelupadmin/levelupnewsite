@@ -43,6 +43,7 @@ const AnimatedRoutes = () => {
           
           <Route path="/student-stories/:slug" element={<StudentStory />} />
           <Route path="/careers" element={<Careers />} />
+          <Route path="/live/ve" element={<LiveVE />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
