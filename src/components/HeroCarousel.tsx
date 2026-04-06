@@ -13,9 +13,9 @@ import heroPoster6 from "@/assets/hero-poster-6.jpg";
 
 const slides = [
   {
-    video: "/videos/pvr-trailer.mp4",
+    video: "/videos/masterclass-trailer.mp4",
     poster: "/images/hero-poster-1.jpg",
-    alt: "PVR Trailer - LevelUp filmmaking showcase",
+    alt: "Masterclass trailer - LevelUp filmmaking showcase",
   },
   {
     video: "/videos/forge.mp4",
