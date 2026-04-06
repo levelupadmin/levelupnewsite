@@ -19,6 +19,7 @@ const Careers = lazy(() => import("./pages/Careers"));
 const Terms = lazy(() => import("./pages/Terms"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const LiveVE = lazy(() => import("./pages/LiveVE"));
 
 const queryClient = new QueryClient();
 
@@ -42,6 +43,7 @@ const AnimatedRoutes = () => {
           
           <Route path="/student-stories/:slug" element={<StudentStory />} />
           <Route path="/careers" element={<Careers />} />
+          <Route path="/live/ve" element={<LiveVE />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
