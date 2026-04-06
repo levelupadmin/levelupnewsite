@@ -19,6 +19,7 @@ const Careers = lazy(() => import("./pages/Careers"));
 const Terms = lazy(() => import("./pages/Terms"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const LiveVE = lazy(() => import("./pages/LiveVE"));
 
 const queryClient = new QueryClient();
 
