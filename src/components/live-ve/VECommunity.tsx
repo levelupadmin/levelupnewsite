@@ -1,37 +1,53 @@
 import FadeInSection from "@/components/FadeInSection";
-import { veCommunityStats } from "@/data/liveVEData";
-import { m } from "framer-motion";
+import { veCommunityData } from "@/data/liveVEData";
 
 const VECommunity = () => (
-  <section className="py-16 md:py-24" style={{ background: "hsl(22 14% 5%)" }}>
-    <div className="max-w-4xl mx-auto px-6 md:px-12">
-      <FadeInSection className="text-center mb-10">
-        <p className="font-sans-body text-sm text-purple-400 tracking-[0.15em] uppercase font-semibold mb-3">LevelUp Learning</p>
-        <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight tracking-tight mb-4">
-          India's Largest Filmmaking Learning Community
-        </h2>
-        <p className="font-sans-body text-base text-muted-foreground">
-          LevelUp Learning is more than a platform — it's a Community!
-        </p>
-      </FadeInSection>
+  <section className="py-16 md:py-24 px-4 md:px-8" style={{ background: "hsl(160 8% 8%)" }}>
+    <div className="max-w-[1400px] mx-auto">
+      <div className="rounded-2xl border border-white/10 overflow-hidden" style={{ background: "linear-gradient(180deg, hsl(250 15% 12%), hsl(250 10% 8%))" }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 min-h-[500px]">
+          {/* Left */}
+          <div className="p-10 md:p-14 flex flex-col justify-between relative overflow-hidden">
+            <div className="absolute inset-0 opacity-5">
+              <svg viewBox="0 0 200 200" className="w-[300px] h-[300px] absolute bottom-0 left-0 -translate-x-1/4 translate-y-1/4">
+                <circle cx="100" cy="100" r="90" fill="none" stroke="white" strokeWidth="3"/>
+                <circle cx="100" cy="60" r="20" fill="none" stroke="white" strokeWidth="3"/>
+                <line x1="100" y1="80" x2="100" y2="140" stroke="white" strokeWidth="3"/>
+              </svg>
+            </div>
+            <div className="relative">
+              <p className="text-white/40 text-xs tracking-[0.15em] uppercase mb-4" style={{ fontFamily: "'DM Sans', sans-serif" }}>LevelUp Learning</p>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-white leading-tight mb-8" style={{ fontFamily: "'DM Serif Text', serif" }}>
+                India's Largest Filmmaking Learning Community
+              </h2>
+            </div>
+            <p className="text-white/40 text-sm relative" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+              LevelUp Learning is more than a platform - it's a Community!
+            </p>
+          </div>
 
-      <FadeInSection delay={100}>
-        <div className="grid grid-cols-2 gap-6 max-w-md mx-auto">
-          {veCommunityStats.map((stat, i) => (
-            <m.div
-              key={stat.label}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="text-center p-6 rounded-2xl border border-purple-500/20 bg-purple-500/5"
-            >
-              <div className="font-serif-display text-3xl md:text-4xl font-bold text-purple-400 mb-1">{stat.value}</div>
-              <div className="font-sans-body text-sm text-muted-foreground">{stat.label}</div>
-            </m.div>
-          ))}
+          {/* Right */}
+          <div className="p-6 md:p-10 flex flex-col gap-4">
+            <div className="rounded-xl border border-white/10 bg-white/5 p-6 flex items-start justify-between">
+              <div>
+                {veCommunityData.stats.map((stat, i) => (
+                  <div key={i} className={i > 0 ? "mt-4" : ""}>
+                    <div className="text-3xl md:text-4xl font-bold text-white" style={{ fontFamily: "'DM Sans', sans-serif" }}>{stat.value}</div>
+                    <div className="text-sm text-white/50" style={{ fontFamily: "'DM Sans', sans-serif" }}>{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="w-16 h-16 rounded-full bg-black/30 flex items-center justify-center">
+                <span className="text-white text-xs font-bold" style={{ fontFamily: "'DM Sans', sans-serif" }}>LevelUp</span>
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-white/10 bg-white/5 overflow-hidden flex-1">
+              <img src={veCommunityData.mentorGroupImage} alt="Mentor group" className="w-full h-full object-cover min-h-[250px]" loading="lazy" />
+            </div>
+          </div>
         </div>
-      </FadeInSection>
+      </div>
     </div>
   </section>
 );

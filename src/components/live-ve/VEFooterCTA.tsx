@@ -1,24 +1,24 @@
 import FadeInSection from "@/components/FadeInSection";
 import { VE_CTA_LINK } from "@/data/liveVEData";
-import { ArrowRight } from "lucide-react";
 
 const VEFooterCTA = () => (
-  <section className="py-20 md:py-28" style={{ background: "hsl(22 14% 5%)" }}>
+  <section className="py-20 md:py-28" style={{ background: "hsl(160 8% 6%)" }}>
     <div className="max-w-3xl mx-auto px-6 md:px-12 text-center">
       <FadeInSection>
-        <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight tracking-tight mb-6">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-white leading-tight tracking-tight mb-6" style={{ fontFamily: "'DM Serif Text', serif" }}>
           Ready to Become the Editor<br />Everyone Wants to Hire?
         </h2>
-        <p className="font-sans-body text-base text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed">
+        <p className="text-sm text-white/50 max-w-xl mx-auto mb-10 leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
           Join India's most exclusive Video Editing cohort. Limited seats per batch.
         </p>
         <a
           href={VE_CTA_LINK}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-10 py-4 rounded-full bg-purple-500 text-white font-sans-body text-lg font-semibold tracking-wide transition-all hover:scale-[1.03] hover:shadow-[0_0_30px_hsl(270_70%_55%/0.4)]"
+          className="inline-flex items-center justify-center px-10 py-4 rounded-lg text-white text-base font-medium"
+          style={{ background: "linear-gradient(135deg, hsl(270 60% 55%), hsl(280 70% 65%))", fontFamily: "'DM Sans', sans-serif" }}
         >
-          Request Invite <ArrowRight className="w-5 h-5" />
+          Request Invite
         </a>
       </FadeInSection>
     </div>

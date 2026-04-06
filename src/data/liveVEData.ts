@@ -11,6 +11,18 @@ export const veHero = {
   bgImage: "https://framerusercontent.com/images/eKPxr8jWd5wuW6jANPkEQPRdws.png",
 };
 
+export const veSonyBanner = {
+  logoImage: "https://framerusercontent.com/images/UVqfMUZH6xjFCfUQkVxrMnNLY.png",
+  sonyLogo: "https://framerusercontent.com/images/lQfWzqCU8GxEZIbidtKH1FHMWI.png",
+  discountText: "exclusive discounts on\nindustry-standard gear & tools",
+};
+
+export const vePromoVideo = {
+  title: "Before You Apply, You Should See This",
+  vimeoId: "1060625241",
+  thumbnail: "https://framerusercontent.com/images/qLz7RZm0sLkK3VGsGxPINIaRU.jpg",
+};
+
 export const veMentorCreators = [
   { name: "Ali Abdaal", role: "Entrepreneur & Author", image: "https://framerusercontent.com/images/3BqermYNouUgnF5he0yjlOAMs.png?width=486&height=706" },
   { name: "Ankur Warikoo", role: "Entrepreneur", image: "https://framerusercontent.com/images/Qjl1P3JZMEMotPRideIKa6XsgYs.png?width=486&height=706" },
@@ -39,21 +51,39 @@ export const veBrandLogos = [
   "https://framerusercontent.com/images/tNbvH5KOMWjJyX19JCeF4XGtOLQ.png?width=444&height=265",
   "https://framerusercontent.com/images/QX4FeraOBMzApwipwIqonofbrA.png?width=443&height=265",
   "https://framerusercontent.com/images/zH1p6OmxntFAEau7scr4tXbEaM.png?width=444&height=265",
+  "https://framerusercontent.com/images/vCfHqeaCeKMmAWbQQmYn8KuZRiE.png?width=444&height=265",
+  "https://framerusercontent.com/images/dLfAiSH4SUQQrpQknyElDOnT9SI.png?width=443&height=265",
+  "https://framerusercontent.com/images/fqaORo6zkT7VmYxEdk66J2NHGoY.png?width=444&height=265",
+  "https://framerusercontent.com/images/qTvPEAhlITV3om6MaUuo6SSI.png?width=443&height=265",
+  "https://framerusercontent.com/images/aL2XhOP9RZNsXYxh51KyuKz8T3o.png?width=444&height=265",
+  "https://framerusercontent.com/images/xQZwAXZR7KNtJ4KQ1rPcWfOKA.png?width=443&height=265",
+  "https://framerusercontent.com/images/yx3dKATRtcg6gmofsKcAsTIgPb0.png?width=443&height=265",
+  "https://framerusercontent.com/images/tNbvH5KOMWjJyX19JCeF4XGtOLQ.png?width=444&height=265",
+  "https://framerusercontent.com/images/QX4FeraOBMzApwipwIqonofbrA.png?width=443&height=265",
+  "https://framerusercontent.com/images/zH1p6OmxntFAEau7scr4tXbEaM.png?width=444&height=265",
 ];
 
-export const veToolsImages = [
-  "https://framerusercontent.com/images/fulyuAAHtwG5EFxCr8N8YQFEt8E.png?width=1588&height=1563",
-  "https://framerusercontent.com/images/D0Bv9Ijac2Z3wapu8dDxEqTRro.png?width=1807&height=1749",
-  "https://framerusercontent.com/images/SZuIntNLyNuezwMe0A54J5Adc.png?width=940&height=918",
+export const veToolIcons = [
+  { name: "Chat GPT ( DALL - E )", image: "https://framerusercontent.com/images/fulyuAAHtwG5EFxCr8N8YQFEt8E.png?width=1588&height=1563" },
+  { name: "Adobe After Effects", image: "https://framerusercontent.com/images/D0Bv9Ijac2Z3wapu8dDxEqTRro.png?width=1807&height=1749" },
+  { name: "Adobe Photoshop", image: "https://framerusercontent.com/images/SZuIntNLyNuezwMe0A54J5Adc.png?width=940&height=918" },
+  { name: "DaVinci Resolve", image: "https://framerusercontent.com/images/fulyuAAHtwG5EFxCr8N8YQFEt8E.png?width=1588&height=1563" },
+  { name: "Envato Elements", image: "https://framerusercontent.com/images/D0Bv9Ijac2Z3wapu8dDxEqTRro.png?width=1807&height=1749" },
+  { name: "Midjourney", image: "https://framerusercontent.com/images/SZuIntNLyNuezwMe0A54J5Adc.png?width=940&height=918" },
+  { name: "Adobe Premiere Pro", image: "https://framerusercontent.com/images/fulyuAAHtwG5EFxCr8N8YQFEt8E.png?width=1588&height=1563" },
+  { name: "Boards", image: "https://framerusercontent.com/images/D0Bv9Ijac2Z3wapu8dDxEqTRro.png?width=1807&height=1749" },
+  { name: "Nuendo", image: "https://framerusercontent.com/images/SZuIntNLyNuezwMe0A54J5Adc.png?width=940&height=918" },
+  { name: "Canva", image: "https://framerusercontent.com/images/fulyuAAHtwG5EFxCr8N8YQFEt8E.png?width=1588&height=1563" },
+  { name: "Adobe Illustrator", image: "https://framerusercontent.com/images/D0Bv9Ijac2Z3wapu8dDxEqTRro.png?width=1807&height=1749" },
 ];
 
-export const vePortfolioItems = [
-  "Long-Form YouTube Cuts",
-  "Faceless Social Media Edits",
-  "Talking-Head Reels",
-  "Short Films",
-  "Trailers & Promos",
-  "YOUR Showreel",
+export const vePortfolioCards = [
+  { title: "Long-Form\nYoutube Cuts", image: "https://framerusercontent.com/images/U9iZffSyvaAbp3MSqamfZcxIPM.png?width=486&height=706" },
+  { title: "Faceless\nSocial Media Edits", description: "Cut short-form content using voiceovers, B-roll, and sleek transitions built for platforms like Instagram and YouTube Shorts.", image: "https://framerusercontent.com/images/zccB5DrbOcyqfpQSAGtlGObXp20.png?width=486&height=706" },
+  { title: "Talking-Head Reels", image: "https://framerusercontent.com/images/nWv555wV3jh7qcGTn44llh7abS0.png?width=486&height=706" },
+  { title: "Short Films", image: "https://framerusercontent.com/images/JiwNnwTMADriJmOrYeYfBgtS5v8.png?width=486&height=706" },
+  { title: "Trailers & Promos", image: "https://framerusercontent.com/images/sGFDmzslz4nP24wOifsw7xYxrWI.png?width=486&height=706" },
+  { title: "YOUR Showreel", image: "https://framerusercontent.com/images/lBRN3dTltwfPDukMIj4F4S3wGtg.png?width=486&height=706" },
 ];
 
 export const veProblemPoints = [
@@ -75,12 +105,12 @@ export const veAdvantages = [
   },
   {
     icon: "https://framerusercontent.com/images/XowdiUCSmFxC6PX3xCRM6Nmfg.png?width=287&height=318",
-    title: "Graduate with a Job-Ready Portfolio",
+    title: "Graduate with a\nJob-Ready Portfolio",
     description: "Walk away with edits that look pro and land gigs. Your work will speak for you.",
   },
   {
     icon: "https://framerusercontent.com/images/caHj2FPHlibY2hzyY6sFSpwF4Hc.png?width=311&height=318",
-    title: "Grow with a Creative Community",
+    title: "Grow with a\nCreative Community",
     description: "Be part of a crew that gives feedback, pushes you to level up, and celebrates your wins.",
   },
 ];
@@ -88,7 +118,7 @@ export const veAdvantages = [
 export const veCurriculum = [
   {
     title: "Editing Made Easy",
-    description: "Forget overwhelming tutorials. Clearly learn the core skills, professional workflows, and habits top editors swear by.",
+    description: "Forget overwhelming tutorials. Clearly learn the core skills, professional workflows, and habits top editors swear by. Editing finally makes sense.",
   },
   {
     title: "Cinematic Storytelling Secrets",
@@ -112,28 +142,28 @@ export const veCurriculum = [
   },
 ];
 
-export const veFramework = [
-  {
-    step: "Learn",
-    description: "Every weekend, you'll join live sessions where mentors break down the exact tools, techniques, and storytelling tricks they use every day.",
-    image: "https://framerusercontent.com/images/Tr4OJKxs7SYPkQ6h99BSYaIB18.png",
-  },
-  {
-    step: "Practice",
-    description: "After each session, you'll get hands-on with real projects. We'll give you clear briefs, and you'll get feedback so you're always improving.",
-    image: "https://framerusercontent.com/images/abzJ9VAQ2VZBS2dK9YaqGtOGgk.png",
-  },
-  {
-    step: "Apply",
-    description: "You'll build a portfolio along the way — not at the end. You'll learn how to pitch, deliver, and actually get paid for your work.",
-    image: "https://framerusercontent.com/images/UCPPS0LocYdB7wE25Gvzlx3Tb9g.png",
-  },
-  {
-    step: "Collaborate & Grow",
-    description: "Weekly community calls, peer reviews, and collab threads keep you connected, accountable, and constantly improving.",
-    image: "https://framerusercontent.com/images/cLFLFWVwBgDHq2OVULs0JsbCI.png",
-  },
+export const veCurriculumImage = "https://framerusercontent.com/images/Tr4OJKxs7SYPkQ6h99BSYaIB18.png";
+
+export const veStudentWorkImages = [
+  "https://framerusercontent.com/images/U9iZffSyvaAbp3MSqamfZcxIPM.png?width=486&height=706",
+  "https://framerusercontent.com/images/zccB5DrbOcyqfpQSAGtlGObXp20.png?width=486&height=706",
+  "https://framerusercontent.com/images/nWv555wV3jh7qcGTn44llh7abS0.png?width=486&height=706",
+  "https://framerusercontent.com/images/JiwNnwTMADriJmOrYeYfBgtS5v8.png?width=486&height=706",
+  "https://framerusercontent.com/images/sGFDmzslz4nP24wOifsw7xYxrWI.png?width=486&height=706",
+  "https://framerusercontent.com/images/lBRN3dTltwfPDukMIj4F4S3wGtg.png?width=486&height=706",
+  "https://framerusercontent.com/images/z4JvqOhRE9mvwjKJz4I2bHzxyg.png?width=486&height=706",
+  "https://framerusercontent.com/images/eM3oDrwm0eagW8NFNd4bDy8Z1CY.png?width=486&height=706",
+  "https://framerusercontent.com/images/3BqermYNouUgnF5he0yjlOAMs.png?width=486&height=706",
+  "https://framerusercontent.com/images/Qjl1P3JZMEMotPRideIKa6XsgYs.png?width=486&height=706",
 ];
+
+export const veCommunityData = {
+  stats: [
+    { value: "200,000+", label: "Community Members" },
+    { value: "50,000+", label: "Students Trained" },
+  ],
+  mentorGroupImage: "https://framerusercontent.com/images/eKPxr8jWd5wuW6jANPkEQPRdws.png",
+};
 
 export const veApplicationSteps = [
   { step: "01", title: "Request an invite via the application form" },
@@ -152,6 +182,15 @@ export const vePricing = {
   earlyBird: "₹5,000 OFF for the first 10 accepted applicants",
 };
 
+export const veTestimonialCards = [
+  { name: "RISHI VARMA", image: "https://framerusercontent.com/images/3BqermYNouUgnF5he0yjlOAMs.png?width=486&height=706", vimeoId: "1060625411" },
+  { name: "JOEL J DSOUZA", image: "https://framerusercontent.com/images/Qjl1P3JZMEMotPRideIKa6XsgYs.png?width=486&height=706", vimeoId: "1060625370" },
+  { name: "STINSON THOMAS", image: "https://framerusercontent.com/images/Wr3qIankHBVOHQlEajKZee4upEE.png?width=486&height=706", vimeoId: "1060625241" },
+  { name: "KISHORE", image: "https://framerusercontent.com/images/U9iZffSyvaAbp3MSqamfZcxIPM.png?width=486&height=706", vimeoId: "1060625339" },
+  { name: "AJAY SINGH", image: "https://framerusercontent.com/images/zccB5DrbOcyqfpQSAGtlGObXp20.png?width=486&height=706", vimeoId: "1060625296" },
+  { name: "SOURAV JYOTI HAZARIKA", image: "https://framerusercontent.com/images/nWv555wV3jh7qcGTn44llh7abS0.png?width=486&height=706", vimeoId: "1060625315" },
+];
+
 export const veExperience = [
   { title: "Practical Assignments", description: "Work on real briefs that teach you how to think and edit like a pro." },
   { title: "In-Depth Feedback", description: "Get expert reviews on your work — real critique from mentors who've done it for a living." },
@@ -159,8 +198,8 @@ export const veExperience = [
   { title: "Creator Community Access", description: "Connect, collaborate, and grow with like-minded editors, filmmakers, and creators." },
   { title: "Certification On Completion", description: "Get certified by LevelUp Learning — a trusted name in India's filmmaking space." },
   { title: "Portfolio Building", description: "Every project you do builds toward a job-ready portfolio you can show to clients and studios." },
-  { title: "Placement Support", description: "Get help with pitching, client outreach, and finding freelance + full-time opportunities." },
-  { title: "Lifetime Access to Recordings", description: "Miss a session? Rewatch every masterclass, assignment breakdown, and Q&A — anytime." },
+  { title: "Placement Support", description: "Get help with pitching, client outreach, and finding freelance + full-time opportunities through our network." },
+  { title: "Lifetime Access to Recordings", description: "Miss a session? No worries. Rewatch every masterclass, assignment breakdown, and Q&A — anytime." },
 ];
 
 export const veFAQs = [
@@ -200,18 +239,4 @@ export const veFAQs = [
     question: "How do I join?",
     answer: 'Click "Request Invite", fill out a short application form and sit through an interview with our admission officer. If selected, we\'ll guide you through the next steps.',
   },
-];
-
-export const veTestimonialVideos = [
-  { name: "Stinson Thomas", vimeoId: "1060625241" },
-  { name: "Kishore", vimeoId: "1060625339" },
-  { name: "Ajay Singh", vimeoId: "1060625296" },
-  { name: "Sourav Jyoti Hazarika", vimeoId: "1060625315" },
-  { name: "Rishi Varma", vimeoId: "1060625411" },
-  { name: "Joel J Dsouza", vimeoId: "1060625370" },
-];
-
-export const veCommunityStats = [
-  { value: "199,600+", label: "Community Members" },
-  { value: "49,480+", label: "Students Trained" },
 ];
