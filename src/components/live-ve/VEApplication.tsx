@@ -3,13 +3,11 @@ import { veApplicationSteps } from "@/data/liveVEData";
 import { m } from "framer-motion";
 
 const VEApplication = () => (
-  <section className="py-20 md:py-28" style={{ background: "hsl(22 14% 4%)" }}>
+  <section className="py-20 md:py-28" style={{ background: "hsl(160 8% 6%)" }}>
     <div className="max-w-4xl mx-auto px-6 md:px-12">
       <FadeInSection className="text-center mb-14">
-        <span className="inline-block px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 font-sans-body text-[11px] tracking-[0.2em] uppercase font-semibold mb-6">
-          The Process
-        </span>
-        <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight tracking-tight mb-4">
+        <p className="text-xs text-white/40 tracking-[0.2em] uppercase mb-4" style={{ fontFamily: "'DM Sans', sans-serif" }}>🎬 The Process</p>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-white leading-tight" style={{ fontFamily: "'DM Serif Text', serif" }}>
           How to Apply?
         </h2>
       </FadeInSection>
@@ -22,12 +20,12 @@ const VEApplication = () => (
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.08 }}
-            className="flex items-center gap-5 p-5 rounded-xl border border-border/40 bg-card/30"
+            className="flex items-center gap-5 p-5 rounded-xl border border-white/10 bg-white/[0.03]"
           >
-            <span className="font-serif-display text-2xl font-bold text-purple-400 min-w-[48px]">
+            <span className="text-2xl font-bold text-purple-400 min-w-[48px]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
               {step.step}
             </span>
-            <p className="font-sans-body text-base text-foreground/90">{step.title}</p>
+            <p className="text-base text-white/80" style={{ fontFamily: "'DM Sans', sans-serif" }}>{step.title}</p>
           </m.div>
         ))}
       </div>

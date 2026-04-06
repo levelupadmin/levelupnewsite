@@ -1,77 +1,75 @@
-import { m } from "framer-motion";
+import { useRef } from "react";
 import FadeInSection from "@/components/FadeInSection";
 import { veMentorCreators, veMentorCards, VE_CTA_LINK } from "@/data/liveVEData";
-import { ArrowRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const VEMentors = () => (
-  <section className="py-20 md:py-28 relative overflow-hidden" style={{ background: "hsl(22 14% 5%)" }}>
-    <div className="max-w-6xl mx-auto px-6 md:px-12">
-      <FadeInSection className="text-center mb-12">
-        <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight tracking-tight mb-4">
-          Learn from Mentors Who've Worked<br />
-          <span className="text-purple-400">with Your Favourite Creators & Films!</span>
-        </h2>
-      </FadeInSection>
+const VEMentors = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const scroll = (dir: "left" | "right") => {
+    scrollRef.current?.scrollBy({ left: dir === "left" ? -300 : 300, behavior: "smooth" });
+  };
 
-      {/* Creator highlight cards */}
-      <FadeInSection className="mb-14" delay={100}>
-        <div className="grid grid-cols-3 gap-4 md:gap-6 max-w-2xl mx-auto">
-          {veMentorCreators.map((creator, i) => (
-            <m.div
-              key={creator.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="text-center"
-            >
-              <div className="aspect-[2/3] rounded-xl overflow-hidden mb-3 border border-border/30">
-                <img
-                  src={creator.image}
-                  alt={creator.name}
-                  loading="lazy"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <h3 className="font-sans-body text-sm font-semibold text-foreground">{creator.name}</h3>
-              <p className="font-sans-body text-xs text-muted-foreground">{creator.role}</p>
-            </m.div>
-          ))}
-        </div>
-      </FadeInSection>
+  const allCards = [
+    ...veMentorCreators.flatMap((c, i) => [
+      { type: "creator" as const, ...c },
+      ...(veMentorCards[i * 2] ? [{ type: "poster" as const, image: veMentorCards[i * 2] }] : []),
+      ...(veMentorCards[i * 2 + 1] ? [{ type: "poster" as const, image: veMentorCards[i * 2 + 1] }] : []),
+    ]),
+    ...veMentorCards.slice(6).map(img => ({ type: "poster" as const, image: img })),
+  ];
 
-      {/* Mentor grid */}
-      <FadeInSection className="mb-10" delay={200}>
-        <div className="grid grid-cols-4 md:grid-cols-8 gap-3">
-          {veMentorCards.map((img, i) => (
-            <div key={i} className="aspect-[2/3] rounded-lg overflow-hidden border border-border/20">
-              <img src={img} alt={`Mentor ${i + 1}`} loading="lazy" className="w-full h-full object-cover" />
+  return (
+    <section className="py-16 md:py-24 px-4 md:px-8" style={{ background: "hsl(160 8% 8%)" }}>
+      <div className="max-w-[1400px] mx-auto">
+        <div className="rounded-2xl border border-white/10 overflow-hidden py-12 px-6 md:px-10" style={{ background: "linear-gradient(180deg, hsl(250 20% 12%), hsl(250 15% 8%))" }}>
+          <FadeInSection className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-white leading-tight" style={{ fontFamily: "'DM Serif Text', serif" }}>
+              Learn from Mentors Who've Worked<br />
+              with Your Favourite Creators & Films!
+            </h2>
+          </FadeInSection>
+
+          <div className="relative mb-10">
+            <button onClick={() => scroll("left")} className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/50 border border-white/20 flex items-center justify-center text-white hover:bg-black/70">
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button onClick={() => scroll("right")} className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/50 border border-white/20 flex items-center justify-center text-white hover:bg-black/70">
+              <ChevronRight className="w-5 h-5" />
+            </button>
+
+            <div ref={scrollRef} className="flex gap-4 overflow-x-auto scrollbar-hide px-6" style={{ scrollbarWidth: "none" }}>
+              {allCards.map((card, i) => (
+                <div key={i} className="flex-shrink-0 w-[180px] md:w-[220px] rounded-xl overflow-hidden border border-white/10">
+                  <div className="aspect-[2/3] relative">
+                    <img src={card.type === "creator" ? card.image : card.image} alt={card.type === "creator" ? card.name : `Film ${i}`} className="w-full h-full object-cover" loading="lazy" />
+                    {card.type === "creator" && (
+                      <div className="absolute bottom-0 inset-x-0 p-3 bg-gradient-to-t from-black/80 to-transparent">
+                        <p className="text-purple-400 text-sm font-semibold" style={{ fontFamily: "'DM Sans', sans-serif" }}>{card.name}</p>
+                        <p className="text-white/60 text-xs">{card.role}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+
+          <FadeInSection className="text-center">
+            <p className="text-sm text-white/60 max-w-3xl mx-auto mb-6 leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+              Taught by <strong className="text-white">Viral Social Media Editors</strong>,{" "}
+              <strong className="text-white">National Award-Winning Filmmaker</strong>,
+              and a <strong className="text-white">DaVinci Resolve Certified Colorist</strong> — all in one program.
+            </p>
+            <a href={VE_CTA_LINK} target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-8 py-3 rounded-lg text-white text-sm font-medium"
+              style={{ background: "linear-gradient(135deg, hsl(270 60% 55%), hsl(280 70% 65%))", fontFamily: "'DM Sans', sans-serif" }}>
+              Request Invite
+            </a>
+          </FadeInSection>
         </div>
-      </FadeInSection>
-
-      <FadeInSection className="text-center mb-8" delay={250}>
-        <p className="font-sans-body text-base md:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-          Taught by <strong className="text-foreground">Viral Social Media Editors</strong>,{" "}
-          <strong className="text-foreground">National Award-Winning Filmmaker</strong>,
-          and a <strong className="text-foreground">DaVinci Resolve Certified Colorist</strong> — all in one program.
-        </p>
-      </FadeInSection>
-
-      <FadeInSection className="text-center" delay={300}>
-        <a
-          href={VE_CTA_LINK}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-purple-500 text-white font-sans-body text-sm font-semibold tracking-wide transition-all hover:scale-[1.03] hover:shadow-[0_0_24px_hsl(270_70%_55%/0.35)]"
-        >
-          Request Invite
-          <ArrowRight className="w-4 h-4" />
-        </a>
-      </FadeInSection>
-    </div>
-  </section>
-);
+      </div>
+    </section>
+  );
+};
 
 export default VEMentors;

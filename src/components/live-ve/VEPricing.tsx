@@ -1,53 +1,52 @@
 import FadeInSection from "@/components/FadeInSection";
 import { vePricing, VE_CTA_LINK } from "@/data/liveVEData";
-import { ArrowRight, Calendar, Gift, CreditCard, ShieldCheck } from "lucide-react";
+import { Check } from "lucide-react";
 
 const VEPricing = () => (
-  <section className="py-20 md:py-28" style={{ background: "hsl(22 14% 5%)" }}>
-    <div className="max-w-3xl mx-auto px-6 md:px-12">
+  <section className="py-20 md:py-28" style={{ background: "hsl(160 8% 8%)" }}>
+    <div className="max-w-xl mx-auto px-6 md:px-12">
       <FadeInSection className="text-center mb-10">
-        <span className="inline-block px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 font-sans-body text-[11px] tracking-[0.2em] uppercase font-semibold mb-6">
-          Fee
-        </span>
-        <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight tracking-tight">
+        <p className="text-xs text-white/40 tracking-[0.2em] uppercase mb-4" style={{ fontFamily: "'DM Sans', sans-serif" }}>🎬 Fee</p>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-white leading-tight" style={{ fontFamily: "'DM Serif Text', serif" }}>
           Invest in Skills That Pay You Back
         </h2>
       </FadeInSection>
 
       <FadeInSection delay={100}>
-        <div className="rounded-2xl border border-purple-500/30 bg-gradient-to-br from-purple-500/10 to-transparent p-8 md:p-10 text-center">
-          <p className="font-sans-body text-sm text-muted-foreground mb-2">Program Fee:</p>
-          <div className="font-serif-display text-5xl md:text-6xl font-bold text-foreground mb-6">{vePricing.fee}</div>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <ShieldCheck className="w-4 h-4 text-purple-400" />
-              <span>{vePricing.placement}</span>
+        {/* Main pricing card */}
+        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 mb-4">
+          <p className="text-purple-400 text-sm font-medium mb-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>Program Fee:</p>
+          <div className="text-5xl md:text-6xl font-bold text-purple-400 mb-6" style={{ fontFamily: "'DM Sans', sans-serif" }}>{vePricing.fee}</div>
+          <div className="h-px bg-white/10 mb-4" />
+          <div className="space-y-3 mb-6">
+            <div className="flex items-center gap-2">
+              <Check className="w-4 h-4 text-purple-400" />
+              <span className="text-sm text-white/70" style={{ fontFamily: "'DM Sans', sans-serif" }}>{vePricing.placement}</span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <CreditCard className="w-4 h-4 text-purple-400" />
-              <span>{vePricing.emi}</span>
-            </div>
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-            <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-card/50 border border-border/30">
-              <Calendar className="w-4 h-4 text-purple-400" />
-              <span className="font-sans-body text-sm text-foreground">Next Cohort: <strong>{vePricing.nextCohort}</strong></span>
-            </div>
-            <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-green-500/10 border border-green-500/20">
-              <Gift className="w-4 h-4 text-green-400" />
-              <span className="font-sans-body text-sm text-green-300">{vePricing.earlyBird}</span>
+            <div className="flex items-center gap-2">
+              <Check className="w-4 h-4 text-purple-400" />
+              <span className="text-sm text-white/70" style={{ fontFamily: "'DM Sans', sans-serif" }}>{vePricing.emi}</span>
             </div>
           </div>
+          <div className="h-px bg-white/10 mb-4" />
+          <div className="inline-block px-3 py-1 rounded border border-white/10 bg-white/5 mb-2">
+            <span className="text-xs text-white/50" style={{ fontFamily: "'DM Sans', sans-serif" }}>Next Cohort</span>
+          </div>
+          <div className="text-2xl font-bold text-white" style={{ fontFamily: "'DM Sans', sans-serif" }}>{vePricing.nextCohort}</div>
+        </div>
 
-          <a
-            href={VE_CTA_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-purple-500 text-white font-sans-body text-base font-semibold tracking-wide transition-all hover:scale-[1.03] hover:shadow-[0_0_30px_hsl(270_70%_55%/0.4)]"
-          >
-            Request Invite <ArrowRight className="w-5 h-5" />
+        {/* Early bird card */}
+        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+          <p className="text-purple-400 text-lg font-semibold italic mb-2" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            🎟️ <em>Early Bird Offer</em>
+          </p>
+          <p className="text-sm text-white/70 mb-4" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            <strong className="text-white">{vePricing.earlyBird.split(" for ")[0]}</strong> for {vePricing.earlyBird.split(" for ")[1]}
+          </p>
+          <a href={VE_CTA_LINK} target="_blank" rel="noopener noreferrer"
+            className="block w-full text-center py-3 rounded-lg text-white text-sm font-medium"
+            style={{ background: "linear-gradient(135deg, hsl(270 60% 55%), hsl(280 70% 65%))", fontFamily: "'DM Sans', sans-serif" }}>
+            Request Invite
           </a>
         </div>
       </FadeInSection>
