@@ -21,7 +21,7 @@ const VEHero = () => (
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm mb-8"
           >
             <Sparkles className="w-4 h-4 text-purple-400" />
-            <span className="text-sm text-white/80" style={{ fontFamily: "'DM Sans', sans-serif" }}>{veHero.badge}</span>
+            <span className="text-sm text-white/80">{veHero.badge}</span>
           </m.div>
 
           <m.h1
@@ -29,7 +29,7 @@ const VEHero = () => (
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal text-white leading-[1.1] tracking-tight mb-6 whitespace-pre-line"
-            style={{ fontFamily: "'DM Serif Text', serif" }}
+           
           >
             {veHero.headline}
           </m.h1>
@@ -39,7 +39,7 @@ const VEHero = () => (
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-base md:text-lg text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+           
           >
             {veHero.subheadline}
           </m.p>
@@ -54,7 +54,6 @@ const VEHero = () => (
             whileHover={{ scale: 1.05 }}
             className="inline-flex items-center justify-center px-10 py-4 rounded-lg text-white text-base font-medium tracking-wide"
             style={{
-              fontFamily: "'DM Sans', sans-serif",
               background: "linear-gradient(135deg, hsl(270 60% 55%), hsl(280 70% 65%))",
             }}
           >

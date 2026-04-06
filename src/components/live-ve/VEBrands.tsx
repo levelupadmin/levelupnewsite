@@ -5,7 +5,7 @@ const VEBrands = () => (
   <section className="py-16 md:py-24" style={{ background: "hsl(160 8% 8%)" }}>
     <div className="max-w-[1200px] mx-auto px-6 md:px-12">
       <FadeInSection className="text-center mb-10">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal leading-tight" style={{ fontFamily: "'DM Serif Text', serif" }}>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal leading-tight">
           <span className="bg-gradient-to-r from-purple-400 to-purple-300 bg-clip-text text-transparent">
             Brands Our Students
           </span>{" "}
@@ -24,7 +24,7 @@ const VEBrands = () => (
       </FadeInSection>
 
       <FadeInSection className="text-center mt-10" delay={200}>
-        <p className="text-sm text-white/50 max-w-2xl mx-auto leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+        <p className="text-sm text-white/50 max-w-2xl mx-auto leading-relaxed">
           You won't just learn editing, you'll learn how to present your work — that's why our students end up working with real brands straight out of the program.
         </p>
       </FadeInSection>

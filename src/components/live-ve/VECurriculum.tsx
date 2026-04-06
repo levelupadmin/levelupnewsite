@@ -12,14 +12,14 @@ const VECurriculum = () => {
       <div className="max-w-[1400px] mx-auto">
         <div className="rounded-2xl border border-white/10 overflow-hidden p-8 md:p-12" style={{ background: "hsl(240 10% 10%)" }}>
           <FadeInSection className="text-center mb-10">
-            <p className="text-xs text-white/40 tracking-[0.2em] uppercase mb-3" style={{ fontFamily: "'DM Sans', sans-serif" }}>🎬 What You'll Learn?</p>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-white leading-tight mb-3" style={{ fontFamily: "'DM Serif Text', serif" }}>
+            <p className="text-xs text-white/40 tracking-[0.2em] uppercase mb-3">🎬 What You'll Learn?</p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-white leading-tight mb-3">
               The Editor's Roadmap
             </h2>
-            <p className="text-purple-400 text-base font-semibold italic mb-2" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            <p className="text-purple-400 text-base font-semibold italic mb-2">
               Your start-to-finish guide
             </p>
-            <p className="text-sm text-white/50 max-w-xl mx-auto" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            <p className="text-sm text-white/50 max-w-xl mx-auto">
               To becoming the kind of editor who knows what to cut, why it works, and how to turn it into paid work.
             </p>
           </FadeInSection>
@@ -40,7 +40,7 @@ const VECurriculum = () => {
                     onClick={() => setOpenIndex(openIndex === i ? -1 : i)}
                     className="w-full text-left py-5 flex items-center justify-between gap-4"
                   >
-                    <h3 className="text-base md:text-lg font-semibold text-white" style={{ fontFamily: "'DM Sans', sans-serif" }}>{item.title}</h3>
+                    <h3 className="text-base md:text-lg font-semibold text-white">{item.title}</h3>
                     {openIndex === i ? (
                       <X className="w-5 h-5 text-white/60 flex-shrink-0" />
                     ) : (
@@ -56,7 +56,7 @@ const VECurriculum = () => {
                         transition={{ duration: 0.25 }}
                         className="overflow-hidden"
                       >
-                        <p className="text-sm text-white/50 leading-relaxed pb-5" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                        <p className="text-sm text-white/50 leading-relaxed pb-5">
                           {item.description}
                         </p>
                       </m.div>

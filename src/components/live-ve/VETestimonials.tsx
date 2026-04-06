@@ -13,7 +13,7 @@ const VETestimonials = () => {
     <section className="py-20 md:py-28 overflow-hidden" style={{ background: "hsl(160 8% 6%)" }}>
       <div className="max-w-[1400px] mx-auto px-6 md:px-8">
         <FadeInSection className="text-center mb-10">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-white leading-tight" style={{ fontFamily: "'DM Serif Text', serif" }}>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-white leading-tight">
             See What Our Students Say
           </h2>
         </FadeInSection>
@@ -38,7 +38,7 @@ const VETestimonials = () => {
                     </div>
                   </div>
                   <div className="absolute bottom-0 inset-x-0 p-4">
-                    <p className="text-white text-sm font-bold tracking-wider uppercase" style={{ fontFamily: "'DM Sans', sans-serif" }}>{card.name}</p>
+                    <p className="text-white text-sm font-bold tracking-wider uppercase">{card.name}</p>
                   </div>
                 </div>
               </div>

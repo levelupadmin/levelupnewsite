@@ -25,7 +25,7 @@ const LiveVE = () => {
   }, []);
 
   return (
-    <div className="min-h-screen" style={{ background: "hsl(160 8% 8%)" }}>
+    <div className="min-h-screen" style={{ background: "hsl(160 8% 8%)", fontFamily: "'Funnel Display', sans-serif" }}>
       <Navbar />
       <VEHero />
       <VESonyBanner />
