@@ -54,7 +54,6 @@ const VEHero = () => (
             whileHover={{ scale: 1.05 }}
             className="inline-flex items-center justify-center px-10 py-4 rounded-lg text-white text-base font-medium tracking-wide"
             style={{
-              fontFamily: "'DM Sans', sans-serif",
               background: "linear-gradient(135deg, hsl(270 60% 55%), hsl(280 70% 65%))",
             }}
           >
