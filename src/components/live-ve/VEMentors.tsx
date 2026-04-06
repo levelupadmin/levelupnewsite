@@ -23,7 +23,7 @@ const VEMentors = () => {
       <div className="max-w-[1400px] mx-auto">
         <div className="rounded-2xl border border-white/10 overflow-hidden py-12 px-6 md:px-10" style={{ background: "linear-gradient(180deg, hsl(250 20% 12%), hsl(250 15% 8%))" }}>
           <FadeInSection className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-white leading-tight" style={{ fontFamily: "'DM Serif Text', serif" }}>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-white leading-tight">
               Learn from Mentors Who've Worked<br />
               with Your Favourite Creators & Films!
             </h2>
@@ -44,7 +44,7 @@ const VEMentors = () => {
                     <img src={card.type === "creator" ? card.image : card.image} alt={card.type === "creator" ? card.name : `Film ${i}`} className="w-full h-full object-cover" loading="lazy" />
                     {card.type === "creator" && (
                       <div className="absolute bottom-0 inset-x-0 p-3 bg-gradient-to-t from-black/80 to-transparent">
-                        <p className="text-purple-400 text-sm font-semibold" style={{ fontFamily: "'DM Sans', sans-serif" }}>{card.name}</p>
+                        <p className="text-purple-400 text-sm font-semibold">{card.name}</p>
                         <p className="text-white/60 text-xs">{card.role}</p>
                       </div>
                     )}
@@ -55,14 +55,14 @@ const VEMentors = () => {
           </div>
 
           <FadeInSection className="text-center">
-            <p className="text-sm text-white/60 max-w-3xl mx-auto mb-6 leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            <p className="text-sm text-white/60 max-w-3xl mx-auto mb-6 leading-relaxed">
               Taught by <strong className="text-white">Viral Social Media Editors</strong>,{" "}
               <strong className="text-white">National Award-Winning Filmmaker</strong>,
               and a <strong className="text-white">DaVinci Resolve Certified Colorist</strong> — all in one program.
             </p>
             <a href={VE_CTA_LINK} target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-8 py-3 rounded-lg text-white text-sm font-medium"
-              style={{ background: "linear-gradient(135deg, hsl(270 60% 55%), hsl(280 70% 65%))", fontFamily: "'DM Sans', sans-serif" }}>
+              style={{ background: "linear-gradient(135deg, hsl(270 60% 55%), hsl(280 70% 65%))" }}>
               Request Invite
             </a>
           </FadeInSection>

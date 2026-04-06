@@ -7,11 +7,11 @@ const VEProblem = () => (
     <div className="max-w-[1100px] mx-auto px-6 md:px-12">
       {/* Problem */}
       <FadeInSection className="text-center mb-16">
-        <p className="text-xs text-white/40 tracking-[0.2em] uppercase mb-4" style={{ fontFamily: "'DM Sans', sans-serif" }}>🎬 The Problem</p>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-white leading-tight mb-6" style={{ fontFamily: "'DM Serif Text', serif" }}>
+        <p className="text-xs text-white/40 tracking-[0.2em] uppercase mb-4">🎬 The Problem</p>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-white leading-tight mb-6">
           The Reason You're Not<br />Growing as an Editor?
         </h2>
-        <p className="text-sm text-white/50 max-w-2xl mx-auto mb-10 leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+        <p className="text-sm text-white/50 max-w-2xl mx-auto mb-10 leading-relaxed">
           You keep watching tutorials but never finish real projects. You see 22-year-old editors making ₹60,000/month and wonder 'Why not me?'
         </p>
 
@@ -31,7 +31,7 @@ const VEProblem = () => (
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
                 className="px-5 py-3 rounded-lg border border-white/10 bg-white/5 text-sm text-white/70"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
+               
               >
                 {point}
               </m.div>
@@ -42,7 +42,7 @@ const VEProblem = () => (
 
       {/* Advantages */}
       <FadeInSection className="mb-10">
-        <h3 className="text-2xl sm:text-3xl md:text-4xl font-normal text-center mb-12 leading-tight" style={{ fontFamily: "'DM Serif Text', serif" }}>
+        <h3 className="text-2xl sm:text-3xl md:text-4xl font-normal text-center mb-12 leading-tight">
           <span className="bg-gradient-to-r from-purple-400 to-purple-300 bg-clip-text text-transparent">
             The Unfair Advantage To Change That
           </span>
@@ -60,8 +60,8 @@ const VEProblem = () => (
               <div className="w-16 h-16 mx-auto mb-4">
                 <img src={adv.icon} alt={adv.title} loading="lazy" className="w-full h-full object-contain" />
               </div>
-              <h4 className="text-base font-semibold text-white mb-2 whitespace-pre-line" style={{ fontFamily: "'DM Sans', sans-serif" }}>{adv.title}</h4>
-              <p className="text-xs text-white/50 leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>{adv.description}</p>
+              <h4 className="text-base font-semibold text-white mb-2 whitespace-pre-line">{adv.title}</h4>
+              <p className="text-xs text-white/50 leading-relaxed">{adv.description}</p>
             </m.div>
           ))}
         </div>
@@ -70,7 +70,7 @@ const VEProblem = () => (
       <FadeInSection className="text-center">
         <a href={VE_CTA_LINK} target="_blank" rel="noopener noreferrer"
           className="inline-flex items-center justify-center px-8 py-3 rounded-lg text-white text-sm font-medium"
-          style={{ background: "linear-gradient(135deg, hsl(270 60% 55%), hsl(280 70% 65%))", fontFamily: "'DM Sans', sans-serif" }}>
+          style={{ background: "linear-gradient(135deg, hsl(270 60% 55%), hsl(280 70% 65%))" }}>
           Request Invite
         </a>
       </FadeInSection>

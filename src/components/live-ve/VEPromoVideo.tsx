@@ -10,7 +10,7 @@ const VEPromoVideo = () => {
     <section className="py-16 md:py-24 px-4 md:px-8" style={{ background: "hsl(160 8% 8%)" }}>
       <div className="max-w-[1200px] mx-auto">
         <FadeInSection className="text-center mb-10">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-white leading-tight" style={{ fontFamily: "'DM Serif Text', serif" }}>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-white leading-tight">
             {vePromoVideo.title}
           </h2>
         </FadeInSection>

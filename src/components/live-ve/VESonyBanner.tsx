@@ -17,13 +17,13 @@ const VESonyBanner = () => (
               backgroundSize: "24px 24px"
             }} />
             <div className="relative text-center">
-              <div className="text-white/80 text-xs tracking-[0.3em] uppercase mb-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+              <div className="text-white/80 text-xs tracking-[0.3em] uppercase mb-1">
                 THE LEVELUP
               </div>
-              <div className="text-3xl md:text-4xl font-normal text-white mb-1" style={{ fontFamily: "'DM Serif Text', serif" }}>
+              <div className="text-3xl md:text-4xl font-normal text-white mb-1">
                 Video <em className="text-purple-300">Editing</em>
               </div>
-              <div className="text-white/80 text-xs tracking-[0.3em] uppercase" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+              <div className="text-white/80 text-xs tracking-[0.3em] uppercase">
                 ACADEMY
               </div>
             </div>
@@ -42,14 +42,14 @@ const VESonyBanner = () => (
             }} />
             <div className="relative flex items-center gap-8 flex-wrap justify-center">
               <div className="text-center">
-                <p className="text-white/60 text-xs mb-2" style={{ fontFamily: "'DM Sans', sans-serif" }}>Powered By</p>
-                <div className="text-4xl md:text-5xl font-bold text-white tracking-[0.15em]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <p className="text-white/60 text-xs mb-2">Powered By</p>
+                <div className="text-4xl md:text-5xl font-bold text-white tracking-[0.15em]">
                   SONY<span className="text-xs align-super">®</span>
                 </div>
               </div>
               <div className="text-left">
-                <p className="text-white/60 text-xs mb-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>This program offers</p>
-                <p className="text-sm" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <p className="text-white/60 text-xs mb-1">This program offers</p>
+                <p className="text-sm">
                   <span className="text-purple-300 font-semibold">exclusive discounts</span>{" "}
                   <span className="text-white/80">on</span><br />
                   <span className="text-purple-300 font-semibold">industry-standard gear</span>{" "}

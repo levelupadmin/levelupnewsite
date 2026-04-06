@@ -6,10 +6,10 @@ const VEStudentWork = () => (
   <section className="py-20 md:py-28" style={{ background: "hsl(160 8% 8%)" }}>
     <div className="max-w-[1400px] mx-auto px-6 md:px-8">
       <FadeInSection className="text-center mb-10">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-white leading-tight mb-4" style={{ fontFamily: "'DM Serif Text', serif" }}>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-white leading-tight mb-4">
           Our<br />Students Work
         </h2>
-        <p className="text-sm text-white/50 max-w-xl mx-auto" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+        <p className="text-sm text-white/50 max-w-xl mx-auto">
           From Reels to short films, this is the kind of work our students leave the program with.
         </p>
       </FadeInSection>

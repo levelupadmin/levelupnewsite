@@ -16,12 +16,12 @@ const VECommunity = () => (
               </svg>
             </div>
             <div className="relative">
-              <p className="text-white/40 text-xs tracking-[0.15em] uppercase mb-4" style={{ fontFamily: "'DM Sans', sans-serif" }}>LevelUp Learning</p>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-white leading-tight mb-8" style={{ fontFamily: "'DM Serif Text', serif" }}>
+              <p className="text-white/40 text-xs tracking-[0.15em] uppercase mb-4">LevelUp Learning</p>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-white leading-tight mb-8">
                 India's Largest Filmmaking Learning Community
               </h2>
             </div>
-            <p className="text-white/40 text-sm relative" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            <p className="text-white/40 text-sm relative">
               LevelUp Learning is more than a platform - it's a Community!
             </p>
           </div>
@@ -32,13 +32,13 @@ const VECommunity = () => (
               <div>
                 {veCommunityData.stats.map((stat, i) => (
                   <div key={i} className={i > 0 ? "mt-4" : ""}>
-                    <div className="text-3xl md:text-4xl font-bold text-white" style={{ fontFamily: "'DM Sans', sans-serif" }}>{stat.value}</div>
-                    <div className="text-sm text-white/50" style={{ fontFamily: "'DM Sans', sans-serif" }}>{stat.label}</div>
+                    <div className="text-3xl md:text-4xl font-bold text-white">{stat.value}</div>
+                    <div className="text-sm text-white/50">{stat.label}</div>
                   </div>
                 ))}
               </div>
               <div className="w-16 h-16 rounded-full bg-black/30 flex items-center justify-center">
-                <span className="text-white text-xs font-bold" style={{ fontFamily: "'DM Sans', sans-serif" }}>LevelUp</span>
+                <span className="text-white text-xs font-bold">LevelUp</span>
               </div>
             </div>
 
