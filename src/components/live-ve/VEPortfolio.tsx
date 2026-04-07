@@ -54,7 +54,7 @@ const VEPortfolio = () => (
                   className="absolute flex flex-col items-center -translate-x-1/2 -translate-y-1/2"
                   style={{ left: `${x}%`, top: `${y}%` }}
                 >
-                  <div className="w-14 h-14 md:w-[72px] md:h-[72px] rounded-xl overflow-hidden bg-white/5 border border-white/10 p-1.5">
+                  <div className="w-14 h-14 md:w-[72px] md:h-[72px] rounded-xl overflow-hidden border border-white/10 p-1.5" style={{ background: "hsl(160 8% 10%)" }}>
                     <img src={tool.image} alt={tool.name} className="w-full h-full object-contain" loading="lazy" />
                   </div>
                   <span className="text-[9px] md:text-[11px] text-white/50 mt-1.5 text-center max-w-[100px] leading-tight">{tool.name}</span>
