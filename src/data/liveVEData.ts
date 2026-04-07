@@ -63,20 +63,20 @@ export const veBrandLogos = [
   "https://framerusercontent.com/images/zH1p6OmxntFAEau7scr4tXbEaM.png?width=444&height=265",
 ];
 
-import dallELogo from "@/assets/tools/dall-e.webp";
-import illustratorLogo from "@/assets/tools/illustrator.png";
-import afterEffectsLogo from "@/assets/tools/after-effects.png";
-import canvaLogo from "@/assets/tools/canva.jpg";
-import premiereProLogo from "@/assets/tools/premiere-pro.png";
-import photoshopLogo from "@/assets/tools/photoshop.png";
-import boardsLogo from "@/assets/tools/boards.png";
-import davinciResolveLogo from "@/assets/tools/davinci-resolve.png";
-import midjourneyLogo from "@/assets/tools/midjourney.png";
-import nuendoLogo from "@/assets/tools/nuendo.png";
+import dallELogo from "@/assets/tools/chatgpt-new.png";
+import illustratorLogo from "@/assets/tools/illustrator-new.png";
+import afterEffectsLogo from "@/assets/tools/after-effects-new.png";
+import canvaLogo from "@/assets/tools/canva-new.png";
+import premiereProLogo from "@/assets/tools/premiere-pro-new.png";
+import photoshopLogo from "@/assets/tools/photoshop-new.png";
+import boardsLogo from "@/assets/tools/boards-new.png";
+import davinciResolveLogo from "@/assets/tools/davinci-resolve-new.png";
+import midjourneyLogo from "@/assets/tools/midjourney-new.png";
+import nuendoLogo from "@/assets/tools/nuendo-new.png";
 
 export const veToolIcons = [
-  // Outer ring – clockwise from top: ChatGPT → Photoshop → Boards → Illustrator → Canva → Premiere Pro → After Effects
-  { name: "Chat GPT ( DALL - E )", image: dallELogo },
+  // Outer ring
+  { name: "ChatGPT", image: dallELogo },
   { name: "Adobe Photoshop", image: photoshopLogo },
   { name: "Boards", image: boardsLogo },
   { name: "Adobe Illustrator", image: illustratorLogo },
@@ -85,7 +85,7 @@ export const veToolIcons = [
   { name: "Adobe After Effects", image: afterEffectsLogo },
   // Center
   { name: "DaVinci Resolve", image: davinciResolveLogo },
-  // Inner ring – Envato (upper-left), Midjourney (right), Nuendo (bottom)
+  // Inner ring
   { name: "Envato Elements", image: "https://framerusercontent.com/images/D0Bv9Ijac2Z3wapu8dDxEqTRro.png?width=1807&height=1749" },
   { name: "Midjourney", image: midjourneyLogo },
   { name: "Nuendo", image: nuendoLogo },
