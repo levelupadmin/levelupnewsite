@@ -132,9 +132,6 @@ const VEPortfolio = () => (
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               <div className="absolute bottom-0 inset-x-0 p-4">
                 <h3 className="text-purple-400 text-lg font-semibold whitespace-pre-line leading-tight">{card.title}</h3>
-                {card.description && (
-                  <p className="text-white/60 text-xs mt-2 leading-relaxed">{card.description}</p>
-                )}
               </div>
             </div>
           </m.div>
