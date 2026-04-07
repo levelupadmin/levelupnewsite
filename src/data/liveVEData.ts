@@ -75,17 +75,20 @@ import midjourneyLogo from "@/assets/tools/midjourney.png";
 import nuendoLogo from "@/assets/tools/nuendo.png";
 
 export const veToolIcons = [
+  // Outer ring – clockwise from top: ChatGPT → Photoshop → Boards → Illustrator → Canva → Premiere Pro → After Effects
   { name: "Chat GPT ( DALL - E )", image: dallELogo },
-  { name: "Adobe After Effects", image: afterEffectsLogo },
   { name: "Adobe Photoshop", image: photoshopLogo },
+  { name: "Boards", image: boardsLogo },
+  { name: "Adobe Illustrator", image: illustratorLogo },
+  { name: "Canva", image: canvaLogo },
+  { name: "Adobe Premiere Pro", image: premiereProLogo },
+  { name: "Adobe After Effects", image: afterEffectsLogo },
+  // Center
   { name: "DaVinci Resolve", image: davinciResolveLogo },
+  // Inner ring – Envato (upper-left), Midjourney (right), Nuendo (bottom)
   { name: "Envato Elements", image: "https://framerusercontent.com/images/D0Bv9Ijac2Z3wapu8dDxEqTRro.png?width=1807&height=1749" },
   { name: "Midjourney", image: midjourneyLogo },
-  { name: "Adobe Premiere Pro", image: premiereProLogo },
-  { name: "Boards", image: boardsLogo },
   { name: "Nuendo", image: nuendoLogo },
-  { name: "Canva", image: canvaLogo },
-  { name: "Adobe Illustrator", image: illustratorLogo },
 ];
 
 export const vePortfolioCards = [

@@ -35,12 +35,14 @@ const VEPortfolio = () => (
             );
           })()}
 
-          {/* Inner ring: Envato, Midjourney, Nuendo */}
+          {/* Inner ring: Envato (upper-left), Midjourney (right), Nuendo (bottom) */}
           {(() => {
             const innerNames = ["Envato Elements", "Midjourney", "Nuendo"];
             const innerTools = veToolIcons.filter(t => innerNames.includes(t.name));
+            // Fixed angles: Envato upper-left (-135°), Midjourney right (15°), Nuendo bottom (120°)
+            const innerAngles = [-135, 15, 120].map(d => (d * Math.PI) / 180);
             return innerTools.map((tool, i) => {
-              const angle = (i / innerTools.length) * 2 * Math.PI - Math.PI / 2 + Math.PI / 6;
+              const angle = innerAngles[i];
               const radius = 25;
               const x = 50 + radius * Math.cos(angle);
               const y = 50 + radius * Math.sin(angle);
@@ -54,7 +56,7 @@ const VEPortfolio = () => (
                   className="absolute flex flex-col items-center -translate-x-1/2 -translate-y-1/2"
                   style={{ left: `${x}%`, top: `${y}%` }}
                 >
-                  <div className="w-14 h-14 md:w-[72px] md:h-[72px] rounded-xl overflow-hidden border border-white/10 p-1.5" style={{ background: "hsl(160 8% 10%)" }}>
+                  <div className="w-14 h-14 md:w-[72px] md:h-[72px] rounded-xl overflow-hidden border border-white/10" style={{ background: "hsl(160 8% 10%)" }}>
                     <img src={tool.image} alt={tool.name} className="w-full h-full object-contain" loading="lazy" />
                   </div>
                   <span className="text-[9px] md:text-[11px] text-white/50 mt-1.5 text-center max-w-[100px] leading-tight">{tool.name}</span>
