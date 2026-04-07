@@ -18,11 +18,10 @@ const VEMentors = () => {
     const el = scrollRef.current;
     if (!el) return;
     let animId: number;
-    let speed = 0.5;
+    const speed = 1.5;
 
     const step = () => {
       el.scrollLeft += speed;
-      // Reset to start when reaching the end
       if (el.scrollLeft >= el.scrollWidth - el.clientWidth) {
         el.scrollLeft = 0;
       }
@@ -31,15 +30,8 @@ const VEMentors = () => {
 
     animId = requestAnimationFrame(step);
 
-    const pause = () => { speed = 0; };
-    const resume = () => { speed = 0.5; };
-    el.addEventListener("mouseenter", pause);
-    el.addEventListener("mouseleave", resume);
-
     return () => {
       cancelAnimationFrame(animId);
-      el.removeEventListener("mouseenter", pause);
-      el.removeEventListener("mouseleave", resume);
     };
   }, []);
 
