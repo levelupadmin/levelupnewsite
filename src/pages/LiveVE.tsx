@@ -37,6 +37,7 @@ const LiveVE = () => {
       <VEProblem />
       <VECurriculum />
       <VEStudentWork />
+      <VEFramework />
       <VECommunity />
       <VEApplication />
       <VEPricing />
