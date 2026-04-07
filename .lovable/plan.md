@@ -1,26 +1,23 @@
+## Plan: Align Tool Icons to Match Reference Layout
 
+### What's changing
 
-## Problem
+The "Tools You'll Learn" circular layout needs adjustments to match the reference image. The structure (center + inner ring + outer ring) is correct, but the positioning, order, and a label need updating.
 
-The hero carousel videos have two issues causing cropping:
-1. **`scale-[1.3]`** — zooms the video to 130%, cropping edges
-2. **`object-cover`** — fills the container by cropping to fit the aspect ratio
+### Changes
 
-## Plan
+&nbsp;
 
-**File: `src/components/HeroCarousel.tsx` (line 126)**
+**2. Reorder outer ring tools** (`src/data/liveVEData.ts`)
 
-Change the video className from:
-```
-object-cover object-center bg-card scale-[1.3]
-```
-to:
-```
-object-contain object-center bg-card
-```
+- Reorder the `veToolIcons` array so the outer ring renders in the correct clockwise order matching the reference: ChatGPT (top) → Photoshop (upper-right) → Boards (right) → Illustrator (lower-right) → Canva (lower-left) → Premiere Pro (left) → After Effects (upper-left)
 
-This removes the 1.3x scale zoom and switches from `object-cover` (crop to fill) to `object-contain` (fit entire video within frame, no cropping). The `aspect-[16/9]` container is preserved so layout stays consistent — if a video isn't exactly 16:9, small letterbox bars may appear but the full frame will always be visible.
+**3. Adjust inner ring positioning** (`src/components/live-ve/VEPortfolio.tsx`)
 
-### Designer note
-For best results with no letterboxing, all three videos should be exported at the same aspect ratio (ideally 16:9, 1920×1080).
+- Tweak the inner ring angle offset so Envato Elements sits upper-left, Midjourney sits right, and Nuendo sits bottom — matching the reference triangle layout
 
+**4. Ensure consistent icon sizing and padding**
+
+- Center icon (DaVinci): keep larger size, ensure `object-cover` fills container
+- Inner ring icons: remove padding, use `object-cover` consistently
+- Outer ring icons: already using `object-cover`, keep as-is
