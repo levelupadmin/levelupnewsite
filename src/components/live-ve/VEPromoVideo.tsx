@@ -19,7 +19,14 @@ const VEPromoVideo = () => {
           <div className="rounded-2xl overflow-hidden border border-white/10 aspect-video relative">
             {!playing ? (
               <button onClick={() => setPlaying(true)} className="relative w-full h-full group">
-                <img src={vePromoVideo.thumbnail} alt="Video thumbnail" className="w-full h-full object-cover" />
+                <video
+                  src="https://ik.imagekit.io/levelup/VE/Gif.mp4?updatedAt=1775051200072"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors" />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="w-16 h-16 rounded-full bg-purple-500/80 flex items-center justify-center backdrop-blur-sm">
