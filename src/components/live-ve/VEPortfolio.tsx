@@ -11,33 +11,85 @@ const VEPortfolio = () => (
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-white mb-12">
           Tools You'll Learn
         </h2>
-        <div className="relative w-full max-w-[600px] mx-auto aspect-square">
+        <div className="relative w-full max-w-[700px] mx-auto aspect-square">
           {/* Concentric circles */}
-          <div className="absolute inset-[10%] rounded-full border border-white/5" />
-          <div className="absolute inset-[25%] rounded-full border border-white/5" />
-          {/* Tool icons arranged in a circle */}
-          {veToolIcons.map((tool, i) => {
-            const angle = (i / veToolIcons.length) * 2 * Math.PI - Math.PI / 2;
-            const radius = 42;
-            const x = 50 + radius * Math.cos(angle);
-            const y = 50 + radius * Math.sin(angle);
+          <div className="absolute inset-[5%] rounded-full border border-white/[0.07]" />
+          <div className="absolute inset-[22%] rounded-full border border-white/[0.07]" />
+
+          {/* Center: DaVinci Resolve */}
+          {(() => {
+            const center = veToolIcons.find(t => t.name === "DaVinci Resolve");
+            if (!center) return null;
             return (
               <m.div
-                key={tool.name}
                 initial={{ opacity: 0, scale: 0.5 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                className="absolute flex flex-col items-center -translate-x-1/2 -translate-y-1/2"
-                style={{ left: `${x}%`, top: `${y}%` }}
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-10"
               >
-                <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl overflow-hidden bg-white/5 border border-white/10 p-1.5">
-                  <img src={tool.image} alt={tool.name} className="w-full h-full object-contain" loading="lazy" />
+                <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden bg-white/5 border border-white/10 p-2">
+                  <img src={center.image} alt={center.name} className="w-full h-full object-contain" loading="lazy" />
                 </div>
-                <span className="text-[9px] md:text-[10px] text-white/50 mt-1 text-center max-w-[80px] leading-tight">{tool.name}</span>
+                <span className="text-[10px] md:text-xs text-white/50 mt-2 text-center">{center.name}</span>
               </m.div>
             );
-          })}
+          })()}
+
+          {/* Inner ring: Envato, Midjourney, Nuendo */}
+          {(() => {
+            const innerNames = ["Envato Elements", "Midjourney", "Nuendo"];
+            const innerTools = veToolIcons.filter(t => innerNames.includes(t.name));
+            return innerTools.map((tool, i) => {
+              const angle = (i / innerTools.length) * 2 * Math.PI - Math.PI / 2 + Math.PI / 6;
+              const radius = 25;
+              const x = 50 + radius * Math.cos(angle);
+              const y = 50 + radius * Math.sin(angle);
+              return (
+                <m.div
+                  key={tool.name}
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                  className="absolute flex flex-col items-center -translate-x-1/2 -translate-y-1/2"
+                  style={{ left: `${x}%`, top: `${y}%` }}
+                >
+                  <div className="w-14 h-14 md:w-[72px] md:h-[72px] rounded-xl overflow-hidden bg-white/5 border border-white/10 p-1.5">
+                    <img src={tool.image} alt={tool.name} className="w-full h-full object-contain" loading="lazy" />
+                  </div>
+                  <span className="text-[9px] md:text-[11px] text-white/50 mt-1.5 text-center max-w-[100px] leading-tight">{tool.name}</span>
+                </m.div>
+              );
+            });
+          })()}
+
+          {/* Outer ring: remaining tools */}
+          {(() => {
+            const excludeNames = ["DaVinci Resolve", "Envato Elements", "Midjourney", "Nuendo"];
+            const outerTools = veToolIcons.filter(t => !excludeNames.includes(t.name));
+            return outerTools.map((tool, i) => {
+              const angle = (i / outerTools.length) * 2 * Math.PI - Math.PI / 2;
+              const radius = 45;
+              const x = 50 + radius * Math.cos(angle);
+              const y = 50 + radius * Math.sin(angle);
+              return (
+                <m.div
+                  key={tool.name}
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.06 }}
+                  className="absolute flex flex-col items-center -translate-x-1/2 -translate-y-1/2"
+                  style={{ left: `${x}%`, top: `${y}%` }}
+                >
+                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl overflow-hidden bg-white/5 border border-white/10 p-2">
+                    <img src={tool.image} alt={tool.name} className="w-full h-full object-contain" loading="lazy" />
+                  </div>
+                  <span className="text-[9px] md:text-[11px] text-white/50 mt-1.5 text-center max-w-[100px] leading-tight">{tool.name}</span>
+                </m.div>
+              );
+            });
+          })()}
         </div>
       </FadeInSection>
 
