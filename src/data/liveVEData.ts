@@ -1,4 +1,5 @@
 // Data for the LevelUp Video Editing Academy landing page
+import mentorGroupImg from "@/assets/ve-masterclass-mentors.png";
 
 export const VE_CTA_LINK = "https://www.leveluplearning.live/ve-cta";
 
