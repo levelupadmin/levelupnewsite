@@ -4,7 +4,7 @@ import { m } from "framer-motion";
 
 const VEPortfolio = () => (
   <section className="py-20 md:py-28" style={{ background: "hsl(160 8% 8%)" }}>
-    <div className="max-w-[1200px] mx-auto px-6 md:px-12">
+    <div className="max-w-[1380px] mx-auto px-6 md:px-12">
       {/* Tools circular layout */}
       <FadeInSection className="text-center mb-20">
         <p className="text-xs text-white/40 tracking-[0.2em] uppercase mb-3">🎬 Tech Stack</p>
