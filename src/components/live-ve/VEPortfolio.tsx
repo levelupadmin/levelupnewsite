@@ -27,7 +27,7 @@ const VEPortfolio = () => (
                 viewport={{ once: true }}
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-10"
               >
-                <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden bg-white/5 border border-white/10 p-2">
+                <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden border border-white/10 p-2" style={{ background: "hsl(160 8% 10%)" }}>
                   <img src={center.image} alt={center.name} className="w-full h-full object-contain" loading="lazy" />
                 </div>
                 <span className="text-[10px] md:text-xs text-white/50 mt-2 text-center">{center.name}</span>
