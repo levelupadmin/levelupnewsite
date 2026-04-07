@@ -8,6 +8,7 @@ const steps = [
     step: "01",
     image: "https://framerusercontent.com/images/U9iZffSyvaAbp3MSqamfZcxIPM.png?width=486&height=706",
     body: "Every weekend, you'll join live sessions where mentors break down the exact tools, techniques, and storytelling tricks they use every day.",
+    align: "left" as const,
   },
   {
     label: "PRACTICE",
@@ -15,6 +16,7 @@ const steps = [
     step: "02",
     image: "https://framerusercontent.com/images/zccB5DrbOcyqfpQSAGtlGObXp20.png?width=486&height=706",
     body: "After each session, you'll get hands-on with real projects. We'll give you clear briefs, and you'll get feedback so you're always improving.",
+    align: "right" as const,
   },
   {
     label: "APPLY",
@@ -22,6 +24,7 @@ const steps = [
     step: "03",
     image: "https://framerusercontent.com/images/nWv555wV3jh7qcGTn44llh7abS0.png?width=486&height=706",
     body: "You'll build a portfolio along the way — not at the end. You'll learn how to pitch, deliver, and actually get paid for your work.",
+    align: "left" as const,
   },
   {
     label: "COLLABORATE & GROW",
@@ -29,170 +32,133 @@ const steps = [
     step: "04",
     image: "https://framerusercontent.com/images/JiwNnwTMADriJmOrYeYfBgtS5v8.png?width=486&height=706",
     body: "Weekly community calls, peer reviews, and collab threads keep you connected, accountable, and constantly improving — with people on the same path.",
+    align: "right" as const,
   },
 ];
 
-/* Card positions in the horizontal canvas (zig-zag: high, low, high, low) */
-const cardPositions = [
-  { x: 200, y: 30 },   // LEARN — top
-  { x: 520, y: 180 },  // PRACTICE — bottom
-  { x: 820, y: 30 },   // APPLY — top
-  { x: 1140, y: 180 }, // COLLABORATE — bottom  (was overlapping, push right)
-];
-
-const CANVAS_W = 1500;
-const CANVAS_H = 360;
-const CARD_W = 180;
-const CARD_H = 140;
-
 const NodeCard = ({
   step,
-  pos,
   index,
   isActive,
-  onClick,
+  isVisible,
 }: {
   step: (typeof steps)[0];
-  pos: { x: number; y: number };
   index: number;
   isActive: boolean;
-  onClick: () => void;
-}) => (
-  <motion.g
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.5, delay: index * 0.15 }}
-    style={{ cursor: "pointer" }}
-    onClick={onClick}
-  >
-    {/* Label above */}
-    <text
-      x={pos.x + CARD_W / 2}
-      y={pos.y - 10}
-      textAnchor="middle"
-      fill="rgba(255,255,255,0.5)"
-      fontSize="10"
-      fontWeight="500"
-      letterSpacing="1.5"
-      fontFamily="'Funnel Display', sans-serif"
+  isVisible: boolean;
+}) => {
+  const isRight = step.align === "right";
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={isVisible ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay: 0.1 }}
+      className={`relative flex ${isRight ? "justify-end" : "justify-start"}`}
+      style={{ paddingLeft: isRight ? 0 : 40, paddingRight: isRight ? 40 : 0 }}
     >
-      {step.label}
-    </text>
+      {/* Play icon — left of card */}
+      <div className="absolute flex flex-col gap-3" style={{
+        left: isRight ? undefined : 0,
+        right: isRight ? 0 : undefined,
+        top: "50%",
+        transform: "translateY(-50%)",
+      }}>
+        <svg width="16" height="16" viewBox="0 0 16 16">
+          <polygon points="0,0 0,16 14,8" fill="#84cc16" />
+        </svg>
+      </div>
 
-    {/* Card body */}
-    <rect
-      x={pos.x}
-      y={pos.y}
-      width={CARD_W}
-      height={CARD_H}
-      rx={10}
-      fill={isActive ? "#222" : "#1a1a1a"}
-      stroke={isActive ? "rgba(168,85,247,0.5)" : "rgba(255,255,255,0.1)"}
-      strokeWidth={isActive ? 1.5 : 1}
-    />
+      <div
+        className="relative rounded-lg overflow-hidden border transition-all duration-300"
+        style={{
+          width: 260,
+          background: isActive ? "#222" : "#1a1a1a",
+          borderColor: isActive ? "rgba(168,85,247,0.5)" : "rgba(255,255,255,0.1)",
+          borderWidth: isActive ? 1.5 : 1,
+        }}
+      >
+        {/* Label */}
+        <div className="text-center pt-3 pb-1">
+          <span
+            className="text-[10px] uppercase tracking-[1.5px] text-white/50"
+            style={{ fontFamily: "'Funnel Display', sans-serif" }}
+          >
+            {step.label}
+          </span>
+        </div>
 
-    {/* Image area */}
-    <clipPath id={`clip-${index}`}>
-      <rect x={pos.x + 8} y={pos.y + 8} width={CARD_W - 16} height={80} rx={6} />
-    </clipPath>
-    <image
-      href={step.image}
-      x={pos.x + 8}
-      y={pos.y + 8}
-      width={CARD_W - 16}
-      height={80}
-      clipPath={`url(#clip-${index})`}
-      preserveAspectRatio="xMidYMid slice"
-      style={{ filter: "saturate(0.3) brightness(0.7)" }}
-    />
+        {/* Thumbnail */}
+        <div className="mx-2 rounded overflow-hidden" style={{ height: 120 }}>
+          <img
+            src={step.image}
+            alt={step.heading}
+            className="w-full h-full object-cover"
+            style={{ filter: "saturate(0.3) brightness(0.7)" }}
+          />
+        </div>
 
-    {/* Progress bar */}
-    <rect x={pos.x + 8} y={pos.y + 92} width={CARD_W - 16} height={2} rx={1} fill="#333" />
-    <rect x={pos.x + 8} y={pos.y + 92} width={(CARD_W - 16) * 0.6} height={2} rx={1} fill="#6366f1" />
+        {/* Progress bar */}
+        <div className="mx-2 mt-2">
+          <div className="h-[2px] bg-[#333] rounded-full">
+            <div className="h-full w-3/5 bg-indigo-500 rounded-full" />
+          </div>
+        </div>
 
-    {/* Play icon — left side */}
-    <polygon
-      points={`${pos.x - 16},${pos.y + CARD_H / 2 - 5} ${pos.x - 16},${pos.y + CARD_H / 2 + 5} ${pos.x - 8},${pos.y + CARD_H / 2}`}
-      fill="#84cc16"
-    />
+        {/* Bottom row */}
+        <div className="flex items-center gap-2 px-3 py-2">
+          <svg width="10" height="10" viewBox="0 0 10 10">
+            <polygon points="0,0 0,10 9,5" fill="#06b6d4" />
+          </svg>
+          <span
+            className="text-white/30 text-sm font-bold"
+            style={{ fontFamily: "'Funnel Display', sans-serif" }}
+          >
+            {step.step}
+          </span>
+        </div>
 
-    {/* Step number */}
-    <text
-      x={pos.x + 12}
-      y={pos.y + CARD_H - 12}
-      fill="rgba(255,255,255,0.3)"
-      fontSize="14"
-      fontWeight="700"
-      fontFamily="'Funnel Display', sans-serif"
-    >
-      {step.step}
-    </text>
-
-    {/* Play icon bottom-left */}
-    <polygon
-      points={`${pos.x + 8},${pos.y + CARD_H - 18} ${pos.x + 8},${pos.y + CARD_H - 10} ${pos.x + 14},${pos.y + CARD_H - 14}`}
-      fill="#06b6d4"
-    />
-
-    {/* Green connector handle — right */}
-    <rect
-      x={pos.x + CARD_W + 4}
-      y={pos.y + CARD_H / 2 - 5}
-      width={8}
-      height={8}
-      rx={1.5}
-      fill="#84cc16"
-    />
-
-    {/* Cyan connector handle — bottom-right */}
-    <rect
-      x={pos.x + CARD_W - 4}
-      y={pos.y + CARD_H + 4}
-      width={8}
-      height={8}
-      rx={1.5}
-      fill="#06b6d4"
-    />
-  </motion.g>
-);
+        {/* Green connector — right */}
+        <div
+          className="absolute w-2 h-2 rounded-sm bg-[#84cc16]"
+          style={{ right: -12, top: "50%", transform: "translateY(-50%)" }}
+        />
+        {/* Cyan connector — bottom */}
+        <div
+          className="absolute w-2 h-2 rounded-sm bg-[#06b6d4]"
+          style={{ bottom: -12, right: 20 }}
+        />
+      </div>
+    </motion.div>
+  );
+};
 
 const VEFramework = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(SVGGElement | null)[]>([]);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
 
-  /* Track scroll position to determine active card */
   useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const handleScroll = () => {
-      const scrollLeft = el.scrollLeft;
-      const containerW = el.clientWidth;
-      // Find which card is most centred
-      let best = 0;
-      let bestDist = Infinity;
-      cardPositions.forEach((pos, i) => {
-        const cardCenter = pos.x + CARD_W / 2;
-        const viewCenter = scrollLeft + containerW / 2;
-        const dist = Math.abs(cardCenter - viewCenter);
-        if (dist < bestDist) {
-          bestDist = dist;
-          best = i;
-        }
-      });
-      setActiveIndex(best);
-    };
-    el.addEventListener("scroll", handleScroll, { passive: true });
-    return () => el.removeEventListener("scroll", handleScroll);
-  }, []);
+    const observers: IntersectionObserver[] = [];
 
-  const scrollToCard = (i: number) => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const target = cardPositions[i].x + CARD_W / 2 - el.clientWidth / 2;
-    el.scrollTo({ left: target, behavior: "smooth" });
-  };
+    cardRefs.current.forEach((el, i) => {
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActiveIndex(i);
+            setVisibleCards((prev) => new Set(prev).add(i));
+          }
+        },
+        { threshold: 0.6, rootMargin: "-10% 0px -30% 0px" }
+      );
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
 
   return (
     <section
@@ -211,94 +177,72 @@ const VEFramework = () => {
           The Framework
         </h2>
         <p className="text-[#9CA3AF] max-w-2xl mx-auto text-base md:text-lg">
-          Here's how we turn you from a curious beginner into a confident, working editor — one step at a time.
+          Here's how we turn you from a curious beginner into a confident, working editor
+          — one step at a time.
         </p>
       </div>
 
       {/* Two-column layout */}
       <div className="max-w-[1380px] mx-auto px-6 md:px-12 flex flex-col lg:flex-row gap-8 lg:gap-12">
-        {/* Left column – horizontally scrollable node graph */}
+        {/* Left column — vertical scroll canvas */}
         <div className="lg:w-[60%] relative">
           <div
-            ref={scrollRef}
-            className="rounded-2xl overflow-x-auto overflow-y-hidden scrollbar-hide"
+            className="rounded-2xl overflow-hidden relative"
             style={{
               background: "#111111",
               backgroundImage:
                 "radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)",
               backgroundSize: "24px 24px",
+              minHeight: 800,
             }}
           >
-            <svg
-              width={CANVAS_W}
-              height={CANVAS_H}
-              viewBox={`0 0 ${CANVAS_W} ${CANVAS_H}`}
-              className="block"
-            >
-              {/* Green input node on far left */}
-              <rect x={40} y={CANVAS_H / 2 - 16} width={28} height={32} rx={6} fill="#222" stroke="#333" />
-              <circle cx={54} cy={CANVAS_H / 2} r={7} fill="#84cc16" />
-
-              {/* Line from input to first card */}
-              <line
-                x1={68}
-                y1={CANVAS_H / 2}
-                x2={cardPositions[0].x - 16}
-                y2={cardPositions[0].y + CARD_H / 2}
-                stroke="#444"
-                strokeWidth={1.2}
-              />
-              {/* Arrow at end */}
-              <polygon
-                points={`${cardPositions[0].x - 20},${cardPositions[0].y + CARD_H / 2 - 4} ${cardPositions[0].x - 20},${cardPositions[0].y + CARD_H / 2 + 4} ${cardPositions[0].x - 14},${cardPositions[0].y + CARD_H / 2}`}
-                fill="#84cc16"
-              />
-
-              {/* Diagonal connector lines between cards */}
-              {[0, 1, 2].map((i) => {
-                const from = cardPositions[i];
-                const to = cardPositions[i + 1];
-                const x1 = from.x + CARD_W + 12;
-                const y1 = from.y + CARD_H / 2;
-                const x2 = to.x - 16;
-                const y2 = to.y + CARD_H / 2;
-                return (
-                  <g key={i}>
-                    <line
-                      x1={x1}
-                      y1={y1}
-                      x2={x2}
-                      y2={y2}
-                      stroke="#444"
-                      strokeWidth={1.2}
-                    />
-                    {/* Arrow */}
-                    <polygon
-                      points={`${x2 - 4},${y2 - 4} ${x2 - 4},${y2 + 4} ${x2 + 2},${y2}`}
-                      fill="#84cc16"
-                    />
-                  </g>
-                );
-              })}
-
-              {/* Node cards */}
-              {steps.map((step, i) => (
-                <NodeCard
-                  key={step.step}
-                  step={step}
-                  pos={cardPositions[i]}
-                  index={i}
-                  isActive={i === activeIndex}
-                  onClick={() => scrollToCard(i)}
-                />
+            {/* Grid lines at top */}
+            <div className="flex gap-0 border-b border-white/5">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div key={i} className="flex-1 h-8 border-r border-white/5" />
               ))}
-            </svg>
-          </div>
+            </div>
 
-          {/* Scroll hint */}
-          <p className="text-white/20 text-xs text-center mt-3 lg:hidden">
-            ← Scroll to explore →
-          </p>
+            {/* Cards with connectors */}
+            <div className="relative px-6 py-12 flex flex-col gap-0">
+              {steps.map((step, i) => (
+                <div key={step.step}>
+                  {/* Connector line from previous card */}
+                  {i > 0 && (
+                    <div className="relative h-16 my-2">
+                      <svg
+                        className="absolute inset-0 w-full h-full"
+                        preserveAspectRatio="none"
+                      >
+                        <line
+                          x1={steps[i - 1].align === "left" ? "30%" : "70%"}
+                          y1="0"
+                          x2={step.align === "left" ? "30%" : "70%"}
+                          y2="100%"
+                          stroke="#444"
+                          strokeWidth="1.2"
+                        />
+                      </svg>
+                    </div>
+                  )}
+
+                  {/* Card wrapper with ref for intersection observer */}
+                  <div
+                    ref={(el) => {
+                      cardRefs.current[i] = el;
+                    }}
+                  >
+                    <NodeCard
+                      step={step}
+                      index={i}
+                      isActive={i === activeIndex}
+                      isVisible={visibleCards.has(i)}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Right column – sticky panel */}
@@ -309,12 +253,11 @@ const VEFramework = () => {
               {steps.map((_, i) => (
                 <div
                   key={i}
-                  className="h-1 rounded-full transition-all duration-500 cursor-pointer"
+                  className="h-[3px] rounded-full transition-all duration-500"
                   style={{
                     width: i === activeIndex ? 32 : 20,
                     background: i === activeIndex ? "#fff" : "#333",
                   }}
-                  onClick={() => scrollToCard(i)}
                 />
               ))}
             </div>
@@ -344,20 +287,24 @@ const VEFramework = () => {
 
                 <div className="h-px bg-white/10 mb-6" />
 
-                <p className="text-[#9CA3AF] text-base md:text-lg leading-relaxed">
+                <p className="text-[#9CA3AF] text-base md:text-lg leading-relaxed mb-8">
                   {steps[activeIndex].body}
                 </p>
+
+                <a
+                  href="#apply"
+                  className="inline-block px-8 py-3 rounded-full text-white font-medium text-sm"
+                  style={{
+                    background: "linear-gradient(135deg, #7c3aed, #a855f7)",
+                  }}
+                >
+                  Request Invite
+                </a>
               </motion.div>
             </AnimatePresence>
           </div>
         </div>
       </div>
-
-      {/* Hide scrollbar */}
-      <style>{`
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-      `}</style>
     </section>
   );
 };
