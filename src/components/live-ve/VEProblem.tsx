@@ -15,27 +15,50 @@ const VEProblem = () => (
           You keep watching tutorials but never finish real projects. You see 22-year-old editors making ₹60,000/month and wonder 'Why not me?'
         </p>
 
-        {/* Timeline */}
-        <div className="relative max-w-2xl mx-auto">
-          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-white/10 -translate-x-1/2" />
-          <div className="absolute left-1/2 top-0 w-3 h-3 rounded-full bg-purple-500 -translate-x-1/2 -translate-y-1/2" />
-          <div className="w-full h-px bg-white/10 mb-4 relative top-6">
-            <div className="absolute inset-0" style={{ backgroundImage: "repeating-linear-gradient(90deg, transparent, transparent 4px, hsl(0 0% 100% / 0.1) 4px, hsl(0 0% 100% / 0.1) 8px)" }} />
+        {/* Timeline scrubber */}
+        <div className="relative max-w-3xl mx-auto">
+          {/* Vertical line top */}
+          <div className="absolute left-1/2 top-0 h-8 w-px bg-white/10 -translate-x-1/2" />
+          {/* Playhead */}
+          <div className="absolute left-1/2 top-8 -translate-x-1/2 -translate-y-0">
+            <div className="w-4 h-5 bg-purple-500 rounded-sm" style={{ clipPath: "polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%)" }} />
           </div>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-8">
-            {veProblemPoints.map((point, i) => (
+          {/* Ruler */}
+          <div className="relative top-14 w-full h-6 flex items-end justify-center gap-[6px] mb-2">
+            {Array.from({ length: 40 }).map((_, i) => (
+              <div key={i} className={`w-px ${i % 5 === 0 ? "h-4 bg-white/20" : "h-2 bg-white/10"}`} />
+            ))}
+          </div>
+          {/* Vertical line below ruler */}
+          <div className="absolute left-1/2 top-[4.5rem] bottom-0 w-px bg-white/10 -translate-x-1/2" />
+
+          {/* Cards */}
+          <div className="relative pt-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              {veProblemPoints.slice(0, 2).map((point, i) => (
+                <m.div
+                  key={i}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="px-8 py-5 rounded-xl border border-white/15 bg-white/5 text-lg text-white/70 text-center"
+                >
+                  {point}
+                </m.div>
+              ))}
+            </div>
+            <div className="flex justify-center">
               <m.div
-                key={i}
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="px-5 py-3 rounded-lg border border-white/10 bg-white/5 text-sm text-white/70"
-               
+                transition={{ delay: 0.2 }}
+                className="px-8 py-5 rounded-xl border border-white/15 bg-white/5 text-lg text-center bg-gradient-to-r from-purple-400 to-purple-300 bg-clip-text text-transparent font-medium"
               >
-                {point}
+                {veProblemPoints[2]}
               </m.div>
-            ))}
+            </div>
           </div>
         </div>
       </FadeInSection>
