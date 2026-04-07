@@ -1,4 +1,5 @@
 // Data for the LevelUp Video Editing Academy landing page
+import mentorGroupImg from "@/assets/ve-masterclass-mentors.png";
 
 export const VE_CTA_LINK = "https://www.leveluplearning.live/ve-cta";
 
@@ -176,7 +177,7 @@ export const veCommunityData = {
     { value: "200,000+", label: "Community Members" },
     { value: "50,000+", label: "Students Trained" },
   ],
-  mentorGroupImage: "https://framerusercontent.com/images/eKPxr8jWd5wuW6jANPkEQPRdws.png",
+  mentorGroupImage: mentorGroupImg,
 };
 
 export const veApplicationSteps = [
