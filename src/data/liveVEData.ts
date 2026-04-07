@@ -97,7 +97,7 @@ export const vePortfolioCards = [
   { title: "Talking-Head Reels", image: "https://framerusercontent.com/images/nWv555wV3jh7qcGTn44llh7abS0.png?width=486&height=706", video: "https://ik.imagekit.io/levelup/VE/talk%20head%201.mp4?updatedAt=1775052041491" },
   { title: "Short Films", image: "https://framerusercontent.com/images/JiwNnwTMADriJmOrYeYfBgtS5v8.png?width=486&height=706", video: "https://ik.imagekit.io/levelup/VE/short%20film.mp4?updatedAt=1775052040958" },
   { title: "Trailers & Promos", image: "https://framerusercontent.com/images/sGFDmzslz4nP24wOifsw7xYxrWI.png?width=486&height=706", video: "https://ik.imagekit.io/levelup/VE/trailer%202.mp4?updatedAt=1775052041539" },
-  { title: "YOUR Showreel", image: "https://framerusercontent.com/images/lBRN3dTltwfPDukMIj4F4S3wGtg.png?width=486&height=706" },
+  { title: "YOUR Showreel", image: "https://framerusercontent.com/images/lBRN3dTltwfPDukMIj4F4S3wGtg.png?width=486&height=706", video: "https://ik.imagekit.io/levelup/VE/showcase.mp4?updatedAt=1775052040977" },
 ];
 
 export const veProblemPoints = [
