@@ -1,6 +1,4 @@
 import FadeInSection from "@/components/FadeInSection";
-import { veStudentWorkImages } from "@/data/liveVEData";
-import { m } from "framer-motion";
 
 const VEStudentWork = () => (
   <section className="py-20 md:py-28" style={{ background: "hsl(160 8% 8%)" }}>
@@ -15,25 +13,15 @@ const VEStudentWork = () => (
       </FadeInSection>
 
       <FadeInSection delay={100}>
-        <div className="columns-2 sm:columns-3 md:columns-4 lg:columns-5 gap-3">
-          {veStudentWorkImages.map((img, i) => (
-            <m.div
-              key={i}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.04 }}
-              className="mb-3 rounded-xl overflow-hidden border border-white/10 break-inside-avoid"
-            >
-              <img
-                src={img}
-                alt={`Student work ${i + 1}`}
-                loading="lazy"
-                className="w-full h-auto object-cover"
-                style={{ aspectRatio: i % 3 === 0 ? "3/4" : i % 3 === 1 ? "4/5" : "1/1" }}
-              />
-            </m.div>
-          ))}
+        <div className="rounded-2xl overflow-hidden border border-white/10 aspect-video">
+          <video
+            src="https://framerusercontent.com/assets/UuGNRRoqDbhEhYyfwwmszz2LY.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+          />
         </div>
       </FadeInSection>
     </div>
