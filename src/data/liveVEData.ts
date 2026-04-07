@@ -25,7 +25,7 @@ export const vePromoVideo = {
 
 export const veMentorCreators = [
   { name: "Ali Abdaal", role: "Entrepreneur & Author", image: "https://framerusercontent.com/images/3BqermYNouUgnF5he0yjlOAMs.png?width=486&height=706" },
-  { name: "Ankur Warikoo", role: "Entrepreneur", image: "https://framerusercontent.com/images/Qjl1P3JZMEMotPRideIKa6XsgYs.png?width=486&height=706" },
+  { name: "Ankur Warikoo", role: "Entrepreneur", image: "/images/ve-mentor-ankur.png" },
   { name: "Sharan Hegde", role: "Entrepreneur", image: "https://framerusercontent.com/images/Wr3qIankHBVOHQlEajKZee4upEE.png?width=486&height=706" },
 ];
 
