@@ -112,6 +112,7 @@ const VEPortfolio = () => (
             viewport={{ once: true }}
             transition={{ delay: i * 0.06 }}
             className="rounded-xl overflow-hidden border border-white/10 relative group"
+            style={{ background: "hsl(160 8% 8%)" }}
           >
             <div className="aspect-[4/3] relative">
               <img src={card.image} alt={card.title} className="w-full h-full object-cover" loading="lazy" />
