@@ -6,9 +6,12 @@ const VEHero = () => (
   <section className="pt-8 pb-4 px-4 md:px-8" style={{ background: "hsl(160 8% 8%)" }}>
     <div className="max-w-[1400px] mx-auto">
       <div className="relative rounded-2xl overflow-hidden min-h-[85vh] flex items-center justify-center border border-white/10">
-        <img
-          src={veHero.bgImage}
-          alt="Video editing workspace"
+        <video
+          src="https://ik.imagekit.io/levelup/VE/VE%20Hero.mp4?updatedAt=1775051433172"
+          autoPlay
+          loop
+          muted
+          playsInline
           className="absolute inset-0 w-full h-full object-cover opacity-40"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/70" />
