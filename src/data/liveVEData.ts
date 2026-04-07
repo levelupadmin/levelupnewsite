@@ -65,18 +65,21 @@ export const veBrandLogos = [
 
 import dallELogo from "@/assets/tools/dall-e.webp";
 import illustratorLogo from "@/assets/tools/illustrator.png";
-import afterEffectsLogo from "@/assets/tools/after-effects.avif";
+import afterEffectsLogo from "@/assets/tools/after-effects.png";
 import canvaLogo from "@/assets/tools/canva.jpg";
+import premiereProLogo from "@/assets/tools/premiere-pro.png";
+import photoshopLogo from "@/assets/tools/photoshop.png";
+import boardsLogo from "@/assets/tools/boards.png";
 
 export const veToolIcons = [
   { name: "Chat GPT ( DALL - E )", image: dallELogo },
   { name: "Adobe After Effects", image: afterEffectsLogo },
-  { name: "Adobe Photoshop", image: "https://framerusercontent.com/images/SZuIntNLyNuezwMe0A54J5Adc.png?width=940&height=918" },
+  { name: "Adobe Photoshop", image: photoshopLogo },
   { name: "DaVinci Resolve", image: "https://framerusercontent.com/images/fulyuAAHtwG5EFxCr8N8YQFEt8E.png?width=1588&height=1563" },
   { name: "Envato Elements", image: "https://framerusercontent.com/images/D0Bv9Ijac2Z3wapu8dDxEqTRro.png?width=1807&height=1749" },
   { name: "Midjourney", image: "https://framerusercontent.com/images/SZuIntNLyNuezwMe0A54J5Adc.png?width=940&height=918" },
-  { name: "Adobe Premiere Pro", image: "https://framerusercontent.com/images/fulyuAAHtwG5EFxCr8N8YQFEt8E.png?width=1588&height=1563" },
-  { name: "Boards", image: "https://framerusercontent.com/images/D0Bv9Ijac2Z3wapu8dDxEqTRro.png?width=1807&height=1749" },
+  { name: "Adobe Premiere Pro", image: premiereProLogo },
+  { name: "Boards", image: boardsLogo },
   { name: "Nuendo", image: "https://framerusercontent.com/images/SZuIntNLyNuezwMe0A54J5Adc.png?width=940&height=918" },
   { name: "Canva", image: canvaLogo },
   { name: "Adobe Illustrator", image: illustratorLogo },
