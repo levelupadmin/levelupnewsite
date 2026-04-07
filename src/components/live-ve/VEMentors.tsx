@@ -1,13 +1,9 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import FadeInSection from "@/components/FadeInSection";
 import { veMentorCreators, veMentorCards, VE_CTA_LINK } from "@/data/liveVEData";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const VEMentors = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const scroll = (dir: "left" | "right") => {
-    scrollRef.current?.scrollBy({ left: dir === "left" ? -300 : 300, behavior: "smooth" });
-  };
 
   const allCards = [
     ...veMentorCreators.flatMap((c, i) => [
@@ -17,6 +13,35 @@ const VEMentors = () => {
     ]),
     ...veMentorCards.slice(6).map(img => ({ type: "poster" as const, image: img })),
   ];
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    let animId: number;
+    let speed = 0.5;
+
+    const step = () => {
+      el.scrollLeft += speed;
+      // Reset to start when reaching the end
+      if (el.scrollLeft >= el.scrollWidth - el.clientWidth) {
+        el.scrollLeft = 0;
+      }
+      animId = requestAnimationFrame(step);
+    };
+
+    animId = requestAnimationFrame(step);
+
+    const pause = () => { speed = 0; };
+    const resume = () => { speed = 0.5; };
+    el.addEventListener("mouseenter", pause);
+    el.addEventListener("mouseleave", resume);
+
+    return () => {
+      cancelAnimationFrame(animId);
+      el.removeEventListener("mouseenter", pause);
+      el.removeEventListener("mouseleave", resume);
+    };
+  }, []);
 
   return (
     <section className="py-16 md:py-24 px-4 md:px-8" style={{ background: "hsl(160 8% 8%)" }}>
@@ -30,13 +55,6 @@ const VEMentors = () => {
           </FadeInSection>
 
           <div className="relative mb-10">
-            <button onClick={() => scroll("left")} className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/50 border border-white/20 flex items-center justify-center text-white hover:bg-black/70">
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button onClick={() => scroll("right")} className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/50 border border-white/20 flex items-center justify-center text-white hover:bg-black/70">
-              <ChevronRight className="w-5 h-5" />
-            </button>
-
             <div ref={scrollRef} className="flex gap-4 overflow-x-auto scrollbar-hide px-6" style={{ scrollbarWidth: "none" }}>
               {allCards.map((card, i) => (
                 <div key={i} className="flex-shrink-0 w-[180px] md:w-[220px] rounded-xl overflow-hidden border border-white/10">
