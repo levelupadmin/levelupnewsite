@@ -10,7 +10,6 @@ const VESonyBanner = () => (
           <div className="rounded-2xl overflow-hidden min-h-[200px] relative">
             <img src={veAcademyLogo} alt="The LevelUp Video Editing Academy" className="w-full h-full object-cover" />
           </div>
-          </div>
 
           {/* Sony Partnership Card */}
           <div
