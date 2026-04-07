@@ -24,7 +24,7 @@ export const vePromoVideo = {
 };
 
 export const veMentorCreators = [
-  { name: "Ali Abdaal", role: "Entrepreneur & Author", image: "/mnt/documents/78eefcac-c367-461a-b09a-0b12d6d045d2.png" },
+  { name: "Ali Abdaal", role: "Entrepreneur & Author", image: "/mnt/documents/a3e8ad54-e5f3-4138-a114-3ff4cccdcf08.png" },
   { name: "Ankur Warikoo", role: "Entrepreneur", image: "/images/ve-mentor-ankur.png" },
   { name: "Sharan Hegde", role: "Entrepreneur", image: "https://framerusercontent.com/images/Wr3qIankHBVOHQlEajKZee4upEE.png?width=486&height=706" },
 ];
@@ -153,7 +153,7 @@ export const veStudentWorkImages = [
   "https://framerusercontent.com/images/lBRN3dTltwfPDukMIj4F4S3wGtg.png?width=486&height=706",
   "https://framerusercontent.com/images/z4JvqOhRE9mvwjKJz4I2bHzxyg.png?width=486&height=706",
   "https://framerusercontent.com/images/eM3oDrwm0eagW8NFNd4bDy8Z1CY.png?width=486&height=706",
-  "/mnt/documents/78eefcac-c367-461a-b09a-0b12d6d045d2.png",
+  "/mnt/documents/a3e8ad54-e5f3-4138-a114-3ff4cccdcf08.png",
   "https://framerusercontent.com/images/Qjl1P3JZMEMotPRideIKa6XsgYs.png?width=486&height=706",
 ];
 
@@ -183,7 +183,7 @@ export const vePricing = {
 };
 
 export const veTestimonialCards = [
-  { name: "RISHI VARMA", image: "/mnt/documents/78eefcac-c367-461a-b09a-0b12d6d045d2.png", vimeoId: "1060625411" },
+  { name: "RISHI VARMA", image: "/mnt/documents/a3e8ad54-e5f3-4138-a114-3ff4cccdcf08.png", vimeoId: "1060625411" },
   { name: "JOEL J DSOUZA", image: "https://framerusercontent.com/images/Qjl1P3JZMEMotPRideIKa6XsgYs.png?width=486&height=706", vimeoId: "1060625370" },
   { name: "STINSON THOMAS", image: "https://framerusercontent.com/images/Wr3qIankHBVOHQlEajKZee4upEE.png?width=486&height=706", vimeoId: "1060625241" },
   { name: "KISHORE", image: "https://framerusercontent.com/images/U9iZffSyvaAbp3MSqamfZcxIPM.png?width=486&height=706", vimeoId: "1060625339" },
