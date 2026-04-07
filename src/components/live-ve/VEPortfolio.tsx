@@ -117,7 +117,18 @@ const VEPortfolio = () => (
             style={{ background: "hsl(160 8% 8%)" }}
           >
             <div className="aspect-[4/3] relative">
-              <img src={card.image} alt={card.title} className="w-full h-full object-cover" loading="lazy" />
+              {card.video ? (
+                <video
+                  src={card.video}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <img src={card.image} alt={card.title} className="w-full h-full object-cover" loading="lazy" />
+              )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               <div className="absolute bottom-0 inset-x-0 p-4">
                 <h3 className="text-purple-400 text-lg font-semibold whitespace-pre-line leading-tight">{card.title}</h3>
