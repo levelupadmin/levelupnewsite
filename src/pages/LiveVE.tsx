@@ -10,6 +10,7 @@ import VEPortfolio from "@/components/live-ve/VEPortfolio";
 import VEProblem from "@/components/live-ve/VEProblem";
 import VECurriculum from "@/components/live-ve/VECurriculum";
 import VEStudentWork from "@/components/live-ve/VEStudentWork";
+import VEFramework from "@/components/live-ve/VEFramework";
 import VECommunity from "@/components/live-ve/VECommunity";
 import VEApplication from "@/components/live-ve/VEApplication";
 import VEPricing from "@/components/live-ve/VEPricing";
@@ -36,6 +37,7 @@ const LiveVE = () => {
       <VEProblem />
       <VECurriculum />
       <VEStudentWork />
+      <VEFramework />
       <VECommunity />
       <VEApplication />
       <VEPricing />
