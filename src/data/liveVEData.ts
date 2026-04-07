@@ -64,7 +64,7 @@ export const veBrandLogos = [
 ];
 
 import dallELogo from "@/assets/tools/dall-e.webp";
-import illustratorLogo from "@/assets/tools/illustrator.avif";
+import illustratorLogo from "@/assets/tools/illustrator.png";
 import afterEffectsLogo from "@/assets/tools/after-effects.avif";
 import canvaLogo from "@/assets/tools/canva.jpg";
 
