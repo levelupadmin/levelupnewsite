@@ -1,4 +1,5 @@
 import FadeInSection from "@/components/FadeInSection";
+import sonyBg from "@/assets/ve-sony-bg.png";
 
 const VESonyBanner = () => (
   <section className="py-6 px-4 md:px-8" style={{ background: "hsl(160 8% 8%)" }}>
@@ -32,14 +33,8 @@ const VESonyBanner = () => (
           {/* Sony Partnership Card */}
           <div
             className="rounded-2xl p-8 md:p-10 flex items-center justify-center gap-8 min-h-[200px] relative overflow-hidden"
-            style={{
-              background: "linear-gradient(135deg, hsl(270 40% 20%), hsl(280 50% 30%))",
-            }}
           >
-            <div className="absolute inset-0 opacity-10" style={{
-              backgroundImage: "radial-gradient(circle at 2px 2px, white 1px, transparent 0)",
-              backgroundSize: "24px 24px"
-            }} />
+            <img src={sonyBg} alt="" className="absolute inset-0 w-full h-full object-cover" />
             <div className="relative flex items-center gap-8 flex-wrap justify-center">
               <div className="text-center">
                 <p className="text-white/60 text-xs mb-2">Powered By</p>
