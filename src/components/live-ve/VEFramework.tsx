@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 
 const steps = [
   {
@@ -8,7 +8,6 @@ const steps = [
     step: "01",
     image: "https://framerusercontent.com/images/U9iZffSyvaAbp3MSqamfZcxIPM.png?width=486&height=706",
     body: "Every weekend, you'll join live sessions where mentors break down the exact tools, techniques, and storytelling tricks they use every day.",
-    align: "left" as const,
   },
   {
     label: "PRACTICE",
@@ -16,7 +15,6 @@ const steps = [
     step: "02",
     image: "https://framerusercontent.com/images/zccB5DrbOcyqfpQSAGtlGObXp20.png?width=486&height=706",
     body: "After each session, you'll get hands-on with real projects. We'll give you clear briefs, and you'll get feedback so you're always improving.",
-    align: "right" as const,
   },
   {
     label: "APPLY",
@@ -24,7 +22,6 @@ const steps = [
     step: "03",
     image: "https://framerusercontent.com/images/nWv555wV3jh7qcGTn44llh7abS0.png?width=486&height=706",
     body: "You'll build a portfolio along the way — not at the end. You'll learn how to pitch, deliver, and actually get paid for your work.",
-    align: "left" as const,
   },
   {
     label: "COLLABORATE & GROW",
@@ -32,222 +29,217 @@ const steps = [
     step: "04",
     image: "https://framerusercontent.com/images/JiwNnwTMADriJmOrYeYfBgtS5v8.png?width=486&height=706",
     body: "Weekly community calls, peer reviews, and collab threads keep you connected, accountable, and constantly improving — with people on the same path.",
-    align: "right" as const,
   },
 ];
 
-const NodeCard = ({
-  step,
-  index,
-  isActive,
-  isVisible,
-}: {
-  step: (typeof steps)[0];
-  index: number;
-  isActive: boolean;
-  isVisible: boolean;
-}) => {
-  const isRight = step.align === "right";
+/* Card positions in the wide SVG canvas (zig-zag layout) */
+const cardPositions = [
+  { x: 200, y: 30 },
+  { x: 520, y: 180 },
+  { x: 820, y: 30 },
+  { x: 1140, y: 180 },
+];
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={isVisible ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: 0.1 }}
-      className={`relative flex ${isRight ? "justify-end" : "justify-start"}`}
-      style={{ paddingLeft: isRight ? 0 : 40, paddingRight: isRight ? 40 : 0 }}
-    >
-      {/* Play icon — left of card */}
-      <div className="absolute flex flex-col gap-3" style={{
-        left: isRight ? undefined : 0,
-        right: isRight ? 0 : undefined,
-        top: "50%",
-        transform: "translateY(-50%)",
-      }}>
-        <svg width="16" height="16" viewBox="0 0 16 16">
-          <polygon points="0,0 0,16 14,8" fill="#84cc16" />
-        </svg>
-      </div>
-
-      <div
-        className="relative rounded-lg overflow-hidden border transition-all duration-300"
-        style={{
-          width: 260,
-          background: isActive ? "#222" : "#1a1a1a",
-          borderColor: isActive ? "rgba(168,85,247,0.5)" : "rgba(255,255,255,0.1)",
-          borderWidth: isActive ? 1.5 : 1,
-        }}
-      >
-        {/* Label */}
-        <div className="text-center pt-3 pb-1">
-          <span
-            className="text-[10px] uppercase tracking-[1.5px] text-white/50"
-            style={{ fontFamily: "'Funnel Display', sans-serif" }}
-          >
-            {step.label}
-          </span>
-        </div>
-
-        {/* Thumbnail */}
-        <div className="mx-2 rounded overflow-hidden" style={{ height: 120 }}>
-          <img
-            src={step.image}
-            alt={step.heading}
-            className="w-full h-full object-cover"
-            style={{ filter: "saturate(0.3) brightness(0.7)" }}
-          />
-        </div>
-
-        {/* Progress bar */}
-        <div className="mx-2 mt-2">
-          <div className="h-[2px] bg-[#333] rounded-full">
-            <div className="h-full w-3/5 bg-indigo-500 rounded-full" />
-          </div>
-        </div>
-
-        {/* Bottom row */}
-        <div className="flex items-center gap-2 px-3 py-2">
-          <svg width="10" height="10" viewBox="0 0 10 10">
-            <polygon points="0,0 0,10 9,5" fill="#06b6d4" />
-          </svg>
-          <span
-            className="text-white/30 text-sm font-bold"
-            style={{ fontFamily: "'Funnel Display', sans-serif" }}
-          >
-            {step.step}
-          </span>
-        </div>
-
-        {/* Green connector — right */}
-        <div
-          className="absolute w-2 h-2 rounded-sm bg-[#84cc16]"
-          style={{ right: -12, top: "50%", transform: "translateY(-50%)" }}
-        />
-        {/* Cyan connector — bottom */}
-        <div
-          className="absolute w-2 h-2 rounded-sm bg-[#06b6d4]"
-          style={{ bottom: -12, right: 20 }}
-        />
-      </div>
-    </motion.div>
-  );
-};
+const CANVAS_W = 1500;
+const CANVAS_H = 380;
+const CARD_W = 200;
+const CARD_H = 160;
 
 const VEFramework = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
 
+  /* Track scroll progress through the pinned section */
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+
+  /* Map scroll progress → horizontal translate of SVG canvas */
+  const canvasX = useTransform(scrollYProgress, [0, 1], [0, -(CANVAS_W - 700)]);
+
+  /* Update active card based on scroll progress */
   useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-
-    cardRefs.current.forEach((el, i) => {
-      if (!el) return;
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setActiveIndex(i);
-            setVisibleCards((prev) => new Set(prev).add(i));
-          }
-        },
-        { threshold: 0.6, rootMargin: "-10% 0px -30% 0px" }
-      );
-      observer.observe(el);
-      observers.push(observer);
+    const unsub = scrollYProgress.on("change", (v) => {
+      // Map progress to card index (0-3)
+      const idx = Math.min(3, Math.floor(v * 4));
+      setActiveIndex(idx);
     });
-
-    return () => observers.forEach((o) => o.disconnect());
-  }, []);
+    return unsub;
+  }, [scrollYProgress]);
 
   return (
     <section
+      ref={sectionRef}
       className="relative"
-      style={{ background: "#0d0d0d", paddingTop: 120, paddingBottom: 120 }}
+      style={{ height: "300vh" }} /* tall container to drive scroll */
     >
-      {/* Header */}
-      <div className="text-center mb-16 px-6">
-        <span className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4 block">
-          How You'll Learn?
-        </span>
-        <h2
-          className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4"
-          style={{ fontFamily: "'Funnel Display', sans-serif" }}
-        >
-          The Framework
-        </h2>
-        <p className="text-[#9CA3AF] max-w-2xl mx-auto text-base md:text-lg">
-          Here's how we turn you from a curious beginner into a confident, working editor
-          — one step at a time.
-        </p>
-      </div>
-
-      {/* Two-column layout */}
-      <div className="max-w-[1380px] mx-auto px-6 md:px-12 flex flex-col lg:flex-row gap-8 lg:gap-12">
-        {/* Left column — vertical scroll canvas */}
-        <div className="lg:w-[60%] relative">
-          <div
-            className="rounded-2xl overflow-hidden relative"
-            style={{
-              background: "#111111",
-              backgroundImage:
-                "radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)",
-              backgroundSize: "24px 24px",
-              minHeight: 800,
-            }}
+      {/* Sticky wrapper that stays in viewport while scrolling */}
+      <div
+        className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden"
+        style={{ background: "#0d0d0d" }}
+      >
+        {/* Header */}
+        <div className="text-center mb-8 md:mb-12 px-6">
+          <span className="text-xs uppercase tracking-[0.2em] text-white/40 mb-3 block">
+            How You'll Learn?
+          </span>
+          <h2
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3"
+            style={{ fontFamily: "'Funnel Display', sans-serif" }}
           >
-            {/* Grid lines at top */}
-            <div className="flex gap-0 border-b border-white/5">
-              {Array.from({ length: 8 }).map((_, i) => (
-                <div key={i} className="flex-1 h-8 border-r border-white/5" />
-              ))}
-            </div>
-
-            {/* Cards with connectors */}
-            <div className="relative px-6 py-12 flex flex-col gap-0">
-              {steps.map((step, i) => (
-                <div key={step.step}>
-                  {/* Connector line from previous card */}
-                  {i > 0 && (
-                    <div className="relative h-16 my-2">
-                      <svg
-                        className="absolute inset-0 w-full h-full"
-                        preserveAspectRatio="none"
-                      >
-                        <line
-                          x1={steps[i - 1].align === "left" ? "30%" : "70%"}
-                          y1="0"
-                          x2={step.align === "left" ? "30%" : "70%"}
-                          y2="100%"
-                          stroke="#444"
-                          strokeWidth="1.2"
-                        />
-                      </svg>
-                    </div>
-                  )}
-
-                  {/* Card wrapper with ref for intersection observer */}
-                  <div
-                    ref={(el) => {
-                      cardRefs.current[i] = el;
-                    }}
-                  >
-                    <NodeCard
-                      step={step}
-                      index={i}
-                      isActive={i === activeIndex}
-                      isVisible={visibleCards.has(i)}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+            The Framework
+          </h2>
+          <p className="text-[#9CA3AF] max-w-2xl mx-auto text-base md:text-lg">
+            Here's how we turn you from a curious beginner into a confident, working editor
+            — one step at a time.
+          </p>
         </div>
 
-        {/* Right column – sticky panel */}
-        <div className="lg:w-[40%]">
-          <div className="lg:sticky lg:top-32">
+        {/* Two-column layout */}
+        <div className="max-w-[1380px] mx-auto px-6 md:px-12 flex flex-col lg:flex-row gap-6 lg:gap-10 w-full">
+          {/* Left column — scroll-driven horizontal canvas */}
+          <div className="lg:w-[60%] relative">
+            <div
+              className="rounded-2xl overflow-hidden"
+              style={{
+                background: "#111111",
+                backgroundImage:
+                  "radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)",
+                backgroundSize: "24px 24px",
+              }}
+            >
+              {/* Grid header lines */}
+              <div className="flex gap-0 border-b border-white/[0.06]">
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <div key={i} className="flex-1 h-6 border-r border-white/[0.06]" />
+                ))}
+              </div>
+
+              <motion.div style={{ x: canvasX }} className="will-change-transform">
+                <svg
+                  width={CANVAS_W}
+                  height={CANVAS_H}
+                  viewBox={`0 0 ${CANVAS_W} ${CANVAS_H}`}
+                  className="block"
+                >
+                  {/* Green input node */}
+                  <rect x={40} y={CANVAS_H / 2 - 16} width={28} height={32} rx={6} fill="#222" stroke="#333" />
+                  <circle cx={54} cy={CANVAS_H / 2} r={7} fill="#84cc16" />
+
+                  {/* Line from input to first card */}
+                  <line
+                    x1={68} y1={CANVAS_H / 2}
+                    x2={cardPositions[0].x - 16} y2={cardPositions[0].y + CARD_H / 2}
+                    stroke="#444" strokeWidth={1.2}
+                  />
+                  <polygon
+                    points={`${cardPositions[0].x - 20},${cardPositions[0].y + CARD_H / 2 - 4} ${cardPositions[0].x - 20},${cardPositions[0].y + CARD_H / 2 + 4} ${cardPositions[0].x - 14},${cardPositions[0].y + CARD_H / 2}`}
+                    fill="#84cc16"
+                  />
+
+                  {/* Connector lines between cards */}
+                  {[0, 1, 2].map((i) => {
+                    const from = cardPositions[i];
+                    const to = cardPositions[i + 1];
+                    const x1 = from.x + CARD_W + 12;
+                    const y1 = from.y + CARD_H / 2;
+                    const x2 = to.x - 16;
+                    const y2 = to.y + CARD_H / 2;
+                    return (
+                      <g key={i}>
+                        <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#444" strokeWidth={1.2} />
+                        <polygon
+                          points={`${x2 - 4},${y2 - 4} ${x2 - 4},${y2 + 4} ${x2 + 2},${y2}`}
+                          fill="#84cc16"
+                        />
+                      </g>
+                    );
+                  })}
+
+                  {/* Node cards */}
+                  {steps.map((step, i) => {
+                    const pos = cardPositions[i];
+                    const isActive = i === activeIndex;
+                    return (
+                      <g key={step.step}>
+                        {/* Label */}
+                        <text
+                          x={pos.x + CARD_W / 2} y={pos.y - 10}
+                          textAnchor="middle" fill="rgba(255,255,255,0.5)"
+                          fontSize="11" fontWeight="600" letterSpacing="1.5"
+                          fontFamily="'Funnel Display', sans-serif"
+                        >
+                          {step.label}
+                        </text>
+
+                        {/* Card body */}
+                        <rect
+                          x={pos.x} y={pos.y} width={CARD_W} height={CARD_H} rx={10}
+                          fill={isActive ? "#222" : "#1a1a1a"}
+                          stroke={isActive ? "rgba(168,85,247,0.5)" : "rgba(255,255,255,0.1)"}
+                          strokeWidth={isActive ? 1.5 : 1}
+                        />
+
+                        {/* Image */}
+                        <clipPath id={`clip-${i}`}>
+                          <rect x={pos.x + 8} y={pos.y + 8} width={CARD_W - 16} height={90} rx={6} />
+                        </clipPath>
+                        <image
+                          href={step.image}
+                          x={pos.x + 8} y={pos.y + 8}
+                          width={CARD_W - 16} height={90}
+                          clipPath={`url(#clip-${i})`}
+                          preserveAspectRatio="xMidYMid slice"
+                          style={{ filter: "saturate(0.3) brightness(0.7)" }}
+                        />
+
+                        {/* Progress bar */}
+                        <rect x={pos.x + 8} y={pos.y + 104} width={CARD_W - 16} height={2} rx={1} fill="#333" />
+                        <rect x={pos.x + 8} y={pos.y + 104} width={(CARD_W - 16) * 0.6} height={2} rx={1} fill="#6366f1" />
+
+                        {/* Play icon left */}
+                        <polygon
+                          points={`${pos.x - 16},${pos.y + CARD_H / 2 - 5} ${pos.x - 16},${pos.y + CARD_H / 2 + 5} ${pos.x - 8},${pos.y + CARD_H / 2}`}
+                          fill="#84cc16"
+                        />
+
+                        {/* Step number */}
+                        <text
+                          x={pos.x + 12} y={pos.y + CARD_H - 12}
+                          fill="rgba(255,255,255,0.3)" fontSize="16" fontWeight="700"
+                          fontFamily="'Funnel Display', sans-serif"
+                        >
+                          {step.step}
+                        </text>
+
+                        {/* Cyan play bottom */}
+                        <polygon
+                          points={`${pos.x + 8},${pos.y + CARD_H - 18} ${pos.x + 8},${pos.y + CARD_H - 10} ${pos.x + 14},${pos.y + CARD_H - 14}`}
+                          fill="#06b6d4"
+                        />
+
+                        {/* Green connector right */}
+                        <rect
+                          x={pos.x + CARD_W + 4} y={pos.y + CARD_H / 2 - 5}
+                          width={8} height={8} rx={1.5} fill="#84cc16"
+                        />
+
+                        {/* Cyan connector bottom */}
+                        <rect
+                          x={pos.x + CARD_W - 4} y={pos.y + CARD_H + 4}
+                          width={8} height={8} rx={1.5} fill="#06b6d4"
+                        />
+                      </g>
+                    );
+                  })}
+                </svg>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Right column — sticky info panel */}
+          <div className="lg:w-[40%] flex flex-col justify-center">
             {/* Step indicators */}
             <div className="flex gap-2 mb-8">
               {steps.map((_, i) => (
@@ -272,13 +264,13 @@ const VEFramework = () => {
               >
                 <div className="flex items-center gap-3 mb-5">
                   <div
-                    className="w-5 h-5 rounded-full flex-shrink-0"
+                    className="w-6 h-6 rounded-full flex-shrink-0"
                     style={{
                       background: "linear-gradient(135deg, #a855f7, #7c3aed)",
                     }}
                   />
                   <h3
-                    className="text-3xl md:text-4xl font-bold text-white"
+                    className="text-3xl md:text-4xl lg:text-5xl font-bold text-white"
                     style={{ fontFamily: "'Funnel Display', sans-serif" }}
                   >
                     {steps[activeIndex].heading}
