@@ -66,6 +66,7 @@ export const veBrandLogos = [
 import dallELogo from "@/assets/tools/dall-e.webp";
 import illustratorLogo from "@/assets/tools/illustrator.avif";
 import afterEffectsLogo from "@/assets/tools/after-effects.avif";
+import canvaLogo from "@/assets/tools/canva.jpg";
 
 export const veToolIcons = [
   { name: "Chat GPT ( DALL - E )", image: dallELogo },
@@ -77,7 +78,7 @@ export const veToolIcons = [
   { name: "Adobe Premiere Pro", image: "https://framerusercontent.com/images/fulyuAAHtwG5EFxCr8N8YQFEt8E.png?width=1588&height=1563" },
   { name: "Boards", image: "https://framerusercontent.com/images/D0Bv9Ijac2Z3wapu8dDxEqTRro.png?width=1807&height=1749" },
   { name: "Nuendo", image: "https://framerusercontent.com/images/SZuIntNLyNuezwMe0A54J5Adc.png?width=940&height=918" },
-  { name: "Canva", image: "https://framerusercontent.com/images/fulyuAAHtwG5EFxCr8N8YQFEt8E.png?width=1588&height=1563" },
+  { name: "Canva", image: canvaLogo },
   { name: "Adobe Illustrator", image: illustratorLogo },
 ];
 
