@@ -1,4 +1,5 @@
 import FadeInSection from "@/components/FadeInSection";
+import sonyBg from "@/assets/ve-sony-bg.png";
 
 const VESonyBanner = () => (
   <section className="py-6 px-4 md:px-8" style={{ background: "hsl(160 8% 8%)" }}>
