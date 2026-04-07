@@ -63,9 +63,13 @@ export const veBrandLogos = [
   "https://framerusercontent.com/images/zH1p6OmxntFAEau7scr4tXbEaM.png?width=444&height=265",
 ];
 
+import dallELogo from "@/assets/tools/dall-e.webp";
+import illustratorLogo from "@/assets/tools/illustrator.avif";
+import afterEffectsLogo from "@/assets/tools/after-effects.avif";
+
 export const veToolIcons = [
-  { name: "Chat GPT ( DALL - E )", image: "https://framerusercontent.com/images/fulyuAAHtwG5EFxCr8N8YQFEt8E.png?width=1588&height=1563" },
-  { name: "Adobe After Effects", image: "https://framerusercontent.com/images/D0Bv9Ijac2Z3wapu8dDxEqTRro.png?width=1807&height=1749" },
+  { name: "Chat GPT ( DALL - E )", image: dallELogo },
+  { name: "Adobe After Effects", image: afterEffectsLogo },
   { name: "Adobe Photoshop", image: "https://framerusercontent.com/images/SZuIntNLyNuezwMe0A54J5Adc.png?width=940&height=918" },
   { name: "DaVinci Resolve", image: "https://framerusercontent.com/images/fulyuAAHtwG5EFxCr8N8YQFEt8E.png?width=1588&height=1563" },
   { name: "Envato Elements", image: "https://framerusercontent.com/images/D0Bv9Ijac2Z3wapu8dDxEqTRro.png?width=1807&height=1749" },
@@ -74,7 +78,7 @@ export const veToolIcons = [
   { name: "Boards", image: "https://framerusercontent.com/images/D0Bv9Ijac2Z3wapu8dDxEqTRro.png?width=1807&height=1749" },
   { name: "Nuendo", image: "https://framerusercontent.com/images/SZuIntNLyNuezwMe0A54J5Adc.png?width=940&height=918" },
   { name: "Canva", image: "https://framerusercontent.com/images/fulyuAAHtwG5EFxCr8N8YQFEt8E.png?width=1588&height=1563" },
-  { name: "Adobe Illustrator", image: "https://framerusercontent.com/images/D0Bv9Ijac2Z3wapu8dDxEqTRro.png?width=1807&height=1749" },
+  { name: "Adobe Illustrator", image: illustratorLogo },
 ];
 
 export const vePortfolioCards = [
