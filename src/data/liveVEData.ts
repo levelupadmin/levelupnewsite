@@ -92,7 +92,7 @@ export const veToolIcons = [
 ];
 
 export const vePortfolioCards = [
-  { title: "Long-Form\nYoutube Cuts", image: "https://framerusercontent.com/images/U9iZffSyvaAbp3MSqamfZcxIPM.png?width=486&height=706" },
+  { title: "Long-Form\nYoutube Cuts", image: "https://framerusercontent.com/images/U9iZffSyvaAbp3MSqamfZcxIPM.png?width=486&height=706", video: "https://ik.imagekit.io/levelup/VE/yt.mp4?updatedAt=1775052041446" },
   { title: "Faceless\nSocial Media Edits", description: "Cut short-form content using voiceovers, B-roll, and sleek transitions built for platforms like Instagram and YouTube Shorts.", image: "https://framerusercontent.com/images/zccB5DrbOcyqfpQSAGtlGObXp20.png?width=486&height=706" },
   { title: "Talking-Head Reels", image: "https://framerusercontent.com/images/nWv555wV3jh7qcGTn44llh7abS0.png?width=486&height=706" },
   { title: "Short Films", image: "https://framerusercontent.com/images/JiwNnwTMADriJmOrYeYfBgtS5v8.png?width=486&height=706" },
