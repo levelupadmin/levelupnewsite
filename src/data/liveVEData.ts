@@ -95,7 +95,7 @@ export const vePortfolioCards = [
   { title: "Long-Form\nYoutube Cuts", image: "https://framerusercontent.com/images/U9iZffSyvaAbp3MSqamfZcxIPM.png?width=486&height=706", video: "https://ik.imagekit.io/levelup/VE/yt.mp4?updatedAt=1775052041446" },
   { title: "Faceless\nSocial Media Edits", image: "https://framerusercontent.com/images/zccB5DrbOcyqfpQSAGtlGObXp20.png?width=486&height=706", video: "https://ik.imagekit.io/levelup/VE/faceless%20edit.mp4?updatedAt=1775052041455" },
   { title: "Talking-Head Reels", image: "https://framerusercontent.com/images/nWv555wV3jh7qcGTn44llh7abS0.png?width=486&height=706", video: "https://ik.imagekit.io/levelup/VE/talk%20head%201.mp4?updatedAt=1775052041491" },
-  { title: "Short Films", image: "https://framerusercontent.com/images/JiwNnwTMADriJmOrYeYfBgtS5v8.png?width=486&height=706" },
+  { title: "Short Films", image: "https://framerusercontent.com/images/JiwNnwTMADriJmOrYeYfBgtS5v8.png?width=486&height=706", video: "https://ik.imagekit.io/levelup/VE/short%20film.mp4?updatedAt=1775052040958" },
   { title: "Trailers & Promos", image: "https://framerusercontent.com/images/sGFDmzslz4nP24wOifsw7xYxrWI.png?width=486&height=706" },
   { title: "YOUR Showreel", image: "https://framerusercontent.com/images/lBRN3dTltwfPDukMIj4F4S3wGtg.png?width=486&height=706" },
 ];
