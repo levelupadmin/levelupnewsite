@@ -1,12 +1,10 @@
 import FadeInSection from "@/components/FadeInSection";
 import { veCommunityData } from "@/data/liveVEData";
-import communityBg from "@/assets/ve-community-bg.png";
 
 const VECommunity = () => (
-  <section className="relative py-16 md:py-24 px-4 md:px-8 overflow-hidden" style={{ background: "hsl(160 8% 8%)" }}>
-    <img src={communityBg} alt="" className="absolute inset-0 w-full h-full object-cover pointer-events-none" loading="lazy" decoding="async" />
-    <div className="relative max-w-[1400px] mx-auto">
-      <div className="rounded-2xl border border-white/10 overflow-hidden" style={{ background: "linear-gradient(180deg, hsl(250 15% 12% / 0.85), hsl(250 10% 8% / 0.9))" }}>
+  <section className="py-16 md:py-24 px-4 md:px-8" style={{ background: "hsl(160 8% 8%)" }}>
+    <div className="max-w-[1400px] mx-auto">
+      <div className="rounded-2xl border border-white/10 overflow-hidden" style={{ background: "linear-gradient(180deg, hsl(250 15% 12%), hsl(250 10% 8%))" }}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 min-h-[500px]">
           {/* Left */}
           <div className="p-10 md:p-14 flex flex-col justify-between relative overflow-hidden">
