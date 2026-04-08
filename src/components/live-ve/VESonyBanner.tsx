@@ -7,8 +7,8 @@ const VESonyBanner = () => (
   <section className="py-6 px-4 md:px-8" style={{ background: "hsl(160 8% 8%)" }}>
     <div className="max-w-[1400px] mx-auto">
       <FadeInSection>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="rounded-2xl overflow-hidden min-h-[200px] relative">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="rounded-2xl overflow-hidden min-h-[200px] relative md:col-span-2">
             <img src={veAcademyLogo} alt="The LevelUp Video Editing Academy" className="w-full h-full object-cover" />
           </div>
 
