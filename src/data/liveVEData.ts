@@ -74,6 +74,7 @@ import boardsLogo from "@/assets/tools/boards-new.png";
 import davinciResolveLogo from "@/assets/tools/davinci-resolve-new.png";
 import midjourneyLogo from "@/assets/tools/midjourney-new.png";
 import nuendoLogo from "@/assets/tools/nuendo-new.png";
+import envatoElementsLogo from "@/assets/logos/envato-elements.png";
 
 export const veToolIcons = [
   // Outer ring
@@ -87,7 +88,7 @@ export const veToolIcons = [
   // Center
   { name: "DaVinci Resolve", image: davinciResolveLogo },
   // Inner ring
-  { name: "Envato Elements", image: "https://framerusercontent.com/images/D0Bv9Ijac2Z3wapu8dDxEqTRro.png?width=1807&height=1749" },
+  { name: "Envato Elements", image: envatoElementsLogo },
   { name: "Midjourney", image: midjourneyLogo },
   { name: "Nuendo", image: nuendoLogo },
 ];
