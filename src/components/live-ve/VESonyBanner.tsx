@@ -8,13 +8,13 @@ const VESonyBanner = () => (
     <div className="max-w-[1400px] mx-auto">
       <FadeInSection>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="rounded-2xl overflow-hidden min-h-[200px] relative md:col-span-2">
+          <div className="rounded-2xl overflow-hidden min-h-[200px] relative">
             <img src={veAcademyLogo} alt="The LevelUp Video Editing Academy" className="w-full h-full object-cover" />
           </div>
 
           {/* Sony Partnership Card */}
           <div
-            className="rounded-2xl p-8 md:p-10 flex items-center justify-center gap-8 min-h-[200px] relative overflow-hidden"
+            className="rounded-2xl p-8 md:p-10 flex items-center justify-center gap-8 min-h-[200px] relative overflow-hidden md:col-span-2"
           >
             <img src={sonyBg} alt="" className="absolute inset-0 w-full h-full object-cover" />
             <div className="relative flex items-center gap-8 flex-wrap justify-center">
