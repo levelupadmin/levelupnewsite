@@ -199,7 +199,7 @@ export const vePricing = {
 };
 
 export const veTestimonialCards = [
-  { name: "RISHI VARMA", image: "/mnt/documents/a3e8ad54-e5f3-4138-a114-3ff4cccdcf08.png", vimeoId: "1060625411" },
+  { name: "RISHI VARMA", image: "/mnt/documents/a3e8ad54-e5f3-4138-a114-3ff4cccdcf08.png", vimeoId: "1162748373" },
   { name: "JOEL J DSOUZA", image: "https://framerusercontent.com/images/Qjl1P3JZMEMotPRideIKa6XsgYs.png?width=486&height=706", vimeoId: "1060625370" },
   { name: "STINSON THOMAS", image: "/mnt/documents/57afe9df-6309-4ccd-b657-6b0f9fd1b00c.png", vimeoId: "1060625241" },
   { name: "KISHORE", image: "https://framerusercontent.com/images/U9iZffSyvaAbp3MSqamfZcxIPM.png?width=486&height=706", vimeoId: "1060625339" },
