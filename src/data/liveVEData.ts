@@ -74,6 +74,7 @@ import boardsLogo from "@/assets/tools/boards-new.png";
 import davinciResolveLogo from "@/assets/tools/davinci-resolve-new.png";
 import midjourneyLogo from "@/assets/tools/midjourney-new.png";
 import nuendoLogo from "@/assets/tools/nuendo-new.png";
+import envatoElementsLogo from "@/assets/logos/envato-elements.png";
 
 export const veToolIcons = [
   // Outer ring
