@@ -1,5 +1,6 @@
 import FadeInSection from "@/components/FadeInSection";
 import { veCommunityData } from "@/data/liveVEData";
+import communityBg from "@/assets/ve-community-bg.png";
 
 const VECommunity = () => (
   <section className="py-16 md:py-24 px-4 md:px-8" style={{ background: "hsl(160 8% 8%)" }}>
