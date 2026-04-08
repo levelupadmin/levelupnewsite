@@ -200,11 +200,11 @@ export const vePricing = {
 
 export const veTestimonialCards = [
   { name: "RISHI VARMA", image: "/mnt/documents/a3e8ad54-e5f3-4138-a114-3ff4cccdcf08.png", vimeoId: "1162748373" },
-  { name: "JOEL J DSOUZA", image: "https://framerusercontent.com/images/Qjl1P3JZMEMotPRideIKa6XsgYs.png?width=486&height=706", vimeoId: "1060625370" },
-  { name: "STINSON THOMAS", image: "/mnt/documents/57afe9df-6309-4ccd-b657-6b0f9fd1b00c.png", vimeoId: "1060625241" },
-  { name: "KISHORE", image: "https://framerusercontent.com/images/U9iZffSyvaAbp3MSqamfZcxIPM.png?width=486&height=706", vimeoId: "1060625339" },
-  { name: "AJAY SINGH", image: "https://framerusercontent.com/images/zccB5DrbOcyqfpQSAGtlGObXp20.png?width=486&height=706", vimeoId: "1060625296" },
-  { name: "SOURAV JYOTI HAZARIKA", image: "https://framerusercontent.com/images/nWv555wV3jh7qcGTn44llh7abS0.png?width=486&height=706", vimeoId: "1060625315" },
+  { name: "JOEL J DSOUZA", image: "https://framerusercontent.com/images/Qjl1P3JZMEMotPRideIKa6XsgYs.png?width=486&height=706", vimeoId: "1162748342" },
+  { name: "STINSON THOMAS", image: "/mnt/documents/57afe9df-6309-4ccd-b657-6b0f9fd1b00c.png", vimeoId: "1162748387" },
+  { name: "KISHORE", image: "https://framerusercontent.com/images/U9iZffSyvaAbp3MSqamfZcxIPM.png?width=486&height=706", vimeoId: "1162748357" },
+  { name: "AJAY SINGH", image: "https://framerusercontent.com/images/zccB5DrbOcyqfpQSAGtlGObXp20.png?width=486&height=706", vimeoId: "1162748380" },
+  { name: "SOURAV JYOTI HAZARIKA", image: "https://framerusercontent.com/images/nWv555wV3jh7qcGTn44llh7abS0.png?width=486&height=706", vimeoId: "1162748331" },
 ];
 
 export const veExperience = [
