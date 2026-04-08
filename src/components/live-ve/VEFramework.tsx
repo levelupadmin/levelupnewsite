@@ -53,7 +53,6 @@ const VEFramework = () => {
           </span>
           <h2
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3"
-            style={{ fontFamily: "'Funnel Display', sans-serif" }}
           >
             The Framework
           </h2>
@@ -106,7 +105,7 @@ const VEFramework = () => {
                   />
                   <h3
                     className="text-3xl md:text-4xl lg:text-5xl font-bold text-white"
-                    style={{ fontFamily: "'Funnel Display', sans-serif" }}
+                    
                   >
                     {steps[activeIndex].heading}
                   </h3>
