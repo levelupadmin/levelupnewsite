@@ -1,6 +1,7 @@
 import FadeInSection from "@/components/FadeInSection";
 import sonyBg from "@/assets/ve-sony-bg.png";
 import veAcademyLogo from "@/assets/ve-sony-banner.png";
+import sonyLogo from "@/assets/logos/sony-logo.png";
 
 const VESonyBanner = () => (
   <section className="py-6 px-4 md:px-8" style={{ background: "hsl(160 8% 8%)" }}>
@@ -19,9 +20,7 @@ const VESonyBanner = () => (
             <div className="relative flex items-center gap-8 flex-wrap justify-center">
               <div className="text-center">
                 <p className="text-white/60 text-xs mb-2">Powered By</p>
-                <div className="text-4xl md:text-5xl font-bold text-white tracking-[0.15em]">
-                  SONY<span className="text-xs align-super">®</span>
-                </div>
+                <img src={sonyLogo} alt="Sony" className="h-10 md:h-14 invert" />
               </div>
               <div className="text-left">
                 <p className="text-white/60 text-xs mb-1">This program offers</p>
