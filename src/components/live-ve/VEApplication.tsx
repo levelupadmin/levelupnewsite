@@ -39,27 +39,30 @@ const VEApplication = () => {
       className="text-center"
       style={{ background: "#050505", padding: "120px 20px" }}
     >
-      <FadeInSection>
-        <p className="text-sm mb-2" style={{ color: "#777" }}>
-          🎬 The Process
-        </p>
-        <h2
-          className="text-4xl sm:text-5xl md:text-6xl font-normal text-white m-0"
-        >
-          How to Apply?
-        </h2>
-        <p
-          className="mx-auto leading-relaxed"
-          style={{
-            color: "#aaa",
-            maxWidth: 500,
-            margin: "20px auto 80px",
-          }}
-        >
-          To become the kind of editor who knows what to cut, why it works, and
-          how to turn it into paid work.
-        </p>
-      </FadeInSection>
+      <div
+        className="sticky z-10 pb-8"
+        style={{ top: "calc(40vh - 200px)", background: "#050505" }}
+      >
+        <FadeInSection>
+          <p className="text-sm mb-2" style={{ color: "#777" }}>
+            🎬 The Process
+          </p>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-normal text-white m-0">
+            How to Apply?
+          </h2>
+          <p
+            className="mx-auto leading-relaxed"
+            style={{
+              color: "#aaa",
+              maxWidth: 500,
+              margin: "20px auto 0",
+            }}
+          >
+            To become the kind of editor who knows what to cut, why it works, and
+            how to turn it into paid work.
+          </p>
+        </FadeInSection>
+      </div>
 
       <div className="relative mx-auto" style={{ maxWidth: 520 }}>
         {steps.map((step, i) => (
