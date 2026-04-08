@@ -24,8 +24,8 @@ const VEPortfolio = () => {
   const innerTools = veToolIcons.filter(t => innerNames.includes(t.name));
   const outerTools = veToolIcons.filter(t => t.name !== "DaVinci Resolve" && !innerNames.includes(t.name));
 
-  const innerAngles = [-90, 30, 150].map(d => (d * Math.PI) / 180);
-  const innerRadius = 22;
+  const innerAngles = [-55, 30, 195].map(d => (d * Math.PI) / 180);
+  const innerRadius = 24;
   const outerRadius = 43;
 
   return (
