@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import FadeInSection from "@/components/FadeInSection";
 
 const steps = [
@@ -9,21 +9,22 @@ const steps = [
   { step: "05", title: "Confirm your seat\nif selected" },
 ];
 
+const STICKY_TOP = "40vh";
+
 const VEApplication = () => {
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const handleScroll = useCallback(() => {
+    const stickyTopPx = window.innerHeight * 0.4;
     cardsRef.current.forEach((card, index) => {
       if (!card) return;
       const rect = card.getBoundingClientRect();
-      if (rect.top < 120) {
-        const scale = 1 - index * 0.03;
-        const opacity = 1 - index * 0.1;
+      // Card is stuck when its top matches the sticky position
+      if (rect.top <= stickyTopPx + 2) {
+        const scale = 1 - index * 0.025;
         card.style.transform = `scale(${scale})`;
-        card.style.opacity = String(opacity);
       } else {
         card.style.transform = "scale(1)";
-        card.style.opacity = "1";
       }
     });
   }, []);
@@ -68,7 +69,7 @@ const VEApplication = () => {
             className="text-center"
             style={{
               position: "sticky",
-              top: 100,
+              top: STICKY_TOP,
               marginBottom: i === steps.length - 1 ? 0 : 40,
               padding: 30,
               borderRadius: 20,
@@ -76,7 +77,8 @@ const VEApplication = () => {
               boxShadow:
                 "0 10px 40px rgba(0,0,0,0.6), 0 0 40px rgba(140, 80, 255, 0.12)",
               border: "1px solid rgba(140, 80, 255, 0.1)",
-              transition: "transform 0.3s ease, opacity 0.3s ease",
+              transition: "transform 0.3s ease",
+              opacity: 1,
             }}
           >
             <div
@@ -87,7 +89,6 @@ const VEApplication = () => {
             </div>
             <h3
               className="text-xl md:text-2xl font-normal text-white m-0 leading-relaxed whitespace-pre-line"
-              
             >
               {step.title}
             </h3>
