@@ -70,18 +70,19 @@ const VEApplication = () => {
             style={{
               position: "sticky",
               top: 100,
-              marginBottom: 40,
+              marginBottom: i === steps.length - 1 ? 0 : 40,
               padding: 30,
               borderRadius: 20,
-              background: "linear-gradient(135deg, #1a1a3a, #0f1b2e)",
+              background: "linear-gradient(135deg, hsl(270 40% 14%), hsl(260 30% 10%))",
               boxShadow:
-                "0 10px 40px rgba(0,0,0,0.6), 0 0 40px rgba(80, 100, 255, 0.15)",
+                "0 10px 40px rgba(0,0,0,0.6), 0 0 40px rgba(140, 80, 255, 0.12)",
+              border: "1px solid rgba(140, 80, 255, 0.1)",
               transition: "transform 0.3s ease, opacity 0.3s ease",
             }}
           >
             <div
               className="text-xs mb-2"
-              style={{ color: "#8b8bff" }}
+              style={{ color: "hsl(270 70% 70%)" }}
             >
               Step {step.step}
             </div>
