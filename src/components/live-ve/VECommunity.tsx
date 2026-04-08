@@ -29,7 +29,7 @@ const VECommunity = () => (
           </div>
 
           {/* Right */}
-          <div className="p-6 md:p-10 flex flex-col gap-4">
+          <div className="p-6 md:p-10 flex flex-col gap-4 relative z-10">
             <div className="rounded-xl border border-white/10 bg-white/5 p-6 flex items-start justify-between">
               <div>
                 {veCommunityData.stats.map((stat, i) => (
