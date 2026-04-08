@@ -44,7 +44,6 @@ const VEApplication = () => {
         </p>
         <h2
           className="text-4xl sm:text-5xl md:text-6xl font-normal text-white m-0"
-          style={{ fontFamily: "'Funnel Display', sans-serif" }}
         >
           How to Apply?
         </h2>
@@ -88,7 +87,7 @@ const VEApplication = () => {
             </div>
             <h3
               className="text-xl md:text-2xl font-normal text-white m-0 leading-relaxed whitespace-pre-line"
-              style={{ fontFamily: "'Funnel Display', sans-serif" }}
+              
             >
               {step.title}
             </h3>
