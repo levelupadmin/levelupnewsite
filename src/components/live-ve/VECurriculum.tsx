@@ -1,8 +1,17 @@
 import { useState } from "react";
 import FadeInSection from "@/components/FadeInSection";
-import { veCurriculum, veCurriculumImage } from "@/data/liveVEData";
+import { veCurriculum } from "@/data/liveVEData";
 import { m, AnimatePresence } from "framer-motion";
 import { Plus, X } from "lucide-react";
+
+import curriculum1 from "@/assets/curriculum/curriculum-1.png";
+import curriculum2 from "@/assets/curriculum/curriculum-2.png";
+import curriculum3 from "@/assets/curriculum/curriculum-3.png";
+import curriculum4 from "@/assets/curriculum/curriculum-4.png";
+import curriculum5 from "@/assets/curriculum/curriculum-5.png";
+import curriculum6 from "@/assets/curriculum/curriculum-6.png";
+
+const curriculumImages = [curriculum1, curriculum2, curriculum3, curriculum4, curriculum5, curriculum6];
 
 const VECurriculum = () => {
   const [openIndex, setOpenIndex] = useState(0);
@@ -25,10 +34,22 @@ const VECurriculum = () => {
           </FadeInSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-            {/* Left image */}
+            {/* Left image - changes based on active accordion */}
             <FadeInSection>
-              <div className="rounded-xl overflow-hidden aspect-[4/5]">
-                <img src={veCurriculumImage} alt="Editing workspace" className="w-full h-full object-cover" loading="lazy" />
+              <div className="rounded-xl overflow-hidden aspect-[4/5] relative">
+                <AnimatePresence mode="wait">
+                  <m.img
+                    key={openIndex >= 0 ? openIndex : 0}
+                    src={curriculumImages[openIndex >= 0 ? openIndex : 0]}
+                    alt="Editing workspace"
+                    className="w-full h-full object-cover absolute inset-0"
+                    initial={{ opacity: 0, scale: 1.05 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.4 }}
+                    loading="lazy"
+                  />
+                </AnimatePresence>
               </div>
             </FadeInSection>
 
