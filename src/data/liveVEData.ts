@@ -87,7 +87,7 @@ export const veToolIcons = [
   // Center
   { name: "DaVinci Resolve", image: davinciResolveLogo },
   // Inner ring
-  { name: "Envato Elements", image: "https://framerusercontent.com/images/D0Bv9Ijac2Z3wapu8dDxEqTRro.png?width=1807&height=1749" },
+  { name: "Envato Elements", image: envatoElementsLogo },
   { name: "Midjourney", image: midjourneyLogo },
   { name: "Nuendo", image: nuendoLogo },
 ];
