@@ -8,7 +8,7 @@ const VESonyBanner = () => (
     <div className="max-w-[1400px] mx-auto">
       <FadeInSection>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="rounded-2xl overflow-hidden min-h-[200px] relative md:col-span-2">
+          <div className="rounded-2xl overflow-hidden min-h-[200px] relative">
             <img src={veAcademyLogo} alt="The LevelUp Video Editing Academy" className="w-full h-full object-cover" />
           </div>
 
