@@ -25,9 +25,9 @@ const footerLinks = {
 
 const socialLinks = [
   { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/leveluplearning.in/" },
-  { icon: Youtube, label: "YouTube", href: "https://www.youtube.com/@leveluplearning" },
-  { icon: Twitter, label: "X / Twitter", href: "https://twitter.com/levelup_Lrng" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/company/levelup-learning-india/" },
+  { icon: Youtube, label: "YouTube", href: "https://www.youtube.com/@leveluplearning_in/" },
+  { icon: Twitter, label: "X / Twitter", href: "https://x.com/LevelUp_edu" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/company/levelup-learning/" },
 ];
 
 const Footer = () => {
