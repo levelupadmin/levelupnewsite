@@ -1,13 +1,14 @@
 
 
-## Plan: Update Forge Navbar Links
+## Plan: Update Social Media Links in Footer
 
-**File:** `src/components/navbarData.ts`
+**File:** `src/components/Footer.tsx` (lines 28-30)
 
-Two link changes in the "The Forge" nav section:
+Update three URLs in the `socialLinks` array:
 
-1. **Filmmaking Residency** — change `href` from `https://www.forgebylevelup.com/` to `https://creators.forgebylevelup.com/filmmaking`
-2. **Writing Retreat** — change `href` from `https://www.forgebylevelup.com/writingresidency` to `https://creators.forgebylevelup.com/writing`
+1. **YouTube**: `https://www.youtube.com/@leveluplearning` → `https://www.youtube.com/@leveluplearning_in/`
+2. **X / Twitter**: `https://twitter.com/levelup_Lrng` → `https://x.com/LevelUp_edu`
+3. **LinkedIn**: `https://www.linkedin.com/company/levelup-learning-india/` → `https://www.linkedin.com/company/levelup-learning/`
 
-No other files or components need changes.
+No other files reference these links.
 
