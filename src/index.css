@@ -1526,3 +1526,12 @@
 .animate-ticker {
   animation: ticker 15s linear infinite;
 }
+
+/* ═══ Hide scrollbar for carousels ═══ */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

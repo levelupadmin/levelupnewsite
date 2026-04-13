@@ -139,7 +139,7 @@ const Careers = () => {
         <Navbar />
 
         {/* ═══════════════════════ SECTION 1 — HERO SLIDESHOW ═══════════════════════ */}
-        <section className="relative h-screen min-h-[520px] overflow-hidden">
+        <section className="relative h-[85vh] md:h-screen min-h-[520px] overflow-hidden">
           {/* Sliding background images */}
           <AnimatePresence initial={false}>
             <m.div
@@ -153,13 +153,13 @@ const Careers = () => {
               <img
                 src={heroSlides[heroIndex].img}
                 alt=""
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-[center_20%] md:object-center"
               />
             </m.div>
           </AnimatePresence>
 
-          {/* Dark overlay */}
-          <div className="absolute inset-0 bg-black/55" />
+          {/* Dark overlay — stronger on mobile */}
+          <div className="absolute inset-0 bg-black/65 md:bg-black/55" />
           {/* Left gradient overlay for text readability */}
           <div
             className="absolute inset-0"
@@ -174,7 +174,7 @@ const Careers = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="font-display uppercase font-bold leading-[0.9] text-[3rem] sm:text-[4rem] md:text-[5rem]"
+              className="font-display uppercase font-bold leading-[0.9] text-[2.2rem] sm:text-[3rem] md:text-[5rem]"
             >
               We only hire
               <br />
@@ -194,17 +194,17 @@ const Careers = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-8 flex items-center gap-4"
+              className="mt-6 md:mt-8 flex flex-wrap items-center gap-3"
             >
               <a
                 href="#jobs"
-                className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#FF4E00] text-white font-semibold text-sm tracking-wide rounded-full transition-all duration-300 hover:brightness-110 hover:shadow-lg hover:shadow-[#FF4E00]/25"
+                className="inline-flex items-center gap-2 px-5 py-2.5 md:px-7 md:py-3.5 bg-[#FF4E00] text-white font-semibold text-xs md:text-sm tracking-wide rounded-full transition-all duration-300 hover:brightness-110 hover:shadow-lg hover:shadow-[#FF4E00]/25"
               >
                 See open positions
               </a>
               <a
                 href="#team-carousel"
-                className="inline-flex items-center gap-2 px-7 py-3.5 border border-white/40 text-white font-semibold text-sm tracking-wide rounded-full transition-all duration-300 hover:border-white hover:bg-white/5"
+                className="inline-flex items-center gap-2 px-5 py-2.5 md:px-7 md:py-3.5 border border-white/40 text-white font-semibold text-xs md:text-sm tracking-wide rounded-full transition-all duration-300 hover:border-white hover:bg-white/5"
               >
                 Meet the team &rarr;
               </a>
@@ -238,9 +238,9 @@ const Careers = () => {
                     "821+ Cities",
                     "3,000+ Collaborations enabled",
                   ].map((stat, i) => (
-                    <span key={i} className="flex items-center mx-8 md:mx-12">
-                      <span className="w-1.5 h-1.5 rounded-full bg-black/30 mr-3 shrink-0" />
-                      <span className="text-sm font-bold tracking-wide text-black uppercase">
+                    <span key={i} className="flex items-center mx-5 md:mx-12">
+                      <span className="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-black/30 mr-2 md:mr-3 shrink-0" />
+                      <span className="text-[10px] md:text-sm font-bold tracking-wide text-black uppercase">
                         {stat}
                       </span>
                     </span>
@@ -260,9 +260,9 @@ const Careers = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
-              className="text-center mb-16 md:mb-20"
+              className="text-center mb-10 md:mb-20"
             >
-              <h2 className="font-display text-3xl md:text-5xl lg:text-6xl uppercase leading-tight font-bold">
+              <h2 className="font-display text-2xl md:text-5xl lg:text-6xl uppercase leading-tight font-bold">
                 Work on hard problems
                 <br />
                 with <span className="text-[#FF6500]">hardcore people.</span>
@@ -362,7 +362,7 @@ const Careers = () => {
               <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#FF6500] mb-4">
                 Who we are looking for
               </p>
-              <h2 className="font-display text-3xl md:text-5xl lg:text-[3.5rem] leading-tight font-bold">
+              <h2 className="font-display text-2xl md:text-5xl lg:text-[3.5rem] leading-tight font-bold">
                 LevelUp is not the right place
                 <br />
                 for everyone.
@@ -405,6 +405,50 @@ const Careers = () => {
           </div>
         </section>
 
+        {/* ═══════════════════════ LIFE AT LEVELUP — MOBILE ONLY ═══════════════════════ */}
+        <section className="lg:hidden py-16 px-6 overflow-hidden">
+          <m.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-8"
+          >
+            <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#FF6500] mb-2">
+              Behind the scenes
+            </p>
+            <h2 className="font-display text-2xl uppercase font-bold">
+              Life at LevelUp
+            </h2>
+          </m.div>
+          <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 -mx-6 px-6 scrollbar-hide" style={{ WebkitOverflowScrolling: "touch" }}>
+            {[
+              "/images/team-selfie.jpg",
+              "/images/team-goa-beach.jpg",
+              "/images/team-dinner.jpg",
+              "/images/team-towers.jpg",
+              "/images/team-studio.jpg",
+              "/images/team-airport.jpg",
+              "/images/team-tugofwar.jpg",
+              "/images/team-full-group.jpg",
+              "/images/team-conference.jpg",
+              "/images/team-beach-vibes.jpg",
+            ].map((img, i) => (
+              <m.div
+                key={i}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
+                className="flex-shrink-0 snap-center w-[280px] bg-white rounded-sm p-2.5 pb-8 shadow-xl"
+                style={{ transform: `rotate(${i % 2 === 0 ? -2 : 2}deg)` }}
+              >
+                <img src={img} alt="" className="w-full h-[180px] object-cover rounded-sm" />
+              </m.div>
+            ))}
+          </div>
+        </section>
+
         {/* ═══════════════════════ SECTION 4 — FAQ ═══════════════════════ */}
         <section className="px-6 md:px-12 lg:px-20 py-24 md:py-36">
           <div className="max-w-7xl mx-auto">
@@ -418,7 +462,7 @@ const Careers = () => {
                   transition={{ duration: 0.7 }}
                   className="mb-10 md:mb-14"
                 >
-                  <h2 className="font-display text-4xl md:text-5xl lg:text-[3.5rem] uppercase leading-[0.95] font-bold">
+                  <h2 className="font-display text-2xl md:text-5xl lg:text-[3.5rem] uppercase leading-[0.95] font-bold">
                     Not a <span className="text-[#FF6500]">"normal"</span>
                     <br />
                     startup job.
@@ -522,10 +566,10 @@ const Careers = () => {
               transition={{ duration: 0.7 }}
               className="text-center mb-10 md:mb-14"
             >
-              <h2 className="font-display text-3xl md:text-5xl lg:text-6xl uppercase leading-tight font-bold">
+              <h2 className="font-display text-2xl md:text-5xl lg:text-6xl uppercase leading-tight font-bold">
                 Ready to build?
               </h2>
-              <p className="font-display text-3xl md:text-5xl lg:text-6xl uppercase leading-tight font-bold text-[#FF6500]">
+              <p className="font-display text-2xl md:text-5xl lg:text-6xl uppercase leading-tight font-bold text-[#FF6500]">
                 See our open positions.
               </p>
             </m.div>
@@ -538,7 +582,7 @@ const Careers = () => {
                   href="https://tally.so/r/mO8eZ8"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between px-5 py-5 rounded-xl bg-[#1A1208]/60 border border-white/5 hover:border-[#FF6500]/40 hover:bg-[#FF6500]/10 transition-all duration-200 group"
+                  className="flex items-center justify-between px-4 py-4 md:px-5 md:py-5 rounded-xl bg-[#1A1208]/60 border border-white/5 hover:border-[#FF6500]/40 hover:bg-[#FF6500]/10 transition-all duration-200 group"
                 >
                   <span className="text-sm md:text-base font-semibold text-white group-hover:text-[#FF6500] transition-colors">
                     {role}
@@ -557,7 +601,7 @@ const Careers = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="max-w-5xl mx-auto bg-[#FEFCF8] rounded-2xl p-8 md:p-14 flex flex-col lg:flex-row items-start lg:items-center gap-8 lg:gap-16"
+            className="max-w-5xl mx-auto bg-[#FEFCF8] rounded-2xl p-6 md:p-14 flex flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-16"
           >
             <div className="flex-1">
               <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#FF6500] mb-3">
@@ -571,10 +615,10 @@ const Careers = () => {
                 <span className="font-bold text-[#1A1208]">exactly why we should hire you</span>. A sharp cold email that makes a real case will always get read. Generic ones will not.
               </p>
             </div>
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0 w-full lg:w-auto">
               <a
                 href="mailto:hr@leveluplearning.in"
-                className="inline-flex items-center gap-3 px-7 py-4 bg-[#1A1208] text-white font-semibold text-sm rounded-full hover:bg-[#FF6500] transition-colors duration-300"
+                className="inline-flex items-center justify-center gap-3 px-5 py-3 md:px-7 md:py-4 bg-[#1A1208] text-white font-semibold text-xs md:text-sm rounded-full hover:bg-[#FF6500] transition-colors duration-300 w-full lg:w-auto"
               >
                 <span className="text-lg">&#9993;</span>
                 hr@leveluplearning.in
