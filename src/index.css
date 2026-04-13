@@ -1517,3 +1517,12 @@
 .careers-marquee {
   animation: careers-marquee-scroll 20s linear infinite;
 }
+
+/* ═══ Hero Stats Ticker ═══ */
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); }
+}
+.animate-ticker {
+  animation: ticker 15s linear infinite;
+}

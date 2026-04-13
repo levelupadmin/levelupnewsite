@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { ArrowRight, ChevronDown, Search, Plus, Minus } from "lucide-react";
 import TeamPhotoCarousel from "@/components/careers/TeamPhotoCarousel";
-import { m, LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
+import { m, LazyMotion, domAnimation, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StarField from "@/components/StarField";
@@ -9,9 +9,9 @@ import usePageSeo from "@/hooks/usePageSeo";
 
 /* ─── Team carousel data ─── */
 const teamCards = [
-  { name: "Aarav S.", achievement: "Designed the masterclass platform that 70K+ learners use daily" },
-  { name: "Priya M.", achievement: "Built our community engine that scaled to 300K members" },
-  { name: "Rohan K.", achievement: "Shipped the entire student dashboard in one sprint" },
+  { name: "Aarav S.", achievement: "Designed the masterclass platform that 70K+ learners use daily", image: "/images/team-member.png" },
+  { name: "Priya M.", achievement: "Built our community engine that scaled to 300K members", image: "/images/team-member-2.png" },
+  { name: "Rohan K.", achievement: "Shipped the entire student dashboard in one sprint", image: "/images/team-member-3.png" },
   { name: "Meera D.", achievement: "Created our first celebrity masterclass series from scratch" },
   { name: "Vikram T.", achievement: "Automated event ops for 100+ live programs" },
   { name: "Ananya R.", achievement: "Designed the brand system you're looking at right now" },
@@ -87,63 +87,173 @@ const Careers = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
 
+  /* ─── Hero slideshow ─── */
+  const heroSlides = [
+    { img: "/images/team-selfie.jpg", label: "Travel Travel Travel" },
+    { img: "/images/team-goa-beach.jpg", label: "Team offsite — Goa 2024" },
+    { img: "/images/team-beach-vibes.jpg", label: "Shoot day at the coast — Chennai 2024" },
+    { img: "/images/team-towers.jpg", label: "Malaysia offsite — KL 2025" },
+    { img: "/images/team-full-group.jpg", label: "The Forge wrap — Chennai 2024" },
+  ];
+  const [heroIndex, setHeroIndex] = useState(0);
+  const [heroProgress, setHeroProgress] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHeroIndex((prev) => (prev + 1) % heroSlides.length);
+      setHeroProgress(0);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [heroSlides.length]);
+
+  useEffect(() => {
+    const progressInterval = setInterval(() => {
+      setHeroProgress((prev) => Math.min(prev + 1, 100));
+    }, 40);
+    return () => clearInterval(progressInterval);
+  }, [heroIndex]);
+
+  /* ─── Footer reveal effect ─── */
+  const footerWrapRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: footerProgress } = useScroll({
+    target: footerWrapRef,
+    offset: ["start end", "end end"],
+  });
+  const footerOverlayOpacity = useTransform(footerProgress, [0, 1], [1, 0]);
+  const footerContentY = useTransform(footerProgress, [0, 1], ["-30%", "0%"]);
+
   return (
     <LazyMotion features={domAnimation}>
-      <div className="min-h-screen bg-[#0A0A0A] text-white font-sans selection:bg-primary/30">
+      <div className="min-h-screen bg-[#0A0A0A] text-white font-sans selection:bg-primary/30 relative">
+        {/* Subtle film grain texture overlay */}
+        <div
+          className="fixed inset-0 pointer-events-none z-[1]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+            backgroundRepeat: "repeat",
+            backgroundSize: "150px 150px",
+            opacity: 0.15,
+          }}
+        />
+        <div className="relative z-[2]">
         <Navbar />
 
-        {/* ═══════════════════════ SECTION 1 — HERO ═══════════════════════ */}
-        <section className="relative min-h-[90vh] flex flex-col items-center justify-center px-6 md:px-12 lg:px-20 pt-28 pb-16 overflow-hidden">
-          {/* Starfield background */}
-          <div className="absolute inset-0">
-            <StarField starCount={400} speed={0.15} />
-          </div>
+        {/* ═══════════════════════ SECTION 1 — HERO SLIDESHOW ═══════════════════════ */}
+        <section className="relative h-screen min-h-[520px] overflow-hidden">
+          {/* Sliding background images */}
+          <AnimatePresence initial={false}>
+            <m.div
+              key={heroIndex}
+              initial={{ x: "100%" }}
+              animate={{ x: "0%" }}
+              exit={{ x: "-100%" }}
+              transition={{ duration: 0.7, ease: [0.77, 0, 0.18, 1] }}
+              className="absolute inset-0"
+            >
+              <img
+                src={heroSlides[heroIndex].img}
+                alt=""
+                className="w-full h-full object-cover"
+              />
+            </m.div>
+          </AnimatePresence>
 
-          {/* Ambient glow */}
-          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#FF6500]/8 rounded-full blur-[160px] pointer-events-none" />
+          {/* Dark overlay */}
+          <div className="absolute inset-0 bg-black/55" />
+          {/* Left gradient overlay for text readability */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: "linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.1) 70%, transparent 100%)",
+            }}
+          />
 
-          <div className="relative z-10 max-w-5xl mx-auto text-center">
+          {/* Hero copy — left-aligned, vertically centred */}
+          <div className="relative z-10 h-full flex flex-col justify-center px-8 md:px-12 lg:px-[48px] max-w-3xl">
             <m.h1
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="font-display text-[3rem] sm:text-[5rem] md:text-[7rem] lg:text-[9rem] leading-[0.85] tracking-tight uppercase font-bold"
+              className="font-display uppercase font-bold leading-[0.9] text-[3rem] sm:text-[4rem] md:text-[5rem]"
             >
               We only hire
               <br />
-              <span className="text-[#FF6500]">builders</span>
+              <span className="text-[#FF4E00]">builders.</span>
             </m.h1>
 
             <m.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
-              className="mt-6 md:mt-8 text-base md:text-lg text-[#888] max-w-2xl mx-auto leading-relaxed"
+              className="mt-5 text-sm text-white/55 max-w-md"
             >
-              Come here to solve hard problems, build without permission, and ship work you're proud of. Sounds intense? It is.
+              Come here to solve hard problems, build without permission, and ship work you're proud of.
             </m.p>
 
             <m.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-8"
+              className="mt-8 flex items-center gap-4"
             >
               <a
                 href="#jobs"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-[#FF6500] text-black font-semibold text-sm tracking-wide rounded-full transition-all duration-300 hover:brightness-110 hover:shadow-lg hover:shadow-[#FF6500]/25"
+                className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#FF4E00] text-white font-semibold text-sm tracking-wide rounded-full transition-all duration-300 hover:brightness-110 hover:shadow-lg hover:shadow-[#FF4E00]/25"
               >
                 See open positions
               </a>
+              <a
+                href="#team-carousel"
+                className="inline-flex items-center gap-2 px-7 py-3.5 border border-white/40 text-white font-semibold text-sm tracking-wide rounded-full transition-all duration-300 hover:border-white hover:bg-white/5"
+              >
+                Meet the team &rarr;
+              </a>
             </m.div>
           </div>
+
+          {/* Bottom-left slide label */}
+          <div className="absolute bottom-6 left-8 md:left-12 lg:left-[48px] z-10">
+            <AnimatePresence mode="wait">
+              <m.p
+                key={heroIndex}
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -5 }}
+                transition={{ duration: 0.3 }}
+                className="text-[10px] uppercase tracking-[0.15em] text-white/40"
+              >
+                {heroSlides[heroIndex].label}
+              </m.p>
+            </AnimatePresence>
+          </div>
+
+          {/* Stats ticker */}
+          <div className="absolute bottom-[3px] left-0 right-0 z-10 overflow-hidden bg-[#FF4E00]">
+            <div className="flex animate-ticker whitespace-nowrap py-3.5">
+              {[...Array(3)].map((_, repeat) => (
+                <div key={repeat} className="flex shrink-0 items-center">
+                  {[
+                    "67,746+ Learners",
+                    "4.86 Rating (15,000+ reviews)",
+                    "821+ Cities",
+                    "3,000+ Collaborations enabled",
+                  ].map((stat, i) => (
+                    <span key={i} className="flex items-center mx-8 md:mx-12">
+                      <span className="w-1.5 h-1.5 rounded-full bg-black/30 mr-3 shrink-0" />
+                      <span className="text-sm font-bold tracking-wide text-black uppercase">
+                        {stat}
+                      </span>
+                    </span>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+
         </section>
 
-        <section className="py-16 md:py-24 overflow-hidden">
-          <TeamPhotoCarousel cards={teamCards} />
-        </section>
-        <section className="px-6 md:px-12 lg:px-20 py-20 md:py-32">
-          <div className="max-w-6xl mx-auto">
+        <section className="py-20 md:py-32 overflow-visible">
+          <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
             {/* Section headline */}
             <m.div
               initial={{ opacity: 0, y: 30 }}
@@ -162,39 +272,35 @@ const Careers = () => {
               </p>
             </m.div>
 
-            {/* Polaroid collage + Letter */}
-            <div className="relative flex flex-col lg:flex-row items-start gap-12 lg:gap-16">
-              {/* Polaroid cluster — left side */}
-              <div className="hidden lg:block relative w-[340px] h-[420px] flex-shrink-0">
+            {/* Polaroids on sides + Letter in center */}
+            <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-10">
+              {/* Left polaroids */}
+              <div className="hidden lg:flex flex-col gap-8 flex-shrink-0 w-[280px] pt-8">
                 {[
-                  { rotate: -8, top: "0%", left: "0%" },
-                  { rotate: 4, top: "5%", left: "45%" },
-                  { rotate: -3, top: "40%", left: "10%" },
-                  { rotate: 6, top: "45%", left: "50%" },
-                  { rotate: -5, top: "20%", left: "25%" },
+                  { rotate: -8, img: "/images/team-selfie.jpg", caption: "Late-night shipping crew" },
+                  { rotate: 4, img: "/images/team-studio.jpg", caption: "Masterclass shoot day" },
+                  { rotate: -5, img: "/images/team-towers.jpg", caption: "KL offsite" },
                 ].map((pos, i) => (
-                  <div
+                  <m.div
                     key={i}
-                    className="absolute w-[140px] h-[170px] bg-white rounded-sm p-2 shadow-xl"
-                    style={{
-                      transform: `rotate(${pos.rotate}deg)`,
-                      top: pos.top,
-                      left: pos.left,
-                    }}
+                    initial={{ opacity: 0, x: -30, rotate: pos.rotate }}
+                    whileInView={{ opacity: 1, x: 0, rotate: pos.rotate }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: i * 0.12 }}
+                    className="bg-white rounded-sm p-3 pb-10 shadow-xl hover:scale-105 transition-transform duration-300 cursor-pointer"
                   >
-                    <div className="w-full h-[120px] bg-gradient-to-br from-[#1A1208] to-[#2a1e10] rounded-sm" />
-                    <div className="mt-1.5 h-2 w-12 bg-[#ddd] rounded-full" />
-                  </div>
+                    <img src={pos.img} alt={pos.caption} className="w-full h-[180px] object-cover rounded-sm" />
+                  </m.div>
                 ))}
               </div>
 
-              {/* Letter card */}
+              {/* Letter card — center */}
               <m.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: 0.2 }}
-                className="flex-1 relative bg-[#FEFCF8] text-[#1A1208] rounded-xl p-8 md:p-12 shadow-2xl"
+                className="flex-1 w-full max-w-2xl bg-[#FEFCF8] text-[#1A1208] rounded-xl p-8 md:p-12 shadow-2xl"
                 style={{
                   backgroundImage:
                     "url(\"data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.65' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E\")",
@@ -219,6 +325,82 @@ const Careers = () => {
                   </div>
                 </div>
               </m.div>
+
+              {/* Right polaroids */}
+              <div className="hidden lg:flex flex-col gap-8 flex-shrink-0 w-[280px] pt-16">
+                {[
+                  { rotate: 6, img: "/images/team-dinner.jpg", caption: "Team dinner, Goa" },
+                  { rotate: -3, img: "/images/team-airport.jpg", caption: "Boarding for The Forge" },
+                  { rotate: 5, img: "/images/team-tugofwar.jpg", caption: "Tug of war day" },
+                ].map((pos, i) => (
+                  <m.div
+                    key={i}
+                    initial={{ opacity: 0, x: 30, rotate: pos.rotate }}
+                    whileInView={{ opacity: 1, x: 0, rotate: pos.rotate }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: i * 0.12 }}
+                    className="bg-white rounded-sm p-3 pb-10 shadow-xl hover:scale-105 transition-transform duration-300 cursor-pointer"
+                  >
+                    <img src={pos.img} alt={pos.caption} className="w-full h-[180px] object-cover rounded-sm" />
+                  </m.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════ WHO WE'RE LOOKING FOR ═══════════════════════ */}
+        <section className="px-6 md:px-12 lg:px-20 py-24 md:py-36">
+          <div className="max-w-5xl mx-auto">
+            <m.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="text-center mb-14 md:mb-20"
+            >
+              <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#FF6500] mb-4">
+                Who we are looking for
+              </p>
+              <h2 className="font-display text-3xl md:text-5xl lg:text-[3.5rem] leading-tight font-bold">
+                LevelUp is not the right place
+                <br />
+                for everyone.
+              </h2>
+              <p className="mt-5 text-[#888] max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
+                If you prefer a prescriptive corporate structure and a typical office environment, that is not us. If you want hypergrowth, can solve complex problems, are willing to work weird hours, and can thrive on change and a bit of chaos, then we should talk.
+              </p>
+            </m.div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+              {[
+                { title: "You report in outcomes, not effort.", desc: "Hours worked do not interest you. What shipped. What changed. That is what you bring to every check-in." },
+                { title: "You care deeply about your craft.", desc: "And you keep developing it. The standard here does not stay fixed. It keeps moving and you like that." },
+                { title: "You ship fast and learn.", desc: "A real thing that exists beats a perfect plan still being discussed. You know when to move and you move." },
+                { title: "You operate on high trust.", desc: "Say what needs to be said, even when it is uncomfortable. No politics. No positioning. Just the truth, fast." },
+                { title: "You are willing to work weird hours.", desc: "Not because we demand it. Because when you care about something you do not clock-watch." },
+                { title: "You thrive on change and a bit of chaos.", desc: "Stagnation scares you more than uncertainty. You figure things out as they move." },
+              ].map((card, i) => (
+                <m.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                  className="relative bg-[#1A1208] border border-white/5 rounded-xl p-6 md:p-8 overflow-hidden group hover:border-[#FF6500]/30 transition-all duration-500 hover:shadow-[0_0_30px_rgba(255,101,0,0.15)]"
+                >
+                  <div className="absolute inset-0 rounded-xl bg-[#FF6500]/0 group-hover:bg-[#FF6500]/[0.04] transition-all duration-500 pointer-events-none" />
+                  <span className="absolute bottom-3 right-5 text-[5rem] font-bold leading-none pointer-events-none select-none text-white/0 group-hover:text-[#FF6500]/10 transition-all duration-500">
+                    {i + 1}
+                  </span>
+                  <h3 className="relative text-base md:text-lg font-bold text-white mb-3 leading-snug">
+                    {card.title}
+                  </h3>
+                  <p className="relative text-sm text-[#888] leading-relaxed group-hover:text-[#999] transition-colors duration-500">
+                    {card.desc}
+                  </p>
+                </m.div>
+              ))}
             </div>
           </div>
         </section>
@@ -292,7 +474,7 @@ const Careers = () => {
                 </div>
               </div>
 
-              {/* Right column — placeholder image collage */}
+              {/* Right column — polaroid photo collage */}
               <m.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -301,28 +483,28 @@ const Careers = () => {
                 className="flex-1 hidden lg:flex items-start justify-center pt-8"
               >
                 <div className="relative w-full max-w-[520px] aspect-[4/5]">
-                  {/* Stacked photo collage placeholders */}
                   {[
-                    { rotate: -6, top: "5%", left: "5%", w: "65%", h: "55%", z: 1 },
-                    { rotate: 3, top: "0%", left: "30%", w: "70%", h: "50%", z: 2 },
-                    { rotate: -2, top: "35%", left: "8%", w: "60%", h: "50%", z: 3 },
-                    { rotate: 5, top: "25%", left: "35%", w: "65%", h: "55%", z: 4 },
-                    { rotate: -4, top: "15%", left: "20%", w: "55%", h: "45%", z: 5 },
+                    { rotate: -6, top: "0%", left: "0%", w: 250, img: "/images/team-goa-beach.jpg", caption: "Goa team trip" },
+                    { rotate: 4, top: "0%", left: "52%", w: 250, img: "/images/team-full-group.jpg", caption: "The whole crew" },
+                    { rotate: -3, top: "52%", left: "0%", w: 250, img: "/images/team-beach-vibes.jpg", caption: "Beach vibes" },
+                    { rotate: 5, top: "52%", left: "52%", w: 250, img: "/images/team-conference.jpg", caption: "Film festival crew" },
                   ].map((pos, i) => (
-                    <div
+                    <m.div
                       key={i}
-                      className="absolute rounded-lg overflow-hidden shadow-2xl border border-white/5"
+                      initial={{ opacity: 0, y: 25, rotate: pos.rotate }}
+                      whileInView={{ opacity: 1, y: 0, rotate: pos.rotate }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: i * 0.12 }}
+                      className="absolute bg-white rounded-sm p-3 pb-10 shadow-2xl hover:scale-105 hover:z-20 transition-transform duration-300 cursor-pointer"
                       style={{
-                        transform: `rotate(${pos.rotate}deg)`,
                         top: pos.top,
                         left: pos.left,
                         width: pos.w,
-                        height: pos.h,
-                        zIndex: pos.z,
+                        zIndex: i + 1,
                       }}
                     >
-                      <div className="w-full h-full bg-gradient-to-br from-[#1a1510] to-[#2a1e10]" />
-                    </div>
+                      <img src={pos.img} alt={pos.caption} className="w-full h-[200px] object-cover rounded-sm" />
+                    </m.div>
                   ))}
                 </div>
               </m.div>
@@ -368,8 +550,55 @@ const Careers = () => {
           </div>
         </section>
 
-        {/* ═══════════════════════ SECTION 6 — FOOTER ═══════════════════════ */}
-        <Footer />
+        {/* ═══════════════════════ COLD EMAIL CTA ═══════════════════════ */}
+        <section className="px-6 md:px-12 lg:px-20 py-16 md:py-24">
+          <m.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="max-w-5xl mx-auto bg-[#FEFCF8] rounded-2xl p-8 md:p-14 flex flex-col lg:flex-row items-start lg:items-center gap-8 lg:gap-16"
+          >
+            <div className="flex-1">
+              <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#FF6500] mb-3">
+                Want to stand out?
+              </p>
+              <h3 className="text-2xl md:text-3xl font-bold text-[#1A1208] leading-snug mb-4">
+                Skip the form. Send a cold email.
+              </h3>
+              <p className="text-sm md:text-base text-[#1A1208]/60 leading-relaxed">
+                If you are feeling more enthusiastic or want to push harder, write to us directly. Tell us{" "}
+                <span className="font-bold text-[#1A1208]">exactly why we should hire you</span>. A sharp cold email that makes a real case will always get read. Generic ones will not.
+              </p>
+            </div>
+            <div className="flex-shrink-0">
+              <a
+                href="mailto:hr@leveluplearning.in"
+                className="inline-flex items-center gap-3 px-7 py-4 bg-[#1A1208] text-white font-semibold text-sm rounded-full hover:bg-[#FF6500] transition-colors duration-300"
+              >
+                <span className="text-lg">&#9993;</span>
+                hr@leveluplearning.in
+              </a>
+            </div>
+          </m.div>
+        </section>
+
+        {/* ═══════════════════════ SECTION 6 — FOOTER (reveal effect) ═══════════════════════ */}
+      </div>
+      </div>
+
+      {/* Footer reveal wrapper */}
+      <div ref={footerWrapRef} className="relative h-screen">
+        <div className="sticky top-0 h-screen overflow-hidden">
+          <m.div style={{ y: footerContentY }} className="h-full">
+            <Footer />
+          </m.div>
+          {/* Dark overlay that fades out as footer scrolls into view */}
+          <m.div
+            style={{ opacity: footerOverlayOpacity }}
+            className="absolute inset-0 bg-[#0A0A0A] pointer-events-none"
+          />
+        </div>
       </div>
     </LazyMotion>
   );

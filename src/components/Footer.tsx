@@ -41,7 +41,7 @@ const Footer = () => {
       {/* Amber glow at top */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
 
-      <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-20 py-16 md:py-20">
+      <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-20 pt-28 md:pt-36 pb-16 md:pb-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-8">
           <div className="lg:col-span-1">
             <div className="mb-4">
@@ -115,19 +115,19 @@ const Footer = () => {
         </div>
       </div>
 
-      <m.div
-        ref={watermarkRef}
+      <div
         aria-hidden="true"
-        className="hidden md:block absolute bottom-0 left-0 right-0 translate-y-[35%] pointer-events-none select-none"
-        style={{ y: watermarkY }}
+        className="hidden md:flex absolute inset-0 items-center justify-center pointer-events-none select-none"
       >
-        <img
-          src={levelupLogo}
-          alt=""
-          className="w-full h-auto opacity-[0.03]"
-          decoding="async"
-        />
-      </m.div>
+        <m.div ref={watermarkRef} style={{ y: watermarkY }}>
+          <img
+            src={levelupLogo}
+            alt=""
+            className="w-[100vw] max-w-none h-auto opacity-[0.03]"
+            decoding="async"
+          />
+        </m.div>
+      </div>
     </footer>
   );
 };

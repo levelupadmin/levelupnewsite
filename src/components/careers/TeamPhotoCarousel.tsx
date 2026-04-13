@@ -5,6 +5,7 @@ import { useEmblaSelect } from "@/hooks/useEmblaSelect";
 interface TeamCard {
   name: string;
   achievement: string;
+  image?: string;
 }
 
 const TeamPhotoCarousel = ({ cards }: { cards: TeamCard[] }) => {
@@ -44,20 +45,41 @@ const TeamPhotoCarousel = ({ cards }: { cards: TeamCard[] }) => {
                   !isCenter && !isNear ? "opacity-50" : ""
                 }`}
               >
-                <div className="absolute inset-0 bg-gradient-to-b from-[#f0ede8] to-[#e5e1da]" />
-                <div className="absolute inset-0 flex items-end justify-center">
-                  <div className="w-[60%] h-[70%] bg-[#d8d4cc] rounded-t-full" />
-                </div>
+                {card.image ? (
+                  <>
+                    <div className="absolute inset-0 bg-[#e8e4dd]" />
+                    <img
+                      src={card.image}
+                      alt={card.name}
+                      className="absolute inset-0 w-full h-full object-contain object-bottom"
+                    />
+                    {/* Dark gradient overlay for text readability */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-transparent" />
+                  </>
+                ) : (
+                  <>
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#f0ede8] to-[#e5e1da]" />
+                    <div className="absolute inset-0 flex items-end justify-center">
+                      <div className="w-[60%] h-[70%] bg-[#d8d4cc] rounded-t-full" />
+                    </div>
+                  </>
+                )}
                 {(isCenter || isNear) && (
-                  <div className="absolute top-0 left-0 right-0 p-3 md:p-5 z-10">
-                    <span className="inline-block px-2.5 py-1 text-[10px] md:text-xs tracking-wide font-medium rounded-md bg-white/60 text-[#1A1208]/70 backdrop-blur-sm mb-2">
+                  <div className="absolute top-0 left-0 right-0 p-3 md:p-4 z-10">
+                    <span className={`inline-block px-2 py-0.5 text-[8px] md:text-[10px] tracking-wide font-medium rounded-md backdrop-blur-sm mb-1.5 ${
+                      card.image
+                        ? "bg-white/20 text-white/90"
+                        : "bg-white/60 text-[#1A1208]/70"
+                    }`}>
                       {card.name}
                     </span>
                     <p
-                      className={`text-[#1A1208] leading-snug ${
+                      className={`leading-snug ${
+                        card.image ? "text-white drop-shadow-lg" : "text-[#1A1208]"
+                      } ${
                         isCenter
-                          ? "text-lg md:text-2xl font-bold"
-                          : "text-sm md:text-base font-semibold"
+                          ? "text-sm md:text-base font-bold"
+                          : "text-xs md:text-sm font-semibold"
                       }`}
                     >
                       {card.achievement}
