@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { ArrowRight, ChevronDown, Search, Plus, Minus } from "lucide-react";
+import { ArrowRight, ChevronDown, Search, Plus, Minus, X } from "lucide-react";
 import TeamPhotoCarousel from "@/components/careers/TeamPhotoCarousel";
 import { m, LazyMotion, domAnimation, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import Navbar from "@/components/Navbar";
@@ -45,17 +45,127 @@ const faqs = [
 
 /* ─── Open positions ─── */
 const openPositions = [
-  "Content Creator / Marketing",
-  "Business Development Executive",
-  "Human Resource Associate",
-  "Operations Associate",
-  "Graphic Designer",
-  "Video Editor",
-  "Product Manager",
-  "No Code Website Designer",
-  "Founder's Office",
-  "Event Operations",
-  "Instructional Designer",
+  {
+    title: "Content Creator / Marketing",
+    description: "Create compelling content that drives awareness and engagement across all of LevelUp's channels. You'll own the creative pipeline from ideation to publishing.",
+    responsibilities: [
+      "Plan and produce content for Instagram, YouTube, LinkedIn, and X",
+      "Write scripts for reels, trailers, and promotional videos",
+      "Collaborate with designers and editors to bring ideas to life",
+      "Track content performance and iterate based on data",
+      "Stay on top of trends in creative education and social media",
+    ],
+  },
+  {
+    title: "Business Development Executive",
+    description: "Drive partnerships and revenue growth by connecting LevelUp with universities, brands, and creative institutions across India.",
+    responsibilities: [
+      "Identify and pursue partnership opportunities with colleges and brands",
+      "Build and maintain a pipeline of leads and close deals",
+      "Represent LevelUp at events, festivals, and industry meetups",
+      "Negotiate terms and manage partner onboarding",
+      "Report on revenue metrics and growth targets",
+    ],
+  },
+  {
+    title: "Human Resource Associate",
+    description: "Help build and nurture the team behind India's largest creative education ecosystem. You'll own hiring, culture, and people operations.",
+    responsibilities: [
+      "Manage end-to-end recruitment for open roles",
+      "Coordinate onboarding and orientation for new hires",
+      "Maintain HR records and handle compliance",
+      "Plan team events, offsites, and culture initiatives",
+      "Support performance reviews and feedback cycles",
+    ],
+  },
+  {
+    title: "Operations Associate",
+    description: "Keep the engine running. You'll manage the logistics and coordination that make LevelUp's programs, events, and day-to-day operations seamless.",
+    responsibilities: [
+      "Coordinate logistics for live programs, masterclasses, and events",
+      "Manage vendor relationships and procurement",
+      "Streamline internal workflows and SOPs",
+      "Track budgets, timelines, and deliverables across teams",
+      "Troubleshoot operational bottlenecks in real time",
+    ],
+  },
+  {
+    title: "Graphic Designer",
+    description: "Shape the visual identity of LevelUp across every touchpoint — from social media to product interfaces to event collateral.",
+    responsibilities: [
+      "Design creatives for social media, ads, and email campaigns",
+      "Create visual assets for masterclass launches and programs",
+      "Maintain and evolve the LevelUp brand system",
+      "Design UI elements for the website and product",
+      "Collaborate with marketing and product teams on campaigns",
+    ],
+  },
+  {
+    title: "Video Editor",
+    description: "Edit videos that inspire India's next generation of creators. From masterclass trailers to social content, you'll own the post-production pipeline.",
+    responsibilities: [
+      "Edit long-form and short-form video content",
+      "Create trailers, reels, and promotional cuts for programs",
+      "Colour grade, sound design, and add motion graphics",
+      "Manage and organise raw footage and project files",
+      "Work closely with the content and marketing teams",
+    ],
+  },
+  {
+    title: "Product Manager",
+    description: "Own the learner experience end-to-end. You'll define what we build, why we build it, and ship features that 70K+ learners use daily.",
+    responsibilities: [
+      "Define product roadmap based on user research and business goals",
+      "Write PRDs and work closely with engineering and design",
+      "Prioritise features, track metrics, and iterate quickly",
+      "Conduct user interviews and analyse product data",
+      "Coordinate launches and ensure smooth rollouts",
+    ],
+  },
+  {
+    title: "No Code Website Designer",
+    description: "Build and maintain LevelUp's web presence using no-code tools. You'll ship landing pages, program pages, and experiments fast.",
+    responsibilities: [
+      "Design and build web pages using Webflow, Framer, or similar tools",
+      "Create responsive, high-converting landing pages for programs",
+      "Implement A/B tests and optimise for conversion",
+      "Maintain site performance, SEO, and analytics",
+      "Collaborate with marketing on campaign-specific pages",
+    ],
+  },
+  {
+    title: "Founder's Office",
+    description: "Work directly with the founders on high-impact projects that span strategy, operations, and growth. This is a fast-track role for generalists.",
+    responsibilities: [
+      "Support founders with research, analysis, and execution",
+      "Drive cross-functional projects from ideation to completion",
+      "Prepare presentations, reports, and strategic documents",
+      "Identify growth opportunities and operational improvements",
+      "Step into any function where the team needs help",
+    ],
+  },
+  {
+    title: "Event Operations",
+    description: "Execute world-class live events — from intimate masterclass shoots to large-scale community gatherings. You'll own the entire event lifecycle.",
+    responsibilities: [
+      "Plan and execute live events, workshops, and shoots",
+      "Manage venues, vendors, equipment, and on-ground teams",
+      "Coordinate with mentors, speakers, and participants",
+      "Handle day-of logistics and real-time problem solving",
+      "Document processes and build repeatable event playbooks",
+    ],
+  },
+  {
+    title: "Instructional Designer",
+    description: "Design learning experiences that actually work. You'll structure curricula, create assignments, and ensure every program delivers real outcomes.",
+    responsibilities: [
+      "Design curricula and learning paths for masterclasses and programs",
+      "Create assignments, briefs, and assessment frameworks",
+      "Work with mentors to structure their content effectively",
+      "Analyse learner outcomes and iterate on pedagogy",
+      "Research best practices in creative education globally",
+    ],
+  },
 ];
 
 /* ─── Founders letter ─── */
@@ -85,6 +195,13 @@ const Careers = () => {
   }, []);
 
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [selectedJob, setSelectedJob] = useState<typeof openPositions[number] | null>(null);
+
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => { if (e.key === "Escape") setSelectedJob(null); };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, []);
   const carouselRef = useRef<HTMLDivElement>(null);
 
   /* ─── Hero slideshow ─── */
@@ -201,12 +318,6 @@ const Careers = () => {
                 className="inline-flex items-center gap-2 px-5 py-2.5 md:px-7 md:py-3.5 bg-[#FF4E00] text-white font-semibold text-xs md:text-sm tracking-wide rounded-full transition-all duration-300 hover:brightness-110 hover:shadow-lg hover:shadow-[#FF4E00]/25"
               >
                 See open positions
-              </a>
-              <a
-                href="#team-carousel"
-                className="inline-flex items-center gap-2 px-5 py-2.5 md:px-7 md:py-3.5 border border-white/40 text-white font-semibold text-xs md:text-sm tracking-wide rounded-full transition-all duration-300 hover:border-white hover:bg-white/5"
-              >
-                Meet the team &rarr;
               </a>
             </m.div>
           </div>
@@ -576,19 +687,17 @@ const Careers = () => {
 
             {/* Positions grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {openPositions.map((role) => (
-                <a
-                  key={role}
-                  href="https://tally.so/r/mO8eZ8"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between px-4 py-4 md:px-5 md:py-5 rounded-xl bg-[#1A1208]/60 border border-white/5 hover:border-[#FF6500]/40 hover:bg-[#FF6500]/10 transition-all duration-200 group"
+              {openPositions.map((job) => (
+                <button
+                  key={job.title}
+                  onClick={() => setSelectedJob(job)}
+                  className="flex items-center justify-between px-4 py-4 md:px-5 md:py-5 rounded-xl bg-[#1A1208]/60 border border-white/5 hover:border-[#FF6500]/40 hover:bg-[#FF6500]/10 transition-all duration-200 group text-left"
                 >
                   <span className="text-sm md:text-base font-semibold text-white group-hover:text-[#FF6500] transition-colors">
-                    {role}
+                    {job.title}
                   </span>
                   <ArrowRight className="w-4 h-4 text-[#FF6500] opacity-0 group-hover:opacity-100 transition-opacity shrink-0 ml-3" />
-                </a>
+                </button>
               ))}
             </div>
           </div>
@@ -626,6 +735,87 @@ const Careers = () => {
             </div>
           </m.div>
         </section>
+
+        {/* ═══════════════════════ JOB DETAIL MODAL ═══════════════════════ */}
+        <AnimatePresence>
+          {selectedJob && (
+            <m.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="fixed inset-0 z-50 flex items-center justify-center px-4 py-8"
+              onClick={() => setSelectedJob(null)}
+            >
+              {/* Backdrop */}
+              <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+
+              {/* Modal panel */}
+              <m.div
+                initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 20, scale: 0.97 }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                onClick={(e: React.MouseEvent) => e.stopPropagation()}
+                className="relative z-10 w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-[#141009] border border-white/10 rounded-2xl p-6 md:p-10 shadow-2xl"
+              >
+                {/* Close button */}
+                <button
+                  onClick={() => setSelectedJob(null)}
+                  className="absolute top-4 right-4 w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-white/30 transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+
+                {/* Job title */}
+                <h3 className="font-display text-2xl md:text-3xl font-bold text-[#FF6500] uppercase leading-tight pr-10 mb-4">
+                  {selectedJob.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-sm md:text-base text-[#999] leading-relaxed mb-8">
+                  {selectedJob.description}
+                </p>
+
+                {/* Responsibilities */}
+                <div className="mb-8">
+                  <h4 className="text-xs font-bold tracking-[0.15em] uppercase text-white/40 mb-4">
+                    Roles & Responsibilities
+                  </h4>
+                  <ul className="space-y-3">
+                    {selectedJob.responsibilities.map((item, i) => (
+                      <li key={i} className="flex items-start gap-3 text-sm text-[#bbb] leading-relaxed">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#FF6500] mt-1.5 shrink-0" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Action buttons */}
+                <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-white/5">
+                  <a
+                    href="https://tally.so/r/mO8eZ8"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#FF6500] text-white font-semibold text-sm rounded-full transition-all duration-300 hover:brightness-110 hover:shadow-lg hover:shadow-[#FF6500]/25"
+                  >
+                    Apply Now
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                  <a
+                    href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`Hey! I found this amazing opportunity at LevelUp Learning — ${selectedJob.title}. Check it out: https://www.leveluplearning.in/careers`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 border border-white/20 text-white font-semibold text-sm rounded-full transition-all duration-300 hover:border-white/40 hover:bg-white/5"
+                  >
+                    Refer a Friend
+                  </a>
+                </div>
+              </m.div>
+            </m.div>
+          )}
+        </AnimatePresence>
 
         {/* ═══════════════════════ SECTION 6 — FOOTER (reveal effect) ═══════════════════════ */}
       </div>
