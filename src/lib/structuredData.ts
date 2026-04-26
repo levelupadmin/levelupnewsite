@@ -116,7 +116,11 @@ export const courseJsonLd = ({
       sameAs: SITE_URL,
     },
   };
-  if (image) data.image = image;
+  if (image) {
+    data.image = image.startsWith("http")
+      ? image
+      : `${SITE_URL}${image.startsWith("/") ? image : `/${image}`}`;
+  }
   if (instructorName) {
     data.instructor = {
       "@type": "Person",

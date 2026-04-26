@@ -15,13 +15,24 @@ const {
   title,
   description,
   path,
-  ogImage = `${SITE_URL}/og-image.jpg`,
+  ogImage,
   type = "website",
   jsonLd,
   noIndex = false,
 } = Astro.props;
 
-const url = `${SITE_URL}${path}`;
+const normalizedPath =
+  path === "/"
+    ? "/"
+    : path.endsWith("/")
+      ? path
+      : `${path}/`;
+const url = `${SITE_URL}${normalizedPath}`;
+const resolvedOgImage = ogImage
+  ? ogImage.startsWith("http")
+    ? ogImage
+    : `${SITE_URL}${ogImage.startsWith("/") ? ogImage : `/${ogImage}`}`
+  : `${SITE_URL}/og-image.jpg`;
 const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---
 
@@ -29,13 +40,13 @@ const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 <meta name="description" content={description} />
 <meta name="author" content="LevelUp Learning" />
 <link rel="canonical" href={url} />
-{noIndex && <meta name="robots" content="noindex, nofollow" />}
+<meta name="robots" content={noIndex ? "noindex, nofollow" : "index, follow"} />
 
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:type" content={type} />
 <meta property="og:url" content={url} />
-<meta property="og:image" content={ogImage} />
+<meta property="og:image" content={resolvedOgImage} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:site_name" content="LevelUp Learning" />
@@ -44,7 +55,7 @@ const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 <meta name="twitter:site" content="@LevelUpLearning" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image" content={resolvedOgImage} />
 
 {jsonLdArray.map((data) => (
   <script type="application/ld+json" set:html={JSON.stringify(data)} />
