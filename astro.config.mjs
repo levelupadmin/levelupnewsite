@@ -57,5 +57,24 @@ export default defineConfig({
     ssr: {
       noExternal: ['embla-carousel-react', 'embla-carousel-autoplay', 'framer-motion'],
     },
+    plugins: [
+      {
+        // Force image/video imports from .tsx/.ts/.jsx/.js to return URL strings.
+        // Astro's default returns ImageMetadata objects, but React islands here
+        // were authored against Vite SPA defaults (string URLs) and pass `src`
+        // directly into <img>/<video>. Auto-append ?url to keep them strings.
+        name: 'asset-url-only-for-react',
+        enforce: 'pre',
+        async resolveId(source, importer) {
+          if (!importer) return null;
+          if (!/\.(tsx|ts|jsx|js|mjs)$/.test(importer)) return null;
+          if (importer.includes('/.astro/')) return null;
+          if (!/\.(png|jpe?g|webp|svg|avif|gif|mp4|webm)$/i.test(source)) return null;
+          if (source.includes('?')) return null;
+          const resolved = await this.resolve(source + '?url', importer, { skipSelf: true });
+          return resolved;
+        },
+      },
+    ],
   },
 });
