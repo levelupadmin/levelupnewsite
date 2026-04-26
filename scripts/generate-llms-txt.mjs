@@ -14,6 +14,7 @@ const SITE_URL = "https://www.leveluplearning.in";
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(ROOT, "..");
 const DIST = path.resolve(REPO, "dist");
+const VERCEL_STATIC = path.resolve(REPO, ".vercel/output/static");
 
 async function loadTs(file) {
   const result = await esbuild.build({
@@ -131,11 +132,19 @@ LevelUp Learning is India's leading creative education ecosystem for filmmakers,
     llmsFullTxt += `${s.ctaText}\n\n---\n\n`;
   }
 
-  await writeFile(path.join(DIST, "llms.txt"), llmsTxt, "utf8");
-  await writeFile(path.join(DIST, "llms-full.txt"), llmsFullTxt, "utf8");
+  const targets = [DIST];
+  try {
+    const { existsSync } = await import("node:fs");
+    if (existsSync(VERCEL_STATIC)) targets.push(VERCEL_STATIC);
+  } catch {}
+
+  for (const dir of targets) {
+    await writeFile(path.join(dir, "llms.txt"), llmsTxt, "utf8");
+    await writeFile(path.join(dir, "llms-full.txt"), llmsFullTxt, "utf8");
+  }
 
   console.log(
-    `[llms.txt] Wrote llms.txt (${llmsTxt.length} bytes) and llms-full.txt (${llmsFullTxt.length} bytes)`
+    `[llms.txt] Wrote llms.txt (${llmsTxt.length} bytes) and llms-full.txt (${llmsFullTxt.length} bytes) to ${targets.length} target(s)`
   );
 }
 
