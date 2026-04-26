@@ -8,10 +8,12 @@
  */
 
 import { readdir, readFile, writeFile, stat } from "node:fs/promises";
+import { existsSync } from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
 
 const DIST = path.resolve(process.cwd(), "dist");
+const VERCEL_STATIC = path.resolve(process.cwd(), ".vercel/output/static");
 const DEFAULT_MAX_WIDTH = 1600;
 const HERO_MAX_WIDTH = 1600;
 const SIBLING_THRESHOLD = 40 * 1024;
@@ -87,8 +89,11 @@ async function optimize(file) {
   }
 }
 
-await walk(DIST);
+const targets = [DIST];
+if (existsSync(VERCEL_STATIC)) targets.push(VERCEL_STATIC);
+for (const dir of targets) await walk(dir);
 console.log(
   `[optimize-images] scanned ${stats.scanned}, rewritten ${stats.rewritten}, skipped ${stats.skipped}, ` +
-    `avif ${stats.avifWritten}, webp ${stats.webpWritten}, saved ${(stats.savedBytes / 1024 / 1024).toFixed(1)} MB`
+    `avif ${stats.avifWritten}, webp ${stats.webpWritten}, saved ${(stats.savedBytes / 1024 / 1024).toFixed(1)} MB ` +
+    `across ${targets.length} dir(s)`
 );
