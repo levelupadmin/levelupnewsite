@@ -1,4 +1,5 @@
-import { ComponentProps, useEffect, useState } from "react";
+import type { ComponentProps, ReactNode } from "react";
+import { useEffect, useState } from "react";
 
 export interface LinkProps extends Omit<ComponentProps<"a">, "href"> {
   to: string;
@@ -21,8 +22,8 @@ export interface NavLinkProps extends Omit<ComponentProps<"a">, "className" | "h
     | string
     | ((state: { isActive: boolean; isPending: boolean }) => string | undefined);
   children?:
-    | React.ReactNode
-    | ((state: { isActive: boolean; isPending: boolean }) => React.ReactNode);
+    | ReactNode
+    | ((state: { isActive: boolean; isPending: boolean }) => ReactNode);
 }
 
 export function NavLink({

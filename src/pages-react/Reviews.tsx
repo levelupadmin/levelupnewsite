@@ -143,95 +143,10 @@ async function loadReviews(): Promise<Review[]> {
     });
 }
 
-/* ─── SEO Head Management ─── */
+/* ─── SEO Head Management (Astro-emitted at build time) ─── */
 
-const PAGE_TITLE = "Student Reviews & Testimonials | LevelUp Learning";
-const PAGE_DESCRIPTION =
-  "Read honest reviews from 500+ creators who transformed their careers through LevelUp Learning's filmmaking, video editing, screenwriting, and UI/UX programs. Real stories, real creative growth.";
-import { SITE_URL } from "@/lib/constants";
-const CANONICAL_URL = `${SITE_URL}/student-stories`;
-
-function usePageSEO(reviews: Review[]) {
-  useEffect(() => {
-    document.title = PAGE_TITLE;
-
-    const OG_IMAGE = `${SITE_URL}/og-student-stories.jpg`;
-    const metaTags: Record<string, string> = {
-      description: PAGE_DESCRIPTION,
-      "og:title": PAGE_TITLE,
-      "og:description": PAGE_DESCRIPTION,
-      "og:type": "website",
-      "og:url": CANONICAL_URL,
-      "og:image": OG_IMAGE,
-      "og:image:width": "1200",
-      "og:image:height": "630",
-      "twitter:card": "summary_large_image",
-      "twitter:title": PAGE_TITLE,
-      "twitter:description": PAGE_DESCRIPTION,
-      "twitter:image": OG_IMAGE,
-    };
-
-    const createdTags: HTMLElement[] = [];
-
-    Object.entries(metaTags).forEach(([key, content]) => {
-      const attr = key.startsWith("og:") || key.startsWith("twitter:") ? "property" : "name";
-      let tag = document.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement | null;
-      if (!tag) {
-        tag = document.createElement("meta");
-        tag.setAttribute(attr, key);
-        document.head.appendChild(tag);
-        createdTags.push(tag);
-      }
-      tag.setAttribute("content", content);
-    });
-
-    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
-    const createdCanonical = !canonical;
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.setAttribute("rel", "canonical");
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute("href", CANONICAL_URL);
-
-    const jsonLd = {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      name: "LevelUp Learning Student Reviews",
-      description: PAGE_DESCRIPTION,
-      numberOfItems: reviews.length,
-      itemListElement: reviews.slice(0, 50).map((t, i) => ({
-        "@type": "ListItem",
-        position: i + 1,
-        item: {
-          "@type": "Review",
-          author: { "@type": "Person", name: t.name },
-          reviewBody: t.text.slice(0, 300),
-          reviewRating: {
-            "@type": "Rating",
-            ratingValue: t.rating,
-            bestRating: 5,
-          },
-          itemReviewed: {
-            "@type": "EducationalOrganization",
-            name: "LevelUp Learning",
-            url: SITE_URL,
-          },
-        },
-      })),
-    };
-
-    const script = document.createElement("script");
-    script.type = "application/ld+json";
-    script.textContent = JSON.stringify(jsonLd);
-    document.head.appendChild(script);
-
-    return () => {
-      createdTags.forEach((tag) => tag.remove());
-      if (createdCanonical && canonical) canonical.remove();
-      script.remove();
-    };
-  }, [reviews]);
+function usePageSEO(_reviews: Review[]) {
+  // Astro emits <head>, canonical, OG, and JSON-LD at build time. No-op on the client.
 }
 
 /* ─── Initials Avatar ─── */

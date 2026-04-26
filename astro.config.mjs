@@ -49,6 +49,10 @@ export default defineConfig({
         '@': '/src',
         'react-router-dom': '/src/lib/router-shim.tsx',
       },
+      dedupe: ['react', 'react-dom'],
+    },
+    optimizeDeps: {
+      include: ['react', 'react-dom', 'react-dom/client'],
     },
     ssr: {
       noExternal: ['embla-carousel-react', 'embla-carousel-autoplay', 'framer-motion'],

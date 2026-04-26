@@ -9,8 +9,6 @@ import { getStoryBySlug, getReadingTime, studentStories } from "@/data/studentSt
 import {
   Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage
 } from "@/components/ui/breadcrumb";
-import { SITE_URL } from "@/lib/constants";
-
 const PROGRAM_BORDER: Record<string, string> = {
   Filmmaking: "border-l-rose-500",
   Screenwriting: "border-l-amber-500",
@@ -31,97 +29,6 @@ export default function StudentStory({ slug: slugProp }: StudentStoryProps = {})
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
-
-  useEffect(() => {
-    if (!story) return;
-
-    document.title = story.seoTitle;
-
-    const OG_IMAGE = `${SITE_URL}/og-image.jpg`;
-    const metaTags: Record<string, string> = {
-      description: story.metaDescription,
-      "og:title": story.seoTitle,
-      "og:description": story.metaDescription,
-      "og:type": "article",
-      "og:url": `${SITE_URL}/student-stories/${story.slug}`,
-      "og:image": OG_IMAGE,
-      "og:image:width": "1200",
-      "og:image:height": "630",
-      "twitter:card": "summary_large_image",
-      "twitter:title": story.seoTitle,
-      "twitter:description": story.metaDescription,
-      "twitter:image": OG_IMAGE,
-    };
-
-    const createdTags: HTMLElement[] = [];
-    Object.entries(metaTags).forEach(([key, content]) => {
-      const attr = key.startsWith("og:") || key.startsWith("twitter:") ? "property" : "name";
-      let tag = document.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement | null;
-      if (!tag) {
-        tag = document.createElement("meta");
-        tag.setAttribute(attr, key);
-        document.head.appendChild(tag);
-        createdTags.push(tag);
-      }
-      tag.setAttribute("content", content);
-    });
-
-    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
-    const createdCanonical = !canonical;
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.setAttribute("rel", "canonical");
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute("href", `${SITE_URL}/student-stories/${story.slug}`);
-
-    // JSON-LD Article
-    const articleLd = {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      headline: story.h1,
-      description: story.metaDescription,
-      author: { "@type": "Person", name: story.authorName },
-      publisher: {
-        "@type": "EducationalOrganization",
-        name: "LevelUp Learning",
-        url: SITE_URL,
-      },
-      datePublished: "2026-03-01",
-      url: `${SITE_URL}/student-stories/${story.slug}`,
-      keywords: story.targetKeywords.join(", "),
-      ...(story.location ? { contentLocation: { "@type": "Place", name: story.location } } : {}),
-    };
-
-    // Breadcrumb JSON-LD
-    const breadcrumbLd = {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
-        { "@type": "ListItem", position: 2, name: "Wall of Love", item: `${SITE_URL}/student-stories` },
-        { "@type": "ListItem", position: 3, name: "Student Stories", item: `${SITE_URL}/student-stories` },
-        { "@type": "ListItem", position: 4, name: story.h1 },
-      ],
-    };
-
-    const script1 = document.createElement("script");
-    script1.type = "application/ld+json";
-    script1.textContent = JSON.stringify(articleLd);
-    document.head.appendChild(script1);
-
-    const script2 = document.createElement("script");
-    script2.type = "application/ld+json";
-    script2.textContent = JSON.stringify(breadcrumbLd);
-    document.head.appendChild(script2);
-
-    return () => {
-      createdTags.forEach(t => t.remove());
-      if (createdCanonical && canonical) canonical.remove();
-      script1.remove();
-      script2.remove();
-    };
-  }, [story]);
 
   if (!story) {
     return (
