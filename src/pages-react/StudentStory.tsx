@@ -69,10 +69,6 @@ export default function StudentStory({ slug: slugProp }: StudentStoryProps = {})
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink asChild><Link to="/student-stories">Wall of Love</Link></BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
                   <BreadcrumbLink asChild><Link to="/student-stories">Student Stories</Link></BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
