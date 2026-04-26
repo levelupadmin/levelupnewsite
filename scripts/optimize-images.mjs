@@ -3,17 +3,23 @@
  * Postbuild image optimizer.
  * Walks dist/ and:
  *   - Recompresses every PNG/JPG in place (max 1600px wide, preserves aspect)
- *   - Emits .avif and .webp siblings for any source >40KB
+ *   - Emits .avif and .webp siblings for every source (Picture component
+ *     references them — missing siblings 404 inside <picture>)
  *   - Applies extra-aggressive compression to hero-poster-* (LCP critical)
+ *   - Mirrors all writes to .vercel/output/static via copyFile (no re-encode)
  */
 
-import { readdir, readFile, writeFile, stat } from "node:fs/promises";
+import { readdir, readFile, writeFile, stat, copyFile, mkdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
 
 const DIST = path.resolve(process.cwd(), "dist");
 const VERCEL_STATIC = path.resolve(process.cwd(), ".vercel/output/static");
+// Track every file we write/rewrite so we can mirror to a second target dir
+// without re-running Sharp. Encoding is the expensive step (~3s per AVIF on
+// the 2-core Vercel builder); a file copy is essentially free.
+const writes = [];
 const DEFAULT_MAX_WIDTH = 1600;
 const HERO_MAX_WIDTH = 1600;
 // Always emit AVIF/WebP siblings so the <Picture> React component can rely
@@ -66,6 +72,7 @@ async function optimize(file) {
 
   if (out.length < original.length) {
     await writeFile(file, out);
+    writes.push(file);
     stats.rewritten++;
     stats.savedBytes += original.length - out.length;
   } else {
@@ -82,6 +89,7 @@ async function optimize(file) {
           .webp({ quality: webpQuality, effort: 6 })
           .toBuffer();
         await writeFile(`${stem}.webp`, webp);
+        writes.push(`${stem}.webp`);
         stats.webpWritten++;
       } catch {}
     }
@@ -91,22 +99,37 @@ async function optimize(file) {
           .avif({ quality: avifQuality, effort: 6 })
           .toBuffer();
         await writeFile(`${stem}.avif`, avif);
+        writes.push(`${stem}.avif`);
         stats.avifWritten++;
       } catch {}
     }
   }
 }
 
-// Walk both output dirs when present:
-//   - dist/ is what `astro preview` serves locally
-//   - .vercel/output/static/ is what Vercel deploys
-// The @astrojs/vercel adapter copies dist→output/static during build, so
-// without mirroring, postbuild AVIF/WebP siblings would be missing from
-// whichever dir we skipped.
-const targets = [DIST, VERCEL_STATIC].filter((d) => existsSync(d));
-for (const target of targets) await walk(target);
+// Encode once in dist/, then mirror byte-for-byte to .vercel/output/static.
+// The @astrojs/vercel adapter copies dist→output/static during build BEFORE
+// postbuild runs, so both dirs have the same source images. Walking both
+// would double Sharp work (the slow part); mirroring via copyFile is ~free.
+if (!existsSync(DIST)) {
+  console.log("[optimize-images] dist/ missing — skipping");
+  process.exit(0);
+}
+await walk(DIST);
+
+let mirrored = 0;
+if (existsSync(VERCEL_STATIC)) {
+  for (const src of writes) {
+    const rel = path.relative(DIST, src);
+    const dest = path.join(VERCEL_STATIC, rel);
+    await mkdir(path.dirname(dest), { recursive: true });
+    await copyFile(src, dest);
+    mirrored++;
+  }
+}
+
 console.log(
-  `[optimize-images] targets=${targets.map((t) => path.relative(process.cwd(), t)).join(", ")} ` +
-    `scanned ${stats.scanned}, rewritten ${stats.rewritten}, skipped ${stats.skipped}, ` +
-    `avif ${stats.avifWritten}, webp ${stats.webpWritten}, saved ${(stats.savedBytes / 1024 / 1024).toFixed(1)} MB`
+  `[optimize-images] scanned ${stats.scanned}, rewritten ${stats.rewritten}, ` +
+    `skipped ${stats.skipped}, avif ${stats.avifWritten}, webp ${stats.webpWritten}, ` +
+    `mirrored ${mirrored} files to .vercel/output/static, ` +
+    `saved ${(stats.savedBytes / 1024 / 1024).toFixed(1)} MB`
 );
