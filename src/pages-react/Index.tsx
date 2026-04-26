@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import { useSectionViewTracking } from "@/hooks/useSectionViewTracking";
 import usePageSeo from "@/hooks/usePageSeo";
 import HeroSection from "@/components/HeroSection";
+import MotionProvider from "@/components/MotionProvider";
 
 // Lazy-load all below-fold sections to minimize initial JS bundle
 const CredibilityCues = lazy(() => import("@/components/CredibilityCues"));
@@ -27,35 +28,37 @@ const Index = () => {
   });
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Skip-to-content link for keyboard users */}
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:px-4 focus:py-2 focus:rounded-md focus:bg-primary focus:text-primary-foreground focus:font-sans-body focus:text-sm"
-      >
-        Skip to main content
-      </a>
+    <MotionProvider>
+      <div className="min-h-screen bg-background">
+        {/* Skip-to-content link for keyboard users */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:px-4 focus:py-2 focus:rounded-md focus:bg-primary focus:text-primary-foreground focus:font-sans-body focus:text-sm"
+        >
+          Skip to main content
+        </a>
 
-      <Navbar />
+        <Navbar />
 
-      <main id="main-content">
-        <HeroSection />
-        <Suspense fallback={null}>
-          <CredibilityCues />
-          <WhyLevelUp />
-          <MasterclassSection />
-          <LiveProgramsSection />
-          <ForgeSection />
-          <CommunitySection />
-          <StudentLogosSection />
-          <TestimonialsSection />
-          <FAQSection />
-          <TrustedCTASection />
-          <Footer />
-          <FloatingSupport />
-        </Suspense>
-      </main>
-    </div>
+        <main id="main-content">
+          <HeroSection />
+          <Suspense fallback={null}>
+            <CredibilityCues />
+            <WhyLevelUp />
+            <MasterclassSection />
+            <LiveProgramsSection />
+            <ForgeSection />
+            <CommunitySection />
+            <StudentLogosSection />
+            <TestimonialsSection />
+            <FAQSection />
+            <TrustedCTASection />
+            <Footer />
+            <FloatingSupport />
+          </Suspense>
+        </main>
+      </div>
+    </MotionProvider>
   );
 };
 

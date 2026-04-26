@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import MotionProvider from "@/components/MotionProvider";
 import VEHero from "@/components/live-ve/VEHero";
 import VESonyBanner from "@/components/live-ve/VESonyBanner";
 import VEPromoVideo from "@/components/live-ve/VEPromoVideo";
@@ -26,27 +27,29 @@ const LiveVE = () => {
   }, []);
 
   return (
-    <div className="min-h-screen" style={{ background: "hsl(160 8% 8%)", fontFamily: "'Funnel Display', sans-serif" }}>
-      <Navbar />
-      <VEHero />
-      <VESonyBanner />
-      <VEPromoVideo />
-      <VEMentors />
-      <VEBrands />
-      <VEPortfolio />
-      <VEProblem />
-      <VECurriculum />
-      <VEStudentWork />
-      <VEFramework />
-      <VECommunity />
-      <VEApplication />
-      <VEPricing />
-      <VETestimonials />
-      <VEExperience />
-      <VEFAQs />
-      <VEFooterCTA />
-      <Footer />
-    </div>
+    <MotionProvider>
+      <div className="min-h-screen" style={{ background: "hsl(160 8% 8%)", fontFamily: "'Funnel Display', sans-serif" }}>
+        <Navbar />
+        <VEHero />
+        <VESonyBanner />
+        <VEPromoVideo />
+        <VEMentors />
+        <VEBrands />
+        <VEPortfolio />
+        <VEProblem />
+        <VECurriculum />
+        <VEStudentWork />
+        <VEFramework />
+        <VECommunity />
+        <VEApplication />
+        <VEPricing />
+        <VETestimonials />
+        <VEExperience />
+        <VEFAQs />
+        <VEFooterCTA />
+        <Footer />
+      </div>
+    </MotionProvider>
   );
 };
 

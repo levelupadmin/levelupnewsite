@@ -5,6 +5,7 @@ import type { MasterclassPageData } from "@/data/masterclassPages";
 import usePageSeo from "@/hooks/usePageSeo";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import MotionProvider from "@/components/MotionProvider";
 import FadeInSection from "@/components/FadeInSection";
 import {
   Accordion,
@@ -96,25 +97,29 @@ const MasterclassDetail = ({ slug: slugProp, initialData }: MasterclassDetailPro
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex flex-col">
-        <Navbar />
-        <div className="flex-1 flex items-center justify-center">
-          <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+      <MotionProvider>
+        <div className="min-h-screen bg-background flex flex-col">
+          <Navbar />
+          <div className="flex-1 flex items-center justify-center">
+            <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+          </div>
         </div>
-      </div>
+      </MotionProvider>
     );
   }
 
   if (!data) {
     return (
-      <div className="min-h-screen bg-background flex flex-col">
-        <Navbar />
-        <div className="flex-1 flex items-center justify-center flex-col gap-4">
-          <h1 className="font-serif-display text-3xl text-foreground">Masterclass not found</h1>
-          <Link to="/" className="text-primary underline">Back to home</Link>
+      <MotionProvider>
+        <div className="min-h-screen bg-background flex flex-col">
+          <Navbar />
+          <div className="flex-1 flex items-center justify-center flex-col gap-4">
+            <h1 className="font-serif-display text-3xl text-foreground">Masterclass not found</h1>
+            <Link to="/" className="text-primary underline">Back to home</Link>
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
+      </MotionProvider>
     );
   }
 
@@ -138,7 +143,8 @@ const MasterclassDetail = ({ slug: slugProp, initialData }: MasterclassDetailPro
   const audienceIcons = data.audienceIcons ?? {};
 
   return (
-    <div className="min-h-screen bg-background">
+    <MotionProvider>
+      <div className="min-h-screen bg-background">
       <Navbar />
 
       {/* ═══ 1. HERO ═══ */}
@@ -663,7 +669,8 @@ const MasterclassDetail = ({ slug: slugProp, initialData }: MasterclassDetailPro
       </div>
 
       <Footer />
-    </div>
+      </div>
+    </MotionProvider>
   );
 };
 

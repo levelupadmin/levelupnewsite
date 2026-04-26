@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import MotionProvider from "@/components/MotionProvider";
 import AboutHero from "@/components/about/AboutHero";
 import ProblemSection from "@/components/about/ProblemSection";
 import OpportunityStats from "@/components/about/OpportunityStats";
@@ -20,22 +21,24 @@ const About = () => {
   });
 
   return (
-    <div className="min-h-screen bg-background theme-warm">
-      <Navbar />
-      <main>
-        <AboutHero />
-        <ProblemSection />
-        <OpportunityStats />
-        <EcosystemJourney />
-        <ImpactNumbers />
-        <ManifestoSection />
-        <SuccessStories />
-        <WhyUsSection />
-        <ClosingVision />
-        <FeaturedInSection />
-      </main>
-      <Footer />
-    </div>
+    <MotionProvider>
+      <div className="min-h-screen bg-background theme-warm">
+        <Navbar />
+        <main>
+          <AboutHero />
+          <ProblemSection />
+          <OpportunityStats />
+          <EcosystemJourney />
+          <ImpactNumbers />
+          <ManifestoSection />
+          <SuccessStories />
+          <WhyUsSection />
+          <ClosingVision />
+          <FeaturedInSection />
+        </main>
+        <Footer />
+      </div>
+    </MotionProvider>
   );
 };
 

@@ -7,6 +7,7 @@ import AccentLine from "@/components/AccentLine";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import MotionProvider from "@/components/MotionProvider";
 import StoryCard from "@/components/stories/StoryCard";
 import { studentStories, getReadingTime } from "@/data/studentStories";
 
@@ -633,7 +634,8 @@ const Reviews = () => {
   );
 
   return (
-    <div className="theme-reviews">
+    <MotionProvider>
+      <div className="theme-reviews">
       <Navbar />
       <main className="relative min-h-screen bg-background pt-20">
         {/* Warm editorial ambient glow */}
@@ -794,7 +796,8 @@ const Reviews = () => {
       <ScrollToTopButton />
 
       <Footer />
-    </div>
+      </div>
+    </MotionProvider>
   );
 };
 

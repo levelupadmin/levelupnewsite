@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { ArrowLeft, ArrowRight, Clock, MapPin, Star } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import MotionProvider from "@/components/MotionProvider";
 import FadeInSection from "@/components/FadeInSection";
 import StoryCard from "@/components/stories/StoryCard";
 import { getStoryBySlug, getReadingTime, studentStories } from "@/data/studentStories";
@@ -32,14 +33,16 @@ export default function StudentStory({ slug: slugProp }: StudentStoryProps = {})
 
   if (!story) {
     return (
-      <div className="theme-reviews">
-        <Navbar />
-        <main className="min-h-screen bg-background pt-32 text-center">
-          <h1 className="font-serif-display text-2xl text-foreground mb-4">Story not found</h1>
-          <Link to="/student-stories" className="text-primary font-sans-body text-sm underline">← Back to all stories</Link>
-        </main>
-        <Footer />
-      </div>
+      <MotionProvider>
+        <div className="theme-reviews">
+          <Navbar />
+          <main className="min-h-screen bg-background pt-32 text-center">
+            <h1 className="font-serif-display text-2xl text-foreground mb-4">Story not found</h1>
+            <Link to="/student-stories" className="text-primary font-sans-body text-sm underline">← Back to all stories</Link>
+          </main>
+          <Footer />
+        </div>
+      </MotionProvider>
     );
   }
 
@@ -50,7 +53,8 @@ export default function StudentStory({ slug: slugProp }: StudentStoryProps = {})
   const moreStories = studentStories.filter(s => s.slug !== story.slug).slice(0, 3);
 
   return (
-    <div className="theme-reviews">
+    <MotionProvider>
+      <div className="theme-reviews">
       <Navbar />
       <main className="relative min-h-screen bg-background pt-20">
         <div className="reviews-editorial-glow" aria-hidden="true" />
@@ -170,6 +174,7 @@ export default function StudentStory({ slug: slugProp }: StudentStoryProps = {})
         )}
       </main>
       <Footer />
-    </div>
+      </div>
+    </MotionProvider>
   );
 }

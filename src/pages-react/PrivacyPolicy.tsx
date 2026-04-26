@@ -3,6 +3,7 @@ import { ArrowUp } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import MotionProvider from "@/components/MotionProvider";
 import usePageSeo from "@/hooks/usePageSeo";
 
 const tocSections = [
@@ -55,7 +56,8 @@ const PrivacyPolicy = () => {
   const scrollToTop = useCallback(() => window.scrollTo({ top: 0, behavior: "smooth" }), []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <MotionProvider>
+      <div className="min-h-screen bg-background">
       <Navbar />
       <main className="max-w-4xl mx-auto px-6 py-20 md:py-28">
         <h1 className="font-sans-body text-3xl md:text-4xl font-bold text-foreground mb-2">Privacy Policy</h1>
@@ -177,7 +179,8 @@ const PrivacyPolicy = () => {
           <ArrowUp className="h-5 w-5" />
         </button>
       )}
-    </div>
+      </div>
+    </MotionProvider>
   );
 };
 
