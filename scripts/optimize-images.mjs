@@ -1,22 +1,31 @@
 #!/usr/bin/env node
 /**
  * Postbuild image optimizer.
- * Walks dist/, recompresses every PNG/JPG in place:
- *   - max 1920px wide (preserves aspect)
- *   - PNG palette + compression level 9, effort 10
- *   - JPG quality 80, mozjpeg
- * Skips files where re-encoded output is larger than original.
+ * Walks dist/ and:
+ *   - Recompresses every PNG/JPG in place (max 1600px wide, preserves aspect)
+ *   - Emits .avif and .webp siblings for any source >40KB
+ *   - Applies extra-aggressive compression to hero-poster-* (LCP critical)
  */
 
-import { readdir, stat, readFile, writeFile } from "node:fs/promises";
+import { readdir, readFile, writeFile, stat } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 
 const DIST = path.resolve(process.cwd(), "dist");
-const MAX_WIDTH = 1920;
-const JPG_QUALITY = 80;
+const DEFAULT_MAX_WIDTH = 1600;
+const HERO_MAX_WIDTH = 1600;
+const SIBLING_THRESHOLD = 40 * 1024;
 
-const stats = { scanned: 0, rewritten: 0, savedBytes: 0, skipped: 0 };
+const stats = {
+  scanned: 0,
+  rewritten: 0,
+  skipped: 0,
+  avifWritten: 0,
+  webpWritten: 0,
+  savedBytes: 0,
+};
+
+const HERO_PATTERN = /hero-poster-\d/i;
 
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -31,16 +40,23 @@ async function optimize(file) {
   stats.scanned++;
   const original = await readFile(file);
   const meta = await sharp(original).metadata();
+  const isHero = HERO_PATTERN.test(path.basename(file));
+  const maxWidth = isHero ? HERO_MAX_WIDTH : DEFAULT_MAX_WIDTH;
 
-  let pipeline = sharp(original);
-  if (meta.width && meta.width > MAX_WIDTH) {
-    pipeline = pipeline.resize({ width: MAX_WIDTH, withoutEnlargement: true });
-  }
+  const baseResize = (s) =>
+    meta.width && meta.width > maxWidth
+      ? s.resize({ width: maxWidth, withoutEnlargement: true })
+      : s;
 
   const isPng = /\.png$/i.test(file);
+  const jpgQuality = isHero ? 62 : 72;
+  const webpQuality = isHero ? 60 : 75;
+  const avifQuality = isHero ? 50 : 60;
+
+  const sourcePipeline = baseResize(sharp(original));
   const out = isPng
-    ? await pipeline.png({ palette: true, compressionLevel: 9, effort: 10 }).toBuffer()
-    : await pipeline.jpeg({ quality: JPG_QUALITY, mozjpeg: true }).toBuffer();
+    ? await sourcePipeline.png({ palette: true, compressionLevel: 9, effort: 10 }).toBuffer()
+    : await sourcePipeline.jpeg({ quality: jpgQuality, mozjpeg: true }).toBuffer();
 
   if (out.length < original.length) {
     await writeFile(file, out);
@@ -49,9 +65,30 @@ async function optimize(file) {
   } else {
     stats.skipped++;
   }
+
+  // Sibling AVIF/WebP for sources large enough to matter
+  if (Math.max(out.length, original.length) >= SIBLING_THRESHOLD) {
+    const ext = path.extname(file);
+    const stem = file.slice(0, -ext.length);
+    try {
+      const webp = await baseResize(sharp(original))
+        .webp({ quality: webpQuality, effort: 6 })
+        .toBuffer();
+      await writeFile(`${stem}.webp`, webp);
+      stats.webpWritten++;
+    } catch {}
+    try {
+      const avif = await baseResize(sharp(original))
+        .avif({ quality: avifQuality, effort: 6 })
+        .toBuffer();
+      await writeFile(`${stem}.avif`, avif);
+      stats.avifWritten++;
+    } catch {}
+  }
 }
 
 await walk(DIST);
 console.log(
-  `[optimize-images] scanned ${stats.scanned}, rewritten ${stats.rewritten}, skipped ${stats.skipped}, saved ${(stats.savedBytes / 1024 / 1024).toFixed(1)} MB`
+  `[optimize-images] scanned ${stats.scanned}, rewritten ${stats.rewritten}, skipped ${stats.skipped}, ` +
+    `avif ${stats.avifWritten}, webp ${stats.webpWritten}, saved ${(stats.savedBytes / 1024 / 1024).toFixed(1)} MB`
 );

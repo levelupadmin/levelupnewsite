@@ -1,7 +1,8 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import LiveVE from "@/pages-react/LiveVE.tsx";
-import { courseJsonLd, breadcrumbJsonLd } from "@/lib/structuredData";
+import { courseJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/structuredData";
+import { veFAQs } from "@/data/liveVEData";
 
 const title =
   "LevelUp Video Editing Academy | Become the Editor Everyone Wants to Hire";
@@ -17,9 +18,12 @@ const course = courseJsonLd({
 
 const breadcrumb = breadcrumbJsonLd([
   { name: "Home", path: "/" },
-  { name: "Live Programs", path: "/" },
   { name: "Video Editing Academy", path: "/live/ve" },
 ]);
+
+const faq = faqJsonLd(
+  veFAQs.map((f) => ({ question: f.question, answer: f.answer }))
+);
 ---
 
 <BaseLayout
@@ -27,7 +31,7 @@ const breadcrumb = breadcrumbJsonLd([
   description={description}
   path="/live/ve"
   type="course"
-  jsonLd={[course, breadcrumb]}
+  jsonLd={[course, breadcrumb, faq]}
 >
-  <LiveVE client:load />
+  <LiveVE client:idle />
 </BaseLayout>

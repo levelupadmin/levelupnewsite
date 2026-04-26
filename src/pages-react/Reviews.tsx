@@ -12,7 +12,6 @@ import StoryCard from "@/components/stories/StoryCard";
 import { studentStories, getReadingTime } from "@/data/studentStories";
 
 const STORY_PROGRAMS = ["All", "Filmmaking", "Screenwriting", "The Forge", "Breakthrough Filmmaker Program", "Photography"] as const;
-import * as XLSX from "xlsx";
 
 /* ─── Types ─── */
 
@@ -101,12 +100,15 @@ const PROGRAM_DOT_COLORS: Record<string, string> = {
 /* ─── xlsx loader ─── */
 
 async function loadReviews(): Promise<Review[]> {
-  const response = await fetch("/data/reviews.xlsx");
+  const [{ read, utils }, response] = await Promise.all([
+    import("xlsx"),
+    fetch("/data/reviews.xlsx"),
+  ]);
   const arrayBuffer = await response.arrayBuffer();
-  const workbook = XLSX.read(arrayBuffer, { type: "array" });
+  const workbook = read(arrayBuffer, { type: "array" });
   const sheetName = workbook.SheetNames[0];
   const sheet = workbook.Sheets[sheetName];
-  const rows: any[][] = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+  const rows: any[][] = utils.sheet_to_json(sheet, { header: 1 });
 
   let headerIndex = -1;
   for (let i = 0; i < Math.min(rows.length, 10); i++) {
