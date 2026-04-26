@@ -1,0 +1,12 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Careers from "@/pages-react/Careers.tsx";
+---
+
+<BaseLayout
+  title="Careers — LevelUp Learning"
+  description="Open roles at India's largest creative education ecosystem. We only hire builders — designers, ops, marketers shipping work for 70,000+ creators."
+  path="/careers"
+>
+  <Careers client:idle />
+</BaseLayout>

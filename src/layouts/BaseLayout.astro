@@ -1,0 +1,161 @@
+---
+import "@/styles/globals.css";
+import Seo from "@/components/Seo.astro";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/structuredData";
+import { META_PIXEL_ID } from "@/lib/constants";
+
+export interface Props {
+  title: string;
+  description: string;
+  path: string;
+  ogImage?: string;
+  type?: "website" | "article" | "course";
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  noIndex?: boolean;
+  bodyClass?: string;
+  preloadImage?: string;
+}
+
+const {
+  title,
+  description,
+  path,
+  ogImage,
+  type = "website",
+  jsonLd,
+  noIndex = false,
+  bodyClass = "",
+  preloadImage,
+} = Astro.props;
+
+const siteJsonLd = [organizationJsonLd, websiteJsonLd];
+const allJsonLd = jsonLd
+  ? [...siteJsonLd, ...(Array.isArray(jsonLd) ? jsonLd : [jsonLd])]
+  : siteJsonLd;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+
+    <link rel="preconnect" href="https://www.clarity.ms" crossorigin />
+    <link rel="preconnect" href="https://connect.facebook.net" crossorigin />
+    <link rel="dns-prefetch" href="https://www.facebook.com" />
+
+    <Seo
+      title={title}
+      description={description}
+      path={path}
+      ogImage={ogImage}
+      type={type}
+      jsonLd={allJsonLd}
+      noIndex={noIndex}
+    />
+
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/sora-var.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/funnel-display-var.woff2" />
+
+    {preloadImage && (
+      <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />
+    )}
+
+    <style is:inline>
+      html, body { margin: 0; padding: 0; }
+      body { background-color: hsl(22, 14%, 6%); color: hsl(0, 0%, 93%); }
+    </style>
+
+    <script is:inline>
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "vtl0nas964");
+    </script>
+
+    <script
+      is:inline
+      type="text/javascript"
+      define:vars={{ pixelId: META_PIXEL_ID }}
+    >
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        "script",
+        "https://connect.facebook.net/en_US/fbevents.js"
+      );
+      window.fbq("init", pixelId);
+      window.fbq("track", "PageView");
+    </script>
+  </head>
+
+  <body class={bodyClass}>
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        style="display:none"
+        src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
+      />
+    </noscript>
+
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:px-4 focus:py-2 focus:rounded-md focus:bg-primary focus:text-primary-foreground focus:font-sans focus:text-sm"
+    >
+      Skip to main content
+    </a>
+
+    <slot />
+
+    <a
+      href="https://api.whatsapp.com/send?phone=919791520177&text=Hi"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat with us on WhatsApp"
+      class="fixed bottom-16 right-5 md:bottom-8 md:right-8 z-50 inline-flex items-center gap-2 px-4 py-2.5 md:px-5 md:py-3 rounded-full bg-card/90 backdrop-blur-md border border-border text-foreground font-sans-body text-xs md:text-sm shadow-cinematic hover:border-primary/50 hover:shadow-[0_0_24px_hsl(38_75%_55%/0.15)] transition-all duration-400"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="w-4 h-4 text-primary"
+      >
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      </svg>
+      <span class="hidden sm:inline">Need help?</span>
+    </a>
+  </body>
+</html>

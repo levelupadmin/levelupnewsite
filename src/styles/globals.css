@@ -1,4 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;700&family=Syne:wght@400;600;700;800&display=swap');
+/* Self-hosted fonts (latin subset). Variable fonts for Sora + Funnel Display
+   declare one @font-face per weight pointing to the single variable file —
+   browsers pick the correct axis. */
+@font-face {
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/bebas-neue-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Sora';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/fonts/sora-var.woff2') format('woff2-variations');
+}
+@font-face {
+  font-family: 'Funnel Display';
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url('/fonts/funnel-display-var.woff2') format('woff2-variations');
+}
 
 @tailwind base;
 @tailwind components;
