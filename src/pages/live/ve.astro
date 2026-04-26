@@ -1,0 +1,33 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import LiveVE from "@/pages-react/LiveVE.tsx";
+import { courseJsonLd, breadcrumbJsonLd } from "@/lib/structuredData";
+
+const title =
+  "LevelUp Video Editing Academy | Become the Editor Everyone Wants to Hire";
+const description =
+  "Join the LevelUp Video Editing Academy — India's most outcome-focused live mentor-led program for video editors. Learn from industry mentors and build a portfolio that hires you.";
+
+const course = courseJsonLd({
+  name: "LevelUp Video Editing Academy",
+  description,
+  path: "/live/ve",
+  courseMode: "online",
+});
+
+const breadcrumb = breadcrumbJsonLd([
+  { name: "Home", path: "/" },
+  { name: "Live Programs", path: "/" },
+  { name: "Video Editing Academy", path: "/live/ve" },
+]);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path="/live/ve"
+  type="course"
+  jsonLd={[course, breadcrumb]}
+>
+  <LiveVE client:load />
+</BaseLayout>

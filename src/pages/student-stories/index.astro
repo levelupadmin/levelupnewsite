@@ -1,0 +1,24 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Reviews from "@/pages-react/Reviews.tsx";
+import { breadcrumbJsonLd } from "@/lib/structuredData";
+
+const title = "Student Reviews & Testimonials | LevelUp Learning";
+const description =
+  "Read honest reviews from 500+ creators who transformed their careers through LevelUp Learning's filmmaking, video editing, screenwriting, and UI/UX programs. Real stories, real creative growth.";
+
+const breadcrumb = breadcrumbJsonLd([
+  { name: "Home", path: "/" },
+  { name: "Student Stories", path: "/student-stories" },
+]);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path="/student-stories"
+  ogImage="https://www.leveluplearning.in/og-student-stories.jpg"
+  jsonLd={breadcrumb}
+>
+  <Reviews client:load />
+</BaseLayout>

@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Astro / Vercel build outputs
+.astro
+.vercel
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
