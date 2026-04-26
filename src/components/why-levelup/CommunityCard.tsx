@@ -1,4 +1,5 @@
 import testimonial1 from "@/assets/testimonial-1.jpg";
+import { Picture } from "@/components/Picture";
 import testimonial2 from "@/assets/testimonial-2.jpg";
 import testimonial4 from "@/assets/testimonial-4.jpg";
 import testimonial5 from "@/assets/testimonial-5.jpg";
@@ -106,7 +107,7 @@ const MessageBubble = ({ msg, i }: { msg: typeof threads[0]; i: number }) => (
   <div className="flex gap-2 relative shrink-0">
     <div className="shrink-0 relative z-[1]">
       <div className="w-[22px] h-[22px] rounded-full overflow-hidden border border-primary/25 shadow-sm">
-        <img src={msg.avatar} alt="" className="w-full h-full object-cover" loading="lazy" />
+        <Picture src={msg.avatar} alt="" className="w-full h-full object-cover" loading="lazy" />
       </div>
       {i % 3 === 0 && (
         <div className="absolute -bottom-0.5 -right-0.5 w-[6px] h-[6px] rounded-full bg-green-500 border border-[hsl(30,20%,10%)]" />
@@ -127,7 +128,7 @@ const MessageBubble = ({ msg, i }: { msg: typeof threads[0]; i: number }) => (
         <p className="text-[8px] text-foreground/65 leading-relaxed">{msg.text}</p>
         {msg.image && (
           <div className="mt-1 rounded overflow-hidden border border-primary/10">
-            <img src={msg.image} alt="" className="w-full h-[40px] object-cover" loading="lazy" />
+            <Picture src={msg.image} alt="" className="w-full h-[40px] object-cover" loading="lazy" />
           </div>
         )}
       </div>
@@ -150,7 +151,7 @@ const MessageBubble = ({ msg, i }: { msg: typeof threads[0]; i: number }) => (
                 className="w-[12px] h-[12px] rounded-full overflow-hidden border border-primary/20"
                 style={{ zIndex: msg.replies!.avatars.length - ai }}
               >
-                <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
+                <Picture src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
               </div>
             ))}
           </div>
@@ -166,7 +167,7 @@ const TypingIndicator = () => (
   <div className="flex gap-2 items-center relative shrink-0 py-1">
     <div className="shrink-0 relative z-[1]">
       <div className="w-[22px] h-[22px] rounded-full overflow-hidden border border-primary/15 opacity-60">
-        <img src={testimonial6} alt="" className="w-full h-full object-cover" loading="lazy" />
+        <Picture src={testimonial6} alt="" className="w-full h-full object-cover" loading="lazy" />
       </div>
     </div>
     <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-foreground/[0.03]">
@@ -217,7 +218,7 @@ const CommunityCard = () => {
                   key={i}
                   className="w-[14px] h-[14px] rounded-full overflow-hidden border border-primary/20"
                 >
-                  <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
+                  <Picture src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
                 </div>
               ))}
             </div>

@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "react";
+import { Picture } from "@/components/Picture";
 import FadeInSection from "@/components/FadeInSection";
 import { veMentorCreators, veMentorCards, VE_CTA_LINK } from "@/data/liveVEData";
 
@@ -51,7 +52,7 @@ const VEMentors = () => {
               {allCards.map((card, i) => (
                 <div key={i} className="flex-shrink-0 w-[180px] md:w-[220px] rounded-xl overflow-hidden border border-white/10">
                   <div className="aspect-[2/3] relative">
-                    <img src={card.type === "creator" ? card.image : card.image} alt={card.type === "creator" ? card.name : `Film ${i}`} className="w-full h-full object-cover" loading="lazy" />
+                    <Picture src={card.type === "creator" ? card.image : card.image} alt={card.type === "creator" ? card.name : `Film ${i}`} className="w-full h-full object-cover" loading="lazy" />
                     {card.type === "creator" && (
                       <div className="absolute bottom-0 inset-x-0 p-3 bg-gradient-to-t from-black/80 to-transparent">
                         <p className="text-purple-400 text-sm font-semibold">{card.name}</p>

@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef, useMemo } from "react";
+import { Picture } from "@/components/Picture";
 import { m, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { trackNavClick } from "@/lib/clarity";
@@ -155,7 +156,7 @@ const Navbar = () => {
           >
             {/* Logo */}
             <a href="/" className="flex items-center">
-              <img
+              <Picture
                 src={levelupLogo}
                 alt="LevelUp Learning"
                 decoding="async"
@@ -398,7 +399,7 @@ const Navbar = () => {
                               />
                               <div className="aspect-[4/3] overflow-hidden rounded-md bg-white/5 relative">
                                 {item.image ? (
-                                  <img
+                                  <Picture
                                     src={item.image}
                                     alt={`LevelUp Learning ${item.title} course thumbnail`}
                                     className="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105"
@@ -559,7 +560,7 @@ const Navbar = () => {
                                       style={{ borderLeft: `3px solid ${linkAccent}` }}
                                     >
                                       <div className="aspect-[4/3] overflow-hidden rounded-md">
-                                        <img
+                                        <Picture
                                           src={item.image}
                                           alt={`LevelUp Learning ${item.title} course thumbnail`}
                                           className="w-full h-full object-cover"

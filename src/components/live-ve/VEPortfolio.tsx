@@ -1,4 +1,5 @@
 import FadeInSection from "@/components/FadeInSection";
+import { Picture } from "@/components/Picture";
 import { veToolIcons, vePortfolioCards } from "@/data/liveVEData";
 import { m } from "framer-motion";
 
@@ -12,7 +13,7 @@ const OrbitIcon = ({ tool, x, y, size, delay }: { tool: { name: string; image: s
     style={{ left: `${x}%`, top: `${y}%` }}
   >
     <div className={`${size} rounded-2xl overflow-hidden border border-white/10 shadow-lg shadow-black/30 p-0`} style={{ background: "hsl(160 8% 10%)" }}>
-      <img src={tool.image} alt={tool.name} className="w-full h-full object-cover block" loading="lazy" />
+      <Picture src={tool.image} alt={tool.name} className="w-full h-full object-cover block" loading="lazy" />
     </div>
     <span className="text-[9px] md:text-[11px] text-white/50 mt-1.5 text-center max-w-[90px] leading-tight">{tool.name}</span>
   </m.div>
@@ -52,7 +53,7 @@ const VEPortfolio = () => {
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-10"
               >
                 <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden border border-white/10 shadow-lg shadow-purple-500/20 p-0" style={{ background: "hsl(160 8% 10%)" }}>
-                  <img src={center.image} alt={center.name} className="w-full h-full object-cover block" loading="lazy" />
+                  <Picture src={center.image} alt={center.name} className="w-full h-full object-cover block" loading="lazy" />
                 </div>
                 <span className="text-[10px] md:text-xs text-white/50 mt-2 text-center">{center.name}</span>
               </m.div>
@@ -108,7 +109,7 @@ const VEPortfolio = () => {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <img src={card.image} alt={card.title} className="w-full h-full object-cover" loading="lazy" />
+                  <Picture src={card.image} alt={card.title} className="w-full h-full object-cover" loading="lazy" />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 <div className="absolute bottom-0 inset-x-0 p-4">

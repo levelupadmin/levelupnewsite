@@ -14,7 +14,8 @@ import heroPoster6 from "@/assets/hero-poster-6.jpg";
 const slides = [
   {
     video: "/videos/masterclass-trailer.mp4",
-    poster: "/images/hero-poster-1.jpg",
+    poster: "/images/hero-poster-1.avif",
+    posterFallback: "/images/hero-poster-1.jpg",
     alt: "Masterclass trailer - LevelUp filmmaking showcase",
   },
   {
@@ -120,9 +121,7 @@ const HeroCarousel = () => {
                     muted
                     loop
                     playsInline
-                    preload={index === 0 ? "auto" : "none"}
-                    // @ts-ignore - fetchPriority is valid HTML but not yet in React types
-                    fetchPriority={index === 0 ? "high" : undefined}
+                    preload="none"
                     className={`w-full aspect-[16/9] object-center bg-card ${index === 0 ? 'object-cover scale-[1.15]' : index === 2 ? 'object-cover' : 'object-contain'}`}
                   />
                 </div>

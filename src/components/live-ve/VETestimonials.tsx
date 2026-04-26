@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { Picture } from "@/components/Picture";
 import FadeInSection from "@/components/FadeInSection";
 import { veTestimonialCards } from "@/data/liveVEData";
 import { ChevronLeft, ChevronRight, Play, X } from "lucide-react";
@@ -36,7 +37,7 @@ const VETestimonials = () => {
                 onClick={() => setActiveVimeoId(card.vimeoId)}
               >
                 <div className="aspect-[3/4] relative">
-                  <img src={card.image} alt={card.name} className="w-full h-full object-cover" loading="lazy" />
+                  <Picture src={card.image} alt={card.name} className="w-full h-full object-cover" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-purple-500/20 group-hover:from-black/90 transition-all" />
                   <div className="absolute top-3 left-3">
                     <div className="w-8 h-8 rounded bg-black/60 flex items-center justify-center group-hover:bg-purple-600 transition-colors">

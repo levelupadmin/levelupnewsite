@@ -16,7 +16,11 @@ const DIST = path.resolve(process.cwd(), "dist");
 const VERCEL_STATIC = path.resolve(process.cwd(), ".vercel/output/static");
 const DEFAULT_MAX_WIDTH = 1600;
 const HERO_MAX_WIDTH = 1600;
-const SIBLING_THRESHOLD = 40 * 1024;
+// Always emit AVIF/WebP siblings so the <Picture> React component can rely
+// on them existing. Even tiny files cost only a few ms of Sharp time, and
+// missing siblings would 404 inside <picture> (browsers don't fall back
+// from a chosen source to the <img> on network error).
+const SIBLING_THRESHOLD = 0;
 
 const stats = {
   scanned: 0,
@@ -93,12 +97,16 @@ async function optimize(file) {
   }
 }
 
-// Operate on the deployed output dir if it exists (Vercel build),
-// else on dist (local astro preview). Avoid doubling the work.
-const target = existsSync(VERCEL_STATIC) ? VERCEL_STATIC : DIST;
-await walk(target);
+// Walk both output dirs when present:
+//   - dist/ is what `astro preview` serves locally
+//   - .vercel/output/static/ is what Vercel deploys
+// The @astrojs/vercel adapter copies dist→output/static during build, so
+// without mirroring, postbuild AVIF/WebP siblings would be missing from
+// whichever dir we skipped.
+const targets = [DIST, VERCEL_STATIC].filter((d) => existsSync(d));
+for (const target of targets) await walk(target);
 console.log(
-  `[optimize-images] target=${path.relative(process.cwd(), target)} ` +
+  `[optimize-images] targets=${targets.map((t) => path.relative(process.cwd(), t)).join(", ")} ` +
     `scanned ${stats.scanned}, rewritten ${stats.rewritten}, skipped ${stats.skipped}, ` +
     `avif ${stats.avifWritten}, webp ${stats.webpWritten}, saved ${(stats.savedBytes / 1024 / 1024).toFixed(1)} MB`
 );

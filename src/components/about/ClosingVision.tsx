@@ -1,4 +1,5 @@
 import { m } from "framer-motion";
+import { Picture } from "@/components/Picture";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -14,7 +15,7 @@ const ClosingVision = () => (
   <section className="relative py-16 md:py-24 px-6 md:px-12 overflow-hidden">
     {/* Textured background: cinematic image + orange overlay blend */}
     <div className="absolute inset-0">
-      <img src={heroCinematic} alt="" className="w-full h-full object-cover" />
+      <Picture src={heroCinematic} alt="" className="w-full h-full object-cover" />
       <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-[hsl(24,95%,40%,0.92)] mix-blend-multiply" />
       <div className="absolute inset-0 bg-gradient-to-br from-primary/80 to-[hsl(24,95%,40%,0.85)]" />
     </div>

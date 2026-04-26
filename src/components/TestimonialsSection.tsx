@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Star, Play, ArrowRight, X } from "lucide-react";
 import FadeInSection from "./FadeInSection";
 import AccentLine from "./AccentLine";
+import { Picture } from "./Picture";
 
 /* ─── Data ─── */
 
@@ -77,7 +78,7 @@ const TextCard = ({ t }: { t: TextTestimonial }) => (
     {/* Author */}
     <div className="flex items-center gap-3 mt-6 pt-4 border-t border-border/40">
       <div className="w-9 h-9 rounded-full bg-secondary overflow-hidden shrink-0">
-        <img
+        <Picture
           src={t.avatar}
           alt={t.name}
           className="w-full h-full object-cover"
@@ -102,7 +103,7 @@ const PortraitVideoCard = ({ t, onPlay }: { t: VideoTestimonial; onPlay?: (url: 
     onClick={() => t.vimeoUrl && onPlay?.(t.vimeoUrl)}
   >
     {/* Thumbnail */}
-    <img
+    <Picture
       src={t.thumbnail}
       alt={t.name}
       className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
@@ -144,7 +145,7 @@ const PortraitVideoCard = ({ t, onPlay }: { t: VideoTestimonial; onPlay?: (url: 
       </div>
       <div className="flex items-center gap-3 mt-3">
         <div className="w-8 h-8 rounded-full bg-secondary overflow-hidden shrink-0 border border-white/20">
-          <img
+          <Picture
             src={t.avatar}
             alt={t.name}
             className="w-full h-full object-cover"
@@ -171,7 +172,7 @@ const HorizontalVideoCard = ({ t, onPlay }: { t: VideoTestimonial; onPlay?: (url
   >
     {/* Thumbnail */}
     <div className="relative w-full sm:w-[200px] shrink-0 aspect-video sm:aspect-auto">
-      <img
+      <Picture
         src={t.thumbnail}
         alt={t.name}
         className="absolute inset-0 w-full h-full object-cover"
@@ -206,7 +207,7 @@ const HorizontalVideoCard = ({ t, onPlay }: { t: VideoTestimonial; onPlay?: (url
       </blockquote>
       <div className="flex items-center gap-3 mt-4">
         <div className="w-8 h-8 rounded-full bg-secondary overflow-hidden shrink-0">
-          <img
+          <Picture
             src={t.avatar}
             alt={t.name}
             className="w-full h-full object-cover"

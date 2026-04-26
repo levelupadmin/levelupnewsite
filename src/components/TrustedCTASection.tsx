@@ -1,4 +1,5 @@
 import FadeInSection from "./FadeInSection";
+import { Picture } from "@/components/Picture";
 import allMastersNewImg from "@/assets/all-masters-new.png";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
@@ -35,7 +36,7 @@ const TrustedCTASection = () => {
       <FadeInSection className="relative max-w-4xl mx-auto flex flex-col items-center text-center gap-8">
         {/* Masters group photo */}
         <div className="relative w-full max-w-lg md:max-w-2xl">
-          <img
+          <Picture
             alt="LevelUp's master instructors"
             className="w-full h-auto object-contain"
             width={1080}
@@ -75,7 +76,7 @@ const TrustedCTASection = () => {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-7 md:gap-10">
             {pressLogos.map((logo) =>
-            <img
+            <Picture
               key={logo.name}
               src={logo.src}
               alt={logo.name}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import FadeInSection from "./FadeInSection";
 import AccentLine from "./AccentLine";
+import { Picture } from "./Picture";
 import community1 from "@/assets/community/community-1.png";
 import community2 from "@/assets/community/community-2.png";
 import community3 from "@/assets/community/community-3.png";
@@ -103,7 +104,7 @@ const CommunitySection = () => {
                   key={i}
                   className="w-[280px] h-[160px] md:w-[380px] md:h-[220px] rounded-lg overflow-hidden group relative flex-shrink-0"
                 >
-                  <img
+                  <Picture
                     src={item.src}
                     alt={item.alt}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

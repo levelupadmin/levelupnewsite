@@ -1,4 +1,5 @@
 import forge1 from "@/assets/forge-1.jpg";
+import { Picture } from "@/components/Picture";
 import forge2 from "@/assets/forge-2.jpg";
 import forge4 from "@/assets/forge-4.jpg";
 import masterclass3 from "@/assets/masterclass-3.jpg";
@@ -47,7 +48,7 @@ const ActivityItem = ({ item, i }: { item: typeof activityFeed[0]; i: number }) 
         }}
       >
         {item.avatar ? (
-          <img src={item.avatar} alt="" className="w-full h-full rounded-md object-cover" loading="lazy" />
+          <Picture src={item.avatar} alt="" className="w-full h-full rounded-md object-cover" loading="lazy" />
         ) : (
           <Icon size={9} className={item.accent ? "text-primary/80" : "text-foreground/40"} />
         )}
@@ -90,7 +91,7 @@ const LiveProjectsCard = () => {
               key={i}
               className={`absolute inset-0 pf-featured-${i + 1}`}
             >
-              <img src={p.img} alt={p.title} className="w-full h-full object-cover" loading="lazy" />
+              <Picture src={p.img} alt={p.title} className="w-full h-full object-cover" loading="lazy" />
               <div
                 className="absolute inset-0"
                 style={{ background: "linear-gradient(to top, hsl(22 14% 0% / 0.85) 0%, transparent 50%)" }}

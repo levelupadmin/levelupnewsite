@@ -1,6 +1,7 @@
 import { ArrowRight, Flame, Users, MapPin } from "lucide-react";
 import AccentLine from "./AccentLine";
 import FadeInSection from "./FadeInSection";
+import { Picture } from "./Picture";
 import forgeLogo from "@/assets/forge-logo.png";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
@@ -157,7 +158,7 @@ const ForgeSection = () => {
 
       {/* ─── Top: Split Two-Column Layout ─── */}
       <FadeInSection delay={100} className="max-w-[1600px] mx-auto px-5 md:px-12 text-center">
-        <img
+        <Picture
           src={forgeLogo}
           alt="The Forge"
           className="h-16 sm:h-20 md:h-28 lg:h-32 w-auto object-contain mx-auto" />
@@ -201,7 +202,7 @@ const ForgeSection = () => {
               index === selectedIndex ? "opacity-100" : "opacity-40"}`
               }>
                 <div className="relative aspect-[3/4] md:aspect-[16/10] rounded-sm overflow-hidden group">
-                  <img
+                  <Picture
                   src={card.image}
                   alt={`LevelUp Learning ${card.title} course thumbnail`}
                   className="absolute inset-0 w-full h-full object-cover"

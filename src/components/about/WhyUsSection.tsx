@@ -1,4 +1,5 @@
 import { m } from "framer-motion";
+import { Picture } from "@/components/Picture";
 import { Sparkles, Users, Award } from "lucide-react";
 import ConcentricRings from "./ConcentricRings";
 
@@ -64,7 +65,7 @@ const WhyUsSection = () => (
           >
             {/* Card image */}
             <div className="relative h-36 overflow-hidden">
-              <img
+              <Picture
                 src={p.image}
                 alt={`LevelUp Learning ${p.title} — ${p.description.substring(0, 60)}`}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

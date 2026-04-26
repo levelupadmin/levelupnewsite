@@ -1,4 +1,5 @@
 import { m } from "framer-motion";
+import { Picture } from "@/components/Picture";
 import { Compass, Star, GraduationCap, Flame } from "lucide-react";
 
 import liveProgram1 from "@/assets/live-program-1.jpg";
@@ -85,7 +86,7 @@ const EcosystemJourney = () => (
           >
             {/* Large image top half */}
             <div className="relative aspect-[4/3] overflow-hidden">
-              <img
+              <Picture
                 src={layer.image}
                 alt={`LevelUp Learning ${layer.title} program`}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

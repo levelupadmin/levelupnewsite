@@ -1,4 +1,5 @@
 import { m } from "framer-motion";
+import { Picture } from "@/components/Picture";
 import { ArrowRight, CheckCircle2, MapPin, Briefcase } from "lucide-react";
 
 import testimonial1 from "@/assets/testimonial-1.jpg";
@@ -104,7 +105,7 @@ const SuccessStories = () => (
           >
             {/* Header */}
             <div className="flex items-center gap-4 p-5 pb-4 border-b border-border/30">
-              <img
+              <Picture
                 src={s.avatar}
                 alt={`Portrait of ${s.name}, ${s.role} at LevelUp Learning`}
                 className="w-14 h-14 rounded-full object-cover ring-2 ring-primary/20"

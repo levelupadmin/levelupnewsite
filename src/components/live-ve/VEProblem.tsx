@@ -1,4 +1,5 @@
 import FadeInSection from "@/components/FadeInSection";
+import { Picture } from "@/components/Picture";
 import { veProblemPoints, veAdvantages, VE_CTA_LINK } from "@/data/liveVEData";
 import { m } from "framer-motion";
 
@@ -81,7 +82,7 @@ const VEProblem = () => (
               className="p-6 rounded-2xl border border-white/10 bg-white/[0.03] text-center"
             >
               <div className="w-16 h-16 mx-auto mb-4">
-                <img src={adv.icon} alt={adv.title} loading="lazy" className="w-full h-full object-contain" />
+                <Picture src={adv.icon} alt={adv.title} loading="lazy" className="w-full h-full object-contain" />
               </div>
               <h4 className="text-base font-semibold text-white mb-2 whitespace-pre-line">{adv.title}</h4>
               <p className="text-xs text-white/50 leading-relaxed">{adv.description}</p>

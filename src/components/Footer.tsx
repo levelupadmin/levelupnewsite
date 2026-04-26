@@ -1,4 +1,5 @@
 import { Instagram, Youtube, Twitter, Linkedin } from "lucide-react";
+import { Picture } from "@/components/Picture";
 import { m } from "framer-motion";
 import { useParallax } from "@/hooks/use-parallax";
 import levelupLogo from "@/assets/levelup-logo.svg";
@@ -45,7 +46,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-8">
           <div className="lg:col-span-1">
             <div className="mb-4">
-              <img
+              <Picture
                 src={levelupLogo}
                 alt="LevelUp Learning"
                 className="h-16 w-auto"
@@ -120,7 +121,7 @@ const Footer = () => {
         className="hidden md:flex absolute inset-0 items-center justify-center pointer-events-none select-none"
       >
         <m.div ref={watermarkRef} style={{ y: watermarkY }}>
-          <img
+          <Picture
             src={levelupLogo}
             alt=""
             className="w-[100vw] max-w-none h-auto opacity-[0.03]"

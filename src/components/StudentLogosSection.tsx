@@ -1,4 +1,5 @@
 import { m } from "framer-motion";
+import { Picture } from "@/components/Picture";
 import ImpactBentoGrid from "./ImpactBentoGrid";
 import AccentLine from "./AccentLine";
 
@@ -159,7 +160,7 @@ const StudentLogosSection = () => {
                 style={{ animation: row.animation }}
               >
                 {[...row.brands, ...row.brands].map((brand, i) => (
-                  <img
+                  <Picture
                     key={`${brand.name}-${i}`}
                     src={brand.logo}
                     alt={brand.name}

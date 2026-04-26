@@ -1,4 +1,5 @@
 import useEmblaCarousel from "embla-carousel-react";
+import { Picture } from "@/components/Picture";
 import Autoplay from "embla-carousel-autoplay";
 import { useEmblaSelect } from "@/hooks/useEmblaSelect";
 
@@ -66,7 +67,7 @@ const ForgeCarousel = () => {
                       isActive ? "shadow-2xl" : "opacity-60"
                     }`}
                   >
-                    <img
+                    <Picture
                       src={slide.image}
                       alt={slide.alt}
                       className="w-full aspect-[21/9] object-cover object-center"

@@ -1,4 +1,5 @@
 import { m } from "framer-motion";
+import { Picture } from "@/components/Picture";
 import { ArrowUpRight } from "lucide-react";
 import outlookLogo from "@/assets/press/outlook-india.png";
 import quintLogo from "@/assets/press/the-quint.png";
@@ -44,7 +45,7 @@ const FeaturedInSection = () => (
         <div className="flex flex-col md:flex-row">
           {/* Article image */}
           <div className="relative md:w-[280px] h-48 md:h-auto shrink-0 overflow-hidden">
-            <img
+            <Picture
               src={mc1}
               alt="Karthik Subbaraj featured in The Hindu"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -56,7 +57,7 @@ const FeaturedInSection = () => (
           {/* Article content */}
           <div className="flex-1 p-6 md:p-8 flex flex-col justify-center gap-4">
             <div className="flex items-center gap-4">
-              <img
+              <Picture
                 src={theHinduLogo}
                 alt="The Hindu"
                 className="h-6 md:h-8 w-auto object-contain"
@@ -90,7 +91,7 @@ const FeaturedInSection = () => (
         className="rounded-xl bg-card shadow-cinematic px-8 py-6 flex flex-wrap items-center justify-center gap-8 md:gap-12"
       >
         {pressLogos.map((logo) => (
-          <img
+          <Picture
             key={logo.name}
             src={logo.src}
             alt={logo.name}

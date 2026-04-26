@@ -1,4 +1,5 @@
 import FadeInSection from "@/components/FadeInSection";
+import { Picture } from "@/components/Picture";
 import { veBrandLogos } from "@/data/liveVEData";
 
 const VEBrands = () => (
@@ -17,7 +18,7 @@ const VEBrands = () => (
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
           {veBrandLogos.map((logo, i) => (
             <div key={i} className="aspect-[16/10] rounded-lg overflow-hidden bg-[#191a1a] border border-white/5 flex items-center justify-center p-4" style={{ boxShadow: 'none' }}>
-              <img src={logo} alt={`Brand ${i + 1}`} loading="lazy" className="w-full h-full object-contain opacity-70 grayscale" style={{ background: '#191a1a', boxShadow: 'none' }} />
+              <Picture src={logo} alt={`Brand ${i + 1}`} loading="lazy" className="w-full h-full object-contain opacity-70 grayscale" style={{ background: '#191a1a', boxShadow: 'none' }} />
             </div>
           ))}
         </div>

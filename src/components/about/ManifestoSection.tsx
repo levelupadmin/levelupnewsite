@@ -1,4 +1,5 @@
 import { m } from "framer-motion";
+import { Picture } from "@/components/Picture";
 import ConcentricRings from "./ConcentricRings";
 import allMasters from "@/assets/all-masters.png";
 
@@ -79,7 +80,7 @@ const ManifestoSection = () => (
         transition={{ duration: 0.7, delay: 0.25 }}
         className="relative w-full rounded-xl overflow-hidden mb-12 aspect-[21/9] shadow-cinematic"
       >
-        <img
+        <Picture
           src={allMasters}
           alt="LevelUp mentors and creators"
           className="w-full h-full object-cover"

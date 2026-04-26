@@ -1,4 +1,5 @@
 import { m } from "framer-motion";
+import { Picture } from "@/components/Picture";
 import { BookX, ShieldX, Users } from "lucide-react";
 import heroImg from "@/assets/hero-cinematic.jpg";
 import testimonial1 from "@/assets/testimonial-1.jpg";
@@ -42,7 +43,7 @@ const ProblemSection = () => (
   <section className="relative overflow-hidden">
     {/* Full-bleed background image */}
     <div className="absolute inset-0">
-      <img src={heroImg} alt="" className="w-full h-full object-cover" />
+      <Picture src={heroImg} alt="" className="w-full h-full object-cover" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/85" />
     </div>
 
@@ -73,7 +74,7 @@ const ProblemSection = () => (
             >
               {/* Human image with gradient overlay */}
               <div className="relative h-32 overflow-hidden">
-                <img
+                <Picture
                   src={p.image}
                   alt=""
                   className="w-full h-full object-cover object-top grayscale opacity-60"

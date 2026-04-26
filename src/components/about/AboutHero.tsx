@@ -1,4 +1,5 @@
 import { m } from "framer-motion";
+import { Picture } from "@/components/Picture";
 import StarField from "@/components/StarField";
 import ConcentricRings from "./ConcentricRings";
 
@@ -40,7 +41,7 @@ const AboutHero = () => (
             filter: "blur(6px)",
           }}
         >
-          <img
+          <Picture
             src={p.src}
             alt=""
             className="w-full h-full object-cover"

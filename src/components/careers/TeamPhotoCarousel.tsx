@@ -1,4 +1,5 @@
 import useEmblaCarousel from "embla-carousel-react";
+import { Picture } from "@/components/Picture";
 import Autoplay from "embla-carousel-autoplay";
 import { useEmblaSelect } from "@/hooks/useEmblaSelect";
 
@@ -48,7 +49,7 @@ const TeamPhotoCarousel = ({ cards }: { cards: TeamCard[] }) => {
                 {card.image ? (
                   <>
                     <div className="absolute inset-0 bg-[#e8e4dd]" />
-                    <img
+                    <Picture
                       src={card.image}
                       alt={card.name}
                       className="absolute inset-0 w-full h-full object-contain object-bottom"

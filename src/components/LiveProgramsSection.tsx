@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from "react";
+import { Picture } from "@/components/Picture";
 import { AnimatePresence, motion } from "framer-motion";
 import FadeInSection from "./FadeInSection";
 import AccentLine from "./AccentLine";
@@ -256,7 +257,7 @@ const LiveProgramsSection = () => {
                 >
                   {/* Image */}
                   <div className="md:order-2 md:w-[40%] relative aspect-[16/10] md:aspect-auto overflow-hidden md:min-h-[380px]">
-                    <img
+                    <Picture
                       src={program.image}
                       alt={`LevelUp Learning ${program.title} course thumbnail`}
                       loading="lazy"

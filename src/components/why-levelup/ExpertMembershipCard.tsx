@@ -1,4 +1,5 @@
 import masterclass1 from "@/assets/masterclass-hero-new.png";
+import { Picture } from "@/components/Picture";
 import masterclass5 from "@/assets/masterclass-5.jpg";
 import { Play, FileText, CheckCircle2, Circle, Sparkles, Film, BookOpen, Bot, Radio, Calendar } from "lucide-react";
 
@@ -31,7 +32,7 @@ const projectBriefs = [
 const MasterclassScreen = () => (
   <div className="absolute inset-0 flex flex-col animate-lms-screen-1">
     <div className="relative flex-1 overflow-hidden rounded-md">
-      <img src={masterclass1} alt="Masterclass" className="w-full h-full object-cover object-top" loading="lazy" />
+      <Picture src={masterclass1} alt="Masterclass" className="w-full h-full object-cover object-top" loading="lazy" />
       <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
         <path d="M8,20 L8,8 L20,8" fill="none" stroke="white" strokeWidth="1" />
         <path d="M80,8 L92,8 L92,20" fill="none" stroke="white" strokeWidth="1" />
@@ -160,7 +161,7 @@ const ExpertMembershipCard = () => {
 
           <div className="px-1.5 pb-1.5">
             <div className="w-full h-[28px] rounded overflow-hidden border border-primary/10">
-              <img src={masterclass5} alt="" className="w-full h-full object-cover" loading="lazy" />
+              <Picture src={masterclass5} alt="" className="w-full h-full object-cover" loading="lazy" />
             </div>
           </div>
         </div>

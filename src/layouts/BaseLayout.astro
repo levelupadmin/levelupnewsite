@@ -59,7 +59,13 @@ const allJsonLd = jsonLd
     <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/funnel-display-var.woff2" />
 
     {preloadImage && (
-      <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />
+      <link
+        rel="preload"
+        as="image"
+        href={preloadImage.replace(/\.(jpe?g|png)(\?.*)?$/i, ".avif")}
+        type="image/avif"
+        fetchpriority="high"
+      />
     )}
 
     <style is:inline>

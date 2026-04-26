@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback } from "react";
+import { Picture } from "@/components/Picture";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import FadeInSection from "@/components/FadeInSection";
 import ImpactScene from "./ImpactScene";
@@ -69,7 +70,7 @@ const CommunityScene = () => {
                     transition: "filter 0.3s ease-out, transform 0.4s ease-out",
                   }}
                 >
-                  <img src={photo} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                  <Picture src={photo} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
                 </div>
               );
             })}

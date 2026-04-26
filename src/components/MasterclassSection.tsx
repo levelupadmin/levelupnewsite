@@ -4,6 +4,7 @@ import AccentLine from "./AccentLine";
 import { ArrowRight } from "lucide-react";
 import { trackCTAClick } from "@/lib/clarity";
 import FadeInSection, { useScrollReveal } from "./FadeInSection";
+import { Picture } from "./Picture";
 import nelsonImg from "@/assets/nelson-dilipkumar.jpg";
 import comingSoonImg from "@/assets/coming-soon-silhouette.jpg";
 import karthikImg from "@/assets/karthik-subbaraj-masterclass.png";
@@ -110,7 +111,7 @@ const MasterclassCard = ({ mc }: { mc: typeof masterclasses[0] }) => {
       style={{ willChange: 'transform' }}
     >
       <div className="relative aspect-[3/4] overflow-hidden rounded-sm bg-card shadow-md transition-shadow duration-500 group-hover:shadow-[0_0_20px_2px_hsl(38_75%_55%/0.35)]">
-        <img
+        <Picture
           src={mc.image}
           alt={`Portrait of ${mc.name}, ${mc.format} at LevelUp Learning`}
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
@@ -126,7 +127,7 @@ const MasterclassCard = ({ mc }: { mc: typeof masterclasses[0] }) => {
 const ComingSoonCard = () => (
   <div className="group relative block">
     <div className="relative aspect-[3/4] overflow-hidden rounded-sm shadow-md transition-shadow duration-500 group-hover:shadow-[0_0_20px_2px_hsl(38_75%_55%/0.35)]" style={{ backgroundColor: "#1C1208" }}>
-      <img
+      <Picture
         src={comingSoonImg}
         alt=""
         className="absolute inset-0 w-full h-full object-cover opacity-60"
