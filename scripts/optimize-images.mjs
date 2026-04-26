@@ -72,28 +72,33 @@ async function optimize(file) {
   if (Math.max(out.length, original.length) >= SIBLING_THRESHOLD) {
     const ext = path.extname(file);
     const stem = file.slice(0, -ext.length);
-    try {
-      const webp = await baseResize(sharp(original))
-        .webp({ quality: webpQuality, effort: 6 })
-        .toBuffer();
-      await writeFile(`${stem}.webp`, webp);
-      stats.webpWritten++;
-    } catch {}
-    try {
-      const avif = await baseResize(sharp(original))
-        .avif({ quality: avifQuality, effort: 6 })
-        .toBuffer();
-      await writeFile(`${stem}.avif`, avif);
-      stats.avifWritten++;
-    } catch {}
+    if (!existsSync(`${stem}.webp`)) {
+      try {
+        const webp = await baseResize(sharp(original))
+          .webp({ quality: webpQuality, effort: 6 })
+          .toBuffer();
+        await writeFile(`${stem}.webp`, webp);
+        stats.webpWritten++;
+      } catch {}
+    }
+    if (!existsSync(`${stem}.avif`)) {
+      try {
+        const avif = await baseResize(sharp(original))
+          .avif({ quality: avifQuality, effort: 6 })
+          .toBuffer();
+        await writeFile(`${stem}.avif`, avif);
+        stats.avifWritten++;
+      } catch {}
+    }
   }
 }
 
-const targets = [DIST];
-if (existsSync(VERCEL_STATIC)) targets.push(VERCEL_STATIC);
-for (const dir of targets) await walk(dir);
+// Operate on the deployed output dir if it exists (Vercel build),
+// else on dist (local astro preview). Avoid doubling the work.
+const target = existsSync(VERCEL_STATIC) ? VERCEL_STATIC : DIST;
+await walk(target);
 console.log(
-  `[optimize-images] scanned ${stats.scanned}, rewritten ${stats.rewritten}, skipped ${stats.skipped}, ` +
-    `avif ${stats.avifWritten}, webp ${stats.webpWritten}, saved ${(stats.savedBytes / 1024 / 1024).toFixed(1)} MB ` +
-    `across ${targets.length} dir(s)`
+  `[optimize-images] target=${path.relative(process.cwd(), target)} ` +
+    `scanned ${stats.scanned}, rewritten ${stats.rewritten}, skipped ${stats.skipped}, ` +
+    `avif ${stats.avifWritten}, webp ${stats.webpWritten}, saved ${(stats.savedBytes / 1024 / 1024).toFixed(1)} MB`
 );
