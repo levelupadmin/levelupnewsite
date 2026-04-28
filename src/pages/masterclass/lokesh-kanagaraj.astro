@@ -3,6 +3,8 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import EpisodeAccordion from "@/components/lokesh/EpisodeAccordion";
 import FAQAccordion from "@/components/lokesh/FAQAccordion";
 import TestimonialCarousel from "@/components/lokesh/TestimonialCarousel";
+import LokeshTrailer from "@/components/lokesh/LokeshTrailer";
+import PosterMarquee from "@/components/lokesh/PosterMarquee";
 import { courseJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/structuredData";
 
 const ASSET = "/masterclass/lokesh";
@@ -25,24 +27,15 @@ const episodes = [
   { number: 15, title: "Directing with Conviction", description: "Explore why belief in your vision is essential to leadership on set. Lokesh shares personal reflections on how conviction affects creative choices, motivates teams, and shapes how a director earns trust—from cast, crew, and ultimately, the audience." },
 ];
 
-const films = [
-  { title: "Maanagaram", img: `${ASSET}/j4cesr5F5lQhfPl4kTf7hsjnQig.jpg` },
-  { title: "Master", img: `${ASSET}/04Cf0uXU0vEBtH4J8UrhaoPJiQ.jpg` },
-  { title: "Vikram", img: `${ASSET}/Jcj8R4DDPGpXDCkQoAFyLRKs7QU.jpg` },
-  { title: "Vikram", img: `${ASSET}/Qpn5TQOmeYZbYnxr4McJJH6uOw.jpg` },
-  { title: "Master", img: `${ASSET}/FWEnra8ZQKbfIkqyiiykegyWs.jpg` },
-  { title: "Vikram", img: `${ASSET}/gZ9HcLl2faSNfZTpoijUURhY.jpg` },
-  { title: "Leo", img: `${ASSET}/U0FxB89SjVjlw4BtKHJ7BFhVBbA.jpg` },
-  { title: "Leo", img: `${ASSET}/XZ4KzM9wYcH1L44R7i3lJ4pwrmo.jpg` },
-];
-
-const audiencePills = [
-  "Dialogue Writers",
-  "Cinema Lovers",
-  "Story Architects",
-  "Visionary Filmmakers",
-  "Future Directors",
-  "Film Dreamers",
+const blockbusterFilms = [
+  `${ASSET}/04Cf0uXU0vEBtH4J8UrhaoPJiQ.jpg`,
+  `${ASSET}/FWEnra8ZQKbfIkqyiiykegyWs.jpg`,
+  `${ASSET}/U0FxB89SjVjlw4BtKHJ7BFhVBbA.jpg`,
+  `${ASSET}/Qpn5TQOmeYZbYnxr4McJJH6uOw.jpg`,
+  `${ASSET}/Jcj8R4DDPGpXDCkQoAFyLRKs7QU.jpg`,
+  `${ASSET}/gZ9HcLl2faSNfZTpoijUURhY.jpg`,
+  `${ASSET}/XZ4KzM9wYcH1L44R7i3lJ4pwrmo.jpg`,
+  `${ASSET}/j4cesr5F5lQhfPl4kTf7hsjnQig.jpg`,
 ];
 
 const whyPoints = [
@@ -66,17 +59,6 @@ const whatYouGet = [
   { num: "04", title: "Downloadable Workbooks & Exercises", description: "Apply filmmaking concepts step by step" },
 ];
 
-const closingPosters = [
-  `${ASSET}/04Cf0uXU0vEBtH4J8UrhaoPJiQ.jpg`,
-  `${ASSET}/FWEnra8ZQKbfIkqyiiykegyWs.jpg`,
-  `${ASSET}/U0FxB89SjVjlw4BtKHJ7BFhVBbA.jpg`,
-  `${ASSET}/Qpn5TQOmeYZbYnxr4McJJH6uOw.jpg`,
-  `${ASSET}/Jcj8R4DDPGpXDCkQoAFyLRKs7QU.jpg`,
-  `${ASSET}/gZ9HcLl2faSNfZTpoijUURhY.jpg`,
-  `${ASSET}/XZ4KzM9wYcH1L44R7i3lJ4pwrmo.jpg`,
-  `${ASSET}/j4cesr5F5lQhfPl4kTf7hsjnQig.jpg`,
-];
-
 const faqs = [
   { question: "Is this a technical filmmaking course?", answer: "No. This is not a technical or academic filmmaking course. Lokesh isn't teaching shot sizes or camera gear. He's walking you through how he thinks, how he builds stories, choreographs action, directs actors, and balances emotion with mass appeal." },
   { question: "What do I get when I enroll?", answer: "This course includes 20+ detailed lessons from Lokesh Kanagaraj, offering full lifetime access so you can learn at your own pace. You'll also receive a signed Certificate of Completion, along with access to downloadable PDFs and case notes for deeper insights. Plus, you'll gain entry into our exclusive creative community, where you can join discussions and events with like-minded storytellers." },
@@ -91,6 +73,7 @@ const faqs = [
 ];
 
 const CTA_HREF = "https://courses.leveluplearning.in/courses/Lokesh-Kanagaraj-Masterclass-685dabec38a4ee3a78d11f0e";
+const YT_TRAILER_ID = "dxyHe16__34";
 
 const course = courseJsonLd({
   name: "Lokesh Kanagaraj Filmmaking Masterclass",
@@ -119,116 +102,150 @@ const faq = faqJsonLd(faqs);
 >
   <link rel="preconnect" href="https://fonts.googleapis.com" slot="head" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin slot="head" />
+  <link rel="preconnect" href="https://www.youtube.com" slot="head" />
 
   <style is:global>
-    @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=DM+Serif+Display&family=Manrope:wght@300;400;500;600;700&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap");
 
     .lokesh-page {
-      --gold: #c8924d;
-      --gold-bright: #e3b671;
-      --gold-dim: #87673b;
       --bg: #050505;
       --bg-card: #0e0e0e;
-      --bg-card-hover: #1a1a1a;
+      --text: #ffffff;
+      --text-dim: #dfdee2;
+      --text-muted: #737373;
+      --gold-1: #f5d59a;
+      --gold-2: #d4a36c;
+      --gold-3: #8a5d2c;
+      --gold-text-on-pill: #401b00;
       background: var(--bg);
-      color: rgba(255, 255, 255, 0.92);
-      font-family: "Manrope", system-ui, sans-serif;
+      color: var(--text);
+      font-family: "Inter", "Inter Placeholder", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-feature-settings: "ss01", "ss02";
+      -webkit-font-smoothing: antialiased;
     }
-    .lokesh-page h1, .lokesh-page h2, .lokesh-page h3 { letter-spacing: 0.02em; }
-    .font-cinzel { font-family: "Cinzel", "DM Serif Display", serif; letter-spacing: 0.04em; }
-    .font-serifd { font-family: "DM Serif Display", "Cinzel", serif; }
+    .font-cinzel { font-family: "Cinzel", "Cinzel Placeholder", serif; }
+    .font-poppins { font-family: "Poppins", "Poppins Placeholder", sans-serif; }
+    .font-dm { font-family: "DM Sans", "DM Sans Placeholder", sans-serif; }
+
+    /* Gold gradient text used in Cinzel section headings */
     .text-gold {
-      background: linear-gradient(180deg, #f5d59a 0%, #c8924d 50%, #875d2c 100%);
+      background: linear-gradient(180deg, #f5d59a 0%, #d4a36c 50%, #8a5d2c 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
-    .lokesh-page .gold-pill {
-      background: linear-gradient(180deg, #efc888 0%, #c8924d 50%, #8c5e2e 100%);
-      color: #1a0f06;
-      box-shadow: 0 6px 18px -4px rgba(200, 146, 77, 0.45),
-        inset 0 1px 0 rgba(255, 230, 190, 0.55);
-      font-weight: 600;
+
+    /* The Gold "Buy now" pill exactly matching Framer */
+    .lokesh-page .buy-pill {
+      background: radial-gradient(120% 100% at 50% 0%, #ffe5b8 0%, #e3b671 30%, #c8924d 60%, #8c5e2e 100%);
+      color: var(--gold-text-on-pill);
+      box-shadow:
+        0 14px 24px -8px rgba(200, 146, 77, 0.6),
+        inset 0 1px 0 rgba(255, 230, 190, 0.85),
+        inset 0 -1px 0 rgba(80, 35, 0, 0.4);
+      font-family: "Inter", sans-serif;
+      font-weight: 700;
+      letter-spacing: 0;
+      transition: filter 0.25s ease, transform 0.25s ease;
     }
-    .lokesh-page .gold-pill:hover {
-      filter: brightness(1.07);
-    }
+    .lokesh-page .buy-pill:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .lokesh-page .buy-pill:active { transform: translateY(0); }
+
+    /* Subtle starfield + grain background */
     .lokesh-page .star-bg {
       background-image:
-        radial-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
-        radial-gradient(rgba(255,255,255,0.025) 1px, transparent 1px);
-      background-size: 32px 32px, 80px 80px;
-      background-position: 0 0, 16px 16px;
+        radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 36px 36px, 88px 88px;
+      background-position: 0 0, 18px 18px;
     }
+    .lokesh-page .grain { position: relative; }
     .lokesh-page .grain::after {
       content: "";
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.7'/%3E%3C/svg%3E");
       mix-blend-mode: overlay;
-      opacity: 0.04;
+      opacity: 0.06;
     }
-    .lokesh-page .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.9s ease-out, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .lokesh-page .reveal.in {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    @keyframes float-slow {
+
+    /* Scroll reveal — only fires for elements scrolled into view AFTER initial paint.
+       Content above the fold and below stays visible by default — never hidden via CSS,
+       so SEO, screenshots, no-JS users all see real content. JS adds a brief animation
+       to elements that come into view after page is already scrolled, but never hides
+       what was already visible. (Keeping classes in markup for forward compatibility.) */
+    .lokesh-page .reveal { opacity: 1; transform: none; }
+
+    /* Gentle floating animation for audience pills */
+    @keyframes lokesh-float {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+      50% { transform: translateY(-6px); }
     }
-    .lokesh-page .float-slow { animation: float-slow 5s ease-in-out infinite; }
-    .lokesh-page .float-slower { animation: float-slow 7s ease-in-out infinite; }
-    .lokesh-page .float-slowest { animation: float-slow 9s ease-in-out infinite; }
+    .lokesh-page .float-a { animation: lokesh-float 5s ease-in-out infinite; }
+    .lokesh-page .float-b { animation: lokesh-float 7s ease-in-out infinite; }
+    .lokesh-page .float-c { animation: lokesh-float 9s ease-in-out infinite; }
+
+    /* Section dividers (small ticks) */
+    .lokesh-page .section-tick {
+      display: inline-block;
+      width: 1px;
+      height: 24px;
+      background: linear-gradient(180deg, transparent, #d4a36c, transparent);
+      margin: 0 auto;
+    }
+
+    /* Marquee for closing posters */
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    .lokesh-page .marquee-track { animation: marquee 38s linear infinite; }
+    .lokesh-page .marquee-track-rev { animation: marquee 42s linear infinite reverse; }
   </style>
 
   <main id="main-content" class="lokesh-page">
     <!-- ─── Header ─── -->
-    <header class="relative z-30 px-5 md:px-12 pt-6 md:pt-8 flex items-center justify-center md:justify-between gap-4">
+    <header class="relative z-30 px-5 md:px-12 pt-5 md:pt-7 flex items-center justify-between gap-4">
       <a href="/" class="inline-flex items-center" aria-label="LevelUp Learning home">
-        <img src="/levelup-logo-mark.svg" alt="LevelUp" class="h-7 md:h-8 w-auto" onerror="this.outerHTML='<span class=&quot;font-cinzel text-xl text-white&quot;>LevelUp</span>'" />
+        <img src="/levelup-logo-mark.svg" alt="LevelUp" class="h-7 md:h-8 w-auto" />
       </a>
       <a
         href={CTA_HREF}
         target="_blank"
         rel="noopener noreferrer"
-        class="hidden md:inline-flex gold-pill px-5 py-2.5 rounded-full text-xs tracking-wide"
+        class="hidden md:inline-flex buy-pill px-5 py-2.5 rounded-full text-[13px]"
       >
         Buy now at ₹1,499
       </a>
     </header>
 
     <!-- ─── Hero ─── -->
-    <section class="relative overflow-hidden pt-8 md:pt-14 pb-12 md:pb-20">
-      <div class="star-bg absolute inset-0 pointer-events-none"></div>
-      <div class="absolute inset-0 grain"></div>
+    <section class="relative overflow-hidden">
+      <div class="star-bg absolute inset-0 pointer-events-none opacity-60"></div>
 
-      <!-- Hero banner image with gold overlay text -->
-      <div class="relative max-w-[1280px] mx-auto px-5 md:px-12">
-        <div class="relative aspect-[16/10] md:aspect-[2/1] rounded-2xl overflow-hidden bg-black ring-1 ring-white/10">
-          <img
-            src={`${ASSET}/JA7LjstCBpKLub03f5p6KgzoBE.png`}
-            alt="Lokesh Kanagaraj — Director Masterclass"
+      <!-- Hero video bg (the original Framer page uses this exact video) -->
+      <div class="relative max-w-[1280px] mx-auto px-5 md:px-12 pt-6 md:pt-10">
+        <div class="relative aspect-[16/9] md:aspect-[16/8] rounded-[14px] overflow-hidden bg-black grain ring-1 ring-white/[0.06]">
+          <video
+            src={`${ASSET}/8aQnJtJnDomXGCoq8SMNrwjXL4.mp4`}
+            poster={`${ASSET}/JA7LjstCBpKLub03f5p6KgzoBE.png`}
+            muted
+            loop
+            playsinline
+            autoplay
+            preload="metadata"
             class="absolute inset-0 w-full h-full object-cover"
-            fetchpriority="high"
-            decoding="async"
-          />
-          <!-- Vignette overlays for text contrast -->
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
-          <div class="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40"></div>
+          ></video>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-black/30 pointer-events-none"></div>
         </div>
 
-        <!-- Headline + subtitle -->
-        <div class="relative z-10 mt-8 md:mt-12 text-center max-w-3xl mx-auto">
-          <h1 class="font-cinzel text-gold text-2xl md:text-3xl lg:text-[2.25rem] leading-tight">
+        <!-- Headline + sub + CTA — using Inter (matches Framer's actual h1 typography) -->
+        <div class="relative mt-9 md:mt-12 text-center max-w-3xl mx-auto reveal">
+          <h1 class="text-white text-[22px] md:text-[28px] lg:text-[35px] leading-[1.18] tracking-[-0.02em] font-semibold">
             Master the Craft of Filmmaking with Visionary Director Lokesh Kanagaraj
           </h1>
-          <p class="mt-5 md:mt-6 text-sm md:text-base text-white/65 leading-relaxed max-w-2xl mx-auto">
+          <p class="mt-5 md:mt-7 text-[14px] md:text-[16px] lg:text-[19px] leading-[1.55] tracking-[-0.02em] text-[#dfdee2]/80 max-w-[640px] mx-auto">
             Join the mastermind behind cinematic blockbusters like Kaithi, Master, and Vikram in this exclusive
             masterclass. Learn how to tell powerful stories, build unforgettable characters, and create films that
             captivate millions.
@@ -237,108 +254,96 @@ const faq = faqJsonLd(faqs);
             href={CTA_HREF}
             target="_blank"
             rel="noopener noreferrer"
-            class="gold-pill mt-7 md:mt-8 inline-flex items-center justify-center px-7 py-3 rounded-full text-sm md:text-base"
+            class="buy-pill mt-8 md:mt-9 inline-flex items-center justify-center px-7 py-3 md:px-8 md:py-3.5 rounded-full text-[14px] md:text-[16px]"
           >
             Buy now at ₹1,499
           </a>
         </div>
       </div>
+      <div class="h-12 md:h-20"></div>
     </section>
 
-    <!-- ─── Trailer card ─── -->
-    <section class="relative px-5 md:px-12 pb-12 md:pb-20">
-      <div class="max-w-4xl mx-auto">
-        <div class="relative rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-2xl shadow-black/50">
-          <div class="relative aspect-video bg-black">
-            <video
-              src={`${ASSET}/8aQnJtJnDomXGCoq8SMNrwjXL4.mp4`}
-              poster={`${ASSET}/QaxSA03bLYHaFbkggaEPiIp4oc.jpg`}
-              controls
-              playsinline
-              preload="none"
-              class="absolute inset-0 w-full h-full object-cover"
-            ></video>
-            <div class="absolute top-4 left-4 md:top-5 md:left-5 inline-flex items-center gap-2.5 pointer-events-none">
-              <span class="block h-5 w-1 bg-red-500 rounded-sm"></span>
-              <span class="text-[11px] tracking-[0.22em] uppercase text-white/90 font-semibold">Official Trailer</span>
-            </div>
-          </div>
+    <!-- ─── Trailer ─── -->
+    <section class="relative px-5 md:px-12 pb-12 md:pb-20 reveal">
+      <div class="max-w-[996px] mx-auto">
+        <div class="relative rounded-[14px] overflow-hidden ring-1 ring-white/[0.07] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)]">
+          <LokeshTrailer ytId={YT_TRAILER_ID} client:visible />
         </div>
       </div>
     </section>
 
     <!-- ─── Class Info + Episodes ─── -->
-    <section class="relative px-5 md:px-12 py-14 md:py-20">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center md:text-left mb-10 md:mb-14">
-          <p class="text-[11px] tracking-[0.28em] uppercase text-white/40">Class Info</p>
-          <h2 class="font-cinzel text-gold text-3xl md:text-4xl lg:text-5xl mt-2">CLASS INFO</h2>
-          <p class="mt-3 text-[11px] tracking-[0.28em] uppercase text-white/40">15 video lessons</p>
+    <section class="relative px-5 md:px-12 py-14 md:py-24">
+      <div class="max-w-[1180px] mx-auto">
+        <div class="text-center mb-10 md:mb-14 reveal">
+          <p class="font-cinzel text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Class Info</p>
+          <div class="my-4 section-tick"></div>
+          <h2 class="font-cinzel text-gold text-[36px] md:text-[48px] lg:text-[60px] leading-[1] tracking-[-0.02em] font-semibold">
+            CLASS INFO
+          </h2>
+          <p class="mt-3 text-[12px] md:text-[14px] tracking-[0.32em] uppercase text-[#dfdee2]/60">15 video lessons</p>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-6 md:gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-6 md:gap-8">
           <!-- Pricing card -->
-          <aside class="rounded-2xl border border-white/10 bg-[#0E0E0E]/85 backdrop-blur-sm p-6 md:p-7 h-fit lg:sticky lg:top-6">
-            <p class="text-sm text-white/70">Start today for just</p>
-            <div class="mt-2 flex items-end gap-3">
-              <span class="font-cinzel text-3xl md:text-4xl text-white">₹1,499</span>
-              <span class="text-base text-white/40 line-through pb-1">₹4,999</span>
+          <aside class="rounded-2xl border border-white/[0.08] bg-[#0E0E0E] p-7 md:p-8 h-fit lg:sticky lg:top-6 reveal">
+            <p class="font-dm text-[18px] md:text-[20px] font-medium text-white tracking-[-0.04em]">Start today for just</p>
+            <div class="mt-3 flex items-end gap-3">
+              <span class="font-poppins text-[34px] md:text-[40px] font-semibold text-white tracking-[-0.06em] leading-none">₹1,499</span>
+              <span class="text-[20px] md:text-[24px] text-[#9e9e9e] line-through tracking-[-0.06em] pb-1">₹4999</span>
             </div>
             <a
               href={CTA_HREF}
               target="_blank"
               rel="noopener noreferrer"
-              class="gold-pill mt-5 inline-flex w-full items-center justify-center px-5 py-2.5 rounded-full text-sm"
+              class="buy-pill mt-5 inline-flex w-full items-center justify-center px-5 py-3 rounded-full text-[14px]"
             >
               Buy now at ₹1,499
             </a>
-            <p class="mt-2 text-[11px] text-amber-200/70 text-center">Limited Time Offer</p>
-
-            <p class="mt-6 mb-3 text-sm font-semibold text-white">What You'll Get?</p>
-            <ul class="space-y-2.5 text-xs md:text-sm text-white/75">
-              <li class="flex gap-2">📽️ <span>15+ Cinematic Lessons</span></li>
-              <li class="flex gap-2">🎬 <span>Watch in Tamil with English subtitles</span></li>
-              <li class="flex gap-2">🎓 <span>Certificate Signed by Lokesh Kanagaraj</span></li>
-              <li class="flex gap-2">✨ <span>100% satisfaction guarantee</span></li>
-              <li class="flex gap-2">🎁 <span>Bonus behind-the-scenes content</span></li>
+            <p class="mt-3 text-[14px] text-[#dfdee2]/80 text-center tracking-[-0.06em]">Limited Time Offer</p>
+            <hr class="my-6 border-white/[0.08]" />
+            <p class="text-[18px] md:text-[20px] font-medium text-[#dfdee2] tracking-[-0.06em]">What You'll Get?</p>
+            <ul class="mt-4 space-y-3 text-[14px] md:text-[15px] text-white/85">
+              <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>15+ Cinematic Lessons</span></li>
+              <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>Watch in Tamil with English subtitles</span></li>
+              <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>Certificate Signed by Lokesh Kanagaraj</span></li>
+              <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>100% satisfaction guarantee</span></li>
+              <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>Bonus behind-the-scenes content</span></li>
             </ul>
           </aside>
 
           <!-- Episodes accordion (React island) -->
-          <div>
-            <EpisodeAccordion episodes={episodes} initialVisible={4} client:visible />
+          <div class="reveal reveal-delay-2">
+            <EpisodeAccordion episodes={episodes} initialVisible={5} client:visible />
           </div>
         </div>
       </div>
     </section>
 
     <!-- ─── Director / Blockbuster films ─── -->
-    <section class="relative px-5 md:px-12 py-14 md:py-20 overflow-hidden">
-      <div class="max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-          <div>
-            <h2 class="font-cinzel text-gold text-3xl md:text-4xl lg:text-5xl leading-[1.1]">
-              Learn from the<br />Director Behind these<br />Blockbuster Films
+    <section class="relative px-5 md:px-12 py-14 md:py-24 overflow-hidden">
+      <div class="max-w-[1280px] mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
+          <div class="reveal">
+            <h2 class="font-cinzel text-gold text-[28px] md:text-[36px] lg:text-[45px] leading-[1.05] tracking-[-0.06em] font-semibold">
+              Learn from the
             </h2>
+            <p class="text-white text-[28px] md:text-[40px] lg:text-[55px] leading-[1.05] tracking-[-0.06em] font-semibold mt-1">
+              Director Behind these Blockbuster Films
+            </p>
             <a
               href={CTA_HREF}
               target="_blank"
               rel="noopener noreferrer"
-              class="gold-pill mt-7 inline-flex items-center justify-center px-6 py-2.5 rounded-full text-sm"
+              class="buy-pill mt-7 md:mt-8 inline-flex items-center justify-center px-6 py-2.5 md:px-7 md:py-3 rounded-full text-[14px] md:text-[15px]"
             >
               Buy now at ₹1,499
             </a>
           </div>
-          <div class="grid grid-cols-3 sm:grid-cols-4 gap-2.5 md:gap-3">
-            {films.slice(0, 8).map((f, i) => (
-              <div class={`relative aspect-[2/3] rounded-md overflow-hidden ring-1 ring-white/10 ${i % 2 === 0 ? "translate-y-2" : ""}`}>
-                <img
-                  src={f.img}
-                  alt={`${f.title} — Lokesh Kanagaraj film`}
-                  class="absolute inset-0 w-full h-full object-cover"
-                  loading="lazy"
-                  decoding="async"
-                />
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-2.5 reveal reveal-delay-2">
+            {blockbusterFilms.map((src, i) => (
+              <div class={`relative aspect-[2/3] rounded-md overflow-hidden ring-1 ring-white/[0.06] shadow-[0_15px_30px_-15px_rgba(0,0,0,0.7)] ${i % 2 === 0 ? "translate-y-0" : "translate-y-3 md:translate-y-4"}`}>
+                <img src={src} alt="Lokesh Kanagaraj film poster" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
             ))}
           </div>
@@ -347,54 +352,68 @@ const faq = faqJsonLd(faqs);
     </section>
 
     <!-- ─── Who is this program for? ─── -->
-    <section class="relative px-5 md:px-12 py-16 md:py-24 overflow-hidden">
-      <div class="max-w-4xl mx-auto text-center mb-10 md:mb-14">
-        <p class="text-[11px] tracking-[0.28em] uppercase text-white/45">Who is this program for?</p>
-        <h2 class="font-cinzel text-gold text-3xl md:text-4xl lg:text-5xl mt-2">
+    <section class="relative px-5 md:px-12 py-16 md:py-28 overflow-hidden">
+      <div class="max-w-3xl mx-auto text-center mb-12 md:mb-16 reveal">
+        <p class="font-cinzel text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Who is this</p>
+        <div class="my-4 section-tick"></div>
+        <h2 class="font-cinzel text-gold text-[36px] md:text-[48px] lg:text-[60px] leading-[1] tracking-[-0.06em] font-semibold">
           WHO IS THIS PROGRAM FOR?
         </h2>
       </div>
 
-      <div class="relative max-w-3xl mx-auto aspect-square">
-        <!-- Concentric rings -->
-        <div class="absolute inset-[12%] rounded-full border border-white/8"></div>
-        <div class="absolute inset-[24%] rounded-full border border-white/6"></div>
-        <div class="absolute inset-[36%] rounded-full border border-white/5"></div>
-
-        <!-- Central revolver -->
+      <div class="relative max-w-[950px] mx-auto aspect-square reveal reveal-delay-2">
+        <!-- Concentric ring background image -->
         <img
-          src={`${ASSET}/j4cesr5F5lQhfPl4kTf7hsjnQig.jpg`}
-          alt="Maanagaram revolver — Lokesh Kanagaraj signature motif"
-          class="absolute inset-[28%] w-[44%] h-[44%] object-contain z-10 mix-blend-screen opacity-90"
+          src={`${ASSET}/gLMGC2X0ny8oKkrYQltVNqAtyy0.png`}
+          alt=""
+          class="absolute inset-0 w-full h-full object-contain opacity-90"
           loading="lazy"
+          decoding="async"
+        />
+        <!-- Central revolver — the source PNG has a white background, so we
+             use mix-blend-mode: screen to drop the white and keep the gold. -->
+        <img
+          src={`${ASSET}/jWDMz6JCKJMeDWPQRsI7Vq1xbc.png`}
+          alt="Maanagaram revolver — Lokesh Kanagaraj signature motif"
+          class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[28%] h-auto z-10"
+          style="mix-blend-mode: screen; filter: drop-shadow(0 0 30px rgba(212,163,108,0.35));"
+          loading="lazy"
+          decoding="async"
         />
 
-        <!-- 6 floating pills around the circle -->
-        <span class="absolute top-[10%] left-[18%] gold-pill-outline px-4 py-2 rounded-full text-xs md:text-sm bg-black/85 border border-white/12 shadow-2xl float-slow">Dialogue Writers</span>
-        <span class="absolute top-[14%] right-[18%] px-4 py-2 rounded-full text-xs md:text-sm bg-black/85 border border-white/12 shadow-2xl float-slower">Cinema Lovers</span>
-        <span class="absolute top-[44%] left-[6%] px-4 py-2 rounded-full text-xs md:text-sm bg-black/85 border border-white/12 shadow-2xl float-slowest">Story Architects</span>
-        <span class="absolute top-[44%] right-[6%] px-4 py-2 rounded-full text-xs md:text-sm bg-black/85 border border-white/12 shadow-2xl float-slow">Visionary Filmmakers</span>
-        <span class="absolute bottom-[14%] left-[18%] px-4 py-2 rounded-full text-xs md:text-sm bg-black/85 border border-white/12 shadow-2xl float-slower">Future Directors</span>
-        <span class="absolute bottom-[10%] right-[18%] px-4 py-2 rounded-full text-xs md:text-sm bg-black/85 border border-white/12 shadow-2xl float-slowest">Film Dreamers</span>
+        <!-- 6 floating audience pills (positioned to match Framer ring layout) -->
+        {[
+          { label: "Dialogue Writers", className: "top-[8%] left-[8%]", float: "float-a" },
+          { label: "Cinema Lovers", className: "top-[12%] right-[8%]", float: "float-b" },
+          { label: "Story Architects", className: "top-[42%] -left-[2%]", float: "float-c" },
+          { label: "Visionary Filmmakers", className: "top-[42%] -right-[2%]", float: "float-a" },
+          { label: "Future Directors", className: "bottom-[8%] left-[12%]", float: "float-b" },
+          { label: "Film Dreamers", className: "bottom-[12%] right-[12%]", float: "float-c" },
+        ].map((p) => (
+          <span class={`absolute ${p.className} ${p.float} px-4 py-2 md:px-5 md:py-2.5 rounded-full text-[12px] md:text-[14px] tracking-[-0.02em] text-white bg-[#0E0E0E]/95 border border-white/[0.10] shadow-[0_10px_30px_-10px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-sm whitespace-nowrap`}>
+            {p.label}
+          </span>
+        ))}
       </div>
     </section>
 
     <!-- ─── Why Is This Masterclass For You ─── -->
-    <section class="relative px-5 md:px-12 py-16 md:py-24">
-      <div class="max-w-4xl mx-auto text-center mb-12 md:mb-16">
-        <p class="text-[11px] tracking-[0.28em] uppercase text-white/45">Why is this</p>
-        <h2 class="font-cinzel text-gold text-3xl md:text-4xl lg:text-5xl mt-2">
+    <section class="relative px-5 md:px-12 py-16 md:py-28">
+      <div class="max-w-3xl mx-auto text-center mb-14 md:mb-20 reveal">
+        <p class="font-cinzel text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Why is this</p>
+        <div class="my-4 section-tick"></div>
+        <h2 class="font-cinzel text-gold text-[32px] md:text-[42px] lg:text-[55px] leading-[1.05] tracking-[-0.05em] font-semibold">
           MASTERCLASS FOR YOU?
         </h2>
       </div>
 
-      <div class="max-w-5xl mx-auto relative">
+      <div class="max-w-[1080px] mx-auto relative">
         <!-- vertical timeline center line on desktop -->
-        <div class="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent hidden md:block"></div>
-        <div class="space-y-10 md:space-y-16">
+        <div class="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/15 to-transparent hidden md:block"></div>
+        <div class="space-y-12 md:space-y-20">
           {whyPoints.map((p, i) => (
-            <div class={`grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center ${i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""}`}>
-              <div class="relative aspect-[16/10] rounded-xl overflow-hidden ring-1 ring-white/10 bg-[#0a0a0a]">
+            <div class={`grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center reveal ${i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""}`}>
+              <div class="relative aspect-[16/9] rounded-xl overflow-hidden ring-1 ring-white/10 bg-[#0a0a0a] shadow-[0_20px_50px_-20px_rgba(0,0,0,0.7)]">
                 <video
                   src={p.media}
                   muted
@@ -405,7 +424,7 @@ const faq = faqJsonLd(faqs);
                   class="absolute inset-0 w-full h-full object-cover"
                 ></video>
               </div>
-              <p class="font-sans text-base md:text-lg leading-relaxed text-white/80 md:px-4">
+              <p class="text-[20px] md:text-[24px] leading-[1.5] tracking-[-0.06em] text-[#dfdee2] md:px-4">
                 {p.text}
               </p>
             </div>
@@ -414,9 +433,9 @@ const faq = faqJsonLd(faqs);
       </div>
     </section>
 
-    <!-- ─── Certificate banner ─── -->
-    <section class="relative px-5 md:px-12 py-12 md:py-16">
-      <div class="max-w-5xl mx-auto rounded-2xl overflow-hidden ring-1 ring-amber-200/15 shadow-[0_30px_80px_-20px_rgba(200,146,77,0.18)]">
+    <!-- ─── Certificate ─── -->
+    <section class="relative px-5 md:px-12 py-12 md:py-20">
+      <div class="max-w-[1085px] mx-auto rounded-2xl overflow-hidden ring-1 ring-amber-200/15 shadow-[0_30px_80px_-20px_rgba(212,163,108,0.18)] reveal">
         <img
           src={`${ASSET}/9F1ol75caTSZ1T06dL8apemH4B4.jpg`}
           alt="Certificate of Completion signed by Lokesh Kanagaraj"
@@ -424,24 +443,26 @@ const faq = faqJsonLd(faqs);
           loading="lazy"
         />
       </div>
-      <ul class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto">
+      <ul class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-[1085px] mx-auto">
         {[
           "Download or Print out as PDF to share with others",
           "Showcase on your Certificate on social media",
           "Share as image online to demonstrate your skill",
         ].map((t, i) => (
-          <li class="rounded-xl border border-white/10 bg-[#0E0E0E] p-5 md:p-6 flex gap-4">
-            <span class="font-cinzel text-2xl text-gold leading-none">0{i + 1}</span>
-            <span class="text-sm md:text-base text-white/80 leading-relaxed">{t}</span>
+          <li class="rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 flex gap-4 reveal" style={`transition-delay: ${i * 80}ms`}>
+            <span class="font-cinzel text-[28px] text-gold leading-none">0{i + 1}</span>
+            <span class="text-[15px] md:text-[19px] text-[#f2f2f2] leading-[1.45] tracking-[-0.02em] font-medium">{t}</span>
           </li>
         ))}
       </ul>
     </section>
 
     <!-- ─── Testimonials ─── -->
-    <section class="relative px-5 md:px-12 py-14 md:py-20 overflow-hidden">
-      <div class="max-w-5xl mx-auto text-center mb-10 md:mb-14">
-        <h2 class="font-cinzel text-gold text-2xl md:text-3xl lg:text-4xl">
+    <section class="relative px-5 md:px-12 py-16 md:py-24 overflow-hidden">
+      <div class="max-w-[1100px] mx-auto text-center mb-12 md:mb-16 reveal">
+        <p class="font-cinzel text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Reviews</p>
+        <div class="my-4 section-tick"></div>
+        <h2 class="font-cinzel text-gold text-[24px] md:text-[34px] lg:text-[42px] leading-[1.1] tracking-[-0.04em] font-semibold">
           THIS MAKES OUR HEART BEAT FASTER EVERYDAY
         </h2>
       </div>
@@ -449,14 +470,15 @@ const faq = faqJsonLd(faqs);
     </section>
 
     <!-- ─── What you'll get ─── -->
-    <section class="relative px-5 md:px-12 py-14 md:py-20">
-      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 items-start">
-        <div>
-          <p class="text-[11px] tracking-[0.28em] uppercase text-white/40">[03 Workflow]</p>
-          <h2 class="font-cinzel text-gold text-3xl md:text-4xl lg:text-5xl mt-2 leading-tight">
+    <section class="relative px-5 md:px-12 py-16 md:py-24">
+      <div class="max-w-[1180px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
+        <div class="reveal">
+          <p class="font-cinzel text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-[#dfdee2]/55">[03 Workflow]</p>
+          <div class="my-4 section-tick"></div>
+          <h2 class="font-cinzel text-gold text-[36px] md:text-[48px] lg:text-[60px] leading-[1.05] tracking-[-0.04em] font-semibold">
             What you'll get...
           </h2>
-          <p class="mt-5 text-sm md:text-base text-white/70 leading-relaxed max-w-md">
+          <p class="mt-6 text-[18px] md:text-[22px] lg:text-[24px] leading-[1.45] tracking-[-0.04em] text-white max-w-[480px] font-medium">
             Enroll now and get bonuses worth Rs.19,999 for free. There was never a better time to grab this on-demand
             program.
           </p>
@@ -464,27 +486,27 @@ const faq = faqJsonLd(faqs);
             href={CTA_HREF}
             target="_blank"
             rel="noopener noreferrer"
-            class="gold-pill mt-7 inline-flex items-center justify-center px-6 py-2.5 rounded-full text-sm"
+            class="buy-pill mt-8 inline-flex items-center justify-center px-7 py-3 rounded-full text-[14px] md:text-[15px]"
           >
             Buy now at ₹1,499
           </a>
         </div>
 
         <div class="space-y-3 md:space-y-4">
-          {whatYouGet.map((g) => (
-            <div class="rounded-xl border border-white/10 bg-[#0E0E0E] p-5 md:p-6 flex gap-4 md:gap-5">
-              <span class="font-cinzel text-3xl md:text-4xl text-gold leading-none shrink-0">{g.num}</span>
+          {whatYouGet.map((g, i) => (
+            <div class="rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 flex gap-4 md:gap-5 reveal" style={`transition-delay: ${(i + 1) * 80}ms`}>
+              <span class="font-cinzel text-[32px] md:text-[40px] text-gold leading-none shrink-0">{g.num}</span>
               <div>
-                <h3 class="text-sm md:text-base font-semibold text-white leading-snug">{g.title}</h3>
-                <p class="mt-1 text-xs md:text-sm text-white/60 leading-relaxed">{g.description}</p>
+                <h3 class="text-[18px] md:text-[22px] font-semibold text-white leading-[1.25] tracking-[-0.04em]">{g.title}</h3>
+                <p class="mt-1.5 text-[14px] md:text-[16px] text-[#a3a3a3] leading-[1.45]">{g.description}</p>
               </div>
             </div>
           ))}
 
           <!-- LCU bonus vault -->
-          <div class="rounded-xl border border-amber-200/30 bg-gradient-to-br from-[#1a1208] to-[#0a0604] p-6 md:p-7 mt-4">
-            <h3 class="font-cinzel text-gold text-xl md:text-2xl">The LCU Bonus Vault</h3>
-            <p class="mt-2 text-sm text-white/75">
+          <div class="rounded-xl border border-amber-200/30 bg-gradient-to-br from-[#1a1208] to-[#0a0604] p-6 md:p-7 mt-4 reveal reveal-delay-4">
+            <h3 class="font-cinzel text-gold text-[24px] md:text-[30px] lg:text-[40px] leading-[1.1] tracking-[-0.04em] font-semibold">The LCU Bonus Vault</h3>
+            <p class="mt-3 text-[16px] md:text-[20px] lg:text-[22px] leading-[1.4] tracking-[-0.02em] text-white">
               Exclusive Bonuses Worth ₹19,999 — Free for the first 100 enrollees
             </p>
           </div>
@@ -492,97 +514,89 @@ const faq = faqJsonLd(faqs);
       </div>
     </section>
 
-    <!-- ─── Closing pitch ─── -->
-    <section class="relative px-5 md:px-12 py-14 md:py-20">
-      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 items-center">
-        <div>
-          <h2 class="font-cinzel text-gold text-2xl md:text-3xl lg:text-4xl leading-[1.15]">
-            YOU'VE SEEN WHAT HE BUILDS ON SCREEN. NOW LEARN HOW HE BUILDS IT OFF SCREEN.
-          </h2>
-          <p class="mt-5 text-sm md:text-base text-white/70 leading-relaxed max-w-md">
-            If you're serious about filmmaking, this isn't just a class. It's a front-row seat to the thought process
-            behind some of Indian cinema's boldest work.
-          </p>
-          <a
-            href={CTA_HREF}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="gold-pill mt-7 inline-flex items-center justify-center px-6 py-2.5 rounded-full text-sm"
-          >
-            Buy now at ₹1,499
-          </a>
-        </div>
+    <!-- ─── Closing pitch + poster marquee ─── -->
+    <section class="relative py-16 md:py-24 overflow-hidden">
+      <div class="max-w-[1180px] mx-auto px-5 md:px-12 mb-12 md:mb-16 reveal">
+        <h2 class="font-cinzel text-gold text-[24px] md:text-[34px] lg:text-[40px] leading-[1.1] tracking-[-0.06em] font-semibold max-w-[820px]">
+          YOU'VE SEEN WHAT HE BUILDS ON SCREEN. NOW LEARN HOW HE BUILDS IT OFF SCREEN.
+        </h2>
+        <p class="mt-6 text-[14px] md:text-[16px] leading-[1.6] tracking-[-0.02em] text-[#dfdee2] max-w-[560px]">
+          If you're serious about filmmaking, this isn't just a class. It's a front-row seat to the thought process
+          behind some of Indian cinema's boldest work.
+        </p>
+        <a
+          href={CTA_HREF}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="buy-pill mt-8 inline-flex items-center justify-center px-7 py-3 rounded-full text-[14px] md:text-[15px]"
+        >
+          Buy now at ₹1,499
+        </a>
+      </div>
 
-        <div class="grid grid-cols-3 sm:grid-cols-4 gap-2 md:gap-3">
-          {closingPosters.slice(0, 8).map((src, i) => (
-            <div class={`relative aspect-[2/3] rounded-md overflow-hidden ring-1 ring-white/10 ${i % 2 === 0 ? "translate-y-2" : ""}`}>
-              <img src={src} alt="Lokesh Kanagaraj filmography poster" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
-            </div>
-          ))}
-        </div>
+      <!-- Two rows of marquees, opposite directions, like Framer's -->
+      <div class="space-y-3 md:space-y-4">
+        <PosterMarquee posters={blockbusterFilms} dir="left" speed={38} client:visible />
+        <PosterMarquee posters={[...blockbusterFilms].reverse()} dir="right" speed={42} client:visible />
       </div>
     </section>
 
     <!-- ─── FAQ ─── -->
-    <section class="relative px-5 md:px-12 py-16 md:py-24">
-      <div class="max-w-5xl mx-auto text-center mb-10 md:mb-14">
-        <p class="text-[11px] tracking-[0.28em] uppercase text-white/45">Questions?</p>
-        <h2 class="font-cinzel text-gold text-3xl md:text-4xl lg:text-5xl mt-2">
+    <section class="relative px-5 md:px-12 py-16 md:py-28">
+      <div class="max-w-5xl mx-auto text-center mb-12 md:mb-16 reveal">
+        <p class="font-cinzel text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Questions?</p>
+        <div class="my-4 section-tick"></div>
+        <h2 class="font-cinzel text-gold text-[36px] md:text-[48px] lg:text-[60px] leading-[1] tracking-[-0.06em] font-semibold">
           WE'VE GOT YOU COVERED!
         </h2>
         <a
           href={CTA_HREF}
           target="_blank"
           rel="noopener noreferrer"
-          class="gold-pill mt-7 inline-flex items-center justify-center px-6 py-2.5 rounded-full text-sm"
+          class="buy-pill mt-8 inline-flex items-center justify-center px-7 py-3 rounded-full text-[14px] md:text-[15px]"
         >
           Buy now at ₹1,499
         </a>
       </div>
-      <div class="max-w-5xl mx-auto">
+      <div class="max-w-5xl mx-auto reveal reveal-delay-2">
         <FAQAccordion faqs={faqs} client:visible />
       </div>
     </section>
 
     <!-- ─── Footer ─── -->
-    <footer class="relative bg-[#1a1a1a] mt-12 md:mt-20 px-5 md:px-12 py-10 md:py-14">
+    <footer class="relative bg-[#181818] mt-12 md:mt-20 px-5 md:px-12 py-12 md:py-16">
       <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 md:gap-12 items-center">
         <div class="text-center md:text-left">
-          <p class="text-xs md:text-sm text-white/55 max-w-2xl leading-relaxed">
+          <p class="text-[14px] text-[#dfdee2] max-w-2xl leading-[1.6] tracking-[-0.02em]">
             LevelUp Learning is an e-learning platform focused on creative arts like music, science, sports,
             film-making and other such skill development disciplines. Students can access pre-recorded lectures or
             tutorials by experts in various fields.
           </p>
-          <div class="mt-5 flex justify-center md:justify-start gap-4 text-white/60">
+          <div class="mt-6 flex justify-center md:justify-start gap-5 text-white/70">
             <a href="https://www.instagram.com/levelup_learning/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="hover:text-white transition-colors">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.43.36 1.06.41 2.23.07 1.25.07 1.65.07 4.85s0 3.6-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.43.16-1.06.36-2.23.41-1.25.07-1.65.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.43-.36-1.06-.41-2.23C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.43-.16 1.06-.36 2.23-.41C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.52 0-4.76.06-1.07.05-1.65.23-2.04.38-.51.2-.88.44-1.27.83-.39.39-.63.76-.83 1.27-.15.39-.33.97-.38 2.04C2.66 8.48 2.66 8.85 2.66 12s0 3.52.06 4.76c.05 1.07.23 1.65.38 2.04.2.51.44.88.83 1.27.39.39.76.63 1.27.83.39.15.97.33 2.04.38 1.24.06 1.61.06 4.76.06s3.52 0 4.76-.06c1.07-.05 1.65-.23 2.04-.38.51-.2.88-.44 1.27-.83.39-.39.63-.76.83-1.27.15-.39.33-.97.38-2.04.06-1.24.06-1.61.06-4.76s0-3.52-.06-4.76c-.05-1.07-.23-1.65-.38-2.04a3.4 3.4 0 0 0-.83-1.27 3.4 3.4 0 0 0-1.27-.83c-.39-.15-.97-.33-2.04-.38C15.52 4 15.15 4 12 4zm0 3.07a4.93 4.93 0 1 1 0 9.86 4.93 4.93 0 0 1 0-9.86zm0 1.8a3.13 3.13 0 1 0 0 6.26 3.13 3.13 0 0 0 0-6.26zm5.13-2.27a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.43.36 1.06.41 2.23.07 1.25.07 1.65.07 4.85s0 3.6-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.43.16-1.06.36-2.23.41-1.25.07-1.65.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.43-.36-1.06-.41-2.23C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.43-.16 1.06-.36 2.23-.41C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.52 0-4.76.06-1.07.05-1.65.23-2.04.38-.51.2-.88.44-1.27.83-.39.39-.63.76-.83 1.27-.15.39-.33.97-.38 2.04C2.66 8.48 2.66 8.85 2.66 12s0 3.52.06 4.76c.05 1.07.23 1.65.38 2.04.2.51.44.88.83 1.27.39.39.76.63 1.27.83.39.15.97.33 2.04.38 1.24.06 1.61.06 4.76.06s3.52 0 4.76-.06c1.07-.05 1.65-.23 2.04-.38.51-.2.88-.44 1.27-.83.39-.39.63-.76.83-1.27.15-.39.33-.97.38-2.04.06-1.24.06-1.61.06-4.76s0-3.52-.06-4.76c-.05-1.07-.23-1.65-.38-2.04a3.4 3.4 0 0 0-.83-1.27 3.4 3.4 0 0 0-1.27-.83c-.39-.15-.97-.33-2.04-.38C15.52 4 15.15 4 12 4zm0 3.07a4.93 4.93 0 1 1 0 9.86 4.93 4.93 0 0 1 0-9.86zm0 1.8a3.13 3.13 0 1 0 0 6.26 3.13 3.13 0 0 0 0-6.26zm5.13-2.27a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3z"/></svg>
             </a>
             <a href="https://www.linkedin.com/company/levelup-learning/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="hover:text-white transition-colors">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14C2.24 0 0 2.24 0 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5V5c0-2.76-2.24-5-5-5zM7.5 19h-3v-9h3v9zM6 8.7a1.7 1.7 0 1 1 0-3.4 1.7 1.7 0 0 1 0 3.4zM20 19h-3v-4.7c0-1.1-.4-1.9-1.4-1.9-.8 0-1.3.5-1.5 1-.1.2-.1.5-.1.7V19h-3s.04-7.6 0-9h3v1.3c.4-.6 1.1-1.5 2.7-1.5 2 0 3.5 1.3 3.5 4V19z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14C2.24 0 0 2.24 0 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5V5c0-2.76-2.24-5-5-5zM7.5 19h-3v-9h3v9zM6 8.7a1.7 1.7 0 1 1 0-3.4 1.7 1.7 0 0 1 0 3.4zM20 19h-3v-4.7c0-1.1-.4-1.9-1.4-1.9-.8 0-1.3.5-1.5 1-.1.2-.1.5-.1.7V19h-3s.04-7.6 0-9h3v1.3c.4-.6 1.1-1.5 2.7-1.5 2 0 3.5 1.3 3.5 4V19z"/></svg>
             </a>
             <a href="https://x.com/LevelUp_edu" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" class="hover:text-white transition-colors">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
             </a>
           </div>
         </div>
-        <div class="text-center md:text-right text-xs text-white/45 space-y-2">
-          <p>Copyright © 2025 LevelUp Learning · All Rights Reserved</p>
-          <p class="space-x-4">
-            <a href="/privacy-policy" class="hover:text-white">Privacy Policy</a>
-            <a href="/terms" class="hover:text-white">Terms Of Service</a>
+        <div class="text-center md:text-right text-[14px] text-[#dfdee2] space-y-2">
+          <p class="font-medium tracking-[-0.02em]">Copyright © 2025 LevelUp Learning · All Rights Reserved</p>
+          <p class="space-x-4 tracking-[-0.04em]">
+            <a href="/privacy-policy" class="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="/terms" class="hover:text-white transition-colors">Terms Of Service</a>
           </p>
         </div>
       </div>
     </footer>
 
-    <!-- Reveal-on-scroll JS -->
-    <script>
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add("in");
-        });
-      }, { threshold: 0.12 });
-      document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
-    </script>
+    <!-- No-op for now: scroll reveals removed to ensure content is always visible.
+         To re-enable in a way that doesn't hurt SEO/screenshots, add an Embla-style
+         "play once when in view" approach with explicit Animations API per element. -->
+    <script>{/* placeholder */}</script>
   </main>
 </BaseLayout>
