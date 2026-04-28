@@ -53,7 +53,7 @@ const masterclasses = [
     descriptor: "From the village of Basrur to revolutionizing Sandalwood music",
     format: "Music Director",
     category: "Music",
-    href: "https://masterclass.leveluplearning.in/ravi-basrur",
+    href: "/masterclass/ravi-basrur",
   },
   {
     image: lokeshImg,
@@ -69,7 +69,7 @@ const masterclasses = [
     descriptor: "The art of commercial filmmaking",
     format: "Filmmaker",
     category: "Filmmaking",
-    href: "https://masterclass.leveluplearning.in/nelson-dilipkumar",
+    href: "/masterclass/nelson-dilipkumar",
   },
 ];
 

@@ -5,6 +5,7 @@ import FAQAccordion from "@/components/lokesh/FAQAccordion";
 import TestimonialCarousel from "@/components/lokesh/TestimonialCarousel";
 import LokeshTrailer from "@/components/lokesh/LokeshTrailer";
 import PosterMarquee from "@/components/lokesh/PosterMarquee";
+import HoverPlayVideo from "@/components/lokesh/HoverPlayVideo";
 import { courseJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/structuredData";
 
 const ASSET = "/masterclass/lokesh";
@@ -416,15 +417,7 @@ const faq = faqJsonLd(faqs);
           {whyPoints.map((p, i) => (
             <div class={`grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center reveal ${i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""}`}>
               <div class="relative aspect-[16/9] rounded-xl overflow-hidden ring-1 ring-white/10 bg-[#0a0a0a] shadow-[0_20px_50px_-20px_rgba(0,0,0,0.7)]">
-                <video
-                  src={p.media}
-                  muted
-                  loop
-                  playsinline
-                  autoplay
-                  preload="none"
-                  class="absolute inset-0 w-full h-full object-cover"
-                ></video>
+                <HoverPlayVideo src={p.media} className="w-full h-full" client:visible />
               </div>
               <p class="text-[20px] md:text-[24px] leading-[1.5] tracking-[-0.06em] text-[#dfdee2] md:px-4">
                 {p.text}
