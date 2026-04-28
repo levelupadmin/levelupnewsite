@@ -52,6 +52,43 @@ async function main() {
   const stories = storiesMod.studentStories;
   const masterclasses = [ag.default, dk.default, gvr.default];
 
+  // Framer-cloned masterclasses (no .ts data files; one-off Astro pages)
+  const framerMasterclasses = [
+    {
+      slug: "lokesh-kanagaraj",
+      name: "Lokesh Kanagaraj",
+      discipline: "Filmmaking",
+      seoDescription: "Master the craft of filmmaking with Lokesh Kanagaraj — director of Kaithi, Master, Vikram, and Leo. 15 cinematic lessons. Tamil with English subtitles. Signed Certificate. ₹1,499.",
+      audience: "Aspiring filmmakers, dialogue writers, story architects, visionary directors, future directors, cinema lovers, film dreamers.",
+      films: ["Kaithi", "Master", "Vikram", "Leo", "Maanagaram"],
+      lessons: 15,
+      durationMin: 120,
+      price: 1499,
+    },
+    {
+      slug: "nelson-dilipkumar",
+      name: "Nelson Dilipkumar",
+      discipline: "Filmmaking",
+      seoDescription: "Master storytelling and direction with Nelson Dilipkumar — director of Kolamaavu Kokila, Doctor, Beast, Jailer. 29 video lessons. Tamil with English subtitles. Signed Certificate. ₹2,499.",
+      audience: "Filmmakers, screenwriters, assistant directors, mass-comm students, story-driven creators who admire Nelson's tone-balancing approach.",
+      films: ["Kolamaavu Kokila", "Doctor", "Beast", "Jailer"],
+      lessons: 29,
+      durationMin: 140,
+      price: 2499,
+    },
+    {
+      slug: "ravi-basrur",
+      name: "Ravi Basrur",
+      discipline: "Music Composition",
+      seoDescription: "Learn film scoring with Ravi Basrur, music director of KGF, Mufti, Ugramm, Salaar. 16 video lessons. Tamil with English subtitles. Signed Certificate. ₹2,499 lifetime access.",
+      audience: "Aspiring composers, intermediate musicians, sound designers, music directors, film-music enthusiasts.",
+      films: ["KGF Chapter 1", "KGF Chapter 2", "Mufti", "Ugramm", "Salaar"],
+      lessons: 16,
+      durationMin: 310,
+      price: 2499,
+    },
+  ];
+
   const llmsTxt = `# LevelUp Learning
 
 > India's leading creative education ecosystem for filmmakers, editors, writers, and designers. Mentor-led live programs, on-demand masterclasses by India's top directors, and immersive residencies.
@@ -65,9 +102,10 @@ LevelUp Learning trains 18,000+ creators across India through three program trac
 
 ## Masterclasses
 
-${masterclasses
-  .map((m) => `- [${m.name}](${SITE_URL}/masterclass/${m.slug}): ${m.seo.description}`)
-  .join("\n")}
+${[
+  ...masterclasses.map((m) => `- [${m.name}](${SITE_URL}/masterclass/${m.slug}): ${m.seo.description}`),
+  ...framerMasterclasses.map((m) => `- [${m.name}](${SITE_URL}/masterclass/${m.slug}): ${m.seoDescription}`),
+].join("\n")}
 
 ## Student Stories
 
@@ -118,6 +156,17 @@ LevelUp Learning is India's leading creative education ecosystem for filmmakers,
         llmsFullTxt += `Q: ${f.question}\nA: ${f.answer}\n\n`;
       }
     }
+    llmsFullTxt += `---\n\n`;
+  }
+
+  // Add Framer-cloned masterclasses too
+  for (const m of framerMasterclasses) {
+    llmsFullTxt += `### ${m.name}\n\nURL: ${SITE_URL}/masterclass/${m.slug}\n\n`;
+    llmsFullTxt += `${m.seoDescription}\n\n`;
+    llmsFullTxt += `**Discipline:** ${m.discipline}\n`;
+    llmsFullTxt += `**Lessons:** ${m.lessons} | **Duration:** ~${m.durationMin} mins | **Price:** ₹${m.price} lifetime access\n`;
+    llmsFullTxt += `**Audience:** ${m.audience}\n`;
+    llmsFullTxt += `**Films covered:** ${m.films.join(", ")}\n\n`;
     llmsFullTxt += `---\n\n`;
   }
 
