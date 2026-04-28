@@ -225,8 +225,8 @@ const faq = faqJsonLd(faqs);
       <div class="star-bg absolute inset-0 pointer-events-none opacity-60"></div>
 
       <!-- Hero video bg (the original Framer page uses this exact video) -->
-      <div class="relative max-w-[1280px] mx-auto px-5 md:px-12 pt-6 md:pt-10">
-        <div class="relative aspect-[16/9] md:aspect-[16/8] rounded-[14px] overflow-hidden bg-black grain ring-1 ring-white/[0.06]">
+      <div class="relative max-w-[1320px] mx-auto px-4 md:px-8 pt-3 md:pt-4">
+        <div class="relative aspect-[16/9] md:aspect-[16/7.8] rounded-[10px] overflow-hidden bg-black ring-1 ring-white/[0.06]">
           <video
             src={`${ASSET}/8aQnJtJnDomXGCoq8SMNrwjXL4.mp4`}
             poster={`${ASSET}/JA7LjstCBpKLub03f5p6KgzoBE.png`}
@@ -237,15 +237,16 @@ const faq = faqJsonLd(faqs);
             preload="metadata"
             class="absolute inset-0 w-full h-full object-cover"
           ></video>
-          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-black/30 pointer-events-none"></div>
+          <!-- Light bottom gradient only, to bridge into the page bg without darkening the hero -->
+          <div class="absolute inset-x-0 bottom-0 h-[35%] bg-gradient-to-t from-black/55 to-transparent pointer-events-none"></div>
         </div>
 
         <!-- Headline + sub + CTA — using Inter (matches Framer's actual h1 typography) -->
-        <div class="relative mt-9 md:mt-12 text-center max-w-3xl mx-auto reveal">
-          <h1 class="text-white text-[22px] md:text-[28px] lg:text-[35px] leading-[1.18] tracking-[-0.02em] font-semibold">
-            Master the Craft of Filmmaking with Visionary Director Lokesh Kanagaraj
+        <div class="relative mt-5 md:mt-7 text-center max-w-3xl mx-auto pb-2 md:pb-4">
+          <h1 class="text-white text-[22px] md:text-[28px] lg:text-[35px] leading-[1.2] tracking-[-0.025em] font-semibold">
+            Master the Craft of Filmmaking with Visionary Director <span class="text-gold">Lokesh Kanagaraj</span>
           </h1>
-          <p class="mt-5 md:mt-7 text-[14px] md:text-[16px] lg:text-[19px] leading-[1.55] tracking-[-0.02em] text-[#dfdee2]/80 max-w-[640px] mx-auto">
+          <p class="mt-4 md:mt-5 text-[14px] md:text-[15px] lg:text-[17px] leading-[1.55] tracking-[-0.02em] text-[#dfdee2]/75 max-w-[640px] mx-auto">
             Join the mastermind behind cinematic blockbusters like Kaithi, Master, and Vikram in this exclusive
             masterclass. Learn how to tell powerful stories, build unforgettable characters, and create films that
             captivate millions.
@@ -254,13 +255,13 @@ const faq = faqJsonLd(faqs);
             href={CTA_HREF}
             target="_blank"
             rel="noopener noreferrer"
-            class="buy-pill mt-8 md:mt-9 inline-flex items-center justify-center px-7 py-3 md:px-8 md:py-3.5 rounded-full text-[14px] md:text-[16px]"
+            class="buy-pill mt-6 md:mt-7 inline-flex items-center justify-center px-7 py-3 md:px-8 md:py-3.5 rounded-full text-[14px] md:text-[15px]"
           >
             Buy now at ₹1,499
           </a>
         </div>
       </div>
-      <div class="h-12 md:h-20"></div>
+      <div class="h-10 md:h-16"></div>
     </section>
 
     <!-- ─── Trailer ─── -->
@@ -352,45 +353,46 @@ const faq = faqJsonLd(faqs);
     </section>
 
     <!-- ─── Who is this program for? ─── -->
-    <section class="relative px-5 md:px-12 py-16 md:py-28 overflow-hidden">
-      <div class="max-w-3xl mx-auto text-center mb-12 md:mb-16 reveal">
+    <section class="relative px-5 md:px-12 py-16 md:py-24 overflow-hidden">
+      <div class="max-w-5xl mx-auto text-center mb-10 md:mb-14 reveal">
         <p class="font-cinzel text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Who is this</p>
         <div class="my-4 section-tick"></div>
-        <h2 class="font-cinzel text-gold text-[36px] md:text-[48px] lg:text-[60px] leading-[1] tracking-[-0.06em] font-semibold">
+        <h2 class="font-cinzel text-gold text-[28px] md:text-[44px] lg:text-[56px] leading-[1.05] tracking-[-0.04em] font-semibold whitespace-nowrap">
           WHO IS THIS PROGRAM FOR?
         </h2>
       </div>
 
-      <div class="relative max-w-[950px] mx-auto aspect-square reveal reveal-delay-2">
-        <!-- Concentric ring background image -->
+      <div class="relative max-w-[820px] mx-auto aspect-square reveal reveal-delay-2">
+        <!-- Concentric ring background image (slightly brighter for visibility) -->
         <img
           src={`${ASSET}/gLMGC2X0ny8oKkrYQltVNqAtyy0.png`}
           alt=""
-          class="absolute inset-0 w-full h-full object-contain opacity-90"
+          class="absolute inset-0 w-full h-full object-contain"
+          style="filter: brightness(1.4) contrast(1.1);"
           loading="lazy"
           decoding="async"
         />
-        <!-- Central revolver — the source PNG has a white background, so we
-             use mix-blend-mode: screen to drop the white and keep the gold. -->
+        <!-- Central revolver — the source PNG has a white background, so
+             mix-blend-mode: screen drops the white and keeps the gold. -->
         <img
           src={`${ASSET}/jWDMz6JCKJMeDWPQRsI7Vq1xbc.png`}
           alt="Maanagaram revolver — Lokesh Kanagaraj signature motif"
-          class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[28%] h-auto z-10"
-          style="mix-blend-mode: screen; filter: drop-shadow(0 0 30px rgba(212,163,108,0.35));"
+          class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[36%] h-auto z-10"
+          style="mix-blend-mode: screen; filter: drop-shadow(0 0 40px rgba(212,163,108,0.45));"
           loading="lazy"
           decoding="async"
         />
 
-        <!-- 6 floating audience pills (positioned to match Framer ring layout) -->
+        <!-- 6 floating audience pills, positioned tightly around the revolver -->
         {[
-          { label: "Dialogue Writers", className: "top-[8%] left-[8%]", float: "float-a" },
-          { label: "Cinema Lovers", className: "top-[12%] right-[8%]", float: "float-b" },
-          { label: "Story Architects", className: "top-[42%] -left-[2%]", float: "float-c" },
-          { label: "Visionary Filmmakers", className: "top-[42%] -right-[2%]", float: "float-a" },
-          { label: "Future Directors", className: "bottom-[8%] left-[12%]", float: "float-b" },
-          { label: "Film Dreamers", className: "bottom-[12%] right-[12%]", float: "float-c" },
+          { label: "Dialogue Writers", className: "top-[14%] left-[14%]", float: "float-a" },
+          { label: "Cinema Lovers", className: "top-[14%] right-[14%]", float: "float-b" },
+          { label: "Story Architects", className: "top-[44%] left-[4%]", float: "float-c" },
+          { label: "Visionary Filmmakers", className: "top-[44%] right-[4%]", float: "float-a" },
+          { label: "Future Directors", className: "bottom-[14%] left-[18%]", float: "float-b" },
+          { label: "Film Dreamers", className: "bottom-[14%] right-[18%]", float: "float-c" },
         ].map((p) => (
-          <span class={`absolute ${p.className} ${p.float} px-4 py-2 md:px-5 md:py-2.5 rounded-full text-[12px] md:text-[14px] tracking-[-0.02em] text-white bg-[#0E0E0E]/95 border border-white/[0.10] shadow-[0_10px_30px_-10px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-sm whitespace-nowrap`}>
+          <span class={`absolute ${p.className} ${p.float} z-20 px-3.5 py-1.5 md:px-4 md:py-2 rounded-full text-[11px] md:text-[13px] tracking-[-0.01em] text-white bg-gradient-to-b from-[#191919] to-[#0a0a0a] border border-white/[0.10] shadow-[0_10px_30px_-10px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-sm whitespace-nowrap`}>
             {p.label}
           </span>
         ))}
