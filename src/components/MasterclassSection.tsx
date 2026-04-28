@@ -61,7 +61,7 @@ const masterclasses = [
     descriptor: "The art and craft of filmmaking",
     format: "Filmmaker",
     category: "Filmmaking",
-    href: "https://masterclass.leveluplearning.in/lokesh-kanagaraj",
+    href: "/masterclass/lokesh-kanagaraj",
   },
   {
     image: nelsonImg,

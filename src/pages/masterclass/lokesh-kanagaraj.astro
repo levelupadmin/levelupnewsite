@@ -1,0 +1,588 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import EpisodeAccordion from "@/components/lokesh/EpisodeAccordion";
+import FAQAccordion from "@/components/lokesh/FAQAccordion";
+import TestimonialCarousel from "@/components/lokesh/TestimonialCarousel";
+import { courseJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/structuredData";
+
+const ASSET = "/masterclass/lokesh";
+
+const episodes = [
+  { number: 1, title: "The Journey Behind the Lens", description: "Understand how Lokesh Kanagaraj transitioned from film enthusiast to one of India's most influential directors. Learn what shaped his cinematic voice, and how each stage of his journey—from short films to box-office hits—influenced the way he writes and directs today." },
+  { number: 2, title: "Finding Your Story — Ideation & Pre-visualisation", description: "Learn how to turn real-world observations, memories, and events into compelling cinematic ideas. Lokesh breaks down how he develops core concepts, separates the role of writer and director, and pre-visualizes scenes to strengthen clarity before writing a single line of dialogue." },
+  { number: 3, title: "Research as a Filmmaker's Superpower", description: "Explore how in-depth research creates more believable worlds and characters. Through Maanagaram, Lokesh shows how grounded story development enhances authenticity, emotional depth, and audience immersion." },
+  { number: 4, title: "Structuring Conflict — Lokesh's Approach to Screenwriting", description: "Go beyond the traditional three-act structure and learn Lokesh's unique writing method, which begins with the midpoint conflict. Discover how he builds escalating tension, character motivations, and story arcs that hold attention from start to finish." },
+  { number: 5, title: "Writing Action That Serves the Story", description: "Learn how to script action scenes that are emotionally driven, not just visually impressive. Lokesh uses the Leo café fight to break down how action emerges from character and conflict, and how he ensures every beat supports the overall narrative." },
+  { number: 6, title: "Building Characters with Emotional Truth", description: "Understand how to create characters rooted in reality, with layered motivations and organic arcs. Lokesh uses JD from Master to demonstrate how he develops protagonists that feel both larger-than-life and deeply human." },
+  { number: 7, title: "Visual Characterization — Costumes, Props & Palette", description: "Learn how to enhance character depth through visual storytelling. Lokesh shows how lighting, costume design, props, and even posture contribute to how a character is perceived—across both lead and supporting roles." },
+  { number: 8, title: "Assembling the Right Crew", description: "Discover how to build a creative team that aligns with your vision. Lokesh shares how he chooses technicians, communicates his intent, and builds trust with collaborators—especially when working with experienced senior artists." },
+  { number: 9, title: "Directing with the Edit in Mind", description: "Learn how Lokesh makes editing decisions on set—knowing exactly when to call cut, what coverage to capture, and how to reduce editing guesswork. Using Leo and Maanagaram, he shows how preemptive thinking creates tighter, more powerful scenes in post." },
+  { number: 10, title: "Crafting a Directorial Signature", description: "Explore how visual, tonal, and musical choices form a director's creative identity. Lokesh reflects on how he developed recurring elements like graphic violence, red hues, and nostalgic music—and how you can identify and refine your own style." },
+  { number: 11, title: "Scouting Locations with Intent", description: "Go inside the location scouting process as Lokesh explains how to evaluate settings not just for logistics, but for emotional and narrative value. He walks through the Maanagaram recce process to show how space impacts scene design and flow." },
+  { number: 12, title: "Designing Sound for Maximum Impact", description: "Learn how sound becomes a storytelling tool. Lokesh explains how he avoids generic SFX, collaborates with sound designers, and builds sonic identities for violence, silence, and suspense—so that every punch or pause feels intentional." },
+  { number: 13, title: "Art Direction and Worldbuilding", description: "Join Lokesh and Art Director Sathish as they break down how detailed props and constructed sets enhance immersion. Learn how long-term planning and material specificity create believable, character-driven environments." },
+  { number: 14, title: "The Art of Choosing a Title", description: "Titles are more than names—they're promises. Lokesh walks through how he approaches naming a film, what a title should communicate, and how to make sure it emotionally primes the audience for what's to come." },
+  { number: 15, title: "Directing with Conviction", description: "Explore why belief in your vision is essential to leadership on set. Lokesh shares personal reflections on how conviction affects creative choices, motivates teams, and shapes how a director earns trust—from cast, crew, and ultimately, the audience." },
+];
+
+const films = [
+  { title: "Maanagaram", img: `${ASSET}/j4cesr5F5lQhfPl4kTf7hsjnQig.jpg` },
+  { title: "Master", img: `${ASSET}/04Cf0uXU0vEBtH4J8UrhaoPJiQ.jpg` },
+  { title: "Vikram", img: `${ASSET}/Jcj8R4DDPGpXDCkQoAFyLRKs7QU.jpg` },
+  { title: "Vikram", img: `${ASSET}/Qpn5TQOmeYZbYnxr4McJJH6uOw.jpg` },
+  { title: "Master", img: `${ASSET}/FWEnra8ZQKbfIkqyiiykegyWs.jpg` },
+  { title: "Vikram", img: `${ASSET}/gZ9HcLl2faSNfZTpoijUURhY.jpg` },
+  { title: "Leo", img: `${ASSET}/U0FxB89SjVjlw4BtKHJ7BFhVBbA.jpg` },
+  { title: "Leo", img: `${ASSET}/XZ4KzM9wYcH1L44R7i3lJ4pwrmo.jpg` },
+];
+
+const audiencePills = [
+  "Dialogue Writers",
+  "Cinema Lovers",
+  "Story Architects",
+  "Visionary Filmmakers",
+  "Future Directors",
+  "Film Dreamers",
+];
+
+const whyPoints = [
+  { text: "Think deeply about how to hold tension in a scene", media: `${ASSET}/26CFLF2bceo1gPHo0Ym7j0XCvpk.mp4` },
+  { text: "Want to make commercial films without losing their voice", media: `${ASSET}/7QzbsFgQTSSzaAv6Dcck8ojMM.mp4` },
+  { text: "Obsess over blocking, rhythm, and how a moment plays out", media: `${ASSET}/L8ieeHyCMKFLYu81oQP94SiIeA.mp4` },
+  { text: "Want to learn how to build characters and connect stories across films", media: `${ASSET}/bde3HTTNMxkFrA7MzjnrHX2bMLg.mp4` },
+  { text: "Believe great action is nothing without emotional clarity", media: `${ASSET}/l7tzkJqE0KZoqzqeh6BCa8nj0oo.mp4` },
+];
+
+const testimonials = [
+  { name: "Swetha", role: "Aspiring Writer, Jaipur", quote: "I've been on film sets for four years, but Lokesh still made me pause. The way he builds character through actions, glances, and silences is powerful. He's not teaching theory just pure instinct.", image: `${ASSET}/7hJXjAnFQFhrHeIHhWAx3PQ17E.png` },
+  { name: "Hari", role: "Product Manager, Mumbai", quote: "His take on emotional hooks in 'mass' scenes really stuck with me. He doesn't go loud for the sake of it he builds stakes first, then lands the punch. It's not about noise, it's about feeling.", image: `${ASSET}/c6YH9xoHd2ETCvdfslf2Fh2ak.jpg` },
+  { name: "Prasath", role: "Marketing Lead, Bengaluru", quote: "I don't work in films. I lead a product team in tech. But storytelling matters everywhere. Lokesh's take on emotion, reveals, and rhythm felt surprisingly relevant like building a great pitch deck.", image: `${ASSET}/vtsct4yeHdQKJcFLxyEhRk40iKk.jpg` },
+];
+
+const whatYouGet = [
+  { num: "01", title: "Exclusive Access to Lokesh's Creative Process", description: "Learn how he built the Lokesh Cinematic Universe (LCU)" },
+  { num: "02", title: "2+ Hours of Expert Lessons", description: "Go behind the scenes of blockbuster storytelling." },
+  { num: "03", title: "Signed Certificate from Lokesh Kanagaraj", description: "Showcase your new skills with pride" },
+  { num: "04", title: "Downloadable Workbooks & Exercises", description: "Apply filmmaking concepts step by step" },
+];
+
+const closingPosters = [
+  `${ASSET}/04Cf0uXU0vEBtH4J8UrhaoPJiQ.jpg`,
+  `${ASSET}/FWEnra8ZQKbfIkqyiiykegyWs.jpg`,
+  `${ASSET}/U0FxB89SjVjlw4BtKHJ7BFhVBbA.jpg`,
+  `${ASSET}/Qpn5TQOmeYZbYnxr4McJJH6uOw.jpg`,
+  `${ASSET}/Jcj8R4DDPGpXDCkQoAFyLRKs7QU.jpg`,
+  `${ASSET}/gZ9HcLl2faSNfZTpoijUURhY.jpg`,
+  `${ASSET}/XZ4KzM9wYcH1L44R7i3lJ4pwrmo.jpg`,
+  `${ASSET}/j4cesr5F5lQhfPl4kTf7hsjnQig.jpg`,
+];
+
+const faqs = [
+  { question: "Is this a technical filmmaking course?", answer: "No. This is not a technical or academic filmmaking course. Lokesh isn't teaching shot sizes or camera gear. He's walking you through how he thinks, how he builds stories, choreographs action, directs actors, and balances emotion with mass appeal." },
+  { question: "What do I get when I enroll?", answer: "This course includes 20+ detailed lessons from Lokesh Kanagaraj, offering full lifetime access so you can learn at your own pace. You'll also receive a signed Certificate of Completion, along with access to downloadable PDFs and case notes for deeper insights. Plus, you'll gain entry into our exclusive creative community, where you can join discussions and events with like-minded storytellers." },
+  { question: "Who is this Masterclass for?", answer: "This is for anyone who loves cinema and wants to understand how powerful films are made from instinct, rhythm, and emotional clarity not just craft. Whether you're a film student, aspiring director, AD, editor, content creator, or just a curious movie buff—there's something here for you." },
+  { question: "What language is the course in?", answer: "The lessons are in simple Tamil with English Subtitles, spoken in Lokesh's natural, conversational tone. Dubbed versions will soon be available in Hindi, Telugu, Kannada and Malayalam." },
+  { question: "Do I need any prior experience in filmmaking?", answer: "No experience required. Lokesh himself didn't come up through film school. His process is grounded in observation, passion, and working with teams. You'll understand his approach even if you're completely new to the world of filmmaking." },
+  { question: "No film background. Will it help?", answer: "Absolutely. Many learners from tech, design, marketing, and education backgrounds have taken this course. If you're a storyteller in any form, you'll connect deeply with Lokesh's process." },
+  { question: "Will I learn how to shoot or write scripts?", answer: "Not in the traditional sense. You won't learn formatting or gear settings. But you will learn how Lokesh crafts moments — how he edits tension, blocks scenes, handles stars and newcomers, builds layered arcs, and choreographs emotion into action. It's real, applicable, and deeply intuitive." },
+  { question: "Do I get a certificate?", answer: "Yes. Upon completing the course, you'll receive a Certificate of Completion signed by Lokesh Kanagaraj. You can download and share it on social media or add it to your creative portfolio." },
+  { question: "How long is the Masterclass?", answer: "The course includes 20+ video lessons with over 100 mins of content. You can watch it at your own pace — rewind, revisit, pause and absorb whenever you like." },
+  { question: "Is this a one-time payment?", answer: "Yes. You pay once and get lifetime access. No renewals, no subscription just unlock it once and revisit anytime." },
+];
+
+const CTA_HREF = "https://courses.leveluplearning.in/courses/Lokesh-Kanagaraj-Masterclass-685dabec38a4ee3a78d11f0e";
+
+const course = courseJsonLd({
+  name: "Lokesh Kanagaraj Filmmaking Masterclass",
+  description: "Learn how to tell powerful stories, build unforgettable characters, and create films that captivate millions, with director Lokesh Kanagaraj — the mastermind behind Kaithi, Master, Vikram and Leo.",
+  path: "/masterclass/lokesh-kanagaraj",
+  instructorName: "Lokesh Kanagaraj",
+  image: `${ASSET}/JA7LjstCBpKLub03f5p6KgzoBE.png`,
+  courseMode: "online",
+});
+const breadcrumb = breadcrumbJsonLd([
+  { name: "Home", path: "/" },
+  { name: "Masterclasses", path: "/" },
+  { name: "Lokesh Kanagaraj", path: "/masterclass/lokesh-kanagaraj" },
+]);
+const faq = faqJsonLd(faqs);
+---
+
+<BaseLayout
+  title="Lokesh Kanagaraj Masterclass — LevelUp Learning"
+  description="Master the craft of filmmaking with Visionary Director Lokesh Kanagaraj. 15 cinematic lessons. Tamil with English subtitles. Signed Certificate. ₹1,499."
+  path="/masterclass/lokesh-kanagaraj"
+  type="course"
+  ogImage={`${ASSET}/JA7LjstCBpKLub03f5p6KgzoBE.png`}
+  preloadImage={`${ASSET}/JA7LjstCBpKLub03f5p6KgzoBE.png`}
+  jsonLd={[course, breadcrumb, faq]}
+>
+  <link rel="preconnect" href="https://fonts.googleapis.com" slot="head" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin slot="head" />
+
+  <style is:global>
+    @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=DM+Serif+Display&family=Manrope:wght@300;400;500;600;700&display=swap");
+
+    .lokesh-page {
+      --gold: #c8924d;
+      --gold-bright: #e3b671;
+      --gold-dim: #87673b;
+      --bg: #050505;
+      --bg-card: #0e0e0e;
+      --bg-card-hover: #1a1a1a;
+      background: var(--bg);
+      color: rgba(255, 255, 255, 0.92);
+      font-family: "Manrope", system-ui, sans-serif;
+    }
+    .lokesh-page h1, .lokesh-page h2, .lokesh-page h3 { letter-spacing: 0.02em; }
+    .font-cinzel { font-family: "Cinzel", "DM Serif Display", serif; letter-spacing: 0.04em; }
+    .font-serifd { font-family: "DM Serif Display", "Cinzel", serif; }
+    .text-gold {
+      background: linear-gradient(180deg, #f5d59a 0%, #c8924d 50%, #875d2c 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .lokesh-page .gold-pill {
+      background: linear-gradient(180deg, #efc888 0%, #c8924d 50%, #8c5e2e 100%);
+      color: #1a0f06;
+      box-shadow: 0 6px 18px -4px rgba(200, 146, 77, 0.45),
+        inset 0 1px 0 rgba(255, 230, 190, 0.55);
+      font-weight: 600;
+    }
+    .lokesh-page .gold-pill:hover {
+      filter: brightness(1.07);
+    }
+    .lokesh-page .star-bg {
+      background-image:
+        radial-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
+        radial-gradient(rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 32px 32px, 80px 80px;
+      background-position: 0 0, 16px 16px;
+    }
+    .lokesh-page .grain::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+      opacity: 0.04;
+    }
+    .lokesh-page .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.9s ease-out, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .lokesh-page .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @keyframes float-slow {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .lokesh-page .float-slow { animation: float-slow 5s ease-in-out infinite; }
+    .lokesh-page .float-slower { animation: float-slow 7s ease-in-out infinite; }
+    .lokesh-page .float-slowest { animation: float-slow 9s ease-in-out infinite; }
+  </style>
+
+  <main id="main-content" class="lokesh-page">
+    <!-- ─── Header ─── -->
+    <header class="relative z-30 px-5 md:px-12 pt-6 md:pt-8 flex items-center justify-center md:justify-between gap-4">
+      <a href="/" class="inline-flex items-center" aria-label="LevelUp Learning home">
+        <img src="/levelup-logo-mark.svg" alt="LevelUp" class="h-7 md:h-8 w-auto" onerror="this.outerHTML='<span class=&quot;font-cinzel text-xl text-white&quot;>LevelUp</span>'" />
+      </a>
+      <a
+        href={CTA_HREF}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hidden md:inline-flex gold-pill px-5 py-2.5 rounded-full text-xs tracking-wide"
+      >
+        Buy now at ₹1,499
+      </a>
+    </header>
+
+    <!-- ─── Hero ─── -->
+    <section class="relative overflow-hidden pt-8 md:pt-14 pb-12 md:pb-20">
+      <div class="star-bg absolute inset-0 pointer-events-none"></div>
+      <div class="absolute inset-0 grain"></div>
+
+      <!-- Hero banner image with gold overlay text -->
+      <div class="relative max-w-[1280px] mx-auto px-5 md:px-12">
+        <div class="relative aspect-[16/10] md:aspect-[2/1] rounded-2xl overflow-hidden bg-black ring-1 ring-white/10">
+          <img
+            src={`${ASSET}/JA7LjstCBpKLub03f5p6KgzoBE.png`}
+            alt="Lokesh Kanagaraj — Director Masterclass"
+            class="absolute inset-0 w-full h-full object-cover"
+            fetchpriority="high"
+            decoding="async"
+          />
+          <!-- Vignette overlays for text contrast -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
+          <div class="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40"></div>
+        </div>
+
+        <!-- Headline + subtitle -->
+        <div class="relative z-10 mt-8 md:mt-12 text-center max-w-3xl mx-auto">
+          <h1 class="font-cinzel text-gold text-2xl md:text-3xl lg:text-[2.25rem] leading-tight">
+            Master the Craft of Filmmaking with Visionary Director Lokesh Kanagaraj
+          </h1>
+          <p class="mt-5 md:mt-6 text-sm md:text-base text-white/65 leading-relaxed max-w-2xl mx-auto">
+            Join the mastermind behind cinematic blockbusters like Kaithi, Master, and Vikram in this exclusive
+            masterclass. Learn how to tell powerful stories, build unforgettable characters, and create films that
+            captivate millions.
+          </p>
+          <a
+            href={CTA_HREF}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="gold-pill mt-7 md:mt-8 inline-flex items-center justify-center px-7 py-3 rounded-full text-sm md:text-base"
+          >
+            Buy now at ₹1,499
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Trailer card ─── -->
+    <section class="relative px-5 md:px-12 pb-12 md:pb-20">
+      <div class="max-w-4xl mx-auto">
+        <div class="relative rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-2xl shadow-black/50">
+          <div class="relative aspect-video bg-black">
+            <video
+              src={`${ASSET}/8aQnJtJnDomXGCoq8SMNrwjXL4.mp4`}
+              poster={`${ASSET}/QaxSA03bLYHaFbkggaEPiIp4oc.jpg`}
+              controls
+              playsinline
+              preload="none"
+              class="absolute inset-0 w-full h-full object-cover"
+            ></video>
+            <div class="absolute top-4 left-4 md:top-5 md:left-5 inline-flex items-center gap-2.5 pointer-events-none">
+              <span class="block h-5 w-1 bg-red-500 rounded-sm"></span>
+              <span class="text-[11px] tracking-[0.22em] uppercase text-white/90 font-semibold">Official Trailer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Class Info + Episodes ─── -->
+    <section class="relative px-5 md:px-12 py-14 md:py-20">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center md:text-left mb-10 md:mb-14">
+          <p class="text-[11px] tracking-[0.28em] uppercase text-white/40">Class Info</p>
+          <h2 class="font-cinzel text-gold text-3xl md:text-4xl lg:text-5xl mt-2">CLASS INFO</h2>
+          <p class="mt-3 text-[11px] tracking-[0.28em] uppercase text-white/40">15 video lessons</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-6 md:gap-8">
+          <!-- Pricing card -->
+          <aside class="rounded-2xl border border-white/10 bg-[#0E0E0E]/85 backdrop-blur-sm p-6 md:p-7 h-fit lg:sticky lg:top-6">
+            <p class="text-sm text-white/70">Start today for just</p>
+            <div class="mt-2 flex items-end gap-3">
+              <span class="font-cinzel text-3xl md:text-4xl text-white">₹1,499</span>
+              <span class="text-base text-white/40 line-through pb-1">₹4,999</span>
+            </div>
+            <a
+              href={CTA_HREF}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="gold-pill mt-5 inline-flex w-full items-center justify-center px-5 py-2.5 rounded-full text-sm"
+            >
+              Buy now at ₹1,499
+            </a>
+            <p class="mt-2 text-[11px] text-amber-200/70 text-center">Limited Time Offer</p>
+
+            <p class="mt-6 mb-3 text-sm font-semibold text-white">What You'll Get?</p>
+            <ul class="space-y-2.5 text-xs md:text-sm text-white/75">
+              <li class="flex gap-2">📽️ <span>15+ Cinematic Lessons</span></li>
+              <li class="flex gap-2">🎬 <span>Watch in Tamil with English subtitles</span></li>
+              <li class="flex gap-2">🎓 <span>Certificate Signed by Lokesh Kanagaraj</span></li>
+              <li class="flex gap-2">✨ <span>100% satisfaction guarantee</span></li>
+              <li class="flex gap-2">🎁 <span>Bonus behind-the-scenes content</span></li>
+            </ul>
+          </aside>
+
+          <!-- Episodes accordion (React island) -->
+          <div>
+            <EpisodeAccordion episodes={episodes} initialVisible={4} client:visible />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Director / Blockbuster films ─── -->
+    <section class="relative px-5 md:px-12 py-14 md:py-20 overflow-hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div>
+            <h2 class="font-cinzel text-gold text-3xl md:text-4xl lg:text-5xl leading-[1.1]">
+              Learn from the<br />Director Behind these<br />Blockbuster Films
+            </h2>
+            <a
+              href={CTA_HREF}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="gold-pill mt-7 inline-flex items-center justify-center px-6 py-2.5 rounded-full text-sm"
+            >
+              Buy now at ₹1,499
+            </a>
+          </div>
+          <div class="grid grid-cols-3 sm:grid-cols-4 gap-2.5 md:gap-3">
+            {films.slice(0, 8).map((f, i) => (
+              <div class={`relative aspect-[2/3] rounded-md overflow-hidden ring-1 ring-white/10 ${i % 2 === 0 ? "translate-y-2" : ""}`}>
+                <img
+                  src={f.img}
+                  alt={`${f.title} — Lokesh Kanagaraj film`}
+                  class="absolute inset-0 w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Who is this program for? ─── -->
+    <section class="relative px-5 md:px-12 py-16 md:py-24 overflow-hidden">
+      <div class="max-w-4xl mx-auto text-center mb-10 md:mb-14">
+        <p class="text-[11px] tracking-[0.28em] uppercase text-white/45">Who is this program for?</p>
+        <h2 class="font-cinzel text-gold text-3xl md:text-4xl lg:text-5xl mt-2">
+          WHO IS THIS PROGRAM FOR?
+        </h2>
+      </div>
+
+      <div class="relative max-w-3xl mx-auto aspect-square">
+        <!-- Concentric rings -->
+        <div class="absolute inset-[12%] rounded-full border border-white/8"></div>
+        <div class="absolute inset-[24%] rounded-full border border-white/6"></div>
+        <div class="absolute inset-[36%] rounded-full border border-white/5"></div>
+
+        <!-- Central revolver -->
+        <img
+          src={`${ASSET}/j4cesr5F5lQhfPl4kTf7hsjnQig.jpg`}
+          alt="Maanagaram revolver — Lokesh Kanagaraj signature motif"
+          class="absolute inset-[28%] w-[44%] h-[44%] object-contain z-10 mix-blend-screen opacity-90"
+          loading="lazy"
+        />
+
+        <!-- 6 floating pills around the circle -->
+        <span class="absolute top-[10%] left-[18%] gold-pill-outline px-4 py-2 rounded-full text-xs md:text-sm bg-black/85 border border-white/12 shadow-2xl float-slow">Dialogue Writers</span>
+        <span class="absolute top-[14%] right-[18%] px-4 py-2 rounded-full text-xs md:text-sm bg-black/85 border border-white/12 shadow-2xl float-slower">Cinema Lovers</span>
+        <span class="absolute top-[44%] left-[6%] px-4 py-2 rounded-full text-xs md:text-sm bg-black/85 border border-white/12 shadow-2xl float-slowest">Story Architects</span>
+        <span class="absolute top-[44%] right-[6%] px-4 py-2 rounded-full text-xs md:text-sm bg-black/85 border border-white/12 shadow-2xl float-slow">Visionary Filmmakers</span>
+        <span class="absolute bottom-[14%] left-[18%] px-4 py-2 rounded-full text-xs md:text-sm bg-black/85 border border-white/12 shadow-2xl float-slower">Future Directors</span>
+        <span class="absolute bottom-[10%] right-[18%] px-4 py-2 rounded-full text-xs md:text-sm bg-black/85 border border-white/12 shadow-2xl float-slowest">Film Dreamers</span>
+      </div>
+    </section>
+
+    <!-- ─── Why Is This Masterclass For You ─── -->
+    <section class="relative px-5 md:px-12 py-16 md:py-24">
+      <div class="max-w-4xl mx-auto text-center mb-12 md:mb-16">
+        <p class="text-[11px] tracking-[0.28em] uppercase text-white/45">Why is this</p>
+        <h2 class="font-cinzel text-gold text-3xl md:text-4xl lg:text-5xl mt-2">
+          MASTERCLASS FOR YOU?
+        </h2>
+      </div>
+
+      <div class="max-w-5xl mx-auto relative">
+        <!-- vertical timeline center line on desktop -->
+        <div class="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent hidden md:block"></div>
+        <div class="space-y-10 md:space-y-16">
+          {whyPoints.map((p, i) => (
+            <div class={`grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center ${i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""}`}>
+              <div class="relative aspect-[16/10] rounded-xl overflow-hidden ring-1 ring-white/10 bg-[#0a0a0a]">
+                <video
+                  src={p.media}
+                  muted
+                  loop
+                  playsinline
+                  autoplay
+                  preload="none"
+                  class="absolute inset-0 w-full h-full object-cover"
+                ></video>
+              </div>
+              <p class="font-sans text-base md:text-lg leading-relaxed text-white/80 md:px-4">
+                {p.text}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Certificate banner ─── -->
+    <section class="relative px-5 md:px-12 py-12 md:py-16">
+      <div class="max-w-5xl mx-auto rounded-2xl overflow-hidden ring-1 ring-amber-200/15 shadow-[0_30px_80px_-20px_rgba(200,146,77,0.18)]">
+        <img
+          src={`${ASSET}/9F1ol75caTSZ1T06dL8apemH4B4.jpg`}
+          alt="Certificate of Completion signed by Lokesh Kanagaraj"
+          class="block w-full h-auto"
+          loading="lazy"
+        />
+      </div>
+      <ul class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto">
+        {[
+          "Download or Print out as PDF to share with others",
+          "Showcase on your Certificate on social media",
+          "Share as image online to demonstrate your skill",
+        ].map((t, i) => (
+          <li class="rounded-xl border border-white/10 bg-[#0E0E0E] p-5 md:p-6 flex gap-4">
+            <span class="font-cinzel text-2xl text-gold leading-none">0{i + 1}</span>
+            <span class="text-sm md:text-base text-white/80 leading-relaxed">{t}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- ─── Testimonials ─── -->
+    <section class="relative px-5 md:px-12 py-14 md:py-20 overflow-hidden">
+      <div class="max-w-5xl mx-auto text-center mb-10 md:mb-14">
+        <h2 class="font-cinzel text-gold text-2xl md:text-3xl lg:text-4xl">
+          THIS MAKES OUR HEART BEAT FASTER EVERYDAY
+        </h2>
+      </div>
+      <TestimonialCarousel items={testimonials} client:visible />
+    </section>
+
+    <!-- ─── What you'll get ─── -->
+    <section class="relative px-5 md:px-12 py-14 md:py-20">
+      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 items-start">
+        <div>
+          <p class="text-[11px] tracking-[0.28em] uppercase text-white/40">[03 Workflow]</p>
+          <h2 class="font-cinzel text-gold text-3xl md:text-4xl lg:text-5xl mt-2 leading-tight">
+            What you'll get...
+          </h2>
+          <p class="mt-5 text-sm md:text-base text-white/70 leading-relaxed max-w-md">
+            Enroll now and get bonuses worth Rs.19,999 for free. There was never a better time to grab this on-demand
+            program.
+          </p>
+          <a
+            href={CTA_HREF}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="gold-pill mt-7 inline-flex items-center justify-center px-6 py-2.5 rounded-full text-sm"
+          >
+            Buy now at ₹1,499
+          </a>
+        </div>
+
+        <div class="space-y-3 md:space-y-4">
+          {whatYouGet.map((g) => (
+            <div class="rounded-xl border border-white/10 bg-[#0E0E0E] p-5 md:p-6 flex gap-4 md:gap-5">
+              <span class="font-cinzel text-3xl md:text-4xl text-gold leading-none shrink-0">{g.num}</span>
+              <div>
+                <h3 class="text-sm md:text-base font-semibold text-white leading-snug">{g.title}</h3>
+                <p class="mt-1 text-xs md:text-sm text-white/60 leading-relaxed">{g.description}</p>
+              </div>
+            </div>
+          ))}
+
+          <!-- LCU bonus vault -->
+          <div class="rounded-xl border border-amber-200/30 bg-gradient-to-br from-[#1a1208] to-[#0a0604] p-6 md:p-7 mt-4">
+            <h3 class="font-cinzel text-gold text-xl md:text-2xl">The LCU Bonus Vault</h3>
+            <p class="mt-2 text-sm text-white/75">
+              Exclusive Bonuses Worth ₹19,999 — Free for the first 100 enrollees
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Closing pitch ─── -->
+    <section class="relative px-5 md:px-12 py-14 md:py-20">
+      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 items-center">
+        <div>
+          <h2 class="font-cinzel text-gold text-2xl md:text-3xl lg:text-4xl leading-[1.15]">
+            YOU'VE SEEN WHAT HE BUILDS ON SCREEN. NOW LEARN HOW HE BUILDS IT OFF SCREEN.
+          </h2>
+          <p class="mt-5 text-sm md:text-base text-white/70 leading-relaxed max-w-md">
+            If you're serious about filmmaking, this isn't just a class. It's a front-row seat to the thought process
+            behind some of Indian cinema's boldest work.
+          </p>
+          <a
+            href={CTA_HREF}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="gold-pill mt-7 inline-flex items-center justify-center px-6 py-2.5 rounded-full text-sm"
+          >
+            Buy now at ₹1,499
+          </a>
+        </div>
+
+        <div class="grid grid-cols-3 sm:grid-cols-4 gap-2 md:gap-3">
+          {closingPosters.slice(0, 8).map((src, i) => (
+            <div class={`relative aspect-[2/3] rounded-md overflow-hidden ring-1 ring-white/10 ${i % 2 === 0 ? "translate-y-2" : ""}`}>
+              <img src={src} alt="Lokesh Kanagaraj filmography poster" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── FAQ ─── -->
+    <section class="relative px-5 md:px-12 py-16 md:py-24">
+      <div class="max-w-5xl mx-auto text-center mb-10 md:mb-14">
+        <p class="text-[11px] tracking-[0.28em] uppercase text-white/45">Questions?</p>
+        <h2 class="font-cinzel text-gold text-3xl md:text-4xl lg:text-5xl mt-2">
+          WE'VE GOT YOU COVERED!
+        </h2>
+        <a
+          href={CTA_HREF}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="gold-pill mt-7 inline-flex items-center justify-center px-6 py-2.5 rounded-full text-sm"
+        >
+          Buy now at ₹1,499
+        </a>
+      </div>
+      <div class="max-w-5xl mx-auto">
+        <FAQAccordion faqs={faqs} client:visible />
+      </div>
+    </section>
+
+    <!-- ─── Footer ─── -->
+    <footer class="relative bg-[#1a1a1a] mt-12 md:mt-20 px-5 md:px-12 py-10 md:py-14">
+      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 md:gap-12 items-center">
+        <div class="text-center md:text-left">
+          <p class="text-xs md:text-sm text-white/55 max-w-2xl leading-relaxed">
+            LevelUp Learning is an e-learning platform focused on creative arts like music, science, sports,
+            film-making and other such skill development disciplines. Students can access pre-recorded lectures or
+            tutorials by experts in various fields.
+          </p>
+          <div class="mt-5 flex justify-center md:justify-start gap-4 text-white/60">
+            <a href="https://www.instagram.com/levelup_learning/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="hover:text-white transition-colors">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.43.36 1.06.41 2.23.07 1.25.07 1.65.07 4.85s0 3.6-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.43.16-1.06.36-2.23.41-1.25.07-1.65.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.43-.36-1.06-.41-2.23C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.43-.16 1.06-.36 2.23-.41C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.52 0-4.76.06-1.07.05-1.65.23-2.04.38-.51.2-.88.44-1.27.83-.39.39-.63.76-.83 1.27-.15.39-.33.97-.38 2.04C2.66 8.48 2.66 8.85 2.66 12s0 3.52.06 4.76c.05 1.07.23 1.65.38 2.04.2.51.44.88.83 1.27.39.39.76.63 1.27.83.39.15.97.33 2.04.38 1.24.06 1.61.06 4.76.06s3.52 0 4.76-.06c1.07-.05 1.65-.23 2.04-.38.51-.2.88-.44 1.27-.83.39-.39.63-.76.83-1.27.15-.39.33-.97.38-2.04.06-1.24.06-1.61.06-4.76s0-3.52-.06-4.76c-.05-1.07-.23-1.65-.38-2.04a3.4 3.4 0 0 0-.83-1.27 3.4 3.4 0 0 0-1.27-.83c-.39-.15-.97-.33-2.04-.38C15.52 4 15.15 4 12 4zm0 3.07a4.93 4.93 0 1 1 0 9.86 4.93 4.93 0 0 1 0-9.86zm0 1.8a3.13 3.13 0 1 0 0 6.26 3.13 3.13 0 0 0 0-6.26zm5.13-2.27a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3z"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/company/levelup-learning/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="hover:text-white transition-colors">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14C2.24 0 0 2.24 0 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5V5c0-2.76-2.24-5-5-5zM7.5 19h-3v-9h3v9zM6 8.7a1.7 1.7 0 1 1 0-3.4 1.7 1.7 0 0 1 0 3.4zM20 19h-3v-4.7c0-1.1-.4-1.9-1.4-1.9-.8 0-1.3.5-1.5 1-.1.2-.1.5-.1.7V19h-3s.04-7.6 0-9h3v1.3c.4-.6 1.1-1.5 2.7-1.5 2 0 3.5 1.3 3.5 4V19z"/></svg>
+            </a>
+            <a href="https://x.com/LevelUp_edu" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" class="hover:text-white transition-colors">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="text-center md:text-right text-xs text-white/45 space-y-2">
+          <p>Copyright © 2025 LevelUp Learning · All Rights Reserved</p>
+          <p class="space-x-4">
+            <a href="/privacy-policy" class="hover:text-white">Privacy Policy</a>
+            <a href="/terms" class="hover:text-white">Terms Of Service</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Reveal-on-scroll JS -->
+    <script>
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) e.target.classList.add("in");
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+    </script>
+  </main>
+</BaseLayout>
