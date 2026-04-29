@@ -119,6 +119,121 @@ const allJsonLd = jsonLd
       window.fbq("init", pixelId);
       window.fbq("track", "PageView");
     </script>
+
+    <!--
+      Site-wide UTM forwarding + checkout-click event tracking.
+      Runs on EVERY page (homepage, all masterclass landing pages, student
+      stories, etc.). When the user clicks any anchor pointing at the LevelUp
+      checkout subdomains (study.* / courses.*), this:
+        1. Appends incoming utm_source/medium/campaign/content/term + fbclid +
+           gclid params from the landing URL (so Tag Mango / TagMango Studio
+           attributes the conversion to the right ad).
+        2. Tags an extra mc_course param derived from the pathname so the
+           checkout page knows which masterclass drove the click.
+        3. Fires Meta Pixel `Lead` + `InitiateCheckout` events with
+           content_name + content_ids + value + currency.
+        4. Fires Microsoft Clarity `initiate_checkout` event for the same.
+      Captured UTMs persist in sessionStorage so they survive in-page nav.
+    -->
+    <script is:inline>
+      (function () {
+        var CHECKOUT_HOSTS = ["study.leveluplearning.in", "courses.leveluplearning.in"];
+        var UTM_KEYS = ["utm_source","utm_medium","utm_campaign","utm_content","utm_term","fbclid","gclid"];
+        // Course slug + price + display name keyed by URL pathname
+        var COURSE_MAP = {
+          "/masterclass/lokesh-kanagaraj":   { slug: "lokesh-kanagaraj",   name: "Lokesh Kanagaraj Masterclass",   price: 1499 },
+          "/masterclass/nelson-dilipkumar":  { slug: "nelson-dilipkumar",  name: "Nelson Dilipkumar Masterclass",  price: 2499 },
+          "/masterclass/ravi-basrur":        { slug: "ravi-basrur",        name: "Ravi Basrur Music Masterclass",  price: 2499 },
+          "/masterclass/anthony-gonsalvez":  { slug: "anthony-gonsalvez",  name: "Anthony Gonsalvez Masterclass",  price: 1499 },
+          "/masterclass/drk-kiran":          { slug: "drk-kiran",          name: "DRK Kiran Masterclass",          price: 1499 },
+          "/masterclass/g-venket-ram":       { slug: "g-venket-ram",       name: "G Venket Ram Masterclass",       price: 1499 }
+        };
+
+        // Capture incoming UTMs (FB ads land users with these), merge with any
+        // previously-stored set, and persist for the rest of the session.
+        var stored = {};
+        try { stored = JSON.parse(sessionStorage.getItem("mc_utm") || "{}"); } catch (e) {}
+        var incoming = new URLSearchParams(window.location.search);
+        var snap = {};
+        for (var i = 0; i < UTM_KEYS.length; i++) {
+          var k = UTM_KEYS[i];
+          var fromUrl = incoming.get(k);
+          if (fromUrl) snap[k] = fromUrl;
+          else if (stored[k]) snap[k] = stored[k];
+        }
+        if (Object.keys(snap).length) {
+          try { sessionStorage.setItem("mc_utm", JSON.stringify(snap)); } catch (e) {}
+        }
+
+        // ViewContent: deeper than auto-PageView. Builds retargeting audiences
+        // for "viewed masterclass X but didn't checkout".
+        (function fireViewContent() {
+          var path = window.location.pathname.replace(/\/$/, "");
+          var c = COURSE_MAP[path];
+          if (!c) return;
+          try {
+            window.fbq && window.fbq("track", "ViewContent", {
+              content_type: "product",
+              content_name: c.name,
+              content_ids: [c.slug],
+              content_category: "Masterclass",
+              value: c.price,
+              currency: "INR"
+            });
+          } catch (e) {}
+          try { window.clarity && window.clarity("set", "viewed_masterclass", c.slug); } catch (e) {}
+        })();
+
+        // Click handler — global. Catches every anchor on every page that
+        // points at a checkout host. Runs in capture phase so it fires before
+        // the browser navigates.
+        document.addEventListener("click", function (ev) {
+          var t = ev.target.closest && ev.target.closest("a[href]");
+          if (!t || !t.href) return;
+          var dest;
+          try { dest = new URL(t.href, window.location.href); } catch (e) { return; }
+          var isCheckout = false;
+          for (var j = 0; j < CHECKOUT_HOSTS.length; j++) {
+            if (dest.hostname === CHECKOUT_HOSTS[j] || dest.hostname.endsWith("." + CHECKOUT_HOSTS[j])) {
+              isCheckout = true; break;
+            }
+          }
+          if (!isCheckout) return;
+
+          // Append UTMs (don't overwrite if already set on the link)
+          for (var key in snap) {
+            if (snap.hasOwnProperty(key) && !dest.searchParams.has(key)) {
+              dest.searchParams.set(key, snap[key]);
+            }
+          }
+          // Tag with current course slug
+          var path = window.location.pathname.replace(/\/$/, "");
+          var course = COURSE_MAP[path] || { slug: path.split("/").pop() || "homepage", name: "LevelUp Learning", price: 0 };
+          if (!dest.searchParams.has("mc_course")) dest.searchParams.set("mc_course", course.slug);
+          t.href = dest.toString();
+
+          // Fire conversion events BEFORE navigation
+          try {
+            window.fbq && window.fbq("track", "Lead", {
+              content_name: course.name,
+              content_category: "Masterclass",
+              value: course.price,
+              currency: "INR"
+            });
+            window.fbq && window.fbq("track", "InitiateCheckout", {
+              content_type: "product",
+              content_name: course.name,
+              content_ids: [course.slug],
+              content_category: "Masterclass",
+              value: course.price,
+              currency: "INR",
+              num_items: 1
+            });
+          } catch (e) {}
+          try { window.clarity && window.clarity("set", "initiate_checkout", course.slug + " | INR " + course.price); } catch (e) {}
+        }, true);
+      })();
+    </script>
   </head>
 
   <body class={bodyClass}>

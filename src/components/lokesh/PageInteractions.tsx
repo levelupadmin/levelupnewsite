@@ -1,17 +1,36 @@
 import { useEffect } from "react";
 
+interface PageInteractionsProps {
+  /** Course slug (e.g. "lokesh-kanagaraj") — used for ViewContent + Lead tracking */
+  course?: string;
+  /** Course display name (e.g. "Lokesh Kanagaraj Masterclass") */
+  courseName?: string;
+  /** Course price in INR — used for InitiateCheckout value */
+  price?: number;
+}
+
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+    clarity?: (...args: unknown[]) => void;
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
 /**
  * Page-level interactions for the Framer-clone masterclass pages:
  *  - Scroll-triggered fade-up reveals on .reveal elements
  *  - Smooth scroll polish (CSS scroll-behavior + ease)
  *  - Subtle hero parallax on scroll
  *  - Mouse-position tilt on .tilt elements
+ *  - Meta Pixel events: ViewContent (on mount) + Lead/InitiateCheckout (on CTA click)
+ *  - Microsoft Clarity custom events for the same actions
  *
  * Mounted as a client:idle island so it never blocks first paint or breaks
  * server-rendered HTML for SEO / no-JS / screenshot tools. Content is always
  * visible by default — this only ADDS animation when JS is available.
  */
-export default function PageInteractions() {
+export default function PageInteractions({ course, courseName, price }: PageInteractionsProps = {}) {
   useEffect(() => {
     // Mark page so CSS can switch elements into hidden-then-revealed state
     // ONLY after we've confirmed JS is alive. If JS never runs, content
@@ -73,6 +92,11 @@ export default function PageInteractions() {
       t.addEventListener("mouseleave", tiltLeave);
     });
 
+    // Note: ViewContent + Lead + InitiateCheckout + UTM-forward are now
+    // handled site-wide by an inline script in BaseLayout.astro. This island
+    // only owns the visual interactions (reveal/parallax/tilt) so it stays
+    // small + works the same for every clone page.
+
     return () => {
       io.disconnect();
       window.removeEventListener("scroll", onScroll);
@@ -81,7 +105,7 @@ export default function PageInteractions() {
         t.removeEventListener("mouseleave", tiltLeave);
       });
     };
-  }, []);
+  }, [course, courseName, price]);
 
   return null;
 }
