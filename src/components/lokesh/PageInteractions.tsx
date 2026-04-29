@@ -1,0 +1,87 @@
+import { useEffect } from "react";
+
+/**
+ * Page-level interactions for the Framer-clone masterclass pages:
+ *  - Scroll-triggered fade-up reveals on .reveal elements
+ *  - Smooth scroll polish (CSS scroll-behavior + ease)
+ *  - Subtle hero parallax on scroll
+ *  - Mouse-position tilt on .tilt elements
+ *
+ * Mounted as a client:idle island so it never blocks first paint or breaks
+ * server-rendered HTML for SEO / no-JS / screenshot tools. Content is always
+ * visible by default — this only ADDS animation when JS is available.
+ */
+export default function PageInteractions() {
+  useEffect(() => {
+    // Mark page so CSS can switch elements into hidden-then-revealed state
+    // ONLY after we've confirmed JS is alive. If JS never runs, content
+    // stays visible by default.
+    const root = document.documentElement;
+    if (!root.classList.contains("mc-js-on")) root.classList.add("mc-js-on");
+
+    // ─────────────────────────────────────────────────────────────────
+    // Scroll-triggered fade-up
+    // ─────────────────────────────────────────────────────────────────
+    const reveal = (entries: IntersectionObserverEntry[], obs: IntersectionObserver) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add("mc-in");
+          obs.unobserve(e.target);
+        }
+      }
+    };
+    const io = new IntersectionObserver(reveal, {
+      threshold: 0.1,
+      rootMargin: "0px 0px -8% 0px",
+    });
+    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+    // ─────────────────────────────────────────────────────────────────
+    // Hero subtle parallax — moves video bg slightly slower than scroll
+    // ─────────────────────────────────────────────────────────────────
+    const heroVideo = document.querySelector<HTMLVideoElement>(".mc-hero-video");
+    let rafId = 0;
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (heroVideo && y < window.innerHeight) {
+          heroVideo.style.transform = `translate3d(0, ${y * 0.18}px, 0) scale(1.05)`;
+        }
+        rafId = 0;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    // ─────────────────────────────────────────────────────────────────
+    // Mouse-position tilt for cards with .tilt
+    // ─────────────────────────────────────────────────────────────────
+    const tilts = document.querySelectorAll<HTMLElement>(".tilt");
+    const tiltMove = (e: MouseEvent) => {
+      const el = e.currentTarget as HTMLElement;
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      el.style.transform = `perspective(900px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) translateZ(0) scale(1.015)`;
+    };
+    const tiltLeave = (e: MouseEvent) => {
+      (e.currentTarget as HTMLElement).style.transform = "";
+    };
+    tilts.forEach((t) => {
+      t.addEventListener("mousemove", tiltMove);
+      t.addEventListener("mouseleave", tiltLeave);
+    });
+
+    return () => {
+      io.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      tilts.forEach((t) => {
+        t.removeEventListener("mousemove", tiltMove);
+        t.removeEventListener("mouseleave", tiltLeave);
+      });
+    };
+  }, []);
+
+  return null;
+}

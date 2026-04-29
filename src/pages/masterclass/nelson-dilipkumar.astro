@@ -6,6 +6,7 @@ import TestimonialCarousel from "@/components/lokesh/TestimonialCarousel";
 import LokeshTrailer from "@/components/lokesh/LokeshTrailer";
 import PosterMarquee from "@/components/lokesh/PosterMarquee";
 import HoverPlayVideo from "@/components/lokesh/HoverPlayVideo";
+import PageInteractions from "@/components/lokesh/PageInteractions";
 import { courseJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/structuredData";
 
 const ASSET = "/masterclass/nelson";
@@ -164,7 +165,15 @@ const faq = faqJsonLd(faqs);
       background-size: 36px 36px, 88px 88px;
       background-position: 0 0, 18px 18px;
     }
-    .lokesh-page .reveal { opacity: 1; transform: none; }
+    .lokesh-page .reveal { opacity: 1; transform: none; transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+    html.mc-js-on .lokesh-page .reveal { opacity: 0; transform: translateY(28px); }
+    html.mc-js-on .lokesh-page .reveal.mc-in { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) { html.mc-js-on .lokesh-page .reveal { opacity: 1 !important; transform: none !important; } }
+    .lokesh-page .lift { transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease; will-change: transform; }
+    .lokesh-page .lift:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -16px rgba(212, 163, 108, 0.25), 0 8px 24px -8px rgba(0, 0, 0, 0.7); border-color: rgba(212, 163, 108, 0.25); }
+    .lokesh-page .mc-hero-video { transform: scale(1.05); will-change: transform; }
+    .lokesh-page .tilt { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); will-change: transform; }
+    html { scroll-behavior: smooth; }
     .lokesh-page .section-tick {
       display: inline-block; width: 1px; height: 24px;
       background: linear-gradient(180deg, transparent, #d4a36c, transparent);
@@ -270,7 +279,7 @@ const faq = faqJsonLd(faqs);
           </div>
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-2.5">
             {blockbusterFilms.map((src, i) => (
-              <div class={`relative aspect-[2/3] rounded-md overflow-hidden ring-1 ring-white/[0.06] shadow-[0_15px_30px_-15px_rgba(0,0,0,0.7)] ${i % 2 === 0 ? "translate-y-0" : "translate-y-3 md:translate-y-4"}`}>
+              <div class={`relative aspect-[2/3] rounded-md overflow-hidden ring-1 ring-white/[0.06] tilt shadow-[0_15px_30px_-15px_rgba(0,0,0,0.7)] ${i % 2 === 0 ? "translate-y-0" : "translate-y-3 md:translate-y-4"}`}>
                 <img src={src} alt="Nelson Dilipkumar film poster" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
             ))}
@@ -312,7 +321,7 @@ const faq = faqJsonLd(faqs);
           "Showcase on your Certificate on social media",
           "Share as image online to demonstrate your skill",
         ].map((t, i) => (
-          <li class="rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 flex gap-4">
+          <li class="rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 lift flex gap-4">
             <span class="font-cinzel text-[28px] text-gold leading-none">0{i + 1}</span>
             <span class="text-[15px] md:text-[19px] text-[#f2f2f2] leading-[1.45] tracking-[-0.02em] font-medium">{t}</span>
           </li>
@@ -347,7 +356,7 @@ const faq = faqJsonLd(faqs);
         </div>
         <div class="space-y-3 md:space-y-4">
           {whatYouGet.map((g) => (
-            <div class="rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 flex gap-4 md:gap-5">
+            <div class="rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 lift flex gap-4 md:gap-5">
               <span class="font-cinzel text-[32px] md:text-[40px] text-gold leading-none shrink-0">{g.num}</span>
               <div>
                 <h3 class="text-[18px] md:text-[22px] font-semibold text-white leading-[1.25] tracking-[-0.04em]">{g.title}</h3>
@@ -417,5 +426,6 @@ const faq = faqJsonLd(faqs);
         </div>
       </div>
     </footer>
+    <PageInteractions client:idle />
   </main>
 </BaseLayout>

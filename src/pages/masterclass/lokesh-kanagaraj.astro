@@ -6,6 +6,7 @@ import TestimonialCarousel from "@/components/lokesh/TestimonialCarousel";
 import LokeshTrailer from "@/components/lokesh/LokeshTrailer";
 import PosterMarquee from "@/components/lokesh/PosterMarquee";
 import HoverPlayVideo from "@/components/lokesh/HoverPlayVideo";
+import PageInteractions from "@/components/lokesh/PageInteractions";
 import { courseJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/structuredData";
 
 const ASSET = "/masterclass/lokesh";
@@ -171,21 +172,58 @@ const faq = faqJsonLd(faqs);
       opacity: 0.06;
     }
 
-    /* Scroll reveal — only fires for elements scrolled into view AFTER initial paint.
-       Content above the fold and below stays visible by default — never hidden via CSS,
-       so SEO, screenshots, no-JS users all see real content. JS adds a brief animation
-       to elements that come into view after page is already scrolled, but never hides
-       what was already visible. (Keeping classes in markup for forward compatibility.) */
-    .lokesh-page .reveal { opacity: 1; transform: none; }
-
-    /* Gentle floating animation for audience pills */
-    @keyframes lokesh-float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
+    /* Scroll reveal — content stays visible by default for SEO/no-JS/screenshots.
+       Only when JS adds .mc-js-on to <html> do reveal elements start hidden,
+       then fade in once IntersectionObserver flags them with .mc-in. */
+    .lokesh-page .reveal { opacity: 1; transform: none; transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+    html.mc-js-on .lokesh-page .reveal { opacity: 0; transform: translateY(28px); }
+    html.mc-js-on .lokesh-page .reveal.mc-in { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      html.mc-js-on .lokesh-page .reveal { opacity: 1 !important; transform: none !important; }
     }
-    .lokesh-page .float-a { animation: lokesh-float 5s ease-in-out infinite; }
-    .lokesh-page .float-b { animation: lokesh-float 7s ease-in-out infinite; }
-    .lokesh-page .float-c { animation: lokesh-float 9s ease-in-out infinite; }
+    .lokesh-page .reveal-d1 { transition-delay: 0.08s; }
+    .lokesh-page .reveal-d2 { transition-delay: 0.16s; }
+    .lokesh-page .reveal-d3 { transition-delay: 0.24s; }
+    .lokesh-page .reveal-d4 { transition-delay: 0.32s; }
+
+    /* Hover lift + glow on cards */
+    .lokesh-page .lift {
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+      will-change: transform;
+    }
+    .lokesh-page .lift:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 48px -16px rgba(212, 163, 108, 0.25), 0 8px 24px -8px rgba(0, 0, 0, 0.7);
+      border-color: rgba(212, 163, 108, 0.25);
+    }
+    .lokesh-page .lift-strong:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 30px 60px -16px rgba(212, 163, 108, 0.4), 0 14px 28px -10px rgba(0, 0, 0, 0.85);
+    }
+
+    /* Hero video baseline scale (parallax JS will adjust translateY) */
+    .lokesh-page .mc-hero-video {
+      transform: scale(1.05);
+      will-change: transform;
+    }
+
+    /* Tilt cards (mouse-tracking 3D handled by PageInteractions JS) */
+    .lokesh-page .tilt {
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    /* Audience pill float-bobs */
+    @keyframes mc-float-a { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+    @keyframes mc-float-b { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+    @keyframes mc-float-c { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    .lokesh-page .float-a { animation: mc-float-a 5.6s ease-in-out infinite; }
+    .lokesh-page .float-b { animation: mc-float-b 7.2s ease-in-out infinite; }
+    .lokesh-page .float-c { animation: mc-float-c 9.0s ease-in-out infinite; }
+
+    /* Smooth scroll across the page */
+    html { scroll-behavior: smooth; }
 
     /* Section dividers (small ticks) */
     .lokesh-page .section-tick {
@@ -236,7 +274,7 @@ const faq = faqJsonLd(faqs);
             playsinline
             autoplay
             preload="metadata"
-            class="absolute inset-0 w-full h-full object-cover"
+            class="mc-hero-video absolute inset-0 w-full h-full object-cover"
           ></video>
           <!-- Light bottom gradient only, to bridge into the page bg without darkening the hero -->
           <div class="absolute inset-x-0 bottom-0 h-[35%] bg-gradient-to-t from-black/55 to-transparent pointer-events-none"></div>
@@ -344,7 +382,7 @@ const faq = faqJsonLd(faqs);
           </div>
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-2.5 reveal reveal-delay-2">
             {blockbusterFilms.map((src, i) => (
-              <div class={`relative aspect-[2/3] rounded-md overflow-hidden ring-1 ring-white/[0.06] shadow-[0_15px_30px_-15px_rgba(0,0,0,0.7)] ${i % 2 === 0 ? "translate-y-0" : "translate-y-3 md:translate-y-4"}`}>
+              <div class={`relative aspect-[2/3] rounded-md overflow-hidden ring-1 ring-white/[0.06] tilt shadow-[0_15px_30px_-15px_rgba(0,0,0,0.7)] ${i % 2 === 0 ? "translate-y-0" : "translate-y-3 md:translate-y-4"}`}>
                 <img src={src} alt="Lokesh Kanagaraj film poster" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
             ))}
@@ -444,7 +482,7 @@ const faq = faqJsonLd(faqs);
           "Showcase on your Certificate on social media",
           "Share as image online to demonstrate your skill",
         ].map((t, i) => (
-          <li class="rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 flex gap-4 reveal" style={`transition-delay: ${i * 80}ms`}>
+          <li class="rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 lift flex gap-4 reveal" style={`transition-delay: ${i * 80}ms`}>
             <span class="font-cinzel text-[28px] text-gold leading-none">0{i + 1}</span>
             <span class="text-[15px] md:text-[19px] text-[#f2f2f2] leading-[1.45] tracking-[-0.02em] font-medium">{t}</span>
           </li>
@@ -489,7 +527,7 @@ const faq = faqJsonLd(faqs);
 
         <div class="space-y-3 md:space-y-4">
           {whatYouGet.map((g, i) => (
-            <div class="rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 flex gap-4 md:gap-5 reveal" style={`transition-delay: ${(i + 1) * 80}ms`}>
+            <div class="rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 lift flex gap-4 md:gap-5 reveal" style={`transition-delay: ${(i + 1) * 80}ms`}>
               <span class="font-cinzel text-[32px] md:text-[40px] text-gold leading-none shrink-0">{g.num}</span>
               <div>
                 <h3 class="text-[18px] md:text-[22px] font-semibold text-white leading-[1.25] tracking-[-0.04em]">{g.title}</h3>
@@ -589,9 +627,9 @@ const faq = faqJsonLd(faqs);
       </div>
     </footer>
 
-    <!-- No-op for now: scroll reveals removed to ensure content is always visible.
-         To re-enable in a way that doesn't hurt SEO/screenshots, add an Embla-style
-         "play once when in view" approach with explicit Animations API per element. -->
-    <script>{/* placeholder */}</script>
+    <!-- Page interactions: scroll reveal, hero parallax, tilt, hover effects.
+         Loaded as client:idle so it never blocks first paint. Safe for SEO —
+         content stays visible by default; this only ADDS animation. -->
+    <PageInteractions client:idle />
   </main>
 </BaseLayout>

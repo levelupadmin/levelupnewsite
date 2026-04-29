@@ -5,6 +5,7 @@ import FAQAccordion from "@/components/lokesh/FAQAccordion";
 import TestimonialCarousel from "@/components/lokesh/TestimonialCarousel";
 import PosterMarquee from "@/components/lokesh/PosterMarquee";
 import HoverPlayVideo from "@/components/lokesh/HoverPlayVideo";
+import PageInteractions from "@/components/lokesh/PageInteractions";
 import { courseJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/structuredData";
 
 const ASSET = "/masterclass/ravi";
@@ -129,7 +130,15 @@ const faq = faqJsonLd(faqs);
     }
     .lokesh-page .buy-pill:hover { filter: brightness(1.08); transform: translateY(-1px); }
     .lokesh-page .star-bg { background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 36px 36px, 88px 88px; }
-    .lokesh-page .reveal { opacity: 1; transform: none; }
+    .lokesh-page .reveal { opacity: 1; transform: none; transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+    html.mc-js-on .lokesh-page .reveal { opacity: 0; transform: translateY(28px); }
+    html.mc-js-on .lokesh-page .reveal.mc-in { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) { html.mc-js-on .lokesh-page .reveal { opacity: 1 !important; transform: none !important; } }
+    .lokesh-page .lift { transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease; will-change: transform; }
+    .lokesh-page .lift:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -16px rgba(212, 163, 108, 0.25), 0 8px 24px -8px rgba(0, 0, 0, 0.7); border-color: rgba(212, 163, 108, 0.25); }
+    .lokesh-page .mc-hero-video { transform: scale(1.05); will-change: transform; }
+    .lokesh-page .tilt { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); will-change: transform; }
+    html { scroll-behavior: smooth; }
     .lokesh-page .section-tick { display: inline-block; width: 1px; height: 24px; background: linear-gradient(180deg, transparent, #d4a36c, transparent); margin: 0 auto; }
   </style>
 
@@ -143,12 +152,12 @@ const faq = faqJsonLd(faqs);
       <div class="star-bg absolute inset-0 pointer-events-none opacity-60"></div>
       <div class="relative max-w-[1320px] mx-auto px-4 md:px-8 pt-3 md:pt-4">
         <div class="relative aspect-[16/9] md:aspect-[16/7.8] rounded-[10px] overflow-hidden bg-black ring-1 ring-white/[0.06]">
-          <video src={HERO_VIDEO} poster={HERO_POSTER} muted loop playsinline autoplay preload="metadata" class="absolute inset-0 w-full h-full object-cover"></video>
+          <video src={HERO_VIDEO} poster={HERO_POSTER} muted loop playsinline autoplay preload="metadata" class="mc-hero-video absolute inset-0 w-full h-full object-cover"></video>
           <div class="absolute inset-x-0 bottom-0 h-[35%] bg-gradient-to-t from-black/55 to-transparent"></div>
         </div>
         <div class="relative mt-5 md:mt-7 text-center max-w-3xl mx-auto pb-2 md:pb-4">
-          <h1 class="text-white text-[24px] md:text-[32px] lg:text-[42px] leading-[1.15] tracking-[-0.025em] font-semibold">
-            Master Film Scoring with <span class="text-gold font-cinzel">Ravi Basrur</span>
+          <h1 class="font-cinzel text-gold text-[28px] md:text-[40px] lg:text-[52px] leading-[1.05] tracking-[-0.04em] font-semibold">
+            LEARN MUSIC COMPOSITION WITH RAVI BASRUR
           </h1>
           <p class="mt-4 italic text-[15px] md:text-[17px] text-[#dfdee2]/85 leading-[1.5] max-w-[640px] mx-auto">
             "Music is only to push up the emotions. If audience eyes are filled with tears, it's a music director's job to bring those tears down."
@@ -218,7 +227,7 @@ const faq = faqJsonLd(faqs);
           </div>
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-2.5">
             {blockbusterFilms.map((src, i) => (
-              <div class={`relative aspect-[2/3] rounded-md overflow-hidden ring-1 ring-white/[0.06] shadow-[0_15px_30px_-15px_rgba(0,0,0,0.7)] ${i % 2 === 0 ? "translate-y-0" : "translate-y-3 md:translate-y-4"}`}>
+              <div class={`relative aspect-[2/3] rounded-md overflow-hidden ring-1 ring-white/[0.06] tilt shadow-[0_15px_30px_-15px_rgba(0,0,0,0.7)] ${i % 2 === 0 ? "translate-y-0" : "translate-y-3 md:translate-y-4"}`}>
                 <img src={src} alt="Ravi Basrur film score poster" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
             ))}
@@ -259,7 +268,7 @@ const faq = faqJsonLd(faqs);
           "Showcase on your Certificate on social media",
           "Share as image online to demonstrate your skill",
         ].map((t, i) => (
-          <li class="rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 flex gap-4">
+          <li class="rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 lift flex gap-4">
             <span class="font-cinzel text-[28px] text-gold leading-none">0{i + 1}</span>
             <span class="text-[15px] md:text-[19px] text-[#f2f2f2] leading-[1.45] tracking-[-0.02em] font-medium">{t}</span>
           </li>
@@ -287,7 +296,7 @@ const faq = faqJsonLd(faqs);
         </div>
         <div class="space-y-3 md:space-y-4">
           {whatYouGet.map((g) => (
-            <div class="rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 flex gap-4 md:gap-5">
+            <div class="rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 lift flex gap-4 md:gap-5">
               <span class="font-cinzel text-[32px] md:text-[40px] text-gold leading-none shrink-0">{g.num}</span>
               <div>
                 <h3 class="text-[18px] md:text-[22px] font-semibold text-white leading-[1.25] tracking-[-0.04em]">{g.title}</h3>
@@ -346,5 +355,6 @@ const faq = faqJsonLd(faqs);
         </div>
       </div>
     </footer>
+    <PageInteractions client:idle />
   </main>
 </BaseLayout>
