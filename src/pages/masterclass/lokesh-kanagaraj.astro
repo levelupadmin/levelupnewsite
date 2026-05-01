@@ -6,6 +6,7 @@ import TestimonialCarousel from "@/components/lokesh/TestimonialCarousel";
 import LokeshTrailer from "@/components/lokesh/LokeshTrailer";
 import PosterMarquee from "@/components/lokesh/PosterMarquee";
 import HoverPlayVideo from "@/components/lokesh/HoverPlayVideo";
+import IntersectionPlayVideo from "@/components/lokesh/IntersectionPlayVideo";
 import PageInteractions from "@/components/lokesh/PageInteractions";
 import { courseJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/structuredData";
 
@@ -268,13 +269,13 @@ const faq = faqJsonLd(faqs);
         <div class="relative aspect-[16/9] md:aspect-[16/7.8] rounded-[10px] overflow-hidden bg-black ring-1 ring-white/[0.06]">
           <video
             src={`${ASSET}/8aQnJtJnDomXGCoq8SMNrwjXL4.mp4`}
-            poster={`${ASSET}/JA7LjstCBpKLub03f5p6KgzoBE.png`}
+            poster={`${ASSET}/QaxSA03bLYHaFbkggaEPiIp4oc.jpg`}
             muted
             loop
             playsinline
             autoplay
             preload="metadata"
-            class="mc-hero-video absolute inset-0 w-full h-full object-cover"
+            class="absolute inset-0 w-full h-full object-cover"
           ></video>
           <!-- Light bottom gradient only, to bridge into the page bg without darkening the hero -->
           <div class="absolute inset-x-0 bottom-0 h-[35%] bg-gradient-to-t from-black/55 to-transparent pointer-events-none"></div>
@@ -360,32 +361,40 @@ const faq = faqJsonLd(faqs);
       </div>
     </section>
 
-    <!-- ─── Director / Blockbuster films ─── -->
-    <section class="relative px-5 md:px-12 py-14 md:py-24 overflow-hidden">
-      <div class="max-w-[1280px] mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
-          <div class="reveal">
-            <h2 class="font-cinzel text-gold text-[28px] md:text-[36px] lg:text-[45px] leading-[1.05] tracking-[-0.06em] font-semibold">
+    <!-- ─── Director / Blockbuster films ───
+         Framer uses a single 1200×720 pre-composited banner image (SFQ9US.jpg)
+         showing all of Lokesh's posters together as one cinematic montage,
+         not a grid of separate poster cards. The headline + CTA sits as a
+         text overlay on top, with a subtle gradient for legibility. -->
+    <section class="relative overflow-hidden">
+      <div class="relative w-full max-w-[1440px] mx-auto aspect-[16/9] md:aspect-[2/1]">
+        <img
+          src={`${ASSET}/SFQ9USlw2CFVrI0MrCazRcdW5m8.jpg`}
+          alt="Films directed by Lokesh Kanagaraj — Maanagaram, Master, Vikram, Leo, Kaithi"
+          class="absolute inset-0 w-full h-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+        <!-- Gradient bridge so the banner blends into the page above + below -->
+        <div class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/30 to-transparent pointer-events-none"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40 pointer-events-none"></div>
+
+        <div class="absolute inset-0 flex items-center">
+          <div class="px-6 md:px-12 lg:px-20 max-w-[640px] reveal">
+            <h2 class="font-cinzel text-gold text-[28px] md:text-[36px] lg:text-[48px] leading-[1.05] tracking-[-0.04em] font-semibold">
               Learn from the
             </h2>
-            <p class="text-white text-[28px] md:text-[40px] lg:text-[55px] leading-[1.05] tracking-[-0.06em] font-semibold mt-1">
+            <p class="text-white text-[26px] md:text-[36px] lg:text-[52px] leading-[1.05] tracking-[-0.06em] font-semibold mt-1">
               Director Behind these Blockbuster Films
             </p>
             <a
               href={CTA_HREF}
               target="_blank"
               rel="noopener noreferrer"
-              class="buy-pill mt-7 md:mt-8 inline-flex items-center justify-center px-6 py-2.5 md:px-7 md:py-3 rounded-full text-[14px] md:text-[15px]"
+              class="buy-pill mt-6 md:mt-8 inline-flex items-center justify-center px-6 py-2.5 md:px-7 md:py-3 rounded-full text-[14px] md:text-[15px]"
             >
               Buy now at ₹1,499
             </a>
-          </div>
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-2.5 reveal reveal-delay-2">
-            {blockbusterFilms.map((src, i) => (
-              <div class={`relative aspect-[2/3] rounded-md overflow-hidden ring-1 ring-white/[0.06] tilt shadow-[0_15px_30px_-15px_rgba(0,0,0,0.7)] ${i % 2 === 0 ? "translate-y-0" : "translate-y-3 md:translate-y-4"}`}>
-                <img src={src} alt="Lokesh Kanagaraj film poster" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
-              </div>
-            ))}
           </div>
         </div>
       </div>
@@ -455,7 +464,7 @@ const faq = faqJsonLd(faqs);
           {whyPoints.map((p, i) => (
             <div class={`grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center reveal ${i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""}`}>
               <div class="relative aspect-[16/9] rounded-xl overflow-hidden ring-1 ring-white/10 bg-[#0a0a0a] shadow-[0_20px_50px_-20px_rgba(0,0,0,0.7)]">
-                <HoverPlayVideo src={p.media} className="w-full h-full" client:visible />
+                <IntersectionPlayVideo src={p.media} className="absolute inset-0 w-full h-full" client:visible />
               </div>
               <p class="text-[20px] md:text-[24px] leading-[1.5] tracking-[-0.06em] text-[#dfdee2] md:px-4">
                 {p.text}

@@ -55,23 +55,9 @@ export default function PageInteractions({ course, courseName, price }: PageInte
     });
     document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
-    // ─────────────────────────────────────────────────────────────────
-    // Hero subtle parallax — moves video bg slightly slower than scroll
-    // ─────────────────────────────────────────────────────────────────
-    const heroVideo = document.querySelector<HTMLVideoElement>(".mc-hero-video");
-    let rafId = 0;
-    const onScroll = () => {
-      if (rafId) return;
-      rafId = requestAnimationFrame(() => {
-        const y = window.scrollY;
-        if (heroVideo && y < window.innerHeight) {
-          heroVideo.style.transform = `translate3d(0, ${y * 0.18}px, 0) scale(1.05)`;
-        }
-        rafId = 0;
-      });
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    // (Removed) Hero parallax — was rewriting transform on every scroll tick
+    // which caused some browsers to stutter the video element. The hero video
+    // now plays cleanly without scroll-driven transforms.
 
     // ─────────────────────────────────────────────────────────────────
     // Mouse-position tilt for cards with .tilt
@@ -99,7 +85,6 @@ export default function PageInteractions({ course, courseName, price }: PageInte
 
     return () => {
       io.disconnect();
-      window.removeEventListener("scroll", onScroll);
       tilts.forEach((t) => {
         t.removeEventListener("mousemove", tiltMove);
         t.removeEventListener("mouseleave", tiltLeave);
