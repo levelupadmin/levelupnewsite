@@ -8,7 +8,6 @@ import PosterMarquee from "@/components/lokesh/PosterMarquee";
 import HoverPlayVideo from "@/components/lokesh/HoverPlayVideo";
 import IntersectionPlayVideo from "@/components/lokesh/IntersectionPlayVideo";
 import HeroPlayer from "@/components/lokesh/HeroPlayer";
-import StickyMobileCta from "@/components/lokesh/StickyMobileCta.astro";
 import PageInteractions from "@/components/lokesh/PageInteractions";
 import { courseJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/structuredData";
 
@@ -289,21 +288,13 @@ const faq = faqJsonLd(faqs);
   </style>
 
   <main id="main-content" class="lokesh-page">
-    <!-- ─── Sticky mobile CTA (mobile only, above the hero) ─── -->
-    <StickyMobileCta href={CTA_HREF} price={1499} course="lokesh-kanagaraj" />
-
-    <!-- ─── Header — small pill matches Framer (peach-translucent, 19px radius) ─── -->
-    <header class="relative z-30 px-5 md:px-12 pt-5 md:pt-7 flex items-center justify-between gap-4">
+    <!-- ─── Header — Framer original has just the LevelUp logo at top-left,
+         no top-right pill on either desktop or mobile. The CTA pills are
+         distributed inside the page (hero, class info, films, what-you-get,
+         closing, FAQ — six total). Matching that exactly. ─── -->
+    <header class="relative z-30 px-5 md:px-12 pt-5 md:pt-7 flex items-center gap-4">
       <a href="/" class="inline-flex items-center" aria-label="LevelUp Learning home">
         <img src="/levelup-logo-mark.svg" alt="LevelUp" class="h-7 md:h-8 w-auto" />
-      </a>
-      <a
-        href={CTA_HREF}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="hidden md:inline-flex buy-pill-small"
-      >
-        Buy now at ₹1,499
       </a>
     </header>
 
