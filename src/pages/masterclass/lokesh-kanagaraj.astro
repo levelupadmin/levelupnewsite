@@ -316,7 +316,10 @@ const faq = faqJsonLd(faqs);
       <div class="star-bg absolute inset-0 pointer-events-none opacity-70"></div>
 
       <div class="relative w-full pt-4 md:pt-6">
-        <div class="relative aspect-[16/10] sm:aspect-[16/9] md:aspect-[16/8] lg:aspect-[1440/800] overflow-hidden bg-black">
+        <!-- Mobile: portrait 393×496 (Framer's exact mobile aspect, ~5:6.3).
+             Desktop: full-bleed 1440×800 cinematic.
+             The HeroPlayer swaps to the portrait video file on mobile. -->
+        <div class="relative aspect-[393/496] sm:aspect-[16/10] md:aspect-[16/8] lg:aspect-[1440/800] overflow-hidden bg-black">
           <HeroPlayer
             src={`${ASSET}/8aQnJtJnDomXGCoq8SMNrwjXL4.mp4`}
             mobileSrc={`${ASSET}/E4445FBvzTGHgmyA5xjXaU8S4mA.mp4`}
@@ -463,43 +466,42 @@ const faq = faqJsonLd(faqs);
 
     <!-- ─── Who is this program for? ─── -->
     <section class="relative px-5 md:px-12 py-16 md:py-24 overflow-hidden">
-      <div class="max-w-5xl mx-auto text-center mb-10 md:mb-14 reveal">
-        <p class="font-cinzel text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Who is this</p>
-        <div class="my-4 section-tick"></div>
-        <h2 class="font-cinzel text-gold text-[28px] md:text-[44px] lg:text-[56px] leading-[1.05] tracking-[-0.04em] font-semibold whitespace-nowrap">
+      <div class="max-w-5xl mx-auto text-center mb-10 md:mb-12 reveal">
+        <p class="font-cinzel text-[10px] md:text-[11px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Who is this</p>
+        <div class="my-3 section-tick"></div>
+        <!-- Framer renders the heading at ~28px. Smaller + tighter than I had it. -->
+        <h2 class="font-cinzel text-gold text-[22px] md:text-[26px] lg:text-[28px] leading-[1.1] tracking-[0.02em] font-semibold whitespace-nowrap">
           WHO IS THIS PROGRAM FOR?
         </h2>
       </div>
 
       <!-- Pure black canvas with the gold revolver dead-center and 6 pills
-           positioned hexagonally around it. No concentric-ring background
-           (Framer's bg is plain black). The revolver wears a soft gold
-           drop-shadow that glows subtly as if lit from above. -->
-      <div class="relative max-w-[920px] mx-auto aspect-[5/3] reveal reveal-delay-2">
-        <!-- Central revolver — soft gold radial behind for ambient glow -->
-        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[55%] aspect-square z-0 pointer-events-none"
-             style="background: radial-gradient(closest-side, rgba(212,163,108,0.25), rgba(212,163,108,0.08) 40%, transparent 70%); filter: blur(8px);"></div>
+           positioned hexagonally around it. Tighter aspect (closer to
+           Framer's compact composition); pills hug the gun closer. -->
+      <div class="relative max-w-[760px] mx-auto aspect-[16/10] reveal reveal-delay-2">
+        <!-- Central revolver — very subtle gold radial behind for ambient glow -->
+        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] aspect-square z-0 pointer-events-none"
+             style="background: radial-gradient(closest-side, rgba(212,163,108,0.18), rgba(212,163,108,0.06) 45%, transparent 75%); filter: blur(10px);"></div>
         <img
           src={`${ASSET}/jWDMz6JCKJMeDWPQRsI7Vq1xbc.png`}
           alt="Maanagaram revolver — Lokesh Kanagaraj signature motif"
-          class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[44%] md:w-[36%] h-auto z-10"
-          style="mix-blend-mode: screen; filter: drop-shadow(0 8px 28px rgba(212,163,108,0.55));"
+          class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[40%] md:w-[34%] h-auto z-10"
+          style="mix-blend-mode: screen; filter: drop-shadow(0 8px 26px rgba(212,163,108,0.45));"
           loading="lazy"
           decoding="async"
         />
 
-        <!-- 6 audience pills positioned around the revolver in a 3×2 hex
-             arrangement matching the Framer screenshot. Larger font, more
-             padding, subtle dark gradient with thin border + soft shadow. -->
+        <!-- 6 audience pills hugging the revolver in a 3×2 hex arrangement
+             closer to Framer's positions. -->
         {[
-          { label: "Dialogue Writers", className: "top-[6%] left-[8%]", float: "float-a" },
-          { label: "Cinema Lovers", className: "top-[6%] right-[8%]", float: "float-b" },
-          { label: "Story Architects", className: "top-1/2 -translate-y-1/2 left-[2%]", float: "float-c" },
-          { label: "Visionary Filmmakers", className: "top-1/2 -translate-y-1/2 right-[2%]", float: "float-a" },
-          { label: "Future Directors", className: "bottom-[6%] left-[14%]", float: "float-b" },
-          { label: "Film Dreamers", className: "bottom-[6%] right-[14%]", float: "float-c" },
+          { label: "Dialogue Writers",     className: "top-[8%] left-[18%]",                     float: "float-a" },
+          { label: "Cinema Lovers",        className: "top-[8%] right-[18%]",                    float: "float-b" },
+          { label: "Story Architects",     className: "top-1/2 -translate-y-1/2 left-[8%]",      float: "float-c" },
+          { label: "Visionary Filmmakers", className: "top-1/2 -translate-y-1/2 right-[8%]",     float: "float-a" },
+          { label: "Future Directors",     className: "bottom-[8%] left-[22%]",                  float: "float-b" },
+          { label: "Film Dreamers",        className: "bottom-[8%] right-[22%]",                 float: "float-c" },
         ].map((p) => (
-          <span class={`absolute ${p.className} ${p.float} z-20 px-4 py-2 md:px-5 md:py-2.5 rounded-full text-[12px] md:text-[14px] tracking-[-0.01em] text-white/95 bg-[radial-gradient(120%_100%_at_50%_0%,rgba(40,30,18,0.85),rgba(10,8,6,0.92))] border border-white/[0.08] shadow-[0_14px_32px_-14px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-sm whitespace-nowrap`}>
+          <span class={`absolute ${p.className} ${p.float} z-20 px-3.5 py-1.5 md:px-4 md:py-2 rounded-full text-[11px] md:text-[12px] tracking-[-0.01em] text-white/95 bg-[radial-gradient(120%_100%_at_50%_0%,rgba(40,30,18,0.85),rgba(10,8,6,0.92))] border border-white/[0.08] shadow-[0_14px_32px_-14px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-sm whitespace-nowrap`}>
             {p.label}
           </span>
         ))}
