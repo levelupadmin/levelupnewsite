@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import MasterclassDetail from "@/pages-react/MasterclassDetail.tsx";
+import StickyMobileCta from "@/components/lokesh/StickyMobileCta.astro";
 import { VALID_SLUGS, getMasterclassData } from "@/data/masterclassPages";
 import { courseJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/structuredData";
 
@@ -51,5 +52,6 @@ const allJsonLd = [course, breadcrumb, ...(faq ? [faq] : [])];
   preloadImage={data.heroImage}
   jsonLd={allJsonLd}
 >
+  <StickyMobileCta href={data.ctaLink} price={data.price} course={data.slug} />
   <MasterclassDetail slug={data.slug} initialData={data} client:load />
 </BaseLayout>
