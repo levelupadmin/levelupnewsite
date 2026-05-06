@@ -3,6 +3,10 @@ import { useRef, useState, useEffect } from "react";
 interface Props {
   src: string;
   poster: string;
+  /** Optional mobile-portrait video src — Framer ships a separate vertical cut */
+  mobileSrc?: string;
+  /** Optional mobile poster matching the mobile-portrait video */
+  mobilePoster?: string;
   /** Optional aria label override */
   ariaLabel?: string;
 }
@@ -29,10 +33,19 @@ interface Props {
  *   before requestIdleCallback fires. The poster is the LCP image; even
  *   if the JS is slow to arrive, the hero still LOOKS right.
  */
-export default function HeroPlayer({ src, poster, ariaLabel }: Props) {
+export default function HeroPlayer({ src, poster, mobileSrc, mobilePoster, ariaLabel }: Props) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showHint, setShowHint] = useState(false);
+  // Pick mobile src once on mount (avoids SSR mismatch). Default to desktop src.
+  const [activeSrc, setActiveSrc] = useState(src);
+  const [activePoster, setActivePoster] = useState(poster);
+  useEffect(() => {
+    if (mobileSrc && typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches) {
+      setActiveSrc(mobileSrc);
+      if (mobilePoster) setActivePoster(mobilePoster);
+    }
+  }, [mobileSrc, mobilePoster]);
 
   // Try a delayed muted autoplay after first paint. Browsers that allow it
   // (most modern Chrome/Edge/Firefox/Safari with muted) will start the loop;
@@ -84,8 +97,8 @@ export default function HeroPlayer({ src, poster, ariaLabel }: Props) {
     >
       <video
         ref={videoRef}
-        src={src}
-        poster={poster}
+        src={activeSrc}
+        poster={activePoster}
         muted
         loop
         playsInline

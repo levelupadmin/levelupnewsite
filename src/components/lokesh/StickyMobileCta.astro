@@ -1,27 +1,29 @@
 ---
 /**
- * Sticky mobile CTA bar — pinned to the top of the page below the navbar
- * on mobile only. Above the hero so it's always in the user's first view.
+ * Sticky mobile top-right pill — pinned to the very top-right of the page
+ * on mobile only. Mirrors the Framer design (small peach-translucent pill
+ * with thin white border) rather than a wide, aggressive gradient bar.
  *
- * Why: the existing hero on /masterclass/* pages dominates the first
- * viewport on mobile. All CTAs were below the hero, so users barely past
- * 35% scroll depth (Clarity) never saw a Buy button. This pins one to
- * the top.
+ * The Framer original keeps a small "Buy now at ₹1,499" pill at the
+ * top-right on every breakpoint. On the cloned page we hide this pill on
+ * desktop because the header already shows the same CTA next to the logo,
+ * but show it on mobile where the desktop header pill is hidden — this
+ * way users always have a CTA visible above the fold without overpowering
+ * the hero.
  *
- * The script is inline (not a hydrated island) so it works pre-JS-load.
  * On click, the global UTM-forwarding script in BaseLayout.astro
- * intercepts the click, appends UTMs from sessionStorage, fires Pixel
- * Lead + InitiateCheckout, then navigates.
+ * intercepts, appends UTMs from sessionStorage, fires Pixel Lead +
+ * InitiateCheckout, then navigates.
  */
 interface Props {
   href: string;
   price: number;
-  label?: string; // override default "Sign Up Now ₹X,XXX"
-  course?: string; // course slug for data-cta attribution
+  label?: string;
+  course?: string;
 }
 
 const { href, price, label, course = "" } = Astro.props;
-const ctaText = label || `Sign Up Now ₹${price.toLocaleString("en-IN")}`;
+const ctaText = label || `Buy now at ₹${price.toLocaleString("en-IN")}`;
 ---
 
 <a
@@ -30,9 +32,8 @@ const ctaText = label || `Sign Up Now ₹${price.toLocaleString("en-IN")}`;
   rel="noopener noreferrer"
   data-cta="sticky-mobile-top"
   data-mc-course={course}
-  class="md:hidden sticky top-0 left-0 right-0 z-[55] flex items-center justify-center gap-2 w-full py-3.5 px-4 text-center font-semibold text-[15px] tracking-[0.01em] text-[#401b00] bg-gradient-to-b from-[#ffe5b8] via-[#e3b671] to-[#8c5e2e] border-b border-amber-900/30 shadow-[0_4px_12px_rgba(0,0,0,0.35)] active:from-amber-300 active:to-amber-700 transition-[filter] duration-150 active:brightness-95"
-  style="touch-action: manipulation; min-height: 48px;"
+  class="md:hidden fixed top-3 right-3 z-[55] inline-flex items-center justify-center px-3 py-1.5 text-[12px] font-semibold tracking-[-0.01em] text-[#3a1a00] rounded-[19px] bg-[rgba(255,203,148,0.55)] backdrop-blur-md border border-white/25 shadow-[0_2px_4px_rgba(0,0,0,0.35),0_10px_18px_-2px_rgba(255,203,148,0.18),inset_0_1px_0_rgba(255,255,255,0.5)] active:scale-[0.98] transition-transform duration-150"
+  style="touch-action: manipulation; min-height: 36px;"
 >
-  <span>{ctaText}</span>
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+  {ctaText}
 </a>

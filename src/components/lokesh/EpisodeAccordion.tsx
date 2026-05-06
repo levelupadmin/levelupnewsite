@@ -9,14 +9,20 @@ export interface Episode {
 
 interface Props {
   episodes: Episode[];
+  /**
+   * @deprecated The Framer original shows every episode without a gate.
+   * This prop is now ignored — kept for backwards compatibility with
+   * existing call sites.
+   */
   initialVisible?: number;
 }
 
-export default function EpisodeAccordion({ episodes, initialVisible = 4 }: Props) {
+// Framer's masterclass pages show every episode in the list with no
+// "Show all 15 lessons" gate. Hiding 10 of 15 episodes was a friction
+// point I introduced — removing it.
+export default function EpisodeAccordion({ episodes }: Props) {
   const [open, setOpen] = useState<number | null>(0);
-  const [showAll, setShowAll] = useState(false);
-
-  const visible = showAll ? episodes : episodes.slice(0, initialVisible);
+  const visible = episodes;
 
   return (
     <div className="flex flex-col gap-3">
@@ -60,15 +66,6 @@ export default function EpisodeAccordion({ episodes, initialVisible = 4 }: Props
         );
       })}
 
-      {!showAll && episodes.length > initialVisible && (
-        <button
-          onClick={() => setShowAll(true)}
-          className="mx-auto mt-2 inline-flex items-center gap-2 text-xs tracking-[0.18em] uppercase text-amber-200/70 hover:text-amber-100 transition-colors"
-        >
-          Show all {episodes.length} lessons
-          <ChevronDown className="w-4 h-4" />
-        </button>
-      )}
     </div>
   );
 }
