@@ -14,6 +14,8 @@ import kiranImg from "@/assets/drk-kiran.webp";
 import raviImg from "@/assets/ravi-basrur.webp";
 import lokeshImg from "@/assets/lokesh-kanagaraj.png";
 
+// Order specified by Rahul: Karthik → Lokesh → Nelson → Ravi → G Venket Ram
+// → Anthony → DRK. Coming-soon card gets appended at the end (in render).
 const masterclasses = [
   {
     image: karthikImg,
@@ -22,38 +24,6 @@ const masterclasses = [
     format: "Filmmaker",
     category: "Filmmaking",
     href: "https://masterclass.leveluplearning.in/karthik-subbaraj",
-  },
-  {
-    image: anthonyImg,
-    name: "Anthony Gonsalvez",
-    descriptor: "An all-out practical editing experience",
-    format: "Film Editor",
-    category: "Editing",
-    href: "/masterclass/anthony-gonsalvez",
-  },
-  {
-    image: venketImg,
-    name: "G Venket Ram",
-    descriptor: "Capturing the perfect image through diverse case studies",
-    format: "Photographer",
-    category: "Photography",
-    href: "/masterclass/g-venket-ram",
-  },
-  {
-    image: kiranImg,
-    name: "DRK Kiran",
-    descriptor: "Set designing, creative problem-solving, and miniatures",
-    format: "Art Director",
-    category: "Art Direction",
-    href: "/masterclass/drk-kiran",
-  },
-  {
-    image: raviImg,
-    name: "Ravi Basrur",
-    descriptor: "From the village of Basrur to revolutionizing Sandalwood music",
-    format: "Music Director",
-    category: "Music",
-    href: "/masterclass/ravi-basrur",
   },
   {
     image: lokeshImg,
@@ -70,6 +40,38 @@ const masterclasses = [
     format: "Filmmaker",
     category: "Filmmaking",
     href: "/masterclass/nelson-dilipkumar",
+  },
+  {
+    image: raviImg,
+    name: "Ravi Basrur",
+    descriptor: "From the village of Basrur to revolutionizing Sandalwood music",
+    format: "Music Director",
+    category: "Music",
+    href: "/masterclass/ravi-basrur",
+  },
+  {
+    image: venketImg,
+    name: "G Venket Ram",
+    descriptor: "Capturing the perfect image through diverse case studies",
+    format: "Photographer",
+    category: "Photography",
+    href: "/masterclass/g-venket-ram",
+  },
+  {
+    image: anthonyImg,
+    name: "Anthony Gonsalvez",
+    descriptor: "An all-out practical editing experience",
+    format: "Film Editor",
+    category: "Editing",
+    href: "/masterclass/anthony-gonsalvez",
+  },
+  {
+    image: kiranImg,
+    name: "DRK Kiran",
+    descriptor: "Set designing, creative problem-solving, and miniatures",
+    format: "Art Director",
+    category: "Art Direction",
+    href: "/masterclass/drk-kiran",
   },
 ];
 
@@ -161,9 +163,38 @@ const MasterclassSection = () => {
         }}
       />
 
-      {/* Section tag */}
+      {/* Animated divider above the On-Demand pill — gold gradient sweep
+          like the masterclass why-is-this glowing center line. The keyframes
+          live in src/styles/global.css; the inline style is a fallback. */}
+      <div
+        className="relative mx-auto mb-8 md:mb-10 h-px max-w-[480px] md:max-w-[640px] overflow-hidden pointer-events-none"
+        aria-hidden="true"
+      >
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent 0%, rgba(212,163,108,0.15) 15%, rgba(212,163,108,0.6) 35%, rgba(245,213,154,0.85) 50%, rgba(212,163,108,0.6) 65%, rgba(212,163,108,0.15) 85%, transparent 100%)",
+            boxShadow:
+              "0 0 12px rgba(212,163,108,0.55), 0 0 24px rgba(212,163,108,0.25)",
+          }}
+        />
+        <div
+          className="absolute top-0 bottom-0 w-1/3"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, rgba(255,222,179,0.95), transparent)",
+            animation: "mc-divider-sweep 3.6s ease-in-out infinite",
+          }}
+        />
+      </div>
+
+      {/* Section tag — pulsing gold border to signal it's the masterclass section */}
       <FadeInSection className="text-center px-6 md:px-12 mb-4">
-        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-[11px] tracking-[0.18em] uppercase font-sans-body text-primary/80">
+        <span
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-[11px] tracking-[0.18em] uppercase font-sans-body text-primary/90"
+          style={{ animation: "mc-pill-glow 2.8s ease-in-out infinite" }}
+        >
           On-Demand Masterclasses
         </span>
       </FadeInSection>

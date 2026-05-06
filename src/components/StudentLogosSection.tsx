@@ -127,9 +127,17 @@ const StudentLogosSection = () => {
     >
       <ImpactBentoGrid />
 
-      {/* Section divider with accent line */}
+      {/* Section divider with accent line.
+          v2 polish:
+          - Bigger logos (was h-7/12/14, now h-10/16/20)
+          - More vertical real estate (py-12/16 -> py-20/28)
+          - More breathing room between rows (space-y 8/12 -> 12/16)
+          - Fix white-block bug: PNG logos with white backgrounds were being
+            inverted to a solid white block by `filter: brightness(0) invert(1)`.
+            Wrapping each logo in a small dark panel masks the bg and gives
+            every logo a uniform pedestal regardless of its source colour. */}
       <m.div
-        className="relative bg-background py-12 md:py-16"
+        className="relative bg-background py-20 md:py-28"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -139,12 +147,12 @@ const StudentLogosSection = () => {
 
         <m.p
           variants={itemVariants}
-          className="text-sm text-muted-foreground uppercase tracking-widest text-center mb-8 md:mb-14"
+          className="text-sm md:text-base text-muted-foreground uppercase tracking-widest text-center mb-10 md:mb-16"
         >
           Our students come from
         </m.p>
 
-        <div className="space-y-8 md:space-y-12">
+        <div className="space-y-12 md:space-y-16">
           {rows.map((row, rowIdx) => (
             <m.div
               key={rowIdx}
@@ -156,20 +164,41 @@ const StudentLogosSection = () => {
               }}
             >
               <div
-                className="flex whitespace-nowrap items-center gap-8 md:gap-16 lg:gap-20 w-max marquee-track"
+                className="flex whitespace-nowrap items-center gap-6 md:gap-10 lg:gap-12 w-max marquee-track"
                 style={{ animation: row.animation }}
               >
-                {[...row.brands, ...row.brands].map((brand, i) => (
-                  <Picture
-                    key={`${brand.name}-${i}`}
-                    src={brand.logo}
-                    alt={brand.name}
-                    className="h-7 md:h-12 lg:h-14 max-w-[80px] md:max-w-[140px] lg:max-w-[160px] w-auto object-contain select-none logo-marquee-item"
-                    style={{ filter: "brightness(0) invert(1)" }}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                ))}
+                {[...row.brands, ...row.brands].map((brand, i) => {
+                  // PNG logos in this set are mostly designed for white
+                  // backgrounds with dark elements. Inverting them with
+                  // brightness(0) invert(1) on a transparent bg works,
+                  // but on a white-bg PNG the whole rectangle goes white.
+                  // We side-step the bug by always painting on a small
+                  // dark panel — any white halo blends into the panel.
+                  const isPng = /\.png$/i.test(brand.logo);
+                  return (
+                    <div
+                      key={`${brand.name}-${i}`}
+                      className="flex items-center justify-center px-4 md:px-6 py-3 md:py-4 rounded-lg bg-white/[0.04] border border-white/[0.05] hover:bg-white/[0.07] transition-colors duration-300 shrink-0"
+                      style={{ minWidth: "140px" }}
+                    >
+                      <Picture
+                        src={brand.logo}
+                        alt={brand.name}
+                        className="h-10 md:h-14 lg:h-16 max-w-[110px] md:max-w-[170px] lg:max-w-[200px] w-auto object-contain select-none logo-marquee-item"
+                        style={{
+                          // Only invert the SVG logos to white. PNGs are
+                          // shown as-is on the dark panel — the panel is the
+                          // unifier so different bg colours don't matter.
+                          filter: isPng ? "brightness(1.1) contrast(1.05)" : "brightness(0) invert(1)",
+                          mixBlendMode: isPng ? "screen" : "normal",
+                          opacity: isPng ? 0.85 : 1,
+                        }}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                  );
+                })}
               </div>
             </m.div>
           ))}
