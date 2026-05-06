@@ -51,5 +51,5 @@ const allJsonLd = [course, breadcrumb, ...(faq ? [faq] : [])];
   preloadImage={data.heroImage}
   jsonLd={allJsonLd}
 >
-  <MasterclassDetail slug={data.slug} initialData={data} client:idle />
+  <MasterclassDetail slug={data.slug} initialData={data} client:load />
 </BaseLayout>

@@ -1,0 +1,38 @@
+---
+/**
+ * Sticky mobile CTA bar — pinned to the top of the page below the navbar
+ * on mobile only. Above the hero so it's always in the user's first view.
+ *
+ * Why: the existing hero on /masterclass/* pages dominates the first
+ * viewport on mobile. All CTAs were below the hero, so users barely past
+ * 35% scroll depth (Clarity) never saw a Buy button. This pins one to
+ * the top.
+ *
+ * The script is inline (not a hydrated island) so it works pre-JS-load.
+ * On click, the global UTM-forwarding script in BaseLayout.astro
+ * intercepts the click, appends UTMs from sessionStorage, fires Pixel
+ * Lead + InitiateCheckout, then navigates.
+ */
+interface Props {
+  href: string;
+  price: number;
+  label?: string; // override default "Sign Up Now ₹X,XXX"
+  course?: string; // course slug for data-cta attribution
+}
+
+const { href, price, label, course = "" } = Astro.props;
+const ctaText = label || `Sign Up Now ₹${price.toLocaleString("en-IN")}`;
+---
+
+<a
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  data-cta="sticky-mobile-top"
+  data-mc-course={course}
+  class="md:hidden sticky top-0 left-0 right-0 z-[55] flex items-center justify-center gap-2 w-full py-3.5 px-4 text-center font-semibold text-[15px] tracking-[0.01em] text-[#401b00] bg-gradient-to-b from-[#ffe5b8] via-[#e3b671] to-[#8c5e2e] border-b border-amber-900/30 shadow-[0_4px_12px_rgba(0,0,0,0.35)] active:from-amber-300 active:to-amber-700 transition-[filter] duration-150 active:brightness-95"
+  style="touch-action: manipulation; min-height: 48px;"
+>
+  <span>{ctaText}</span>
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+</a>

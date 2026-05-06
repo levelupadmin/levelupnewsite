@@ -20,11 +20,24 @@ export default function LokeshTrailer({ ytId }: { ytId: string }) {
     );
   }
 
+  // Anchor (not button) so it remains clickable even before this island
+  // has hydrated. If JS is alive: preventDefault + swap to embedded iframe.
+  // If JS hasn't loaded yet (slow network / failed hydration): the tap
+  // takes the user to youtube.com and the trailer plays there. Either
+  // way the click is never dead.
+  const ytWatchUrl = `https://www.youtube.com/watch?v=${ytId}`;
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setPlaying(true);
+  };
+
   return (
-    <button
-      type="button"
-      onClick={() => setPlaying(true)}
-      className="relative aspect-video w-full bg-black overflow-hidden group"
+    <a
+      href={ytWatchUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={handleClick}
+      className="relative aspect-video w-full bg-black overflow-hidden group block"
       aria-label="Play official trailer"
     >
       <img
@@ -46,6 +59,6 @@ export default function LokeshTrailer({ ytId }: { ytId: string }) {
           <Play className="w-6 h-6 ml-0.5" fill="currentColor" />
         </span>
       </div>
-    </button>
+    </a>
   );
 }
