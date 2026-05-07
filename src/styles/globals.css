@@ -1558,3 +1558,25 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* ═══ Masterclass section divider sweep + pill glow ═══ */
+@keyframes mc-divider-sweep {
+  0%   { transform: translateX(-100%); opacity: 0; }
+  20%  { opacity: 0.6; }
+  50%  { opacity: 0.95; }
+  80%  { opacity: 0.6; }
+  100% { transform: translateX(420%); opacity: 0; }
+}
+@keyframes mc-pill-glow {
+  0%, 100% {
+    border-color: hsl(38 75% 55% / 0.30);
+    box-shadow: 0 0 0 0 hsl(38 75% 55% / 0.0);
+  }
+  50% {
+    border-color: hsl(38 75% 55% / 0.65);
+    box-shadow: 0 0 14px 1px hsl(38 75% 55% / 0.35), 0 0 0 1px hsl(38 75% 55% / 0.15) inset;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [style*="mc-divider-sweep"], [style*="mc-pill-glow"] { animation: none !important; }
+}

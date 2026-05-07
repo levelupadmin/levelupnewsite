@@ -191,10 +191,20 @@ const ForgeSection = () => {
         </div>
       </FadeInSection>
 
-      {/* ─── Horizontal Embla Carousel ─── */}
-      <div className="max-w-[1600px] mx-auto px-5 md:px-12 mt-6 md:mt-8">
+      {/* ─── Horizontal Embla Carousel — full-bleed scroll ───
+          Cards slide in from the right edge of the viewport and out to the
+          left. The track is full-width (no max-w cap); the first card has
+          a leading "viewport-edge to gutter" pad so the active card aligns
+          with the rest of the page when at rest. */}
+      <div className="w-full mt-6 md:mt-8">
         <div className="overflow-hidden" ref={emblaRef}>
-          <div className="flex gap-4 md:gap-6">
+          <div
+            className="flex gap-4 md:gap-6"
+            style={{
+              paddingLeft: "max(20px, calc((100vw - 1600px) / 2 + 48px))",
+              paddingRight: "max(20px, calc((100vw - 1600px) / 2 + 48px))",
+            }}
+          >
             {forgeCards.map((card, index) =>
             <div
               key={index}

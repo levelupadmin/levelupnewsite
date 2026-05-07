@@ -123,7 +123,8 @@ const faq = faqJsonLd(faqs);
     .font-cinzel { font-family: "Cinzel", serif; }
     .font-poppins { font-family: "Poppins", sans-serif; }
     .font-dm { font-family: "DM Sans", sans-serif; }
-    .text-gold { background: linear-gradient(180deg, #f5d59a 0%, #d4a36c 50%, #8a5d2c 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    /* Framer's exact 5-stop diagonal gold gradient */
+    .text-gold { background-image: linear-gradient(284deg, rgb(126,75,39) 0%, rgb(152,93,51) 17.974%, rgb(255,222,179) 49%, rgb(152,93,51) 73.8563%, rgb(240,187,122) 92%); -webkit-background-clip: text; background-clip: text; color: transparent; }
     .lokesh-page .buy-pill {
       background: radial-gradient(120% 100% at 50% 0%, #ffe5b8 0%, #e3b671 30%, #c8924d 60%, #8c5e2e 100%);
       color: var(--gold-text-on-pill);
@@ -131,7 +132,24 @@ const faq = faqJsonLd(faqs);
       font-weight: 700; transition: filter 0.25s, transform 0.25s;
     }
     .lokesh-page .buy-pill:hover { filter: brightness(1.08); transform: translateY(-1px); }
-    .lokesh-page .star-bg { background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 36px 36px, 88px 88px; }
+    /* Small Framer-style top-right pill */
+    .lokesh-page .buy-pill-small {
+      background-color: rgba(255, 203, 148, 0.5); color: #3a1a00;
+      border: 0.5px solid rgba(255, 255, 255, 0.2); border-radius: 19px;
+      padding: 4px 14px; font-family: "Inter", sans-serif; font-size: 12px; font-weight: 600;
+      letter-spacing: -0.01em;
+      box-shadow: rgba(255,255,255,0.05) 0 0.6px 1.1px -0.83px, rgba(255,255,255,0.05) 0 2.3px 4.1px -1.66px, rgba(255,255,255,0.05) 0 10px 18px -2.5px;
+      backdrop-filter: blur(6px); transition: transform 0.18s ease, background-color 0.18s ease;
+    }
+    .lokesh-page .buy-pill-small:hover { background-color: rgba(255, 215, 168, 0.62); transform: translateY(-1px); }
+    /* Animated drifting star field */
+    .lokesh-page .star-bg {
+      background-image: radial-gradient(rgba(255,255,255,0.10) 1px, transparent 1.5px), radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1.5px);
+      background-size: 36px 36px, 88px 88px; background-position: 0 0, 18px 18px;
+      animation: mc-stars 90s linear infinite;
+    }
+    @keyframes mc-stars { 0% { background-position: 0 0, 18px 18px; } 100% { background-position: 360px 720px, 378px 738px; } }
+    @media (prefers-reduced-motion: reduce) { .lokesh-page .star-bg { animation: none; } }
     .lokesh-page .reveal { opacity: 1; transform: none; transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
     html.mc-js-on .lokesh-page .reveal { opacity: 0; transform: translateY(28px); }
     html.mc-js-on .lokesh-page .reveal.mc-in { opacity: 1; transform: translateY(0); }
@@ -149,24 +167,25 @@ const faq = faqJsonLd(faqs);
 
     <header class="relative z-30 px-5 md:px-12 pt-5 md:pt-7 flex items-center justify-between gap-4">
       <a href="/" aria-label="LevelUp Learning home"><img src="/levelup-logo-mark.svg" alt="LevelUp" class="h-7 md:h-8 w-auto" /></a>
-      <a href={CTA_HREF} target="_blank" rel="noopener noreferrer" class="hidden md:inline-flex buy-pill px-5 py-2.5 rounded-full text-[13px]">Buy now at ₹2,499</a>
+      <a href={CTA_HREF} target="_blank" rel="noopener noreferrer" class="hidden md:inline-flex buy-pill-small">Buy now at ₹2,499</a>
     </header>
 
+    <!-- Hero — full bleed, animated star field, Inter gold-gradient H1 -->
     <section class="relative overflow-hidden">
-      <div class="star-bg absolute inset-0 pointer-events-none opacity-60"></div>
-      <div class="relative max-w-[1320px] mx-auto px-4 md:px-8 pt-3 md:pt-4">
-        <div class="relative aspect-[16/9] md:aspect-[16/7.8] rounded-[10px] overflow-hidden bg-black ring-1 ring-white/[0.06]">
+      <div class="star-bg absolute inset-0 pointer-events-none opacity-70"></div>
+      <div class="relative w-full pt-4 md:pt-6">
+        <div class="relative aspect-[16/10] sm:aspect-[16/9] md:aspect-[16/8] lg:aspect-[1440/800] overflow-hidden bg-black">
           <HeroPlayer src={HERO_VIDEO} poster={HERO_POSTER} ariaLabel="Play Ravi Basrur masterclass hero" client:load />
-          <div class="absolute inset-x-0 bottom-0 h-[35%] bg-gradient-to-t from-black/55 to-transparent"></div>
+          <div class="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-t from-black to-transparent"></div>
         </div>
-        <div class="relative mt-5 md:mt-7 text-center max-w-3xl mx-auto pb-2 md:pb-4">
-          <h1 class="font-cinzel text-gold text-[28px] md:text-[40px] lg:text-[52px] leading-[1.05] tracking-[-0.04em] font-semibold">
-            LEARN MUSIC COMPOSITION WITH RAVI BASRUR
+        <div class="relative mt-7 md:mt-10 text-center max-w-3xl mx-auto px-5 pb-4 md:pb-8">
+          <h1 class="text-gold text-[24px] md:text-[30px] lg:text-[35px] leading-[1.2] tracking-[-0.02em] font-semibold" style="font-family: 'Inter', sans-serif;">
+            Learn Music Composition with Ravi Basrur
           </h1>
-          <p class="mt-4 italic text-[15px] md:text-[17px] text-[#dfdee2]/85 leading-[1.5] max-w-[640px] mx-auto">
+          <p class="mt-4 italic text-[14px] md:text-[16px] text-[#dfdee2]/85 leading-[1.5] max-w-[640px] mx-auto">
             "Music is only to push up the emotions. If audience eyes are filled with tears, it's a music director's job to bring those tears down."
           </p>
-          <p class="mt-4 md:mt-5 text-[14px] md:text-[15px] lg:text-[17px] leading-[1.55] tracking-[-0.02em] text-[#dfdee2]/75 max-w-[640px] mx-auto">
+          <p class="mt-4 md:mt-5 text-[14px] md:text-[15px] lg:text-[17px] leading-[1.55] tracking-[-0.02em] text-[#dfdee2]/80 max-w-[640px] mx-auto">
             Join the first-ever online masterclass of the talented musician hailing from the village of Basrur, who has revolutionized Indian music with chart-topping hits like KGF, Mufti, Ugramm, and Salaar.
           </p>
           <a href={CTA_HREF} target="_blank" rel="noopener noreferrer" class="buy-pill mt-6 md:mt-7 inline-flex items-center justify-center px-7 py-3 md:px-8 md:py-3.5 rounded-full text-[14px] md:text-[15px]">
@@ -174,7 +193,7 @@ const faq = faqJsonLd(faqs);
           </a>
         </div>
       </div>
-      <div class="h-10 md:h-16"></div>
+      <div class="h-8 md:h-12"></div>
     </section>
 
     <!-- Trailer (Ravi has no YouTube — uses an mp4) -->
@@ -216,26 +235,43 @@ const faq = faqJsonLd(faqs);
               <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>Practical, actionable lessons</span></li>
             </ul>
           </aside>
-          <div><EpisodeAccordion episodes={episodes} initialVisible={5} client:visible /></div>
+          <div><EpisodeAccordion episodes={episodes} client:visible /></div>
         </div>
       </div>
     </section>
 
-    <section class="relative px-5 md:px-12 py-14 md:py-24 overflow-hidden">
-      <div class="max-w-[1280px] mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
-          <div>
-            <h2 class="font-cinzel text-gold text-[28px] md:text-[36px] lg:text-[45px] leading-[1.05] tracking-[-0.06em] font-semibold">Learn from the</h2>
-            <p class="text-white text-[28px] md:text-[40px] lg:text-[55px] leading-[1.05] tracking-[-0.06em] font-semibold mt-1">Music Director Behind these Blockbuster Films</p>
-            <a href={CTA_HREF} target="_blank" rel="noopener noreferrer" class="buy-pill mt-7 md:mt-8 inline-flex items-center justify-center px-6 py-2.5 md:px-7 md:py-3 rounded-full text-[14px] md:text-[15px]">Buy now at ₹2,499</a>
-          </div>
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-2.5">
-            {blockbusterFilms.map((src, i) => (
-              <div class={`relative aspect-[2/3] rounded-md overflow-hidden ring-1 ring-white/[0.06] tilt shadow-[0_15px_30px_-15px_rgba(0,0,0,0.7)] ${i % 2 === 0 ? "translate-y-0" : "translate-y-3 md:translate-y-4"}`}>
-                <img src={src} alt="Ravi Basrur film score poster" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
-              </div>
-            ))}
-          </div>
+    <!-- Director / Blockbuster films — Framer-style two-column with stacked
+         poster deck on the right -->
+    <section class="relative overflow-hidden px-5 md:px-12 py-16 md:py-28">
+      <div class="max-w-[1320px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+        <div>
+          <p class="font-cinzel text-gold text-[22px] md:text-[26px] lg:text-[32px] leading-[1.1] tracking-[0.18em] uppercase font-medium">Learn from the</p>
+          <h2 class="text-white mt-3 text-[28px] md:text-[40px] lg:text-[52px] leading-[1.05] tracking-[-0.04em] font-semibold" style="font-family: 'Inter', sans-serif;">
+            Music Director Behind these Blockbuster Films
+          </h2>
+          <a href={CTA_HREF} target="_blank" rel="noopener noreferrer"
+             class="buy-pill mt-7 md:mt-9 inline-flex items-center justify-center px-7 py-3 rounded-full text-[14px] md:text-[15px]">
+            Buy now at ₹2,499
+          </a>
+        </div>
+        <div class="relative aspect-[3/4] max-w-[420px] w-full mx-auto">
+          {blockbusterFilms.slice(0, 4).map((src, idx) => {
+            const props = [
+              { rot: -8, dx: -28, dy: 12, z: 10 },
+              { rot: -3, dx: -10, dy: 6, z: 20 },
+              { rot: 4, dx: 14, dy: 4, z: 30 },
+              { rot: 9, dx: 28, dy: -2, z: 40 },
+            ][idx];
+            return (
+              <img
+                src={src}
+                alt={`Ravi Basrur film ${idx + 1}`}
+                class="absolute inset-0 w-full h-full object-cover rounded-xl ring-1 ring-white/10 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.85)]"
+                style={`transform: translate(${props.dx}px, ${props.dy}px) rotate(${props.rot}deg); z-index: ${props.z};`}
+                loading="lazy" decoding="async"
+              />
+            );
+          })}
         </div>
       </div>
     </section>
@@ -247,7 +283,9 @@ const faq = faqJsonLd(faqs);
         <h2 class="font-cinzel text-gold text-[32px] md:text-[42px] lg:text-[55px] leading-[1.05] tracking-[-0.05em] font-semibold">MASTERCLASS FOR YOU?</h2>
       </div>
       <div class="max-w-[1080px] mx-auto relative">
-        <div class="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/15 to-transparent hidden md:block"></div>
+        <!-- Glowing vertical timeline center line — Framer-style gold glow -->
+        <div class="absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-px hidden md:block pointer-events-none"
+             style="background: linear-gradient(180deg, transparent 0%, rgba(212,163,108,0.15) 8%, rgba(212,163,108,0.6) 35%, rgba(245,213,154,0.85) 50%, rgba(212,163,108,0.6) 65%, rgba(212,163,108,0.15) 92%, transparent 100%); box-shadow: 0 0 12px rgba(212,163,108,0.55), 0 0 28px rgba(212,163,108,0.25);"></div>
         <div class="space-y-12 md:space-y-20">
           {whyPoints.map((p, i) => (
             <div class={`grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center ${i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""}`}>
@@ -298,9 +336,13 @@ const faq = faqJsonLd(faqs);
           <p class="mt-6 text-[18px] md:text-[22px] lg:text-[24px] leading-[1.45] tracking-[-0.04em] text-white max-w-[480px] font-medium">Grab the offer while it lasts.</p>
           <a href={CTA_HREF} target="_blank" rel="noopener noreferrer" class="buy-pill mt-8 inline-flex items-center justify-center px-7 py-3 rounded-full text-[14px] md:text-[15px]">Buy now at ₹2,499</a>
         </div>
-        <div class="space-y-3 md:space-y-4">
-          {whatYouGet.map((g) => (
-            <div class="rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 lift flex gap-4 md:gap-5">
+        <!-- Stacked-receipt cards: each card overlaps the previous to mirror Framer -->
+        <div class="relative">
+          {whatYouGet.map((g, i) => (
+            <div
+              class={`relative rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 lift flex gap-4 md:gap-5 ${i > 0 ? "-mt-3 md:-mt-4" : ""}`}
+              style={`z-index: ${10 + i};`}
+            >
               <span class="font-cinzel text-[32px] md:text-[40px] text-gold leading-none shrink-0">{g.num}</span>
               <div>
                 <h3 class="text-[18px] md:text-[22px] font-semibold text-white leading-[1.25] tracking-[-0.04em]">{g.title}</h3>
@@ -312,20 +354,36 @@ const faq = faqJsonLd(faqs);
       </div>
     </section>
 
-    <!-- Closing pitch + marquee -->
-    <section class="relative py-16 md:py-24 overflow-hidden">
-      <div class="max-w-[1180px] mx-auto px-5 md:px-12 mb-12 md:mb-16">
-        <h2 class="font-cinzel text-gold text-[24px] md:text-[34px] lg:text-[40px] leading-[1.1] tracking-[-0.06em] font-semibold max-w-[820px]">
-          THE STORIES YOU LOVE — NOW LEARN THE SOUND BEHIND THEM.
-        </h2>
-        <p class="mt-6 text-[14px] md:text-[16px] leading-[1.6] tracking-[-0.02em] text-[#dfdee2] max-w-[560px]">
-          From the village of Basrur to scoring KGF, Mufti, Ugramm, and Salaar — Ravi shares the workflow, instincts, and craft behind India's biggest film soundscapes.
-        </p>
-        <a href={CTA_HREF} target="_blank" rel="noopener noreferrer" class="buy-pill mt-8 inline-flex items-center justify-center px-7 py-3 rounded-full text-[14px] md:text-[15px]">Buy now at ₹2,499</a>
+    <!-- Closing pitch — ticket card with poster row inside -->
+    <section class="relative py-16 md:py-24 px-5 md:px-12 overflow-hidden">
+      <div class="relative w-full max-w-[1086px] mx-auto">
+        <img src={`${SHARED}/lmCSmBU4Q2o6jwxi9ZTBSPAxnU.png`} alt=""
+             class="block w-full h-auto select-none pointer-events-none" loading="lazy" decoding="async" />
+        <div class="absolute inset-0 grid grid-cols-1 md:grid-cols-[1.05fr_0.95fr] gap-4 md:gap-8 px-5 md:px-10 py-5 md:py-9">
+          <div class="self-center">
+            <h2 class="font-cinzel text-gold text-[18px] md:text-[26px] lg:text-[34px] leading-[1.05] tracking-[-0.04em] font-semibold max-w-[360px]">
+              THE STORIES YOU LOVE — NOW LEARN THE SOUND BEHIND THEM.
+            </h2>
+            <p class="mt-3 md:mt-5 text-[11px] md:text-[14px] leading-[1.5] tracking-[-0.02em] text-[#dfdee2]/80 max-w-[320px] hidden sm:block">
+              From the village of Basrur to scoring KGF, Mufti, Ugramm, and Salaar — Ravi shares the workflow, instincts, and craft behind India's biggest film soundscapes.
+            </p>
+            <a href={CTA_HREF} target="_blank" rel="noopener noreferrer"
+               class="buy-pill mt-4 md:mt-6 inline-flex items-center justify-center px-5 py-2.5 md:px-6 md:py-2.5 rounded-full text-[12px] md:text-[14px]">
+              Buy now at ₹2,499
+            </a>
+          </div>
+          <div class="hidden md:flex items-center justify-end gap-2 self-center">
+            {blockbusterFilms.slice(0, 6).map((p, i) => (
+              <img src={p} alt=""
+                   class="w-[60px] md:w-[78px] lg:w-[92px] aspect-[2/3] object-cover rounded-md ring-1 ring-white/10 shadow-[0_10px_24px_-10px_rgba(0,0,0,0.85)]"
+                   style={`transform: translateY(${(i % 2 === 0 ? -4 : 4)}px) rotate(${(i - 2) * 1.5}deg);`}
+                   loading="lazy" decoding="async" />
+            ))}
+          </div>
+        </div>
       </div>
-      <div class="space-y-3 md:space-y-4">
+      <div class="md:hidden mt-8">
         <PosterMarquee posters={blockbusterFilms} dir="left" speed={38} client:visible />
-        <PosterMarquee posters={[...blockbusterFilms].reverse()} dir="right" speed={42} client:visible />
       </div>
     </section>
 

@@ -255,28 +255,24 @@ const allJsonLd = jsonLd
 
     <slot />
 
+    <!-- Floating WhatsApp button — matches the green-icon style on the Framer
+         masterclass pages. Pure brand mark, no extra label. -->
     <a
       href="https://api.whatsapp.com/send?phone=919791520177&text=Hi"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"
-      class="fixed bottom-16 right-5 md:bottom-8 md:right-8 z-50 inline-flex items-center gap-2 px-4 py-2.5 md:px-5 md:py-3 rounded-full bg-card/90 backdrop-blur-md border border-border text-foreground font-sans-body text-xs md:text-sm shadow-cinematic hover:border-primary/50 hover:shadow-[0_0_24px_hsl(38_75%_55%/0.15)] transition-all duration-400"
+      class="fixed bottom-5 right-5 md:bottom-7 md:right-7 z-50 inline-flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#25D366] shadow-[0_10px_30px_-6px_rgba(37,211,102,0.55),0_0_0_4px_rgba(37,211,102,0.18)] hover:scale-105 hover:shadow-[0_14px_36px_-6px_rgba(37,211,102,0.7),0_0_0_6px_rgba(37,211,102,0.22)] transition-all duration-300"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="w-4 h-4 text-primary"
+        viewBox="0 0 32 32"
+        class="w-7 h-7 md:w-8 md:h-8"
+        fill="#FFFFFF"
+        aria-hidden="true"
       >
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+        <path d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.49 0-.143-.73-2.09-.832-2.335-.143-.372-.214-.487-.6-.487-.187 0-.36-.043-.53-.043-.302 0-.53.115-.746.315-.688.645-1.032 1.318-1.06 2.264v.114c-.015.99.472 1.977 1.017 2.78 1.23 1.82 2.506 3.41 4.554 4.34.616.287 2.035.917 2.722.917.317 0 1.033-.072 1.36-.18.487-.157 1.41-.886 1.41-1.398 0-.46-1.733-1.462-1.756-1.462zm-3.74 5.825c-3.86 0-7.025-3.165-7.025-7.025 0-3.86 3.165-7.025 7.025-7.025 3.86 0 7.025 3.165 7.025 7.025 0 3.86-3.165 7.025-7.025 7.025zM15.37 4C8.732 4 3.346 9.39 3.346 16.024c0 2.272.643 4.475 1.85 6.348L3.4 28l5.736-1.78a12.04 12.04 0 0 0 6.234 1.764c6.638 0 12.024-5.39 12.024-12.024S22.008 4 15.37 4z" />
       </svg>
-      <span class="hidden sm:inline">Need help?</span>
     </a>
   </body>
 </html>

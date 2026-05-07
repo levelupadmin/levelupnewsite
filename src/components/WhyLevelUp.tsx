@@ -108,8 +108,11 @@ const WhyLevelUp = () => {
         </div>
       </FadeInSection>
 
-      {/* Feature Cards */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+      {/* Feature Cards — full-bleed scroll track on desktop so cards
+          slide edge-to-edge of the viewport, not clipped by max-w-7xl.
+          The first card gets a leading padding so the closed state still
+          aligns with the page gutter. Mobile keeps the column layout. */}
+      <div className={isMobile ? "max-w-7xl mx-auto px-6 md:px-12" : "w-full"}>
         <div
           ref={containerRef}
           className={`flex ${isMobile ? "flex-col gap-4" : "flex-row gap-5"}`}
@@ -117,6 +120,10 @@ const WhyLevelUp = () => {
             overflowX: "auto",
             scrollbarWidth: "none",
             msOverflowStyle: "none",
+            paddingLeft: "max(24px, calc((100vw - 1280px) / 2 + 48px))",
+            paddingRight: "max(24px, calc((100vw - 1280px) / 2 + 48px))",
+            paddingTop: "12px",
+            paddingBottom: "32px",
           } as React.CSSProperties : undefined}
         >
           {features.map((feature, index) => {
@@ -135,9 +142,12 @@ const WhyLevelUp = () => {
                   minWidth: cardWidth,
                   transition: TRANSITION,
                   willChange: "width",
+                  // Bumped expanded min-heights so the inner illustrations
+                  // (Portfolio Driven Learning + Community animations) have
+                  // room to breathe and aren't clipped at the bottom.
                   minHeight: isMobile
-                    ? isExpanded ? 560 : 500
-                    : 528,
+                    ? isExpanded ? 760 : 500
+                    : isExpanded ? 620 : 528,
                   flexShrink: 0,
                 }}
                 onClick={() => handleCardClick(index)}
@@ -161,9 +171,12 @@ const WhyLevelUp = () => {
                     {isExpanded ? <X size={16} /> : <Maximize2 size={14} />}
                   </button>
 
-                  {/* DEFAULT / COMPRESSED layer - always visible when not expanded */}
+                  {/* DEFAULT / COMPRESSED layer - always visible when not
+                      expanded. Inner illustration container drops the
+                      restrictive overflow-hidden so animations that hang
+                      slightly below the safe area still render. */}
                   <div
-                    className="absolute inset-0 flex flex-col p-7 md:p-10 overflow-hidden transition-opacity duration-300 ease-out"
+                    className="absolute inset-0 flex flex-col p-7 md:p-10 transition-opacity duration-300 ease-out"
                     style={{
                       opacity: !isExpanded ? 1 : 0,
                       transitionDelay: !isExpanded ? "150ms" : "0ms",

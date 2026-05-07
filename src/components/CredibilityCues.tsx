@@ -1,6 +1,11 @@
+import { lazy, Suspense } from "react";
 import { AnimatedCounter } from "./AnimatedCounter";
 import FadeInSection from "./FadeInSection";
-import CredibilityParticles from "./CredibilityParticles";
+
+// Use the same StarField as the hero so the visual language is continuous
+// from above-the-fold to the credibility row. Faster + denser parameters
+// here so the section reads as more energetic than the calmer hero field.
+const StarField = lazy(() => import("./StarField"));
 
 const cues = [
   { value: "67,746+", numericValue: 67746, label: "Learners", suffix: "+", hasComma: true },
@@ -14,12 +19,17 @@ const CredibilityCues = () => {
     <section
       id="credibility"
       aria-label="Key stats and credibility"
-      className="relative pt-20 pb-12 md:pt-28 md:pb-16"
+      className="relative pt-20 pb-12 md:pt-28 md:pb-16 overflow-hidden"
       style={{
         background: `var(--gradient-cinematic)`,
       }}
     >
-      <CredibilityParticles />
+      {/* Star field — continuation of the hero, but ~2.5x faster speed
+          (0.75 vs 0.3 default) and slightly fewer stars (450 vs 750) so
+          the row reads as more energetic without overwhelming the numbers. */}
+      <Suspense fallback={null}>
+        <StarField starCount={450} speed={0.75} />
+      </Suspense>
       <div className="max-w-5xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8">
           {cues.map((cue, i) => (

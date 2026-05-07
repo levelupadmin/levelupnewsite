@@ -39,10 +39,12 @@ const cardVariants = {
   exit: (dir: number) => ({ x: dir > 0 ? -80 : 80, opacity: 0 }),
 };
 
+// %-based slot-machine variants — matches the hero's smooth word swap.
+// Container has overflow:hidden so 100% off-screen on enter/exit.
 const wordVariants = {
-  enter: { y: 30, opacity: 0 },
-  center: { y: 0, opacity: 1 },
-  exit: { y: -30, opacity: 0 },
+  enter: { y: "100%", opacity: 0 },
+  center: { y: "0%", opacity: 1 },
+  exit: { y: "-100%", opacity: 0 },
 };
 
 const LiveProgramsSection = () => {
@@ -52,6 +54,11 @@ const LiveProgramsSection = () => {
   const [autoPlay, setAutoPlay] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const touchStart = useRef(0);
+  // Measured width of the active rotating word so the container width
+  // animates smoothly between words instead of jumping at min-width: 4ch.
+  // Same pattern as HeroSection.tsx, which is already smooth.
+  const wordMeasureRef = useRef<HTMLSpanElement>(null);
+  const [wordWidth, setWordWidth] = useState<number | undefined>(undefined);
 
   // Rotating word animation
   useEffect(() => {
@@ -60,6 +67,17 @@ const LiveProgramsSection = () => {
     }, 2500);
     return () => clearInterval(interval);
   }, []);
+
+  // Measure the rendered width of the current word every time it changes
+  // (and on resize), then transition the container width to it.
+  useEffect(() => {
+    const update = () => {
+      if (wordMeasureRef.current) setWordWidth(wordMeasureRef.current.offsetWidth);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, [wordIndex]);
 
   // Auto-advance carousel
   useEffect(() => {
@@ -132,16 +150,37 @@ const LiveProgramsSection = () => {
         <FadeInSection className="text-center mb-5" delay={60}>
           <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.15] tracking-tight">
             <span>From Learner to </span>
-            <span className="inline-block relative overflow-hidden align-bottom" style={{ minWidth: "4ch" }}>
-              <AnimatePresence mode="wait">
+            <span
+              className="inline-block relative overflow-hidden align-bottom"
+              style={{
+                width: wordWidth ? `${wordWidth}px` : "auto",
+                minWidth: "4ch",
+                transition: "width 0.55s cubic-bezier(0.16, 1, 0.3, 1)",
+                verticalAlign: "bottom",
+                lineHeight: "1.15",
+                height: "1.15em",
+              }}
+            >
+              {/* Hidden measurer — renders the active word so we can read its
+                  exact pixel width and animate the container width to it. */}
+              <span
+                ref={wordMeasureRef}
+                aria-hidden="true"
+                className="absolute invisible whitespace-nowrap font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold"
+                style={{ pointerEvents: "none", lineHeight: "1.15" }}
+              >
+                {rotatingWords[wordIndex]}
+              </span>
+              <AnimatePresence mode="sync">
                 <motion.span
                   key={rotatingWords[wordIndex]}
                   variants={wordVariants}
                   initial="enter"
                   animate="center"
                   exit="exit"
-                  transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-                  className="inline-block text-primary"
+                  transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
+                  className="absolute left-0 bottom-0 inline-block whitespace-nowrap text-primary"
+                  style={{ lineHeight: "1.15", transformOrigin: "bottom left" }}
                 >
                   {rotatingWords[wordIndex]}
                 </motion.span>
@@ -327,25 +366,30 @@ const LiveProgramsSection = () => {
           ))}
         </div>
 
-        {/* Marquee */}
-        <FadeInSection className="mb-16 md:mb-24">
-          <div className="overflow-hidden relative" aria-label="Student testimonials">
-            <div className="absolute left-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-r from-[hsl(22_14%_5%)] to-transparent pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-l from-[hsl(22_14%_5%)] to-transparent pointer-events-none" />
-            <div className="marquee-track flex gap-6 hover:[animation-play-state:paused]">
-              {[...testimonials, ...testimonials].map((t, i) => (
-                <div
-                  key={i}
-                  className="flex-shrink-0 w-[380px] p-6 border border-border/40 bg-card/30 min-h-[120px] flex flex-col justify-between rounded-xl"
-                >
-                  <p className="font-sans-body text-base text-foreground/80 italic leading-relaxed mb-3">"{t.quote}"</p>
-                  <span className="font-sans-body text-xs text-primary font-medium">— {t.name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </FadeInSection>
       </div>
+
+      {/* Testimonial marquee — moved OUTSIDE the max-w-6xl wrapper so it
+          flows edge-to-edge across the full viewport width. The cards
+          slide in from the right edge and out to the left edge as the user
+          watches. The fade gradients on the sides mask the cut-off so it
+          reads as cards seamlessly entering and exiting the viewport. */}
+      <FadeInSection className="mb-16 md:mb-24 mt-10 md:mt-14">
+        <div className="overflow-hidden relative w-full" aria-label="Student testimonials">
+          <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 z-10 bg-gradient-to-r from-[hsl(22_14%_5%)] to-transparent pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 z-10 bg-gradient-to-l from-[hsl(22_14%_5%)] to-transparent pointer-events-none" />
+          <div className="marquee-track flex gap-6 hover:[animation-play-state:paused]">
+            {[...testimonials, ...testimonials].map((t, i) => (
+              <div
+                key={i}
+                className="flex-shrink-0 w-[380px] p-6 border border-border/40 bg-card/30 min-h-[120px] flex flex-col justify-between rounded-xl"
+              >
+                <p className="font-sans-body text-base text-foreground/80 italic leading-relaxed mb-3">"{t.quote}"</p>
+                <span className="font-sans-body text-xs text-primary font-medium">— {t.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </FadeInSection>
 
       <style>{`
         .marquee-track { animation: marquee-scroll 40s linear infinite; width: max-content; }
