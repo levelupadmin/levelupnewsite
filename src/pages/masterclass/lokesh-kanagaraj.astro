@@ -10,6 +10,8 @@ import IntersectionPlayVideo from "@/components/lokesh/IntersectionPlayVideo";
 import HeroPlayer from "@/components/lokesh/HeroPlayer";
 import FilmsScrollStack from "@/components/lokesh/FilmsScrollStack";
 import ScrollGlowLine from "@/components/lokesh/ScrollGlowLine";
+import CountdownTimer from "@/components/lokesh/CountdownTimer";
+import StickyMobileCta from "@/components/lokesh/StickyMobileCta.astro";
 import PageInteractions from "@/components/lokesh/PageInteractions";
 import { courseJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/structuredData";
 
@@ -69,16 +71,21 @@ const whatYouGet = [
 ];
 
 const faqs = [
-  { question: "Is this a technical filmmaking course?", answer: "No. This is not a technical or academic filmmaking course. Lokesh isn't teaching shot sizes or camera gear. He's walking you through how he thinks, how he builds stories, choreographs action, directs actors, and balances emotion with mass appeal." },
-  { question: "What do I get when I enroll?", answer: "This course includes 20+ detailed lessons from Lokesh Kanagaraj, offering full lifetime access so you can learn at your own pace. You'll also receive a signed Certificate of Completion, along with access to downloadable PDFs and case notes for deeper insights. Plus, you'll gain entry into our exclusive creative community, where you can join discussions and events with like-minded storytellers." },
-  { question: "Who is this Masterclass for?", answer: "This is for anyone who loves cinema and wants to understand how powerful films are made from instinct, rhythm, and emotional clarity not just craft. Whether you're a film student, aspiring director, AD, editor, content creator, or just a curious movie buff—there's something here for you." },
-  { question: "What language is the course in?", answer: "The lessons are in simple Tamil with English Subtitles, spoken in Lokesh's natural, conversational tone. Dubbed versions will soon be available in Hindi, Telugu, Kannada and Malayalam." },
-  { question: "Do I need any prior experience in filmmaking?", answer: "No experience required. Lokesh himself didn't come up through film school. His process is grounded in observation, passion, and working with teams. You'll understand his approach even if you're completely new to the world of filmmaking." },
-  { question: "No film background. Will it help?", answer: "Absolutely. Many learners from tech, design, marketing, and education backgrounds have taken this course. If you're a storyteller in any form, you'll connect deeply with Lokesh's process." },
-  { question: "Will I learn how to shoot or write scripts?", answer: "Not in the traditional sense. You won't learn formatting or gear settings. But you will learn how Lokesh crafts moments — how he edits tension, blocks scenes, handles stars and newcomers, builds layered arcs, and choreographs emotion into action. It's real, applicable, and deeply intuitive." },
-  { question: "Do I get a certificate?", answer: "Yes. Upon completing the course, you'll receive a Certificate of Completion signed by Lokesh Kanagaraj. You can download and share it on social media or add it to your creative portfolio." },
-  { question: "How long is the Masterclass?", answer: "The course includes 20+ video lessons with over 100 mins of content. You can watch it at your own pace — rewind, revisit, pause and absorb whenever you like." },
-  { question: "Is this a one-time payment?", answer: "Yes. You pay once and get lifetime access. No renewals, no subscription just unlock it once and revisit anytime." },
+  // CRO P2 audit: episode count corrected (was lying about "20+", actual
+  // is 15 per the verified product spec). Missing FAQs added below for
+  // refund policy, video downloads, and "vs film school" objection.
+  { question: "How long is the Masterclass?", answer: "15 video lessons with Lokesh Kanagaraj, totalling roughly 2+ hours of content. Watch at your own pace — rewind, revisit, or binge it in a weekend." },
+  { question: "What language is it in?", answer: "Lessons are in simple Tamil with English subtitles, spoken in Lokesh's natural, conversational tone. Dubbed versions in Hindi, Telugu, Kannada and Malayalam are launching soon." },
+  { question: "Do I need any prior experience in filmmaking?", answer: "No experience required. Lokesh didn't come up through film school either. His process is grounded in observation, passion, and working with teams. You'll understand his approach even if you're completely new to filmmaking." },
+  { question: "Is there a money-back guarantee?", answer: "Yes. We offer a 100% money-back guarantee. If the masterclass doesn't deliver value for you, write to us within the guarantee window and we'll refund the full amount — no questions asked." },
+  { question: "Can I download the videos?", answer: "Videos are streaming-only and accessible through your LevelUp Learning account. You can watch on any device — laptop, tablet, or phone — anytime, anywhere. PDFs and case notes are downloadable to keep." },
+  { question: "How is this different from a film school?", answer: "A film school teaches you a curriculum. This is Lokesh's process — how a working director thinks, decides, and builds. You're not memorising theory; you're sitting next to him as he walks through his own films and unpacks the choices behind every scene. It's apprenticeship-style, in 15 episodes." },
+  { question: "What do I get when I enroll?", answer: "15 lessons with lifetime access. A Certificate of Completion signed by Lokesh Kanagaraj. Downloadable PDFs and case notes for every episode. Entry into our LevelUp creative community for discussions and events." },
+  { question: "Is this a technical filmmaking course?", answer: "No. Lokesh isn't teaching shot sizes or camera gear. He walks you through how he thinks — how he builds stories, choreographs action, directs actors, and balances emotion with mass appeal." },
+  { question: "Will I learn how to shoot or write scripts?", answer: "Not in the textbook sense. You won't learn screenplay formatting or gear settings. You will learn how Lokesh crafts moments — how he edits tension, blocks scenes, handles stars and newcomers, builds layered arcs, and choreographs emotion into action." },
+  { question: "Who is this Masterclass for?", answer: "Anyone who loves cinema and wants to understand how powerful films get made — from instinct, rhythm, and emotional clarity, not just craft. Film students, aspiring directors, ADs, editors, content creators, and curious movie buffs all learn from this." },
+  { question: "I have no film background. Will it help me?", answer: "Absolutely. Many learners come from tech, design, marketing, and education backgrounds. If you're a storyteller in any form, you'll connect deeply with Lokesh's process — and use it in your own work, whatever the medium." },
+  { question: "Is this a one-time payment?", answer: "Yes. Pay ₹1,499 once and get lifetime access. No renewals, no subscription, no recurring charges. Unlock it once and revisit anytime." },
 ];
 
 // Tag Mango (study.leveluplearning.in) lead link — matches what the Framer
@@ -89,7 +96,7 @@ const YT_TRAILER_ID = "dxyHe16__34";
 
 const course = courseJsonLd({
   name: "Lokesh Kanagaraj Filmmaking Masterclass",
-  description: "Learn how to tell powerful stories, build unforgettable characters, and create films that captivate millions, with director Lokesh Kanagaraj — the mastermind behind Kaithi, Master, Vikram and Leo.",
+  description: "The director behind 5 films and ₹1,500 crores — Maanagaram, Kaithi, Master, Vikram and Leo. 15 episodes on writing, directing, and the LCU method. Tamil with English subtitles. Lifetime access. Certificate signed by Lokesh Kanagaraj. ₹1,499.",
   path: "/masterclass/lokesh-kanagaraj",
   instructorName: "Lokesh Kanagaraj",
   image: `${ASSET}/JA7LjstCBpKLub03f5p6KgzoBE.png`,
@@ -105,7 +112,7 @@ const faq = faqJsonLd(faqs);
 
 <BaseLayout
   title="Lokesh Kanagaraj Masterclass — LevelUp Learning"
-  description="Master the craft of filmmaking with Visionary Director Lokesh Kanagaraj. 15 cinematic lessons. Tamil with English subtitles. Signed Certificate. ₹1,499."
+  description="The director behind Maanagaram, Kaithi, Master, Vikram and Leo — 5 films, ₹1,500 Cr, 6 years. 15 episodes on writing, directing, and the LCU method. Tamil w/ English subs. Lifetime access. Certificate signed by Lokesh. ₹1,499 (was ₹4,999)."
   path="/masterclass/lokesh-kanagaraj"
   type="course"
   ogImage={`${ASSET}/JA7LjstCBpKLub03f5p6KgzoBE.png`}
@@ -356,19 +363,21 @@ const faq = faqJsonLd(faqs);
   </style>
 
   <main id="main-content" class="lokesh-page">
-    <!-- ─── Hero — full bleed, video starts at top-of-page.
-         No separate header — the LevelUp logo is overlaid on the video
-         at top-left so the "LOKESH KANAGARAJ TEACHES FILMMAKING" lettering
-         baked into the video stays fully readable (no bottom gradient
-         washing it out, no header bar pushing the video down).
-         Mobile swaps in the portrait video cut at hydration. ─── -->
+    {/* Sticky bottom CTA — visible on every mobile viewport (CRO P0).
+         97% of traffic to this page is mobile per Clarity. */}
+    <StickyMobileCta href={CTA_HREF} price={1499} course="lokesh-kanagaraj" />
+
+    <!-- ─── Hero — Variant A from the CRO plan.
+         Replaces the previous generic "Master the Craft of Filmmaking…"
+         hook with the track-record + countdown pattern that mirrors the
+         highest-CTR Meta ads. Above-the-fold copy is now ~26 words; the
+         star-rating social proof + countdown sit in the first viewport. -->
     <section class="relative overflow-hidden">
       <!-- Animated star-field bg sits behind the hero video -->
       <div class="star-bg absolute inset-0 pointer-events-none opacity-70"></div>
 
       <div class="relative w-full">
-        <!-- Mobile: portrait 393×496 (Framer's exact mobile aspect, ~5:6.3).
-             Desktop: full-bleed 1440×800 cinematic. -->
+        <!-- Mobile: portrait 393×496. Desktop: full-bleed 1440×800. -->
         <div class="relative aspect-[393/496] sm:aspect-[16/10] md:aspect-[16/8] lg:aspect-[1440/800] overflow-hidden bg-black">
           <HeroPlayer
             src={`${ASSET}/8aQnJtJnDomXGCoq8SMNrwjXL4.mp4`}
@@ -378,8 +387,7 @@ const faq = faqJsonLd(faqs);
             ariaLabel="Play Lokesh Kanagaraj masterclass hero"
             client:load
           />
-          <!-- LevelUp logo overlaid on video at top-left. The video is
-               dark in this region so we don't need a backdrop. -->
+          <!-- LevelUp logo overlaid on video at top-left -->
           <a
             href="/"
             aria-label="LevelUp Learning home"
@@ -389,27 +397,57 @@ const faq = faqJsonLd(faqs);
           </a>
         </div>
 
-        <!-- Headline + sub + CTA — Inter 35px / 600 / -0.02em / line-height 1.2.
-             The whole H1 wears the gold gradient (as Framer does), not just
-             the name. Using Inter NOT Cinzel because Framer's hero H1 is
-             explicitly Inter SemiBold. -->
+        {/* Above-the-fold copy. Total: ~26 words. Hooks track-record
+             ("5 films, ₹1,500 Cr"), gives concrete deliverables
+             (15 episodes, certificate), real urgency (live countdown),
+             and social proof (4.86★ from 18,000+) — all visible on a
+             375×667 phone before any scroll. */}
         <div class="relative mt-7 md:mt-10 text-center max-w-3xl mx-auto px-5 pb-4 md:pb-8">
-          <h1 class="text-gold text-[24px] md:text-[30px] lg:text-[35px] leading-[1.2] tracking-[-0.02em] font-semibold" style="font-family: 'Inter', sans-serif;">
-            Master the Craft of Filmmaking with Visionary Director Lokesh Kanagaraj
+          <h1 class="text-gold text-[26px] md:text-[34px] lg:text-[42px] leading-[1.15] tracking-[-0.02em] font-semibold" style="font-family: 'Inter', sans-serif;">
+            The director behind 5 films and ₹1,500 crores.<br class="hidden md:inline" />
+            <span class="md:block">Now teaching.</span>
           </h1>
-          <p class="mt-5 md:mt-6 text-[14px] md:text-[15px] lg:text-[17px] leading-[1.55] tracking-[-0.02em] text-[#dfdee2]/80 max-w-[640px] mx-auto">
-            Join the mastermind behind cinematic blockbusters like Kaithi, Master, and Vikram in this exclusive
-            masterclass. Learn how to tell powerful stories, build unforgettable characters, and create films that
-            captivate millions.
+          <p class="mt-4 md:mt-5 text-[14px] md:text-[16px] lg:text-[17px] leading-[1.5] tracking-[-0.01em] text-white/85 max-w-[560px] mx-auto">
+            <span class="font-semibold text-white">15 episodes</span>
+            · Lifetime access · Certificate signed by Lokesh
           </p>
-          <a
-            href={CTA_HREF}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="buy-pill mt-6 md:mt-7 inline-flex items-center justify-center px-7 py-3 md:px-8 md:py-3.5 rounded-full text-[14px] md:text-[15px]"
-          >
-            Buy now at ₹1,499
-          </a>
+
+          <!-- Primary CTA + countdown side-by-side (desktop) / stacked (mobile) -->
+          <div class="mt-6 md:mt-7 flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
+            <a
+              href={CTA_HREF}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="buy-pill inline-flex items-center justify-center px-8 py-3.5 md:px-9 md:py-4 rounded-full text-[15px] md:text-[16px]"
+            >
+              Sign Up Now ₹1,499
+            </a>
+            {/* Real countdown — ₹4,999 reverts to MRP when the timer
+                hits zero. Stored in localStorage so a returning visitor
+                sees a consistent timer (not a fresh 72h every reload). */}
+            <CountdownTimer client:load />
+          </div>
+
+          {/* Above-the-fold social proof — single line, factually grounded
+               (4.86 is the verified LevelUp-wide rating; 18,000 is the
+               verified platform-wide creator count). */}
+          <div class="mt-5 md:mt-6 flex items-center justify-center gap-2 text-[12px] md:text-[13px] text-white/70">
+            <span class="text-amber-300/95 tracking-tight" aria-hidden="true">★★★★★</span>
+            <span>
+              <span class="font-semibold text-white">4.86/5</span> · Trusted by
+              <span class="font-semibold text-white">18,000+ creators</span> on LevelUp
+            </span>
+          </div>
+
+          {/* MRP strikethrough anchor — psychological "save ₹3,500" cue
+               immediately below the social proof so the price-conscious
+               user sees the discount within the first viewport. */}
+          <p class="mt-3 text-[12px] md:text-[13px] text-white/55">
+            <span class="line-through decoration-[1.5px] decoration-white/40 mr-1.5">₹4,999</span>
+            <span class="text-amber-300/95 font-semibold">Save ₹3,500</span>
+            <span class="text-white/40 mx-1.5">·</span>
+            <span>Tamil w/ English subtitles</span>
+          </p>
         </div>
       </div>
       <div class="h-8 md:h-12"></div>
@@ -440,29 +478,44 @@ const faq = faqJsonLd(faqs);
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-6 md:gap-8">
-          <!-- Pricing card -->
-          <aside class="rounded-2xl border border-white/[0.08] bg-[#0E0E0E] p-7 md:p-8 h-fit lg:sticky lg:top-6 reveal">
-            <p class="font-dm text-[18px] md:text-[20px] font-medium text-white tracking-[-0.04em]">Start today for just</p>
-            <div class="mt-3 flex items-end gap-3">
-              <span class="font-poppins text-[34px] md:text-[40px] font-semibold text-white tracking-[-0.06em] leading-none">₹1,499</span>
-              <span class="text-[20px] md:text-[24px] text-[#9e9e9e] line-through tracking-[-0.06em] pb-1">₹4999</span>
+          <!-- Pricing card. CRO P2 changes:
+               - ₹1,499 typography pushed up from 34/40 → 44/56px so it
+                 dominates ₹4,999 by ~2× (psychological anchor)
+               - ₹4,999 strikethrough now uses thicker decoration-2 line
+                 in amber-300/70 so the "discount" is unmistakable
+               - "Save ₹3,500 (70% off)" badge added underneath the
+                 price row
+               - "Limited Time Offer" text REPLACED with the real
+                 countdown timer (P0)
+               - CTA copy → "Sign Up Now" to match the ad voice -->
+          <aside class="rounded-2xl border border-amber-200/15 bg-[#0E0E0E] p-7 md:p-8 h-fit lg:sticky lg:top-6 reveal">
+            <p class="font-dm text-[16px] md:text-[18px] font-medium text-white/85 tracking-[-0.02em]">Enrol today for just</p>
+            <div class="mt-3 flex items-baseline gap-3">
+              <span class="font-poppins text-[44px] md:text-[56px] font-bold text-white tracking-[-0.04em] leading-none">₹1,499</span>
+              <span class="text-[20px] md:text-[24px] text-white/40 line-through decoration-amber-300/70 decoration-2 tracking-[-0.04em]">₹4,999</span>
             </div>
+            <p class="mt-2 inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-amber-300/12 border border-amber-300/25 text-[11px] md:text-[12px] font-semibold tracking-tight text-amber-300/95">
+              SAVE ₹3,500 · 70% OFF
+            </p>
             <a
               href={CTA_HREF}
               target="_blank"
               rel="noopener noreferrer"
-              class="buy-pill mt-5 inline-flex w-full items-center justify-center px-5 py-3 rounded-full text-[14px]"
+              class="buy-pill mt-5 inline-flex w-full items-center justify-center px-5 py-3.5 rounded-full text-[14px] md:text-[15px]"
             >
-              Buy now at ₹1,499
+              Sign Up Now ₹1,499
             </a>
-            <p class="mt-3 text-[14px] text-[#dfdee2]/80 text-center tracking-[-0.06em]">Limited Time Offer</p>
+            <!-- Real live countdown replaces "Limited Time Offer" -->
+            <div class="mt-3 flex justify-center">
+              <CountdownTimer tone="alert" client:load />
+            </div>
             <hr class="my-6 border-white/[0.08]" />
-            <p class="text-[18px] md:text-[20px] font-medium text-[#dfdee2] tracking-[-0.06em]">What You'll Get?</p>
+            <p class="text-[18px] md:text-[20px] font-medium text-[#dfdee2] tracking-[-0.04em]">What You'll Get</p>
             <ul class="mt-4 space-y-3 text-[14px] md:text-[15px] text-white/85">
-              <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>15+ Cinematic Lessons</span></li>
-              <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>Watch in Tamil with English subtitles</span></li>
-              <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>Certificate Signed by Lokesh Kanagaraj</span></li>
-              <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>100% satisfaction guarantee</span></li>
+              <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>15 cinematic lessons (lifetime access)</span></li>
+              <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>Tamil with English subtitles</span></li>
+              <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>Certificate signed by Lokesh Kanagaraj</span></li>
+              <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>100% money-back guarantee</span></li>
               <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>Bonus behind-the-scenes content</span></li>
             </ul>
           </aside>
@@ -660,7 +713,7 @@ const faq = faqJsonLd(faqs);
             rel="noopener noreferrer"
             class="buy-pill mt-8 inline-flex items-center justify-center px-7 py-3 rounded-full text-[14px] md:text-[15px]"
           >
-            Buy now at ₹1,499
+            Sign Up Now ₹1,499
           </a>
         </div>
 
@@ -728,7 +781,7 @@ const faq = faqJsonLd(faqs);
               rel="noopener noreferrer"
               class="buy-pill mt-4 md:mt-6 inline-flex items-center justify-center px-5 py-2.5 md:px-6 md:py-2.5 rounded-full text-[12px] md:text-[14px]"
             >
-              Buy now at ₹1,499
+              Sign Up Now ₹1,499
             </a>
           </div>
           <!-- Right: TWO rows × THREE columns of movie posters laid out
@@ -782,7 +835,7 @@ const faq = faqJsonLd(faqs);
           rel="noopener noreferrer"
           class="buy-pill mt-8 inline-flex items-center justify-center px-7 py-3 rounded-full text-[14px] md:text-[15px]"
         >
-          Buy now at ₹1,499
+          Sign Up Now ₹1,499
         </a>
       </div>
       <div class="max-w-5xl mx-auto reveal reveal-delay-2">

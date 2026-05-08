@@ -1,15 +1,16 @@
 ---
 /**
- * Sticky mobile top-right pill — pinned to the very top-right of the page
- * on mobile only. Mirrors the Framer design (small peach-translucent pill
- * with thin white border) rather than a wide, aggressive gradient bar.
+ * Sticky mobile bottom CTA — full-width gold pill anchored to the
+ * bottom of every mobile viewport.
  *
- * The Framer original keeps a small "Buy now at ₹1,499" pill at the
- * top-right on every breakpoint. On the cloned page we hide this pill on
- * desktop because the header already shows the same CTA next to the logo,
- * but show it on mobile where the desktop header pill is hidden — this
- * way users always have a CTA visible above the fold without overpowering
- * the hero.
+ * CRO context (from `Lokesh_CRO_Strategy_HANDOFF.md`):
+ *   - 97% of traffic to this page is mobile
+ *   - Median scroll depth was 6%; users were bouncing in 16s
+ *   - A persistent always-visible CTA captures the click anywhere on
+ *     the page, not just at the hero or pricing card
+ *
+ * Hidden on desktop (md:hidden) — the desktop layout already has the
+ * primary CTA in the hero plus 4 inline CTAs scattered down the page.
  *
  * On click, the global UTM-forwarding script in BaseLayout.astro
  * intercepts, appends UTMs from sessionStorage, fires Pixel Lead +
@@ -23,17 +24,28 @@ interface Props {
 }
 
 const { href, price, label, course = "" } = Astro.props;
-const ctaText = label || `Buy now at ₹${price.toLocaleString("en-IN")}`;
+const ctaText = label || `Sign Up Now ₹${price.toLocaleString("en-IN")}`;
 ---
 
-<a
-  href={href}
-  target="_blank"
-  rel="noopener noreferrer"
-  data-cta="sticky-mobile-top"
-  data-mc-course={course}
-  class="md:hidden fixed top-3 right-3 z-[55] inline-flex items-center justify-center px-3 py-1.5 text-[12px] font-semibold tracking-[-0.01em] text-[#3a1a00] rounded-[19px] bg-[rgba(255,203,148,0.55)] backdrop-blur-md border border-white/25 shadow-[0_2px_4px_rgba(0,0,0,0.35),0_10px_18px_-2px_rgba(255,203,148,0.18),inset_0_1px_0_rgba(255,255,255,0.5)] active:scale-[0.98] transition-transform duration-150"
-  style="touch-action: manipulation; min-height: 36px;"
->
-  {ctaText}
-</a>
+<div class="md:hidden fixed bottom-0 inset-x-0 z-[55] px-3 pb-3 pt-2 pointer-events-none">
+  {/* Subtle blur backdrop so content scrolling behind doesn't fight
+      with the CTA — but the CTA itself sits ABOVE the blur. */}
+  <div
+    aria-hidden="true"
+    class="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none"
+  ></div>
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    data-cta="sticky-mobile-bottom"
+    data-mc-course={course}
+    class="relative pointer-events-auto flex items-center justify-center gap-2 w-full py-3.5 px-5 rounded-full text-center font-semibold text-[15px] tracking-[0.01em] text-[#3a1a00] active:scale-[0.99] transition-transform duration-150"
+    style="background: radial-gradient(120% 100% at 50% 0%, #ffe5b8 0%, #e3b671 30%, #c8924d 60%, #8c5e2e 100%); box-shadow: 0 14px 28px -8px rgba(200, 146, 77, 0.6), inset 0 1px 0 rgba(255, 230, 190, 0.85), inset 0 -1px 0 rgba(80, 35, 0, 0.4); touch-action: manipulation; min-height: 50px;"
+  >
+    {ctaText}
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M5 12h14M13 5l7 7-7 7" />
+    </svg>
+  </a>
+</div>

@@ -77,7 +77,9 @@ export default function FilmsScrollStack({ posters }: Props) {
     >
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
         <div className="w-full max-w-[1320px] mx-auto px-5 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
-          {/* LEFT: text */}
+          {/* LEFT: text + 5-film concrete list (CRO P0 — replaces the
+              old "Kaithi, Master, Vikram" 3-film copy with all 5
+              including Leo, plus the box-office anchor). */}
           <div>
             <p className="font-cinzel text-gold text-[22px] md:text-[26px] lg:text-[32px] leading-[1.1] tracking-[0.18em] uppercase font-medium">
               Learn from the
@@ -88,13 +90,18 @@ export default function FilmsScrollStack({ posters }: Props) {
             >
               Director Behind these Blockbuster Films
             </h2>
+            <p className="mt-5 md:mt-6 text-[15px] md:text-[17px] text-white/80 leading-relaxed">
+              <span className="font-semibold text-white">Maanagaram. Kaithi. Master. Vikram. Leo.</span>
+              <br />
+              <span className="text-white/70">5 films · ₹1,500 crore box office · 6 years.</span>
+            </p>
             <a
               href="https://study.leveluplearning.in/l/c3acf36794"
               target="_blank"
               rel="noopener noreferrer"
               className="buy-pill mt-7 md:mt-9 inline-flex items-center justify-center px-7 py-3 rounded-full text-[14px] md:text-[15px]"
             >
-              Buy now at ₹1,499
+              Sign Up Now ₹1,499
             </a>
           </div>
 
