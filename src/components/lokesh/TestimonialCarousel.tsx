@@ -7,6 +7,12 @@ export interface LokeshTestimonial {
   role: string;
   quote: string;
   image?: string;
+  /**
+   * Star rating 1–5. Renders as a row of filled stars above the
+   * reviewer's name. Defaults to 5 when omitted (matches the existing
+   * carousel where every quote is treated as a 5-star review).
+   */
+  rating?: number;
 }
 
 /**
@@ -105,7 +111,17 @@ export default function TestimonialCarousel({ items }: { items: LokeshTestimonia
                       />
                     )}
                     <div className="min-w-0">
-                      <p className="text-[14px] md:text-[15px] font-semibold text-white">{t.name}</p>
+                      {/* ★★★★★ row above the name. Defaults to 5 when
+                          rating is omitted so existing testimonials
+                          on Lokesh keep working. */}
+                      <p
+                        className="text-[12px] md:text-[13px] tracking-[0.08em] text-amber-300/95 leading-none"
+                        aria-label={`${t.rating ?? 5} out of 5 stars`}
+                      >
+                        {"★".repeat(Math.max(1, Math.min(5, t.rating ?? 5)))}
+                        <span className="text-white/15">{"★".repeat(5 - Math.max(1, Math.min(5, t.rating ?? 5)))}</span>
+                      </p>
+                      <p className="mt-1 text-[14px] md:text-[15px] font-semibold text-white">{t.name}</p>
                       <p className="text-[11px] md:text-[12px] tracking-wide text-white/55 mt-0.5">
                         {t.role}
                       </p>

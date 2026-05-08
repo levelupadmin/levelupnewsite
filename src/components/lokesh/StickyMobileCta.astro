@@ -24,10 +24,11 @@ interface Props {
 }
 
 const { href, price, label, course = "" } = Astro.props;
-// Wave 1 voice fix: action verb + price anchor reads as a clearer
-// commitment than "Sign Up Now ₹X,XXX". The em-dash separator is the
-// common convention in Indian ed-tech CTAs (Cuemath, Unacademy, etc.).
-const ctaText = label || `Enrol — ₹${price.toLocaleString("en-IN")}`;
+// Action verb + price anchor reads as a clearer commitment than the
+// vague "Sign Up Now ₹X,XXX" the page used to ship with. Middle dot
+// separator (was an em-dash) — the user pushed back on em-dashes
+// across the site as reading like AI-generated copy.
+const ctaText = label || `Enrol · ₹${price.toLocaleString("en-IN")}`;
 ---
 
 <div

@@ -56,7 +56,7 @@ export default function FAQAccordion({ faqs, courseName = "Masterclass" }: Props
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search the FAQ — try 'language', 'certificate', 'refund'…"
+          placeholder="Search the FAQ. Try 'language', 'certificate', 'refund'…"
           aria-label="Search frequently asked questions"
           className="w-full bg-[#0E0E0E] border border-white/10 focus:border-amber-200/40 outline-none rounded-full pl-11 pr-4 py-3 md:py-3.5 text-sm md:text-[15px] text-white placeholder:text-white/30 transition-colors"
         />

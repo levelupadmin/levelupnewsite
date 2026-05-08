@@ -4,11 +4,13 @@ interface Props {
   /**
    * Fixed ISO date the offer expires at. Pass a real campaign close
    * date so the countdown is honest. If omitted, falls back to a
-   * rolling 14-day window keyed to the user's first visit (still
-   * better than the 72h "ever-rolling urgency" the audit flagged as
-   * dishonest, but use a real date when there is one).
+   * rolling window of `days` (default 14) keyed to the user's first
+   * visit — better than the original 72h "ever-rolling urgency" the
+   * audit flagged as dishonest, but use a real date when there is one.
    */
   endsAt?: string;
+  /** Days for the rolling fallback window. Default 14. */
+  days?: number;
   /** Storage key — bump this to force a fresh countdown for all users */
   storageKey?: string;
   /** Static layout? hh:mm:ss only with no labels (compact, for hero) */
@@ -34,6 +36,7 @@ interface Props {
  */
 export default function CountdownTimer({
   endsAt,
+  days = 14,
   storageKey = "lokesh-countdown-v1",
   compact = false,
   tone = "warm",
@@ -54,8 +57,10 @@ export default function CountdownTimer({
       if (seen) {
         t = parseInt(seen, 10);
       } else {
-        // 14d rolling fallback (was 72h — audit flagged as dishonest).
-        t = Date.now() + 14 * 24 * 60 * 60 * 1000;
+        // Rolling fallback. `days` is configurable (default 14, the
+        // Nelson page now passes 7). Was 72h previously which the
+        // audit flagged as dishonest.
+        t = Date.now() + days * 24 * 60 * 60 * 1000;
         window.localStorage.setItem(storageKey, String(t));
       }
     }
@@ -63,7 +68,7 @@ export default function CountdownTimer({
     setNow(Date.now());
     const id = window.setInterval(() => setNow(Date.now()), 1000);
     return () => window.clearInterval(id);
-  }, [endsAt, storageKey]);
+  }, [endsAt, days, storageKey]);
 
   // SSR placeholder — won't blink to a different value because we render
   // a stable hh:mm:00 first paint and hydrate over it.
