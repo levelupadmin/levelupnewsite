@@ -318,25 +318,26 @@ const faq = faqJsonLd(faqs);
 
     .lokesh-page .episode-title-italic { font-family: "Cinzel", serif; font-style: italic; font-weight: 500; }
 
-    /* Brand-mark payment logos — small, recognisable rectangles matching
-       each brand's primary colour. Real text marks beat plain-text tags
-       at conveying trust without bloating the page with PNGs. */
-    .lokesh-page .pay-mark {
+    /* Real brand-logo trust strip. Each logo sits in a small white pill
+       so the brand colours stay accurate against the dark page bg.
+       Pills wrap; row stays compact at ~26px tall. */
+    .lokesh-page .pay-logo {
       display: inline-flex; align-items: center; justify-content: center;
-      height: 22px; padding: 0 8px;
+      height: 26px; padding: 0 8px;
+      background: #ffffff;
       border-radius: 4px;
-      font-family: "Inter", sans-serif;
-      font-size: 10px; font-weight: 800; letter-spacing: 0.04em;
-      text-transform: uppercase;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.25);
     }
-    .lokesh-page .pay-mark.upi        { background: #097939; color: #fff; }
-    .lokesh-page .pay-mark.gpay       { background: #ffffff; color: #1a1a1a; }
-    .lokesh-page .pay-mark.phonepe    { background: #5f259f; color: #fff; }
-    .lokesh-page .pay-mark.visa       { background: #1a1f71; color: #f5b612; letter-spacing: 0.12em; }
-    .lokesh-page .pay-mark.mastercard { background: #000000; color: #ff5f00; }
-    .lokesh-page .pay-mark.rupay      { background: #1d3878; color: #fff; }
-    .lokesh-page .pay-mark.razorpay   { background: #0a2540; color: #6cb1ff; }
+    .lokesh-page .pay-logo img {
+      display: block;
+      height: 14px;
+      width: auto;
+      max-width: 60px;
+      object-fit: contain;
+    }
+    /* A couple of logos read better with a tighter or looser height */
+    .lokesh-page .pay-logo.tall img { height: 18px; }
+    .lokesh-page .pay-logo.short img { height: 11px; }
   </style>
 
   <main id="main-content" class="lokesh-page">
@@ -484,22 +485,22 @@ const faq = faqJsonLd(faqs);
               <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>Beginner-friendly (no prior experience needed)</span></li>
             </ul>
 
-            {/* Real brand marks for the payment-trust strip. Each tag
-                uses the brand's actual primary colour + lock-up so it
-                reads as the right brand at a glance. Sits at the
-                bottom of the pricing card so it's the last thing a
-                visitor sees before they tap Enrol. */}
+            {/* Payment-trust strip with REAL brand logos (Wikimedia
+                Commons SVGs). Each logo sits in a small white pill so
+                its brand colour stays correct on the dark pricing
+                card. Sits at the bottom of the card so it's the last
+                thing a visitor sees before they tap Enrol. */}
             <hr class="my-6 border-white/[0.08]" />
             <p class="text-[11px] md:text-[12px] tracking-[0.18em] uppercase text-white/45 mb-3">Pay securely with</p>
             <p class="sr-only">UPI, Google Pay, PhonePe, Visa, Mastercard, RuPay, and Razorpay are all supported.</p>
             <div aria-hidden="true" class="flex flex-wrap items-center gap-1.5">
-              <span class="pay-mark upi">UPI</span>
-              <span class="pay-mark gpay">G Pay</span>
-              <span class="pay-mark phonepe">PhonePe</span>
-              <span class="pay-mark visa">VISA</span>
-              <span class="pay-mark mastercard">MC</span>
-              <span class="pay-mark rupay">RuPay</span>
-              <span class="pay-mark razorpay">Razorpay</span>
+              <span class="pay-logo"><img src="/brand-logos/upi.svg" alt="" loading="lazy" decoding="async" /></span>
+              <span class="pay-logo"><img src="/brand-logos/google-pay.svg" alt="" loading="lazy" decoding="async" /></span>
+              <span class="pay-logo short"><img src="/brand-logos/phonepe.svg" alt="" loading="lazy" decoding="async" /></span>
+              <span class="pay-logo"><img src="/brand-logos/visa.svg" alt="" loading="lazy" decoding="async" /></span>
+              <span class="pay-logo tall"><img src="/brand-logos/mastercard.svg" alt="" loading="lazy" decoding="async" /></span>
+              <span class="pay-logo"><img src="/brand-logos/rupay.svg" alt="" loading="lazy" decoding="async" /></span>
+              <span class="pay-logo"><img src="/brand-logos/razorpay.svg" alt="" loading="lazy" decoding="async" /></span>
             </div>
           </aside>
           <div class="reveal reveal-delay-2">
