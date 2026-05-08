@@ -131,36 +131,55 @@ const faq = faqJsonLd(faqs);
 >
   <link rel="preconnect" href="https://fonts.googleapis.com" slot="head" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin slot="head" />
-  <link rel="preconnect" href="https://www.youtube.com" slot="head" />
+  <link rel="preconnect" href="https://www.youtube-nocookie.com" slot="head" />
 
   <style is:global>
-    @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Cinzel:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap");
 
     .lokesh-page {
-      --bg: #050505;
-      --bg-card: #0e0e0e;
+      /* Warm-shifted near-black ladder (Wave 2 visual polish) */
+      --bg: #080604;
+      --bg-card: #0F0B07;
+      --bg-card-2: #1A130C;
+      --bg-card-3: #241B14;
       --text: #ffffff;
       --text-dim: #dfdee2;
       --text-muted: #737373;
       --gold-1: #f5d59a;
       --gold-2: #d4a36c;
-      --gold-3: #8a5d2c;
-      --gold-text-on-pill: #401b00;
+      --gold-3: #a06a36;        /* WCAG large-text 3:1 on near-black */
+      --gold-text-on-pill: #2a1300;
+      /* Nelson-specific calm-cinema teal accent (Wave 2). The brand
+         note for Nelson is "calm clarity / teal cool" vs Lokesh's
+         "high-energy crimson". Used sparingly: section accents, FAQ
+         pulse, etc. */
+      --course-accent: #0F4F4A;
+      --course-accent-glow: rgba(15, 79, 74, 0.45);
       background: var(--bg);
       color: var(--text);
       font-family: "Inter", "Inter Placeholder", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-feature-settings: "ss01", "ss02";
       -webkit-font-smoothing: antialiased;
+      padding-bottom: 88px;     /* room for sticky CTA */
+    }
+    @media (min-width: 768px) {
+      .lokesh-page { padding-bottom: 0; }
     }
     .font-cinzel { font-family: "Cinzel", "Cinzel Placeholder", serif; }
-    .font-poppins { font-family: "Poppins", "Poppins Placeholder", sans-serif; }
-    .font-dm { font-family: "DM Sans", "DM Sans Placeholder", sans-serif; }
+    .font-cinzel-italic { font-family: "Cinzel", serif; font-style: italic; }
+    /* Wave 2: dropped Poppins + DM Sans — Cinzel + Inter only. */
+
     .text-gold {
-      background-image: linear-gradient(284deg, rgb(126,75,39) 0%, rgb(152,93,51) 17.974%, rgb(255,222,179) 49%, rgb(152,93,51) 73.8563%, rgb(240,187,122) 92%);
+      background-image: linear-gradient(
+        284deg,
+        rgb(160, 106, 54) 0%,
+        rgb(245, 213, 154) 50%,
+        rgb(212, 163, 108) 100%
+      );
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .lokesh-page .buy-pill {
-      background: radial-gradient(120% 100% at 50% 0%, #ffe5b8 0%, #e3b671 30%, #c8924d 60%, #8c5e2e 100%);
+      background: radial-gradient(120% 100% at 50% 0%, #ffe5b8 0%, #e3b671 30%, #c8924d 60%, #a87545 100%);
       color: var(--gold-text-on-pill);
       box-shadow: 0 14px 24px -8px rgba(200, 146, 77, 0.6), inset 0 1px 0 rgba(255, 230, 190, 0.85), inset 0 -1px 0 rgba(80, 35, 0, 0.4);
       font-family: "Inter", sans-serif; font-weight: 700; letter-spacing: 0;
@@ -183,7 +202,15 @@ const faq = faqJsonLd(faqs);
     .lokesh-page .reveal { opacity: 1; transform: none; transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
     html.mc-js-on .lokesh-page .reveal { opacity: 0; transform: translateY(28px); }
     html.mc-js-on .lokesh-page .reveal.mc-in { opacity: 1; transform: translateY(0); }
-    @media (prefers-reduced-motion: reduce) { html.mc-js-on .lokesh-page .reveal { opacity: 1 !important; transform: none !important; } .lokesh-page .star-bg { animation: none; } }
+    @media (prefers-reduced-motion: reduce) {
+      html.mc-js-on .lokesh-page .reveal { opacity: 1 !important; transform: none !important; }
+      .lokesh-page .star-bg,
+      .lokesh-page .float-a,
+      .lokesh-page .float-b,
+      .lokesh-page .float-c,
+      .lokesh-page .marquee-track,
+      .lokesh-page .marquee-track-rev { animation: none !important; }
+    }
     .lokesh-page .lift { transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease; will-change: transform; }
     .lokesh-page .lift:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -16px rgba(212, 163, 108, 0.25), 0 8px 24px -8px rgba(0, 0, 0, 0.7); border-color: rgba(212, 163, 108, 0.25); }
     html { scroll-behavior: smooth; }
@@ -193,6 +220,14 @@ const faq = faqJsonLd(faqs);
       margin: 0 auto;
     }
 
+    /* Marquee for closing posters */
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    .lokesh-page .marquee-track { animation: marquee 38s linear infinite; }
+    .lokesh-page .marquee-track-rev { animation: marquee 42s linear infinite reverse; }
+
     /* Pill float bobs */
     @keyframes mc-float-a { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
     @keyframes mc-float-b { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
@@ -201,16 +236,17 @@ const faq = faqJsonLd(faqs);
     .lokesh-page .float-b { animation: mc-float-b 7.2s ease-in-out infinite; }
     .lokesh-page .float-c { animation: mc-float-c 9.0s ease-in-out infinite; }
 
-    /* Rotating clapperboard (parallels Lokesh's rotating revolver). 14s
-       per turn, linear infinite. The wrapper carries the rotation so a
-       static halo behind it stays anchored. */
+    /* Rotating clapperboard (parallels Lokesh's rotating revolver).
+       28s per turn — slowed from 14s (Wave 2). At 14s it read as
+       distracting on mobile; 28s is "gently in motion" without
+       fighting the eye. */
     @keyframes mc-clapper-rotate {
       from { transform: translate(-50%, -50%) rotate(0deg); }
       to   { transform: translate(-50%, -50%) rotate(360deg); }
     }
     .lokesh-page .mc-rotate-clapper {
       transform-origin: 50% 50%;
-      animation: mc-clapper-rotate 14s linear infinite;
+      animation: mc-clapper-rotate 28s linear infinite;
     }
     @media (prefers-reduced-motion: reduce) { .lokesh-page .mc-rotate-clapper { animation: none; } }
 
@@ -261,6 +297,33 @@ const faq = faqJsonLd(faqs);
     .lokesh-page .mc-orbit-ring.outer { animation: mc-orbit-spin-a 60s linear infinite; }
     .lokesh-page .mc-orbit-ring.inner { animation: mc-orbit-spin-b 80s linear infinite; }
     @media (prefers-reduced-motion: reduce) { .lokesh-page .mc-orbit-ring.outer, .lokesh-page .mc-orbit-ring.inner { animation: none; } }
+
+    /* Wave 2: keyboard focus visible everywhere — 2px amber ring + 2px
+       offset against page background. */
+    .lokesh-page :focus { outline: none; }
+    .lokesh-page a:focus-visible,
+    .lokesh-page button:focus-visible,
+    .lokesh-page [role="button"]:focus-visible,
+    .lokesh-page input:focus-visible,
+    .lokesh-page textarea:focus-visible,
+    .lokesh-page select:focus-visible,
+    .lokesh-page [tabindex]:focus-visible {
+      outline: 2px solid #f5d59a;
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+    .lokesh-page .buy-pill:focus-visible,
+    .lokesh-page .buy-pill-small:focus-visible {
+      outline: 2px solid #f5d59a;
+      outline-offset: 3px;
+    }
+
+    /* Cinzel italic for episode titles */
+    .lokesh-page .episode-title-italic {
+      font-family: "Cinzel", serif;
+      font-style: italic;
+      font-weight: 500;
+    }
   </style>
 
   <main id="main-content" class="lokesh-page">
@@ -276,31 +339,44 @@ const faq = faqJsonLd(faqs);
       <div class="star-bg absolute inset-0 pointer-events-none opacity-70"></div>
 
       <div class="relative w-full">
-        <div class="relative aspect-[393/496] sm:aspect-[16/10] md:aspect-[16/8] lg:aspect-[1440/800] overflow-hidden bg-black">
+        {/* Mobile aspect compressed 393/496 → 393/360 so H1 + CTA fit
+             above the fold on a 375×667 phone (Wave 1 P0). */}
+        <div class="relative aspect-[393/360] sm:aspect-[16/10] md:aspect-[16/8] lg:aspect-[1440/800] overflow-hidden bg-black">
           <HeroPlayer src={HERO_VIDEO} poster={HERO_POSTER} ariaLabel="Play Nelson Dilipkumar masterclass hero" client:load />
-          <a href="/" aria-label="LevelUp Learning home"
-             class="absolute top-5 left-5 md:top-7 md:left-12 z-30 inline-flex items-center">
-            <img src="/levelup-logo-mark.svg" alt="LevelUp" class="h-7 md:h-9 w-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]" />
-          </a>
+          <header role="banner" class="absolute top-5 left-5 md:top-7 md:left-12 z-30 inline-flex items-center">
+            <a href="/" aria-label="LevelUp Learning home" class="inline-flex items-center">
+              <img
+                src="/levelup-logo-mark.svg"
+                alt="LevelUp"
+                class="h-7 md:h-9 w-auto"
+                style="filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6)) sepia(0.6) saturate(2.4) hue-rotate(-12deg) brightness(1.05);"
+              />
+            </a>
+          </header>
         </div>
 
         <!-- Above-the-fold copy block — ~26 words for hook + sub. Live
              countdown, 4.86★ social proof, and ₹4,999/Save ₹2,500 anchor
-             all visible on a 375×667 phone before any scroll. -->
-        <div class="relative mt-7 md:mt-10 text-center max-w-3xl mx-auto px-5 pb-4 md:pb-8">
+             all visible on a 375×667 phone before any scroll.
+             Wave 1 P0: name the films above the fold ("Jailer, Beast,
+             Doctor") so a cold visitor recognises the body of work
+             immediately. Audit found Nelson under-sells against Lokesh
+             specifically because the films aren't claimed up front. -->
+        <div class="relative mt-5 md:mt-10 text-center max-w-3xl mx-auto px-5 pb-4 md:pb-8">
           <h1 class="text-gold text-[26px] md:text-[34px] lg:text-[42px] leading-[1.15] tracking-[-0.02em] font-semibold" style="font-family: 'Inter', sans-serif;">
-            The director behind 4 films and ₹1,250+ crores.<br class="hidden md:inline" />
+            The director of <span class="font-cinzel-italic">Jailer, Beast &amp; Doctor</span>.<br class="hidden md:inline" />
             <span class="md:block">Now teaching.</span>
           </h1>
           <p class="mt-4 md:mt-5 text-[14px] md:text-[16px] lg:text-[17px] leading-[1.5] tracking-[-0.01em] text-white/85 max-w-[560px] mx-auto">
-            <span class="font-semibold text-white">29 episodes</span>
-            · Lifetime access · Certificate signed by Nelson
+            <span class="font-semibold text-white">4 films · ₹1,250+ Cr · 29 episodes</span>
+            <br class="sm:hidden" />
+            <span class="text-white/70"> · Lifetime access · Certificate signed by Nelson</span>
           </p>
 
           <div class="mt-6 md:mt-7 flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
             <a href={CTA_HREF} target="_blank" rel="noopener noreferrer"
                class="buy-pill inline-flex items-center justify-center px-8 py-3.5 md:px-9 md:py-4 rounded-full text-[15px] md:text-[16px]">
-              Sign Up Now ₹2,499
+              Enrol — ₹2,499
             </a>
             <CountdownTimer storageKey="nelson-countdown-v1" client:load />
           </div>
@@ -330,6 +406,29 @@ const faq = faqJsonLd(faqs);
         <div class="relative rounded-[14px] overflow-hidden ring-1 ring-white/[0.07] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)]">
           <LokeshTrailer ytId={YT_TRAILER_ID} client:load />
         </div>
+
+        {/* Wave 2: inline mini-pricing card after trailer on mobile. */}
+        <aside
+          class="md:hidden mt-6 rounded-2xl border border-amber-200/15 bg-[#0F0B07] p-5"
+          aria-label="Pricing summary"
+        >
+          <div class="flex items-baseline gap-3">
+            <span class="text-[34px] font-bold text-white tracking-[-0.04em] leading-none">₹2,499</span>
+            <span class="text-[16px] text-white/40 line-through decoration-amber-300/70 decoration-2 tracking-[-0.04em]">₹4,999</span>
+            <span class="ml-auto inline-flex items-center px-2 py-0.5 rounded-md bg-amber-300/12 border border-amber-300/25 text-[10px] font-semibold tracking-tight text-amber-300/95">
+              SAVE 50%
+            </span>
+          </div>
+          <a
+            href={CTA_HREF}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="buy-pill mt-4 inline-flex w-full items-center justify-center px-5 py-3 rounded-full text-[14px]"
+          >
+            Enrol — ₹2,499
+          </a>
+          <p class="mt-2 text-center text-[11px] text-white/55">29 episodes · Lifetime access · Certificate</p>
+        </aside>
       </div>
     </section>
 
@@ -347,9 +446,9 @@ const faq = faqJsonLd(faqs);
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-6 md:gap-8">
           <aside class="rounded-2xl border border-amber-200/15 bg-[#0E0E0E] p-7 md:p-8 h-fit lg:sticky lg:top-6 reveal">
-            <p class="font-dm text-[16px] md:text-[18px] font-medium text-white/85 tracking-[-0.02em]">Enrol today for just</p>
+            <p class="text-[16px] md:text-[18px] font-medium text-white/85 tracking-[-0.02em]">Enrol today for just</p>
             <div class="mt-3 flex items-baseline gap-3">
-              <span class="font-poppins text-[44px] md:text-[56px] font-bold text-white tracking-[-0.04em] leading-none">₹2,499</span>
+              <span class="text-[44px] md:text-[56px] font-bold text-white tracking-[-0.04em] leading-none">₹2,499</span>
               <span class="text-[20px] md:text-[24px] text-white/40 line-through decoration-amber-300/70 decoration-2 tracking-[-0.04em]">₹4,999</span>
             </div>
             <p class="mt-2 inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-amber-300/12 border border-amber-300/25 text-[11px] md:text-[12px] font-semibold tracking-tight text-amber-300/95">
@@ -357,10 +456,22 @@ const faq = faqJsonLd(faqs);
             </p>
             <a href={CTA_HREF} target="_blank" rel="noopener noreferrer"
                class="buy-pill mt-5 inline-flex w-full items-center justify-center px-5 py-3.5 rounded-full text-[14px] md:text-[15px]">
-              Sign Up Now ₹2,499
+              Enrol — ₹2,499
             </a>
             <div class="mt-3 flex justify-center">
               <CountdownTimer storageKey="nelson-countdown-v1" tone="alert" client:load />
+            </div>
+            {/* Wave 3: payment-trust strip (parallels Lokesh treatment) */}
+            <p class="sr-only">Pay securely with UPI, GPay, PhonePe, Visa, Mastercard, RuPay or Razorpay.</p>
+            <div aria-hidden="true" class="mt-4 flex flex-wrap items-center justify-center gap-2 text-[10px] md:text-[11px]">
+              {["UPI", "GPay", "PhonePe", "Visa", "Mastercard", "RuPay"].map((p) => (
+                <span class="inline-flex items-center px-2 py-0.5 rounded border border-white/10 bg-white/[0.04] text-white/65 tracking-[0.04em] uppercase">
+                  {p}
+                </span>
+              ))}
+              <span class="inline-flex items-center px-2 py-0.5 rounded bg-white/95 text-[#072554] font-bold tracking-tight">
+                Razorpay
+              </span>
             </div>
             <hr class="my-6 border-white/[0.08]" />
             <p class="text-[18px] md:text-[20px] font-medium text-[#dfdee2] tracking-[-0.04em]">What You'll Get</p>
@@ -396,7 +507,7 @@ const faq = faqJsonLd(faqs);
       heading="Director Behind these Blockbuster Films"
       subline="Kolamaavu Kokila. Doctor. Beast. Jailer."
       caption="4 films · ₹1,250+ crore box office · 6 years."
-      ctaLabel="Sign Up Now ₹2,499"
+      ctaLabel="Enrol — ₹2,499"
       ctaHref={CTA_HREF}
       client:visible
     />
@@ -410,7 +521,8 @@ const faq = faqJsonLd(faqs);
       <div class="max-w-3xl mx-auto text-center mb-10 md:mb-12 reveal">
         <p class="font-cinzel text-[10px] md:text-[11px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Who is this</p>
         <div class="my-3 section-tick"></div>
-        <h2 class="font-cinzel text-gold text-[22px] md:text-[26px] lg:text-[28px] leading-[1.1] tracking-[0.02em] font-semibold whitespace-nowrap">
+        {/* Wave 2: dropped whitespace-nowrap so 320px viewports don't overflow */}
+        <h2 class="font-cinzel text-gold text-[22px] md:text-[26px] lg:text-[28px] leading-[1.1] tracking-[0.02em] font-semibold">
           WHO IS THIS PROGRAM FOR?
         </h2>
       </div>
@@ -437,16 +549,18 @@ const faq = faqJsonLd(faqs);
 
           {/* 6 audience pills positioned ON the outer orbit. Bigger than
               before (text-[14/16]px) with more padding so they feel
-              substantial. Each pill has a float-bob for life. */}
+              substantial. Each pill has a float-bob for life.
+              Wave 1 P0: classes flattened to literals (no md:${} concat)
+              so Tailwind JIT scanner picks them up at build time. */}
           {[
-            { label: "Screenplay Writers", classDesktop: "top-[6%] left-[14%]",                  classMobile: "top-[2%] left-[6%]",                       float: "float-a" },
-            { label: "Cinema Aspirants",   classDesktop: "top-[6%] right-[14%]",                 classMobile: "top-[2%] right-[6%]",                      float: "float-b" },
-            { label: "Aspiring Directors", classDesktop: "top-1/2 -translate-y-1/2 left-[3%]",   classMobile: "top-1/2 -translate-y-1/2 left-[2%]",       float: "float-c" },
-            { label: "Filmmakers",         classDesktop: "top-1/2 -translate-y-1/2 right-[3%]",  classMobile: "top-1/2 -translate-y-1/2 right-[2%]",      float: "float-a" },
-            { label: "Dialogue Writers",   classDesktop: "bottom-[6%] left-[18%]",               classMobile: "bottom-[2%] left-[8%]",                    float: "float-b" },
-            { label: "Film Enthusiasts",   classDesktop: "bottom-[6%] right-[18%]",              classMobile: "bottom-[2%] right-[8%]",                   float: "float-c" },
+            { label: "Screenplay Writers", position: "top-[2%] left-[6%]   md:top-[6%] md:left-[14%]",                                        float: "float-a" },
+            { label: "Cinema Aspirants",   position: "top-[2%] right-[6%]  md:top-[6%] md:right-[14%]",                                       float: "float-b" },
+            { label: "Aspiring Directors", position: "top-1/2 -translate-y-1/2 left-[2%] md:left-[3%]",                                       float: "float-c" },
+            { label: "Filmmakers",         position: "top-1/2 -translate-y-1/2 right-[2%] md:right-[3%]",                                     float: "float-a" },
+            { label: "Dialogue Writers",   position: "bottom-[2%] left-[8%]  md:bottom-[6%] md:left-[18%]",                                   float: "float-b" },
+            { label: "Film Enthusiasts",   position: "bottom-[2%] right-[8%] md:bottom-[6%] md:right-[18%]",                                  float: "float-c" },
           ].map((p) => (
-            <span class={`absolute md:${p.classDesktop} ${p.classMobile} ${p.float} z-20 px-4 py-2 md:px-7 md:py-3.5 rounded-full text-[12px] md:text-[17px] font-medium tracking-[-0.01em] text-white bg-[radial-gradient(120%_100%_at_50%_0%,rgba(40,30,18,0.94),rgba(10,8,6,0.97))] border border-white/[0.12] shadow-[0_14px_32px_-14px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.07)] backdrop-blur-sm whitespace-nowrap`}>
+            <span class={`absolute ${p.position} ${p.float} z-20 px-4 py-2 md:px-7 md:py-3.5 rounded-full text-[12px] md:text-[17px] font-medium tracking-[-0.01em] text-white bg-[radial-gradient(120%_100%_at_50%_0%,rgba(40,30,18,0.94),rgba(10,8,6,0.97))] border border-white/[0.12] shadow-[0_14px_32px_-14px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.07)] backdrop-blur-sm whitespace-nowrap`}>
               {p.label}
             </span>
           ))}
@@ -488,12 +602,19 @@ const faq = faqJsonLd(faqs);
         </div>
       </section>
 
-      <!-- Certificate with traveling-bead border glow -->
+      {/* Certificate with traveling-bead border glow + Wave 3 paper
+           grain + gold foil-edge inset (parallels Lokesh treatment) */}
       <section class="relative px-5 md:px-12 py-8 md:py-14 z-10">
         <div class="max-w-[1085px] mx-auto reveal">
-          <div class="mc-cert-glow rounded-2xl overflow-hidden ring-1 ring-amber-200/30 shadow-[0_30px_80px_-20px_rgba(212,163,108,0.25)]">
+          <div class="mc-cert-glow relative rounded-2xl overflow-hidden ring-1 ring-amber-200/30 shadow-[0_30px_80px_-20px_rgba(212,163,108,0.25)]">
             <img src={CERT_IMG} alt="Certificate of Completion signed by Nelson Dilipkumar"
                  class="block w-full h-auto" loading="lazy" />
+            <div aria-hidden="true" class="absolute inset-0 pointer-events-none"
+              style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E&quot;); mix-blend-mode: overlay; opacity: 0.10;"
+            ></div>
+            <div aria-hidden="true" class="absolute inset-0 pointer-events-none rounded-2xl"
+              style="box-shadow: inset 0 0 0 1px rgba(245,213,154,0.35), inset 0 2px 8px rgba(245,213,154,0.18), inset 0 -2px 8px rgba(160,106,54,0.22);"
+            ></div>
           </div>
         </div>
       </section>
@@ -539,11 +660,11 @@ const faq = faqJsonLd(faqs);
             What you'll get...
           </h2>
           <p class="mt-6 text-[18px] md:text-[22px] lg:text-[24px] leading-[1.45] tracking-[-0.04em] text-white max-w-[480px] font-medium">
-            Enroll now and get bonuses worth ₹19,999 for free. There was never a better time to grab this on-demand program.
+            29 lessons, lifetime access, and a certificate signed by Nelson — Tamil with English subtitles, on-demand.
           </p>
           <a href={CTA_HREF} target="_blank" rel="noopener noreferrer"
              class="buy-pill mt-8 inline-flex items-center justify-center px-7 py-3 rounded-full text-[14px] md:text-[15px]">
-            Sign Up Now ₹2,499
+            Enrol — ₹2,499
           </a>
         </div>
         <div class="space-y-5 md:space-y-6">
@@ -557,10 +678,14 @@ const faq = faqJsonLd(faqs);
               </div>
             </div>
           ))}
+          {/* Wave 3 honesty pass: dropped "₹19,999 / first 100" claims
+               (no counter, no breakdown). Replaced with concrete
+               inclusions. */}
           <div class="rounded-xl border border-amber-200/30 bg-gradient-to-br from-[#1a1208] to-[#0a0604] p-6 md:p-7 reveal reveal-delay-4">
-            <h3 class="font-cinzel text-gold text-[24px] md:text-[30px] lg:text-[40px] leading-[1.1] tracking-[-0.04em] font-semibold">Exclusive Bonuses</h3>
-            <p class="mt-3 text-[16px] md:text-[20px] lg:text-[22px] leading-[1.4] tracking-[-0.02em] text-white">
-              Worth ₹19,999 — Free for the first 100 enrollees
+            <h3 class="font-cinzel text-gold text-[24px] md:text-[30px] lg:text-[40px] leading-[1.1] tracking-[-0.04em] font-semibold">Bonus Vault</h3>
+            <p class="mt-3 text-[15px] md:text-[17px] leading-[1.5] tracking-[-0.01em] text-white/85">
+              Included with enrolment: scene-breakdown PDFs, screenwriting
+              worksheets, and Nelson's "Five Lines First" template archive.
             </p>
           </div>
         </div>
@@ -585,7 +710,7 @@ const faq = faqJsonLd(faqs);
             </p>
             <a href={CTA_HREF} target="_blank" rel="noopener noreferrer"
                class="buy-pill mt-4 md:mt-6 inline-flex items-center justify-center px-5 py-2.5 md:px-6 md:py-2.5 rounded-full text-[12px] md:text-[14px]">
-              Sign Up Now ₹2,499
+              Enrol — ₹2,499
             </a>
           </div>
           <div class="hidden md:grid grid-cols-3 grid-rows-2 gap-2 self-center pr-3 lg:pr-5">
@@ -623,11 +748,11 @@ const faq = faqJsonLd(faqs);
         </h2>
         <a href={CTA_HREF} target="_blank" rel="noopener noreferrer"
            class="buy-pill mt-8 inline-flex items-center justify-center px-7 py-3 rounded-full text-[14px] md:text-[15px]">
-          Sign Up Now ₹2,499
+          Enrol — ₹2,499
         </a>
       </div>
       <div class="reveal reveal-delay-2">
-        <FAQAccordion faqs={faqs} client:visible />
+        <FAQAccordion faqs={faqs} courseName="Nelson Dilipkumar Masterclass" client:visible />
       </div>
     </section>
 

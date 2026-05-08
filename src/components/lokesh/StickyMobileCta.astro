@@ -24,15 +24,21 @@ interface Props {
 }
 
 const { href, price, label, course = "" } = Astro.props;
-const ctaText = label || `Sign Up Now ₹${price.toLocaleString("en-IN")}`;
+// Wave 1 voice fix: action verb + price anchor reads as a clearer
+// commitment than "Sign Up Now ₹X,XXX". The em-dash separator is the
+// common convention in Indian ed-tech CTAs (Cuemath, Unacademy, etc.).
+const ctaText = label || `Enrol — ₹${price.toLocaleString("en-IN")}`;
 ---
 
-<div class="md:hidden fixed bottom-0 inset-x-0 z-[55] px-3 pb-3 pt-2 pointer-events-none">
+<div
+  class="md:hidden fixed bottom-0 inset-x-0 z-[55] px-3 pt-2 pointer-events-none"
+  style="padding-bottom: max(12px, env(safe-area-inset-bottom));"
+>
   {/* Subtle blur backdrop so content scrolling behind doesn't fight
       with the CTA — but the CTA itself sits ABOVE the blur. */}
   <div
     aria-hidden="true"
-    class="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none"
+    class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#050505] via-[#050505]/95 to-transparent pointer-events-none"
   ></div>
   <a
     href={href}
@@ -40,8 +46,8 @@ const ctaText = label || `Sign Up Now ₹${price.toLocaleString("en-IN")}`;
     rel="noopener noreferrer"
     data-cta="sticky-mobile-bottom"
     data-mc-course={course}
-    class="relative pointer-events-auto flex items-center justify-center gap-2 w-full py-3.5 px-5 rounded-full text-center font-semibold text-[15px] tracking-[0.01em] text-[#3a1a00] active:scale-[0.99] transition-transform duration-150"
-    style="background: radial-gradient(120% 100% at 50% 0%, #ffe5b8 0%, #e3b671 30%, #c8924d 60%, #8c5e2e 100%); box-shadow: 0 14px 28px -8px rgba(200, 146, 77, 0.6), inset 0 1px 0 rgba(255, 230, 190, 0.85), inset 0 -1px 0 rgba(80, 35, 0, 0.4); touch-action: manipulation; min-height: 50px;"
+    class="relative pointer-events-auto flex items-center justify-center gap-2 w-full py-3.5 px-5 rounded-full text-center font-semibold text-[15px] tracking-[0.01em] text-[#2a1300] active:scale-[0.99] transition-transform duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-200 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+    style="background: radial-gradient(120% 100% at 50% 0%, #ffe5b8 0%, #e3b671 30%, #c8924d 60%, #a87545 100%); box-shadow: 0 14px 28px -8px rgba(200, 146, 77, 0.6), inset 0 1px 0 rgba(255, 230, 190, 0.85), inset 0 -1px 0 rgba(80, 35, 0, 0.4); touch-action: manipulation; min-height: 50px;"
   >
     {ctaText}
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

@@ -18,9 +18,28 @@ interface Props {
  */
 export default function ScrollGlowLine({ containerSelector }: Props) {
   const [progress, setProgress] = useState(0); // 0 → 1
+  // Skip the rAF loop entirely on phones (the line is hidden md:block
+  // on mobile anyway) and on prefers-reduced-motion. UX agent flagged
+  // the rAF loop running on mobile as a wasted CPU cost.
+  const [enabled, setEnabled] = useState(false);
   const rafRef = useRef(0);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    const desktopMq = window.matchMedia("(min-width: 768px)");
+    const reducedMq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const compute = () => setEnabled(desktopMq.matches && !reducedMq.matches);
+    compute();
+    desktopMq.addEventListener("change", compute);
+    reducedMq.addEventListener("change", compute);
+    return () => {
+      desktopMq.removeEventListener("change", compute);
+      reducedMq.removeEventListener("change", compute);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!enabled) return;
     const container = document.querySelector(containerSelector) as HTMLElement | null;
     if (!container) return;
 
@@ -48,7 +67,11 @@ export default function ScrollGlowLine({ containerSelector }: Props) {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, [containerSelector]);
+  }, [containerSelector, enabled]);
+
+  // On reduced-motion, render the line at FULL bright instead of
+  // animating — preserves the visual rail without scroll-driven motion.
+  const fillProgress = enabled ? progress : 1;
 
   return (
     <div
@@ -69,22 +92,23 @@ export default function ScrollGlowLine({ containerSelector }: Props) {
       <div
         className="absolute left-0 right-0 top-0 transition-[height] duration-100 ease-out"
         style={{
-          height: `${progress * 100}%`,
+          height: `${fillProgress * 100}%`,
           background:
             "linear-gradient(180deg, rgba(212,163,108,0.4) 0%, rgba(245,213,154,0.95) 50%, rgba(212,163,108,0.85) 100%)",
           boxShadow:
             "0 0 14px rgba(245,213,154,0.7), 0 0 32px rgba(212,163,108,0.4)",
         }}
       />
-      {/* Bright "leading edge" pulse at the bottom of the filled section */}
+      {/* Bright "leading edge" pulse at the bottom of the filled section.
+          Hidden if reduced-motion / mobile (line stays full-bright). */}
       <div
         className="absolute left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full pointer-events-none transition-[top] duration-100 ease-out"
         style={{
-          top: `calc(${progress * 100}% - 5px)`,
+          top: `calc(${fillProgress * 100}% - 5px)`,
           background:
             "radial-gradient(closest-side, rgba(255,235,200,1), rgba(245,213,154,0.7) 40%, transparent 75%)",
           boxShadow: "0 0 16px rgba(245,213,154,0.95)",
-          opacity: progress > 0.02 && progress < 0.98 ? 1 : 0,
+          opacity: enabled && fillProgress > 0.02 && fillProgress < 0.98 ? 1 : 0,
         }}
       />
     </div>

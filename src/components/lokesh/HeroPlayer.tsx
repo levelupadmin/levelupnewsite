@@ -33,19 +33,37 @@ interface Props {
  *   before requestIdleCallback fires. The poster is the LCP image; even
  *   if the JS is slow to arrive, the hero still LOOKS right.
  */
+// Lazy initializer that picks the right src/poster on FIRST render.
+// Why this matters: if we wait until useEffect (after render), the
+// browser has already started fetching the desktop video by the time
+// we swap to the mobile one. On a 393×667 phone that's 7+ MB of waste
+// before the user sees anything useful (UX agent flagged this — Wave 1).
+function pickInitial(
+  desktopSrc: string,
+  mobileSrc: string | undefined,
+  desktopPoster: string,
+  mobilePoster: string | undefined
+) {
+  if (
+    typeof window !== "undefined" &&
+    mobileSrc &&
+    window.matchMedia("(max-width: 767px)").matches
+  ) {
+    return { src: mobileSrc, poster: mobilePoster ?? desktopPoster };
+  }
+  return { src: desktopSrc, poster: desktopPoster };
+}
+
 export default function HeroPlayer({ src, poster, mobileSrc, mobilePoster, ariaLabel }: Props) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showHint, setShowHint] = useState(false);
-  // Pick mobile src once on mount (avoids SSR mismatch). Default to desktop src.
-  const [activeSrc, setActiveSrc] = useState(src);
-  const [activePoster, setActivePoster] = useState(poster);
-  useEffect(() => {
-    if (mobileSrc && typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches) {
-      setActiveSrc(mobileSrc);
-      if (mobilePoster) setActivePoster(mobilePoster);
-    }
-  }, [mobileSrc, mobilePoster]);
+  // Resolve mobile vs desktop on the FIRST render (lazy init), not in
+  // a useEffect. This prevents the desktop video from being requested
+  // and partially downloaded before we'd swap on a phone.
+  const [media] = useState(() => pickInitial(src, mobileSrc, poster, mobilePoster));
+  const activeSrc = media.src;
+  const activePoster = media.poster;
 
   // Try a delayed muted autoplay after first paint. Browsers that allow it
   // (most modern Chrome/Edge/Firefox/Safari with muted) will start the loop;

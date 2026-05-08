@@ -8,9 +8,12 @@ export default function LokeshTrailer({ ytId }: { ytId: string }) {
   if (playing) {
     return (
       <div className="relative aspect-video bg-black">
+        {/* Wave 3: youtube-nocookie.com so we don't drop YouTube tracking
+            cookies on a viewer who hasn't actually pressed "Allow All".
+            Lighter on privacy, identical playback experience. */}
         <iframe
-          src={`https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&color=white`}
-          title="Lokesh Kanagaraj Masterclass — Official Trailer"
+          src={`https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&color=white`}
+          title="Masterclass — Official Trailer"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           loading="lazy"

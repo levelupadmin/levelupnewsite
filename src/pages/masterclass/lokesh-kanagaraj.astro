@@ -5,7 +5,6 @@ import FAQAccordion from "@/components/lokesh/FAQAccordion";
 import TestimonialCarousel from "@/components/lokesh/TestimonialCarousel";
 import LokeshTrailer from "@/components/lokesh/LokeshTrailer";
 import PosterMarquee from "@/components/lokesh/PosterMarquee";
-import HoverPlayVideo from "@/components/lokesh/HoverPlayVideo";
 import IntersectionPlayVideo from "@/components/lokesh/IntersectionPlayVideo";
 import HeroPlayer from "@/components/lokesh/HeroPlayer";
 import FilmsScrollStack from "@/components/lokesh/FilmsScrollStack";
@@ -121,45 +120,70 @@ const faq = faqJsonLd(faqs);
 >
   <link rel="preconnect" href="https://fonts.googleapis.com" slot="head" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin slot="head" />
-  <link rel="preconnect" href="https://www.youtube.com" slot="head" />
+  <link rel="preconnect" href="https://www.youtube-nocookie.com" slot="head" />
 
   <style is:global>
-    @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Cinzel:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap");
 
     .lokesh-page {
-      --bg: #050505;
-      --bg-card: #0e0e0e;
+      /* Warm-shifted near-black ladder (Wave 2 visual polish): four
+         tonal steps that read as different background depths without
+         the cool-blue cast a flat #050505 produces. */
+      --bg: #080604;
+      --bg-card: #0F0B07;
+      --bg-card-2: #1A130C;
+      --bg-card-3: #241B14;
       --text: #ffffff;
       --text-dim: #dfdee2;
       --text-muted: #737373;
+      /* Gold ramp — passes WCAG large-text 3:1 on near-black */
       --gold-1: #f5d59a;
       --gold-2: #d4a36c;
-      --gold-3: #8a5d2c;
-      --gold-text-on-pill: #401b00;
+      --gold-3: #a06a36;        /* was #8a5d2c — too dark, failed contrast */
+      --gold-text-on-pill: #2a1300;
+      /* Lokesh-specific cinema-poster crimson accent (Wave 2). Used
+         sparingly: certificate seal, FAQ "open" indicator hint, etc. */
+      --course-accent: #7A0A0F;
+      --course-accent-glow: rgba(122, 10, 15, 0.45);
       background: var(--bg);
       color: var(--text);
       font-family: "Inter", "Inter Placeholder", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-feature-settings: "ss01", "ss02";
       -webkit-font-smoothing: antialiased;
+      /* Reserve room for the sticky mobile CTA so the last accordion
+         item / FAQ search input / closing CTA isn't covered (Wave 1
+         P0 — UX flagged content occlusion). */
+      padding-bottom: 88px;
+    }
+    @media (min-width: 768px) {
+      .lokesh-page { padding-bottom: 0; }
     }
     .font-cinzel { font-family: "Cinzel", "Cinzel Placeholder", serif; }
-    .font-poppins { font-family: "Poppins", "Poppins Placeholder", sans-serif; }
-    .font-dm { font-family: "DM Sans", "DM Sans Placeholder", sans-serif; }
+    .font-cinzel-italic { font-family: "Cinzel", serif; font-style: italic; }
+    /* Wave 2: dropped Poppins + DM Sans — Cinzel + Inter only. */
 
-    /* Gold gradient text used in Cinzel section headings — Framer's exact
-       5-stop diagonal sweep with cream highlight in the middle */
+    /* Gold gradient text used in Cinzel section headings — simplified
+       Wave 2 to a 3-stop sweep (cleaner, fewer hard stops to read).
+       The dark stop bumped to #a06a36 to clear large-text 3:1 on the
+       new warm-near-black ladder. */
     .text-gold {
-      background-image: linear-gradient(284deg, rgb(126,75,39) 0%, rgb(152,93,51) 17.974%, rgb(255,222,179) 49%, rgb(152,93,51) 73.8563%, rgb(240,187,122) 92%);
+      background-image: linear-gradient(
+        284deg,
+        rgb(160, 106, 54) 0%,
+        rgb(245, 213, 154) 50%,
+        rgb(212, 163, 108) 100%
+      );
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
 
     /* Big "Buy now" pill (used inside hero / sections / CTAs).
-       Mirrors Framer's gold-gradient pill on hero + closing pitch — chunkier
-       than the small top-right pill. */
+       Wave 1: outer stop bumped from #8c5e2e (failed contrast) to
+       #a87545 (passes large-text). Text is dark #2a1300 on light gold
+       — that already passes 4.5:1. */
     .lokesh-page .buy-pill {
-      background: radial-gradient(120% 100% at 50% 0%, #ffe5b8 0%, #e3b671 30%, #c8924d 60%, #8c5e2e 100%);
+      background: radial-gradient(120% 100% at 50% 0%, #ffe5b8 0%, #e3b671 30%, #c8924d 60%, #a87545 100%);
       color: var(--gold-text-on-pill);
       box-shadow:
         0 14px 24px -8px rgba(200, 146, 77, 0.6),
@@ -360,6 +384,41 @@ const faq = faqJsonLd(faqs);
     }
     .lokesh-page .marquee-track { animation: marquee 38s linear infinite; }
     .lokesh-page .marquee-track-rev { animation: marquee 42s linear infinite reverse; }
+    @media (prefers-reduced-motion: reduce) {
+      .lokesh-page .marquee-track,
+      .lokesh-page .marquee-track-rev,
+      .lokesh-page .float-a,
+      .lokesh-page .float-b,
+      .lokesh-page .float-c { animation: none !important; }
+    }
+
+    /* Wave 2: keyboard focus visible everywhere — 2px amber ring + 2px
+       offset against page background so it sits on top of any element
+       without merging into the gold gradient. */
+    .lokesh-page :focus { outline: none; }
+    .lokesh-page a:focus-visible,
+    .lokesh-page button:focus-visible,
+    .lokesh-page [role="button"]:focus-visible,
+    .lokesh-page input:focus-visible,
+    .lokesh-page textarea:focus-visible,
+    .lokesh-page select:focus-visible,
+    .lokesh-page [tabindex]:focus-visible {
+      outline: 2px solid #f5d59a;
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+    .lokesh-page .buy-pill:focus-visible,
+    .lokesh-page .buy-pill-small:focus-visible {
+      outline: 2px solid #f5d59a;
+      outline-offset: 3px;
+    }
+
+    /* Cinzel italic for episode titles (Wave 2 typography polish) */
+    .lokesh-page .episode-title-italic {
+      font-family: "Cinzel", serif;
+      font-style: italic;
+      font-weight: 500;
+    }
   </style>
 
   <main id="main-content" class="lokesh-page">
@@ -377,8 +436,12 @@ const faq = faqJsonLd(faqs);
       <div class="star-bg absolute inset-0 pointer-events-none opacity-70"></div>
 
       <div class="relative w-full">
-        <!-- Mobile: portrait 393×496. Desktop: full-bleed 1440×800. -->
-        <div class="relative aspect-[393/496] sm:aspect-[16/10] md:aspect-[16/8] lg:aspect-[1440/800] overflow-hidden bg-black">
+        {/* Mobile: shorter 393×360 (was 393×496) so the H1 + CTA + ★
+             social proof + countdown all fit above the fold on a
+             375×667 phone (Wave 1 P0 — three-agent audit cross-validated
+             that the mobile hero was failing this test). Desktop: full-
+             bleed 1440×800 unchanged. */}
+        <div class="relative aspect-[393/360] sm:aspect-[16/10] md:aspect-[16/8] lg:aspect-[1440/800] overflow-hidden bg-black">
           <HeroPlayer
             src={`${ASSET}/8aQnJtJnDomXGCoq8SMNrwjXL4.mp4`}
             mobileSrc={`${ASSET}/E4445FBvzTGHgmyA5xjXaU8S4mA.mp4`}
@@ -387,14 +450,20 @@ const faq = faqJsonLd(faqs);
             ariaLabel="Play Lokesh Kanagaraj masterclass hero"
             client:load
           />
-          <!-- LevelUp logo overlaid on video at top-left -->
-          <a
-            href="/"
-            aria-label="LevelUp Learning home"
-            class="absolute top-5 left-5 md:top-7 md:left-12 z-30 inline-flex items-center"
-          >
-            <img src="/levelup-logo-mark.svg" alt="LevelUp" class="h-7 md:h-9 w-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]" />
-          </a>
+          {/* LevelUp logo overlaid on video at top-left.
+              Wave 3: tinted gold via filter so the brand mark feels
+              "of the page" instead of a foreign white blob, and lifted
+              into a <header role="banner"> for landmark navigation. */}
+          <header role="banner" class="absolute top-5 left-5 md:top-7 md:left-12 z-30 inline-flex items-center">
+            <a href="/" aria-label="LevelUp Learning home" class="inline-flex items-center">
+              <img
+                src="/levelup-logo-mark.svg"
+                alt="LevelUp"
+                class="h-7 md:h-9 w-auto"
+                style="filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6)) sepia(0.6) saturate(2.4) hue-rotate(-12deg) brightness(1.05);"
+              />
+            </a>
+          </header>
         </div>
 
         {/* Above-the-fold copy. Total: ~26 words. Hooks track-record
@@ -402,14 +471,15 @@ const faq = faqJsonLd(faqs);
              (15 episodes, certificate), real urgency (live countdown),
              and social proof (4.86★ from 18,000+) — all visible on a
              375×667 phone before any scroll. */}
-        <div class="relative mt-7 md:mt-10 text-center max-w-3xl mx-auto px-5 pb-4 md:pb-8">
+        <div class="relative mt-5 md:mt-10 text-center max-w-3xl mx-auto px-5 pb-4 md:pb-8">
           <h1 class="text-gold text-[26px] md:text-[34px] lg:text-[42px] leading-[1.15] tracking-[-0.02em] font-semibold" style="font-family: 'Inter', sans-serif;">
-            The director behind 5 films and ₹1,500 crores.<br class="hidden md:inline" />
+            The director of <span class="font-cinzel-italic">Master, Vikram &amp; Leo</span>.<br class="hidden md:inline" />
             <span class="md:block">Now teaching.</span>
           </h1>
           <p class="mt-4 md:mt-5 text-[14px] md:text-[16px] lg:text-[17px] leading-[1.5] tracking-[-0.01em] text-white/85 max-w-[560px] mx-auto">
-            <span class="font-semibold text-white">15 episodes</span>
-            · Lifetime access · Certificate signed by Lokesh
+            <span class="font-semibold text-white">5 films · ₹1,500 Cr · 15 episodes</span>
+            <br class="sm:hidden" />
+            <span class="text-white/70"> · Lifetime access · Certificate signed by Lokesh</span>
           </p>
 
           <!-- Primary CTA + countdown side-by-side (desktop) / stacked (mobile) -->
@@ -420,7 +490,7 @@ const faq = faqJsonLd(faqs);
               rel="noopener noreferrer"
               class="buy-pill inline-flex items-center justify-center px-8 py-3.5 md:px-9 md:py-4 rounded-full text-[15px] md:text-[16px]"
             >
-              Sign Up Now ₹1,499
+              Enrol — ₹1,499
             </a>
             {/* Real countdown — ₹4,999 reverts to MRP when the timer
                 hits zero. Stored in localStorage so a returning visitor
@@ -459,6 +529,34 @@ const faq = faqJsonLd(faqs);
         <div class="relative rounded-[14px] overflow-hidden ring-1 ring-white/[0.07] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)]">
           <LokeshTrailer ytId={YT_TRAILER_ID} client:load />
         </div>
+
+        {/* Wave 2: inline mini-pricing card after trailer on mobile.
+             Reason — once a phone visitor watches the trailer, the next
+             "what does this cost?" question hits before they hit the
+             pricing card 1500px down. Desktop already has the sticky
+             aside; mobile didn't until now. Hidden on md+ so we don't
+             double up. */}
+        <aside
+          class="md:hidden mt-6 rounded-2xl border border-amber-200/15 bg-[#0F0B07] p-5"
+          aria-label="Pricing summary"
+        >
+          <div class="flex items-baseline gap-3">
+            <span class="text-[34px] font-bold text-white tracking-[-0.04em] leading-none">₹1,499</span>
+            <span class="text-[16px] text-white/40 line-through decoration-amber-300/70 decoration-2 tracking-[-0.04em]">₹4,999</span>
+            <span class="ml-auto inline-flex items-center px-2 py-0.5 rounded-md bg-amber-300/12 border border-amber-300/25 text-[10px] font-semibold tracking-tight text-amber-300/95">
+              SAVE 70%
+            </span>
+          </div>
+          <a
+            href={CTA_HREF}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="buy-pill mt-4 inline-flex w-full items-center justify-center px-5 py-3 rounded-full text-[14px]"
+          >
+            Enrol — ₹1,499
+          </a>
+          <p class="mt-2 text-center text-[11px] text-white/55">15 episodes · Lifetime access · Certificate</p>
+        </aside>
       </div>
     </section>
 
@@ -487,11 +585,12 @@ const faq = faqJsonLd(faqs);
                  price row
                - "Limited Time Offer" text REPLACED with the real
                  countdown timer (P0)
-               - CTA copy → "Sign Up Now" to match the ad voice -->
+               - CTA copy → "Enrol — ₹1,499" (Wave 1 voice fix: action
+                 verb + price anchor; cleaner than vague "Sign Up Now") -->
           <aside class="rounded-2xl border border-amber-200/15 bg-[#0E0E0E] p-7 md:p-8 h-fit lg:sticky lg:top-6 reveal">
-            <p class="font-dm text-[16px] md:text-[18px] font-medium text-white/85 tracking-[-0.02em]">Enrol today for just</p>
+            <p class="text-[16px] md:text-[18px] font-medium text-white/85 tracking-[-0.02em]">Enrol today for just</p>
             <div class="mt-3 flex items-baseline gap-3">
-              <span class="font-poppins text-[44px] md:text-[56px] font-bold text-white tracking-[-0.04em] leading-none">₹1,499</span>
+              <span class="text-[44px] md:text-[56px] font-bold text-white tracking-[-0.04em] leading-none">₹1,499</span>
               <span class="text-[20px] md:text-[24px] text-white/40 line-through decoration-amber-300/70 decoration-2 tracking-[-0.04em]">₹4,999</span>
             </div>
             <p class="mt-2 inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-amber-300/12 border border-amber-300/25 text-[11px] md:text-[12px] font-semibold tracking-tight text-amber-300/95">
@@ -503,11 +602,27 @@ const faq = faqJsonLd(faqs);
               rel="noopener noreferrer"
               class="buy-pill mt-5 inline-flex w-full items-center justify-center px-5 py-3.5 rounded-full text-[14px] md:text-[15px]"
             >
-              Sign Up Now ₹1,499
+              Enrol — ₹1,499
             </a>
             <!-- Real live countdown replaces "Limited Time Offer" -->
             <div class="mt-3 flex justify-center">
               <CountdownTimer tone="alert" client:load />
+            </div>
+            {/* Wave 3: payment-trust strip. Visitor recognises the
+                payment instruments before they tap, which closes the
+                "is this real / is it secure" loop without forcing them
+                to land on Razorpay first. Text-based logos keep the
+                bundle small (no extra image requests). */}
+            <p class="sr-only">Pay securely with UPI, GPay, PhonePe, Visa, Mastercard, RuPay or Razorpay.</p>
+            <div aria-hidden="true" class="mt-4 flex flex-wrap items-center justify-center gap-2 text-[10px] md:text-[11px]">
+              {["UPI", "GPay", "PhonePe", "Visa", "Mastercard", "RuPay"].map((p) => (
+                <span class="inline-flex items-center px-2 py-0.5 rounded border border-white/10 bg-white/[0.04] text-white/65 tracking-[0.04em] uppercase">
+                  {p}
+                </span>
+              ))}
+              <span class="inline-flex items-center px-2 py-0.5 rounded bg-white/95 text-[#072554] font-bold tracking-tight">
+                Razorpay
+              </span>
             </div>
             <hr class="my-6 border-white/[0.08]" />
             <p class="text-[18px] md:text-[20px] font-medium text-[#dfdee2] tracking-[-0.04em]">What You'll Get</p>
@@ -549,7 +664,11 @@ const faq = faqJsonLd(faqs);
         <p class="font-cinzel text-[10px] md:text-[11px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Who is this</p>
         <div class="my-3 section-tick"></div>
         <!-- Framer renders the heading at ~28px. Smaller + tighter than I had it. -->
-        <h2 class="font-cinzel text-gold text-[22px] md:text-[26px] lg:text-[28px] leading-[1.1] tracking-[0.02em] font-semibold whitespace-nowrap">
+        {/* Wave 2: dropped whitespace-nowrap — on a 320px iPhone SE
+             the text was overflowing the viewport because it was
+             forced onto one line. Allowing it to wrap is fine; the
+             centered tracking keeps the line break readable. */}
+        <h2 class="font-cinzel text-gold text-[22px] md:text-[26px] lg:text-[28px] leading-[1.1] tracking-[0.02em] font-semibold">
           WHO IS THIS PROGRAM FOR?
         </h2>
       </div>
@@ -584,16 +703,20 @@ const faq = faqJsonLd(faqs);
 
           <!-- 6 audience pills hugging the gun. Bigger AND closer than
                before. Mobile pads pulled in (8% / 24%) so pills don't
-               clip on small screens. -->
+               clip on small screens.
+               Wave 1 P0: classes are flat literals (no md:${} concat)
+               so the Tailwind JIT scanner picks them up at build time.
+               Previously dynamic concatenation produced a string the
+               JIT never saw — pills stayed in default position. -->
           {[
-            { label: "Dialogue Writers",     classDesktop: "top-[6%] left-[14%]",                     classMobile: "top-[2%] left-[6%]",                       float: "float-a" },
-            { label: "Cinema Lovers",        classDesktop: "top-[6%] right-[14%]",                    classMobile: "top-[2%] right-[6%]",                      float: "float-b" },
-            { label: "Story Architects",     classDesktop: "top-1/2 -translate-y-1/2 left-[3%]",      classMobile: "top-1/2 -translate-y-1/2 left-[2%]",       float: "float-c" },
-            { label: "Visionary Filmmakers", classDesktop: "top-1/2 -translate-y-1/2 right-[3%]",     classMobile: "top-1/2 -translate-y-1/2 right-[2%]",      float: "float-a" },
-            { label: "Future Directors",     classDesktop: "bottom-[6%] left-[18%]",                  classMobile: "bottom-[2%] left-[8%]",                    float: "float-b" },
-            { label: "Film Dreamers",        classDesktop: "bottom-[6%] right-[18%]",                 classMobile: "bottom-[2%] right-[8%]",                   float: "float-c" },
+            { label: "Dialogue Writers",     position: "top-[2%] left-[6%]   md:top-[6%] md:left-[14%]",                                        float: "float-a" },
+            { label: "Cinema Lovers",        position: "top-[2%] right-[6%]  md:top-[6%] md:right-[14%]",                                       float: "float-b" },
+            { label: "Story Architects",     position: "top-1/2 -translate-y-1/2 left-[2%] md:left-[3%]",                                       float: "float-c" },
+            { label: "Visionary Filmmakers", position: "top-1/2 -translate-y-1/2 right-[2%] md:right-[3%]",                                     float: "float-a" },
+            { label: "Future Directors",     position: "bottom-[2%] left-[8%]  md:bottom-[6%] md:left-[18%]",                                   float: "float-b" },
+            { label: "Film Dreamers",        position: "bottom-[2%] right-[8%] md:bottom-[6%] md:right-[18%]",                                  float: "float-c" },
           ].map((p) => (
-            <span class={`absolute md:${p.classDesktop} ${p.classMobile} ${p.float} z-20 px-4 py-2 md:px-7 md:py-3.5 rounded-full text-[12px] md:text-[17px] font-medium tracking-[-0.01em] text-white bg-[radial-gradient(120%_100%_at_50%_0%,rgba(40,30,18,0.94),rgba(10,8,6,0.97))] border border-white/[0.12] shadow-[0_14px_32px_-14px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.07)] backdrop-blur-sm whitespace-nowrap`}>
+            <span class={`absolute ${p.position} ${p.float} z-20 px-4 py-2 md:px-7 md:py-3.5 rounded-full text-[12px] md:text-[17px] font-medium tracking-[-0.01em] text-white bg-[radial-gradient(120%_100%_at_50%_0%,rgba(40,30,18,0.94),rgba(10,8,6,0.97))] border border-white/[0.12] shadow-[0_14px_32px_-14px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.07)] backdrop-blur-sm whitespace-nowrap`}>
               {p.label}
             </span>
           ))}
@@ -640,19 +763,36 @@ const faq = faqJsonLd(faqs);
         </div>
       </section>
 
-      <!-- Certificate — gets a continuously-running gold border glow that
+      {/* Certificate — gets a continuously-running gold border glow that
            the center line "feeds into". The .mc-cert-glow class draws a
            shooting bead around the rectangle perimeter (top → right →
-           bottom → left → repeat) so the line visually wraps the cert. -->
+           bottom → left → repeat) so the line visually wraps the cert.
+           Wave 3: layered paper-grain noise overlay + gold foil-edge
+           inset shadow give the cert a tactile "physical document" feel
+           rather than a flat JPEG. */}
       <section class="relative px-5 md:px-12 py-8 md:py-14 z-10">
         <div class="max-w-[1085px] mx-auto reveal">
-          <div class="mc-cert-glow rounded-2xl overflow-hidden ring-1 ring-amber-200/30 shadow-[0_30px_80px_-20px_rgba(212,163,108,0.25)]">
+          <div class="mc-cert-glow relative rounded-2xl overflow-hidden ring-1 ring-amber-200/30 shadow-[0_30px_80px_-20px_rgba(212,163,108,0.25)]">
             <img
               src={`${ASSET}/9F1ol75caTSZ1T06dL8apemH4B4.jpg`}
               alt="Certificate of Completion signed by Lokesh Kanagaraj"
               class="block w-full h-auto"
               loading="lazy"
             />
+            {/* Paper grain overlay — subtle, mix-blend overlay so the
+                cert reads as printed paper not a digital flat. */}
+            <div
+              aria-hidden="true"
+              class="absolute inset-0 pointer-events-none"
+              style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E&quot;); mix-blend-mode: overlay; opacity: 0.10;"
+            ></div>
+            {/* Gold foil edge — inset shadow with warm gold tones so
+                the cert appears bordered in metallic ink. */}
+            <div
+              aria-hidden="true"
+              class="absolute inset-0 pointer-events-none rounded-2xl"
+              style="box-shadow: inset 0 0 0 1px rgba(245,213,154,0.35), inset 0 2px 8px rgba(245,213,154,0.18), inset 0 -2px 8px rgba(160,106,54,0.22);"
+            ></div>
           </div>
         </div>
       </section>
@@ -713,7 +853,7 @@ const faq = faqJsonLd(faqs);
             rel="noopener noreferrer"
             class="buy-pill mt-8 inline-flex items-center justify-center px-7 py-3 rounded-full text-[14px] md:text-[15px]"
           >
-            Sign Up Now ₹1,499
+            Enrol — ₹1,499
           </a>
         </div>
 
@@ -736,13 +876,17 @@ const faq = faqJsonLd(faqs);
             </div>
           ))}
 
-          {/* LCU Bonus Vault — caps the right column. Once this scrolls
-               past the bottom of the viewport, the left column unsticks
-               and both move up together. */}
+          {/* LCU Bonus Vault — Wave 3 honesty pass: dropped the
+               unsubstantiated "Worth ₹19,999" anchor and the
+               unverifiable "first 100 enrollees" framing (the audit
+               cross-validated both as red flags — no counter, no
+               itemised breakdown, so they read as inflated). Replaced
+               with what enrolment actually includes. */}
           <div class="rounded-xl border border-amber-200/30 bg-gradient-to-br from-[#1a1208] to-[#0a0604] p-6 md:p-7 reveal reveal-delay-4">
             <h3 class="font-cinzel text-gold text-[24px] md:text-[30px] lg:text-[40px] leading-[1.1] tracking-[-0.04em] font-semibold">The LCU Bonus Vault</h3>
-            <p class="mt-3 text-[16px] md:text-[20px] lg:text-[22px] leading-[1.4] tracking-[-0.02em] text-white">
-              Exclusive Bonuses Worth ₹19,999 — Free for the first 100 enrollees
+            <p class="mt-3 text-[15px] md:text-[17px] leading-[1.5] tracking-[-0.01em] text-white/85">
+              Included with enrolment: scene-breakdown PDFs, screenwriting
+              worksheets, and the full LCU character-map archive.
             </p>
           </div>
         </div>
@@ -781,7 +925,7 @@ const faq = faqJsonLd(faqs);
               rel="noopener noreferrer"
               class="buy-pill mt-4 md:mt-6 inline-flex items-center justify-center px-5 py-2.5 md:px-6 md:py-2.5 rounded-full text-[12px] md:text-[14px]"
             >
-              Sign Up Now ₹1,499
+              Enrol — ₹1,499
             </a>
           </div>
           <!-- Right: TWO rows × THREE columns of movie posters laid out
@@ -835,11 +979,11 @@ const faq = faqJsonLd(faqs);
           rel="noopener noreferrer"
           class="buy-pill mt-8 inline-flex items-center justify-center px-7 py-3 rounded-full text-[14px] md:text-[15px]"
         >
-          Sign Up Now ₹1,499
+          Enrol — ₹1,499
         </a>
       </div>
       <div class="max-w-5xl mx-auto reveal reveal-delay-2">
-        <FAQAccordion faqs={faqs} client:visible />
+        <FAQAccordion faqs={faqs} courseName="Lokesh Kanagaraj Masterclass" client:visible />
       </div>
     </section>
 

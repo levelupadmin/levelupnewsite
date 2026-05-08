@@ -5,6 +5,21 @@ interface Poster {
   alt: string;
 }
 
+// Spring-ish settle: linear for the first 95% of the scroll arc, then
+// a soft overshoot via cubic-bezier-like ease for the last 5%. The
+// audit flagged the previous 0.05s linear for the entire arc as
+// "algorithmic" — the new curve gives the deck a tactile "land" beat.
+function easeSettle(local: number) {
+  if (local >= 0.95) {
+    // Last 5%: simulate spring overshoot in [0.95, 1.05] then back to 1
+    const t = (local - 0.95) / 0.05; // 0 → 1
+    // Cubic bezier (0.34, 1.56, 0.64, 1) approx via simple formula
+    const overshoot = 1.56;
+    return 0.95 + (1 - 0.95) * (1 + overshoot * Math.pow(t - 1, 3) + overshoot * Math.pow(t - 1, 2));
+  }
+  return local;
+}
+
 interface Props {
   posters: Poster[];
   /** Optional eyebrow above the heading. Defaults to "Learn from the". */
@@ -47,10 +62,26 @@ export default function FilmsScrollStack({
 }: Props) {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const [progress, setProgress] = useState(0); // 0 → 1 across the runway
+  // prefers-reduced-motion: skip scroll-driven animation entirely and
+  // render the deck at its rest position (progress = 1).
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(mq.matches);
+    const onChange = () => setReducedMotion(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
+    if (reducedMotion) {
+      setProgress(1);
+      return;
+    }
     let raf = 0;
 
     const update = () => {
@@ -76,7 +107,7 @@ export default function FilmsScrollStack({
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, []);
+  }, [reducedMotion]);
 
   // Each poster has its own "settle point" along the 0→1 progress.
   // Poster 0 is already in place at progress=0; subsequent posters
@@ -127,21 +158,30 @@ export default function FilmsScrollStack({
           <div className="relative aspect-[3/4] max-w-[420px] w-full mx-auto">
             {posters.map((p, i) => {
               const settle = settlePoints[i];
-              // Progress local to this poster: 0 = below viewport (offset 100%),
-              // 1 = settled in deck position
-              const local = i === 0
+              // Progress local to this poster: 0 = below viewport, 1 = settled
+              const localRaw = i === 0
                 ? 1
                 : Math.max(0, Math.min(1, (progress - Math.max(0, settle - 0.18)) / 0.18));
+              // Spring-ish settle (Wave 2 polish — replaces 0.05s linear)
+              const local = easeSettle(localRaw);
 
-              // Each poster lands with a slight rotation/offset for the deck look
-              const restRot = [-8, -3, 4, 9][i % 4];
-              const restDx = [-28, -10, 14, 28][i % 4];
-              const restDy = [12, 6, 4, -2][i % 4];
+              // Each poster lands with a slight rotation/offset for the
+              // deck look. Slightly desymmetrised values (vs the previous
+              // -8/-3/4/9 even spacing) to avoid an algorithmic feel.
+              const restRot = [-9, -2.5, 3.5, 8.5][i % 4];
+              const restDx = [-30, -8, 14, 26][i % 4];
+              const restDy = [14, 6, 4, -2][i % 4];
 
-              const enterY = 80; // travels 80px upward as it lands
+              // Wave 2 polish: enter-Y bumped 80→240px so the cards
+              // travel a meaningful distance and the deck reads as
+              // "deal" not "twitch". Initial scale 0.85 → 1.0 adds a
+              // tiny zoom-in cue.
+              const enterY = 240;
+              const enterScaleStart = 0.85;
               const yOffset = (1 - local) * enterY + restDy;
               const rot = local * restRot;
               const dx = local * restDx;
+              const scale = i === 0 ? 1 : enterScaleStart + (1 - enterScaleStart) * local;
               const opacity = i === 0 ? 1 : local;
 
               return (
@@ -153,10 +193,11 @@ export default function FilmsScrollStack({
                   decoding="async"
                   className="absolute inset-0 w-full h-full object-cover rounded-xl ring-1 ring-white/10 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.85)]"
                   style={{
-                    transform: `translate(${dx}px, ${yOffset}px) rotate(${rot}deg)`,
+                    transform: `translate(${dx}px, ${yOffset}px) rotate(${rot}deg) scale(${scale})`,
                     opacity,
                     zIndex: 10 + i * 10,
-                    transition: "transform 0.05s linear, opacity 0.05s linear",
+                    transition: reducedMotion ? "none" : "transform 0.08s linear, opacity 0.08s linear",
+                    willChange: reducedMotion ? "auto" : "transform",
                   }}
                 />
               );
