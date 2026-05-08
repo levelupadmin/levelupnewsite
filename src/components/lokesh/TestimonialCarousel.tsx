@@ -7,6 +7,12 @@ export interface LokeshTestimonial {
   role: string;
   quote: string;
   image?: string;
+  /**
+   * Star rating 1–5. Renders as a row of filled stars above the
+   * reviewer's name. Defaults to 5 when omitted (matches the existing
+   * carousel where every quote is treated as a 5-star review).
+   */
+  rating?: number;
 }
 
 /**
@@ -21,14 +27,29 @@ export interface LokeshTestimonial {
  *   - 3 progress dots underneath, active dot is gold/orange and wider
  */
 export default function TestimonialCarousel({ items }: { items: LokeshTestimonial[] }) {
+  // Wave 2: stopOnInteraction true so a tap on mobile actually pauses
+  // the autoplay (was false — mobile users had no way to read longer
+  // quotes). stopOnMouseEnter still pauses on desktop hover.
   const autoplay = useRef(
-    Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })
+    Autoplay({ delay: 6500, stopOnInteraction: true, stopOnMouseEnter: true })
   );
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { align: "center", containScroll: "trimSnaps", loop: true, slidesToScroll: 1 },
     [autoplay.current]
   );
   const [selected, setSelected] = useState(0);
+  // Pause autoplay if the user prefers reduced motion (Wave 2)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mq.matches && autoplay.current) autoplay.current.stop();
+    const onChange = () => {
+      if (mq.matches && autoplay.current) autoplay.current.stop();
+      else if (autoplay.current) autoplay.current.play();
+    };
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
@@ -51,11 +72,15 @@ export default function TestimonialCarousel({ items }: { items: LokeshTestimonia
             return (
               <div
                 key={i}
+                aria-hidden={!isActive}
                 className={`flex-[0_0_82%] md:flex-[0_0_64%] min-w-0 transition-all duration-500 ease-out ${
-                  isActive ? "scale-100" : "scale-[0.92]"
+                  isActive ? "scale-100" : "scale-[0.94]"
                 }`}
                 style={{
-                  filter: isActive ? "none" : "brightness(0.45)",
+                  // Wave 2: brightened from 0.45 → 0.6 so peek cards
+                  // still read as "context" but inactive text clears
+                  // WCAG 4.5:1 against the dark page bg even when faded.
+                  filter: isActive ? "none" : "brightness(0.6)",
                 }}
               >
                 <div
@@ -86,7 +111,17 @@ export default function TestimonialCarousel({ items }: { items: LokeshTestimonia
                       />
                     )}
                     <div className="min-w-0">
-                      <p className="text-[14px] md:text-[15px] font-semibold text-white">{t.name}</p>
+                      {/* ★★★★★ row above the name. Defaults to 5 when
+                          rating is omitted so existing testimonials
+                          on Lokesh keep working. */}
+                      <p
+                        className="text-[12px] md:text-[13px] tracking-[0.08em] text-amber-300/95 leading-none"
+                        aria-label={`${t.rating ?? 5} out of 5 stars`}
+                      >
+                        {"★".repeat(Math.max(1, Math.min(5, t.rating ?? 5)))}
+                        <span className="text-white/15">{"★".repeat(5 - Math.max(1, Math.min(5, t.rating ?? 5)))}</span>
+                      </p>
+                      <p className="mt-1 text-[14px] md:text-[15px] font-semibold text-white">{t.name}</p>
                       <p className="text-[11px] md:text-[12px] tracking-wide text-white/55 mt-0.5">
                         {t.role}
                       </p>
@@ -99,17 +134,28 @@ export default function TestimonialCarousel({ items }: { items: LokeshTestimonia
         </div>
       </div>
 
-      {/* Progress dots — gold active state */}
-      <div className="flex justify-center gap-2 mt-7 md:mt-9">
+      {/* Progress dots — gold active state. Wave 2: bumped tap target
+          from h-1.5 → 24×24 hit area via padding so each dot meets
+          WCAG 2.5.5 AAA touch-target spec. The visible dot stays small
+          (h-1.5) inside a transparent 24×24 button. */}
+      <div className="flex justify-center gap-2 mt-7 md:mt-9" role="tablist" aria-label="Testimonials">
         {items.map((_, i) => (
           <button
             key={i}
+            type="button"
             onClick={() => emblaApi?.scrollTo(i)}
             aria-label={`Go to testimonial ${i + 1}`}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              i === selected ? "w-10 bg-amber-300/95" : "w-2 bg-white/15 hover:bg-white/30"
-            }`}
-          />
+            aria-selected={i === selected}
+            role="tab"
+            className="relative inline-flex items-center justify-center w-6 h-6 group"
+          >
+            <span
+              aria-hidden="true"
+              className={`block h-1.5 rounded-full transition-all duration-300 ${
+                i === selected ? "w-10 bg-amber-300/95" : "w-2 bg-white/15 group-hover:bg-white/30"
+              }`}
+            />
+          </button>
         ))}
       </div>
     </div>

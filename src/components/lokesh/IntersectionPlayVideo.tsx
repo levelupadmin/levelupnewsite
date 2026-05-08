@@ -8,11 +8,14 @@ interface Props {
 
 /**
  * Autoplays muted video when scrolled into viewport, pauses when scrolled out.
- * Matches Framer's behavior on Why-Is-This-Masterclass cards: video starts at
- * preload="none", first time the card crosses 30% in-view we set preload="auto",
- * call play(), and from then on we toggle play/pause based on visibility.
  *
- * Safe defaults for mobile data: nothing loads until the section is reached.
+ * Pre-loads the video as soon as it enters a generous 600px rootMargin
+ * (i.e. while still about one viewport below the fold). By the time
+ * the card is centred, the first few seconds are buffered, so playback
+ * starts instantly instead of staring at the poster waiting for bytes.
+ * 600px is a real-device sweet spot: far enough that 4G can fetch a
+ * 2-5 MB clip in time, close enough that we don't preload everything
+ * on page load.
  */
 export default function IntersectionPlayVideo({ src, poster, className = "" }: Props) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -20,15 +23,27 @@ export default function IntersectionPlayVideo({ src, poster, className = "" }: P
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    let started = false;
-    const io = new IntersectionObserver(
+    let primed = false;
+
+    // Phase 1: PRELOAD as the card approaches the viewport.
+    const preloader = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting && !primed) {
+            primed = true;
+            v.preload = "auto";
+            v.load();
+          }
+        }
+      },
+      { rootMargin: "600px 0px 600px 0px" }
+    );
+
+    // Phase 2: PLAY when actually visible, PAUSE when scrolled out.
+    const player = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
           if (e.isIntersecting) {
-            if (!started) {
-              v.preload = "auto";
-              started = true;
-            }
             v.muted = true;
             v.play().catch(() => {});
           } else {
@@ -38,8 +53,13 @@ export default function IntersectionPlayVideo({ src, poster, className = "" }: P
       },
       { threshold: 0.3 }
     );
-    io.observe(v);
-    return () => io.disconnect();
+
+    preloader.observe(v);
+    player.observe(v);
+    return () => {
+      preloader.disconnect();
+      player.disconnect();
+    };
   }, []);
 
   return (
@@ -50,7 +70,7 @@ export default function IntersectionPlayVideo({ src, poster, className = "" }: P
       muted
       loop
       playsInline
-      preload="none"
+      preload="metadata"
       className={`w-full h-full object-cover ${className}`}
     />
   );

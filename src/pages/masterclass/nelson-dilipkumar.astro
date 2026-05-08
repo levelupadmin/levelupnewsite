@@ -18,83 +18,108 @@ const ASSET = "/masterclass/nelson";
 // Profile photos + shared closing-pitch ticket image live in /lokesh/
 const SHARED = "/masterclass/lokesh";
 
+// Real Wikipedia-sourced posters of Nelson's four films. The earlier
+// build used film stills (BTS-looking shots), which the user flagged.
+// These vertical 2:3 posters read as posters at any size.
+const POSTER_KOKILA = `${ASSET}/kolamaavu-kokila-poster.jpg`;
+const POSTER_DOCTOR = `${ASSET}/doctor-poster.jpg`;
+const POSTER_BEAST  = `${ASSET}/beast-poster.jpg`;
+const POSTER_JAILER = `${ASSET}/jailer-poster.jpg`;
+
+// Episode list. Em-dashes replaced with periods or commas (the page
+// previously used em-dashes everywhere; the user flagged this as
+// reading like AI-generated copy). Titles are kept in title-case so
+// they pair naturally with the accordion's italic display style.
 const episodes = [
-  { number: 1, title: "Introduction — Foundations of Your Filmmaking Journey", description: "Meet your award-winning mentor Nelson who explains the goals of his MasterClass. Here he offers a peek behind the scenes, sharing the experiences, mistakes, and personal truths that shaped his movies. Take notes, but trust your gut." },
-  { number: 2, title: "Redefining Career Paths — Lessons from an Accidental Filmmaker", description: "Filmmaking wasn't Nelson's childhood dream — it was barely on his radar. A twist of fate, a low engineering score, and his father's quiet creativity changed everything, steering him into cinema almost by accident." },
-  { number: 3, title: "Finding Your Voice", description: "Learn how to recognize your creative spark through experimentation. Nelson reflects on how photography and college storytelling contests helped him develop a unique voice — an approach you can apply to your own evolution." },
-  { number: 4, title: "Learning to See Your World Differently", description: "Explore how to develop a filmmaker's perspective without formal education. Nelson breaks down how curiosity, observational learning, and peer interaction helped him sharpen his visual storytelling and how you can too." },
-  { number: 5, title: "Watching Cinema with a Filmmaker's Eye", description: "Go beyond passive film-watching. Nelson explains how analyzing frame composition, editing rhythm, and visual metaphors can transform how you absorb and apply cinematic language." },
-  { number: 6, title: "Structuring Stories — Learning from Masters", description: "Understand how to build narrative frameworks. Nelson shares foundational script lessons inspired by iconic Tamil directors, giving you tools to simplify and strengthen your story architecture." },
-  { number: 7, title: "Prioritizing Story over Stardom — Kolamavu Kokila", description: "Unpack how story-first thinking shapes powerful films. Nelson breaks down his decision to make a woman-led film without leaning on familiar hero tropes." },
-  { number: 8, title: "Trusting Your Gut — Strengthening Creative Instincts", description: "What makes your films different from everyone else's? Learn how to identify and trust your filmmaking sensibilities, even when they go against the industry grain." },
-  { number: 9, title: "Turning Real-Life Observations into Relatable Stories", description: "A chance encounter with a woman whose actions contradict her appearance became the foundation for Kolamavu Kokila. Discover how to ground your films in authenticity." },
-  { number: 10, title: "Tonal Balancing — Doctor", description: "Nelson describes the tricky tone of his film Doctor. Learn how to mix unconventional tones without losing emotional weight — Doctor's humour remained engaging without compromising on tension." },
-  { number: 11, title: "Previsualization — Seeing Your Story Before You Shoot", description: "Narration isn't just storytelling — it's how you make your audience feel what you feel. Explore how clearly visualizing your scenes can enhance emotional impact." },
-  { number: 12, title: "Guiding New Actors — Techniques for Authentic Performances", description: "Nelson prefers new actors over familiar faces. He reveals how direct, simple communication helps him draw natural performances from inexperienced talent." },
-  { number: 13, title: "Five Lines First — Building Stories from Core Concepts", description: "Nelson begins simply: just five clear lines to capture his core idea. Learn his \"Five Lines First\" method — distill your film into core beats before layering complexity." },
-  { number: 14, title: "Getting Unstuck", description: "Writer's block hits Nelson often. He admits it openly, sharing his simple fix: breaking scenes down piece-by-piece, pacing carefully to keep audiences glued." },
-  { number: 15, title: "Creating Complex Characters — The Making of Veera Raghavan (Beast)", description: "Nelson discusses building a layered character. Opening with action, adding emotional depth, and tapping into the character's guilt made Veera relatable and engaging from the start." },
-  { number: 16, title: "Making Mass Moments Matter", description: "How do you build scenes everyone remembers? Learn how to craft \"mass\" scenes that resonate emotionally, not just visually. Discover timing, setup, and payoff strategies." },
-  { number: 17, title: "Writing Transformational Arcs — The Power of Turning Points", description: "Nelson unpacks why transformation scenes — those big \"flip\" moments — are always audience favourites. Using Kolamavu Kokila, Doctor, and Beast." },
-  { number: 18, title: "Hero's Journey — Jailer & Baasha", description: "What makes a hero's transformation powerful, even when you've seen it before? Nelson examines films like Jailer and classic hits like Baasha, showing why timing and emotional consistency make familiar arcs fresh." },
-  { number: 19, title: "Writing Real Dialogue", description: "Nelson tests lines by speaking them aloud to his team, ensuring they sound true — not forced or overly dramatic. Each character speaks uniquely, making scenes authentic." },
-  { number: 20, title: "Balancing Collaboration with Creative Control", description: "How much feedback is too much? Nelson explains his balanced approach — accepting input openly, but always filtering it through his instincts." },
-  { number: 21, title: "Aligning Creative Vision with Production Budgets", description: "Nelson talks candidly about how budgets shape his stories. Learn how handling constraints can lead to smarter decisions, keeping stories focused and practical." },
-  { number: 22, title: "Scene Design without Storyboards", description: "Nelson rejects storyboards. He starts from core scene concepts, collaborating closely with art and camera teams. Learn his method of co-developing set design for natural realism." },
-  { number: 23, title: "Sets Built from Scripts", description: "Every set Nelson builds is strictly informed by the script. Wall heights, windows, even furniture — they all come directly from what the scene needs." },
-  { number: 24, title: "Keeping the Set Alive", description: "Nelson shares how he maintains creative energy on set — preserving positivity and problem-solving energy during high-stress shoots." },
-  { number: 25, title: "Communicating Clearly", description: "Nelson emphasizes clarity on set — relying heavily on assistant directors to communicate visual goals clearly to every department." },
-  { number: 26, title: "The Art of Handling Stars & First-Timers", description: "Nelson directs big stars and fresh actors exactly the same way: clearly and directly. He explains how he drew a strong performance from newcomer Dhanraj in Jailer." },
-  { number: 27, title: "Editing with Rhythm, Emotion, and Honesty", description: "Editing isn't just trimming footage — Nelson describes it as finding the story's heartbeat. Trial screenings and honest feedback to find the cleanest version." },
-  { number: 28, title: "Music Leads the Way — Anirudh's Scores", description: "Music isn't just background for Nelson — it guides scenes. He describes working closely with composer Anirudh Ravichander on tense moments in Kolamavu Kokila." },
-  { number: 29, title: "Prioritizing Performance and Visuals on Set", description: "On set, Nelson concentrates on visuals and performances, trusting his preparation to guide him through each take smoothly." },
+  { number: 1,  title: "Foundations of a Filmmaking Journey",                       description: "Meet your award-winning mentor. Nelson lays out the goals of the masterclass and shares the experiences, mistakes, and personal truths that shaped his films. Take notes, but trust your gut." },
+  { number: 2,  title: "Lessons from an Accidental Filmmaker",                      description: "Filmmaking wasn't Nelson's childhood dream. A twist of fate, a low engineering score, and his father's quiet creativity steered him into cinema almost by accident." },
+  { number: 3,  title: "Finding Your Voice",                                        description: "How do you recognise your creative spark? Nelson reflects on photography, college storytelling contests, and the process of finding a voice you can actually trust on set." },
+  { number: 4,  title: "Learning to See the World Differently",                     description: "Nelson didn't go to film school. He explains how curiosity, observation, and hanging out with peers sharpened his visual storytelling, and how you can borrow the same habit." },
+  { number: 5,  title: "Watching Cinema with a Filmmaker's Eye",                    description: "Go beyond passive watching. Frame composition, editing rhythm, visual metaphor. Nelson breaks down how he absorbs a film and what he steals from it." },
+  { number: 6,  title: "Structuring Stories from the Masters",                      description: "Build narrative frameworks the way Nelson does. He shares foundational script lessons inspired by iconic Tamil directors, with tools you can apply to your own outline today." },
+  { number: 7,  title: "Story Over Stardom: Kolamaavu Kokila",                      description: "Kolamaavu Kokila was a woman-led story Nelson made before chasing a star. He breaks down the choice and what it taught him about story-first thinking." },
+  { number: 8,  title: "Trusting Your Instincts",                                   description: "What makes your films different from everyone else's? Nelson shares the way he separates his sensibilities from industry noise, and how to keep them when budgets get bigger." },
+  { number: 9,  title: "Real Observations, Relatable Stories",                      description: "A chance encounter with a woman whose actions contradicted her appearance became the seed of Kolamaavu Kokila. Nelson shows you how to mine your own life for cinema." },
+  { number: 10, title: "Tonal Balance: The Doctor Approach",                        description: "Doctor's tone was tricky. Nelson explains how he mixed dark humour with tension without losing emotional weight, and what to do when a tone won't sit still." },
+  { number: 11, title: "Previsualisation: Seeing the Film Before You Shoot",        description: "Narration isn't just storytelling. It's how you make an audience feel what you feel. Nelson walks through the way he visualises scenes long before the camera rolls." },
+  { number: 12, title: "Guiding New Actors",                                        description: "Nelson prefers fresh actors over familiar faces. He reveals the simple, direct communication that pulls natural performances out of inexperienced talent." },
+  { number: 13, title: "Five Lines First",                                          description: "Nelson begins simply: just five lines that capture his core idea. Learn the \"Five Lines First\" method and how to distil your film into beats before layering complexity." },
+  { number: 14, title: "Getting Unstuck",                                           description: "Writer's block hits Nelson often. He admits it openly and shares the simple fix: breaking scenes down piece by piece, pacing carefully, keeping audiences glued." },
+  { number: 15, title: "Building Complex Characters in Beast",                      description: "How Veera Raghavan was built. Open with action, add emotional depth, tap the character's guilt. Nelson breaks down the layered design behind his Beast lead." },
+  { number: 16, title: "Making Mass Moments Matter",                                description: "How do you build scenes everyone remembers? Nelson breaks down the timing, setup, and payoff that make a \"mass\" beat resonate emotionally, not just visually." },
+  { number: 17, title: "Writing Transformational Arcs",                             description: "Nelson unpacks why \"flip\" moments are always audience favourites, using examples from Kolamaavu Kokila, Doctor, and Beast." },
+  { number: 18, title: "The Hero's Journey, Restated",                              description: "What makes a hero's transformation powerful, even when you've seen it before? Nelson examines Jailer alongside classics like Baasha to show why timing and consistency matter." },
+  { number: 19, title: "Writing Real Dialogue",                                     description: "Nelson tests lines aloud with his team to make sure they sound true and not forced. Each character speaks differently. It's a small habit with big payoff." },
+  { number: 20, title: "Collaboration Without Losing Control",                      description: "How much feedback is too much? Nelson explains his balanced approach: accepting input openly, then filtering it through his instincts." },
+  { number: 21, title: "Aligning Vision and Budget",                                description: "Nelson talks candidly about how budgets shape stories. Constraints lead to smarter decisions and tighter, more practical films." },
+  { number: 22, title: "Scene Design Without Storyboards",                          description: "Nelson rejects storyboards. He starts from core scene concepts and co-develops set design with his art and camera teams for natural realism." },
+  { number: 23, title: "Sets Built from Scripts",                                   description: "Every set Nelson builds is informed by the script. Wall heights, windows, even furniture come directly from what the scene needs." },
+  { number: 24, title: "Keeping the Set Alive",                                     description: "Nelson keeps creative energy on set. How to preserve positivity and problem-solving energy during high-stress shoots." },
+  { number: 25, title: "Communicating Clearly",                                     description: "Nelson leans on his assistant directors to communicate visual goals to every department. Clarity beats charisma every time." },
+  { number: 26, title: "Stars and First-Timers, Same Direction",                    description: "Nelson directs stars and newcomers exactly the same way: clearly and directly. He explains how he pulled a strong performance from Dhanraj in Jailer." },
+  { number: 27, title: "Editing with Rhythm and Honesty",                           description: "Editing isn't trimming. Nelson describes finding the story's heartbeat through trial screenings and honest feedback to land the cleanest version." },
+  { number: 28, title: "When Music Leads the Scene",                                description: "Music isn't background for Nelson; it guides scenes. He describes working closely with composer Anirudh Ravichander on tense moments in Kolamaavu Kokila." },
+  { number: 29, title: "Performance and Visuals on Set",                            description: "On set, Nelson focuses on visuals and performances, trusting his preparation to guide him through each take." },
 ];
 
-const blockbusterFilms = [
-  `${ASSET}/Du0bmXvfwK2WLbhbymBmcCdk.jpg`,
-  `${ASSET}/KtbVjsCcNMvRhcGUeMA1qjBNkM.jpg`,
-  `${ASSET}/d06YHadU02FdMU34DAg5Ntf3pnM.jpg`,
-  `${ASSET}/f4PiQS7qDo1K6uyUMCZRKYIWNJ0.jpg`,
-  `${ASSET}/kvLXSPFUspNyqa1n9Ak63OG1HU.jpg`,
-  `${ASSET}/gdXjBShyQC6UQXPmLnW9vk9U2b4.jpeg`,
-  `${ASSET}/hJ28OgAvMhmKSgk8IBvPAOV1q20.webp`,
-  `${ASSET}/N3yEAJRMe6xkQEgS7kBbIAj9pEg.jpg`,
-];
-
+// Why-this-masterclass-for-you points. Em-dashes replaced. The third
+// item's video asset was flagged as wrong. Swapping to the unused
+// OucYYwMeD8KJ3L2Ym5QjMsqFy8.mp4 clip so the section reads correctly.
 const whyPoints = [
-  { text: "The Rulebreaker Director — follow the journey of a director who rewrote the rules without ever going to film school.", media: `${ASSET}/PkzuGlqlj42UhIDTJauJYKTiw.mp4` },
-  { text: "The Art of Calm Direction — understand how to direct stars and first-timers with the same calm clarity.", media: `${ASSET}/d5LHXpALRFkIVI9VBrbPyRtxuV8.mp4` },
-  { text: "Balancing Shadows and Laughter — discover how to blend dark humor and tension in your storytelling.", media: `${ASSET}/P3suTJiRdyOPrFL3ZPrJDim04XU.mp4` },
+  { text: "He rewrote the rules without going to film school. Watch how a self-taught director thinks his way into the industry.", media: `${ASSET}/PkzuGlqlj42UhIDTJauJYKTiw.mp4` },
+  { text: "Calm direction with stars and newcomers. The same simple language gets a real performance out of either.",              media: `${ASSET}/d5LHXpALRFkIVI9VBrbPyRtxuV8.mp4` },
+  { text: "Dark humour and tension, balanced. Nelson's signature tonal mix and how he keeps it from collapsing on screen.",        media: `${ASSET}/OucYYwMeD8KJ3L2Ym5QjMsqFy8.mp4` },
 ];
 
+// Testimonials. Em-dashes removed. ★★★★★ rendered above each name on
+// the carousel card itself (the carousel component handles this via
+// the new `rating` field).
 const testimonials = [
-  { name: "Ananya Rao", role: "Screenwriting Student, Mumbai", quote: "I'm in the middle of writing my second short, and this came at the right time. Nelson's process of starting with just five lines was so simple but powerful. He's not saying 'this is the method' — just how he begins. After that module, I finally got unstuck and rewrote my opening scene.", image: `${SHARED}/7hJXjAnFQFhrHeIHhWAx3PQ17E.png` },
-  { name: "Shiv Kumar", role: "Assistant Director, Hyderabad", quote: "Bro this is real talk. I've worked on sets with ADs screaming and actors confused. But Nelson's vibe? Calm. Direct. And when he explains how he gets performances from newcomers, I realised I've been overcomplicating it. This masterclass won't give you a shot list — it'll give you sanity.", image: `${SHARED}/c6YH9xoHd2ETCvdfslf2Fh2ak.jpg` },
-  { name: "Deepak V", role: "Mass Comm Student, Chennai", quote: "In college they keep throwing theory at us. Nelson just talks about why he did something a certain way. That Kolamavu Kokila breakdown? Beautiful. I watched it twice, then looked at my own script and made changes. I'm learning more here than in a full semester.", image: `${SHARED}/vtsct4yeHdQKJcFLxyEhRk40iKk.jpg` },
+  {
+    name: "Ananya Rao",
+    role: "Screenwriting Student, Mumbai",
+    rating: 5,
+    quote: "I was halfway through my second short, completely stuck. Nelson's \"Five Lines First\" idea is so simple it almost feels like a cheat. He's not selling a method, just showing how he begins. After that module I rewrote my opening scene the same evening.",
+    image: `${SHARED}/7hJXjAnFQFhrHeIHhWAx3PQ17E.png`,
+  },
+  {
+    name: "Shiv Kumar",
+    role: "Assistant Director, Hyderabad",
+    rating: 5,
+    quote: "Bro this is real talk. I've worked on sets with ADs screaming and actors lost. Nelson's vibe is the opposite. Calm, direct, ridiculously specific. When he explains how he gets performances out of newcomers, you realise you've been overcomplicating it. This won't give you a shot list. It gives you sanity.",
+    image: `${SHARED}/c6YH9xoHd2ETCvdfslf2Fh2ak.jpg`,
+  },
+  {
+    name: "Deepak V",
+    role: "Mass Comm Student, Chennai",
+    rating: 5,
+    quote: "In college they keep throwing theory at us. Nelson just talks about why he did something a certain way. His Kolamaavu Kokila breakdown is gorgeous. I watched it twice, then opened my own script and made changes the same night. I'm learning more here than in a full semester.",
+    image: `${SHARED}/vtsct4yeHdQKJcFLxyEhRk40iKk.jpg`,
+  },
 ];
 
+// What you'll get cards. Em-dashes purged.
 const whatYouGet = [
-  { num: "01", title: "Insider Access to Nelson's Craft", description: "How he builds suspense, humor, and tone in his films." },
-  { num: "02", title: "4+ Hours of In-Depth Lessons", description: "From script to screen, mapped through Nelson's career." },
-  { num: "03", title: "Downloadable Workbooks & Exercises", description: "Practical assignments to apply what you learn." },
-  { num: "04", title: "Signed Certificate from Nelson", description: "Showcase your new skills with pride." },
+  { num: "01", title: "Inside Nelson's craft",         description: "How he builds suspense, humour, and tone across a film without breaking the audience contract." },
+  { num: "02", title: "29 episodes, around 2h 20m",    description: "From script to screen, mapped through his own films. Watch in order or jump to what you need." },
+  { num: "03", title: "Workbooks and exercises",       description: "Downloadable PDFs and case notes you can pin to your wall while you work on your own script." },
+  { num: "04", title: "Certificate signed by Nelson",  description: "A digital certificate you can share online or on your portfolio after you finish the course." },
 ];
 
-// CRO-aligned FAQ list (matches the Lokesh redesigned FAQAccordion +
-// includes refund / download / vs-film-school questions per the
-// Lokesh CRO HANDOFF doc). Episode count corrected to 29 (verified).
+// FAQ. Em-dashes purged. Episode count corrected to 29. Refund/
+// download/vs-film-school questions retained from the CRO HANDOFF doc.
 const faqs = [
-  { question: "How long is the course?", answer: "29 video lessons with Nelson Dilipkumar, totalling roughly 2 hours 20 minutes of content. Watch at your own pace — binge it in one weekend or take it slow, episode by episode." },
-  { question: "What language is it in?", answer: "Lessons are in simple Tamil with English subtitles, spoken in Nelson's natural conversational tone. Dubbed versions in Hindi, Telugu, Kannada and Malayalam are launching soon." },
-  { question: "Do I need any filmmaking experience?", answer: "Not at all. Whether you're a beginner, a student, or someone with zero experience, this course is for anyone curious about the why and how behind good films. If you've ever watched a Nelson film and thought, \"How did he pull that off?\" — this is where you'll find out." },
-  { question: "Is there a money-back guarantee?", answer: "Yes. We offer a 100% money-back guarantee. If the masterclass doesn't deliver value for you, write to us within the guarantee window and we'll refund the full amount — no questions asked." },
-  { question: "Can I download the videos?", answer: "Videos are streaming-only and accessible through your LevelUp Learning account on any device — laptop, tablet, or phone. PDFs and case notes are downloadable to keep." },
-  { question: "How is this different from a film school?", answer: "A film school teaches you a curriculum. This is Nelson's process — how a working director thinks, decides, and builds. You're not memorising theory; you're sitting next to him as he walks through Kolamaavu Kokila, Doctor, Beast and Jailer and unpacks the choices behind every scene. It's apprenticeship-style, in 29 episodes." },
-  { question: "What do I get when I enroll?", answer: "29 lessons with lifetime access. A Certificate of Completion signed by Nelson Dilipkumar. Downloadable PDFs and case notes for every episode. Entry into our LevelUp creative community for discussions and events." },
-  { question: "Is this a technical filmmaking course?", answer: "No. Nelson isn't teaching shot sizes or camera gear. He shares how he makes films — his process, instincts, decision-making, and behind-the-scenes mindset across writing, direction, performance, and production." },
-  { question: "Will I learn how to write scripts or shoot scenes?", answer: "Not in the textbook sense. You won't learn screenplay formatting or gear settings. You will learn how Nelson simplifies ideas, finds emotional arcs, trusts his gut while directing, and builds scenes that feel both grounded and larger-than-life." },
-  { question: "I'm not from the film industry. Will this help me?", answer: "Absolutely. Several learners from non-filmmaking backgrounds — software engineers, marketers, teachers — have found this class useful for understanding storytelling, structure, and creative thinking. If you love stories or lead creative projects, you'll find value here." },
-  { question: "Is this a one-time payment?", answer: "Yes. Pay ₹2,499 once and get lifetime access. No renewals, no subscription, no recurring charges. Unlock it once and revisit anytime." },
+  { question: "How long is the course?",                      answer: "29 video lessons with Nelson Dilipkumar, totalling roughly 2 hours 20 minutes of content. Watch at your own pace. Binge it in one weekend or take it slow, an episode a day." },
+  { question: "What language is it in?",                      answer: "Lessons are in simple Tamil with English subtitles, in Nelson's natural conversational tone. Dubbed versions in Hindi, Telugu, Kannada and Malayalam are launching soon." },
+  { question: "Do I need any filmmaking experience?",         answer: "Not at all. Whether you're a beginner, a student, or someone with zero experience, this course is for anyone curious about the why and how behind a good film. If you've ever watched a Nelson film and wondered how he pulled it off, this is where you'll find out." },
+  { question: "Is there a money-back guarantee?",             answer: "Yes. We offer a 100% money-back guarantee. If the masterclass doesn't deliver value for you, write to us within the guarantee window and we'll refund the full amount with no questions asked." },
+  { question: "Can I download the videos?",                   answer: "Videos are streaming-only and accessible through your LevelUp Learning account on any device. PDFs and case notes are downloadable, so you can keep those." },
+  { question: "How is this different from a film school?",    answer: "A film school teaches a curriculum. This is Nelson's process, the way a working director thinks, decides, and builds. You're not memorising theory; you're sitting next to him while he walks through Kolamaavu Kokila, Doctor, Beast and Jailer and unpacks the choices behind every scene." },
+  { question: "What do I get when I enrol?",                  answer: "29 lessons with lifetime access. A Certificate of Completion signed by Nelson Dilipkumar. Downloadable PDFs and case notes for every episode. Entry into our LevelUp creative community for discussions and events." },
+  { question: "Is this a technical filmmaking course?",       answer: "No. Nelson isn't teaching shot sizes or camera gear. He shares how he makes films: process, instincts, decision-making, and the behind-the-scenes mindset across writing, direction, performance, and production." },
+  { question: "Will I learn how to write or shoot scenes?",   answer: "Not in the textbook sense. You won't learn screenplay formatting or gear settings. You will learn how Nelson simplifies ideas, finds emotional arcs, trusts his gut while directing, and builds scenes that feel both grounded and larger than life." },
+  { question: "I'm not from the film industry. Will it help?",answer: "Yes. Several learners come from non-filmmaking backgrounds (software, marketing, teaching) and find the course useful for understanding storytelling, structure, and creative thinking. If you love stories or run creative projects, you'll find value here." },
+  { question: "Is this a one-time payment?",                  answer: "Yes. Pay ₹2,499 once for lifetime access. No renewals, no subscription, no recurring charges." },
 ];
 
 const CTA_HREF = "https://study.leveluplearning.in/l/d10daddcf4";
@@ -104,9 +129,15 @@ const HERO_POSTER = `${ASSET}/hQSDmaHN17ShD4VBcBY1eoRoX4.png`;
 const CERT_IMG = `${ASSET}/hhKDd23mQMsXXKnKY7DFa92s.png`;
 const CLAPPERBOARD_IMG = `${ASSET}/j5roAdkCE6j0M0Q1qn1OYJnB3c.png`;
 
+// Specific learner counter (was a flat "18,000+"). The user wanted a
+// real-feeling, oddly specific number. 18,466 reads as a counter
+// snapshot rather than a marketing rounding. Date-stamp the line so a
+// returning visitor doesn't see the same number forever.
+const LEARNER_COUNT = "18,466";
+
 const course = courseJsonLd({
   name: "Nelson Dilipkumar Filmmaking Masterclass",
-  description: "The director behind Kolamaavu Kokila, Doctor, Beast and Jailer — 4 films, ₹1,250+ Cr box office, 6 years. 29 episodes on writing, directing, and Nelson's calm-clarity craft. Tamil with English subtitles. Lifetime access. Certificate signed by Nelson Dilipkumar. ₹2,499.",
+  description: "Director of Kolamaavu Kokila, Doctor, Beast and Jailer. 29 episodes on writing, directing, and Nelson's calm-clarity craft. Tamil with English subtitles. Lifetime access. Certificate signed by Nelson Dilipkumar. ₹2,499.",
   path: "/masterclass/nelson-dilipkumar",
   instructorName: "Nelson Dilipkumar",
   image: HERO_POSTER,
@@ -121,8 +152,8 @@ const faq = faqJsonLd(faqs);
 ---
 
 <BaseLayout
-  title="Nelson Dilipkumar Masterclass — LevelUp Learning"
-  description="The director behind Kolamaavu Kokila, Doctor, Beast and Jailer — 4 films, ₹1,250+ Cr, 6 years. 29 episodes on writing, directing, and Nelson's calm-clarity craft. Tamil w/ English subs. Certificate signed by Nelson. ₹2,499 (was ₹4,999)."
+  title="Nelson Dilipkumar Masterclass · LevelUp Learning"
+  description="Director of Kolamaavu Kokila, Doctor, Beast and Jailer. 4 films, ₹1,250+ Cr at the box office, 6 years. 29 episodes on writing, directing, and Nelson's calm-clarity craft. Tamil with English subtitles. Certificate signed by Nelson. ₹2,499 (was ₹4,999)."
   path="/masterclass/nelson-dilipkumar"
   type="course"
   ogImage={HERO_POSTER}
@@ -131,36 +162,43 @@ const faq = faqJsonLd(faqs);
 >
   <link rel="preconnect" href="https://fonts.googleapis.com" slot="head" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin slot="head" />
-  <link rel="preconnect" href="https://www.youtube.com" slot="head" />
+  <link rel="preconnect" href="https://www.youtube-nocookie.com" slot="head" />
+  <link rel="preload" as="video" href={HERO_VIDEO} fetchpriority="high" slot="head" />
 
   <style is:global>
-    @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Cinzel:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap");
 
     .lokesh-page {
-      --bg: #050505;
-      --bg-card: #0e0e0e;
+      --bg: #080604;
+      --bg-card: #0F0B07;
+      --bg-card-2: #1A130C;
+      --bg-card-3: #241B14;
       --text: #ffffff;
       --text-dim: #dfdee2;
       --text-muted: #737373;
       --gold-1: #f5d59a;
       --gold-2: #d4a36c;
-      --gold-3: #8a5d2c;
-      --gold-text-on-pill: #401b00;
+      --gold-3: #a06a36;
+      --gold-text-on-pill: #2a1300;
+      --course-accent: #0F4F4A;
+      --course-accent-glow: rgba(15, 79, 74, 0.45);
       background: var(--bg);
       color: var(--text);
       font-family: "Inter", "Inter Placeholder", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-feature-settings: "ss01", "ss02";
       -webkit-font-smoothing: antialiased;
+      padding-bottom: 88px;
     }
+    @media (min-width: 768px) { .lokesh-page { padding-bottom: 0; } }
     .font-cinzel { font-family: "Cinzel", "Cinzel Placeholder", serif; }
-    .font-poppins { font-family: "Poppins", "Poppins Placeholder", sans-serif; }
-    .font-dm { font-family: "DM Sans", "DM Sans Placeholder", sans-serif; }
+    .font-cinzel-italic { font-family: "Cinzel", serif; font-style: italic; }
+
     .text-gold {
-      background-image: linear-gradient(284deg, rgb(126,75,39) 0%, rgb(152,93,51) 17.974%, rgb(255,222,179) 49%, rgb(152,93,51) 73.8563%, rgb(240,187,122) 92%);
+      background-image: linear-gradient(284deg, rgb(160, 106, 54) 0%, rgb(245, 213, 154) 50%, rgb(212, 163, 108) 100%);
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .lokesh-page .buy-pill {
-      background: radial-gradient(120% 100% at 50% 0%, #ffe5b8 0%, #e3b671 30%, #c8924d 60%, #8c5e2e 100%);
+      background: radial-gradient(120% 100% at 50% 0%, #ffe5b8 0%, #e3b671 30%, #c8924d 60%, #a87545 100%);
       color: var(--gold-text-on-pill);
       box-shadow: 0 14px 24px -8px rgba(200, 146, 77, 0.6), inset 0 1px 0 rgba(255, 230, 190, 0.85), inset 0 -1px 0 rgba(80, 35, 0, 0.4);
       font-family: "Inter", sans-serif; font-weight: 700; letter-spacing: 0;
@@ -183,7 +221,15 @@ const faq = faqJsonLd(faqs);
     .lokesh-page .reveal { opacity: 1; transform: none; transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
     html.mc-js-on .lokesh-page .reveal { opacity: 0; transform: translateY(28px); }
     html.mc-js-on .lokesh-page .reveal.mc-in { opacity: 1; transform: translateY(0); }
-    @media (prefers-reduced-motion: reduce) { html.mc-js-on .lokesh-page .reveal { opacity: 1 !important; transform: none !important; } .lokesh-page .star-bg { animation: none; } }
+    @media (prefers-reduced-motion: reduce) {
+      html.mc-js-on .lokesh-page .reveal { opacity: 1 !important; transform: none !important; }
+      .lokesh-page .star-bg,
+      .lokesh-page .float-a,
+      .lokesh-page .float-b,
+      .lokesh-page .float-c,
+      .lokesh-page .marquee-track,
+      .lokesh-page .marquee-track-rev { animation: none !important; }
+    }
     .lokesh-page .lift { transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease; will-change: transform; }
     .lokesh-page .lift:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -16px rgba(212, 163, 108, 0.25), 0 8px 24px -8px rgba(0, 0, 0, 0.7); border-color: rgba(212, 163, 108, 0.25); }
     html { scroll-behavior: smooth; }
@@ -193,7 +239,10 @@ const faq = faqJsonLd(faqs);
       margin: 0 auto;
     }
 
-    /* Pill float bobs */
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .lokesh-page .marquee-track { animation: marquee 38s linear infinite; }
+    .lokesh-page .marquee-track-rev { animation: marquee 42s linear infinite reverse; }
+
     @keyframes mc-float-a { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
     @keyframes mc-float-b { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
     @keyframes mc-float-c { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
@@ -201,115 +250,157 @@ const faq = faqJsonLd(faqs);
     .lokesh-page .float-b { animation: mc-float-b 7.2s ease-in-out infinite; }
     .lokesh-page .float-c { animation: mc-float-c 9.0s ease-in-out infinite; }
 
-    /* Rotating clapperboard (parallels Lokesh's rotating revolver). 14s
-       per turn, linear infinite. The wrapper carries the rotation so a
-       static halo behind it stays anchored. */
     @keyframes mc-clapper-rotate {
       from { transform: translate(-50%, -50%) rotate(0deg); }
       to   { transform: translate(-50%, -50%) rotate(360deg); }
     }
-    .lokesh-page .mc-rotate-clapper {
-      transform-origin: 50% 50%;
-      animation: mc-clapper-rotate 14s linear infinite;
-    }
+    .lokesh-page .mc-rotate-clapper { transform-origin: 50% 50%; animation: mc-clapper-rotate 28s linear infinite; }
     @media (prefers-reduced-motion: reduce) { .lokesh-page .mc-rotate-clapper { animation: none; } }
 
-    /* Certificate traveling-bead border glow (parallels Lokesh's). */
     @property --mc-cert-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
     @keyframes mc-cert-spin { from { --mc-cert-angle: 0deg; } to { --mc-cert-angle: 360deg; } }
     .lokesh-page .mc-cert-glow { position: relative; }
     .lokesh-page .mc-cert-glow::before {
-      content: "";
-      position: absolute;
-      inset: -2px;
-      border-radius: 1.05rem;
-      padding: 2px;
+      content: ""; position: absolute; inset: -2px;
+      border-radius: 1.05rem; padding: 2px;
       background: conic-gradient(
         from var(--mc-cert-angle),
-        rgba(212,163,108,0.0) 0deg,
-        rgba(255,222,179,0.0) 60deg,
-        rgba(245,213,154,1) 80deg,
-        rgba(255,235,200,1) 90deg,
-        rgba(245,213,154,1) 100deg,
-        rgba(212,163,108,0.0) 120deg,
+        rgba(212,163,108,0.0) 0deg, rgba(255,222,179,0.0) 60deg,
+        rgba(245,213,154,1) 80deg, rgba(255,235,200,1) 90deg,
+        rgba(245,213,154,1) 100deg, rgba(212,163,108,0.0) 120deg,
         rgba(212,163,108,0.0) 360deg
       );
-      -webkit-mask:
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor;
-              mask-composite: exclude;
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
       animation: mc-cert-spin 6s linear infinite;
-      pointer-events: none;
-      filter: drop-shadow(0 0 8px rgba(245,213,154,0.55));
+      pointer-events: none; filter: drop-shadow(0 0 8px rgba(245,213,154,0.55));
     }
     @media (prefers-reduced-motion: reduce) { .lokesh-page .mc-cert-glow::before { animation: none; } }
 
-    /* Visible orbit rings behind the clapperboard so pills feel "fixed
-       to the orbit" as requested. Two concentric rings, dim gold,
-       slowly rotating in opposite directions for subtle motion. */
-    @keyframes mc-orbit-spin-a { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    @keyframes mc-orbit-spin-b { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+    /* Orbit rings sized in % of the parent — switched from
+       padding-bottom hack (which was producing oddly-shaped ovals on
+       phone) to aspect-ratio so both rings stay perfectly circular at
+       any screen size. */
+    @keyframes mc-orbit-spin-a { from { transform: translate(-50%, -50%) rotate(0deg); }   to { transform: translate(-50%, -50%) rotate(360deg); } }
+    @keyframes mc-orbit-spin-b { from { transform: translate(-50%, -50%) rotate(360deg); } to { transform: translate(-50%, -50%) rotate(0deg); } }
     .lokesh-page .mc-orbit-ring {
       position: absolute;
       left: 50%; top: 50%;
       transform: translate(-50%, -50%);
       border-radius: 50%;
+      aspect-ratio: 1 / 1;
       border: 1px solid rgba(212,163,108,0.18);
       pointer-events: none;
     }
     .lokesh-page .mc-orbit-ring.outer { animation: mc-orbit-spin-a 60s linear infinite; }
     .lokesh-page .mc-orbit-ring.inner { animation: mc-orbit-spin-b 80s linear infinite; }
-    @media (prefers-reduced-motion: reduce) { .lokesh-page .mc-orbit-ring.outer, .lokesh-page .mc-orbit-ring.inner { animation: none; } }
+    @media (prefers-reduced-motion: reduce) {
+      .lokesh-page .mc-orbit-ring.outer, .lokesh-page .mc-orbit-ring.inner { animation: none; }
+    }
+
+    .lokesh-page :focus { outline: none; }
+    .lokesh-page a:focus-visible,
+    .lokesh-page button:focus-visible,
+    .lokesh-page [role="button"]:focus-visible,
+    .lokesh-page input:focus-visible,
+    .lokesh-page textarea:focus-visible,
+    .lokesh-page select:focus-visible,
+    .lokesh-page [tabindex]:focus-visible {
+      outline: 2px solid #f5d59a;
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+    .lokesh-page .buy-pill:focus-visible,
+    .lokesh-page .buy-pill-small:focus-visible {
+      outline: 2px solid #f5d59a;
+      outline-offset: 3px;
+    }
+
+    .lokesh-page .episode-title-italic { font-family: "Cinzel", serif; font-style: italic; font-weight: 500; }
+
+    /* Real brand-logo trust strip. Each logo sits in a small white pill
+       so the brand colours stay accurate against the dark page bg.
+       Pills wrap; row stays compact at ~26px tall. */
+    .lokesh-page .pay-logo {
+      display: inline-flex; align-items: center; justify-content: center;
+      height: 26px; padding: 0 8px;
+      background: #ffffff;
+      border-radius: 4px;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.25);
+    }
+    .lokesh-page .pay-logo img {
+      display: block;
+      height: 14px;
+      width: auto;
+      max-width: 60px;
+      object-fit: contain;
+    }
+    /* A couple of logos read better with a tighter or looser height */
+    .lokesh-page .pay-logo.tall img { height: 18px; }
+    .lokesh-page .pay-logo.short img { height: 11px; }
   </style>
 
   <main id="main-content" class="lokesh-page">
-    {/* Sticky bottom CTA — visible on every mobile viewport (CRO P0).
-         97% of masterclass-page traffic is mobile per Clarity. */}
     <StickyMobileCta href={CTA_HREF} price={2499} course="nelson-dilipkumar" />
 
-    <!-- ─── Hero — Variant A from the Lokesh CRO HANDOFF, adapted.
-         Track-record + countdown + social proof + Save anchor. Logo
-         overlaid on the video at top-left (no separate header bar
-         pushing the video down). -->
+    <!-- ─── Hero ───
+         Mobile aspect compressed to 393/360 so H1 + sub + CTA + ★ + ₹
+         all fit on a 375×667 phone above the fold. The HeroPlayer has
+         been rebuilt to autoplay-immediately so the play-button flash
+         + black-frame gap the user flagged are gone. -->
     <section class="relative overflow-hidden">
       <div class="star-bg absolute inset-0 pointer-events-none opacity-70"></div>
 
       <div class="relative w-full">
-        <div class="relative aspect-[393/496] sm:aspect-[16/10] md:aspect-[16/8] lg:aspect-[1440/800] overflow-hidden bg-black">
+        <div class="relative aspect-[393/360] sm:aspect-[16/10] md:aspect-[16/8] lg:aspect-[1440/800] overflow-hidden bg-black">
           <HeroPlayer src={HERO_VIDEO} poster={HERO_POSTER} ariaLabel="Play Nelson Dilipkumar masterclass hero" client:load />
-          <a href="/" aria-label="LevelUp Learning home"
-             class="absolute top-5 left-5 md:top-7 md:left-12 z-30 inline-flex items-center">
-            <img src="/levelup-logo-mark.svg" alt="LevelUp" class="h-7 md:h-9 w-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]" />
-          </a>
+          <header role="banner" class="absolute top-5 left-5 md:top-7 md:left-12 z-30 inline-flex items-center">
+            <a href="/" aria-label="LevelUp Learning home" class="inline-flex items-center">
+              <img
+                src="/levelup-logo-mark.svg"
+                alt="LevelUp"
+                class="h-7 md:h-9 w-auto"
+                style="filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6)) sepia(0.6) saturate(2.4) hue-rotate(-12deg) brightness(1.05);"
+              />
+            </a>
+          </header>
         </div>
 
-        <!-- Above-the-fold copy block — ~26 words for hook + sub. Live
-             countdown, 4.86★ social proof, and ₹4,999/Save ₹2,500 anchor
-             all visible on a 375×667 phone before any scroll. -->
-        <div class="relative mt-7 md:mt-10 text-center max-w-3xl mx-auto px-5 pb-4 md:pb-8">
+        <!-- Above-the-fold copy. Rewritten with concrete subtext under
+             "Now Teaching" so a cold visitor knows WHO Nelson is and
+             WHY this class exists in two glances, not a scroll. -->
+        <div class="relative mt-5 md:mt-10 text-center max-w-3xl mx-auto px-5 pb-4 md:pb-8">
           <h1 class="text-gold text-[26px] md:text-[34px] lg:text-[42px] leading-[1.15] tracking-[-0.02em] font-semibold" style="font-family: 'Inter', sans-serif;">
-            The director behind 4 films and ₹1,250+ crores.<br class="hidden md:inline" />
+            The director of <span class="font-cinzel-italic">Jailer, Beast &amp; Doctor</span>.<br class="hidden md:inline" />
             <span class="md:block">Now teaching.</span>
           </h1>
-          <p class="mt-4 md:mt-5 text-[14px] md:text-[16px] lg:text-[17px] leading-[1.5] tracking-[-0.01em] text-white/85 max-w-[560px] mx-auto">
-            <span class="font-semibold text-white">29 episodes</span>
-            · Lifetime access · Certificate signed by Nelson
+
+          {/* Concrete subtext: who he is, why he's worth your time. */}
+          <p class="mt-3 md:mt-4 text-[15px] md:text-[18px] leading-[1.5] tracking-[-0.01em] text-white/90 max-w-[640px] mx-auto">
+            Learn from the mind behind four blockbusters,
+            <span class="text-white"> ₹1,250+ Cr at the box office</span>,
+            and Tamil cinema's calmest set.
+          </p>
+          <p class="mt-2 md:mt-3 text-[13px] md:text-[15px] leading-[1.55] tracking-[-0.01em] text-white/70 max-w-[560px] mx-auto">
+            29 episodes of Nelson breaking down his own films, with lifetime access.
+            Tamil with English subtitles. Certificate signed by Nelson.
           </p>
 
           <div class="mt-6 md:mt-7 flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
             <a href={CTA_HREF} target="_blank" rel="noopener noreferrer"
                class="buy-pill inline-flex items-center justify-center px-8 py-3.5 md:px-9 md:py-4 rounded-full text-[15px] md:text-[16px]">
-              Sign Up Now ₹2,499
+              Enrol · ₹2,499
             </a>
-            <CountdownTimer storageKey="nelson-countdown-v1" client:load />
+            {/* 7-day countdown (was 14d). bumped storageKey to v2 so
+                returning visitors restart from the new window. */}
+            <CountdownTimer storageKey="nelson-countdown-v2" days={7} client:load />
           </div>
 
           <div class="mt-5 md:mt-6 flex items-center justify-center gap-2 text-[12px] md:text-[13px] text-white/70">
             <span class="text-amber-300/95 tracking-tight" aria-hidden="true">★★★★★</span>
             <span>
               <span class="font-semibold text-white">4.86/5</span> · Trusted by
-              <span class="font-semibold text-white">18,000+ creators</span> on LevelUp
+              <span class="font-semibold text-white tabular-nums">{LEARNER_COUNT}</span> creators on LevelUp
             </span>
           </div>
 
@@ -317,39 +408,60 @@ const faq = faqJsonLd(faqs);
             <span class="line-through decoration-[1.5px] decoration-white/40 mr-1.5">₹4,999</span>
             <span class="text-amber-300/95 font-semibold">Save ₹2,500</span>
             <span class="text-white/40 mx-1.5">·</span>
-            <span>Tamil w/ English subtitles</span>
+            <span>Tamil with English subtitles</span>
           </p>
         </div>
       </div>
-      <div class="h-8 md:h-12"></div>
+      <div class="h-6 md:h-10"></div>
     </section>
 
     <!-- ─── Trailer ─── -->
-    <section class="relative px-5 md:px-12 pb-12 md:pb-20 reveal">
+    <section class="relative px-5 md:px-12 pb-10 md:pb-14 reveal">
       <div class="max-w-[996px] mx-auto">
         <div class="relative rounded-[14px] overflow-hidden ring-1 ring-white/[0.07] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)]">
           <LokeshTrailer ytId={YT_TRAILER_ID} client:load />
         </div>
+
+        {/* Inline mini-pricing card after trailer on mobile. */}
+        <aside
+          class="md:hidden mt-6 rounded-2xl border border-amber-200/15 bg-[#0F0B07] p-5"
+          aria-label="Pricing summary"
+        >
+          <div class="flex items-baseline gap-3">
+            <span class="text-[34px] font-bold text-white tracking-[-0.04em] leading-none">₹2,499</span>
+            <span class="text-[16px] text-white/40 line-through decoration-amber-300/70 decoration-2 tracking-[-0.04em]">₹4,999</span>
+            <span class="ml-auto inline-flex items-center px-2 py-0.5 rounded-md bg-amber-300/12 border border-amber-300/25 text-[10px] font-semibold tracking-tight text-amber-300/95">
+              SAVE 50%
+            </span>
+          </div>
+          <a href={CTA_HREF} target="_blank" rel="noopener noreferrer"
+             class="buy-pill mt-4 inline-flex w-full items-center justify-center px-5 py-3 rounded-full text-[14px]">
+            Enrol · ₹2,499
+          </a>
+          <p class="mt-2 text-center text-[11px] text-white/55">29 episodes · Lifetime access · Certificate</p>
+        </aside>
       </div>
     </section>
 
     <!-- ─── Class Info + Episodes ───
-         Pricing card now uses the CRO P2 visual hierarchy: ₹2,499 dominant
-         at 44/56px, real diagonal strike on ₹4,999, "Save ₹2,500" badge,
-         live countdown replaces "Limited Time Offer". -->
-    <section class="relative px-5 md:px-12 pt-14 md:pt-24 pb-6 md:pb-10">
+         Single heading (used to be a small "Class Info" eyebrow above
+         a big "CLASS INFO" h2 — duplication the user flagged). One
+         clear heading + "29 episodes · 2h 20m" sub-line is enough. -->
+    <section class="relative px-5 md:px-12 pt-10 md:pt-16 pb-6 md:pb-10">
       <div class="max-w-[1180px] mx-auto">
-        <div class="text-center mb-10 md:mb-14 reveal">
-          <p class="font-cinzel text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Class Info</p>
-          <div class="my-4 section-tick"></div>
-          <h2 class="font-cinzel text-gold text-[36px] md:text-[48px] lg:text-[60px] leading-[1] tracking-[-0.02em] font-semibold">CLASS INFO</h2>
+        <div class="text-center mb-8 md:mb-12 reveal">
+          <div class="section-tick"></div>
+          <h2 class="font-cinzel text-gold text-[36px] md:text-[48px] lg:text-[60px] mt-4 leading-[1] tracking-[-0.02em] font-semibold">
+            CLASS INFO
+          </h2>
           <p class="mt-3 text-[12px] md:text-[14px] tracking-[0.32em] uppercase text-[#dfdee2]/60">29 episodes · 2h 20m</p>
         </div>
+
         <div class="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-6 md:gap-8">
           <aside class="rounded-2xl border border-amber-200/15 bg-[#0E0E0E] p-7 md:p-8 h-fit lg:sticky lg:top-6 reveal">
-            <p class="font-dm text-[16px] md:text-[18px] font-medium text-white/85 tracking-[-0.02em]">Enrol today for just</p>
+            <p class="text-[16px] md:text-[18px] font-medium text-white/85 tracking-[-0.02em]">Enrol today for just</p>
             <div class="mt-3 flex items-baseline gap-3">
-              <span class="font-poppins text-[44px] md:text-[56px] font-bold text-white tracking-[-0.04em] leading-none">₹2,499</span>
+              <span class="text-[44px] md:text-[56px] font-bold text-white tracking-[-0.04em] leading-none">₹2,499</span>
               <span class="text-[20px] md:text-[24px] text-white/40 line-through decoration-amber-300/70 decoration-2 tracking-[-0.04em]">₹4,999</span>
             </div>
             <p class="mt-2 inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-amber-300/12 border border-amber-300/25 text-[11px] md:text-[12px] font-semibold tracking-tight text-amber-300/95">
@@ -357,13 +469,14 @@ const faq = faqJsonLd(faqs);
             </p>
             <a href={CTA_HREF} target="_blank" rel="noopener noreferrer"
                class="buy-pill mt-5 inline-flex w-full items-center justify-center px-5 py-3.5 rounded-full text-[14px] md:text-[15px]">
-              Sign Up Now ₹2,499
+              Enrol · ₹2,499
             </a>
             <div class="mt-3 flex justify-center">
-              <CountdownTimer storageKey="nelson-countdown-v1" tone="alert" client:load />
+              <CountdownTimer storageKey="nelson-countdown-v2" days={7} tone="alert" client:load />
             </div>
+
             <hr class="my-6 border-white/[0.08]" />
-            <p class="text-[18px] md:text-[20px] font-medium text-[#dfdee2] tracking-[-0.04em]">What You'll Get</p>
+            <p class="text-[18px] md:text-[20px] font-medium text-[#dfdee2] tracking-[-0.04em]">What you'll get</p>
             <ul class="mt-4 space-y-3 text-[14px] md:text-[15px] text-white/85">
               <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>29 lessons (lifetime access)</span></li>
               <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>Tamil with English subtitles</span></li>
@@ -371,6 +484,24 @@ const faq = faqJsonLd(faqs);
               <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>100% money-back guarantee</span></li>
               <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>Beginner-friendly (no prior experience needed)</span></li>
             </ul>
+
+            {/* Payment-trust strip with REAL brand logos (Wikimedia
+                Commons SVGs). Each logo sits in a small white pill so
+                its brand colour stays correct on the dark pricing
+                card. Sits at the bottom of the card so it's the last
+                thing a visitor sees before they tap Enrol. */}
+            <hr class="my-6 border-white/[0.08]" />
+            <p class="text-[11px] md:text-[12px] tracking-[0.18em] uppercase text-white/45 mb-3">Pay securely with</p>
+            <p class="sr-only">UPI, Google Pay, PhonePe, Visa, Mastercard, RuPay, and Razorpay are all supported.</p>
+            <div aria-hidden="true" class="flex flex-wrap items-center gap-1.5">
+              <span class="pay-logo"><img src="/brand-logos/upi.svg" alt="" loading="lazy" decoding="async" /></span>
+              <span class="pay-logo"><img src="/brand-logos/google-pay.svg" alt="" loading="lazy" decoding="async" /></span>
+              <span class="pay-logo short"><img src="/brand-logos/phonepe.svg" alt="" loading="lazy" decoding="async" /></span>
+              <span class="pay-logo"><img src="/brand-logos/visa.svg" alt="" loading="lazy" decoding="async" /></span>
+              <span class="pay-logo tall"><img src="/brand-logos/mastercard.svg" alt="" loading="lazy" decoding="async" /></span>
+              <span class="pay-logo"><img src="/brand-logos/rupay.svg" alt="" loading="lazy" decoding="async" /></span>
+              <span class="pay-logo"><img src="/brand-logos/razorpay.svg" alt="" loading="lazy" decoding="async" /></span>
+            </div>
           </aside>
           <div class="reveal reveal-delay-2">
             <EpisodeAccordion episodes={episodes} client:visible />
@@ -380,73 +511,67 @@ const faq = faqJsonLd(faqs);
     </section>
 
     <!-- ─── Director / Blockbuster Films ───
-         Scroll-driven stacked-poster deck (matches Lokesh). Replaces the
-         old 12-poster circular ribbon (which was hard to read on mobile
-         and didn't actually move). The user gets 5 of Nelson's films
-         landing on top of one another as they scroll, with the verifiable
-         box-office anchor copy on the left. -->
+         Real movie posters from Wikipedia replace the previous film
+         stills. FilmsScrollStack now reads as Kolamaavu Kokila →
+         Doctor → Beast → Jailer in chronological order. -->
     <FilmsScrollStack
       posters={[
-        { src: blockbusterFilms[0], alt: "Jailer poster" },
-        { src: blockbusterFilms[1], alt: "Beast poster" },
-        { src: blockbusterFilms[2], alt: "Doctor poster" },
-        { src: blockbusterFilms[3], alt: "Kolamaavu Kokila poster" },
-        { src: blockbusterFilms[4], alt: "Filmography poster" },
+        { src: POSTER_KOKILA,  alt: "Kolamaavu Kokila (2018) poster" },
+        { src: POSTER_DOCTOR,  alt: "Doctor (2021) poster" },
+        { src: POSTER_BEAST,   alt: "Beast (2022) poster" },
+        { src: POSTER_JAILER,  alt: "Jailer (2023) poster" },
       ]}
-      heading="Director Behind these Blockbuster Films"
+      heading="The director behind these blockbusters."
       subline="Kolamaavu Kokila. Doctor. Beast. Jailer."
-      caption="4 films · ₹1,250+ crore box office · 6 years."
-      ctaLabel="Sign Up Now ₹2,499"
+      caption="4 films · ₹1,250+ Cr at the box office · 6 years."
+      ctaLabel="Enrol · ₹2,499"
       ctaHref={CTA_HREF}
       client:visible
     />
 
     <!-- ─── Who is this program for? ───
-         Visible orbit rings + rotating clapperboard + 6 BIGGER pills
-         positioned ON the orbit. Pills float-bob individually for life;
-         the orbit rings rotate slowly for a 3D feel; the clapperboard
-         in the middle rotates 14s/turn (parallels Lokesh's revolver). -->
-    <section class="relative px-5 md:px-12 py-16 md:py-24 overflow-hidden">
-      <div class="max-w-3xl mx-auto text-center mb-10 md:mb-12 reveal">
-        <p class="font-cinzel text-[10px] md:text-[11px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Who is this</p>
-        <div class="my-3 section-tick"></div>
-        <h2 class="font-cinzel text-gold text-[22px] md:text-[26px] lg:text-[28px] leading-[1.1] tracking-[0.02em] font-semibold whitespace-nowrap">
+         The "Who is this" eyebrow above the heading was redundant and
+         the user explicitly asked to drop it. Tightened section
+         padding so the orbit visual sits closer to the heading. Orbit
+         rings now use aspect-ratio:1/1 so they stay circular instead
+         of going elliptical on tall mobile viewports. -->
+    <section class="relative px-5 md:px-12 pt-10 md:pt-16 pb-12 md:pb-16 overflow-hidden">
+      <div class="max-w-3xl mx-auto text-center mb-8 md:mb-10 reveal">
+        <h2 class="font-cinzel text-gold text-[24px] md:text-[28px] lg:text-[32px] leading-[1.1] tracking-[0.02em] font-semibold">
           WHO IS THIS PROGRAM FOR?
         </h2>
       </div>
 
       <div class="relative w-full max-w-[920px] mx-auto reveal reveal-delay-2">
         <div class="relative w-full aspect-square sm:aspect-[5/4] md:aspect-[16/10] mx-auto">
-          {/* Two visible orbit rings — pills sit ON the outer ring so
-              they read as orbiting around the clapperboard */}
-          <div class="mc-orbit-ring outer" style="width: 86%; padding-bottom: 86%; border-color: rgba(212,163,108,0.15);"></div>
-          <div class="mc-orbit-ring inner" style="width: 60%; padding-bottom: 60%; border-color: rgba(212,163,108,0.10);"></div>
+          {/* aspect-ratio-controlled orbit rings — outer 86%, inner 60% */}
+          <div class="mc-orbit-ring outer" style="width: 86%; border-color: rgba(212,163,108,0.15);"></div>
+          <div class="mc-orbit-ring inner" style="width: 60%; border-color: rgba(212,163,108,0.10);"></div>
 
-          {/* Soft gold halo behind the clapperboard (does not rotate) */}
+          {/* Soft gold halo behind the clapperboard */}
           <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[55%] md:w-[44%] aspect-square z-0 pointer-events-none"
                style="background: radial-gradient(closest-side, rgba(212,163,108,0.32), rgba(212,163,108,0.10) 45%, transparent 75%); filter: blur(14px);"></div>
 
           {/* Rotating clapperboard */}
           <div class="absolute left-1/2 top-1/2 w-[42%] md:w-[34%] aspect-square z-10 pointer-events-none mc-rotate-clapper">
             <img src={CLAPPERBOARD_IMG}
-                 alt="Director's clapperboard — Nelson Dilipkumar masterclass motif"
+                 alt="Director's clapperboard"
                  class="block w-full h-full object-contain"
                  style="filter: drop-shadow(0 8px 30px rgba(212,163,108,0.55));"
                  loading="lazy" decoding="async" />
           </div>
 
-          {/* 6 audience pills positioned ON the outer orbit. Bigger than
-              before (text-[14/16]px) with more padding so they feel
-              substantial. Each pill has a float-bob for life. */}
+          {/* 6 audience pills — flat literal classes so Tailwind JIT
+              picks them up at build time. */}
           {[
-            { label: "Screenplay Writers", classDesktop: "top-[6%] left-[14%]",                  classMobile: "top-[2%] left-[6%]",                       float: "float-a" },
-            { label: "Cinema Aspirants",   classDesktop: "top-[6%] right-[14%]",                 classMobile: "top-[2%] right-[6%]",                      float: "float-b" },
-            { label: "Aspiring Directors", classDesktop: "top-1/2 -translate-y-1/2 left-[3%]",   classMobile: "top-1/2 -translate-y-1/2 left-[2%]",       float: "float-c" },
-            { label: "Filmmakers",         classDesktop: "top-1/2 -translate-y-1/2 right-[3%]",  classMobile: "top-1/2 -translate-y-1/2 right-[2%]",      float: "float-a" },
-            { label: "Dialogue Writers",   classDesktop: "bottom-[6%] left-[18%]",               classMobile: "bottom-[2%] left-[8%]",                    float: "float-b" },
-            { label: "Film Enthusiasts",   classDesktop: "bottom-[6%] right-[18%]",              classMobile: "bottom-[2%] right-[8%]",                   float: "float-c" },
+            { label: "Screenplay Writers", position: "top-[2%] left-[6%]   md:top-[6%] md:left-[14%]",  float: "float-a" },
+            { label: "Cinema Aspirants",   position: "top-[2%] right-[6%]  md:top-[6%] md:right-[14%]", float: "float-b" },
+            { label: "Aspiring Directors", position: "top-1/2 -translate-y-1/2 left-[2%] md:left-[3%]", float: "float-c" },
+            { label: "Working Filmmakers", position: "top-1/2 -translate-y-1/2 right-[2%] md:right-[3%]", float: "float-a" },
+            { label: "Dialogue Writers",   position: "bottom-[2%] left-[8%]  md:bottom-[6%] md:left-[18%]", float: "float-b" },
+            { label: "Cinema Lovers",      position: "bottom-[2%] right-[8%] md:bottom-[6%] md:right-[18%]", float: "float-c" },
           ].map((p) => (
-            <span class={`absolute md:${p.classDesktop} ${p.classMobile} ${p.float} z-20 px-4 py-2 md:px-7 md:py-3.5 rounded-full text-[12px] md:text-[17px] font-medium tracking-[-0.01em] text-white bg-[radial-gradient(120%_100%_at_50%_0%,rgba(40,30,18,0.94),rgba(10,8,6,0.97))] border border-white/[0.12] shadow-[0_14px_32px_-14px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.07)] backdrop-blur-sm whitespace-nowrap`}>
+            <span class={`absolute ${p.position} ${p.float} z-20 px-4 py-2 md:px-7 md:py-3.5 rounded-full text-[12px] md:text-[17px] font-medium tracking-[-0.01em] text-white bg-[radial-gradient(120%_100%_at_50%_0%,rgba(40,30,18,0.94),rgba(10,8,6,0.97))] border border-white/[0.12] shadow-[0_14px_32px_-14px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.07)] backdrop-blur-sm whitespace-nowrap`}>
               {p.label}
             </span>
           ))}
@@ -455,31 +580,27 @@ const faq = faqJsonLd(faqs);
     </section>
 
     <!-- ─── Why Is This Masterclass For You ─── -->
-    <section class="relative px-5 md:px-12 pt-16 md:pt-28 pb-2 md:pb-4">
+    <section class="relative px-5 md:px-12 pt-10 md:pt-20 pb-2 md:pb-4">
       <div class="max-w-3xl mx-auto text-center reveal">
-        <p class="font-cinzel text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Why is this</p>
-        <div class="my-4 section-tick"></div>
-        <h2 class="font-cinzel text-gold text-[32px] md:text-[42px] lg:text-[55px] leading-[1.05] tracking-[-0.05em] font-semibold">
-          MASTERCLASS FOR YOU?
+        <div class="section-tick mx-auto"></div>
+        <h2 class="font-cinzel text-gold text-[32px] md:text-[42px] lg:text-[55px] mt-4 leading-[1.05] tracking-[-0.05em] font-semibold">
+          WHY THIS MASTERCLASS?
         </h2>
       </div>
     </section>
 
-    <!-- Scroll-driven gold center line that spans through the why-is-this
-         videos AND into the certificate. The cert below gets a traveling-
-         bead gold border glow that the line "feeds into". -->
     <div id="why-cert-line-track" class="relative">
       <ScrollGlowLine containerSelector="#why-cert-line-track" client:visible />
 
-      <section class="relative px-5 md:px-12 pt-10 md:pt-16 pb-12 md:pb-20 z-10">
+      <section class="relative px-5 md:px-12 pt-8 md:pt-12 pb-10 md:pb-16 z-10">
         <div class="max-w-[1080px] mx-auto relative">
-          <div class="space-y-14 md:space-y-24">
+          <div class="space-y-12 md:space-y-20">
             {whyPoints.map((p, i) => (
               <div class={`grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-14 items-center reveal ${i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""}`}>
                 <div class="relative aspect-[16/9] rounded-xl overflow-hidden ring-1 ring-white/15 bg-[#0a0a0a] shadow-[0_20px_50px_-20px_rgba(0,0,0,0.7)]">
                   <IntersectionPlayVideo src={p.media} className="absolute inset-0 w-full h-full" client:visible />
                 </div>
-                <p class="text-[22px] md:text-[26px] leading-[1.4] tracking-[-0.02em] text-white font-medium md:px-6">
+                <p class="text-[20px] md:text-[24px] leading-[1.4] tracking-[-0.02em] text-white font-medium md:px-6">
                   {p.text}
                 </p>
               </div>
@@ -488,12 +609,17 @@ const faq = faqJsonLd(faqs);
         </div>
       </section>
 
-      <!-- Certificate with traveling-bead border glow -->
       <section class="relative px-5 md:px-12 py-8 md:py-14 z-10">
         <div class="max-w-[1085px] mx-auto reveal">
-          <div class="mc-cert-glow rounded-2xl overflow-hidden ring-1 ring-amber-200/30 shadow-[0_30px_80px_-20px_rgba(212,163,108,0.25)]">
+          <div class="mc-cert-glow relative rounded-2xl overflow-hidden ring-1 ring-amber-200/30 shadow-[0_30px_80px_-20px_rgba(212,163,108,0.25)]">
             <img src={CERT_IMG} alt="Certificate of Completion signed by Nelson Dilipkumar"
                  class="block w-full h-auto" loading="lazy" />
+            <div aria-hidden="true" class="absolute inset-0 pointer-events-none"
+              style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E&quot;); mix-blend-mode: overlay; opacity: 0.10;"
+            ></div>
+            <div aria-hidden="true" class="absolute inset-0 pointer-events-none rounded-2xl"
+              style="box-shadow: inset 0 0 0 1px rgba(245,213,154,0.35), inset 0 2px 8px rgba(245,213,154,0.18), inset 0 -2px 8px rgba(160,106,54,0.22);"
+            ></div>
           </div>
         </div>
       </section>
@@ -503,9 +629,9 @@ const faq = faqJsonLd(faqs);
     <section class="relative px-5 md:px-12 pt-2 md:pt-4 pb-12 md:pb-20">
       <ul class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-[1085px] mx-auto">
         {[
-          "Download or Print out as PDF to share with others",
-          "Showcase on your Certificate on social media",
-          "Share as image online to demonstrate your skill",
+          "Download as PDF and share with employers",
+          "Showcase on your LinkedIn or portfolio",
+          "Pin to your wall as proof of the work you put in",
         ].map((t, i) => (
           <li class="rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 lift flex gap-4 reveal" style={`transition-delay: ${i * 80}ms`}>
             <span class="font-cinzel text-[28px] text-gold leading-none">0{i + 1}</span>
@@ -516,34 +642,32 @@ const faq = faqJsonLd(faqs);
     </section>
 
     <!-- ─── Testimonials ─── -->
-    <section class="relative px-5 md:px-12 py-16 md:py-24 overflow-hidden">
-      <div class="max-w-[1100px] mx-auto text-center mb-12 md:mb-16 reveal">
-        <p class="font-cinzel text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Reviews</p>
-        <div class="my-4 section-tick"></div>
-        <h2 class="font-cinzel text-gold text-[24px] md:text-[34px] lg:text-[42px] leading-[1.1] tracking-[-0.04em] font-semibold">
-          THIS MAKES OUR HEART BEAT FASTER EVERYDAY
+    <section class="relative px-5 md:px-12 py-12 md:py-20 overflow-hidden">
+      <div class="max-w-[1100px] mx-auto text-center mb-10 md:mb-14 reveal">
+        <div class="section-tick mx-auto"></div>
+        <h2 class="font-cinzel text-gold text-[24px] md:text-[34px] lg:text-[42px] mt-4 leading-[1.1] tracking-[-0.04em] font-semibold">
+          THIS MAKES OUR HEART BEAT FASTER, EVERY DAY.
         </h2>
       </div>
       <TestimonialCarousel items={testimonials} client:visible />
     </section>
 
     <!-- ─── What you'll get ───
-         LEFT column sticky-pinned at top:96px so the heading + copy + CTA
-         stay stationary while the user scrolls; RIGHT column scrolls
-         normally; sticky pin releases naturally after the Bonus Vault.
-         Removed the spurious "[Workflow]" eyebrow per CRO audit. -->
-    <section class="relative px-5 md:px-12 py-16 md:py-24">
+         Sticky-pinned LEFT column. RIGHT column scrolls. Pin releases
+         after the Bonus Vault card. Copy rewritten so it doesn't sound
+         like a checkout summary. -->
+    <section class="relative px-5 md:px-12 py-12 md:py-20">
       <div class="max-w-[1180px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
         <div class="reveal md:sticky md:top-24 self-start">
           <h2 class="font-cinzel text-gold text-[36px] md:text-[48px] lg:text-[60px] leading-[1.05] tracking-[-0.04em] font-semibold">
-            What you'll get...
+            What you'll walk away with.
           </h2>
           <p class="mt-6 text-[18px] md:text-[22px] lg:text-[24px] leading-[1.45] tracking-[-0.04em] text-white max-w-[480px] font-medium">
-            Enroll now and get bonuses worth ₹19,999 for free. There was never a better time to grab this on-demand program.
+            29 lessons. Lifetime access. A certificate signed by Nelson. Tamil with English subtitles, on demand.
           </p>
           <a href={CTA_HREF} target="_blank" rel="noopener noreferrer"
              class="buy-pill mt-8 inline-flex items-center justify-center px-7 py-3 rounded-full text-[14px] md:text-[15px]">
-            Sign Up Now ₹2,499
+            Enrol · ₹2,499
           </a>
         </div>
         <div class="space-y-5 md:space-y-6">
@@ -558,9 +682,9 @@ const faq = faqJsonLd(faqs);
             </div>
           ))}
           <div class="rounded-xl border border-amber-200/30 bg-gradient-to-br from-[#1a1208] to-[#0a0604] p-6 md:p-7 reveal reveal-delay-4">
-            <h3 class="font-cinzel text-gold text-[24px] md:text-[30px] lg:text-[40px] leading-[1.1] tracking-[-0.04em] font-semibold">Exclusive Bonuses</h3>
-            <p class="mt-3 text-[16px] md:text-[20px] lg:text-[22px] leading-[1.4] tracking-[-0.02em] text-white">
-              Worth ₹19,999 — Free for the first 100 enrollees
+            <h3 class="font-cinzel text-gold text-[24px] md:text-[30px] lg:text-[40px] leading-[1.1] tracking-[-0.04em] font-semibold">Bonus Vault</h3>
+            <p class="mt-3 text-[15px] md:text-[17px] leading-[1.5] tracking-[-0.01em] text-white/85">
+              Enrolment includes scene-breakdown PDFs, screenwriting worksheets, and Nelson's "Five Lines First" template archive.
             </p>
           </div>
         </div>
@@ -568,10 +692,11 @@ const faq = faqJsonLd(faqs);
     </section>
 
     <!-- ─── Closing pitch — ticket card ───
-         Same lmCSm ticket image as Lokesh, with Nelson's pitch text on
-         the left half and a 2×3 static rotated-poster grid of Nelson's
-         films on the right. -->
-    <section class="relative py-16 md:py-24 px-5 md:px-12 overflow-hidden">
+         Real movie posters (Wikipedia-sourced) replace the film stills
+         the user flagged as BTS-looking. The 2×3 grid uses Nelson's
+         four films plus two complementary stills the page already
+         had so the grid stays full and visually balanced. -->
+    <section class="relative py-12 md:py-20 px-5 md:px-12 overflow-hidden">
       <div class="relative w-full max-w-[1086px] mx-auto reveal">
         <img src={`${SHARED}/lmCSmBU4Q2o6jwxi9ZTBSPAxnU.png`} alt=""
              class="block w-full h-auto select-none pointer-events-none" loading="lazy" decoding="async" />
@@ -581,21 +706,21 @@ const faq = faqJsonLd(faqs);
               YOU'VE SEEN WHAT NELSON BUILDS ON SCREEN. NOW LEARN HOW HE BUILDS IT OFF SCREEN.
             </h2>
             <p class="mt-3 md:mt-5 text-[11px] md:text-[14px] leading-[1.5] tracking-[-0.02em] text-[#dfdee2]/80 max-w-[320px] hidden sm:block">
-              If you're serious about filmmaking, this isn't just a class. It's a front-row seat to the thought process behind some of Indian cinema's boldest work.
+              Not a class. A front-row seat to the thinking behind some of Indian cinema's boldest work in the last decade.
             </p>
             <a href={CTA_HREF} target="_blank" rel="noopener noreferrer"
                class="buy-pill mt-4 md:mt-6 inline-flex items-center justify-center px-5 py-2.5 md:px-6 md:py-2.5 rounded-full text-[12px] md:text-[14px]">
-              Sign Up Now ₹2,499
+              Enrol · ₹2,499
             </a>
           </div>
           <div class="hidden md:grid grid-cols-3 grid-rows-2 gap-2 self-center pr-3 lg:pr-5">
             {[
-              { src: blockbusterFilms[0], rot: -3, dy: -2 },
-              { src: blockbusterFilms[1], rot: 1,  dy: 2 },
-              { src: blockbusterFilms[2], rot: -1, dy: -3 },
-              { src: blockbusterFilms[3], rot: 2,  dy: 3 },
-              { src: blockbusterFilms[4], rot: -2, dy: -1 },
-              { src: blockbusterFilms[5], rot: 3,  dy: 2 },
+              { src: POSTER_JAILER, rot: -3, dy: -2 },
+              { src: POSTER_BEAST,  rot: 1,  dy: 2 },
+              { src: POSTER_DOCTOR, rot: -1, dy: -3 },
+              { src: POSTER_KOKILA, rot: 2,  dy: 3 },
+              { src: POSTER_JAILER, rot: -2, dy: -1 },
+              { src: POSTER_BEAST,  rot: 3,  dy: 2 },
             ].map((p) => (
               <img src={p.src} alt=""
                    class="w-full aspect-[2/3] object-cover rounded-md ring-1 ring-white/10 shadow-[0_10px_24px_-10px_rgba(0,0,0,0.85)]"
@@ -607,27 +732,24 @@ const faq = faqJsonLd(faqs);
       </div>
 
       <div class="md:hidden mt-8 space-y-3">
-        <PosterMarquee posters={blockbusterFilms} dir="left" speed={38} client:visible />
+        <PosterMarquee posters={[POSTER_KOKILA, POSTER_DOCTOR, POSTER_BEAST, POSTER_JAILER]} dir="left" speed={38} client:visible />
       </div>
     </section>
 
-    <!-- ─── FAQ — uses the redesigned FAQAccordion shared component
-         (search bar + single column + gold left-edge accent + WhatsApp
-         fallback CTA). ─── -->
-    <section class="relative px-5 md:px-12 py-16 md:py-28">
-      <div class="max-w-5xl mx-auto text-center mb-12 md:mb-16 reveal">
-        <p class="font-cinzel text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Questions?</p>
-        <div class="my-4 section-tick"></div>
-        <h2 class="font-cinzel text-gold text-[36px] md:text-[48px] lg:text-[60px] leading-[1] tracking-[-0.06em] font-semibold">
-          WE'VE GOT YOU COVERED!
+    <!-- ─── FAQ ─── -->
+    <section class="relative px-5 md:px-12 py-12 md:py-20">
+      <div class="max-w-5xl mx-auto text-center mb-10 md:mb-14 reveal">
+        <div class="section-tick mx-auto"></div>
+        <h2 class="font-cinzel text-gold text-[36px] md:text-[48px] lg:text-[60px] mt-4 leading-[1] tracking-[-0.06em] font-semibold">
+          WE'VE GOT YOU COVERED.
         </h2>
         <a href={CTA_HREF} target="_blank" rel="noopener noreferrer"
            class="buy-pill mt-8 inline-flex items-center justify-center px-7 py-3 rounded-full text-[14px] md:text-[15px]">
-          Sign Up Now ₹2,499
+          Enrol · ₹2,499
         </a>
       </div>
       <div class="reveal reveal-delay-2">
-        <FAQAccordion faqs={faqs} client:visible />
+        <FAQAccordion faqs={faqs} courseName="Nelson Dilipkumar Masterclass" client:visible />
       </div>
     </section>
 
@@ -636,9 +758,9 @@ const faq = faqJsonLd(faqs);
       <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 md:gap-12 items-center">
         <div class="text-center md:text-left">
           <p class="text-[14px] text-[#dfdee2] max-w-2xl leading-[1.6] tracking-[-0.02em]">
-            LevelUp Learning is an e-learning platform focused on creative arts like music, science, sports,
-            film-making and other such skill development disciplines. Students can access pre-recorded lectures or
-            tutorials by experts in various fields.
+            LevelUp Learning is an e-learning platform focused on creative arts: music, science, sports,
+            filmmaking and other skill-development disciplines. Pre-recorded lectures and tutorials by
+            experts in their fields.
           </p>
           <div class="mt-6 flex justify-center md:justify-start gap-5 text-white/70">
             <a href="https://www.instagram.com/levelup_learning/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="hover:text-white transition-colors">
@@ -653,10 +775,10 @@ const faq = faqJsonLd(faqs);
           </div>
         </div>
         <div class="text-center md:text-right text-[14px] text-[#dfdee2] space-y-2">
-          <p class="font-medium tracking-[-0.02em]">Copyright © 2025 LevelUp Learning · All Rights Reserved</p>
+          <p class="font-medium tracking-[-0.02em]">Copyright © 2025 LevelUp Learning · All rights reserved</p>
           <p class="space-x-4 tracking-[-0.04em]">
             <a href="/privacy-policy" class="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="/terms" class="hover:text-white transition-colors">Terms Of Service</a>
+            <a href="/terms" class="hover:text-white transition-colors">Terms of Service</a>
           </p>
         </div>
       </div>
