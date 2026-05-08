@@ -8,6 +8,8 @@ import PosterMarquee from "@/components/lokesh/PosterMarquee";
 import HoverPlayVideo from "@/components/lokesh/HoverPlayVideo";
 import IntersectionPlayVideo from "@/components/lokesh/IntersectionPlayVideo";
 import HeroPlayer from "@/components/lokesh/HeroPlayer";
+import FilmsScrollStack from "@/components/lokesh/FilmsScrollStack";
+import ScrollGlowLine from "@/components/lokesh/ScrollGlowLine";
 import PageInteractions from "@/components/lokesh/PageInteractions";
 import { courseJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/structuredData";
 
@@ -266,6 +268,21 @@ const faq = faqJsonLd(faqs);
     .lokesh-page .float-b { animation: mc-float-b 7.2s ease-in-out infinite; }
     .lokesh-page .float-c { animation: mc-float-c 9.0s ease-in-out infinite; }
 
+    /* Continuously rotating revolver in Who-Is-This-For section.
+       Slow rotation (24s per turn) so it reads as deliberate, cinematic
+       drift rather than a fan blade. Respects reduced-motion. */
+    @keyframes mc-gun-rotate {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to   { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    .lokesh-page .mc-rotate-gun {
+      transform-origin: 50% 50%;
+      animation: mc-gun-rotate 24s linear infinite;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .lokesh-page .mc-rotate-gun { animation: none; }
+    }
+
     /* Smooth scroll across the page */
     html { scroll-behavior: smooth; }
 
@@ -288,28 +305,19 @@ const faq = faqJsonLd(faqs);
   </style>
 
   <main id="main-content" class="lokesh-page">
-    <!-- ─── Header — Framer original has just the LevelUp logo at top-left,
-         no top-right pill on either desktop or mobile. The CTA pills are
-         distributed inside the page (hero, class info, films, what-you-get,
-         closing, FAQ — six total). Matching that exactly. ─── -->
-    <header class="relative z-30 px-5 md:px-12 pt-5 md:pt-7 flex items-center gap-4">
-      <a href="/" class="inline-flex items-center" aria-label="LevelUp Learning home">
-        <img src="/levelup-logo-mark.svg" alt="LevelUp" class="h-7 md:h-8 w-auto" />
-      </a>
-    </header>
-
-    <!-- ─── Hero — full bleed, no max-width, no horizontal padding.
-         Desktop uses the wide cinematic video (8aQnJ...); mobile swaps in
-         the portrait cut (E4445FB...) at hydration time so the video fills
-         a phone screen the same way Framer's does (393×496-ish). ─── -->
+    <!-- ─── Hero — full bleed, video starts at top-of-page.
+         No separate header — the LevelUp logo is overlaid on the video
+         at top-left so the "LOKESH KANAGARAJ TEACHES FILMMAKING" lettering
+         baked into the video stays fully readable (no bottom gradient
+         washing it out, no header bar pushing the video down).
+         Mobile swaps in the portrait video cut at hydration. ─── -->
     <section class="relative overflow-hidden">
-      <!-- Animated star-field bg sits behind everything else in the hero -->
+      <!-- Animated star-field bg sits behind the hero video -->
       <div class="star-bg absolute inset-0 pointer-events-none opacity-70"></div>
 
-      <div class="relative w-full pt-4 md:pt-6">
+      <div class="relative w-full">
         <!-- Mobile: portrait 393×496 (Framer's exact mobile aspect, ~5:6.3).
-             Desktop: full-bleed 1440×800 cinematic.
-             The HeroPlayer swaps to the portrait video file on mobile. -->
+             Desktop: full-bleed 1440×800 cinematic. -->
         <div class="relative aspect-[393/496] sm:aspect-[16/10] md:aspect-[16/8] lg:aspect-[1440/800] overflow-hidden bg-black">
           <HeroPlayer
             src={`${ASSET}/8aQnJtJnDomXGCoq8SMNrwjXL4.mp4`}
@@ -319,8 +327,15 @@ const faq = faqJsonLd(faqs);
             ariaLabel="Play Lokesh Kanagaraj masterclass hero"
             client:load
           />
-          <!-- Bottom gradient bridges hero into the dark page below -->
-          <div class="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-t from-black to-transparent pointer-events-none"></div>
+          <!-- LevelUp logo overlaid on video at top-left. The video is
+               dark in this region so we don't need a backdrop. -->
+          <a
+            href="/"
+            aria-label="LevelUp Learning home"
+            class="absolute top-5 left-5 md:top-7 md:left-12 z-30 inline-flex items-center"
+          >
+            <img src="/levelup-logo-mark.svg" alt="LevelUp" class="h-7 md:h-9 w-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]" />
+          </a>
         </div>
 
         <!-- Headline + sub + CTA — Inter 35px / 600 / -0.02em / line-height 1.2.
@@ -407,53 +422,19 @@ const faq = faqJsonLd(faqs);
     </section>
 
     <!-- ─── Director / Blockbuster films ───
-         Two-column layout matching Framer:
-         LEFT  — small "LEARN FROM THE" cinzel-gold eyebrow / big white
-                 "Director Behind these Blockbuster Films" / Buy now pill
-         RIGHT — a deck of 4 posters fanned out with subtle rotations and
-                 offsets, giving the impression of a stacked poster pile.
-                 No SFQ9US banner. -->
-    <section class="relative overflow-hidden px-5 md:px-12 py-16 md:py-28">
-      <div class="max-w-[1320px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
-        <div class="reveal">
-          <p class="font-cinzel text-gold text-[22px] md:text-[26px] lg:text-[32px] leading-[1.1] tracking-[0.18em] uppercase font-medium">
-            Learn from the
-          </p>
-          <h2 class="text-white mt-3 text-[28px] md:text-[40px] lg:text-[52px] leading-[1.05] tracking-[-0.04em] font-semibold" style="font-family: 'Inter', sans-serif;">
-            Director Behind these Blockbuster Films
-          </h2>
-          <a
-            href={CTA_HREF}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="buy-pill mt-7 md:mt-9 inline-flex items-center justify-center px-7 py-3 rounded-full text-[14px] md:text-[15px]"
-          >
-            Buy now at ₹1,499
-          </a>
-        </div>
-
-        <!-- Right: stacked poster deck. Posters fan out with slight rotations
-             and offsets. The top poster (z-40) is the most visible one and
-             serves as the section's hero image. -->
-        <div class="relative aspect-[3/4] max-w-[420px] w-full mx-auto reveal reveal-delay-2">
-          {[
-            { src: `${ASSET}/Jcj8R4DDPGpXDCkQoAFyLRKs7QU.jpg`, rot: -8, dx: -28, dy: 12, z: 10, alt: "Vikram poster" },
-            { src: `${ASSET}/FWEnra8ZQKbfIkqyiiykegyWs.jpg`, rot: -3, dx: -10, dy: 6, z: 20, alt: "Master poster" },
-            { src: `${ASSET}/Qpn5TQOmeYZbYnxr4McJJH6uOw.jpg`, rot: 4, dx: 14, dy: 4, z: 30, alt: "Kaithi poster" },
-            { src: `${ASSET}/04Cf0uXU0vEBtH4J8UrhaoPJiQ.jpg`, rot: 9, dx: 28, dy: -2, z: 40, alt: "Leo poster" },
-          ].map((p) => (
-            <img
-              src={p.src}
-              alt={p.alt}
-              class="absolute inset-0 w-full h-full object-cover rounded-xl ring-1 ring-white/10 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.85)]"
-              style={`transform: translate(${p.dx}px, ${p.dy}px) rotate(${p.rot}deg); z-index: ${p.z};`}
-              loading="lazy"
-              decoding="async"
-            />
-          ))}
-        </div>
-      </div>
-    </section>
+         Scroll-driven stacked poster interaction. As the user scrolls into
+         the section, each poster slides in from below and lands on top of
+         the previous one, building a deck. The text + CTA stay pinned in
+         place during the scroll runway. Matches Framer's exact behaviour. -->
+    <FilmsScrollStack
+      posters={[
+        { src: `${ASSET}/Jcj8R4DDPGpXDCkQoAFyLRKs7QU.jpg`, alt: "Vikram poster" },
+        { src: `${ASSET}/FWEnra8ZQKbfIkqyiiykegyWs.jpg`, alt: "Master poster" },
+        { src: `${ASSET}/Qpn5TQOmeYZbYnxr4McJJH6uOw.jpg`, alt: "Kaithi poster" },
+        { src: `${ASSET}/04Cf0uXU0vEBtH4J8UrhaoPJiQ.jpg`, alt: "Leo poster" },
+      ]}
+      client:visible
+    />
 
     <!-- ─── Who is this program for? ─── -->
     <section class="relative px-5 md:px-12 py-16 md:py-24 overflow-hidden">
@@ -466,94 +447,113 @@ const faq = faqJsonLd(faqs);
         </h2>
       </div>
 
-      <!-- Pure black canvas with the gold revolver dead-center and 6 pills
-           positioned hexagonally around it. Tighter aspect (closer to
-           Framer's compact composition); pills hug the gun closer. -->
-      <div class="relative max-w-[760px] mx-auto aspect-[16/10] reveal reveal-delay-2">
-        <!-- Central revolver — very subtle gold radial behind for ambient glow -->
-        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] aspect-square z-0 pointer-events-none"
-             style="background: radial-gradient(closest-side, rgba(212,163,108,0.18), rgba(212,163,108,0.06) 45%, transparent 75%); filter: blur(10px);"></div>
-        <img
-          src={`${ASSET}/jWDMz6JCKJMeDWPQRsI7Vq1xbc.png`}
-          alt="Maanagaram revolver — Lokesh Kanagaraj signature motif"
-          class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[40%] md:w-[34%] h-auto z-10"
-          style="mix-blend-mode: screen; filter: drop-shadow(0 8px 26px rgba(212,163,108,0.45));"
-          loading="lazy"
-          decoding="async"
-        />
+      <!-- Pure black canvas. Gold revolver dead-center, slowly rotating
+           continuously (matches Framer). Soft radial glow behind for
+           ambient lighting. 6 audience pills positioned around the gun
+           in a 3×2 hex pattern, sized larger so they read clearly. -->
+      <div class="relative max-w-[920px] mx-auto aspect-[16/10] reveal reveal-delay-2">
+        <!-- Soft gold halo glowing behind the gun. The halo is its own
+             container so it does NOT rotate with the gun. -->
+        <div
+          class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[55%] aspect-square z-0 pointer-events-none"
+          style="background: radial-gradient(closest-side, rgba(212,163,108,0.28), rgba(212,163,108,0.08) 45%, transparent 75%); filter: blur(14px);"
+        ></div>
+        <!-- Revolver itself — wrapped in a rotating div so the image
+             spins continuously. The PNG has a transparent bg already;
+             mix-blend-mode: screen drops any white halo from compression. -->
+        <div
+          class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[44%] md:w-[38%] aspect-square z-10 pointer-events-none mc-rotate-gun"
+        >
+          <img
+            src={`${ASSET}/jWDMz6JCKJMeDWPQRsI7Vq1xbc.png`}
+            alt="Maanagaram revolver — Lokesh Kanagaraj signature motif"
+            class="block w-full h-full object-contain"
+            style="mix-blend-mode: screen; filter: drop-shadow(0 8px 30px rgba(212,163,108,0.55));"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
 
-        <!-- 6 audience pills hugging the revolver in a 3×2 hex arrangement
-             closer to Framer's positions. -->
+        <!-- 6 audience pills around the revolver. BIGGER than before
+             (text-[14px] md:text-[16px] vs 11/12, more padding). -->
         {[
-          { label: "Dialogue Writers",     className: "top-[8%] left-[18%]",                     float: "float-a" },
-          { label: "Cinema Lovers",        className: "top-[8%] right-[18%]",                    float: "float-b" },
-          { label: "Story Architects",     className: "top-1/2 -translate-y-1/2 left-[8%]",      float: "float-c" },
-          { label: "Visionary Filmmakers", className: "top-1/2 -translate-y-1/2 right-[8%]",     float: "float-a" },
-          { label: "Future Directors",     className: "bottom-[8%] left-[22%]",                  float: "float-b" },
-          { label: "Film Dreamers",        className: "bottom-[8%] right-[22%]",                 float: "float-c" },
+          { label: "Dialogue Writers",     className: "top-[6%] left-[10%]",                     float: "float-a" },
+          { label: "Cinema Lovers",        className: "top-[6%] right-[10%]",                    float: "float-b" },
+          { label: "Story Architects",     className: "top-1/2 -translate-y-1/2 left-[2%]",      float: "float-c" },
+          { label: "Visionary Filmmakers", className: "top-1/2 -translate-y-1/2 right-[2%]",     float: "float-a" },
+          { label: "Future Directors",     className: "bottom-[6%] left-[14%]",                  float: "float-b" },
+          { label: "Film Dreamers",        className: "bottom-[6%] right-[14%]",                 float: "float-c" },
         ].map((p) => (
-          <span class={`absolute ${p.className} ${p.float} z-20 px-3.5 py-1.5 md:px-4 md:py-2 rounded-full text-[11px] md:text-[12px] tracking-[-0.01em] text-white/95 bg-[radial-gradient(120%_100%_at_50%_0%,rgba(40,30,18,0.85),rgba(10,8,6,0.92))] border border-white/[0.08] shadow-[0_14px_32px_-14px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-sm whitespace-nowrap`}>
+          <span class={`absolute ${p.className} ${p.float} z-20 px-5 py-2.5 md:px-7 md:py-3 rounded-full text-[14px] md:text-[16px] tracking-[-0.01em] text-white bg-[radial-gradient(120%_100%_at_50%_0%,rgba(40,30,18,0.92),rgba(10,8,6,0.96))] border border-white/[0.10] shadow-[0_14px_32px_-14px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-sm whitespace-nowrap`}>
             {p.label}
           </span>
         ))}
       </div>
     </section>
 
-    <!-- ─── Why Is This Masterclass For You ─── -->
-    <section class="relative px-5 md:px-12 py-16 md:py-28">
-      <div class="max-w-3xl mx-auto text-center mb-14 md:mb-20 reveal">
-        <p class="font-cinzel text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Why is this</p>
-        <div class="my-4 section-tick"></div>
-        <h2 class="font-cinzel text-gold text-[32px] md:text-[42px] lg:text-[55px] leading-[1.05] tracking-[-0.05em] font-semibold">
-          MASTERCLASS FOR YOU?
-        </h2>
-      </div>
+    <!-- ─── Why Is This Masterclass For You + Certificate ───
+         Wrapped in a single relative container so the scroll-driven gold
+         center line spans BOTH sections (extends down through the cert
+         block) and lights up progressively as the user scrolls. -->
+    <div id="why-and-cert" class="relative">
+      <!-- Scroll-driven glowing center line — fills as user scrolls
+           through this whole region (why-is-this through cert). -->
+      <ScrollGlowLine containerSelector="#why-and-cert" client:visible />
 
-      <div class="max-w-[1080px] mx-auto relative">
-        <!-- Glowing vertical timeline center line — Framer-style.
-             A 1.5px gold line with a soft outer glow that's bright at the
-             center and fades to transparent at top/bottom. The .mc-glow-line
-             helper extends the glow with a blurred backdrop sister element. -->
-        <div class="absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-px hidden md:block pointer-events-none"
-             style="background: linear-gradient(180deg, transparent 0%, rgba(212,163,108,0.15) 8%, rgba(212,163,108,0.6) 35%, rgba(245,213,154,0.85) 50%, rgba(212,163,108,0.6) 65%, rgba(212,163,108,0.15) 92%, transparent 100%); box-shadow: 0 0 12px rgba(212,163,108,0.55), 0 0 28px rgba(212,163,108,0.25);"></div>
-        <div class="space-y-12 md:space-y-20">
-          {whyPoints.map((p, i) => (
-            <div class={`grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center reveal ${i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""}`}>
-              <div class="relative aspect-[16/9] rounded-xl overflow-hidden ring-1 ring-white/10 bg-[#0a0a0a] shadow-[0_20px_50px_-20px_rgba(0,0,0,0.7)]">
-                <IntersectionPlayVideo src={p.media} className="absolute inset-0 w-full h-full" client:visible />
-              </div>
-              <p class="text-[20px] md:text-[24px] leading-[1.5] tracking-[-0.06em] text-[#dfdee2] md:px-4">
-                {p.text}
-              </p>
-            </div>
-          ))}
+      <!-- Why Is This Masterclass For You -->
+      <section class="relative px-5 md:px-12 py-16 md:py-28 z-10">
+        <div class="max-w-3xl mx-auto text-center mb-14 md:mb-20 reveal">
+          <p class="font-cinzel text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Why is this</p>
+          <div class="my-4 section-tick"></div>
+          <h2 class="font-cinzel text-gold text-[32px] md:text-[42px] lg:text-[55px] leading-[1.05] tracking-[-0.05em] font-semibold">
+            MASTERCLASS FOR YOU?
+          </h2>
         </div>
-      </div>
-    </section>
 
-    <!-- ─── Certificate ─── -->
-    <section class="relative px-5 md:px-12 py-12 md:py-20">
-      <div class="max-w-[1085px] mx-auto rounded-2xl overflow-hidden ring-1 ring-amber-200/15 shadow-[0_30px_80px_-20px_rgba(212,163,108,0.18)] reveal">
-        <img
-          src={`${ASSET}/9F1ol75caTSZ1T06dL8apemH4B4.jpg`}
-          alt="Certificate of Completion signed by Lokesh Kanagaraj"
-          class="block w-full h-auto"
-          loading="lazy"
-        />
-      </div>
-      <ul class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-[1085px] mx-auto">
-        {[
-          "Download or Print out as PDF to share with others",
-          "Showcase on your Certificate on social media",
-          "Share as image online to demonstrate your skill",
-        ].map((t, i) => (
-          <li class="rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 lift flex gap-4 reveal" style={`transition-delay: ${i * 80}ms`}>
-            <span class="font-cinzel text-[28px] text-gold leading-none">0{i + 1}</span>
-            <span class="text-[15px] md:text-[19px] text-[#f2f2f2] leading-[1.45] tracking-[-0.02em] font-medium">{t}</span>
-          </li>
-        ))}
-      </ul>
-    </section>
+        <div class="max-w-[1080px] mx-auto relative">
+          <div class="space-y-14 md:space-y-24">
+            {whyPoints.map((p, i) => (
+              <div class={`grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-14 items-center reveal ${i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""}`}>
+                <div class="relative aspect-[16/9] rounded-xl overflow-hidden ring-1 ring-white/15 bg-[#0a0a0a] shadow-[0_20px_50px_-20px_rgba(0,0,0,0.7)]">
+                  <IntersectionPlayVideo src={p.media} className="absolute inset-0 w-full h-full" client:visible />
+                </div>
+                {/* Brighter copy + heavier weight + slightly bigger so the
+                    text reads on the first glance (was tracking-[-0.06em]
+                    text-[#dfdee2] light-feeling). */}
+                <p class="text-[22px] md:text-[26px] leading-[1.4] tracking-[-0.02em] text-white font-medium md:px-6">
+                  {p.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- Certificate — sits inside the same wrapper so the center line
+           reaches through it. -->
+      <section class="relative px-5 md:px-12 py-12 md:py-20 z-10">
+        <div class="max-w-[1085px] mx-auto rounded-2xl overflow-hidden ring-1 ring-amber-200/15 shadow-[0_30px_80px_-20px_rgba(212,163,108,0.18)] reveal">
+          <img
+            src={`${ASSET}/9F1ol75caTSZ1T06dL8apemH4B4.jpg`}
+            alt="Certificate of Completion signed by Lokesh Kanagaraj"
+            class="block w-full h-auto"
+            loading="lazy"
+          />
+        </div>
+        <ul class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-[1085px] mx-auto">
+          {[
+            "Download or Print out as PDF to share with others",
+            "Showcase on your Certificate on social media",
+            "Share as image online to demonstrate your skill",
+          ].map((t, i) => (
+            <li class="rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 lift flex gap-4 reveal" style={`transition-delay: ${i * 80}ms`}>
+              <span class="font-cinzel text-[28px] text-gold leading-none">0{i + 1}</span>
+              <span class="text-[15px] md:text-[19px] text-[#f2f2f2] leading-[1.45] tracking-[-0.02em] font-medium">{t}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
 
     <!-- ─── Testimonials ─── -->
     <section class="relative px-5 md:px-12 py-16 md:py-24 overflow-hidden">
@@ -590,17 +590,18 @@ const faq = faqJsonLd(faqs);
           </a>
         </div>
 
-        <!-- Stacked-receipt effect: each card overlaps the previous by a few
-             pixels using a negative margin-top, mirroring Framer's
-             stacked-cards look. The bottom item (LCU Bonus Vault) keeps the
-             same offset so the entire stack reads as one continuous receipt. -->
-        <div class="relative">
+        <!-- Scroll-driven stacked deal cards. Each card is `position: sticky`
+             at progressively-deeper top offsets, so as the user scrolls
+             the cards stack one-by-one. The most recent card slides over
+             the previous, building a deck of "things you'll get" — matches
+             Framer's progressive-reveal pattern. -->
+        <div class="relative space-y-5 md:space-y-6">
           {whatYouGet.map((g, i) => (
             <div
-              class={`relative rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 lift flex gap-4 md:gap-5 reveal ${i > 0 ? "-mt-3 md:-mt-4" : ""}`}
-              style={`transition-delay: ${(i + 1) * 80}ms; z-index: ${10 + i};`}
+              class="rounded-xl border border-white/[0.10] bg-[#0E0E0E] p-5 md:p-6 lift flex gap-4 md:gap-5 reveal"
+              style={`position: sticky; top: ${80 + i * 14}px; z-index: ${10 + i}; transition-delay: ${(i + 1) * 60}ms;`}
             >
-              <span class="font-cinzel text-[32px] md:text-[40px] text-gold leading-none shrink-0">{g.num}</span>
+              <span class="font-cinzel text-[32px] md:text-[44px] text-gold leading-none shrink-0">{g.num}</span>
               <div>
                 <h3 class="text-[18px] md:text-[22px] font-semibold text-white leading-[1.25] tracking-[-0.04em]">{g.title}</h3>
                 <p class="mt-1.5 text-[14px] md:text-[16px] text-[#a3a3a3] leading-[1.45]">{g.description}</p>
@@ -608,10 +609,10 @@ const faq = faqJsonLd(faqs);
             </div>
           ))}
 
-          <!-- LCU bonus vault — sits at the bottom of the stack -->
+          <!-- LCU bonus vault — caps the stack -->
           <div
-            class="relative rounded-xl border border-amber-200/30 bg-gradient-to-br from-[#1a1208] to-[#0a0604] p-6 md:p-7 -mt-3 md:-mt-4 reveal reveal-delay-4"
-            style={`z-index: ${10 + whatYouGet.length};`}
+            class="rounded-xl border border-amber-200/30 bg-gradient-to-br from-[#1a1208] to-[#0a0604] p-6 md:p-7 reveal reveal-delay-4"
+            style={`position: sticky; top: ${80 + whatYouGet.length * 14}px; z-index: ${10 + whatYouGet.length};`}
           >
             <h3 class="font-cinzel text-gold text-[24px] md:text-[30px] lg:text-[40px] leading-[1.1] tracking-[-0.04em] font-semibold">The LCU Bonus Vault</h3>
             <p class="mt-3 text-[16px] md:text-[20px] lg:text-[22px] leading-[1.4] tracking-[-0.02em] text-white">
@@ -657,24 +658,44 @@ const faq = faqJsonLd(faqs);
               Buy now at ₹1,499
             </a>
           </div>
-          <!-- Right: 5–6 vertical poster thumbnails laid out horizontally -->
-          <div class="hidden md:flex items-center justify-end gap-2 self-center">
-            {blockbusterFilms.slice(0, 6).map((p, i) => (
-              <img
-                src={p}
-                alt=""
-                class="w-[60px] md:w-[78px] lg:w-[92px] aspect-[2/3] object-cover rounded-md ring-1 ring-white/10 shadow-[0_10px_24px_-10px_rgba(0,0,0,0.85)]"
-                style={`transform: translateY(${(i % 2 === 0 ? -4 : 4)}px) rotate(${(i - 2) * 1.5}deg);`}
-                loading="lazy"
-                decoding="async"
-              />
-            ))}
+          <!-- Right: TWO rows of horizontally-scrolling movie posters
+               inside the ticket. Top row scrolls left, bottom row scrolls
+               right, in opposite directions — matches Framer's behaviour
+               where the posters drift inside the ticket frame. The ticket
+               image's right side is masked so posters don't escape it. -->
+          <div class="hidden md:flex flex-col self-center justify-center gap-2 overflow-hidden h-full pr-4">
+            <div class="overflow-hidden relative" aria-hidden="true">
+              <div class="flex gap-2 marquee-track" style="width: max-content;">
+                {[...blockbusterFilms, ...blockbusterFilms].map((p, i) => (
+                  <img
+                    src={p}
+                    alt=""
+                    class="w-[58px] md:w-[68px] lg:w-[78px] aspect-[2/3] object-cover rounded-md ring-1 ring-white/10 shadow-[0_10px_24px_-10px_rgba(0,0,0,0.85)] shrink-0"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ))}
+              </div>
+            </div>
+            <div class="overflow-hidden relative" aria-hidden="true">
+              <div class="flex gap-2 marquee-track-rev" style="width: max-content;">
+                {[...blockbusterFilms.slice().reverse(), ...blockbusterFilms.slice().reverse()].map((p, i) => (
+                  <img
+                    src={p}
+                    alt=""
+                    class="w-[58px] md:w-[68px] lg:w-[78px] aspect-[2/3] object-cover rounded-md ring-1 ring-white/10 shadow-[0_10px_24px_-10px_rgba(0,0,0,0.85)] shrink-0"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Mobile-only: poster marquee underneath the ticket since the
-           ticket image is too narrow on phones for the inline poster row -->
+           ticket image is too narrow on phones for the inline poster rows -->
       <div class="md:hidden mt-8 space-y-3">
         <PosterMarquee posters={blockbusterFilms} dir="left" speed={38} client:visible />
       </div>
