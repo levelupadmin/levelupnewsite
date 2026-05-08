@@ -7,6 +7,17 @@ interface Poster {
 
 interface Props {
   posters: Poster[];
+  /** Optional eyebrow above the heading. Defaults to "Learn from the". */
+  eyebrow?: string;
+  /** Heading text. Defaults to "Director Behind these Blockbuster Films". */
+  heading?: string;
+  /** Below-heading line — film names + box-office anchor. */
+  subline?: string;
+  /** Smaller caption underneath the subline (e.g. "5 films · ₹1,500 crore · 6 years"). */
+  caption?: string;
+  /** CTA text + link */
+  ctaLabel?: string;
+  ctaHref?: string;
 }
 
 /**
@@ -25,7 +36,15 @@ interface Props {
  *     transform: translateY(...) animates the poster from below into
  *     the deck position with a slight rotation
  */
-export default function FilmsScrollStack({ posters }: Props) {
+export default function FilmsScrollStack({
+  posters,
+  eyebrow = "Learn from the",
+  heading = "Director Behind these Blockbuster Films",
+  subline = "Maanagaram. Kaithi. Master. Vikram. Leo.",
+  caption = "5 films · ₹1,500 crore box office · 6 years.",
+  ctaLabel = "Sign Up Now ₹1,499",
+  ctaHref = "https://study.leveluplearning.in/l/c3acf36794",
+}: Props) {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const [progress, setProgress] = useState(0); // 0 → 1 across the runway
 
@@ -77,31 +96,30 @@ export default function FilmsScrollStack({ posters }: Props) {
     >
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
         <div className="w-full max-w-[1320px] mx-auto px-5 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
-          {/* LEFT: text + 5-film concrete list (CRO P0 — replaces the
-              old "Kaithi, Master, Vikram" 3-film copy with all 5
-              including Leo, plus the box-office anchor). */}
+          {/* LEFT: text + concrete film list (CRO P0 — gives the user
+              the verifiable box-office anchor instead of generic copy). */}
           <div>
             <p className="font-cinzel text-gold text-[22px] md:text-[26px] lg:text-[32px] leading-[1.1] tracking-[0.18em] uppercase font-medium">
-              Learn from the
+              {eyebrow}
             </p>
             <h2
               className="text-white mt-3 text-[28px] md:text-[40px] lg:text-[52px] leading-[1.05] tracking-[-0.04em] font-semibold"
               style={{ fontFamily: "'Inter', sans-serif" }}
             >
-              Director Behind these Blockbuster Films
+              {heading}
             </h2>
             <p className="mt-5 md:mt-6 text-[15px] md:text-[17px] text-white/80 leading-relaxed">
-              <span className="font-semibold text-white">Maanagaram. Kaithi. Master. Vikram. Leo.</span>
+              <span className="font-semibold text-white">{subline}</span>
               <br />
-              <span className="text-white/70">5 films · ₹1,500 crore box office · 6 years.</span>
+              <span className="text-white/70">{caption}</span>
             </p>
             <a
-              href="https://study.leveluplearning.in/l/c3acf36794"
+              href={ctaHref}
               target="_blank"
               rel="noopener noreferrer"
               className="buy-pill mt-7 md:mt-9 inline-flex items-center justify-center px-7 py-3 rounded-full text-[14px] md:text-[15px]"
             >
-              Sign Up Now ₹1,499
+              {ctaLabel}
             </a>
           </div>
 
