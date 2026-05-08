@@ -33,8 +33,11 @@ const episodes = [
   { number: 15, title: "Directing with Conviction", description: "Explore why belief in your vision is essential to leadership on set. Lokesh shares personal reflections on how conviction affects creative choices, motivates teams, and shapes how a director earns trust—from cast, crew, and ultimately, the audience." },
 ];
 
+// Coolie (2025) added — Lokesh's latest blockbuster — mixed in with the
+// other films so the marquees and stack-deck cycle includes it.
 const blockbusterFilms = [
   `${ASSET}/04Cf0uXU0vEBtH4J8UrhaoPJiQ.jpg`,
+  `${ASSET}/coolie-poster.jpg`,
   `${ASSET}/FWEnra8ZQKbfIkqyiiykegyWs.jpg`,
   `${ASSET}/U0FxB89SjVjlw4BtKHJ7BFhVBbA.jpg`,
   `${ASSET}/Qpn5TQOmeYZbYnxr4McJJH6uOw.jpg`,
@@ -269,18 +272,66 @@ const faq = faqJsonLd(faqs);
     .lokesh-page .float-c { animation: mc-float-c 9.0s ease-in-out infinite; }
 
     /* Continuously rotating revolver in Who-Is-This-For section.
-       Slow rotation (24s per turn) so it reads as deliberate, cinematic
-       drift rather than a fan blade. Respects reduced-motion. */
+       14s per turn (≈40% faster than the previous 24s) reads as more
+       active without becoming distracting. Respects reduced-motion. */
     @keyframes mc-gun-rotate {
       from { transform: translate(-50%, -50%) rotate(0deg); }
       to   { transform: translate(-50%, -50%) rotate(360deg); }
     }
     .lokesh-page .mc-rotate-gun {
       transform-origin: 50% 50%;
-      animation: mc-gun-rotate 24s linear infinite;
+      animation: mc-gun-rotate 14s linear infinite;
     }
     @media (prefers-reduced-motion: reduce) {
       .lokesh-page .mc-rotate-gun { animation: none; }
+    }
+
+    /* Certificate border glow — a shooting bead of light travels around
+       the rectangle's perimeter once every 6s. The trick: a conic
+       gradient masked to JUST the border (via an inset/clip-path
+       technique), rotated by an animated CSS variable.
+       The center line (ScrollGlowLine) "feeds into" this — the line
+       reaches the cert top, then the cert glow takes over, wrapping the
+       outline as a moving light. */
+    @property --mc-cert-angle {
+      syntax: "<angle>";
+      initial-value: 0deg;
+      inherits: false;
+    }
+    @keyframes mc-cert-spin {
+      from { --mc-cert-angle: 0deg; }
+      to   { --mc-cert-angle: 360deg; }
+    }
+    .lokesh-page .mc-cert-glow {
+      position: relative;
+    }
+    .lokesh-page .mc-cert-glow::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 1.05rem; /* matches rounded-2xl + 2px outset */
+      padding: 2px;
+      background: conic-gradient(
+        from var(--mc-cert-angle),
+        rgba(212,163,108,0.0) 0deg,
+        rgba(255,222,179,0.0) 60deg,
+        rgba(245,213,154,1) 80deg,
+        rgba(255,235,200,1) 90deg,
+        rgba(245,213,154,1) 100deg,
+        rgba(212,163,108,0.0) 120deg,
+        rgba(212,163,108,0.0) 360deg
+      );
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+      animation: mc-cert-spin 6s linear infinite;
+      pointer-events: none;
+      filter: drop-shadow(0 0 8px rgba(245,213,154,0.55));
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .lokesh-page .mc-cert-glow::before { animation: none; }
     }
 
     /* Smooth scroll across the page */
@@ -373,8 +424,11 @@ const faq = faqJsonLd(faqs);
       </div>
     </section>
 
-    <!-- ─── Class Info + Episodes ─── -->
-    <section class="relative px-5 md:px-12 py-14 md:py-24">
+    <!-- ─── Class Info + Episodes ───
+         Tightened bottom padding so the next section (films stack) starts
+         closer. The films stack itself is 340vh tall by design, so we
+         don't need extra py-24 here. -->
+    <section class="relative px-5 md:px-12 pt-14 md:pt-24 pb-6 md:pb-10">
       <div class="max-w-[1180px] mx-auto">
         <div class="text-center mb-10 md:mb-14 reveal">
           <p class="font-cinzel text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Class Info</p>
@@ -422,13 +476,13 @@ const faq = faqJsonLd(faqs);
     </section>
 
     <!-- ─── Director / Blockbuster films ───
-         Scroll-driven stacked poster interaction. As the user scrolls into
-         the section, each poster slides in from below and lands on top of
-         the previous one, building a deck. The text + CTA stay pinned in
-         place during the scroll runway. Matches Framer's exact behaviour. -->
+         Scroll-driven stacked poster interaction with Coolie + Vikram +
+         Master + Kaithi + Leo mixed in. As the user scrolls, each poster
+         lands on top of the previous, building a deck. -->
     <FilmsScrollStack
       posters={[
         { src: `${ASSET}/Jcj8R4DDPGpXDCkQoAFyLRKs7QU.jpg`, alt: "Vikram poster" },
+        { src: `${ASSET}/coolie-poster.jpg`, alt: "Coolie poster" },
         { src: `${ASSET}/FWEnra8ZQKbfIkqyiiykegyWs.jpg`, alt: "Master poster" },
         { src: `${ASSET}/Qpn5TQOmeYZbYnxr4McJJH6uOw.jpg`, alt: "Kaithi poster" },
         { src: `${ASSET}/04Cf0uXU0vEBtH4J8UrhaoPJiQ.jpg`, alt: "Leo poster" },
@@ -447,69 +501,76 @@ const faq = faqJsonLd(faqs);
         </h2>
       </div>
 
-      <!-- Pure black canvas. Gold revolver dead-center, slowly rotating
-           continuously (matches Framer). Soft radial glow behind for
-           ambient lighting. 6 audience pills positioned around the gun
-           in a 3×2 hex pattern, sized larger so they read clearly. -->
-      <div class="relative max-w-[920px] mx-auto aspect-[16/10] reveal reveal-delay-2">
-        <!-- Soft gold halo glowing behind the gun. The halo is its own
-             container so it does NOT rotate with the gun. -->
-        <div
-          class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[55%] aspect-square z-0 pointer-events-none"
-          style="background: radial-gradient(closest-side, rgba(212,163,108,0.28), rgba(212,163,108,0.08) 45%, transparent 75%); filter: blur(14px);"
-        ></div>
-        <!-- Revolver itself — wrapped in a rotating div so the image
-             spins continuously. The PNG has a transparent bg already;
-             mix-blend-mode: screen drops any white halo from compression. -->
-        <div
-          class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[44%] md:w-[38%] aspect-square z-10 pointer-events-none mc-rotate-gun"
-        >
-          <img
-            src={`${ASSET}/jWDMz6JCKJMeDWPQRsI7Vq1xbc.png`}
-            alt="Maanagaram revolver — Lokesh Kanagaraj signature motif"
-            class="block w-full h-full object-contain"
-            style="mix-blend-mode: screen; filter: drop-shadow(0 8px 30px rgba(212,163,108,0.55));"
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
+      <!-- Pure black canvas. Gun dead-center, rotating at 14s/turn. Pills
+           hug the gun more tightly (top/bottom rows pulled inward to
+           18%/26% from edges, mid-row to 2%) and are larger.
+           On mobile the layout collapses to a 2-col vertical pill stack
+           so the gun stays prominent and the pills don't squash. -->
+      <div class="relative w-full max-w-[920px] mx-auto reveal reveal-delay-2">
+        <!-- Mobile: aspect-square so pills sit on a tighter board -->
+        <div class="relative w-full aspect-square sm:aspect-[5/4] md:aspect-[16/10] mx-auto">
+          <!-- Soft gold halo behind gun (does not rotate) -->
+          <div
+            class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] md:w-[50%] aspect-square z-0 pointer-events-none"
+            style="background: radial-gradient(closest-side, rgba(212,163,108,0.32), rgba(212,163,108,0.10) 45%, transparent 75%); filter: blur(14px);"
+          ></div>
+          <!-- Rotating revolver — sized so the BARREL stays inside the
+               glow ring. Centered with translate-50/-50. -->
+          <div
+            class="absolute left-1/2 top-1/2 w-[52%] md:w-[40%] aspect-square z-10 pointer-events-none mc-rotate-gun"
+          >
+            <img
+              src={`${ASSET}/jWDMz6JCKJMeDWPQRsI7Vq1xbc.png`}
+              alt="Maanagaram revolver — Lokesh Kanagaraj signature motif"
+              class="block w-full h-full object-contain"
+              style="mix-blend-mode: screen; filter: drop-shadow(0 8px 30px rgba(212,163,108,0.65));"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
 
-        <!-- 6 audience pills around the revolver. BIGGER than before
-             (text-[14px] md:text-[16px] vs 11/12, more padding). -->
-        {[
-          { label: "Dialogue Writers",     className: "top-[6%] left-[10%]",                     float: "float-a" },
-          { label: "Cinema Lovers",        className: "top-[6%] right-[10%]",                    float: "float-b" },
-          { label: "Story Architects",     className: "top-1/2 -translate-y-1/2 left-[2%]",      float: "float-c" },
-          { label: "Visionary Filmmakers", className: "top-1/2 -translate-y-1/2 right-[2%]",     float: "float-a" },
-          { label: "Future Directors",     className: "bottom-[6%] left-[14%]",                  float: "float-b" },
-          { label: "Film Dreamers",        className: "bottom-[6%] right-[14%]",                 float: "float-c" },
-        ].map((p) => (
-          <span class={`absolute ${p.className} ${p.float} z-20 px-5 py-2.5 md:px-7 md:py-3 rounded-full text-[14px] md:text-[16px] tracking-[-0.01em] text-white bg-[radial-gradient(120%_100%_at_50%_0%,rgba(40,30,18,0.92),rgba(10,8,6,0.96))] border border-white/[0.10] shadow-[0_14px_32px_-14px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-sm whitespace-nowrap`}>
-            {p.label}
-          </span>
-        ))}
+          <!-- 6 audience pills hugging the gun. Bigger AND closer than
+               before. Mobile pads pulled in (8% / 24%) so pills don't
+               clip on small screens. -->
+          {[
+            { label: "Dialogue Writers",     classDesktop: "top-[6%] left-[14%]",                     classMobile: "top-[2%] left-[6%]",                       float: "float-a" },
+            { label: "Cinema Lovers",        classDesktop: "top-[6%] right-[14%]",                    classMobile: "top-[2%] right-[6%]",                      float: "float-b" },
+            { label: "Story Architects",     classDesktop: "top-1/2 -translate-y-1/2 left-[3%]",      classMobile: "top-1/2 -translate-y-1/2 left-[2%]",       float: "float-c" },
+            { label: "Visionary Filmmakers", classDesktop: "top-1/2 -translate-y-1/2 right-[3%]",     classMobile: "top-1/2 -translate-y-1/2 right-[2%]",      float: "float-a" },
+            { label: "Future Directors",     classDesktop: "bottom-[6%] left-[18%]",                  classMobile: "bottom-[2%] left-[8%]",                    float: "float-b" },
+            { label: "Film Dreamers",        classDesktop: "bottom-[6%] right-[18%]",                 classMobile: "bottom-[2%] right-[8%]",                   float: "float-c" },
+          ].map((p) => (
+            <span class={`absolute md:${p.classDesktop} ${p.classMobile} ${p.float} z-20 px-4 py-2 md:px-7 md:py-3.5 rounded-full text-[12px] md:text-[17px] font-medium tracking-[-0.01em] text-white bg-[radial-gradient(120%_100%_at_50%_0%,rgba(40,30,18,0.94),rgba(10,8,6,0.97))] border border-white/[0.12] shadow-[0_14px_32px_-14px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.07)] backdrop-blur-sm whitespace-nowrap`}>
+              {p.label}
+            </span>
+          ))}
+        </div>
       </div>
     </section>
 
-    <!-- ─── Why Is This Masterclass For You + Certificate ───
-         Wrapped in a single relative container so the scroll-driven gold
-         center line spans BOTH sections (extends down through the cert
-         block) and lights up progressively as the user scrolls. -->
-    <div id="why-and-cert" class="relative">
-      <!-- Scroll-driven glowing center line — fills as user scrolls
-           through this whole region (why-is-this through cert). -->
-      <ScrollGlowLine containerSelector="#why-and-cert" client:visible />
+    <!-- ─── Why Is This Masterclass For You ───
+         The "Why is this MASTERCLASS FOR YOU?" heading sits OUTSIDE the
+         scroll-line track. The line starts BELOW the heading (at the top
+         of the videos region) and ends at the top of the certificate.
+         Below, the cert gets a CSS-driven traveling-gold border glow that
+         continuously runs around its perimeter — visually wrapping the
+         line into the cert border. -->
+    <section class="relative px-5 md:px-12 pt-16 md:pt-28 pb-2 md:pb-4">
+      <div class="max-w-3xl mx-auto text-center reveal">
+        <p class="font-cinzel text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Why is this</p>
+        <div class="my-4 section-tick"></div>
+        <h2 class="font-cinzel text-gold text-[32px] md:text-[42px] lg:text-[55px] leading-[1.05] tracking-[-0.05em] font-semibold">
+          MASTERCLASS FOR YOU?
+        </h2>
+      </div>
+    </section>
 
-      <!-- Why Is This Masterclass For You -->
-      <section class="relative px-5 md:px-12 py-16 md:py-28 z-10">
-        <div class="max-w-3xl mx-auto text-center mb-14 md:mb-20 reveal">
-          <p class="font-cinzel text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Why is this</p>
-          <div class="my-4 section-tick"></div>
-          <h2 class="font-cinzel text-gold text-[32px] md:text-[42px] lg:text-[55px] leading-[1.05] tracking-[-0.05em] font-semibold">
-            MASTERCLASS FOR YOU?
-          </h2>
-        </div>
+    <!-- The line track starts here, AFTER the heading. -->
+    <div id="why-cert-line-track" class="relative">
+      <ScrollGlowLine containerSelector="#why-cert-line-track" client:visible />
 
+      <!-- Why-is-this video rows -->
+      <section class="relative px-5 md:px-12 pt-10 md:pt-16 pb-12 md:pb-20 z-10">
         <div class="max-w-[1080px] mx-auto relative">
           <div class="space-y-14 md:space-y-24">
             {whyPoints.map((p, i) => (
@@ -517,9 +578,6 @@ const faq = faqJsonLd(faqs);
                 <div class="relative aspect-[16/9] rounded-xl overflow-hidden ring-1 ring-white/15 bg-[#0a0a0a] shadow-[0_20px_50px_-20px_rgba(0,0,0,0.7)]">
                   <IntersectionPlayVideo src={p.media} className="absolute inset-0 w-full h-full" client:visible />
                 </div>
-                {/* Brighter copy + heavier weight + slightly bigger so the
-                    text reads on the first glance (was tracking-[-0.06em]
-                    text-[#dfdee2] light-feeling). */}
                 <p class="text-[22px] md:text-[26px] leading-[1.4] tracking-[-0.02em] text-white font-medium md:px-6">
                   {p.text}
                 </p>
@@ -529,31 +587,39 @@ const faq = faqJsonLd(faqs);
         </div>
       </section>
 
-      <!-- Certificate — sits inside the same wrapper so the center line
-           reaches through it. -->
-      <section class="relative px-5 md:px-12 py-12 md:py-20 z-10">
-        <div class="max-w-[1085px] mx-auto rounded-2xl overflow-hidden ring-1 ring-amber-200/15 shadow-[0_30px_80px_-20px_rgba(212,163,108,0.18)] reveal">
-          <img
-            src={`${ASSET}/9F1ol75caTSZ1T06dL8apemH4B4.jpg`}
-            alt="Certificate of Completion signed by Lokesh Kanagaraj"
-            class="block w-full h-auto"
-            loading="lazy"
-          />
+      <!-- Certificate — gets a continuously-running gold border glow that
+           the center line "feeds into". The .mc-cert-glow class draws a
+           shooting bead around the rectangle perimeter (top → right →
+           bottom → left → repeat) so the line visually wraps the cert. -->
+      <section class="relative px-5 md:px-12 py-8 md:py-14 z-10">
+        <div class="max-w-[1085px] mx-auto reveal">
+          <div class="mc-cert-glow rounded-2xl overflow-hidden ring-1 ring-amber-200/30 shadow-[0_30px_80px_-20px_rgba(212,163,108,0.25)]">
+            <img
+              src={`${ASSET}/9F1ol75caTSZ1T06dL8apemH4B4.jpg`}
+              alt="Certificate of Completion signed by Lokesh Kanagaraj"
+              class="block w-full h-auto"
+              loading="lazy"
+            />
+          </div>
         </div>
-        <ul class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-[1085px] mx-auto">
-          {[
-            "Download or Print out as PDF to share with others",
-            "Showcase on your Certificate on social media",
-            "Share as image online to demonstrate your skill",
-          ].map((t, i) => (
-            <li class="rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 lift flex gap-4 reveal" style={`transition-delay: ${i * 80}ms`}>
-              <span class="font-cinzel text-[28px] text-gold leading-none">0{i + 1}</span>
-              <span class="text-[15px] md:text-[19px] text-[#f2f2f2] leading-[1.45] tracking-[-0.02em] font-medium">{t}</span>
-            </li>
-          ))}
-        </ul>
       </section>
     </div>
+
+    <!-- Certificate value props — outside the line track -->
+    <section class="relative px-5 md:px-12 pt-2 md:pt-4 pb-12 md:pb-20">
+      <ul class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-[1085px] mx-auto">
+        {[
+          "Download or Print out as PDF to share with others",
+          "Showcase on your Certificate on social media",
+          "Share as image online to demonstrate your skill",
+        ].map((t, i) => (
+          <li class="rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 lift flex gap-4 reveal" style={`transition-delay: ${i * 80}ms`}>
+            <span class="font-cinzel text-[28px] text-gold leading-none">0{i + 1}</span>
+            <span class="text-[15px] md:text-[19px] text-[#f2f2f2] leading-[1.45] tracking-[-0.02em] font-medium">{t}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
 
     <!-- ─── Testimonials ─── -->
     <section class="relative px-5 md:px-12 py-16 md:py-24 overflow-hidden">
@@ -567,12 +633,20 @@ const faq = faqJsonLd(faqs);
       <TestimonialCarousel items={testimonials} client:visible />
     </section>
 
-    <!-- ─── What you'll get ─── -->
+    <!-- ─── What you'll get ───
+         LEFT column ("What you'll get..." heading + copy + Buy now CTA)
+         is `position: sticky` so it stays fixed at the top of the viewport
+         while the user scrolls. The RIGHT column scrolls normally — the
+         deal cards reveal one by one. After the last card (LCU Bonus
+         Vault) is revealed, the sticky pin releases and BOTH the heading
+         and the cards scroll up together as the user continues. -->
     <section class="relative px-5 md:px-12 py-16 md:py-24">
       <div class="max-w-[1180px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
-        <div class="reveal">
-          <p class="font-cinzel text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-[#dfdee2]/55">[03 Workflow]</p>
-          <div class="my-4 section-tick"></div>
+        {/* LEFT — sticky-pinned heading + copy + CTA. Sits at top:96px so
+             it doesn't collide with any sticky page nav. The pin releases
+             naturally when the parent grid row ends (after the last card
+             on the right has scrolled past). */}
+        <div class="reveal md:sticky md:top-24 self-start">
           <h2 class="font-cinzel text-gold text-[36px] md:text-[48px] lg:text-[60px] leading-[1.05] tracking-[-0.04em] font-semibold">
             What you'll get...
           </h2>
@@ -590,16 +664,16 @@ const faq = faqJsonLd(faqs);
           </a>
         </div>
 
-        <!-- Scroll-driven stacked deal cards. Each card is `position: sticky`
-             at progressively-deeper top offsets, so as the user scrolls
-             the cards stack one-by-one. The most recent card slides over
-             the previous, building a deck of "things you'll get" — matches
-             Framer's progressive-reveal pattern. -->
-        <div class="relative space-y-5 md:space-y-6">
+        {/* RIGHT — deal cards in normal flow (no per-card sticky). They
+             reveal in sequence as the user scrolls; the left column stays
+             fixed thanks to its sticky positioning. The LCU Bonus Vault
+             ends the sequence; after it scrolls past, the sticky pin
+             releases and both columns continue together. */}
+        <div class="space-y-5 md:space-y-6">
           {whatYouGet.map((g, i) => (
             <div
               class="rounded-xl border border-white/[0.10] bg-[#0E0E0E] p-5 md:p-6 lift flex gap-4 md:gap-5 reveal"
-              style={`position: sticky; top: ${80 + i * 14}px; z-index: ${10 + i}; transition-delay: ${(i + 1) * 60}ms;`}
+              style={`transition-delay: ${(i + 1) * 80}ms;`}
             >
               <span class="font-cinzel text-[32px] md:text-[44px] text-gold leading-none shrink-0">{g.num}</span>
               <div>
@@ -609,11 +683,10 @@ const faq = faqJsonLd(faqs);
             </div>
           ))}
 
-          <!-- LCU bonus vault — caps the stack -->
-          <div
-            class="rounded-xl border border-amber-200/30 bg-gradient-to-br from-[#1a1208] to-[#0a0604] p-6 md:p-7 reveal reveal-delay-4"
-            style={`position: sticky; top: ${80 + whatYouGet.length * 14}px; z-index: ${10 + whatYouGet.length};`}
-          >
+          {/* LCU Bonus Vault — caps the right column. Once this scrolls
+               past the bottom of the viewport, the left column unsticks
+               and both move up together. */}
+          <div class="rounded-xl border border-amber-200/30 bg-gradient-to-br from-[#1a1208] to-[#0a0604] p-6 md:p-7 reveal reveal-delay-4">
             <h3 class="font-cinzel text-gold text-[24px] md:text-[30px] lg:text-[40px] leading-[1.1] tracking-[-0.04em] font-semibold">The LCU Bonus Vault</h3>
             <p class="mt-3 text-[16px] md:text-[20px] lg:text-[22px] leading-[1.4] tracking-[-0.02em] text-white">
               Exclusive Bonuses Worth ₹19,999 — Free for the first 100 enrollees
@@ -658,44 +731,38 @@ const faq = faqJsonLd(faqs);
               Buy now at ₹1,499
             </a>
           </div>
-          <!-- Right: TWO rows of horizontally-scrolling movie posters
-               inside the ticket. Top row scrolls left, bottom row scrolls
-               right, in opposite directions — matches Framer's behaviour
-               where the posters drift inside the ticket frame. The ticket
-               image's right side is masked so posters don't escape it. -->
-          <div class="hidden md:flex flex-col self-center justify-center gap-2 overflow-hidden h-full pr-4">
-            <div class="overflow-hidden relative" aria-hidden="true">
-              <div class="flex gap-2 marquee-track" style="width: max-content;">
-                {[...blockbusterFilms, ...blockbusterFilms].map((p, i) => (
-                  <img
-                    src={p}
-                    alt=""
-                    class="w-[58px] md:w-[68px] lg:w-[78px] aspect-[2/3] object-cover rounded-md ring-1 ring-white/10 shadow-[0_10px_24px_-10px_rgba(0,0,0,0.85)] shrink-0"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                ))}
-              </div>
-            </div>
-            <div class="overflow-hidden relative" aria-hidden="true">
-              <div class="flex gap-2 marquee-track-rev" style="width: max-content;">
-                {[...blockbusterFilms.slice().reverse(), ...blockbusterFilms.slice().reverse()].map((p, i) => (
-                  <img
-                    src={p}
-                    alt=""
-                    class="w-[58px] md:w-[68px] lg:w-[78px] aspect-[2/3] object-cover rounded-md ring-1 ring-white/10 shadow-[0_10px_24px_-10px_rgba(0,0,0,0.85)] shrink-0"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                ))}
-              </div>
-            </div>
+          <!-- Right: TWO rows × THREE columns of movie posters laid out
+               inside the ticket (matches the Framer screenshot exactly).
+               Each poster has a subtle individual rotation/y-offset so
+               they look like they were placed by hand on the ticket. The
+               ticket image's right half is the canvas; we use absolute
+               positioning to lock the posters inside it.
+               Posters are static (no scroll) — matches Framer where the
+               grid sits anchored. -->
+          <div class="hidden md:grid grid-cols-3 grid-rows-2 gap-2 self-center pr-3 lg:pr-5">
+            {[
+              { src: blockbusterFilms[0], rot: -3, dy: -2 },
+              { src: blockbusterFilms[1], rot: 1,  dy: 2 },
+              { src: blockbusterFilms[2], rot: -1, dy: -3 },
+              { src: blockbusterFilms[3], rot: 2,  dy: 3 },
+              { src: blockbusterFilms[4], rot: -2, dy: -1 },
+              { src: blockbusterFilms[5], rot: 3,  dy: 2 },
+            ].map((p) => (
+              <img
+                src={p.src}
+                alt=""
+                class="w-full aspect-[2/3] object-cover rounded-md ring-1 ring-white/10 shadow-[0_10px_24px_-10px_rgba(0,0,0,0.85)]"
+                style={`transform: translateY(${p.dy}px) rotate(${p.rot}deg);`}
+                loading="lazy"
+                decoding="async"
+              />
+            ))}
           </div>
         </div>
       </div>
 
       <!-- Mobile-only: poster marquee underneath the ticket since the
-           ticket image is too narrow on phones for the inline poster rows -->
+           ticket image is too narrow on phones for the 2×3 inline grid -->
       <div class="md:hidden mt-8 space-y-3">
         <PosterMarquee posters={blockbusterFilms} dir="left" speed={38} client:visible />
       </div>

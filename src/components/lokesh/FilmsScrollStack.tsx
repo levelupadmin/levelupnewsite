@@ -68,7 +68,12 @@ export default function FilmsScrollStack({ posters }: Props) {
     <section
       ref={sectionRef}
       className="relative"
-      style={{ height: `${100 + posters.length * 60}vh` }} // ~60vh of runway per poster
+      // Compact runway: 100vh sticky window + 35vh per ADDITIONAL poster
+      // (poster 0 is the resting state, so subtract 1). Means a 5-poster
+      // deck takes 100 + 4*35 = 240vh — tight enough that the section
+      // doesn't feel like it has dead space, while still giving each
+      // poster a meaningful scroll trigger.
+      style={{ height: `${100 + Math.max(0, posters.length - 1) * 35}vh` }}
     >
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
         <div className="w-full max-w-[1320px] mx-auto px-5 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
