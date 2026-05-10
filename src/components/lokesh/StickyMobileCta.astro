@@ -1,20 +1,12 @@
 ---
 /**
- * Sticky mobile bottom CTA — full-width gold pill anchored to the
- * bottom of every mobile viewport.
- *
- * CRO context (from `Lokesh_CRO_Strategy_HANDOFF.md`):
- *   - 97% of traffic to this page is mobile
- *   - Median scroll depth was 6%; users were bouncing in 16s
- *   - A persistent always-visible CTA captures the click anywhere on
- *     the page, not just at the hero or pricing card
- *
- * Hidden on desktop (md:hidden) — the desktop layout already has the
- * primary CTA in the hero plus 4 inline CTAs scattered down the page.
- *
- * On click, the global UTM-forwarding script in BaseLayout.astro
- * intercepts, appends UTMs from sessionStorage, fires Pixel Lead +
- * InitiateCheckout, then navigates.
+ * Sticky mobile bottom CTA — gold pill anchored to the bottom of the
+ * viewport on mobile. Sits to the LEFT of the global floating WhatsApp
+ * button (which lives at bottom-5 right-5, occupying ~68px on the
+ * right). Hides while a CTA marked `[data-mc-hero-cta]` is on screen
+ * so the user doesn't see two identical buttons at once. Falls back to
+ * always-visible if no hero CTA is marked, so existing pages keep
+ * working unchanged.
  */
 interface Props {
   href: string;
@@ -27,9 +19,10 @@ const { href, price, label, course = "" } = Astro.props;
 const ctaText = label || `Sign Up Now ₹${price.toLocaleString("en-IN")}`;
 ---
 
-<div class="md:hidden fixed bottom-0 inset-x-0 z-[55] px-3 pb-3 pt-2 pointer-events-none">
-  {/* Subtle blur backdrop so content scrolling behind doesn't fight
-      with the CTA — but the CTA itself sits ABOVE the blur. */}
+<div
+  id="mc-sticky-cta"
+  class="md:hidden fixed bottom-0 left-0 right-[76px] z-[55] px-3 pb-3 pt-2 pointer-events-none transition-[opacity,transform] duration-200 ease-out"
+>
   <div
     aria-hidden="true"
     class="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none"
@@ -49,3 +42,57 @@ const ctaText = label || `Sign Up Now ₹${price.toLocaleString("en-IN")}`;
     </svg>
   </a>
 </div>
+
+<script is:inline>
+  (function () {
+    function init() {
+      var bar = document.getElementById("mc-sticky-cta");
+      if (!bar) return;
+      var heroCta = document.querySelector("[data-mc-hero-cta]");
+      var visible = null;
+      function set(v) {
+        if (v === visible) return;
+        visible = v;
+        if (v) {
+          bar.style.opacity = "1";
+          bar.style.transform = "translateY(0)";
+          bar.style.pointerEvents = "auto";
+        } else {
+          bar.style.opacity = "0";
+          bar.style.transform = "translateY(12px)";
+          bar.style.pointerEvents = "none";
+        }
+      }
+      // No hero CTA marked? Just show the sticky always (legacy pages).
+      if (!heroCta) {
+        set(true);
+        return;
+      }
+      function update() {
+        var r = heroCta.getBoundingClientRect();
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+        var heroVisible = r.top < vh && r.bottom > 0;
+        set(!heroVisible);
+      }
+      update();
+      // Lightweight throttle: at most once per ~16ms via setTimeout (rAF
+      // would be nicer but isn't always reliable in headless test envs).
+      var pending = false;
+      function onScroll() {
+        if (pending) return;
+        pending = true;
+        setTimeout(function () {
+          update();
+          pending = false;
+        }, 16);
+      }
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll, { passive: true });
+    }
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  })();
+</script>

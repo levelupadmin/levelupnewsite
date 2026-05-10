@@ -16,7 +16,7 @@ const otherMasterclasses = [
   { name: "DRK Kiran", image: kiranImg, href: "/masterclass/drk-kiran" },
   { name: "Ravi Basrur", image: raviImg, href: "https://masterclass.leveluplearning.in/ravi-basrur" },
   { name: "Lokesh Kanagaraj", image: lokeshImg, href: "https://masterclass.leveluplearning.in/lokesh-kanagaraj" },
-  { name: "Nelson Dilipkumar", image: nelsonImg, href: "https://masterclass.leveluplearning.in/nelson-dilipkumar" },
+  { name: "Nelson Dilipkumar", image: nelsonImg, href: "/masterclass/nelson-dilipkumar" },
 ];
 
 const OtherMasterclasses = ({ currentName }: { currentName: string }) => (
