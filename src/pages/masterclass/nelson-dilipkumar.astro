@@ -276,7 +276,7 @@ const faq = faqJsonLd(faqs);
       <div class="star-bg absolute inset-0 pointer-events-none opacity-70"></div>
 
       <div class="relative w-full">
-        <div class="relative aspect-[393/496] sm:aspect-[16/10] md:aspect-[16/8] lg:aspect-[1440/800] overflow-hidden bg-black">
+        <div class="relative aspect-[393/496] sm:aspect-[16/10] md:aspect-[16/8] lg:aspect-[1440/800] overflow-hidden bg-black bg-cover bg-center" style={`background-image: url(${HERO_POSTER});`}>
           <HeroPlayer src={HERO_VIDEO} poster={HERO_POSTER} ariaLabel="Play Nelson Dilipkumar masterclass hero" client:load />
           <a href="/" aria-label="LevelUp Learning home"
              class="absolute top-5 left-5 md:top-7 md:left-12 z-30 inline-flex items-center">
