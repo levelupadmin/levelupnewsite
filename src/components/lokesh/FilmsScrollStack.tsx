@@ -15,9 +15,11 @@ interface Props {
   subline?: string;
   /** Smaller caption underneath the subline (e.g. "5 films · ₹1,500 crore · 6 years"). */
   caption?: string;
-  /** CTA text + link */
+  /** CTA label — defaults to a generic enrol prompt if omitted. */
   ctaLabel?: string;
-  ctaHref?: string;
+  /** Checkout URL for THIS masterclass. Required to prevent traffic
+   *  silently routing to the wrong product if the prop is forgotten. */
+  ctaHref: string;
 }
 
 /**
@@ -42,8 +44,8 @@ export default function FilmsScrollStack({
   heading = "Director Behind these Blockbuster Films",
   subline = "Maanagaram. Kaithi. Master. Vikram. Leo.",
   caption = "5 films · ₹1,500 crore box office · 6 years.",
-  ctaLabel = "Sign Up Now ₹1,499",
-  ctaHref = "https://study.leveluplearning.in/l/c3acf36794",
+  ctaLabel = "Enrol now",
+  ctaHref,
 }: Props) {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const [progress, setProgress] = useState(0); // 0 → 1 across the runway
