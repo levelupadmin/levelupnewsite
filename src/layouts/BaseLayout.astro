@@ -184,7 +184,7 @@ const allJsonLd = jsonLd
           try { window.clarity && window.clarity("set", "viewed_masterclass", c.slug); } catch (e) {}
         })();
 
-        // Click handler — global. Catches every anchor on every page that
+        // Click handler, global. Catches every anchor on every page that
         // points at a checkout host. Runs in capture phase so it fires before
         // the browser navigates.
         document.addEventListener("click", function (ev) {
@@ -211,7 +211,7 @@ const allJsonLd = jsonLd
           var course = COURSE_MAP[path] || { slug: path.split("/").pop() || "homepage", name: "LevelUp Learning", price: 0 };
           if (!dest.searchParams.has("mc_course")) dest.searchParams.set("mc_course", course.slug);
 
-          // One event ID per click — passed to fbq for client-side dedupe
+          // One event ID per click, passed to fbq for client-side dedupe
           // with TagMango's server-side CAPI fire of the same Lead/IC. Same
           // ID for both events is fine: Meta dedupes on (event_name + event_id)
           // so different event names won't collide. ID is also forwarded on
@@ -269,7 +269,7 @@ const allJsonLd = jsonLd
 
     <slot />
 
-    <!-- Floating WhatsApp button — matches the green-icon style on the Framer
+    <!-- Floating WhatsApp button. Matches the green-icon style on the Framer
          masterclass pages. Pure brand mark, no extra label. -->
     <a
       href="https://api.whatsapp.com/send?phone=919791520177&text=Hi"
