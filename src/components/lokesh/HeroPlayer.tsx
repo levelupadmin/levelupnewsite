@@ -36,6 +36,7 @@ interface Props {
 export default function HeroPlayer({ src, poster, mobileSrc, mobilePoster, ariaLabel }: Props) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const [showHint, setShowHint] = useState(false);
   // Pick mobile src once on mount (avoids SSR mismatch). Default to desktop src.
   const [activeSrc, setActiveSrc] = useState(src);
@@ -47,26 +48,25 @@ export default function HeroPlayer({ src, poster, mobileSrc, mobilePoster, ariaL
     }
   }, [mobileSrc, mobilePoster]);
 
-  // Try a delayed muted autoplay after first paint. Browsers that allow it
-  // (most modern Chrome/Edge/Firefox/Safari with muted) will start the loop;
-  // those that don't (rare) just stay on the poster until tap.
+  // Try muted autoplay immediately on mount. Modern browsers allow muted
+  // autoplay; the play button overlay only renders if autoplay is actually
+  // blocked, so the user never sees a "video isn't ready" flash on the
+  // happy path.
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    const t = setTimeout(() => {
-      v.muted = true;
-      v.play().then(() => {
+    v.muted = true;
+    const p = v.play();
+    if (p && typeof p.then === "function") {
+      p.then(() => {
         setIsPlaying(true);
-        // Show "tap to unmute" hint for 4s once playback starts.
         setShowHint(true);
         setTimeout(() => setShowHint(false), 4500);
       }).catch(() => {
-        // Autoplay blocked — leave poster + tap hint visible
-        setShowHint(true);
+        setAutoplayBlocked(true);
       });
-    }, 1500);
-    return () => clearTimeout(t);
-  }, []);
+    }
+  }, [activeSrc]);
 
   const handleClick = () => {
     const v = videoRef.current;
@@ -105,8 +105,10 @@ export default function HeroPlayer({ src, poster, mobileSrc, mobilePoster, ariaL
         preload="metadata"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       />
-      {/* Centred play indicator visible until the video starts playing */}
-      {!isPlaying && (
+      {/* Play indicator only renders if autoplay is actually blocked (rare).
+          On the happy path, muted autoplay starts immediately and the user
+          never sees an overlay button on top of a half-loaded hero. */}
+      {autoplayBlocked && !isPlaying && (
         <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 inline-flex items-center justify-center h-16 w-16 md:h-20 md:w-20 rounded-full bg-white/95 text-black shadow-[0_10px_30px_rgba(0,0,0,0.45)] pointer-events-none">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
         </span>
