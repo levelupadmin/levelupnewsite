@@ -647,7 +647,12 @@ const faq = faqJsonLd(faqs);
         </a>
       </div>
       <div class="reveal reveal-delay-2">
-        <FAQAccordion faqs={faqs} client:visible />
+        {/* client:load (not visible) so the search input is hydrated and
+            actually filtering the moment it scrolls into view. With
+            client:visible, the IntersectionObserver was firing late
+            enough that taps on the search field landed on a still-static
+            input — search felt broken. */}
+        <FAQAccordion faqs={faqs} client:load />
       </div>
     </section>
 
