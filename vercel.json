@@ -1,22 +1,4 @@
 {
-  "redirects": [
-    {
-      "source": "/",
-      "has": [
-        { "type": "host", "value": "masterclass.leveluplearning.in" }
-      ],
-      "destination": "https://www.leveluplearning.in/masterclass/nelson-dilipkumar",
-      "permanent": false
-    },
-    {
-      "source": "/:path*",
-      "has": [
-        { "type": "host", "value": "masterclass.leveluplearning.in" }
-      ],
-      "destination": "https://www.leveluplearning.in/masterclass/nelson-dilipkumar",
-      "permanent": false
-    }
-  ],
   "headers": [
     {
       "source": "/llms.txt",
