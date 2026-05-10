@@ -299,18 +299,17 @@ const faq = faqJsonLd(faqs);
 
           <div class="mt-6 md:mt-7 flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
             <a href={CTA_HREF} target="_blank" rel="noopener noreferrer"
+               data-mc-hero-cta="true"
                class="buy-pill inline-flex items-center justify-center px-8 py-3.5 md:px-9 md:py-4 rounded-full text-[15px] md:text-[16px]">
               Sign Up Now ₹2,499
             </a>
             <CountdownTimer storageKey="nelson-countdown-v1" client:load />
           </div>
 
-          <div class="mt-5 md:mt-6 flex items-center justify-center gap-2 text-[12px] md:text-[13px] text-white/70">
-            <span class="text-amber-300/95 tracking-tight" aria-hidden="true">★★★★★</span>
-            <span>
-              <span class="font-semibold text-white">4.86/5</span> · Trusted by
-              <span class="font-semibold text-white">18,000+ creators</span> on LevelUp
-            </span>
+          <div class="mt-5 md:mt-6 text-center text-[12px] md:text-[13px] text-white/70 leading-[1.55]">
+            <span class="text-amber-300/95 tracking-tight align-middle mr-1.5" aria-hidden="true">★★★★★</span>
+            <span class="font-semibold text-white align-middle">4.86/5</span>
+            <span class="align-middle"> · Trusted by <span class="font-semibold text-white">18,000+ creators</span> on LevelUp</span>
           </div>
 
           <p class="mt-3 text-[12px] md:text-[13px] text-white/55">
@@ -415,19 +414,43 @@ const faq = faqJsonLd(faqs);
         </h2>
       </div>
 
-      <div class="relative w-full max-w-[920px] mx-auto reveal reveal-delay-2">
-        <div class="relative w-full aspect-square sm:aspect-[5/4] md:aspect-[16/10] mx-auto">
-          {/* Two visible orbit rings — pills sit ON the outer ring so
-              they read as orbiting around the clapperboard */}
+      {/* Mobile: clapperboard centered + 2-col grid of pills below.
+          The orbit metaphor doesn't fit a 375px-wide viewport — pills
+          inevitably overlap the clapperboard. So mobile gets a clean
+          stacked layout; the orbit experience stays a desktop treat. */}
+      <div class="md:hidden max-w-md mx-auto reveal reveal-delay-2">
+        <div class="relative mx-auto w-44 aspect-square mb-7">
+          <div class="absolute inset-0 z-0 pointer-events-none"
+               style="background: radial-gradient(closest-side, rgba(212,163,108,0.32), rgba(212,163,108,0.10) 45%, transparent 75%); filter: blur(14px);"></div>
+          <div class="absolute inset-0 z-10 pointer-events-none mc-rotate-clapper">
+            <img src={CLAPPERBOARD_IMG}
+                 alt="Director's clapperboard — Nelson Dilipkumar masterclass motif"
+                 class="block w-full h-full object-contain"
+                 style="filter: drop-shadow(0 8px 30px rgba(212,163,108,0.55));"
+                 loading="lazy" decoding="async" />
+          </div>
+        </div>
+        <ul class="grid grid-cols-2 gap-3">
+          {["Screenplay Writers", "Cinema Aspirants", "Aspiring Directors", "Filmmakers", "Dialogue Writers", "Film Enthusiasts"].map((label) => (
+            <li class="px-4 py-2.5 rounded-full text-[13px] font-medium text-white text-center bg-[radial-gradient(120%_100%_at_50%_0%,rgba(40,30,18,0.94),rgba(10,8,6,0.97))] border border-white/[0.12] shadow-[0_14px_32px_-14px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.07)] backdrop-blur-sm whitespace-nowrap">
+              {label}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Desktop: orbit + clapperboard + 6 pills positioned around the ring.
+          Static class strings only (Tailwind JIT can't see template-built
+          classes). Pills float-bob individually. */}
+      <div class="hidden md:block relative w-full max-w-[920px] mx-auto reveal reveal-delay-2">
+        <div class="relative w-full aspect-[16/10] mx-auto">
           <div class="mc-orbit-ring outer" style="width: 86%; padding-bottom: 86%; border-color: rgba(212,163,108,0.15);"></div>
           <div class="mc-orbit-ring inner" style="width: 60%; padding-bottom: 60%; border-color: rgba(212,163,108,0.10);"></div>
 
-          {/* Soft gold halo behind the clapperboard (does not rotate) */}
-          <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[55%] md:w-[44%] aspect-square z-0 pointer-events-none"
+          <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[44%] aspect-square z-0 pointer-events-none"
                style="background: radial-gradient(closest-side, rgba(212,163,108,0.32), rgba(212,163,108,0.10) 45%, transparent 75%); filter: blur(14px);"></div>
 
-          {/* Rotating clapperboard */}
-          <div class="absolute left-1/2 top-1/2 w-[42%] md:w-[34%] aspect-square z-10 pointer-events-none mc-rotate-clapper">
+          <div class="absolute left-1/2 top-1/2 w-[34%] aspect-square z-10 pointer-events-none mc-rotate-clapper">
             <img src={CLAPPERBOARD_IMG}
                  alt="Director's clapperboard — Nelson Dilipkumar masterclass motif"
                  class="block w-full h-full object-contain"
@@ -435,21 +458,12 @@ const faq = faqJsonLd(faqs);
                  loading="lazy" decoding="async" />
           </div>
 
-          {/* 6 audience pills positioned ON the outer orbit. Bigger than
-              before (text-[14/16]px) with more padding so they feel
-              substantial. Each pill has a float-bob for life. */}
-          {[
-            { label: "Screenplay Writers", classDesktop: "top-[6%] left-[14%]",                  classMobile: "top-[2%] left-[6%]",                       float: "float-a" },
-            { label: "Cinema Aspirants",   classDesktop: "top-[6%] right-[14%]",                 classMobile: "top-[2%] right-[6%]",                      float: "float-b" },
-            { label: "Aspiring Directors", classDesktop: "top-1/2 -translate-y-1/2 left-[3%]",   classMobile: "top-1/2 -translate-y-1/2 left-[2%]",       float: "float-c" },
-            { label: "Filmmakers",         classDesktop: "top-1/2 -translate-y-1/2 right-[3%]",  classMobile: "top-1/2 -translate-y-1/2 right-[2%]",      float: "float-a" },
-            { label: "Dialogue Writers",   classDesktop: "bottom-[6%] left-[18%]",               classMobile: "bottom-[2%] left-[8%]",                    float: "float-b" },
-            { label: "Film Enthusiasts",   classDesktop: "bottom-[6%] right-[18%]",              classMobile: "bottom-[2%] right-[8%]",                   float: "float-c" },
-          ].map((p) => (
-            <span class={`absolute md:${p.classDesktop} ${p.classMobile} ${p.float} z-20 px-4 py-2 md:px-7 md:py-3.5 rounded-full text-[12px] md:text-[17px] font-medium tracking-[-0.01em] text-white bg-[radial-gradient(120%_100%_at_50%_0%,rgba(40,30,18,0.94),rgba(10,8,6,0.97))] border border-white/[0.12] shadow-[0_14px_32px_-14px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.07)] backdrop-blur-sm whitespace-nowrap`}>
-              {p.label}
-            </span>
-          ))}
+          <span class="absolute top-[6%] left-[14%] float-a z-20 px-7 py-3.5 rounded-full text-[17px] font-medium tracking-[-0.01em] text-white bg-[radial-gradient(120%_100%_at_50%_0%,rgba(40,30,18,0.94),rgba(10,8,6,0.97))] border border-white/[0.12] shadow-[0_14px_32px_-14px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.07)] backdrop-blur-sm whitespace-nowrap">Screenplay Writers</span>
+          <span class="absolute top-[6%] right-[14%] float-b z-20 px-7 py-3.5 rounded-full text-[17px] font-medium tracking-[-0.01em] text-white bg-[radial-gradient(120%_100%_at_50%_0%,rgba(40,30,18,0.94),rgba(10,8,6,0.97))] border border-white/[0.12] shadow-[0_14px_32px_-14px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.07)] backdrop-blur-sm whitespace-nowrap">Cinema Aspirants</span>
+          <span class="absolute top-1/2 -translate-y-1/2 left-[3%] float-c z-20 px-7 py-3.5 rounded-full text-[17px] font-medium tracking-[-0.01em] text-white bg-[radial-gradient(120%_100%_at_50%_0%,rgba(40,30,18,0.94),rgba(10,8,6,0.97))] border border-white/[0.12] shadow-[0_14px_32px_-14px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.07)] backdrop-blur-sm whitespace-nowrap">Aspiring Directors</span>
+          <span class="absolute top-1/2 -translate-y-1/2 right-[3%] float-a z-20 px-7 py-3.5 rounded-full text-[17px] font-medium tracking-[-0.01em] text-white bg-[radial-gradient(120%_100%_at_50%_0%,rgba(40,30,18,0.94),rgba(10,8,6,0.97))] border border-white/[0.12] shadow-[0_14px_32px_-14px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.07)] backdrop-blur-sm whitespace-nowrap">Filmmakers</span>
+          <span class="absolute bottom-[6%] left-[18%] float-b z-20 px-7 py-3.5 rounded-full text-[17px] font-medium tracking-[-0.01em] text-white bg-[radial-gradient(120%_100%_at_50%_0%,rgba(40,30,18,0.94),rgba(10,8,6,0.97))] border border-white/[0.12] shadow-[0_14px_32px_-14px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.07)] backdrop-blur-sm whitespace-nowrap">Dialogue Writers</span>
+          <span class="absolute bottom-[6%] right-[18%] float-c z-20 px-7 py-3.5 rounded-full text-[17px] font-medium tracking-[-0.01em] text-white bg-[radial-gradient(120%_100%_at_50%_0%,rgba(40,30,18,0.94),rgba(10,8,6,0.97))] border border-white/[0.12] shadow-[0_14px_32px_-14px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.07)] backdrop-blur-sm whitespace-nowrap">Film Enthusiasts</span>
         </div>
       </div>
     </section>
