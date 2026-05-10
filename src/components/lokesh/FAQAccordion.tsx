@@ -7,14 +7,14 @@ export interface FAQ {
 }
 
 /**
- * FAQ — redesigned for the Lokesh masterclass page.
+ * FAQ. Redesigned for the Lokesh masterclass page.
  *
  * Old version: 2-col grid of dense accordion cards. Hard to scan, no
  * filtering, no visual emphasis on the open item.
  *
  * New version:
  *   - Search bar at the top filters questions+answers as you type.
- *   - Single-column wider layout (max-w-3xl) — way more readable than
+ *   - Single-column wider layout (max-w-3xl), way more readable than
  *     the cramped 2-col grid.
  *   - Open item gets a gold left-edge accent + amber border + soft
  *     amber inner-shadow so the user always knows what's expanded.
@@ -54,7 +54,7 @@ export default function FAQAccordion({ faqs, courseName }: Props) {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search the FAQ — try 'language', 'certificate', 'refund'…"
+          placeholder="Search the FAQ. Try 'language', 'certificate', 'refund'…"
           aria-label="Search frequently asked questions"
           className="w-full bg-[#0E0E0E] border border-white/10 focus:border-amber-200/40 outline-none rounded-full pl-11 pr-4 py-3 md:py-3.5 text-sm md:text-[15px] text-white placeholder:text-white/30 transition-colors"
         />
@@ -131,7 +131,7 @@ export default function FAQAccordion({ faqs, courseName }: Props) {
         })}
       </div>
 
-      {/* Still have questions — soft fallback to WhatsApp */}
+      {/* Still have questions, soft fallback to WhatsApp */}
       <div className="mt-10 md:mt-14 text-center">
         <p className="text-[13px] md:text-[14px] text-white/55">Still have questions?</p>
         <a
