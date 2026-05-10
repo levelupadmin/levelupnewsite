@@ -22,7 +22,15 @@ export interface FAQ {
  *   - "Still have questions?" footer with a WhatsApp link as a soft
  *     fallback for anyone whose specific Q wasn't answered.
  */
-export default function FAQAccordion({ faqs }: { faqs: FAQ[] }) {
+interface Props {
+  faqs: FAQ[];
+  /** Course name used in the WhatsApp pre-filled message at the bottom
+   *  ("Hi, I have a question about the {courseName}"). Defaults to a
+   *  generic phrasing so the link is never wrong, just less specific. */
+  courseName?: string;
+}
+
+export default function FAQAccordion({ faqs, courseName }: Props) {
   const [openIdx, setOpenIdx] = useState<number | null>(0); // open the first by default
   const [query, setQuery] = useState("");
 
@@ -127,7 +135,11 @@ export default function FAQAccordion({ faqs }: { faqs: FAQ[] }) {
       <div className="mt-10 md:mt-14 text-center">
         <p className="text-[13px] md:text-[14px] text-white/55">Still have questions?</p>
         <a
-          href="https://api.whatsapp.com/send?phone=919791520177&text=Hi%2C%20I%20have%20a%20question%20about%20the%20Lokesh%20Kanagaraj%20Masterclass"
+          href={`https://api.whatsapp.com/send?phone=919791520177&text=${encodeURIComponent(
+            courseName
+              ? `Hi, I have a question about the ${courseName}`
+              : "Hi, I have a question about a LevelUp masterclass"
+          )}`}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-3 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#25D366] text-white text-[13px] md:text-[14px] font-semibold tracking-[0.01em] shadow-[0_8px_24px_-8px_rgba(37,211,102,0.55)] hover:scale-[1.03] transition-transform"
