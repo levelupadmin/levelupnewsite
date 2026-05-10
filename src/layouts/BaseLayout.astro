@@ -210,16 +210,30 @@ const allJsonLd = jsonLd
           var path = window.location.pathname.replace(/\/$/, "");
           var course = COURSE_MAP[path] || { slug: path.split("/").pop() || "homepage", name: "LevelUp Learning", price: 0 };
           if (!dest.searchParams.has("mc_course")) dest.searchParams.set("mc_course", course.slug);
+
+          // One event ID per click — passed to fbq for client-side dedupe
+          // with TagMango's server-side CAPI fire of the same Lead/IC. Same
+          // ID for both events is fine: Meta dedupes on (event_name + event_id)
+          // so different event names won't collide. ID is also forwarded on
+          // the URL as `mc_eid` so TagMango can read it and fire CAPI with
+          // the matching ID.
+          function genEventId() {
+            try { if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID(); } catch (e) {}
+            return "ev-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 12);
+          }
+          var eventId = genEventId();
+          if (!dest.searchParams.has("mc_eid")) dest.searchParams.set("mc_eid", eventId);
           t.href = dest.toString();
 
-          // Fire conversion events BEFORE navigation
+          // Fire conversion events BEFORE navigation. Pass eventID so Meta
+          // can deduplicate against the matching CAPI event from TagMango.
           try {
             window.fbq && window.fbq("track", "Lead", {
               content_name: course.name,
               content_category: "Masterclass",
               value: course.price,
               currency: "INR"
-            });
+            }, { eventID: eventId });
             window.fbq && window.fbq("track", "InitiateCheckout", {
               content_type: "product",
               content_name: course.name,
@@ -228,7 +242,7 @@ const allJsonLd = jsonLd
               value: course.price,
               currency: "INR",
               num_items: 1
-            });
+            }, { eventID: eventId });
           } catch (e) {}
           try { window.clarity && window.clarity("set", "initiate_checkout", course.slug + " | INR " + course.price); } catch (e) {}
         }, true);
