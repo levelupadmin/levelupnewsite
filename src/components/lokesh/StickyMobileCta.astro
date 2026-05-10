@@ -19,22 +19,23 @@ const { href, price, label, course = "" } = Astro.props;
 const ctaText = label || `Sign Up Now ₹${price.toLocaleString("en-IN")}`;
 ---
 
+{/* Bottom-aligned with the global WhatsApp FAB at bottom-5 right-5
+    (BaseLayout). Both pill bottom and FAB bottom sit at 20px from
+    viewport edge so they read as a single bottom-aligned bar. The pill
+    ends at right-[76px] which leaves a 20px gap between its right edge
+    and the FAB's left edge (FAB is 48px wide at right-5). */}
 <div
   id="mc-sticky-cta"
-  class="md:hidden fixed bottom-0 left-0 right-[76px] z-[55] px-3 pb-3 pt-2 pointer-events-none transition-[opacity,transform] duration-200 ease-out"
+  class="md:hidden fixed bottom-5 left-3 right-[76px] z-[55] pointer-events-none transition-[opacity,transform] duration-200 ease-out"
 >
-  <div
-    aria-hidden="true"
-    class="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none"
-  ></div>
   <a
     href={href}
     target="_blank"
     rel="noopener noreferrer"
     data-cta="sticky-mobile-bottom"
     data-mc-course={course}
-    class="relative pointer-events-auto flex items-center justify-center gap-2 w-full py-3.5 px-5 rounded-full text-center font-semibold text-[15px] tracking-[0.01em] text-[#3a1a00] active:scale-[0.99] transition-transform duration-150"
-    style="background: radial-gradient(120% 100% at 50% 0%, #ffe5b8 0%, #e3b671 30%, #c8924d 60%, #8c5e2e 100%); box-shadow: 0 14px 28px -8px rgba(200, 146, 77, 0.6), inset 0 1px 0 rgba(255, 230, 190, 0.85), inset 0 -1px 0 rgba(80, 35, 0, 0.4); touch-action: manipulation; min-height: 50px;"
+    class="relative pointer-events-auto flex items-center justify-center gap-2 w-full py-3 px-5 rounded-full text-center font-semibold text-[15px] tracking-[0.01em] text-[#3a1a00] active:scale-[0.99] transition-transform duration-150"
+    style="background: radial-gradient(120% 100% at 50% 0%, #ffe5b8 0%, #e3b671 30%, #c8924d 60%, #8c5e2e 100%); box-shadow: 0 14px 28px -8px rgba(200, 146, 77, 0.6), inset 0 1px 0 rgba(255, 230, 190, 0.85), inset 0 -1px 0 rgba(80, 35, 0, 0.4); touch-action: manipulation; height: 48px;"
   >
     {ctaText}
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

@@ -48,12 +48,9 @@ export default function LokeshTrailer({ ytId }: { ytId: string }) {
         decoding="async"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10" />
-      <div className="absolute top-4 left-4 md:top-5 md:left-5 inline-flex items-center gap-2.5">
-        <span className="block h-5 w-1 bg-red-500 rounded-sm" />
-        <span className="text-[11px] tracking-[0.22em] uppercase text-white font-semibold">
-          Official Trailer
-        </span>
-      </div>
+      {/* "OFFICIAL TRAILER" overlay removed — the YouTube thumbnail
+          already has it baked into the artwork, so the overlay was
+          duplicating the text. */}
       <div className="absolute inset-0 flex items-center justify-center">
         <span className="inline-flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-full bg-white/95 text-black shadow-[0_8px_24px_rgba(0,0,0,0.45)] transition-transform duration-300 group-hover:scale-110">
           <Play className="w-6 h-6 ml-0.5" fill="currentColor" />
