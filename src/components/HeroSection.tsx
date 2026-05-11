@@ -1,10 +1,12 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { ArrowRight } from "lucide-react";
 import { trackCTAClick } from "@/lib/clarity";
 import MagneticButton from "@/components/MagneticButton";
-import HeroWebGLBackdrop from "@/components/HeroWebGLBackdrop";
 import HeroCarousel from "@/components/HeroCarousel";
 import { AnimatePresence, m } from "framer-motion";
+
+// Lazy-load the canvas-heavy StarField so it doesn't block initial paint.
+const StarField = lazy(() => import("@/components/StarField"));
 
 import { rotatingWords } from "@/data/rotatingWords";
 
@@ -38,10 +40,12 @@ const HeroSection = () => {
       aria-label="Hero"
       className="relative flex flex-col pb-8 md:pb-12"
     >
-      {/* WebGL drifting amber particles backdrop (md+, no reduced-motion).
-          Replaces the legacy StarField — on-brand amber palette, cursor-reactive,
-          intersection-paused. */}
-      <HeroWebGLBackdrop />
+      {/* Animated star field + grain. Cursor-magnetic — stars drift in their
+          natural radial direction by default and deflect toward the pointer
+          when it moves over the hero, easing back when the pointer stops. */}
+      <Suspense fallback={null}>
+        <StarField starCount={750} />
+      </Suspense>
 
       {/* Cinematic gradient background */}
       <div

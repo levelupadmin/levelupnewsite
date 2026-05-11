@@ -11,6 +11,15 @@ const DEFAULT_STAR_COUNT = 250;
 const DEFAULT_MAX_DEPTH = 1000;
 const DEFAULT_SPEED = 0.3;
 
+// Cursor-magnetic tuning.
+// MAGNETIC_RADIUS: how far (px) from the cursor a star starts deflecting.
+// MAGNETIC_PULL: max screen-space deflection (px) at the cursor itself.
+// IDLE_FADE_MS: how long after the cursor stops before the deflection has
+//   decayed to zero, so stars return to their natural drift direction.
+const MAGNETIC_RADIUS = 220;
+const MAGNETIC_PULL = 28;
+const IDLE_FADE_MS = 550;
+
 interface StarFieldProps {
   starCount?: number;
   speed?: number;
@@ -32,6 +41,24 @@ const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: St
     let cachedW = 0;
     let cachedH = 0;
     let isVisible = true;
+
+    // Cursor tracking. cursorX/Y are in canvas-local coordinates.
+    // cursorActive is false until the user moves the pointer at least once
+    // inside the hero — keeps the default behavior pure radial drift.
+    let cursorX = 0;
+    let cursorY = 0;
+    let cursorActive = false;
+    let lastMoveAt = 0;
+
+    const reducedMotionMql =
+      typeof window !== "undefined" && window.matchMedia
+        ? window.matchMedia("(prefers-reduced-motion: reduce)")
+        : null;
+    let reducedMotion = !!reducedMotionMql?.matches;
+    const onReducedMotionChange = (e: MediaQueryListEvent) => {
+      reducedMotion = e.matches;
+    };
+    reducedMotionMql?.addEventListener?.("change", onReducedMotionChange);
 
     // Initialize stars
     const stars: Star[] = Array.from({ length: starCount }, () => ({
@@ -78,6 +105,33 @@ const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: St
     generateGrain();
     window.addEventListener("resize", resize);
 
+    // Pointer tracking is on `window` so the hero gets cursor influence even
+    // when the pointer is over content that sits above the canvas (the canvas
+    // itself is pointer-events: none, so it can't capture moves directly).
+    // We re-project window coords into canvas-local coords for distance math.
+    const handlePointerMove = (e: PointerEvent) => {
+      if (reducedMotion) return;
+      const rect = canvas.getBoundingClientRect();
+      const localX = e.clientX - rect.left;
+      const localY = e.clientY - rect.top;
+      // Only react if the pointer is over (or close to) the hero's bounding
+      // box — avoids the hero "feeling" cursor activity from far down the page.
+      if (
+        localX < -40 ||
+        localX > rect.width + 40 ||
+        localY < -40 ||
+        localY > rect.height + 40
+      ) {
+        cursorActive = false;
+        return;
+      }
+      cursorX = localX;
+      cursorY = localY;
+      cursorActive = true;
+      lastMoveAt = performance.now();
+    };
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+
     let raf: number;
 
     const render = () => {
@@ -87,6 +141,15 @@ const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: St
       const h = cachedH;
       const cx = w / 2;
       const cy = h / 2;
+
+      // Cursor influence decays after the pointer stops moving so stars
+      // smoothly return to their pure radial drift. 1.0 right at a move,
+      // 0.0 once IDLE_FADE_MS has elapsed since the last move.
+      let cursorInfluence = 0;
+      if (cursorActive && !reducedMotion) {
+        const idle = performance.now() - lastMoveAt;
+        cursorInfluence = Math.max(0, 1 - idle / IDLE_FADE_MS);
+      }
 
       ctx.clearRect(0, 0, w, h);
 
@@ -101,8 +164,28 @@ const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: St
         }
 
         const k = 300 / star.z;
-        const sx = cx + star.x * k;
-        const sy = cy + star.y * k;
+        let sx = cx + star.x * k;
+        let sy = cy + star.y * k;
+
+        // Cursor-magnetic deflection (screen-space only — underlying x/y/z
+        // are untouched, so the natural drift direction is preserved and
+        // resumes the moment the pointer stops moving).
+        if (cursorInfluence > 0) {
+          const dx = cursorX - sx;
+          const dy = cursorY - sy;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist > 0.01 && dist < MAGNETIC_RADIUS) {
+            // Smooth falloff toward edge of radius (smoothstep-ish).
+            const t = 1 - dist / MAGNETIC_RADIUS;
+            const falloff = t * t * cursorInfluence;
+            // Closer stars (lower z) get pulled harder so the deflection
+            // reads as parallax depth rather than a flat field shift.
+            const depthBias = 0.4 + (1 - star.z / DEFAULT_MAX_DEPTH) * 0.8;
+            const pull = MAGNETIC_PULL * falloff * depthBias;
+            sx += (dx / dist) * pull;
+            sy += (dy / dist) * pull;
+          }
+        }
 
         if (sx < -10 || sx > w + 10 || sy < -10 || sy > h + 10) continue;
 
@@ -147,9 +230,11 @@ const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: St
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
+      window.removeEventListener("pointermove", handlePointerMove);
+      reducedMotionMql?.removeEventListener?.("change", onReducedMotionChange);
       observer.disconnect();
     };
-  }, []);
+  }, [starCount, speed]);
 
   return (
     <>
