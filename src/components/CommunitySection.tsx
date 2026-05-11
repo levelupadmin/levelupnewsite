@@ -79,7 +79,7 @@ const CommunitySection = () => {
       </div>
 
       <div
-        className="relative overflow-hidden"
+        className="relative overflow-hidden py-6"
         style={{
           maskImage:
             "linear-gradient(to right, transparent, black 5%, black 95%, transparent)",
@@ -89,7 +89,17 @@ const CommunitySection = () => {
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
-        <div className="flex flex-col gap-3">
+        {/* Editorial -2deg tilt across the whole marquee block. Width over-extended
+            to hide the rotated edges. Individual rows still scroll horizontally;
+            hover on a tile lifts it with an amber glow. */}
+        <div
+          className="flex flex-col gap-3 origin-center"
+          style={{
+            transform: "rotate(-2deg)",
+            width: "108%",
+            marginLeft: "-4%",
+          }}
+        >
           {rows.map((row, rowIdx) => (
             <div
               key={rowIdx}
@@ -102,7 +112,7 @@ const CommunitySection = () => {
               {row.images.map((item, i) => (
                 <div
                   key={i}
-                  className="w-[280px] h-[160px] md:w-[380px] md:h-[220px] rounded-lg overflow-hidden group relative flex-shrink-0"
+                  className="community-tile w-[280px] h-[160px] md:w-[380px] md:h-[220px] rounded-lg overflow-hidden group relative flex-shrink-0 transition-[transform,box-shadow] duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_18px_40px_-12px_hsl(28_95%_55%/0.4)]"
                 >
                   <Picture
                     src={item.src}
@@ -111,7 +121,8 @@ const CommunitySection = () => {
                     loading="lazy"
                     decoding="async"
                   />
-                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-lg ring-1 ring-inset ring-primary/30" />
+                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-lg ring-1 ring-inset ring-primary/40" />
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-lg" style={{ boxShadow: "inset 0 0 24px hsl(28 95% 55% / 0.18)" }} />
                 </div>
               ))}
             </div>

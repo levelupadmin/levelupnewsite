@@ -91,9 +91,20 @@ const Footer = () => {
               key={social.label}
               href={social.href}
               aria-label={social.label}
-              className="flex items-center justify-center w-11 h-11 md:w-10 md:h-10 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all duration-300"
+              target={social.href.startsWith("http") ? "_blank" : undefined}
+              rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
+              className="group/social relative flex items-center justify-center w-11 h-11 md:w-10 md:h-10 rounded-full border border-border text-muted-foreground transition-[color,border-color,transform,box-shadow] duration-300 hover:text-primary hover:border-primary/60 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-8px_hsl(28_95%_55%/0.5)] hover:[transform:translateY(-2px)_rotate(-6deg)]"
             >
-              <social.icon size={18} strokeWidth={1.5} />
+              <social.icon
+                size={18}
+                strokeWidth={1.5}
+                className="transition-transform duration-300 group-hover/social:scale-110"
+              />
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 rounded-full opacity-0 group-hover/social:opacity-100 transition-opacity duration-300"
+                style={{ boxShadow: "inset 0 0 12px hsl(28 95% 55% / 0.35)" }}
+              />
             </a>
           ))}
         </div>
