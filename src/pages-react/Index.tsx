@@ -6,7 +6,6 @@ import HeroSection from "@/components/HeroSection";
 import MotionProvider from "@/components/MotionProvider";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import ScrollProgress from "@/components/ScrollProgress";
-import CustomCursor from "@/components/CustomCursor";
 
 // Lazy-load all below-fold sections to minimize initial JS bundle
 const CredibilityCues = lazy(() => import("@/components/CredibilityCues"));
@@ -33,7 +32,6 @@ const Index = () => {
     <MotionProvider>
       <SmoothScrollProvider>
         <ScrollProgress />
-        <CustomCursor />
         <div className="min-h-screen bg-background">
           {/* Skip-to-content link for keyboard users */}
           <a

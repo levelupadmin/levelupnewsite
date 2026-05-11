@@ -63,7 +63,6 @@ const MagneticButton = ({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={style}
-      data-cursor="hover"
     >
       {children}
     </div>
