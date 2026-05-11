@@ -1,24 +1,17 @@
-import { useState, useEffect, useRef, lazy, Suspense } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ArrowRight } from "lucide-react";
 import { trackCTAClick } from "@/lib/clarity";
 import MagneticButton from "@/components/MagneticButton";
+import HeroWebGLBackdrop from "@/components/HeroWebGLBackdrop";
+import HeroCarousel from "@/components/HeroCarousel";
 import { AnimatePresence, m } from "framer-motion";
 
-// Lazy-load heavy hero sub-components to reduce initial JS evaluation
-import HeroCarousel from "@/components/HeroCarousel";
-const StarField = lazy(() => import("@/components/StarField"));
-
 import { rotatingWords } from "@/data/rotatingWords";
-
-
-// No fixed width needed — mode="wait" ensures only one word renders at a time
 
 const HeroSection = () => {
   const [wordIndex, setWordIndex] = useState(0);
   const [wordWidth, setWordWidth] = useState<number | undefined>(undefined);
-  
   const measureRef = useRef<HTMLSpanElement>(null);
-  
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -27,7 +20,6 @@ const HeroSection = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Measure word width after each change and on resize
   const measuredWord = rotatingWords[wordIndex];
   useEffect(() => {
     const updateWidth = () => {
@@ -35,12 +27,10 @@ const HeroSection = () => {
         setWordWidth(measureRef.current.offsetWidth);
       }
     };
-
     updateWidth();
     window.addEventListener("resize", updateWidth);
     return () => window.removeEventListener("resize", updateWidth);
   }, [measuredWord]);
-
 
   return (
     <section
@@ -48,10 +38,10 @@ const HeroSection = () => {
       aria-label="Hero"
       className="relative flex flex-col pb-8 md:pb-12"
     >
-      {/* Animated star field + grain */}
-      <Suspense fallback={null}>
-        <StarField starCount={750} />
-      </Suspense>
+      {/* WebGL drifting amber particles backdrop (md+, no reduced-motion).
+          Replaces the legacy StarField — on-brand amber palette, cursor-reactive,
+          intersection-paused. */}
+      <HeroWebGLBackdrop />
 
       {/* Cinematic gradient background */}
       <div
@@ -71,11 +61,24 @@ const HeroSection = () => {
 
       {/* Headline area */}
       <div className="relative z-10 flex flex-col items-center justify-center pt-24 md:pt-36 lg:pt-40 px-5 md:px-12">
-
-        <h1 className="font-serif-display text-[1.6rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium text-hero-headline text-center tracking-[-0.03em] max-w-5xl text-shadow-hero" style={{ lineHeight: 1.15 }}>
-          <span className="animate-hero-stagger block" style={{ animationDelay: "200ms" }}>Where India's next great</span>
-          <span className="block animate-hero-stagger text-center" style={{ animationDelay: "400ms" }}>
-            <span className="inline-flex max-w-full items-end justify-center gap-[0.2em] flex-wrap sm:flex-nowrap" style={{ lineHeight: 1.15 }}>
+        <h1
+          className="font-serif-display text-[1.6rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium text-hero-headline text-center tracking-[-0.03em] max-w-5xl text-shadow-hero"
+          style={{ lineHeight: 1.15 }}
+        >
+          <span
+            className="animate-hero-stagger block"
+            style={{ animationDelay: "200ms" }}
+          >
+            Where India's next great
+          </span>
+          <span
+            className="block animate-hero-stagger text-center"
+            style={{ animationDelay: "400ms" }}
+          >
+            <span
+              className="inline-flex max-w-full items-end justify-center gap-[0.2em] flex-wrap sm:flex-nowrap"
+              style={{ lineHeight: 1.15 }}
+            >
               {/* Hidden measurer */}
               <span
                 ref={measureRef}
@@ -98,13 +101,14 @@ const HeroSection = () => {
                 <AnimatePresence mode="sync">
                   <m.span
                     key={rotatingWords[wordIndex]}
-                    initial={{ opacity: 0, y: "100%" }}
-                    animate={{ opacity: 1, y: "0%" }}
-                    exit={{ opacity: 0, y: "-100%" }}
-                    transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+                    initial={{ opacity: 0, y: "100%", skewY: 6 }}
+                    animate={{ opacity: 1, y: "0%", skewY: 0 }}
+                    exit={{ opacity: 0, y: "-100%", skewY: -6 }}
+                    transition={{ duration: 0.36, ease: [0.16, 1, 0.3, 1] }}
                     className="absolute left-0 bottom-0 inline-block whitespace-nowrap"
                     style={{
-                      background: "linear-gradient(135deg, hsl(24 100% 58%), hsl(32 100% 65%), hsl(22 100% 55%))",
+                      background:
+                        "linear-gradient(135deg, hsl(24 100% 58%), hsl(32 100% 65%), hsl(22 100% 55%))",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                       backgroundClip: "text",
@@ -120,9 +124,7 @@ const HeroSection = () => {
 
               <em
                 className="font-serif-display not-italic font-medium whitespace-nowrap text-hero-headline"
-                style={{
-                  lineHeight: 1.15,
-                }}
+                style={{ lineHeight: 1.15 }}
               >
                 are made
               </em>
@@ -139,8 +141,11 @@ const HeroSection = () => {
           where you learn, practice, create, and become.
         </p>
 
-        <div className="mt-8 md:mt-10 animate-hero-stagger" style={{ animationDelay: "1000ms" }}>
-          <MagneticButton>
+        <div
+          className="mt-8 md:mt-10 animate-hero-stagger"
+          style={{ animationDelay: "1000ms" }}
+        >
+          <MagneticButton strength={8}>
             <a
               href="#masterclasses"
               onClick={() => trackCTAClick("hero", "See all Programs")}
