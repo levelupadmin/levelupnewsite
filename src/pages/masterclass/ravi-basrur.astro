@@ -7,6 +7,7 @@ import PosterMarquee from "@/components/lokesh/PosterMarquee";
 import HoverPlayVideo from "@/components/lokesh/HoverPlayVideo";
 import HeroPlayer from "@/components/lokesh/HeroPlayer";
 import StickyMobileCta from "@/components/lokesh/StickyMobileCta.astro";
+import CountdownTimer from "@/components/lokesh/CountdownTimer";
 import PageInteractions from "@/components/lokesh/PageInteractions";
 import { courseJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/structuredData";
 
@@ -62,6 +63,16 @@ const whatYouGet = [
   { num: "04", title: "File Management", description: "Understand the concepts behind organizing music libraries & files." },
   { num: "05", title: "Tools & Pro Tips", description: "Demonstration of industry-standard tools & hacks." },
   { num: "06", title: "Personal Tips", description: "Gain knowledge from Ravi's personal experiences & success stories." },
+];
+
+// Outcome strip (CRO P2 from the audit). Frames transformation rather
+// than features. Pulled from the episode content: scoring, Logic Pro X
+// workflow, orchestration with electronic textures, library hygiene.
+const outcomes = [
+  { title: "Score cinematic moments", description: "Build film scores that drive emotion the way KGF, Mufti, and Salaar do." },
+  { title: "Run Logic Pro X end-to-end", description: "Compose, layer, mix, and master inside Logic with Ravi's exact session setup." },
+  { title: "Layer orchestra + electronic", description: "Blend live instruments and electronic textures so they feel organic, not stitched." },
+  { title: "Build a sustainable library", description: "Organise samples, plugins, and presets so you can find anything in seconds." },
 ];
 
 const faqs = [
@@ -169,9 +180,26 @@ const faq = faqJsonLd(faqs);
           <p class="mt-4 md:mt-5 text-[14px] md:text-[15px] lg:text-[17px] leading-[1.55] tracking-[-0.02em] text-[#dfdee2]/75 max-w-[640px] mx-auto">
             Join the first-ever online masterclass of the talented musician hailing from the village of Basrur, who has revolutionized Indian music with chart-topping hits like KGF, Mufti, Ugramm, and Salaar.
           </p>
-          <a href={CTA_HREF} target="_blank" rel="noopener noreferrer" class="buy-pill mt-6 md:mt-7 inline-flex items-center justify-center px-7 py-3 md:px-8 md:py-3.5 rounded-full text-[14px] md:text-[15px]">
-            Buy now at ₹2,499
-          </a>
+
+          {/* Trust strip — social proof above the fold. (CRO P1 from audit) */}
+          <div class="mt-5 md:mt-6 text-[12px] md:text-[13px] text-white/70 leading-[1.6]">
+            <span class="text-amber-300/95 tracking-tight align-middle mr-1.5" aria-hidden="true">★★★★★</span>
+            <span class="font-semibold text-white align-middle">Rated 4.8 out of 5</span>
+            <span class="align-middle"> · <span class="font-semibold text-white">15,000+ enrolled</span> · Lifetime access</span>
+            <span class="block mt-1 text-[11px] md:text-[12px] tracking-[0.18em] uppercase text-white/55">KGF · Salaar · Mufti · Marco</span>
+          </div>
+
+          <div class="mt-6 md:mt-7 flex flex-col items-center gap-2">
+            <a href={CTA_HREF} target="_blank" rel="noopener noreferrer" data-mc-hero-cta="true" class="buy-pill inline-flex items-center justify-center px-7 py-3 md:px-8 md:py-3.5 rounded-full text-[14px] md:text-[15px]">
+              Buy now at ₹2,499
+            </a>
+            <p class="text-[12px] md:text-[13px] text-white/60">
+              <span class="line-through decoration-[1.5px] decoration-white/40 mr-1.5">₹4,999</span>
+              <span class="text-amber-300/95 font-semibold">Save ₹2,500</span>
+              <span class="text-white/40 mx-1.5">·</span>
+              <span>One-time payment, no subscription</span>
+            </p>
+          </div>
         </div>
       </div>
       <div class="h-10 md:h-16"></div>
@@ -200,20 +228,30 @@ const faq = faqJsonLd(faqs);
           <p class="mt-3 text-[12px] md:text-[14px] tracking-[0.32em] uppercase text-[#dfdee2]/60">16 video lessons · 5h 10mins</p>
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-6 md:gap-8">
-          <aside class="rounded-2xl border border-white/[0.08] bg-[#0E0E0E] p-7 md:p-8 h-fit lg:sticky lg:top-6">
-            <p class="font-dm text-[18px] md:text-[20px] font-medium text-white tracking-[-0.04em]">Start your journey for just</p>
-            <div class="mt-3 flex items-end gap-3">
-              <span class="font-poppins text-[34px] md:text-[40px] font-semibold text-white tracking-[-0.06em] leading-none">₹2,499</span>
+          <aside class="rounded-2xl border border-amber-200/15 bg-[#0E0E0E] p-7 md:p-8 h-fit lg:sticky lg:top-6">
+            <p class="font-dm text-[16px] md:text-[18px] font-medium text-white/85 tracking-[-0.02em]">Start your journey for just</p>
+            <div class="mt-3 flex items-baseline gap-3">
+              <span class="font-poppins text-[44px] md:text-[56px] font-bold text-white tracking-[-0.04em] leading-none">₹2,499</span>
+              <span class="text-[20px] md:text-[24px] text-white/40 line-through decoration-amber-300/70 decoration-2 tracking-[-0.04em]">₹4,999</span>
             </div>
-            <a href={CTA_HREF} target="_blank" rel="noopener noreferrer" class="buy-pill mt-5 inline-flex w-full items-center justify-center px-5 py-3 rounded-full text-[14px]">Buy now at ₹2,499</a>
+            <p class="mt-2 inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-amber-300/12 border border-amber-300/25 text-[11px] md:text-[12px] font-semibold tracking-tight text-amber-300/95">
+              SAVE ₹2,500 · 50% OFF
+            </p>
+            <a href={CTA_HREF} target="_blank" rel="noopener noreferrer" class="buy-pill mt-5 inline-flex w-full items-center justify-center px-5 py-3.5 rounded-full text-[14px] md:text-[15px]">
+              Buy now at ₹2,499
+            </a>
+            <div class="mt-3 flex justify-center">
+              <CountdownTimer storageKey="ravi-countdown-v1" tone="alert" client:load />
+            </div>
+            <p class="mt-3 text-center text-[12px] text-white/55">One-time payment. No subscription, no renewal.</p>
             <hr class="my-6 border-white/[0.08]" />
-            <p class="text-[18px] md:text-[20px] font-medium text-[#dfdee2] tracking-[-0.06em]">What You'll Get?</p>
+            <p class="text-[18px] md:text-[20px] font-medium text-[#dfdee2] tracking-[-0.04em]">What You'll Get</p>
             <ul class="mt-4 space-y-3 text-[14px] md:text-[15px] text-white/85">
               <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>16 video lessons (5h 10mins)</span></li>
-              <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>Certificate of completion</span></li>
+              <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>Certificate signed by Ravi Basrur</span></li>
               <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>Free access to Cine Circle community</span></li>
+              <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>100% money-back guarantee</span></li>
               <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>No prior experience required</span></li>
-              <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>Practical, actionable lessons</span></li>
             </ul>
           </aside>
           <div><EpisodeAccordion episodes={episodes} initialVisible={5} client:visible /></div>
@@ -258,6 +296,31 @@ const faq = faqJsonLd(faqs);
             </div>
           ))}
         </div>
+      </div>
+    </section>
+
+    <!-- Outcomes (CRO P2 from audit). Outcome framing > feature framing.
+         Lists what the buyer will BE ABLE TO DO after the course. -->
+    <section class="relative px-5 md:px-12 py-14 md:py-20">
+      <div class="max-w-[1180px] mx-auto">
+        <div class="text-center mb-10 md:mb-12">
+          <p class="font-cinzel text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Outcomes</p>
+          <div class="my-4 section-tick"></div>
+          <h2 class="font-cinzel text-gold text-[28px] md:text-[38px] lg:text-[46px] leading-[1.1] tracking-[-0.04em] font-semibold">
+            BY THE END, YOU'LL BE ABLE TO
+          </h2>
+        </div>
+        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-w-[1085px] mx-auto">
+          {outcomes.map((o, i) => (
+            <li class="rounded-xl border border-white/[0.10] bg-[#0E0E0E] p-5 md:p-6 lift flex gap-4 md:gap-5">
+              <span class="font-cinzel text-[28px] md:text-[34px] text-gold leading-none shrink-0">0{i + 1}</span>
+              <div>
+                <h3 class="text-[17px] md:text-[20px] font-semibold text-white leading-[1.25] tracking-[-0.02em]">{o.title}</h3>
+                <p class="mt-1.5 text-[14px] md:text-[15px] text-[#a3a3a3] leading-[1.5]">{o.description}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
 
