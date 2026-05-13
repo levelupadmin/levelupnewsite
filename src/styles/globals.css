@@ -1050,14 +1050,24 @@
 }
 
 
+/* Logo marquee items.
+   Start at opacity:0 so an unloaded <img> doesn't render as a solid
+   white box (the `brightness(0) invert(1)` inline filter inverts an
+   empty element to pure white, which was the flash users were seeing).
+   The img's onLoad handler adds .logo-loaded once the SVG/PNG is
+   actually decoded, at which point we fade to the resting opacity. */
 .logo-marquee-item {
-  opacity: 0.5;
+  opacity: 0;
   filter: grayscale(1) brightness(1.5);
   mix-blend-mode: screen;
   transition: opacity 0.4s ease, filter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.logo-marquee-item:hover {
+.logo-marquee-item.logo-loaded {
+  opacity: 0.5;
+}
+
+.logo-marquee-item.logo-loaded:hover {
   opacity: 1;
   filter: grayscale(0) brightness(1.1);
 }

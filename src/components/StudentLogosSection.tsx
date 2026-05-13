@@ -160,14 +160,26 @@ const StudentLogosSection = () => {
                 style={{ animation: row.animation }}
               >
                 {[...row.brands, ...row.brands].map((brand, i) => (
+                  // `loading="eager"` because each logo is 2–15 KB
+                  // (mostly SVG) and the marquee animation scrolls
+                  // even off-screen logos into view within seconds,
+                  // making lazy-load defeat its own purpose.
+                  // The `filter: brightness(0) invert(1)` mask renders
+                  // an unloaded `<img>` as a SOLID WHITE BOX (the empty
+                  // element inverts to white), which was the visible
+                  // flash users were reporting. Eager-load + the
+                  // .logo-marquee-item opacity-0-until-loaded CSS
+                  // below remove that flash entirely.
                   <Picture
                     key={`${brand.name}-${i}`}
                     src={brand.logo}
                     alt={brand.name}
                     className="h-7 md:h-12 lg:h-14 max-w-[80px] md:max-w-[140px] lg:max-w-[160px] w-auto object-contain select-none logo-marquee-item"
                     style={{ filter: "brightness(0) invert(1)" }}
-                    loading="lazy"
+                    loading="eager"
                     decoding="async"
+                    fetchPriority="low"
+                    onLoad={(e) => { (e.currentTarget as HTMLImageElement).classList.add('logo-loaded'); }}
                   />
                 ))}
               </div>
