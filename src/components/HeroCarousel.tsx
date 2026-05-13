@@ -35,8 +35,18 @@ const HeroCarousel = () => {
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Mark visible immediately — carousel is above the fold
-  useEffect(() => { setIsVisible(true); }, []);
+  // Mark visible immediately — carousel is above the fold. Kick the
+  // first video into play() ASAP rather than waiting for the embla
+  // selected-index effect (which sometimes fires several hundred ms
+  // late on slow devices).
+  useEffect(() => {
+    setIsVisible(true);
+    const first = videoRefs.current[0];
+    if (first) {
+      first.muted = true;
+      first.play().catch(() => {});
+    }
+  }, []);
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
@@ -113,7 +123,13 @@ const HeroCarousel = () => {
                     }}
                   />
 
-                  {/* Only render videos when carousel is visible */}
+                  {/* First slide gets eager metadata fetch so play() can
+                      start the moment the user lands on the page. The
+                      previous `preload="none"` meant the browser fetched
+                      nothing until the visibility effect fired, which on a
+                      slow connection delayed autoplay by several seconds.
+                      Slides 1+ keep preload="none" — they're activated by
+                      the active-slide useEffect below. */}
                   <video
                     ref={(el) => { videoRefs.current[index] = el; }}
                     src={slide.video}
@@ -121,7 +137,8 @@ const HeroCarousel = () => {
                     muted
                     loop
                     playsInline
-                    preload="none"
+                    preload={index === 0 ? "metadata" : "none"}
+                    {...(index === 0 ? { fetchPriority: "high" as const } : {})}
                     className={`w-full aspect-[16/9] object-center bg-card ${index === 0 ? 'object-cover scale-[1.15]' : index === 2 ? 'object-cover' : 'object-contain'}`}
                   />
                 </div>
