@@ -62,8 +62,8 @@ const allJsonLd = jsonLd
       <link
         rel="preload"
         as="image"
-        href={preloadImage.replace(/\.(jpe?g|png)(\?.*)?$/i, ".avif")}
-        type="image/avif"
+        href={import.meta.env.PROD ? preloadImage.replace(/\.(jpe?g|png)(\?.*)?$/i, ".avif") : preloadImage}
+        type={import.meta.env.PROD ? "image/avif" : undefined}
         fetchpriority="high"
       />
     )}

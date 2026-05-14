@@ -369,7 +369,7 @@ const TestimonialsSection = () => {
     <section
       id="testimonials"
       aria-label="Student testimonials"
-      className="relative bg-background py-16 md:py-24 overflow-hidden"
+      className="relative scroll-mt-24 overflow-hidden bg-background py-16 md:py-24"
     >
       <AccentLine />
 

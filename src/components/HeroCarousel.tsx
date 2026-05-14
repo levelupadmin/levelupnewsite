@@ -14,7 +14,7 @@ import heroPoster6 from "@/assets/hero-poster-6.jpg";
 const slides = [
   {
     video: "/videos/masterclass-trailer.mp4",
-    poster: "/images/hero-poster-1.avif",
+    poster: import.meta.env.PROD ? "/images/hero-poster-1.avif" : "/images/hero-poster-1.jpg",
     posterFallback: "/images/hero-poster-1.jpg",
     alt: "Masterclass trailer - LevelUp filmmaking showcase",
   },

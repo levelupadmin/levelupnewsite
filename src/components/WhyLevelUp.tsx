@@ -85,7 +85,7 @@ const WhyLevelUp = () => {
     <section
       id="why-levelup"
       aria-label="Why choose LevelUp"
-      className="relative py-12 md:py-16 overflow-hidden"
+      className="relative scroll-mt-24 overflow-hidden py-16 md:py-24"
     >
       {/* Subtle top divider */}
       <div
@@ -98,11 +98,11 @@ const WhyLevelUp = () => {
       {/* Headline */}
       <FadeInSection className="max-w-7xl mx-auto px-6 md:px-12 mb-10 md:mb-14">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 md:gap-12">
-          <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-medium text-hero-headline leading-[1.15] tracking-tight max-w-lg">
+          <h2 className="font-serif-display text-3xl font-semibold text-hero-headline sm:text-4xl md:text-5xl lg:text-[3.25rem] max-w-lg" style={{ lineHeight: 1.08, letterSpacing: 0 }}>
             Where creators stop consuming{" "}
             <span className="text-gradient-amber">and start building.</span>
           </h2>
-          <p className="font-sans-body text-sm md:text-base text-hero-subtext leading-relaxed max-w-sm md:pb-2">
+          <p className="font-sans-body text-sm md:text-base text-hero-subtext leading-relaxed max-w-sm md:pb-2" style={{ letterSpacing: 0 }}>
             Mentors who've done the work. Projects that prove yours. A community that won't let you coast.
           </p>
         </div>

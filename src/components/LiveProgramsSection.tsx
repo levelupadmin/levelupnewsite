@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import FadeInSection from "./FadeInSection";
 import AccentLine from "./AccentLine";
 import { AnimatedCounter } from "./AnimatedCounter";
-import { ArrowRight, ChevronLeft, ChevronRight, Check } from "lucide-react";
+import { ArrowRight, CalendarDays, ChevronLeft, ChevronRight, Check } from "lucide-react";
 import { trackCTAClick } from "@/lib/clarity";
 import { showcasePrograms } from "@/data/programs";
 
@@ -28,9 +28,9 @@ const testimonials = [
 ];
 
 const stats = [
-  { value: 750, suffix: "+", label: "Learners" },
-  { value: 40, suffix: "+", label: "Industry Mentors" },
-  { value: 0, suffix: "", label: "Weekends Only", isText: true },
+  { value: 750, suffix: "+", label: "Learners", icon: null },
+  { value: 40, suffix: "+", label: "Industry Mentors", icon: null },
+  { value: 0, suffix: "", label: "Weekends Only", icon: CalendarDays },
 ];
 
 const cardVariants = {
@@ -114,7 +114,7 @@ const LiveProgramsSection = () => {
     <section
       id="live-programs"
       aria-label="LevelUp LIVE cohort programs"
-      className="relative py-16 md:py-24"
+      className="relative scroll-mt-24 py-16 md:py-24"
       style={{ background: "hsl(22 14% 5%)" }}
     >
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(coursesJsonLd) }} />
@@ -130,7 +130,7 @@ const LiveProgramsSection = () => {
 
         {/* Heading with rotating word */}
         <FadeInSection className="text-center mb-5" delay={60}>
-          <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.15] tracking-tight">
+          <h2 className="font-serif-display text-3xl font-semibold text-foreground sm:text-4xl md:text-5xl lg:text-6xl" style={{ lineHeight: 1.12, letterSpacing: 0 }}>
             <span>From Learner to </span>
             <span className="inline-block relative overflow-hidden align-bottom" style={{ minWidth: "4ch" }}>
               <AnimatePresence mode="wait">
@@ -153,7 +153,7 @@ const LiveProgramsSection = () => {
 
         {/* Subheading */}
         <FadeInSection className="text-center mb-10 md:mb-14" delay={120}>
-          <p className="font-sans-body text-sm md:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          <p className="font-sans-body text-sm md:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed" style={{ letterSpacing: 0 }}>
             LIVE mentorship cohorts designed for one thing : taking you from "I know about it" to "I can actually do
             it." With industry mentors, live feedback, real work, and placement assistance to get you where you want to
             be.
@@ -164,15 +164,15 @@ const LiveProgramsSection = () => {
         <FadeInSection delay={180}>
           <div className="grid grid-cols-3 gap-4 md:gap-6 mb-14 md:mb-20 max-w-lg mx-auto">
             {stats.map((stat, i) => (
-              <div key={stat.label} className="text-center py-4 px-3 rounded-xl border border-border/50 bg-card/40">
-                <div className="font-serif-display text-2xl md:text-3xl font-bold text-foreground mb-1">
-                  {stat.isText ? (
-                    <span>🗓️</span>
+              <div key={stat.label} className="text-center py-4 px-3 rounded-lg border border-border/50 bg-card/40">
+                <div className="mb-1 flex min-h-[36px] items-center justify-center font-serif-display text-2xl font-semibold text-foreground md:text-3xl" style={{ letterSpacing: 0 }}>
+                  {stat.icon ? (
+                    <stat.icon className="h-7 w-7 text-primary" />
                   ) : (
                     <AnimatedCounter target={stat.value} suffix={stat.suffix} delay={i * 100} />
                   )}
                 </div>
-                <div className="font-sans-body text-xs text-muted-foreground tracking-wide">{stat.label}</div>
+                <div className="font-sans-body text-xs text-muted-foreground" style={{ letterSpacing: 0 }}>{stat.label}</div>
               </div>
             ))}
           </div>

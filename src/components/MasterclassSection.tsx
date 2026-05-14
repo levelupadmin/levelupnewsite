@@ -105,7 +105,7 @@ const MasterclassCard = ({ mc }: { mc: typeof masterclasses[0] }) => {
     <Wrapper
       {...(linkProps as any)}
       onClick={() => trackCTAClick("masterclass", mc.name)}
-      className="group relative cursor-pointer block transition-transform duration-500 ease-out"
+      className="group relative block cursor-pointer transition-transform duration-500 ease-out"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ willChange: 'transform' }}
@@ -119,6 +119,20 @@ const MasterclassCard = ({ mc }: { mc: typeof masterclasses[0] }) => {
           decoding="async"
         />
         <div className="absolute inset-0 rounded-sm ring-1 ring-inset ring-white/0 group-hover:ring-primary/40 transition-all duration-500 pointer-events-none" />
+      </div>
+      <div className="mt-3 flex items-start justify-between gap-3">
+        <div>
+          <p className="font-sans-body text-[11px] uppercase text-primary/75" style={{ letterSpacing: 0 }}>
+            {mc.category} · {mc.format}
+          </p>
+          <h3 className="mt-1 font-serif-display text-base font-semibold leading-tight text-foreground md:text-lg" style={{ letterSpacing: 0 }}>
+            {mc.name}
+          </h3>
+          <p className="mt-1 line-clamp-2 font-sans-body text-xs leading-relaxed text-muted-foreground md:text-sm" style={{ letterSpacing: 0 }}>
+            {mc.descriptor}
+          </p>
+        </div>
+        <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-muted-foreground transition-all duration-300 group-hover:translate-x-1 group-hover:text-primary" />
       </div>
     </Wrapper>
   );
@@ -144,12 +158,23 @@ const ComingSoonCard = () => (
         </p>
       </div>
     </div>
+    <div className="mt-3">
+      <p className="font-sans-body text-[11px] uppercase text-primary/75" style={{ letterSpacing: 0 }}>
+        New mentor
+      </p>
+      <h3 className="mt-1 font-serif-display text-base font-semibold leading-tight text-foreground md:text-lg" style={{ letterSpacing: 0 }}>
+        Coming Soon
+      </h3>
+      <p className="mt-1 font-sans-body text-xs leading-relaxed text-muted-foreground md:text-sm" style={{ letterSpacing: 0 }}>
+        New masterclass dropping soon.
+      </p>
+    </div>
   </div>
 );
 
 const MasterclassSection = () => {
   return (
-    <section id="masterclasses" aria-label="Masterclasses" className="relative bg-background py-12 md:py-16">
+    <section id="masterclasses" aria-label="Masterclasses" className="relative scroll-mt-24 bg-background py-16 md:py-24">
       <AccentLine />
 
       {/* Subtle top glow */}
@@ -161,27 +186,24 @@ const MasterclassSection = () => {
         }}
       />
 
-      {/* Section tag */}
-      <FadeInSection className="text-center px-6 md:px-12 mb-4">
-        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-[11px] tracking-[0.18em] uppercase font-sans-body text-primary/80">
-          On-Demand Masterclasses
-        </span>
-      </FadeInSection>
-
-      {/* Section headline */}
-      <FadeInSection className="text-center px-6 md:px-12 mb-10 md:mb-14" delay={80}>
-        <h2 className="font-serif-display text-[1.6rem] sm:text-4xl md:text-5xl lg:text-6xl font-medium text-hero-headline tracking-[-0.03em] max-w-3xl mx-auto" style={{ lineHeight: 1.15 }}>
-           <span>India's greatest creative minds.</span>{' '}
-           <em className="not-italic font-normal text-gradient-amber">Now your mentors.</em>
-        </h2>
-        <p className="font-sans-body text-sm md:text-base text-hero-subtext mt-5 md:mt-7 max-w-md mx-auto leading-relaxed tracking-[0.015em]">
+      <FadeInSection className="mx-auto mb-10 flex max-w-7xl flex-col gap-5 px-6 md:mb-14 md:flex-row md:items-end md:justify-between md:px-12" delay={80}>
+        <div>
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3.5 py-1.5 font-sans-body text-[11px] uppercase text-primary/80" style={{ letterSpacing: 0 }}>
+            On-Demand Masterclasses
+          </span>
+          <h2 className="mt-5 max-w-4xl font-serif-display text-[2.4rem] font-semibold text-hero-headline sm:text-5xl md:text-6xl" style={{ lineHeight: 1.04, letterSpacing: 0 }}>
+             <span>India's greatest creative minds.</span>{" "}
+             <em className="not-italic font-normal text-gradient-amber">Now your mentors.</em>
+          </h2>
+        </div>
+        <p className="max-w-sm font-sans-body text-sm leading-relaxed text-hero-subtext md:text-base" style={{ letterSpacing: 0 }}>
           Cinematic, in-depth courses you can start today and revisit forever.
         </p>
       </FadeInSection>
 
       {/* Masterclass cards — grid layout */}
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-6">
+        <div className="grid grid-cols-2 gap-x-5 gap-y-9 sm:grid-cols-3 lg:grid-cols-4 md:gap-x-6 md:gap-y-11">
           {masterclasses.map((mc, i) => (
             <FadeInSection key={mc.name} delay={i * 80}>
               <MasterclassCard mc={mc} />
@@ -193,7 +215,16 @@ const MasterclassSection = () => {
         </div>
       </div>
 
-      {/* Soft CTA */}
+      <FadeInSection delay={500} className="mx-auto mt-10 flex max-w-7xl px-6 md:px-12">
+        <a
+          href="#live-programs"
+          onClick={() => trackCTAClick("masterclass", "Continue to Live Programs")}
+          className="group inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 font-sans-body text-sm text-foreground transition-colors duration-300 hover:border-primary/40 hover:text-primary"
+        >
+          Continue to live cohorts
+          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+        </a>
+      </FadeInSection>
     </section>
   );
 };

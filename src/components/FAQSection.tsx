@@ -94,7 +94,7 @@ const FAQSection = () => {
   };
 
   return (
-    <section id="faq" aria-label="Frequently asked questions" className="relative py-12 md:py-16 overflow-hidden">
+    <section id="faq" aria-label="Frequently asked questions" className="relative scroll-mt-24 overflow-hidden py-16 md:py-24">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />

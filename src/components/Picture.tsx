@@ -4,6 +4,7 @@ interface PictureProps extends ImgHTMLAttributes<HTMLImageElement> {
   src: string;
   alt: string;
   raw?: boolean;
+  fetchPriority?: "high" | "low" | "auto";
 }
 
 export function Picture({
@@ -14,9 +15,12 @@ export function Picture({
   decoding = "async",
   className,
   style,
+  fetchPriority,
   ...rest
 }: PictureProps) {
-  if (raw || !/\.(png|jpe?g)(\?.*)?$/i.test(src)) {
+  const shouldUseGeneratedSiblings = import.meta.env.PROD;
+
+  if (raw || !shouldUseGeneratedSiblings || !/\.(png|jpe?g)(\?.*)?$/i.test(src)) {
     return (
       <img
         src={src}
@@ -25,6 +29,7 @@ export function Picture({
         decoding={decoding}
         className={className}
         style={style}
+        {...(fetchPriority ? { fetchpriority: fetchPriority } : {})}
         {...rest}
       />
     );
@@ -45,6 +50,7 @@ export function Picture({
         decoding={decoding}
         className={className}
         style={style}
+        {...(fetchPriority ? { fetchpriority: fetchPriority } : {})}
         {...rest}
       />
     </picture>

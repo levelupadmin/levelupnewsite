@@ -123,7 +123,7 @@ const StudentLogosSection = () => {
     <section
       id="student-logos"
       aria-label="LevelUp credibility and community"
-      className="relative"
+      className="relative scroll-mt-24"
     >
       <ImpactBentoGrid />
 

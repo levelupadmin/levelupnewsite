@@ -134,7 +134,7 @@ const ForgeSection = () => {
     <section
       id="forge"
       aria-label="The Forge residency"
-      className="relative py-12 md:py-16 overflow-hidden bg-background">
+      className="relative scroll-mt-24 overflow-hidden bg-background py-16 md:py-24">
 
       <AccentLine gradient="linear-gradient(90deg, transparent 10%, hsl(var(--accent-forge)) 50%, transparent 90%)" />
 

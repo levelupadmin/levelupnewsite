@@ -27,7 +27,7 @@ const disciplines = [
 
 const TrustedCTASection = () => {
   return (
-    <section id="trusted-cta" className="relative py-16 md:py-24 px-6 md:px-12 overflow-hidden bg-background">
+    <section id="trusted-cta" className="relative scroll-mt-24 overflow-hidden bg-background px-6 py-16 md:px-12 md:py-24">
       <AccentLine gradient="linear-gradient(90deg, transparent 20%, hsl(38 75% 55% / 0.5) 50%, transparent 80%)" className="w-48 left-1/2 -translate-x-1/2 right-auto" />
 
       {/* Radial amber glow */}

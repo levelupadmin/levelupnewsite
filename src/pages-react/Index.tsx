@@ -4,6 +4,7 @@ import { useSectionViewTracking } from "@/hooks/useSectionViewTracking";
 import usePageSeo from "@/hooks/usePageSeo";
 import HeroSection from "@/components/HeroSection";
 import MotionProvider from "@/components/MotionProvider";
+import SectionLabel from "@/components/SectionLabel";
 
 // Lazy-load all below-fold sections to minimize initial JS bundle
 const CredibilityCues = lazy(() => import("@/components/CredibilityCues"));
@@ -38,6 +39,7 @@ const Index = () => {
         </a>
 
         <Navbar />
+        <SectionLabel />
 
         <main id="main-content">
           <HeroSection />
