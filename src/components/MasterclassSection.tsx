@@ -73,7 +73,7 @@ const masterclasses = [
   },
 ];
 
-const MasterclassCard = ({ mc }: { mc: typeof masterclasses[0] }) => {
+const MasterclassCard = ({ mc, featured = false }: { mc: typeof masterclasses[0]; featured?: boolean }) => {
   const rafId = useRef<number | null>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -110,7 +110,7 @@ const MasterclassCard = ({ mc }: { mc: typeof masterclasses[0] }) => {
       onMouseLeave={handleMouseLeave}
       style={{ willChange: 'transform' }}
     >
-      <div className="relative aspect-[3/4] overflow-hidden rounded-sm bg-card shadow-md transition-shadow duration-500 group-hover:shadow-[0_0_20px_2px_hsl(38_75%_55%/0.35)]">
+      <div className={`relative overflow-hidden rounded-sm bg-card shadow-md transition-shadow duration-500 group-hover:shadow-[0_0_20px_2px_hsl(38_75%_55%/0.35)] ${featured ? "aspect-[5/4] md:aspect-[16/10]" : "aspect-[3/4]"}`}>
         <Picture
           src={mc.image}
           alt={`Portrait of ${mc.name}, ${mc.format} at LevelUp Learning`}
@@ -118,9 +118,25 @@ const MasterclassCard = ({ mc }: { mc: typeof masterclasses[0] }) => {
           loading="lazy"
           decoding="async"
         />
+        {featured && (
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
+        )}
         <div className="absolute inset-0 rounded-sm ring-1 ring-inset ring-white/0 group-hover:ring-primary/40 transition-all duration-500 pointer-events-none" />
+        {featured && (
+          <div className="absolute bottom-0 left-0 right-0 p-5 md:p-7">
+            <p className="font-sans-body text-[11px] uppercase text-primary" style={{ letterSpacing: 0 }}>
+              {mc.category} · {mc.format}
+            </p>
+            <h3 className="mt-2 font-serif-display text-3xl font-semibold leading-tight text-white md:text-5xl" style={{ letterSpacing: 0 }}>
+              {mc.name}
+            </h3>
+            <p className="mt-3 max-w-sm font-sans-body text-sm leading-relaxed text-white/64" style={{ letterSpacing: 0 }}>
+              {mc.descriptor}
+            </p>
+          </div>
+        )}
       </div>
-      <div className="mt-3 flex items-start justify-between gap-3">
+      <div className={`${featured ? "hidden" : "mt-3 flex"} items-start justify-between gap-3`}>
         <div>
           <p className="font-sans-body text-[11px] uppercase text-primary/75" style={{ letterSpacing: 0 }}>
             {mc.category} · {mc.format}
@@ -203,13 +219,17 @@ const MasterclassSection = () => {
 
       {/* Masterclass cards — grid layout */}
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-2 gap-x-5 gap-y-9 sm:grid-cols-3 lg:grid-cols-4 md:gap-x-6 md:gap-y-11">
+        <div className="grid grid-cols-2 gap-x-5 gap-y-9 md:grid-cols-6 md:gap-x-6 md:gap-y-11">
           {masterclasses.map((mc, i) => (
-            <FadeInSection key={mc.name} delay={i * 80}>
-              <MasterclassCard mc={mc} />
+            <FadeInSection
+              key={mc.name}
+              delay={i * 80}
+              className={i < 2 ? "col-span-2 md:col-span-3" : "col-span-1 md:col-span-2"}
+            >
+              <MasterclassCard mc={mc} featured={i < 2} />
             </FadeInSection>
           ))}
-          <FadeInSection delay={masterclasses.length * 80}>
+          <FadeInSection delay={masterclasses.length * 80} className="col-span-2 md:col-span-2">
             <ComingSoonCard />
           </FadeInSection>
         </div>
