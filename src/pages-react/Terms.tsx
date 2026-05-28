@@ -259,7 +259,7 @@ const Terms = () => {
               You may delete your account at any time from your profile page at{" "}
               <a className="text-primary hover:underline" href="https://app.leveluplearning.in/profile">app.leveluplearning.in/profile</a>,
               from within our iOS or Android app, or by emailing{" "}
-              <a className="text-primary hover:underline" href="mailto:privacy@leveluplearning.in">privacy@leveluplearning.in</a>.
+              <a className="text-primary hover:underline" href="mailto:admin@leveluplearning.in">admin@leveluplearning.in</a>.
               Deletion is processed within 30 days. See our{" "}
               <Link to="/privacy-policy" className="text-primary hover:underline">Privacy Policy → Section 9</Link>{" "}
               for the full process and what data is retained for legal compliance.

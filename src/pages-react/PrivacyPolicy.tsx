@@ -252,7 +252,7 @@ const PrivacyPolicy = () => {
             </div>
             <p className="mt-4">
               To exercise any of these rights, email{" "}
-              <a href="mailto:privacy@leveluplearning.in" className="text-primary hover:underline">privacy@leveluplearning.in</a>{" "}
+              <a href="mailto:admin@leveluplearning.in" className="text-primary hover:underline">admin@leveluplearning.in</a>{" "}
               or use the in-app controls described in the next section. We'll respond within 30 days.
             </p>
           </section>
@@ -273,7 +273,7 @@ const PrivacyPolicy = () => {
             <p className="mb-3">
               <strong className="text-foreground">By email:</strong> send a deletion request from your registered
               email address to{" "}
-              <a href="mailto:privacy@leveluplearning.in" className="text-primary hover:underline">privacy@leveluplearning.in</a>{" "}
+              <a href="mailto:admin@leveluplearning.in" className="text-primary hover:underline">admin@leveluplearning.in</a>{" "}
               with the subject "Delete my account". We'll confirm within 7 days and complete deletion within 30.
             </p>
             <p>
@@ -333,8 +333,8 @@ const PrivacyPolicy = () => {
           <section id="grievance" className="border-b border-border pb-8 mb-8">
             <h2 className="text-xl font-semibold text-foreground mb-3">14. Grievance officer (DPDP Act, India)</h2>
             <div className="bg-muted/50 border-l-2 border-primary p-4 rounded">
-              <p className="mb-2 text-foreground"><strong>Grievance Officer:</strong> Rahul Srinivas</p>
-              <p className="mb-2 text-foreground"><strong>Email:</strong> <a href="mailto:privacy@leveluplearning.in" className="text-primary hover:underline">privacy@leveluplearning.in</a></p>
+              <p className="mb-2 text-foreground"><strong>Grievance Officer:</strong> Rahul Reddy</p>
+              <p className="mb-2 text-foreground"><strong>Email:</strong> <a href="mailto:admin@leveluplearning.in" className="text-primary hover:underline">admin@leveluplearning.in</a></p>
               <p className="mb-2 text-foreground"><strong>Postal address:</strong> Old no.9 New no.17, Seethammal Rd, Seethammal Colony, Alwarpet, Chennai, Tamil Nadu 600018</p>
               <p className="text-sm">We acknowledge grievances within 7 days and resolve them within 30 days. If unresolved, you may escalate to the Data Protection Board of India.</p>
             </div>
@@ -345,7 +345,7 @@ const PrivacyPolicy = () => {
             <div className="bg-muted/50 border-l-2 border-primary p-4 rounded">
               <p className="text-foreground text-sm">For general privacy questions or to exercise your rights:</p>
               <p className="mt-2">
-                <a href="mailto:privacy@leveluplearning.in" className="text-primary hover:underline font-medium">privacy@leveluplearning.in</a>
+                <a href="mailto:admin@leveluplearning.in" className="text-primary hover:underline font-medium">admin@leveluplearning.in</a>
               </p>
               <p className="text-foreground text-sm mt-3">For general support:</p>
               <p className="mt-1">

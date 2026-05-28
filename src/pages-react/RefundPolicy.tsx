@@ -236,7 +236,7 @@ const RefundPolicy = () => {
               </p>
               <p className="text-foreground text-sm mt-3">For escalations or to reach our Grievance Officer:</p>
               <p className="mt-1">
-                <a href="mailto:privacy@leveluplearning.in" className="text-primary hover:underline font-medium">privacy@leveluplearning.in</a>
+                <a href="mailto:admin@leveluplearning.in" className="text-primary hover:underline font-medium">admin@leveluplearning.in</a>
               </p>
               <p className="text-sm mt-3">
                 LevelUp Edu Pvt Ltd, Old no.9 New no.17, Seethammal Rd, Seethammal Colony, Alwarpet, Chennai, Tamil Nadu 600018
