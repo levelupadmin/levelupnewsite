@@ -70,9 +70,10 @@ const Terms = () => {
       <Navbar />
       <main className="max-w-4xl mx-auto px-6 py-20 md:py-28">
         <h1 className="font-sans-body text-3xl md:text-4xl font-bold text-foreground mb-2">Terms Of Service</h1>
-        <p className="font-sans-body text-sm text-muted-foreground mb-2">Last Updated: 28th August 2025</p>
+        <p className="font-sans-body text-sm text-muted-foreground mb-2">Effective: 28 May 2026 · Last updated: 28 May 2026</p>
         <p className="font-sans-body text-sm text-muted-foreground mb-10">
-          See also our <Link to="/privacy-policy" className="text-primary hover:underline">Privacy Policy</Link>.
+          See also our <Link to="/privacy-policy" className="text-primary hover:underline">Privacy Policy</Link> and{" "}
+          <Link to="/refund-policy" className="text-primary hover:underline">Refund Policy</Link>.
         </p>
 
         {/* Table of Contents */}
@@ -155,6 +156,19 @@ const Terms = () => {
           <section id="fees" className="border-b border-border pb-8 mb-8">
             <h2 className="text-xl font-semibold text-foreground mb-3">4. Fees</h2>
             <p>To the extent the Service or any portion thereof is made available for any fee, you will be required to select a payment plan and provide Level Up Learning information regarding your credit card or other payment instrument. You represent and warrant to Level Up Learning that such information is true and that you are authorized to use the payment instrument. You will promptly update your account information with any changes (for example, a change in your billing address or credit card expiration date) that may occur. You agree to pay Level Up Learning the amount that is specified in the payment plan in accordance with the terms of such plan and this Terms of Service. You hereby authorize Level Up Learning to bill your payment instrument in accordance with the terms of the applicable payment plan until you terminate your account, and you further agree to pay any charges so incurred. If you dispute any charges you must let Level Up Learning know within sixty (60) days after the date that Level Up Learning charges you. We reserve the right to change Level Up Learning's prices. Level Up Learning will notify such changes through ordinary recourse such as via email or other electronic media. Your continued use of the Service after the price change becomes effective constitutes your agreement to pay the changed amount. You shall be responsible for all taxes associated with the Services other than Indian taxes based on Level Up Learning's net income.</p>
+            <h3 className="text-lg font-medium text-foreground mt-6 mb-2">Refunds</h3>
+            <p>
+              Refund eligibility depends on the product (masterclass, live cohort, workshop) and how much of it
+              you've used. The full breakdown lives in our{" "}
+              <Link to="/refund-policy" className="text-primary hover:underline font-medium">Refund Policy</Link>, which is part of these Terms by reference.
+            </p>
+            <h3 className="text-lg font-medium text-foreground mt-6 mb-2">In-app purchases on iOS</h3>
+            <p>
+              Per Apple's "Reader" guideline (App Store Review Guideline 3.1.3(a)), purchases of LevelUp courses
+              happen on our web platform — not inside the iOS app. The iOS app provides read-only access to
+              content you've already purchased on the web. If you bought through Apple's in-app billing on any
+              other product (we do not offer this), Apple's refund process applies separately.
+            </p>
           </section>
 
           <section id="subscriptions" className="border-b border-border pb-8 mb-8">
@@ -240,6 +254,16 @@ const Terms = () => {
           <section id="termination" className="border-b border-border pb-8 mb-8">
             <h2 className="text-xl font-semibold text-foreground mb-3">15. Termination</h2>
             <p>You agree that Level Up Learning, in its sole discretion, may suspend or terminate your account (or any part thereof) or use of the Service and remove and discard any content within the Service, for any reason, including, without limitation, for lack of use or if Level Up Learning believes that you have violated or acted inconsistently with the letter or spirit of these Terms of Service. Any suspected fraudulent, abusive or illegal activity that may be grounds for termination of your use of Service, may be referred to appropriate law enforcement authorities. Level Up Learning may also in its sole discretion and at any time discontinue providing the Service, or any part thereof, with or without notice. You agree that any termination of your access to the Service under any provision of this Terms of Service may be effected without prior notice, and acknowledge and agree that Level Up Learning may immediately deactivate or delete your account and all related information and files in your account and/or bar any further access to such files or the Service. Further, you agree that Level Up Learning will not be liable to you or any third party for any termination of your access to the Service.</p>
+            <h3 className="text-lg font-medium text-foreground mt-6 mb-2">Account deletion by you</h3>
+            <p>
+              You may delete your account at any time from your profile page at{" "}
+              <a className="text-primary hover:underline" href="https://app.leveluplearning.in/profile">app.leveluplearning.in/profile</a>,
+              from within our iOS or Android app, or by emailing{" "}
+              <a className="text-primary hover:underline" href="mailto:privacy@leveluplearning.in">privacy@leveluplearning.in</a>.
+              Deletion is processed within 30 days. See our{" "}
+              <Link to="/privacy-policy" className="text-primary hover:underline">Privacy Policy → Section 9</Link>{" "}
+              for the full process and what data is retained for legal compliance.
+            </p>
           </section>
 
           <section id="disputes" className="border-b border-border pb-8 mb-8">
