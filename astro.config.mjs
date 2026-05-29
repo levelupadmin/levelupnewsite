@@ -8,6 +8,11 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
   site: 'https://www.leveluplearning.in',
   output: 'static',
+  redirects: {
+    // /privacy is an alias some external references (incl. Play Console history)
+    // expect; the canonical policy lives at /privacy-policy.
+    '/privacy': '/privacy-policy',
+  },
   adapter: vercel({
     webAnalytics: { enabled: true },
     speedInsights: { enabled: true },
