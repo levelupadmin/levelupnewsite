@@ -10,12 +10,12 @@ import lokeshImg from "@/assets/lokesh-kanagaraj.png";
 import nelsonImg from "@/assets/nelson-dilipkumar.jpg";
 
 const otherMasterclasses = [
-  { name: "Karthik Subbaraj", image: karthikImg, href: "https://masterclass.leveluplearning.in/karthik-subbaraj" },
+  { name: "Karthik Subbaraj", image: karthikImg, href: "/masterclass/karthik-subbaraj" },
   { name: "Anthony Gonsalvez", image: anthonyImg, href: "/masterclass/anthony-gonsalvez" },
   { name: "G Venket Ram", image: venketImg, href: "/masterclass/g-venket-ram" },
   { name: "DRK Kiran", image: kiranImg, href: "/masterclass/drk-kiran" },
-  { name: "Ravi Basrur", image: raviImg, href: "https://masterclass.leveluplearning.in/ravi-basrur" },
-  { name: "Lokesh Kanagaraj", image: lokeshImg, href: "https://masterclass.leveluplearning.in/lokesh-kanagaraj" },
+  { name: "Ravi Basrur", image: raviImg, href: "/masterclass/ravi-basrur" },
+  { name: "Lokesh Kanagaraj", image: lokeshImg, href: "/masterclass/lokesh-kanagaraj" },
   { name: "Nelson Dilipkumar", image: nelsonImg, href: "/masterclass/nelson-dilipkumar" },
 ];
 

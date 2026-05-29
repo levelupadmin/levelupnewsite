@@ -55,6 +55,17 @@ async function main() {
   // Framer-cloned masterclasses (no .ts data files; one-off Astro pages)
   const framerMasterclasses = [
     {
+      slug: "karthik-subbaraj",
+      name: "Karthik Subbaraj",
+      discipline: "Filmmaking",
+      seoDescription: "Learn filmmaking with award-winning director Karthik Subbaraj, behind Jigarthanda, Petta, Pizza, Mahaan and Jagame Thandhiram. 25 video lessons. Tamil with English subtitles. Signed Certificate. ₹2,499 lifetime access.",
+      audience: "Dialogue writers, screenplay writers, filmmakers, film enthusiasts, aspiring directors, cinema aspirants.",
+      films: ["Pizza", "Jigarthanda", "Iraivi", "Petta", "Jagame Thandhiram", "Mahaan"],
+      lessons: 25,
+      durationMin: 200,
+      price: 2499,
+    },
+    {
       slug: "lokesh-kanagaraj",
       name: "Lokesh Kanagaraj",
       discipline: "Filmmaking",

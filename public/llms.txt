@@ -23,13 +23,13 @@ Pre-recorded, in-depth courses taught by celebrated industry professionals. Avai
 
 | Instructor | Role | Topic | Link |
 |---|---|---|---|
-| Karthik Subbaraj | Filmmaker | Storytelling, editing, working with actors | https://masterclass.leveluplearning.in/karthik-subbaraj |
-| Anthony Gonsalvez | Film Editor | Practical editing experience | https://masterclass.leveluplearning.in/anthony |
-| G Venket Ram | Photographer | Capturing the perfect image through case studies | https://masterclass.leveluplearning.in/g-venket-ram |
-| DRK Kiran | Art Director | Set designing, creative problem-solving, miniatures | https://masterclass.leveluplearning.in/kiran |
-| Ravi Basrur | Music Director | From the village of Basrur to revolutionizing Sandalwood music | https://masterclass.leveluplearning.in/ravi-basrur |
-| Lokesh Kanagaraj | Filmmaker | The art and craft of filmmaking | https://masterclass.leveluplearning.in/lokesh-kanagaraj |
-| Nelson Dilipkumar | Filmmaker | The art of commercial filmmaking | https://masterclass.leveluplearning.in/nelson-dilipkumar |
+| Karthik Subbaraj | Filmmaker | Storytelling, editing, working with actors | https://www.leveluplearning.in/masterclass/karthik-subbaraj |
+| Anthony Gonsalvez | Film Editor | Practical editing experience | https://www.leveluplearning.in/masterclass/anthony-gonsalvez |
+| G Venket Ram | Photographer | Capturing the perfect image through case studies | https://www.leveluplearning.in/masterclass/g-venket-ram |
+| DRK Kiran | Art Director | Set designing, creative problem-solving, miniatures | https://www.leveluplearning.in/masterclass/drk-kiran |
+| Ravi Basrur | Music Director | From the village of Basrur to revolutionizing Sandalwood music | https://www.leveluplearning.in/masterclass/ravi-basrur |
+| Lokesh Kanagaraj | Filmmaker | The art and craft of filmmaking | https://www.leveluplearning.in/masterclass/lokesh-kanagaraj |
+| Nelson Dilipkumar | Filmmaker | The art of commercial filmmaking | https://www.leveluplearning.in/masterclass/nelson-dilipkumar |
 
 ### 2. Live Mentor-Led Programs (Cohort-Based)
 
@@ -177,7 +177,7 @@ Yes. When you enrol in any program, you become part of the LevelUp community - a
 - Student Stories: https://www.leveluplearning.in/student-stories
 - Terms of Service: https://www.leveluplearning.in/terms
 - Privacy Policy: https://www.leveluplearning.in/privacy-policy
-- Masterclasses: https://masterclass.leveluplearning.in
+- Masterclasses: https://www.leveluplearning.in/#masterclasses
 - The Forge: https://www.forgebylevelup.com/
 - Forge Creators: https://creators.forgebylevelup.com/
 

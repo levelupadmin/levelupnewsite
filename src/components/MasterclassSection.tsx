@@ -21,7 +21,7 @@ const masterclasses = [
     descriptor: "Storytelling to editing to working with actors",
     format: "Filmmaker",
     category: "Filmmaking",
-    href: "https://masterclass.leveluplearning.in/karthik-subbaraj",
+    href: "/masterclass/karthik-subbaraj",
   },
   {
     image: anthonyImg,

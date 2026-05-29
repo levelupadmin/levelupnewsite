@@ -45,7 +45,7 @@ export const navLinks: NavLink[] = [
         image: karthikImg,
         title: "Karthik Subbaraj",
         subtitle: "Filmmaking",
-        href: "https://masterclass.leveluplearning.in/karthik-subbaraj",
+        href: "/masterclass/karthik-subbaraj",
       },
       {
         image: anthonyImg,
@@ -69,13 +69,13 @@ export const navLinks: NavLink[] = [
         image: raviImg,
         title: "Ravi Basrur",
         subtitle: "Music Composition",
-        href: "https://masterclass.leveluplearning.in/ravi-basrur",
+        href: "/masterclass/ravi-basrur",
       },
       {
         image: lokeshImg,
         title: "Lokesh Kanagaraj",
         subtitle: "Filmmaking",
-        href: "https://masterclass.leveluplearning.in/lokesh-kanagaraj",
+        href: "/masterclass/lokesh-kanagaraj",
       },
       {
         image: nelsonImg,
