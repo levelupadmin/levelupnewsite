@@ -75,7 +75,7 @@ const PrivacyPolicy = () => {
       <Navbar />
       <main className="max-w-4xl mx-auto px-6 py-20 md:py-28">
         <h1 className="font-sans-body text-3xl md:text-4xl font-bold text-foreground mb-2">Privacy Policy</h1>
-        <p className="font-sans-body text-sm text-muted-foreground mb-2">Effective: 28 May 2026 · Last updated: 28 May 2026</p>
+        <p className="font-sans-body text-sm text-muted-foreground mb-2">Effective: 28 May 2026 · Last updated: 29 May 2026</p>
         <p className="font-sans-body text-sm text-muted-foreground mb-10">
           See also our <Link to="/terms" className="text-primary hover:underline">Terms of Service</Link> and{" "}
           <Link to="/refund-policy" className="text-primary hover:underline">Refund Policy</Link>.
@@ -211,8 +211,11 @@ const PrivacyPolicy = () => {
               the same content and features.
             </p>
             <p>
-              <strong className="text-foreground">On Android:</strong> we honour the Google Advertising ID +
-              the Limit Ad Tracking setting.
+              <strong className="text-foreground">On Android:</strong> the app does not access your device's
+              Google Advertising ID (GAID) and requests no advertising-ID permission. The analytics and
+              ad-attribution tools listed above run inside the app's in-app web view and rely on cookies, which
+              you can clear in your device settings. You can also reset or delete your advertising ID from your
+              Android privacy settings.
             </p>
           </section>
 
