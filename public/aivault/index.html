@@ -55,6 +55,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
 .ail-gres-meta{font-size:12.5px;color:#8a93a3;margin-top:2px}
 .ail-gres-cat{margin-left:auto;flex:none;font:600 11px/1 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.5px;color:#9aa3b2}
 .ail-layout{display:grid;grid-template-columns:230px 1fr;gap:34px;align-items:start;padding-bottom:90px}
+.ail-layout--solo{grid-template-columns:1fr;max-width:1000px;margin:0 auto}
 .ail-rail{position:sticky;top:84px}
 .ail-rail-grp{margin-bottom:22px}
 .ail-rail-label{font:700 11px/1 'JetBrains Mono',monospace;letter-spacing:1.4px;text-transform:uppercase;color:#9aa3b2;margin-bottom:10px}
@@ -146,10 +147,19 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
   var esc = function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
   var debounce = function(fn,ms){var t;return function(){var a=arguments,c=this;clearTimeout(t);t=setTimeout(function(){fn.apply(c,a);},ms);};};
   function color(s){var h=0;s=String(s||'');for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return 'hsl('+(h%360)+' 60% 50%)';}
+  var ACR={ai:'AI',ml:'ML',ui:'UI',ux:'UX',api:'API',llm:'LLM',mcp:'MCP',sdk:'SDK',ocr:'OCR',pdf:'PDF',crm:'CRM',seo:'SEO',saas:'SaaS',nlp:'NLP',tts:'TTS',stt:'STT',db:'DB',ide:'IDE',cli:'CLI',hr:'HR'};
+  function titleWord(w){ var l=w.toLowerCase(); return ACR[l]||(w.charAt(0).toUpperCase()+w.slice(1)); }
+  // Pretty-print a tag: lowercase slugs (developer-tools) -> Title Case ("Developer Tools");
+  // proper-noun casings (OpenAI, DeepSeek, "Customer support") are left untouched.
+  function prettyLabel(s){
+    s=String(s||'').trim();
+    if(/^[a-z0-9][a-z0-9 _\/-]*$/.test(s)) return s.split(/[ _-]+/).map(function(p){return p.split('/').map(titleWord).join('/');}).join(' ');
+    return s;
+  }
 
   var CATS = [
     {key:'skill',      label:'Skills',      icon:'⚡', count:7748, blurb:'Install-ready agent skills for Claude Code, Cursor, Codex & 23 more tools.',
-      facets:[{f:'works_with',label:'Works with',split:';',top:10},{f:'skill_category',label:'Category',top:12}]},
+      facets:[]},
     {key:'tool',       label:'Tools',       icon:'🛠️', count:3537, blurb:'AI tools for every task — many with a matching credit perk.',
       facets:[{f:'task_category',label:'Task',top:18}]},
     {key:'mcp_server', label:'MCP Servers', icon:'🔌', count:1725, blurb:'Connect your agents to databases, APIs & services.',
@@ -157,7 +167,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
     {key:'llm',        label:'LLMs',        icon:'🧠', count:585,  blurb:'Compare models by provider, size, context & open/closed weights.',
       facets:[{f:'weights',label:'Weights'},{f:'kind',label:'Type',top:10},{f:'provider',label:'Provider',top:12}]},
     {key:'agent',      label:'Agents',      icon:'🤖', count:800,  blurb:'Prebuilt agents & automation templates.',
-      facets:[{f:'agent_category',label:'Category',top:14},{f:'open_source',label:'Open source'}]},
+      facets:[{f:'agent_category',label:'Category',top:16}]},
     {key:'design',     label:'Designs',     icon:'🎨', count:70,   blurb:'DESIGN.md systems your design agents can read.', facets:[]}
   ];
   var CAT_BY = {}; CATS.forEach(function(c){CAT_BY[c.key]=c;});
@@ -243,9 +253,17 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
       var v=(r.extra||{})[def.f];
       if(v==null||v==='') return;
       var vals = def.split ? String(v).split(def.split) : [v];
-      vals.forEach(function(x){ x=String(x).trim(); if(x){ m[x]=(m[x]||0)+1; } });
+      vals.forEach(function(x){ x=String(x).trim(); if(!x) return;
+        var k=x.toLowerCase();                 // merge case-variant tags (Productivity/productivity)
+        if(!m[k]) m[k]={n:0,cas:{}};
+        m[k].n++; m[k].cas[x]=(m[k].cas[x]||0)+1;
+      });
     });
-    return Object.keys(m).map(function(k){return {v:k,n:m[k]};}).sort(function(a,b){return b.n-a.n;}).slice(0, def.top||99);
+    return Object.keys(m).map(function(k){
+      var cas=m[k].cas, best=k, bc=-1;          // display the most common original casing
+      for(var c in cas){ if(cas[c]>bc){ bc=cas[c]; best=c; } }
+      return {key:k, disp:prettyLabel(best), n:m[k].n};
+    }).sort(function(a,b){return b.n-a.n;}).slice(0, def.top||99);
   }
   function applyBrowse(){
     var def=CAT_BY[B.key];
@@ -256,7 +274,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
       if(sel && sel.size){
         rows=rows.filter(function(r){
           var v=(r.extra||{})[fd.f]; if(v==null) return false;
-          var vals=fd.split?String(v).split(fd.split).map(function(x){return x.trim();}):[String(v).trim()];
+          var vals=(fd.split?String(v).split(fd.split):[String(v)]).map(function(x){return x.trim().toLowerCase();});
           for(var s of sel){ if(vals.indexOf(s)>=0) return true; } return false;
         });
       }
@@ -270,7 +288,8 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
     // active chips
     var chips=[];
     Object.keys(B.facets).forEach(function(f){ (B.facets[f]||new Set()).forEach(function(v){
-      chips.push('<button class="ail-chip-active" data-f="'+esc(f)+'" data-v="'+esc(v)+'">'+esc(v)+' ✕</button>'); }); });
+      var d=(B.facetDisp&&B.facetDisp[f+''+v])||v;
+      chips.push('<button class="ail-chip-active" data-f="'+esc(f)+'" data-v="'+esc(v)+'">'+esc(d)+' ✕</button>'); }); });
     if(B.query) chips.push('<span class="ail-chip-active" style="cursor:default">“'+esc(B.query)+'”</span>');
     $('#ailChips').innerHTML = chips.join('') + (chips.length?'<button class="ail-clear" id="ailClear">Clear all</button>':'');
     // results
@@ -282,11 +301,11 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
   }
   function metaLine(r){
     var e=r.extra||{};
-    if(r.category==='skill') return e.works_with?String(e.works_with).split(';').slice(0,3).join(' · '):(e.skill_category||'Agent skill');
-    if(r.category==='tool') return e.task_category||'AI tool';
-    if(r.category==='mcp_server') return (String(e.categories||'').split(/[;,]/)[0]||'MCP server')+(e.vendor?' · '+e.vendor:'');
+    if(r.category==='skill') return e.works_with?String(e.works_with).split(';').slice(0,3).join(' · '):(e.owner?'by '+e.owner:'Agent skill');
+    if(r.category==='tool') return prettyLabel(e.task_category||'')||'AI tool';
+    if(r.category==='mcp_server') return (prettyLabel(String(e.categories||'').split(/[;,]/)[0]||'')||'MCP server')+(e.vendor?' · '+e.vendor:'');
     if(r.category==='llm') return [e.provider,e.parameters,e.weights].filter(Boolean).join(' · ')||'LLM';
-    if(r.category==='agent') return e.agent_category||'AI agent';
+    if(r.category==='agent') return prettyLabel(e.agent_category||'')||'AI agent';
     if(r.category==='design') return 'Design system';
     return '';
   }
@@ -328,8 +347,8 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
         '<p class="ail-lede">'+esc(def.blurb)+'</p>'+
         '<div class="ail-search">'+ICON_SEARCH+'<input id="ailQ" type="text" placeholder="Search '+def.count.toLocaleString()+' '+def.label.toLowerCase()+'…" autocomplete="off" aria-label="Search '+def.label+'"></div>'+
       '</div>'+
-      '<div class="ail-layout">'+
-        '<aside class="ail-rail" id="ailRail"></aside>'+
+      '<div class="ail-layout'+(def.facets.length?'':' ail-layout--solo')+'">'+
+        (def.facets.length?'<aside class="ail-rail" id="ailRail"></aside>':'')+
         '<div class="ail-main">'+
           '<div class="ail-main-head"><div class="ail-count" id="ailCount">Loading…</div></div>'+
           '<div class="ail-chips" id="ailChips"></div>'+
@@ -361,15 +380,18 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
     var rail=$('#ailRail'); if(!rail||!B) return;
     var def=CAT_BY[B.key];
     if(!def.facets.length){ rail.innerHTML=''; return; }
-    rail.innerHTML = def.facets.map(function(fd){
+    B.facetDisp = B.facetDisp || {};
+    var html = def.facets.map(function(fd){
       var vals=computeFacets(B.rows,fd);
-      if(!vals.length) return '';
+      if(vals.length<2) return '';            // a one-option (or empty) filter is useless — skip it
       return '<div class="ail-rail-grp"><div class="ail-rail-label">'+esc(fd.label)+'</div>'+
         vals.map(function(o){
-          var on=B.facets[fd.f]&&B.facets[fd.f].has(o.v);
-          return '<button class="ail-facet'+(on?' is-on':'')+'" data-field="'+esc(fd.f)+'" data-val="'+esc(o.v)+'">'+esc(o.v)+' <span class="ct">'+o.n+'</span></button>';
+          B.facetDisp[fd.f+''+o.key]=o.disp;
+          var on=B.facets[fd.f]&&B.facets[fd.f].has(o.key);
+          return '<button class="ail-facet'+(on?' is-on':'')+'" data-field="'+esc(fd.f)+'" data-val="'+esc(o.key)+'">'+esc(o.disp)+' <span class="ct">'+o.n+'</span></button>';
         }).join('')+'</div>';
     }).join('');
+    rail.innerHTML = html;
   }
 
   // =========================================================
@@ -385,11 +407,11 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
       if(!r){ host.innerHTML='<div class="ail-det"><a class="ail-back" href="#/">'+ICON_BACK+' AI Library</a><h1 class="ail-h1">Resource not found</h1><p class="ail-det-desc">It may have been renamed. <a href="#/c/'+key+'">Browse '+esc(CAT_BY[key].label)+'</a>.</p></div>'; return; }
       var e=r.extra||{}, def=CAT_BY[key];
       var meta=[];
-      if(key==='llm'){ if(e.provider)meta.push(['Provider',e.provider]); if(e.parameters)meta.push(['Parameters',e.parameters]); if(e.context_length)meta.push(['Context',e.context_length]); if(e.weights)meta.push(['Weights',e.weights==='open'?'Open':'Closed']); if(e.kind)meta.push(['Type',e.kind]); }
+      if(key==='llm'){ if(e.provider)meta.push(['Provider',e.provider]); if(e.parameters)meta.push(['Parameters',e.parameters]); if(e.context_length)meta.push(['Context',e.context_length]); if(e.weights)meta.push(['Weights',e.weights==='open'?'Open':'Closed']); if(e.kind)meta.push(['Type',prettyLabel(e.kind)]); }
       if(key==='skill'){ if(e.skill_category)meta.push(['Category',e.skill_category]); if(e.owner)meta.push(['Author',e.owner]); if(e.last_updated)meta.push(['Updated',e.last_updated]); }
       if(key==='tool'&&e.task_category)meta.push(['Task',e.task_category]);
-      if(key==='mcp_server'){ if(e.vendor)meta.push(['Vendor',e.vendor]); if(e.categories)meta.push(['Categories',String(e.categories).split(/[;,]/).slice(0,3).join(', ')]); }
-      if(key==='agent'){ if(e.agent_category)meta.push(['Category',e.agent_category]); if(e.open_source)meta.push(['Open source',e.open_source==='yes'?'Yes':e.open_source]); if(e.author)meta.push(['Author',e.author]); }
+      if(key==='mcp_server'){ if(e.vendor)meta.push(['Vendor',e.vendor]); if(e.categories)meta.push(['Categories',String(e.categories).split(/[;,]/).slice(0,3).map(function(c){return prettyLabel(c.trim());}).join(', ')]); }
+      if(key==='agent'){ if(e.agent_category)meta.push(['Category',prettyLabel(e.agent_category)]); if(e.open_source)meta.push(['Open source',e.open_source==='yes'?'Yes':e.open_source]); if(e.author)meta.push(['Author',e.author]); }
 
       var descParts=String(r.description||'').split('|').map(function(s){return s.trim();}).filter(Boolean);
       var html='<div class="ail-det">'+
