@@ -137,7 +137,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
 </nav>
 <div class="page active" id="page-aivault"><div id="aivaultHost"></div></div>
 <div class="page" id="page-resource"><div id="resourceHost"></div></div>
-<footer class="ailfoot">© 2026 LevelUp Learning · <strong>LevelUp AI Library</strong> · Free for LevelUp AI students<br>Catalog snapshot from explainx.ai · 2026-06-26 · 14,465 resources</footer>
+<footer class="ailfoot">© 2026 LevelUp Learning · <strong>LevelUp AI Library</strong> · Free for LevelUp AI students<br>14,465 AI resources · Free, no signup · Updated June 2026</footer>
 <script>
 (function(){
   'use strict';
@@ -425,9 +425,17 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
       if(meta.length){ html+='<div class="ail-meta-grid">'+meta.map(function(m){return '<div class="ail-meta-cell"><div class="ail-meta-k">'+esc(m[0])+'</div><div class="ail-meta-v">'+esc(m[1])+'</div></div>';}).join('')+'</div>'; }
       if(key==='skill'&&e.works_with){ html+='<div class="ail-ww">'+String(e.works_with).split(';').map(function(w){w=w.trim();return w?'<span>'+esc(w)+'</span>':'';}).join('')+'</div>'; }
       if(key==='skill'&&e.install_video_url){ html+='<div class="ail-vid"><iframe src="'+esc(e.install_video_url)+'" loading="lazy" allowfullscreen title="Install video"></iframe></div>'; }
-      var links=[];
-      if(r.external_url) links.push('<a href="'+esc(r.external_url)+'" target="_blank" rel="noopener">'+(key==='skill'||/github/.test(r.external_url)?'GitHub':'Website')+' ↗</a>');
-      if(r.primary_url) links.push('<a href="'+esc(r.primary_url)+'" target="_blank" rel="noopener">View on explainx ↗</a>');
+      // Direct access — NO explainx. Skills/designs carry real source URLs;
+      // tools/mcp/agents/llms link straight to their real home (GitHub / website / HF).
+      var links=[], enc=encodeURIComponent;
+      var ext=(r.external_url && !/explainx\.ai/.test(r.external_url))?r.external_url:'';
+      function L(u,t){ return '<a href="'+esc(u)+'" target="_blank" rel="noopener">'+esc(t)+' ↗</a>'; }
+      if(key==='skill'){ var gh=e.github_url||ext; if(gh) links.push(L(gh,'GitHub repo')); }
+      else if(key==='design'){ if(ext) links.push(L(ext,'View on GitHub')); }
+      else if(key==='tool'){ var ws=(e.website_url&&!/explainx/.test(e.website_url))?e.website_url:''; links.push(ws?L(ws,'Visit website'):L('https://duckduckgo.com/?q=!ducky+'+enc(r.name+' AI tool'),'Open '+r.name)); }
+      else if(key==='mcp_server'){ links.push(L('https://github.com/search?q='+enc((e.vendor?e.vendor+' ':'')+r.name+' mcp')+'&type=repositories','Find on GitHub')); if(e.vendor) links.push(L('https://github.com/'+enc(e.vendor),'@'+e.vendor)); }
+      else if(key==='agent'){ var su=(e.source_url&&!/explainx/.test(e.source_url))?e.source_url:''; links.push(su?L(su,'Source'):L('https://duckduckgo.com/?q=!ducky+'+enc(r.name+' AI agent'),'Open '+r.name)); }
+      else if(key==='llm'){ links.push(e.weights==='open'?L('https://huggingface.co/models?search='+enc(r.name),'Hugging Face'):L('https://duckduckgo.com/?q=!ducky+'+enc(r.name+' '+(e.provider||'')+' model'),'Open '+r.name)); }
       if(links.length) html+='<div class="ail-links">'+links.join('')+'</div>';
       html+='<div id="ailXlink"></div>';
       if(key==='skill'){ html+='<p style="margin:26px 0 0;font-size:13.5px;color:#8a93a3">Universal install: <code style="font-family:\'JetBrains Mono\',monospace">npx skills init</code> → <code style="font-family:\'JetBrains Mono\',monospace">npx skills add '+esc(e.github_url||r.external_url||'')+' --skill '+esc(r.name)+'</code> → pick your platform.</p>'; }
