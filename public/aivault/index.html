@@ -21,7 +21,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
 .ailnav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 24px;background:rgba(251,251,253,.86);backdrop-filter:blur(10px);border-bottom:1px solid #eceef3}
 .ailnav-brand{display:flex;align-items:center;gap:10px;font:700 16px 'DM Sans';text-decoration:none;color:#0c1322}
 .ailnav-logo{width:84px;height:24px;display:inline-block;background:var(--forge-blue);-webkit-mask:url('/aivault/logo.svg') center/contain no-repeat;mask:url('/aivault/logo.svg') center/contain no-repeat}
-.ailnav-sub{font:600 16px 'DM Sans';color:#0c1322;border-left:1.5px solid #d8dde7;padding-left:9px;margin-left:1px}
+.ailnav-sub{font:600 16px 'DM Sans';color:#0c1322;border-left:1.5px solid #d8dde7;padding-left:9px;margin-left:1px;white-space:nowrap}
 .ailnav-links{display:flex;gap:20px;font-size:13.5px;font-weight:600;flex-wrap:wrap}
 .ailnav-links a{text-decoration:none;color:#5b6470;white-space:nowrap;padding:8px 4px;display:inline-block}
 .ailnav-links a:hover{color:var(--forge-blue)}
@@ -76,9 +76,32 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
 .ail-chip-active:hover{background:rgba(26,106,255,.14)}
 .ail-clear{background:none;border:none;color:#8a93a3;font:600 12.5px/1 'DM Sans';cursor:pointer;padding:5px 4px;text-decoration:underline}
 .ail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.ail-card{display:flex;flex-direction:column;text-decoration:none;color:inherit;border:1.5px solid #edf0f6;border-radius:16px;padding:18px;background:#fff;box-shadow:0 1px 2px rgba(20,30,55,.04),0 1px 3px rgba(20,30,55,.06);transition:transform .18s cubic-bezier(.2,.7,.3,1),box-shadow .18s,border-color .18s}
+.ail-card{position:relative;display:flex;flex-direction:column;text-decoration:none;color:inherit;border:1.5px solid #edf0f6;border-radius:16px;padding:18px;background:#fff;box-shadow:0 1px 2px rgba(20,30,55,.04),0 1px 3px rgba(20,30,55,.06);transition:transform .18s cubic-bezier(.2,.7,.3,1),box-shadow .18s,border-color .18s}
 .ail-card:hover{transform:translateY(-3px);box-shadow:0 16px 40px -8px rgba(20,30,55,.16);border-color:#cdd6e6}
-.ail-card-top{display:flex;gap:12px;align-items:center}
+.ail-card-top{display:flex;gap:12px;align-items:center;padding-right:30px}
+/* ===== Save to My Stack + Recently viewed ===== */
+.ail-save{appearance:none;-webkit-appearance:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;border:1.5px solid #e3e8f1;background:#fff;color:#9aa3b2;border-radius:9px;padding:6px;line-height:0;transition:color .15s,border-color .15s,background .15s,transform .12s}
+.ail-save:hover{color:var(--forge-blue);border-color:#bcd0fb;background:#f5f8ff}
+.ail-save:active{transform:scale(.92)}
+.ail-save:focus-visible{outline:2px solid var(--forge-blue);outline-offset:2px}
+.ail-save .ail-save-ic{fill:none;transition:fill .15s}
+.ail-save.is-saved{color:var(--forge-blue);border-color:#bcd0fb;background:#eef4ff}
+.ail-save.is-saved .ail-save-ic{fill:var(--forge-blue)}
+/* card variant: floated top-right, not part of name flow */
+.ail-card-top .ail-save{position:absolute;top:14px;right:14px}
+/* detail variant: labelled pill */
+.ail-save-lg{flex:none;align-self:flex-start;padding:9px 14px;border-radius:11px;font:700 13.5px/1 'DM Sans'}
+.ail-save-lg .ail-save-txt{line-height:1}
+.ail-recent{margin:30px 0 4px;text-align:left}
+.ail-recent-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px}
+.ail-sec-h{font:700 14px/1 'DM Sans';text-transform:uppercase;letter-spacing:.6px;color:#8a93a3;margin:0}
+.ail-recent-row{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.ail-recent-row::-webkit-scrollbar{height:6px}
+.ail-recent-row::-webkit-scrollbar-thumb{background:#dde3ee;border-radius:6px}
+.ail-recent-card{flex:none;display:flex;align-items:center;gap:9px;max-width:230px;text-decoration:none;border:1.5px solid #edf0f6;border-radius:12px;padding:9px 13px 9px 9px;background:#fff;transition:border-color .15s,transform .15s,box-shadow .15s}
+.ail-recent-card:hover{border-color:#cdd6e6;transform:translateY(-2px);box-shadow:0 8px 22px -10px rgba(20,30,55,.18)}
+.ail-recent-badge{flex:none;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font-family:'Instrument Serif',serif;font-size:17px}
+.ail-recent-name{font:600 13.5px/1.25 'DM Sans';color:#0c1322;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ail-card-badge{flex:none;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font-family:'Instrument Serif',serif;font-weight:400;font-size:21px;background:#eef2fb;color:var(--forge-blue)}
 .ail-card-name{font:700 16px/1.2 'DM Sans';color:#0c1322;word-break:break-word}
 .ail-card-meta{font-size:12.5px;color:#8a93a3;margin-top:2px}
@@ -90,6 +113,17 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
 .ail-card-tag:hover{background:rgba(26,106,255,.10);border-color:rgba(26,106,255,.32);color:var(--forge-blue)}
 .ail-det-tag{display:inline-block;margin-top:10px;font:600 12px/1 'DM Sans';color:var(--forge-blue);background:rgba(26,106,255,.08);border:1px solid rgba(26,106,255,.22);border-radius:999px;padding:6px 12px;text-decoration:none}
 .ail-det-tag:hover{background:rgba(26,106,255,.15)}
+/* setup-difficulty badge (derived, honest, subtle) */
+.ail-badge{display:inline-flex;align-items:center;gap:5px;font:600 10.5px/1 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.4px;border-radius:6px;padding:5px 7px;white-space:nowrap;border:1px solid transparent}
+.ail-badge svg{width:11px;height:11px;flex:none}
+.ail-badge--beginner{color:#1a7f4b;background:rgba(26,160,90,.10);border-color:rgba(26,160,90,.18)}
+.ail-badge--quick{color:#1A6AFF;background:rgba(26,106,255,.09);border-color:rgba(26,106,255,.18)}
+.ail-badge--nosetup{color:#7a5af0;background:rgba(122,90,240,.10);border-color:rgba(122,90,240,.18)}
+.ail-badge--model{color:#b1671a;background:rgba(200,120,30,.10);border-color:rgba(200,120,30,.18)}
+.ail-badge--platform{color:#5b6470;background:#eef1f7;border-color:#e2e6ee}
+.ail-badge--neutral{color:#7a8497;background:#f1f3f8;border-color:#e8ebf2}
+.ail-det-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.ail-det-badges .ail-badge{font-size:11px;padding:6px 9px}
 a.ail-det-cat{text-decoration:none;cursor:pointer}
 a.ail-det-cat:hover{text-decoration:underline}
 .ail-sort{font:600 12.5px 'DM Sans';color:#3b4453;border:1px solid #e2e6ee;border-radius:9px;padding:7px 28px 7px 11px;background:#fff;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%237a8497' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
@@ -216,6 +250,101 @@ a.ail-det-cat:hover{text-decoration:underline}
   .ail-tool-strict{margin-left:0;width:100%;order:9}
   .ail-tool-pill{padding:9px 14px;min-height:40px}
 }
+/* ===== ⌘K command palette ===== */
+.ailnav-k{display:inline-flex;align-items:center;gap:8px;border:1px solid #e2e6ee;background:#fff;border-radius:10px;padding:7px 9px 7px 11px;font:600 13px/1 'DM Sans';color:#5b6470;cursor:pointer;transition:border-color .14s,color .14s,box-shadow .14s;white-space:nowrap}
+.ailnav-k:hover{border-color:var(--forge-blue,#1A6AFF);color:var(--forge-blue,#1A6AFF);box-shadow:0 0 0 3px rgba(26,106,255,.08)}
+.ailnav-k svg{color:#9aa3b2;flex:none}
+.ailnav-k:hover svg{color:var(--forge-blue,#1A6AFF)}
+.ailnav-k .ailnav-k-txt{flex:1}
+.ailnav-k kbd{display:inline-flex;align-items:center;gap:1px;font:600 11px/1 'JetBrains Mono',monospace;color:#7a8497;background:#f1f3f8;border:1px solid #e2e6ee;border-radius:6px;padding:3px 6px}
+.ailcmd-back{position:fixed;inset:0;z-index:200;background:rgba(12,19,34,.34);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .16s;display:flex;align-items:flex-start;justify-content:center;padding:14vh 16px 16px}
+.ailcmd-back.is-open{opacity:1;pointer-events:auto}
+.ailcmd{width:100%;max-width:620px;background:#fff;border:1px solid #e7eaf1;border-radius:18px;box-shadow:0 28px 80px -16px rgba(12,19,34,.42),0 4px 14px rgba(12,19,34,.12);overflow:hidden;transform:translateY(-8px) scale(.985);opacity:0;transition:transform .18s cubic-bezier(.2,.7,.3,1),opacity .18s}
+.ailcmd-back.is-open .ailcmd{transform:none;opacity:1}
+.ailcmd-top{display:flex;align-items:center;gap:11px;padding:15px 18px;border-bottom:1px solid #eef0f5}
+.ailcmd-top svg{color:#9aa3b2;flex:none}
+.ailcmd-input{flex:1;border:0;outline:0;background:transparent;font:500 17px/1.3 'DM Sans';color:#0c1322}
+.ailcmd-input::placeholder{color:#9aa3b2}
+.ailcmd-esc{flex:none;font:600 11px/1 'JetBrains Mono',monospace;color:#7a8497;background:#f1f3f8;border:1px solid #e2e6ee;border-radius:6px;padding:4px 7px}
+.ailcmd-list{max-height:54vh;overflow-y:auto;overscroll-behavior:contain;padding:6px}
+.ailcmd-grp{font:700 10.5px/1 'JetBrains Mono',monospace;letter-spacing:1.2px;text-transform:uppercase;color:#9aa3b2;padding:13px 12px 7px}
+.ailcmd-row{display:flex;gap:11px;align-items:center;padding:9px 11px;border-radius:11px;cursor:pointer;text-decoration:none;color:inherit;scroll-margin:8px}
+.ailcmd-row[aria-selected="true"]{background:rgba(26,106,255,.09)}
+.ailcmd-badge{flex:none;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font-family:'Instrument Serif',serif;font-weight:400;font-size:17px}
+.ailcmd-body{min-width:0;flex:1;display:flex;flex-direction:column}
+.ailcmd-name{font:600 14.5px/1.25 'DM Sans';color:#0c1322;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ailcmd-name b{color:var(--forge-blue,#1A6AFF);font-weight:700}
+.ailcmd-desc{font-size:12.5px;line-height:1.3;color:#8a93a3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+.ailcmd-cat{flex:none;font:600 10.5px/1 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.4px;color:#7a8497;background:#f1f3f8;border-radius:6px;padding:4px 7px}
+.ailcmd-row[aria-selected="true"] .ailcmd-go{opacity:1}
+.ailcmd-go{flex:none;font:600 11px/1 'JetBrains Mono',monospace;color:var(--forge-blue,#1A6AFF);opacity:0;transition:opacity .12s;margin-left:2px}
+.ailcmd-state{padding:34px 20px;text-align:center;color:#9aa3b2;font:600 13.5px/1.5 'DM Sans'}
+.ailcmd-foot{display:flex;align-items:center;gap:16px;padding:9px 16px;border-top:1px solid #eef0f5;font:500 11.5px/1 'DM Sans';color:#9aa3b2;flex-wrap:wrap}
+.ailcmd-foot kbd{font:600 10.5px/1 'JetBrains Mono',monospace;color:#7a8497;background:#f1f3f8;border:1px solid #e2e6ee;border-radius:5px;padding:3px 5px;margin:0 1px}
+@media (max-width:560px){
+  .ailnav-k .ailnav-k-txt,.ailnav-k kbd{display:none}
+  .ailnav-k{min-width:44px;min-height:44px;padding:0;border-radius:10px;justify-content:center}
+  .ailnav{padding:8px 16px;gap:10px}
+  .ailnav-links{gap:10px;flex-wrap:nowrap;font-size:12.5px}
+  .ailnav-links a{padding:11px 2px}
+  .ailcmd-back{padding:8vh 10px 10px;align-items:flex-start}
+  .ailcmd-foot{display:none}
+  .ailcmd-list{max-height:64vh}
+  .ailcmd-desc{display:none}
+  .ailcmd-go{display:none}
+  .ailcmd-row{gap:9px;padding:9px 9px}
+  .ail-save{min-width:44px;min-height:44px;justify-content:center}
+  .ail-card-top .ail-save{top:9px;right:9px}
+  .ail-save-lg{min-height:44px}
+  .ail-back{min-height:44px;padding:13px 2px;align-items:center}
+  .ail-sort{min-height:44px;padding-top:0;padding-bottom:0}
+}
+@media (prefers-reduced-motion:reduce){
+  .ailcmd-back,.ailcmd{transition:opacity .12s}
+  .ailcmd{transform:none}
+}
+/* ===== "New here?" onboarding banner (hub) ===== */
+.ail-onb{position:relative;margin:26px 0 0;max-width:680px;display:flex;gap:16px;align-items:flex-start;border:1.5px solid rgba(26,106,255,.20);border-radius:16px;padding:18px 46px 18px 18px;background:linear-gradient(135deg,rgba(26,106,255,.06),rgba(122,90,240,.05))}
+.ail-onb-ico{flex:none;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:rgba(26,106,255,.12);color:var(--forge-blue,#1A6AFF)}
+.ail-onb-ico svg{width:22px;height:22px}
+.ail-onb-body{min-width:0;flex:1}
+.ail-onb-h{font:700 16px/1.25 'DM Sans';color:#0c1322;margin:0}
+.ail-onb-p{font-size:13.5px;line-height:1.5;color:#5b6470;margin:5px 0 0}
+.ail-onb-acts{display:flex;flex-wrap:wrap;gap:9px;margin:13px 0 0}
+.ail-onb-acts a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font:600 13px/1 'DM Sans';border-radius:9px;padding:9px 14px;transition:transform .14s,box-shadow .14s,background .14s}
+.ail-onb-acts a.is-primary{background:var(--forge-blue,#1A6AFF);color:#fff;box-shadow:0 2px 10px rgba(26,106,255,.26)}
+.ail-onb-acts a.is-primary:hover{transform:translateY(-1px);box-shadow:0 8px 22px -6px rgba(26,106,255,.5)}
+.ail-onb-acts a.is-ghost{color:var(--forge-blue,#1A6AFF);background:rgba(26,106,255,.08)}
+.ail-onb-acts a.is-ghost:hover{background:rgba(26,106,255,.14)}
+.ail-onb-x{position:absolute;top:12px;right:12px;width:28px;height:28px;border:0;border-radius:8px;background:transparent;color:#9aa3b2;cursor:pointer;display:grid;place-items:center;transition:background .14s,color .14s}
+.ail-onb-x:hover{background:rgba(12,19,34,.06);color:#5b6470}
+.ail-onb-x svg{width:15px;height:15px}
+@media(max-width:560px){.ail-onb{flex-direction:column;gap:12px;padding:16px 16px 16px}.ail-onb-x{width:40px;height:40px;top:6px;right:6px}}
+/* ===== Learning Guide (#/guide) ===== */
+.ail-guide{max-width:880px;margin:0 auto;padding:96px 24px 90px}
+.ail-guide-lede{font-size:18px;line-height:1.6;color:#3b4453;margin:18px 0 0;max-width:64ch}
+.ail-step{position:relative;display:flex;gap:18px;align-items:flex-start;margin:22px 0 0;border:1.5px solid #edf0f6;border-radius:18px;padding:22px;background:#fff;box-shadow:0 1px 2px rgba(20,30,55,.04)}
+.ail-step-n{flex:none;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font:700 18px/1 'Instrument Serif',serif;background:rgba(26,106,255,.10);color:var(--forge-blue,#1A6AFF)}
+.ail-step-body{min-width:0;flex:1}
+.ail-step-h{font:700 19px/1.2 'DM Sans';color:#0c1322;margin:0}
+.ail-step-p{font-size:14.5px;line-height:1.55;color:#5b6470;margin:8px 0 0}
+.ail-step-links{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.ail-step-links a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font:600 12.5px/1 'DM Sans';color:var(--forge-blue,#1A6AFF);background:rgba(26,106,255,.08);border:1px solid rgba(26,106,255,.18);border-radius:999px;padding:7px 13px;transition:background .12s}
+.ail-step-links a:hover{background:rgba(26,106,255,.16)}
+.ail-guide-paths{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:24px 0 0}
+.ail-path{display:flex;flex-direction:column;text-decoration:none;color:inherit;border:1.5px solid #edf0f6;border-radius:18px;padding:20px;background:linear-gradient(180deg,#fff,#fcfdff);box-shadow:0 1px 2px rgba(20,30,55,.04);transition:transform .18s cubic-bezier(.2,.7,.3,1),box-shadow .18s,border-color .18s}
+.ail-path:hover{transform:translateY(-3px);box-shadow:0 20px 48px -10px rgba(20,30,55,.16);border-color:#cdd6e6}
+.ail-path-ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:23px;line-height:1;background:rgba(26,106,255,.09)}
+.ail-path-name{font:700 17px/1.2 'DM Sans';margin:13px 0 0;color:#0c1322}
+.ail-path-blurb{font-size:13.5px;line-height:1.45;color:#5b6470;margin:7px 0 0}
+.ail-path-go{margin-top:auto;padding-top:14px;font:600 12px 'JetBrains Mono',monospace;color:var(--forge-blue,#1A6AFF)}
+.ail-guide-cta{display:flex;flex-wrap:wrap;gap:12px;margin:30px 0 0}
+.ail-guide-cta a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font:700 14px/1 'DM Sans';border-radius:11px;padding:13px 20px}
+.ail-guide-cta a.is-primary{background:var(--forge-blue,#1A6AFF);color:#fff;box-shadow:0 2px 10px rgba(26,106,255,.26)}
+.ail-guide-cta a.is-primary:hover{transform:translateY(-1px)}
+.ail-guide-cta a.is-ghost{color:#0c1322;border:1.5px solid #e2e6ee;background:#fff}
+.ail-guide-cta a.is-ghost:hover{border-color:var(--forge-blue,#1A6AFF);color:var(--forge-blue,#1A6AFF)}
+@media(max-width:760px){.ail-guide-paths{grid-template-columns:1fr}.ail-step{padding:18px}}
 
 </style>
 </head>
@@ -223,7 +352,10 @@ a.ail-det-cat:hover{text-decoration:underline}
 <nav class="ailnav">
   <a class="ailnav-brand" href="#/" aria-label="LevelUp AI Library — home"><span class="ailnav-logo" aria-hidden="true"></span><span class="ailnav-sub">AI Library</span></a>
   <div class="ailnav-links">
+    <button class="ailnav-k" id="ailCmdOpen" type="button" aria-label="Search all resources (Command-K)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg><span class="ailnav-k-txt">Search</span><kbd>⌘K</kbd></button>
     <a href="#/">All resources</a>
+    <a href="#/guide">Start here</a>
+    <a href="#/stack">My Stack</a>
     <a href="https://promptvault.vercel.app/#/perks" target="_blank" rel="noopener">Startup perks ↗</a>
     <a href="https://leveluplearning.in" target="_blank" rel="noopener">leveluplearning.in ↗</a>
   </div>
@@ -239,6 +371,25 @@ a.ail-det-cat:hover{text-decoration:underline}
   var $ = function(s,r){return (r||document).querySelector(s);};
   var esc = function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
   var debounce = function(fn,ms){var t;return function(){var a=arguments,c=this;clearTimeout(t);t=setTimeout(function(){fn.apply(c,a);},ms);};};
+
+  // =========================================================
+  // SAVE TO MY STACK + RECENTLY VIEWED  (localStorage, no login)
+  // =========================================================
+  var STACK_KEY='ail-stack', RECENT_KEY='ail-recent', RECENT_CAP=12;
+  function lsGet(k){ try{ var v=JSON.parse(localStorage.getItem(k)); return Array.isArray(v)?v:[]; }catch(e){ return []; } }
+  function lsSet(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+  // store a slim, self-sufficient snapshot so #/stack & recent strip render without re-fetching categories
+  function slim(r){ var e=r.extra||{}; return {name:r.name,slug:r.slug,category:r.category,description:r.description,extra:{stars:e.stars,pushed:e.pushed,last_updated:e.last_updated,created:e.created,vendor:e.vendor,provider:e.provider,skill_category:e.skill_category,task_category:e.task_category,agent_category:e.agent_category,kind:e.kind,weights:e.weights}}; }
+  function inStack(slug){ var a=lsGet(STACK_KEY); for(var i=0;i<a.length;i++){ if(a[i].slug===slug) return true; } return false; }
+  function toggleStack(r){ var a=lsGet(STACK_KEY), s=r.slug, out=[], found=false;
+    for(var i=0;i<a.length;i++){ if(a[i].slug===s){ found=true; } else { out.push(a[i]); } }
+    if(!found) out.unshift(slim(r));        // newest first
+    lsSet(STACK_KEY,out); return !found;     // returns new saved-state
+  }
+  function pushRecent(r){ var a=lsGet(RECENT_KEY).filter(function(x){return x.slug!==r.slug;}); a.unshift(slim(r)); if(a.length>RECENT_CAP)a=a.slice(0,RECENT_CAP); lsSet(RECENT_KEY,a); }
+  var ICON_BMK='<svg class="ail-save-ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
+  // save control markup (used in cardHTML + detail). data-save carries the slug; saved class drives fill via CSS.
+  function saveBtnHTML(r,big){ var on=inStack(r.slug); return '<button type="button" class="ail-save'+(big?' ail-save-lg':'')+(on?' is-saved':'')+'" data-save="'+esc(r.slug)+'" data-snap="'+esc(JSON.stringify(slim(r)))+'" aria-pressed="'+(on?'true':'false')+'" aria-label="'+(on?'Remove from My Stack':'Save to My Stack')+'" title="'+(on?'Saved — click to remove':'Save to My Stack')+'">'+ICON_BMK+(big?'<span class="ail-save-txt">'+(on?'Saved':'Save')+'</span>':'')+'</button>'; }
   function color(s){var h=0;s=String(s||'');for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return 'hsl('+(h%360)+' 60% 50%)';}
   function mono(s){var h=0;s=String(s||'');for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;h=h%360;return {bg:'hsl('+h+' 70% 96%)',fg:'hsl('+h+' 55% 42%)'};}
   var ACR={ai:'AI',ml:'ML',ui:'UI',ux:'UX',api:'API',llm:'LLM',mcp:'MCP',sdk:'SDK',ocr:'OCR',pdf:'PDF',crm:'CRM',seo:'SEO',saas:'SaaS',nlp:'NLP',tts:'TTS',stt:'STT',db:'DB',ide:'IDE',cli:'CLI',hr:'HR'};
@@ -309,6 +460,8 @@ a.ail-det-cat:hover{text-decoration:underline}
         '<div class="ail-stats">7,748 skills · 3,537 tools · 1,725 MCP servers · 585 LLMs · 800 agents · 70 designs</div>'+
         '<div class="ail-search">'+ICON_SEARCH+'<input id="ailGlobal" type="text" placeholder="Search all 14,465 resources…" autocomplete="off" aria-label="Search the AI Library"></div>'+
         '<div class="ail-gres" id="ailGlobalRes"></div>'+
+        onbBannerHTML()+
+        recentStripHTML()+
         collectionsSectionHTML()+
         '<div class="ail-tiles" id="ailTiles">'+ CATS.map(function(c){
           return '<a class="ail-tile" href="#/c/'+c.key+'">'+
@@ -479,14 +632,55 @@ a.ail-det-cat:hover{text-decoration:underline}
     return null; }
   function cardTagHTML(r){ var t=cardTagInfo(r); if(!t) return ''; return '<button class="ail-card-tag" data-field="'+esc(t.f)+'" data-val="'+esc(String(t.v).toLowerCase())+'" title="Filter by '+esc(prettyLabel(t.v))+'">'+esc(prettyLabel(t.v))+'</button>'; }
   function detailTagHTML(r,key){ var t=cardTagInfo(r); if(!t) return ''; return '<a class="ail-det-tag" href="#/c/'+key+'?'+encodeURIComponent(t.f)+'='+encodeURIComponent(String(t.v).toLowerCase())+'">'+esc(prettyLabel(t.v))+'</a>'; }
+  // --- Setup-difficulty / kind badge: derived ONLY from existing data, honest + subtle ---
+  var BADGE_ICONS={
+    terminal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 9 12 5 16"/><line x1="12" y1="17" x2="18" y2="17"/></svg>',
+    bolt:'<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>',
+    globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"/></svg>',
+    chip:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/></svg>',
+    layers:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><polygon points="12 3 21 8 12 13 3 8 12 3"/><polyline points="3 13 12 18 21 13"/></svg>'
+  };
+  // Returns {label, tone, icon} or null. tone -> css class .ail-badge--<tone>.
+  function deriveBadge(r){
+    if(!r) return null;
+    var e=r.extra||{}, cat=r.category;
+    var cmd=String(e.install_command||'').trim().toLowerCase();
+    if(cat==='skill'){
+      // every skill ships a single `npx skills add …` line
+      if(cmd) return {label:'1-line install',tone:'beginner',icon:'terminal'};
+      return {label:'agent skill',tone:'neutral',icon:'bolt'};
+    }
+    if(cat==='mcp_server'){
+      if(cmd.indexOf('npx')===0) return {label:'npx · quick setup',tone:'quick',icon:'terminal'};
+      if(cmd) return {label:'1-line install',tone:'beginner',icon:'terminal'};
+      return {label:'MCP server',tone:'neutral',icon:'chip'};
+    }
+    if(cat==='llm'){
+      if(String(e.weights||'').toLowerCase()==='open') return {label:'open weights',tone:'model',icon:'chip'};
+      return {label:'API / model',tone:'model',icon:'chip'};
+    }
+    if(cat==='tool'){
+      // tools are hosted web apps (website, no repo/install)
+      if(e.website||e.website_url) return {label:'web app · no setup',tone:'nosetup',icon:'globe'};
+      return {label:'AI tool',tone:'neutral',icon:'bolt'};
+    }
+    if(cat==='agent') return {label:'platform',tone:'platform',icon:'layers'};
+    if(cat==='design') return {label:'design system',tone:'neutral',icon:'layers'};
+    return null;
+  }
+  function badgeHTML(r){
+    var b=deriveBadge(r); if(!b) return '';
+    return '<span class="ail-badge ail-badge--'+b.tone+'" title="Setup: '+esc(b.label)+'">'+(BADGE_ICONS[b.icon]||'')+esc(b.label)+'</span>';
+  }
   function cardHTML(r){
     return '<a class="ail-card" href="#/r/'+esc(r.slug)+'" data-slug="'+esc(r.slug)+'">'+
       '<div class="ail-card-top">'+
         '<span class="ail-card-badge" style="background:'+mono(r.name).bg+';color:'+mono(r.name).fg+'">'+esc((r.name||'?').charAt(0).toUpperCase())+'</span>'+
         '<div style="min-width:0"><div class="ail-card-name">'+esc(r.name)+'</div><div class="ail-card-meta">'+esc(metaLine(r))+'</div></div>'+
+        saveBtnHTML(r,false)+
       '</div>'+
       '<p class="ail-card-desc">'+esc((r.description||'').split('|')[0])+'</p>'+
-      '<div class="ail-card-foot">'+cardTagHTML(r)+cardStatsHTML(r)+'<span class="ail-perk" data-perkfor="'+esc(r.primary_url||'')+'" hidden></span>'+
+      '<div class="ail-card-foot">'+badgeHTML(r)+cardTagHTML(r)+cardStatsHTML(r)+'<span class="ail-perk" data-perkfor="'+esc(r.primary_url||'')+'" hidden></span>'+
         '<span class="ail-card-cta">View →</span></div></a>';
   }
   function pagerHTML(page,pages){
@@ -630,7 +824,9 @@ a.ail-det-cat:hover{text-decoration:underline}
       var html='<div class="ail-det">'+
         '<a class="ail-back" href="#/c/'+key+'">'+ICON_BACK+' '+esc(def.label)+'</a>'+
         '<div class="ail-det-head"><span class="ail-det-badge" style="background:'+mono(r.name).bg+';color:'+mono(r.name).fg+'">'+esc((r.name||'?').charAt(0).toUpperCase())+'</span>'+
-          '<div style="min-width:0"><a class="ail-det-cat" href="#/c/'+key+'">'+esc(def.label)+'</a><h1>'+esc(r.name)+'</h1>'+detailTagHTML(r,key)+'</div></div>';
+          '<div style="min-width:0"><a class="ail-det-cat" href="#/c/'+key+'">'+esc(def.label)+'</a><h1>'+esc(r.name)+'</h1>'+detailTagHTML(r,key)+
+          (function(){var b=deriveBadge({category:(r.category||key),extra:e});return b?'<div class="ail-det-badges">'+badgeHTML({category:(r.category||key),extra:e})+'</div>':'';})()+
+          '</div>'+saveBtnHTML(r,true)+'</div>';
 
       // --- What it does ---
       html+=secHTML('What it does', descParts.length?'<div class="ail-det-desc">'+descParts.map(esc).join('<br><br>')+'</div>':'');
@@ -686,6 +882,7 @@ a.ail-det-cat:hover{text-decoration:underline}
       html+='</div>';
       host.innerHTML=html;
       window.scrollTo({top:0});
+      pushRecent(r);   // track for the hub "Recently viewed" strip
       // copy (bind every copy button — terminal + MCP config)
       $$('[data-copy]',host).forEach(function(cb){ cb.addEventListener('click',function(){ var txt=cb.getAttribute('data-copy'); (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(function(){cb.textContent='Copied';setTimeout(function(){cb.textContent='Copy';},1500);}).catch(function(){}); }); });
       // perk cross-link
@@ -791,7 +988,256 @@ a.ail-det-cat:hover{text-decoration:underline}
     });
   }
 
+  // --- save button: ONE document-level CAPTURE listener ---
+  // Cards are <a>. Capturing phase fires before native navigation AND before the
+  // browse host's bubble-phase delegation, so preventDefault/stopPropagation here
+  // reliably stops the card link from firing on hub, browse, stack & collection grids.
+  function syncSaveBtn(btn){ var on=inStack(btn.getAttribute('data-save')); btn.classList.toggle('is-saved',on); btn.setAttribute('aria-pressed',on?'true':'false'); btn.setAttribute('aria-label',on?'Remove from My Stack':'Save to My Stack'); btn.setAttribute('title',on?'Saved — click to remove':'Save to My Stack'); var t=btn.querySelector('.ail-save-txt'); if(t)t.textContent=on?'Saved':'Save'; }
+  document.addEventListener('click',function(e){
+    var btn=e.target.closest&&e.target.closest('.ail-save'); if(!btn) return;
+    e.preventDefault(); e.stopPropagation();            // never navigate the card
+    var slug=btn.getAttribute('data-save'); if(!slug) return;
+    // resolve a full snapshot: prefer the button's data-snap, else existing stack/recent, else minimal
+    var rObj=null;
+    try{ rObj=JSON.parse(btn.getAttribute('data-snap')||'null'); }catch(_){}
+    if(!rObj){ var pools=lsGet(STACK_KEY).concat(lsGet(RECENT_KEY)); for(var i=0;i<pools.length;i++){ if(pools[i].slug===slug){ rObj=pools[i]; break; } } }
+    if(!rObj) rObj={slug:slug,category:String(slug).split('/')[0],name:slug,description:'',extra:{}};
+    toggleStack(rObj);
+    // keep every on-screen instance of this slug in sync
+    $$('.ail-save[data-save="'+(window.CSS&&CSS.escape?CSS.escape(slug):slug)+'"]').forEach(syncSaveBtn);
+    if(location.hash.indexOf('#/stack')===0) renderStack();  // live-remove from the stack page
+  },true);
+
+  // =========================================================
+  // MY STACK  (#/stack)
+  // =========================================================
+  function renderStack(){
+    var host=$('#aivaultHost'); if(!host) return;
+    var rows=lsGet(STACK_KEY);
+    host.innerHTML=
+      '<div class="ail-wrap"><div class="ail-hero" style="padding-bottom:14px">'+
+        '<a class="ail-back" href="#/">'+ICON_BACK+' AI Library</a>'+
+        '<h1 class="ail-h1">My <em>Stack</em></h1>'+
+        '<p class="ail-lede">'+(rows.length?('Your saved resources — '+rows.length+' item'+(rows.length>1?'s':'')+'. Saved on this device, no signup.'):'Nothing saved yet.')+'</p>'+
+        (rows.length
+          ? '<div class="ail-grid">'+rows.map(cardHTML).join('')+'</div>'
+          : '<div class="ail-empty" style="text-align:left;max-width:520px">Tap the <span style="display:inline-flex;vertical-align:-3px">'+ICON_BMK+'</span> bookmark on any resource to save it here. Your stack stays on this device — no account needed.<br><br><a class="ail-card-cta" href="#/">Browse the library →</a></div>')+
+      '</div></div>';
+    window.scrollTo(0,0);
+  }
+
+  // recently-viewed strip for the hub (returns '' when empty)
+  function recentStripHTML(){
+    var rows=lsGet(RECENT_KEY); if(!rows.length) return '';
+    return '<div class="ail-recent"><div class="ail-recent-head"><h2 class="ail-sec-h">Recently viewed</h2></div>'+
+      '<div class="ail-recent-row">'+rows.map(function(r){
+        return '<a class="ail-recent-card" href="#/r/'+esc(r.slug)+'">'+
+          '<span class="ail-recent-badge" style="background:'+mono(r.name).bg+';color:'+mono(r.name).fg+'">'+esc((r.name||'?').charAt(0).toUpperCase())+'</span>'+
+          '<span class="ail-recent-name">'+esc(r.name)+'</span></a>';
+      }).join('')+'</div></div>';
+  }
+
+  // =========================================================
+  // ⌘K COMMAND PALETTE  (global fuzzy search over index.json)
+  // =========================================================
+  (function cmdk(){
+    var back, input, list, hits=[], sel=-1, lastQ='', token=0;
+    function hl(name, q){
+      var safe=esc(name||'');
+      if(!q) return safe;
+      var i=safe.toLowerCase().indexOf(q.toLowerCase());
+      if(i<0) return safe;
+      return safe.slice(0,i)+'<b>'+safe.slice(i,i+q.length)+'</b>'+safe.slice(i+q.length);
+    }
+    function ensure(){
+      if(back) return;
+      back=document.createElement('div');
+      back.className='ailcmd-back';
+      back.setAttribute('role','dialog');
+      back.setAttribute('aria-modal','true');
+      back.setAttribute('aria-label','Search the AI Library');
+      back.innerHTML=
+        '<div class="ailcmd" role="combobox" aria-expanded="true" aria-haspopup="listbox" aria-owns="ailCmdList">'+
+          '<div class="ailcmd-top">'+ICON_SEARCH+
+            '<input class="ailcmd-input" id="ailCmdInput" type="text" autocomplete="off" spellcheck="false" '+
+              'placeholder="Search 14,465 resources…" aria-label="Search all resources" '+
+              'aria-controls="ailCmdList" aria-autocomplete="list">'+
+            '<span class="ailcmd-esc">ESC</span>'+
+          '</div>'+
+          '<div class="ailcmd-list" id="ailCmdList" role="listbox" aria-label="Results">'+
+            '<div class="ailcmd-state">Type to search skills, tools, MCP servers, LLMs, agents &amp; designs.</div>'+
+          '</div>'+
+          '<div class="ailcmd-foot"><span><kbd>↑</kbd><kbd>↓</kbd> navigate</span><span><kbd>↵</kbd> open</span><span><kbd>esc</kbd> close</span></div>'+
+        '</div>';
+      document.body.appendChild(back);
+      input=$('#ailCmdInput',back); list=$('#ailCmdList',back);
+      back.addEventListener('mousedown',function(e){ if(e.target===back) close(); });
+      input.addEventListener('input',onInput);
+      input.addEventListener('keydown',onKey);
+      list.addEventListener('mousemove',function(e){ var row=e.target.closest&&e.target.closest('[data-i]'); if(row){ var i=+row.getAttribute('data-i'); if(i!==sel){ sel=i; paintSel(); } } });
+      list.addEventListener('click',function(e){ var row=e.target.closest&&e.target.closest('[data-i]'); if(row){ e.preventDefault(); go(+row.getAttribute('data-i')); } });
+    }
+    function open(){
+      ensure();
+      back.classList.add('is-open');
+      document.documentElement.style.overflow='hidden';
+      input.value=''; lastQ=''; hits=[]; sel=-1;
+      list.innerHTML='<div class="ailcmd-state">Type to search skills, tools, MCP servers, LLMs, agents &amp; designs.</div>';
+      loadIndex();
+      requestAnimationFrame(function(){ input.focus(); });
+    }
+    function close(){
+      if(!back) return;
+      back.classList.remove('is-open');
+      document.documentElement.style.overflow='';
+    }
+    function isOpen(){ return back && back.classList.contains('is-open'); }
+    var onInput=debounce(function(){
+      var q=input.value.trim();
+      if(q===lastQ) return; lastQ=q;
+      if(q.length<2){ hits=[]; sel=-1; list.innerHTML='<div class="ailcmd-state">Type to search skills, tools, MCP servers, LLMs, agents &amp; designs.</div>'; return; }
+      var my=++token;
+      loadIndex().then(function(idx){
+        if(my!==token || !isOpen()) return;
+        hits=search(idx,q,'_hay','n').slice(0,30);
+        sel=hits.length?0:-1;
+        paint(q);
+      });
+    },120);
+    function paint(q){
+      if(!hits.length){ list.innerHTML='<div class="ailcmd-state">No matches for “'+esc(q)+'”.</div>'; return; }
+      list.innerHTML='<div class="ailcmd-grp">'+hits.length+' result'+(hits.length===1?'':'s')+'</div>'+
+        hits.map(function(r,i){ var cc=CAT_BY[r.c]||{label:r.c}, mc=mono(r.n);
+          return '<a class="ailcmd-row" role="option" data-i="'+i+'" id="ailCmdRow'+i+'" href="#/r/'+esc(r.s)+'" aria-selected="'+(i===sel?'true':'false')+'">'+
+            '<span class="ailcmd-badge" style="background:'+mc.bg+';color:'+mc.fg+'">'+esc((r.n||'?').charAt(0).toUpperCase())+'</span>'+
+            '<span class="ailcmd-body"><span class="ailcmd-name">'+hl(r.n,q)+'</span>'+
+              (r.d?'<span class="ailcmd-desc">'+esc(r.d)+'</span>':'')+'</span>'+
+            '<span class="ailcmd-cat">'+esc(cc.label)+'</span>'+
+            '<span class="ailcmd-go">↵</span></a>';
+        }).join('');
+      paintSel();
+    }
+    function paintSel(){
+      var rows=$$('.ailcmd-row',list);
+      rows.forEach(function(el,i){ el.setAttribute('aria-selected', i===sel?'true':'false'); });
+      var cur=rows[sel];
+      if(cur){ input.setAttribute('aria-activedescendant',cur.id); cur.scrollIntoView({block:'nearest'}); }
+      else input.removeAttribute('aria-activedescendant');
+    }
+    function move(d){
+      if(!hits.length) return;
+      sel=(sel+d+hits.length)%hits.length;
+      paintSel();
+    }
+    function go(i){
+      var r=hits[i]; if(!r) return;
+      close();
+      location.hash='#/r/'+r.s;
+    }
+    function onKey(e){
+      if(e.key==='ArrowDown'){ e.preventDefault(); move(1); }
+      else if(e.key==='ArrowUp'){ e.preventDefault(); move(-1); }
+      else if(e.key==='Enter'){ if(sel>=0){ e.preventDefault(); go(sel); } }
+      else if(e.key==='Escape'){ e.preventDefault(); close(); }
+      else if(e.key==='Tab'){ e.preventDefault(); move(e.shiftKey?-1:1); }
+    }
+    document.addEventListener('keydown',function(e){
+      if((e.metaKey||e.ctrlKey) && (e.key==='k'||e.key==='K')){
+        e.preventDefault(); isOpen()?close():open(); return;
+      }
+      if(e.key==='/' && !isOpen()){
+        var t=e.target, tag=t&&t.tagName;
+        if(tag==='INPUT'||tag==='TEXTAREA'||(t&&t.isContentEditable)) return;
+        e.preventDefault(); open();
+      }
+    });
+    document.addEventListener('click',function(e){
+      var b=e.target.closest&&e.target.closest('#ailCmdOpen');
+      if(b){ e.preventDefault(); open(); }
+    });
+    window.openAivaultPalette=open;
+  })();
+
+  // =========================================================
+  // "NEW HERE?" ONBOARDING BANNER  (hub, dismissible)
+  // =========================================================
+  var ONB_KEY='ail-onb-dismissed';
+  function onbDismissed(){ try{ return localStorage.getItem(ONB_KEY)==='1'; }catch(e){ return false; } }
+  function onbBannerHTML(){
+    if(onbDismissed()) return '';
+    return '<div class="ail-onb" id="ailOnb" role="note">'+
+      '<div class="ail-onb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 7v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V7z"/><path d="m9 12 2 2 4-4"/></svg></div>'+
+      '<div class="ail-onb-body">'+
+        '<h2 class="ail-onb-h">New here? Start with the basics.</h2>'+
+        '<p class="ail-onb-p">14,465 free AI resources — agent skills, tools, MCP servers, LLMs and more. Not sure where to begin? The 5-minute Start Guide walks you through your first skill.</p>'+
+        '<div class="ail-onb-acts">'+
+          '<a class="is-primary" href="#/guide">Start guide →</a>'+
+          '<a class="is-ghost" href="#/c/skill">Browse skills</a>'+
+        '</div>'+
+      '</div>'+
+      '<button class="ail-onb-x" id="ailOnbX" type="button" aria-label="Dismiss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>'+
+    '</div>';
+  }
+  document.addEventListener('click',function(e){
+    var x=e.target.closest&&e.target.closest('#ailOnbX'); if(!x) return;
+    try{ localStorage.setItem(ONB_KEY,'1'); }catch(_){}
+    var b=$('#ailOnb'); if(b) b.parentNode.removeChild(b);
+  });
+
+  // =========================================================
+  // LEARNING GUIDE  (#/guide)
+  // =========================================================
+  function renderGuide(){
+    var host=$('#aivaultHost'); if(!host) return;
+    var steps=[
+      {h:'Pick what you want to do',p:'Browsing by goal beats browsing by name. Skills make your AI coding agent better at a task; tools are standalone apps; MCP servers connect agents to your data; LLMs are the models themselves.',
+        links:[['#/c/skill','Agent skills'],['#/c/tool','AI tools'],['#/c/mcp_server','MCP servers']]},
+      {h:'Tell us what you work in',p:'On the Skills page, pick your tool (Claude Code, Cursor, Cline, Windsurf…) once and we filter the catalog to skills verified to work with it. We remember it on this device.',
+        links:[['#/c/skill','Set my tool →']]},
+      {h:'Install your first skill',p:'Every skill ships a one-line install. Open any skill and copy the <code>npx skills add …</code> command, or use the universal installer: <code>npx skills init</code> then add the repo. No signup, nothing locked.',
+        links:[['#/c/skill','Find a skill']]},
+      {h:'Save a stack & keep going',p:'Tap the bookmark on any card to save it to <b>My Stack</b> — your personal shortlist, stored on this device. Press <kbd>⌘K</kbd> anytime to jump-search all 14,465 resources.',
+        links:[['#/stack','My Stack'],['#/','All resources']]}
+    ];
+    var paths=[
+      {ico:'⚡',name:'Make my AI coding agent smarter',blurb:'Install agent skills for Claude Code, Cursor & more.',href:'#/c/skill'},
+      {ico:'🔌',name:'Connect my agent to my data',blurb:'MCP servers for databases, APIs & SaaS tools.',href:'#/c/mcp_server'},
+      {ico:'🛠️',name:'Find an AI tool for a task',blurb:'3,537 AI tools — many with a student credit perk.',href:'#/c/tool'},
+      {ico:'🧠',name:'Compare LLMs',blurb:'585 models by provider, size, context & weights.',href:'#/c/llm'}
+    ];
+    host.innerHTML=
+      '<div class="ail-guide">'+
+        '<a class="ail-back" href="#/">'+ICON_BACK+' AI Library</a>'+
+        '<div class="ail-eyebrow">Start here · 5 minutes</div>'+
+        '<h1 class="ail-h1">How to use the <em>AI Library</em>.</h1>'+
+        '<p class="ail-guide-lede">14,465 free resources can be a lot. This quick guide gets you from zero to your first installed skill — and shows you how to find anything fast.</p>'+
+        steps.map(function(s,i){
+          return '<div class="ail-step">'+
+            '<div class="ail-step-n">'+(i+1)+'</div>'+
+            '<div class="ail-step-body"><h2 class="ail-step-h">'+esc(s.h)+'</h2>'+
+              '<p class="ail-step-p">'+s.p+'</p>'+
+              (s.links&&s.links.length?'<div class="ail-step-links">'+s.links.map(function(l){return '<a href="'+esc(l[0])+'">'+esc(l[1])+'</a>';}).join('')+'</div>':'')+
+            '</div></div>';
+        }).join('')+
+        '<h2 class="ail-sec-t" style="margin:38px 0 4px">Or jump to your goal</h2>'+
+        '<div class="ail-guide-paths">'+paths.map(function(p){
+          return '<a class="ail-path" href="'+esc(p.href)+'">'+
+            '<div class="ail-path-ico">'+esc(p.ico)+'</div>'+
+            '<div class="ail-path-name">'+esc(p.name)+'</div>'+
+            '<div class="ail-path-blurb">'+esc(p.blurb)+'</div>'+
+            '<div class="ail-path-go">Open →</div></a>';
+        }).join('')+'</div>'+
+        '<div class="ail-guide-cta">'+
+          '<a class="is-primary" href="#/c/skill">Browse all skills →</a>'+
+          '<a class="is-ghost" href="#/">Back to the library</a>'+
+        '</div>'+
+      '</div>';
+    window.scrollTo(0,0);
+  }
+
   // expose for the router
+  window.renderResourcesGuide = renderGuide;
+  window.renderResourcesStack = renderStack;
   window.renderResourcesHub = renderHub;
   window.renderResourcesBrowse = renderBrowse;
   window.renderResourceDetail = renderDetail;
@@ -806,6 +1252,8 @@ a.ail-det-cat:hover{text-decoration:underline}
     document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
     var el=document.getElementById(pg); if(el) el.classList.add('active');
     if(pg==='page-resource'){ window.renderResourceDetail(decodeURIComponent(h.slice(4))); }
+    else if(h.indexOf('#/guide')===0){ window.renderResourcesGuide(); }
+    else if(h.indexOf('#/stack')===0){ window.renderResourcesStack(); }
     else { var mc=h.match(/^#\/collection\/([^/?]+)/); var m=h.match(/^#\/c\/([^/?]+)/); if(mc) window.renderResourcesCollection(decodeURIComponent(mc[1])); else if(m) window.renderResourcesBrowse(m[1]); else window.renderResourcesHub(); }
     if(pg!=='page-resource') window.scrollTo(0,0);
   }
