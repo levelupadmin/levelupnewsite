@@ -8,7 +8,8 @@
 <meta property="og:title" content="LevelUp AI Library — 14,465 AI resources, free">
 <meta property="og:description" content="Search 7,748 agent skills, 3,537 tools, 1,725 MCP servers, 585 LLMs, 800 agents and 70 design systems. Free for students.">
 <meta name="robots" content="index,follow">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231A6AFF'/%3E%3Ctext x='50' y='70' font-family='Arial Black,sans-serif' font-size='62' fill='white' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="/aivault/favicon.png">
+<link rel="apple-touch-icon" href="/aivault/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
@@ -18,19 +19,22 @@
 html,body{margin:0;padding:0}
 body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322;-webkit-font-smoothing:antialiased}
 .ailnav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 24px;background:rgba(251,251,253,.86);backdrop-filter:blur(10px);border-bottom:1px solid #eceef3}
-.ailnav-brand{display:flex;align-items:center;gap:9px;font:700 16px 'DM Sans';text-decoration:none;color:#0c1322}
-.ailnav-mark{width:27px;height:27px;border-radius:7px;background:var(--forge-blue);color:#fff;display:grid;place-items:center;font:800 14px 'DM Sans'}
+.ailnav-brand{display:flex;align-items:center;gap:10px;font:700 16px 'DM Sans';text-decoration:none;color:#0c1322}
+.ailnav-logo{width:84px;height:24px;display:inline-block;background:var(--forge-blue);-webkit-mask:url('/aivault/logo.svg') center/contain no-repeat;mask:url('/aivault/logo.svg') center/contain no-repeat}
+.ailnav-sub{font:600 16px 'DM Sans';color:#0c1322;border-left:1.5px solid #d8dde7;padding-left:9px;margin-left:1px}
 .ailnav-links{display:flex;gap:20px;font-size:13.5px;font-weight:600;flex-wrap:wrap}
-.ailnav-links a{text-decoration:none;color:#5b6470;white-space:nowrap}
+.ailnav-links a{text-decoration:none;color:#5b6470;white-space:nowrap;padding:8px 4px;display:inline-block}
 .ailnav-links a:hover{color:var(--forge-blue)}
 .ailfoot{border-top:1px solid #eceef3;padding:30px 24px;text-align:center;color:#8a93a3;font-size:13px;line-height:1.6}
 .ailfoot a{color:var(--forge-blue);text-decoration:none}
 .page{display:none}
 .page.active{display:block}
-@media(max-width:560px){.ailnav-links a:last-child{display:none}}
+@media(max-width:560px){.ailnav-links a[target="_blank"]{display:none}}
 .ail-wrap{max-width:1180px;margin:0 auto;padding:0 24px}
-.ail-hero{padding:104px 0 28px}
-.ail-back{display:inline-flex;align-items:center;gap:6px;font:600 13px/1 'DM Sans',sans-serif;color:#5b6470;text-decoration:none;margin-bottom:18px}
+.ail-hero{position:relative;padding:88px 0 24px}
+.ail-hero::before{content:'';position:absolute;left:-120px;top:-40px;width:520px;height:340px;background:radial-gradient(closest-side,rgba(26,106,255,.10),transparent);filter:blur(8px);z-index:-1;pointer-events:none}
+.ail-stats{margin:18px 0 0;font:600 13px/1.6 'JetBrains Mono',monospace;color:#8a93a3}
+.ail-back{display:inline-flex;align-items:center;gap:6px;font:600 13px/1 'DM Sans',sans-serif;color:#5b6470;text-decoration:none;padding:10px 2px;margin-bottom:8px}
 .ail-back:hover{color:var(--forge-blue,#1A6AFF)}
 .ail-eyebrow{font:600 12px/1 'JetBrains Mono',monospace;letter-spacing:2px;text-transform:uppercase;color:var(--forge-blue,#1A6AFF)}
 .ail-h1{font:700 clamp(32px,5vw,56px)/1.05 'DM Sans',sans-serif;margin:14px 0 0;letter-spacing:-.02em;color:#0c1322}
@@ -41,19 +45,20 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
 .ail-search input:focus{outline:none;border-color:var(--forge-blue,#1A6AFF);box-shadow:0 0 0 4px rgba(26,106,255,.12)}
 .ail-search > svg{position:absolute;left:17px;top:50%;transform:translateY(-50%);color:#9aa3b2;pointer-events:none}
 .ail-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:32px 0 80px}
-.ail-tile{display:block;text-decoration:none;color:inherit;border:1.5px solid #e7eaf1;border-radius:18px;padding:22px;background:#fff;transition:transform .15s,box-shadow .15s,border-color .15s}
-.ail-tile:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(20,30,55,.10);border-color:#cdd6e6}
-.ail-tile-ico{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:23px;background:rgba(26,106,255,.09)}
+.ail-tile{display:block;text-decoration:none;color:inherit;border:1.5px solid #edf0f6;border-radius:18px;padding:22px;background:#fff;box-shadow:0 1px 2px rgba(20,30,55,.04);transition:transform .18s cubic-bezier(.2,.7,.3,1),box-shadow .18s,border-color .18s}
+.ail-tile:hover{transform:translateY(-3px);box-shadow:0 20px 48px -10px rgba(20,30,55,.16);border-color:#cdd6e6}
+.ail-tile-ico{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:rgba(26,106,255,.09)}
+.ail-tile-ico svg{width:24px;height:24px;color:var(--forge-blue)}
 .ail-tile-name{font:700 21px/1.1 'DM Sans';margin:15px 0 0;color:#0c1322}
 .ail-tile-count{font:600 13px/1 'JetBrains Mono',monospace;color:var(--forge-blue,#1A6AFF);margin:7px 0 0}
 .ail-tile-blurb{font-size:14px;line-height:1.45;color:#5b6470;margin:10px 0 0}
 .ail-gres{margin:18px 0 80px;max-width:680px}
-.ail-gres-row{display:flex;gap:12px;align-items:center;padding:12px 14px;border:1px solid #eaecf2;border-radius:12px;margin-bottom:8px;text-decoration:none;color:inherit;background:#fff}
-.ail-gres-row:hover{border-color:#c9d3e6;background:#fafbff}
-.ail-gres-badge{flex:none;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font:700 13px/1 'DM Sans';color:#fff}
+.ail-gres-row{display:flex;gap:12px;align-items:center;padding:13px 16px;border:1.5px solid #edf0f6;border-radius:14px;margin-bottom:8px;text-decoration:none;color:inherit;background:#fff;box-shadow:0 1px 2px rgba(20,30,55,.04);transition:transform .14s,box-shadow .14s,border-color .14s}
+.ail-gres-row:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(20,30,55,.09);border-color:#cdd6e6;background:#fff}
+.ail-gres-badge{flex:none;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font-family:'Instrument Serif',serif;font-weight:400;font-size:17px;background:#eef2fb;color:var(--forge-blue)}
 .ail-gres-name{font:600 15px/1.2 'DM Sans';color:#0c1322}
 .ail-gres-meta{font-size:12.5px;color:#8a93a3;margin-top:2px}
-.ail-gres-cat{margin-left:auto;flex:none;font:600 11px/1 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.5px;color:#9aa3b2}
+.ail-gres-cat{margin-left:auto;flex:none;font:600 11px/1 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.4px;color:#7a8497;background:#f1f3f8;border-radius:6px;padding:4px 8px}
 .ail-layout{display:grid;grid-template-columns:230px 1fr;gap:34px;align-items:start;padding-bottom:90px}
 .ail-layout--solo{grid-template-columns:1fr;max-width:1000px;margin:0 auto}
 .ail-rail{position:sticky;top:84px}
@@ -62,8 +67,8 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
 .ail-facet{display:inline-flex;align-items:center;gap:6px;border:1px solid #e2e6ee;background:#fff;border-radius:999px;padding:6px 11px;font:500 13px/1 'DM Sans';color:#3b4453;cursor:pointer;margin:0 6px 6px 0;transition:all .12s}
 .ail-facet:hover{border-color:#bcc7da}
 .ail-facet.is-on{background:var(--forge-blue,#1A6AFF);border-color:var(--forge-blue,#1A6AFF);color:#fff}
-.ail-facet .ct{font:600 11px/1 'JetBrains Mono',monospace;opacity:.6}
-.ail-facet.is-on .ct{opacity:.85}
+.ail-facet .ct{font:600 10.5px/1 'JetBrains Mono',monospace;color:#9aa3b2;background:#f1f3f8;border-radius:5px;padding:1px 5px;margin-left:2px}
+.ail-facet.is-on .ct{background:rgba(255,255,255,.22);color:#fff}
 .ail-main-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:6px}
 .ail-count{font:600 14px/1 'JetBrains Mono',monospace;color:#8a93a3}
 .ail-chips{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0 16px;min-height:0}
@@ -71,16 +76,18 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
 .ail-chip-active:hover{background:rgba(26,106,255,.14)}
 .ail-clear{background:none;border:none;color:#8a93a3;font:600 12.5px/1 'DM Sans';cursor:pointer;padding:5px 4px;text-decoration:underline}
 .ail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.ail-card{display:flex;flex-direction:column;text-decoration:none;color:inherit;border:1.5px solid #e7eaf1;border-radius:16px;padding:18px;background:#fff;transition:transform .14s,box-shadow .14s,border-color .14s}
-.ail-card:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(20,30,55,.09);border-color:#cdd6e6}
+.ail-card{display:flex;flex-direction:column;text-decoration:none;color:inherit;border:1.5px solid #edf0f6;border-radius:16px;padding:18px;background:#fff;box-shadow:0 1px 2px rgba(20,30,55,.04),0 1px 3px rgba(20,30,55,.06);transition:transform .18s cubic-bezier(.2,.7,.3,1),box-shadow .18s,border-color .18s}
+.ail-card:hover{transform:translateY(-3px);box-shadow:0 16px 40px -8px rgba(20,30,55,.16);border-color:#cdd6e6}
 .ail-card-top{display:flex;gap:12px;align-items:center}
-.ail-card-badge{flex:none;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font:700 16px/1 'DM Sans';color:#fff}
+.ail-card-badge{flex:none;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font-family:'Instrument Serif',serif;font-weight:400;font-size:21px;background:#eef2fb;color:var(--forge-blue)}
 .ail-card-name{font:700 16px/1.2 'DM Sans';color:#0c1322;word-break:break-word}
 .ail-card-meta{font-size:12.5px;color:#8a93a3;margin-top:2px}
 .ail-card-desc{font-size:13.5px;line-height:1.5;color:#5b6470;margin:12px 0 0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .ail-card-foot{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:13px}
 .ail-chip{font:600 11px/1 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.4px;color:#7a8497;background:#f1f3f8;border-radius:6px;padding:5px 8px}
-.ail-perk{font:600 11.5px/1 'DM Sans';color:#1a7f4b;background:rgba(26,160,90,.10);border-radius:6px;padding:5px 8px;margin-left:auto}
+.ail-perk{font:600 11.5px/1 'DM Sans';color:#1a7f4b;background:rgba(26,160,90,.10);border-radius:6px;padding:5px 8px}
+.ail-card-cta{margin-left:auto;font:600 12px 'JetBrains Mono',monospace;color:var(--forge-blue);opacity:0;transition:opacity .14s}
+.ail-card:hover .ail-card-cta{opacity:1}
 .ail-pager{display:flex;justify-content:center;align-items:center;gap:6px;margin:32px 0 0;flex-wrap:wrap}
 .ail-pager button{min-width:38px;height:38px;border:1px solid #e2e6ee;background:#fff;border-radius:9px;font:600 13px/1 'DM Sans';color:#3b4453;cursor:pointer;padding:0 10px}
 .ail-pager button:hover:not(:disabled){border-color:var(--forge-blue,#1A6AFF);color:var(--forge-blue,#1A6AFF)}
@@ -92,13 +99,16 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
 /* resource detail */
 .ail-det{max-width:860px;margin:0 auto;padding:96px 24px 90px}
 .ail-det-head{display:flex;gap:16px;align-items:flex-start}
-.ail-det-badge{flex:none;width:62px;height:62px;border-radius:16px;display:grid;place-items:center;font:700 26px/1 'DM Sans';color:#fff}
+.ail-det-badge{flex:none;width:62px;height:62px;border-radius:16px;display:grid;place-items:center;font-family:'Instrument Serif',serif;font-weight:400;font-size:30px;background:#eef2fb;color:var(--forge-blue)}
 .ail-det h1{font:700 clamp(26px,4vw,40px)/1.08 'DM Sans';margin:0;letter-spacing:-.02em;color:#0c1322;word-break:break-word}
 .ail-det-cat{font:600 12px/1 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:1px;color:var(--forge-blue,#1A6AFF);margin-bottom:8px}
 .ail-det-desc{font-size:17px;line-height:1.6;color:#3b4453;margin:22px 0 0}
-.ail-install{margin:24px 0 0;background:#0c1322;border-radius:13px;padding:16px 18px;display:flex;align-items:center;gap:12px}
+.ail-install{position:relative;margin:24px 0 0;background:#0c1322;border:1px solid #1c2740;border-radius:12px;padding:30px 16px 16px;display:flex;align-items:center;gap:12px}
+.ail-install-tag{position:absolute;top:9px;left:16px;font:600 10px/1 'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;color:#5b6a86}
 .ail-install code{font:500 13.5px/1.4 'JetBrains Mono',monospace;color:#cfe0ff;flex:1;word-break:break-all}
-.ail-install button{flex:none;background:var(--forge-blue,#1A6AFF);color:#fff;border:none;border-radius:8px;padding:9px 14px;font:600 13px 'DM Sans';cursor:pointer}
+.ail-install code::before{content:'$ ';color:#4f7fff}
+.ail-install button{flex:none;background:rgba(255,255,255,.06);color:#cfe0ff;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:9px 14px;font:600 13px 'DM Sans';cursor:pointer;transition:background .14s,border-color .14s,color .14s}
+.ail-install button:hover{background:var(--forge-blue);border-color:var(--forge-blue);color:#fff}
 .ail-meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:#e7eaf1;border:1px solid #e7eaf1;border-radius:13px;overflow:hidden;margin:24px 0 0}
 .ail-meta-cell{background:#fff;padding:14px 16px}
 .ail-meta-k{font:600 11px/1 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.6px;color:#9aa3b2}
@@ -116,11 +126,22 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
 .ail-vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 @media (max-width:880px){
   .ail-layout{grid-template-columns:1fr;gap:8px}
-  .ail-rail{position:static;top:auto;display:flex;gap:18px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch}
-  .ail-rail-grp{margin-bottom:8px;flex:none}
+  .ail-rail{position:static;top:auto;display:block;overflow:visible;border:1px solid #eceef3;border-radius:12px;padding:12px;margin-bottom:8px}
+  .ail-rail-grp{margin-bottom:14px}
+  .ail-rail-grp:last-child{margin-bottom:0}
   .ail-tiles{grid-template-columns:1fr}
   .ail-grid{grid-template-columns:1fr}
   .ail-hero{padding:84px 0 18px}
+  .ail-facet{padding:11px 14px;font-size:14px;min-height:44px;margin:0 8px 8px 0}
+  .ail-install{flex-direction:column;align-items:stretch;gap:10px}
+  .ail-install code{width:100%}
+  .ail-install button{width:100%;padding:13px;font-size:14px}
+  .ail-card-name{font-size:17px}
+  .ail-card-desc{font-size:14.5px}
+  .ail-card-meta,.ail-gres-meta{font-size:13px}
+  .ail-chip{font-size:11.5px;padding:5px 9px}
+  .ailfoot{font-size:13px;line-height:1.7}
+  .ail-pager button{min-width:44px;height:44px}
 }
 @media (hover:none){ .ail-card-cta{opacity:1} }
 
@@ -128,7 +149,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
 </head>
 <body>
 <nav class="ailnav">
-  <a class="ailnav-brand" href="#/"><span class="ailnav-mark">L</span> LevelUp AI Library</a>
+  <a class="ailnav-brand" href="#/" aria-label="LevelUp AI Library — home"><span class="ailnav-logo" aria-hidden="true"></span><span class="ailnav-sub">AI Library</span></a>
   <div class="ailnav-links">
     <a href="#/">All resources</a>
     <a href="https://promptvault.vercel.app/#/perks" target="_blank" rel="noopener">Startup perks ↗</a>
@@ -147,6 +168,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
   var esc = function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
   var debounce = function(fn,ms){var t;return function(){var a=arguments,c=this;clearTimeout(t);t=setTimeout(function(){fn.apply(c,a);},ms);};};
   function color(s){var h=0;s=String(s||'');for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return 'hsl('+(h%360)+' 60% 50%)';}
+  function mono(s){var h=0;s=String(s||'');for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;h=h%360;return {bg:'hsl('+h+' 70% 96%)',fg:'hsl('+h+' 55% 42%)'};}
   var ACR={ai:'AI',ml:'ML',ui:'UI',ux:'UX',api:'API',llm:'LLM',mcp:'MCP',sdk:'SDK',ocr:'OCR',pdf:'PDF',crm:'CRM',seo:'SEO',saas:'SaaS',nlp:'NLP',tts:'TTS',stt:'STT',db:'DB',ide:'IDE',cli:'CLI',hr:'HR'};
   function titleWord(w){ var l=w.toLowerCase(); return ACR[l]||(w.charAt(0).toUpperCase()+w.slice(1)); }
   // Pretty-print a tag: lowercase slugs (developer-tools) -> Title Case ("Developer Tools");
@@ -212,11 +234,12 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
         '<div class="ail-eyebrow">LevelUp AI Library · Free for students</div>'+
         '<h1 class="ail-h1">14,465 AI <em>resources</em>, in one place.</h1>'+
         '<p class="ail-lede">Every agent skill, AI tool, MCP server, LLM, agent and design system — searchable, categorized, and free. No signup, nothing locked. Built for LevelUp AI students.</p>'+
+        '<div class="ail-stats">7,748 skills · 3,537 tools · 1,725 MCP servers · 585 LLMs · 800 agents · 70 designs</div>'+
         '<div class="ail-search">'+ICON_SEARCH+'<input id="ailGlobal" type="text" placeholder="Search all 14,465 resources…" autocomplete="off" aria-label="Search the AI Library"></div>'+
         '<div class="ail-gres" id="ailGlobalRes"></div>'+
         '<div class="ail-tiles" id="ailTiles">'+ CATS.map(function(c){
           return '<a class="ail-tile" href="#/c/'+c.key+'">'+
-            '<div class="ail-tile-ico">'+c.icon+'</div>'+
+            '<div class="ail-tile-ico">'+ICONS[c.key]+'</div>'+
             '<div class="ail-tile-name">'+c.label+'</div>'+
             '<div class="ail-tile-count">'+c.count.toLocaleString()+' →</div>'+
             '<div class="ail-tile-blurb">'+esc(c.blurb)+'</div></a>';
@@ -233,7 +256,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
         if(!res.length){ gr.innerHTML='<div class="ail-empty">No matches for “'+esc(q)+'”.</div>'; return; }
         gr.innerHTML=res.map(function(r){var cc=CAT_BY[r.c]||{label:r.c};
           return '<a class="ail-gres-row" href="#/r/'+esc(r.s)+'">'+
-            '<span class="ail-gres-badge" style="background:'+color(r.n)+'">'+esc((r.n||'?').charAt(0).toUpperCase())+'</span>'+
+            '<span class="ail-gres-badge" style="background:'+mono(r.n).bg+';color:'+mono(r.n).fg+'">'+esc((r.n||'?').charAt(0).toUpperCase())+'</span>'+
             '<div style="min-width:0"><div class="ail-gres-name">'+esc(r.n)+'</div><div class="ail-gres-meta">'+esc(r.d||'')+'</div></div>'+
             '<span class="ail-gres-cat">'+esc(cc.label)+'</span></a>';
         }).join('');
@@ -312,12 +335,12 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
   function cardHTML(r){
     return '<a class="ail-card" href="#/r/'+esc(r.slug)+'" data-slug="'+esc(r.slug)+'">'+
       '<div class="ail-card-top">'+
-        '<span class="ail-card-badge" style="background:'+color(r.name)+'">'+esc((r.name||'?').charAt(0).toUpperCase())+'</span>'+
+        '<span class="ail-card-badge" style="background:'+mono(r.name).bg+';color:'+mono(r.name).fg+'">'+esc((r.name||'?').charAt(0).toUpperCase())+'</span>'+
         '<div style="min-width:0"><div class="ail-card-name">'+esc(r.name)+'</div><div class="ail-card-meta">'+esc(metaLine(r))+'</div></div>'+
       '</div>'+
       '<p class="ail-card-desc">'+esc((r.description||'').split('|')[0])+'</p>'+
-      '<div class="ail-card-foot"><span class="ail-chip">'+esc((CAT_BY[r.category]||{label:r.category}).label)+'</span>'+
-        '<span class="ail-perk" data-perkfor="'+esc(r.primary_url||'')+'" hidden></span></div></a>';
+      '<div class="ail-card-foot"><span class="ail-perk" data-perkfor="'+esc(r.primary_url||'')+'" hidden></span>'+
+        '<span class="ail-card-cta">View →</span></div></a>';
   }
   function pagerHTML(page,pages){
     if(pages<=1) return '';
@@ -331,7 +354,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
   function markPerks(slice){
     loadPerks().then(function(matches){
       var byUrl={}; matches.forEach(function(m){ if(m.resource_explainx_url) byUrl[m.resource_explainx_url]=m; });
-      $$('.ail-perk').forEach(function(el){ var u=el.getAttribute('data-perkfor'); if(u&&byUrl[u]){ el.textContent='💸 perk'; el.hidden=false; } });
+      $$('.ail-perk').forEach(function(el){ var u=el.getAttribute('data-perkfor'); if(u&&byUrl[u]){ el.textContent='Perk'; el.hidden=false; } });
     });
   }
   function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));}
@@ -343,7 +366,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
     host.innerHTML=
       '<div class="ail-wrap"><div class="ail-hero" style="padding-bottom:14px">'+
         '<a class="ail-back" href="#/">'+ICON_BACK+' AI Library</a>'+
-        '<h1 class="ail-h1">'+def.icon+' '+def.label+'</h1>'+
+        '<h1 class="ail-h1">'+def.label+'</h1>'+
         '<p class="ail-lede">'+esc(def.blurb)+'</p>'+
         '<div class="ail-search">'+ICON_SEARCH+'<input id="ailQ" type="text" placeholder="Search '+def.count.toLocaleString()+' '+def.label.toLowerCase()+'…" autocomplete="off" aria-label="Search '+def.label+'"></div>'+
       '</div>'+
@@ -416,11 +439,11 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
       var descParts=String(r.description||'').split('|').map(function(s){return s.trim();}).filter(Boolean);
       var html='<div class="ail-det">'+
         '<a class="ail-back" href="#/c/'+key+'">'+ICON_BACK+' '+esc(def.label)+'</a>'+
-        '<div class="ail-det-head"><span class="ail-det-badge" style="background:'+color(r.name)+'">'+esc((r.name||'?').charAt(0).toUpperCase())+'</span>'+
+        '<div class="ail-det-head"><span class="ail-det-badge" style="background:'+mono(r.name).bg+';color:'+mono(r.name).fg+'">'+esc((r.name||'?').charAt(0).toUpperCase())+'</span>'+
           '<div style="min-width:0"><div class="ail-det-cat">'+esc(def.label)+'</div><h1>'+esc(r.name)+'</h1></div></div>'+
         (descParts.length?'<div class="ail-det-desc">'+descParts.map(esc).join('<br><br>')+'</div>':'');
       if((key==='skill'||key==='mcp_server')&&e.install_command){
-        html+='<div class="ail-install"><code id="ailCmd">'+esc(e.install_command)+'</code><button data-copy="'+esc(e.install_command)+'">Copy</button></div>';
+        html+='<div class="ail-install"><span class="ail-install-tag">terminal</span><code id="ailCmd">'+esc(e.install_command)+'</code><button data-copy="'+esc(e.install_command)+'">Copy</button></div>';
       }
       if(meta.length){ html+='<div class="ail-meta-grid">'+meta.map(function(m){return '<div class="ail-meta-cell"><div class="ail-meta-k">'+esc(m[0])+'</div><div class="ail-meta-v">'+esc(m[1])+'</div></div>';}).join('')+'</div>'; }
       if(key==='skill'&&e.works_with){ html+='<div class="ail-ww">'+String(e.works_with).split(';').map(function(w){w=w.trim();return w?'<span>'+esc(w)+'</span>':'';}).join('')+'</div>'; }
@@ -458,7 +481,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
       var m=null; for(var i=0;i<matches.length;i++){ if(matches[i].resource_explainx_url===r.primary_url || (matches[i].resource_name===r.name && matches[i].resource_category===r.category)){ m=matches[i]; break; } }
       if(!m) return;
       var slug=perkSlug(m.perk_company);
-      box.innerHTML='<div class="ail-xlink"><div class="ail-xlink-k">💸 Save on this</div>'+
+      box.innerHTML='<div class="ail-xlink"><div class="ail-xlink-k">Save on this</div>'+
         '<div class="ail-xlink-h">'+esc(m.perk_company)+' has '+esc(m.perk_credits||'credits')+' available via LevelUp AI Perks.</div>'+
         '<a href="https://promptvault.vercel.app/#/perks" target="_blank" rel="noopener">See LevelUp AI Perks →</a>'+'</div>';
     });
@@ -473,6 +496,14 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
 
   var ICON_SEARCH='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>';
   var ICON_BACK='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>';
+  var ICONS={
+    skill:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></svg>',
+    tool:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-.5-.5-2.5 2.5-2.5Z"/></svg>',
+    mcp_server:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9zM9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>',
+    llm:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a4 4 0 0 0-4 4 3.5 3.5 0 0 0-1 6.8V17a3 3 0 0 0 5 2 3 3 0 0 0 5-2v-3.2A3.5 3.5 0 0 0 16 7a4 4 0 0 0-4-4Z"/></svg>',
+    agent:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="11" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01"/><circle cx="12" cy="3" r="1"/></svg>',
+    design:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="8.5" cy="10" r="1"/><circle cx="12" cy="8" r="1"/><circle cx="15.5" cy="10" r="1"/><path d="M12 21a3 3 0 0 0 0-6 2 2 0 0 1 0-4"/></svg>'
+  };
 
   // expose for the router
   window.renderResourcesHub = renderHub;
