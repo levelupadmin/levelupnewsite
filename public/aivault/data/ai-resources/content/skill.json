@@ -1,0 +1,588 @@
+{
+  "skill/summarize": {
+    "tagline": "Summarize any link, video, or file fast",
+    "overview": "Summarize is a command-line tool that turns long content into short summaries. Point it at a web page, a YouTube link, a podcast, an article, a PDF, or a local file and it returns the key points, and it can also pull a best-effort transcript from videos. It is great when you want the gist of something without reading or watching the whole thing.",
+    "capabilities": [
+      "Summarizes URLs, articles, PDFs, and local files",
+      "Handles YouTube and other videos, plus podcasts",
+      "Extracts a best-effort video transcript with --extract (no yt-dlp needed)",
+      "Falls back to a tight summary first when a transcript is huge",
+      "Uses your own AI provider key (for example OpenAI)"
+    ],
+    "useCases": [
+      "A student who was sent a long article or lecture video and wants the main points before class",
+      "Anyone who needs a quick transcript of a YouTube talk to quote or study from",
+      "Researchers triaging many links to decide which ones are worth a full read"
+    ],
+    "howTo": [
+      "Install it with Homebrew: brew install steipete/tap/summarize (or use npx skills add to add it as a skill)",
+      "Set the API key for your AI provider, e.g. export OPENAI_API_KEY=...",
+      "Run summarize followed by a URL, file path, or YouTube link",
+      "For a video transcript, add --youtube auto --extract",
+      "If a transcript is too long, read the summary first, then ask to expand a specific section"
+    ],
+    "example": {
+      "label": "Summarize a YouTube video",
+      "value": "summarize \"https://youtu.be/dQw4w9WgXcQ\" --youtube auto"
+    },
+    "goodToKnow": [
+      "It needs an API key for a provider like OpenAI, so summaries cost provider tokens.",
+      "Video transcripts are best-effort, so accuracy varies by source and may miss parts of long videos."
+    ]
+  },
+  "skill/nano-pdf": {
+    "tagline": "Edit PDFs with plain-English instructions",
+    "overview": "nano-pdf is a command-line tool that edits a PDF using a natural-language instruction instead of a PDF editor. You tell it which page to change and describe the edit in words, and it applies the change for you. It is handy for quick text fixes on a slide or document when you do not want to open heavy software.",
+    "capabilities": [
+      "Applies natural-language edits to a chosen PDF page",
+      "Fixes typos, swaps titles, and adjusts wording",
+      "Works from a single command line, no GUI editor needed",
+      "Writes out an edited copy of the PDF"
+    ],
+    "useCases": [
+      "A student fixing a typo or title on a one-page handout or deck before submitting",
+      "Anyone making a quick last-minute text change to a PDF without a full editor"
+    ],
+    "howTo": [
+      "Install it with uv: uv tool install nano-pdf (or use npx skills add to add it as a skill)",
+      "Run nano-pdf edit, then the file, the page number, and your instruction in quotes",
+      "If the edited page is off by one, retry using the other page-numbering (0-based vs 1-based)",
+      "Open and check the output PDF before sending it out"
+    ],
+    "example": {
+      "label": "Change a title on page 1",
+      "value": "nano-pdf edit deck.pdf 1 \"Change the title to 'Q3 Results' and fix the typo in the subtitle\""
+    },
+    "goodToKnow": [
+      "Page numbering can be 0-based or 1-based depending on version, so the page you edit may come out off by one.",
+      "Always sanity-check the result; AI edits can change layout or wording in unexpected ways."
+    ]
+  },
+  "skill/himalaya": {
+    "tagline": "Manage your email from the terminal",
+    "overview": "Himalaya is a command-line email client that talks to any IMAP/SMTP mailbox. From the shell you can list, read, search, compose, reply, forward, copy, move, and delete messages. It is a fast, keyboard-driven way to handle email without a web interface.",
+    "capabilities": [
+      "Lists folders and message envelopes",
+      "Reads and searches mail (for example by sender or subject)",
+      "Composes, replies to, and forwards messages",
+      "Copies, moves, and deletes messages between folders",
+      "Configurable per-account via a TOML config file"
+    ],
+    "useCases": [
+      "A student who lives in the terminal and wants to triage email without a browser",
+      "Scripting or automating email tasks like searching for invoices or filing messages"
+    ],
+    "howTo": [
+      "Install it with Homebrew: brew install himalaya (or use npx skills add to add it as a skill)",
+      "Run himalaya account configure to set up your IMAP/SMTP account",
+      "Store credentials in a password manager or keyring, not in plain text",
+      "List mail with himalaya envelope list and read one with himalaya message read <id>",
+      "Compose, reply, or forward with himalaya message write / reply / forward"
+    ],
+    "example": {
+      "label": "Search mail by sender and subject",
+      "value": "himalaya envelope list from alice@example.com subject invoice"
+    },
+    "goodToKnow": [
+      "You must configure IMAP/SMTP details yourself, and a wrong server or port will block sending or reading.",
+      "Keep credentials in a keyring; do not paste passwords into chat or logs."
+    ]
+  },
+  "skill/wacli": {
+    "tagline": "WhatsApp messaging and history from the CLI",
+    "overview": "wacli is a command-line tool for sending WhatsApp messages and for syncing and searching your WhatsApp history, separate from your live chats. It lets a script or agent send messages and look back through past conversations from the terminal. Use it when you want WhatsApp actions outside the phone or desktop app.",
+    "capabilities": [
+      "Sends third-party WhatsApp messages from the command line",
+      "Syncs your WhatsApp message history locally",
+      "Searches through synced history",
+      "Runs separately from your active WhatsApp chats"
+    ],
+    "useCases": [
+      "Sending an automated or scripted WhatsApp notification from a workflow",
+      "A student searching old WhatsApp threads for a shared link or note without scrolling the app"
+    ],
+    "howTo": [
+      "Add the skill with: npx skills add https://github.com/steipete/clawdis --skill wacli",
+      "Link wacli to your WhatsApp account as the tool instructs (typically a one-time pairing)",
+      "Sync your history before searching it",
+      "Send a message by giving wacli the recipient and the text"
+    ],
+    "example": {
+      "label": "Add the wacli skill",
+      "value": "npx skills add https://github.com/steipete/clawdis --skill wacli"
+    },
+    "goodToKnow": [
+      "It works separately from your active chats, so treat it as a distinct WhatsApp session.",
+      "Automated WhatsApp sending can run against WhatsApp's terms; use it responsibly and avoid spam."
+    ]
+  },
+  "skill/gifgrep": {
+    "tagline": "Search and grab GIFs from the terminal",
+    "overview": "gifgrep searches GIF providers like Tenor and Giphy from a command line or a terminal UI, downloads results, and can extract a still frame or a contact sheet. It gives you a quick search-preview-download-extract flow for finding and sharing GIFs. Good for grabbing the right reaction GIF without opening a browser.",
+    "capabilities": [
+      "Searches GIF providers (Tenor/Giphy) from CLI or TUI",
+      "Downloads results to your Downloads folder",
+      "Extracts a still frame or a contact sheet from a GIF",
+      "Outputs URLs or JSON for scripting (pipe to jq)",
+      "Shows inline previews in Kitty/Ghostty terminals"
+    ],
+    "useCases": [
+      "Quickly finding a reaction GIF to drop into a chat",
+      "A creator pulling a still frame or contact sheet from a GIF for a thumbnail or review"
+    ],
+    "howTo": [
+      "Install it with Homebrew: brew install steipete/tap/gifgrep (or go install, or npx skills add)",
+      "Search with gifgrep <query> --max 5",
+      "Browse interactively with gifgrep tui \"query\"",
+      "Add --download to save results, and --reveal to show the file in Finder",
+      "Extract a still with gifgrep still ./clip.gif --at 1.5s -o still.png"
+    ],
+    "example": {
+      "label": "Search and download one cat GIF",
+      "value": "gifgrep cats --download --max 1 --format url"
+    },
+    "goodToKnow": [
+      "Inline thumbnail previews only work in Kitty or Ghostty terminals.",
+      "Downloads go to ~/Downloads by default."
+    ]
+  },
+  "skill/sherpa-onnx-tts": {
+    "tagline": "Offline text-to-speech, fully local",
+    "overview": "sherpa-onnx-tts turns text into spoken audio entirely on your own machine using the sherpa-onnx engine, with no cloud service or API key. You download a runtime and a voice model once, then generate speech files locally. It is a good fit when you want private, offline voice output.",
+    "capabilities": [
+      "Generates spoken audio from text locally",
+      "Runs fully offline with no cloud calls",
+      "Works on macOS, Linux, and Windows",
+      "Uses downloadable Piper/VITS voice models (e.g. en_US lessac)"
+    ],
+    "useCases": [
+      "A student turning notes or articles into audio to listen to while commuting, without sending text to a cloud",
+      "Privacy-conscious or offline use where cloud TTS is not allowed"
+    ],
+    "howTo": [
+      "Add the skill, which downloads the sherpa-onnx runtime for your OS and a voice model",
+      "Set SHERPA_ONNX_RUNTIME_DIR and SHERPA_ONNX_MODEL_DIR to those folders",
+      "Provide your text and run the skill to synthesize an audio file",
+      "Play back or save the generated audio"
+    ],
+    "example": {
+      "label": "Add the offline TTS skill",
+      "value": "npx skills add https://github.com/steipete/clawdis --skill sherpa-onnx-tts"
+    },
+    "goodToKnow": [
+      "The runtime and voice models are sizable downloads you grab once before first use.",
+      "Voice quality depends on the model you download; the bundled Piper voice is English (en_US)."
+    ]
+  },
+  "skill/blogwatcher": {
+    "tagline": "Track blogs and RSS feeds for new posts",
+    "overview": "blogwatcher is a small command-line tool that monitors blogs and RSS/Atom feeds for new posts. You add the sites you care about, scan for updates, and list or mark articles as read. It is a simple way to keep up with several blogs from one place in the terminal.",
+    "capabilities": [
+      "Adds and removes blogs and RSS/Atom feeds to track",
+      "Scans tracked feeds for new posts",
+      "Lists new articles",
+      "Marks individual articles or all articles as read"
+    ],
+    "useCases": [
+      "A student following a few research or course blogs who wants one place to see what is new",
+      "Keeping a reading queue of feeds without a heavy RSS reader app"
+    ],
+    "howTo": [
+      "Install it with Go: go install github.com/Hyaxia/blogwatcher/cmd/blogwatcher@latest",
+      "Add a blog with blogwatcher add \"My Blog\" https://example.com",
+      "Run blogwatcher scan to check for updates",
+      "List new posts with blogwatcher articles and mark them read with blogwatcher read <n>"
+    ],
+    "example": {
+      "label": "Add a blog to watch",
+      "value": "blogwatcher add \"xkcd\" https://xkcd.com"
+    },
+    "goodToKnow": [
+      "Installation is via Go, so you need the Go toolchain on your machine.",
+      "It checks for updates when you run scan; it is not a live background daemon."
+    ]
+  },
+  "skill/oracle": {
+    "tagline": "Get a second AI model to review your code",
+    "overview": "oracle bundles a prompt plus a set of files you choose and sends them to a second, strong AI model for one review, debug, refactor, or design-critique pass. It can preview the token cost first with a dry run, and run through either a browser session or a direct API call. Treat its output as advice and verify it against your code and tests.",
+    "capabilities": [
+      "Runs a second model over selected files to review, debug, refactor, or critique design",
+      "Previews payload and token spend with --dry-run and --files-report",
+      "Supports a browser engine (for long ChatGPT Pro runs) or a direct API engine",
+      "Lets you reattach to a stored session if a run times out"
+    ],
+    "useCases": [
+      "A student stuck on a bug who wants a fresh, powerful model to review just the relevant files",
+      "Getting a design or refactor critique before committing a tricky change"
+    ],
+    "howTo": [
+      "Install it with Node: npm install -g @steipete/oracle (or use npx skills add)",
+      "Pick the smallest set of files that contains the real problem",
+      "Preview cost first with oracle --dry-run summary --files-report",
+      "Choose an engine: --engine browser for long Pro runs, or --engine api with OPENAI_API_KEY set",
+      "Review the advice against your own code and tests before applying it"
+    ],
+    "example": {
+      "label": "Preview the payload and token spend first",
+      "value": "oracle --dry-run summary --files-report"
+    },
+    "goodToKnow": [
+      "Output is advisory only; the second model can be confidently wrong, so verify against tests.",
+      "API mode needs an OpenAI or Azure key and spends tokens; browser mode needs a ChatGPT session."
+    ]
+  },
+  "skill/openhue": {
+    "tagline": "Control Philips Hue lights from the CLI",
+    "overview": "openhue is a command-line tool for controlling Philips Hue lights and scenes through your Hue Bridge. You can turn lights on or off, dim them, set colors or color temperature, and activate scenes. It only works with Philips Hue gear, not other smart-home brands.",
+    "capabilities": [
+      "Turns Hue lights on and off",
+      "Adjusts brightness, color, and color temperature",
+      "Activates Hue scenes (for example movie mode)",
+      "Lists and targets specific lights, rooms, or zones"
+    ],
+    "useCases": [
+      "Setting the room mood for studying or movie night from the terminal or a script",
+      "Automating lights as part of a routine without opening the Hue phone app"
+    ],
+    "howTo": [
+      "Install it with Homebrew: brew install openhue/cli/openhue-cli (or use npx skills add)",
+      "Pair the CLI with your Hue Bridge by following its setup prompt",
+      "List your lights and rooms with openhue get light and openhue get room",
+      "Turn lights on or off and set brightness or color for a chosen room or light"
+    ],
+    "example": {
+      "label": "List all your Hue lights",
+      "value": "openhue get light"
+    },
+    "goodToKnow": [
+      "It only controls Philips Hue devices; other brands, HomeKit scenes, thermostats, and TVs are not supported.",
+      "You need a Hue Bridge on your network and a one-time pairing before commands work."
+    ]
+  },
+  "skill/trello": {
+    "tagline": "Manage Trello boards from the command line",
+    "overview": "This skill manages Trello boards, lists, and cards directly through the Trello REST API using curl and jq. You set an API key and token, then read boards, lists, and cards or create and update them from the shell. It is useful for scripting Trello tasks without the web app.",
+    "capabilities": [
+      "Lists your boards, lists, and cards",
+      "Creates and updates cards via the Trello REST API",
+      "Uses curl + jq so output is easy to filter and script",
+      "Authenticates with your personal Trello API key and token"
+    ],
+    "useCases": [
+      "A student automating a study or project board (for example adding cards from a script)",
+      "Pulling a quick list of cards in a Trello list without opening the browser"
+    ],
+    "howTo": [
+      "Get your Trello API key at trello.com/app-key and generate a token",
+      "Export TRELLO_API_KEY and TRELLO_TOKEN in your shell",
+      "Install jq with brew install jq if you do not have it",
+      "Call the Trello REST API with curl and pipe the JSON through jq to read boards, lists, or cards"
+    ],
+    "example": {
+      "label": "List your boards (name and id)",
+      "value": "curl -s \"https://api.trello.com/1/members/me/boards?key=$TRELLO_API_KEY&token=$TRELLO_TOKEN\" | jq '.[] | {name, id}'"
+    },
+    "goodToKnow": [
+      "Your API key and token grant access to your Trello account, so keep them out of shared logs.",
+      "You build requests with raw curl calls, so you need the board, list, or card IDs to act on them."
+    ]
+  },
+  "skill/tmux": {
+    "tagline": "Drive interactive terminal programs programmatically",
+    "overview": "This skill controls tmux sessions and panes so you can drive interactive command-line programs: list sessions, capture what is on screen, send keystrokes, paste text, and watch for prompts. It is meant for working with already-running interactive tmux sessions, not one-off commands. It is the go-to when an agent needs to type into a live program like a REPL or a wizard.",
+    "capabilities": [
+      "Lists tmux sessions, windows, and panes",
+      "Captures pane output, including scrollback history",
+      "Sends literal text and special keys (Ctrl-C, Enter, Escape)",
+      "Pastes text into a pane and watches for prompts"
+    ],
+    "useCases": [
+      "An agent or script that must answer prompts in a live interactive CLI (an installer, a REPL, a TUI)",
+      "Capturing the current output of a long-running session to check progress"
+    ],
+    "howTo": [
+      "Install tmux with brew install tmux if needed (macOS or Linux only)",
+      "List sessions with tmux ls and find your target as session:window.pane",
+      "Read a pane with tmux capture-pane -t shared:0.0 -p",
+      "Send text then Enter with tmux send-keys -t shared:0.0 -l -- \"text\" and a separate Enter",
+      "Send control keys like C-c when you need to interrupt a program"
+    ],
+    "example": {
+      "label": "Capture what is on a pane",
+      "value": "tmux capture-pane -t shared:0.0 -p"
+    },
+    "goodToKnow": [
+      "It is for existing interactive sessions; for one-shot commands just use a normal shell.",
+      "tmux is macOS/Linux only, and you must target the right session:window.pane or keystrokes go nowhere."
+    ]
+  },
+  "skill/gh-issues": {
+    "tagline": "Turn GitHub issues into pull requests automatically",
+    "overview": "gh-issues automates the issue-to-PR loop: it fetches GitHub issues, picks candidates, spawns background agents to fix them, and opens pull requests, and it can also work through PR review comments. It uses the gh CLI and can filter issues by label, milestone, assignee, or state. It is built for batching routine fixes across a repo.",
+    "capabilities": [
+      "Fetches and filters issues by label, milestone, assignee, or state",
+      "Spawns background agents to attempt fixes and opens PRs",
+      "Can push branches to a fork and PR back to the source repo",
+      "Processes PR review comments in a reviews-only mode",
+      "Supports watch/cron polling and a dry-run listing mode"
+    ],
+    "useCases": [
+      "A maintainer batching small, well-scoped issues into draft PRs",
+      "A student learning a codebase by auto-drafting fixes for labeled good-first-issues"
+    ],
+    "howTo": [
+      "Install the GitHub CLI with brew install gh and authenticate (set GH_TOKEN)",
+      "Run the skill in a repo, or pass owner/repo explicitly",
+      "Filter with flags like --label, --milestone, --assignee, or --state",
+      "Start with --dry-run to list candidates before any agents run",
+      "Use --reviews-only to handle PR review comments instead of fixing issues"
+    ],
+    "example": {
+      "label": "List candidate issues without making changes",
+      "value": "gh-issues owner/repo --label bug --dry-run"
+    },
+    "goodToKnow": [
+      "It opens real PRs and runs autonomous agents, so always start with --dry-run and review output.",
+      "Auto-generated fixes vary in quality and still need human review before merging."
+    ]
+  },
+  "skill/spotify-player": {
+    "tagline": "Control Spotify from the terminal",
+    "overview": "This skill controls Spotify playback and search from the terminal using spogo (preferred) or spotify_player. You can search tracks, play, pause, skip, pick a playback device, and check status. It needs a Spotify Premium account to control playback.",
+    "capabilities": [
+      "Searches Spotify for tracks",
+      "Controls playback: play, pause, next, previous",
+      "Lists and selects playback devices",
+      "Shows current playback status",
+      "Uses spogo by default, falling back to spotify_player"
+    ],
+    "useCases": [
+      "Starting study or focus music without leaving the terminal",
+      "Scripting playback (for example a command that plays a focus playlist)"
+    ],
+    "howTo": [
+      "Install with Homebrew: brew install steipete/tap/spogo (or brew install spotify_player)",
+      "Authenticate spogo with spogo auth import --browser chrome",
+      "Search with spogo search track \"query\"",
+      "Control playback with spogo play, pause, next, or prev",
+      "Pick a device with spogo device list and spogo device set \"<name>\""
+    ],
+    "example": {
+      "label": "Search for a track",
+      "value": "spogo search track \"lofi beats\""
+    },
+    "goodToKnow": [
+      "Controlling playback requires a Spotify Premium account.",
+      "spogo authenticates by importing browser cookies, so you must be logged in to Spotify in that browser."
+    ]
+  },
+  "skill/goplaces": {
+    "tagline": "Query Google Places from the command line",
+    "overview": "goplaces is a CLI for the new Google Places API. You can do text searches, get place details and reviews, resolve a place name to an ID, and output clean JSON for scripts. It needs a Google Places API key and returns human-readable text by default.",
+    "capabilities": [
+      "Text search for places with filters like open-now and minimum rating",
+      "Location biasing by latitude, longitude, and radius",
+      "Place details including reviews",
+      "Resolves a place name or address to candidates",
+      "Outputs JSON with --json for scripting"
+    ],
+    "useCases": [
+      "A student finding a well-rated cafe or study spot near campus, filtered by rating and open-now",
+      "Scripting place lookups (for example pulling details and reviews into a JSON file)"
+    ],
+    "howTo": [
+      "Install it with Homebrew: brew install steipete/tap/goplaces",
+      "Set your key: export GOOGLE_PLACES_API_KEY=...",
+      "Search with goplaces search \"coffee\" --open-now --min-rating 4 --limit 5",
+      "Get details and reviews with goplaces details <place_id> --reviews",
+      "Add --json when you want machine-readable output"
+    ],
+    "example": {
+      "label": "Search for highly-rated open coffee shops",
+      "value": "goplaces search \"coffee\" --open-now --min-rating 4 --limit 5"
+    },
+    "goodToKnow": [
+      "It requires a Google Places API key, and the Places API can incur Google charges per request.",
+      "The type filter only sends the first --type value because the API accepts one."
+    ]
+  },
+  "skill/openai-whisper": {
+    "tagline": "Transcribe audio locally, no API key",
+    "overview": "This skill uses OpenAI's Whisper command-line tool to transcribe speech to text on your own machine, with no API key required. You point it at an audio file and it writes out a transcript, and it can also translate speech into English. Bigger models are more accurate but slower.",
+    "capabilities": [
+      "Transcribes audio files to text locally",
+      "Translates speech to English with --task translate",
+      "Outputs multiple formats (txt, srt, and more)",
+      "Lets you trade speed for accuracy by choosing a model size",
+      "Runs offline once models are downloaded"
+    ],
+    "useCases": [
+      "A student transcribing a recorded lecture or interview without sending audio to the cloud",
+      "Generating subtitles (SRT) for a video"
+    ],
+    "howTo": [
+      "Install it with Homebrew: brew install openai-whisper",
+      "Run whisper /path/audio.mp3 --model medium --output_format txt --output_dir .",
+      "Add --task translate to get an English transcript from another language",
+      "Pick a smaller model for speed or a larger one for accuracy"
+    ],
+    "example": {
+      "label": "Transcribe an audio file to a text file",
+      "value": "whisper /path/audio.mp3 --model medium --output_format txt --output_dir ."
+    },
+    "goodToKnow": [
+      "Models download to ~/.cache/whisper on first run, which can be a large one-time download.",
+      "Larger models are much more accurate but noticeably slower, especially without a GPU."
+    ]
+  },
+  "skill/xurl": {
+    "tagline": "Authenticated X (Twitter) actions from the CLI",
+    "overview": "xurl is a command-line tool for authenticated X (Twitter) actions: posting, replies, reads and search, DMs, media upload, follows, and raw X v2 API calls. Shortcut commands return JSON, and a raw mode lets you hit any v2 endpoint. It handles auth so you can script X without writing API boilerplate.",
+    "capabilities": [
+      "Posts, replies to, quotes, and deletes posts",
+      "Reads posts and searches X",
+      "Shows your timeline, mentions, and user profiles",
+      "Uploads media and sends DMs",
+      "Makes raw calls to any X v2 API endpoint"
+    ],
+    "useCases": [
+      "Scripting a post or scheduled update to X from the terminal",
+      "Pulling search results or a timeline into JSON for analysis"
+    ],
+    "howTo": [
+      "Install it with Homebrew: brew install xdevplatform/tap/xurl (or npm i -g @xdevplatform/xurl)",
+      "Authenticate, then confirm with xurl auth status",
+      "Post with xurl post \"Hello world!\" or read with xurl read POST_ID",
+      "Search with xurl search \"query\" -n 20",
+      "Avoid --verbose in agent sessions and never print the ~/.xurl secrets file"
+    ],
+    "example": {
+      "label": "Post to X",
+      "value": "xurl post \"Hello world!\""
+    },
+    "goodToKnow": [
+      "Auth tokens live in ~/.xurl; never read, print, or share that file, and avoid --verbose which can leak headers.",
+      "X API access depends on your developer tier, so some endpoints or rate limits may apply."
+    ]
+  },
+  "skill/blucli": {
+    "tagline": "Control BluOS / Bluesound speakers from the CLI",
+    "overview": "blucli (the blu command) controls BluOS-based music players such as Bluesound and NAD from the command line. It handles device discovery, playback, speaker grouping, and volume. You pick a target device and then play, pause, group speakers, or change volume.",
+    "capabilities": [
+      "Discovers BluOS/Bluesound/NAD devices on your network",
+      "Controls playback: play, pause, stop",
+      "Sets volume and shows status",
+      "Groups and ungroups speakers",
+      "Searches and plays TuneIn radio; supports --json for scripts"
+    ],
+    "useCases": [
+      "Starting or pausing music on a Bluesound speaker from the terminal",
+      "Grouping multiple speakers for whole-home audio via a script"
+    ],
+    "howTo": [
+      "Install it with Go: go install github.com/steipete/blucli/cmd/blu@latest",
+      "List devices with blu devices and pick your target",
+      "Check a device with blu --device <id> status",
+      "Control playback with blu play, pause, or stop, and set volume with blu volume set 15",
+      "Group speakers with blu group add and confirm the target before changing playback"
+    ],
+    "example": {
+      "label": "List BluOS devices on your network",
+      "value": "blu devices"
+    },
+    "goodToKnow": [
+      "It only works with BluOS players (Bluesound/NAD) on your local network.",
+      "Confirm the target device first, since commands change playback on real speakers."
+    ]
+  },
+  "skill/gog": {
+    "tagline": "Google Workspace from one command line",
+    "overview": "gog is a command-line tool for Google Workspace, covering Gmail, Calendar, Drive, Contacts, Sheets, and Docs. After a one-time OAuth setup you can search and send mail, manage calendar events, search Drive, and read or update Sheets and Docs. It puts most of Google Workspace behind one fast CLI.",
+    "capabilities": [
+      "Gmail: search, send, draft, and reply to messages",
+      "Calendar: list, create, and update events (with colors)",
+      "Drive and Contacts: search files and list contacts",
+      "Sheets: read, update, append, and clear ranges",
+      "Docs: export and read document contents"
+    ],
+    "useCases": [
+      "A student searching recent email or sending a quick message from the terminal",
+      "Scripting Google Sheets updates or pulling calendar events into a script"
+    ],
+    "howTo": [
+      "Install it with Homebrew: brew install gogcli",
+      "Set up OAuth once: gog auth credentials /path/to/client_secret.json",
+      "Add your account: gog auth add you@gmail.com --services gmail,calendar,drive,contacts,docs,sheets",
+      "Search mail with gog gmail search 'newer_than:7d' --max 10",
+      "Read or update a sheet with gog sheets get / gog sheets update"
+    ],
+    "example": {
+      "label": "Search recent Gmail",
+      "value": "gog gmail search 'newer_than:7d' --max 10"
+    },
+    "goodToKnow": [
+      "It needs a one-time Google OAuth setup with your own client_secret.json before anything works.",
+      "It has broad access to your Google account, so review what services you grant during auth."
+    ]
+  },
+  "skill/things-mac": {
+    "tagline": "Control Things 3 to-dos from the terminal",
+    "overview": "things-mac (the things command) reads your local Things 3 database and adds or updates to-dos via the Things URL scheme on macOS. You can view inbox, today, and upcoming, search tasks, list projects, areas, and tags, and create or edit to-dos. It is a fast terminal front-end for Things 3.",
+    "capabilities": [
+      "Reads inbox, today, and upcoming tasks",
+      "Searches tasks and lists projects, areas, and tags",
+      "Adds to-dos with notes, dates, tags, lists, and checklists",
+      "Updates existing to-dos (requires an auth token)",
+      "Supports a --dry-run preview before writing"
+    ],
+    "useCases": [
+      "A student quickly capturing a task into Things without switching apps",
+      "Reviewing today's or upcoming to-dos from the terminal"
+    ],
+    "howTo": [
+      "Install it with Go: GOBIN=/opt/homebrew/bin go install github.com/ossianhempel/things3-cli/cmd/things@latest",
+      "If database reads fail, grant Full Disk Access to your terminal app",
+      "View tasks with things today or things inbox --limit 50",
+      "Add a task with things add \"Title\" --notes \"...\" --when today",
+      "For updates, set THINGS_AUTH_TOKEN and edit by the task's UUID"
+    ],
+    "example": {
+      "label": "Add a to-do with notes and a due date",
+      "value": "things add \"Book flights\" --notes \"compare prices\" --when today --deadline 2026-01-02"
+    },
+    "goodToKnow": [
+      "macOS only, and reading the database may require granting Full Disk Access.",
+      "Updating existing to-dos needs an auth token; preview risky writes with --dry-run first."
+    ]
+  },
+  "skill/1password": {
+    "tagline": "Read and inject secrets with 1Password CLI",
+    "overview": "This skill sets up and uses the 1Password CLI (op) to sign in, integrate with the 1Password desktop app, and read or inject secrets into commands. It detects your auth mode (service account, desktop app, or standalone sign-in) and runs op accordingly. It lets scripts use secrets without hardcoding them.",
+    "capabilities": [
+      "Signs in to 1Password from the CLI across auth modes",
+      "Reads individual secrets with op read using secret references",
+      "Lists vaults and verifies access with op whoami",
+      "Integrates with the desktop app (Touch ID / system auth)",
+      "Supports service-account tokens for headless/CI use"
+    ],
+    "useCases": [
+      "A developer injecting an API key into a command without writing it into a script",
+      "Headless or CI setups that need secrets via a 1Password service account"
+    ],
+    "howTo": [
+      "Install the CLI with Homebrew: brew install 1password-cli",
+      "Verify it is present with op --version",
+      "Pick your auth mode: service-account token, desktop app integration, or standalone op signin",
+      "Confirm access with op whoami before reading anything",
+      "Read a secret with op read using an op:// reference"
+    ],
+    "example": {
+      "label": "Read a secret by reference",
+      "value": "op read op://app-prod/db/password"
+    },
+    "goodToKnow": [
+      "Follow 1Password's official setup steps rather than guessing install commands.",
+      "Run op directly (not inside tmux) for desktop-app integration, since the IPC channel may not reach tmux subshells."
+    ]
+  }
+}

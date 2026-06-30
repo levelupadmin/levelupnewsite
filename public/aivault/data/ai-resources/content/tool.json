@@ -1,0 +1,601 @@
+{
+  "tool/10web": {
+    "tagline": "AI agent builds WordPress sites end to end",
+    "overview": "10Web is an AI website builder that turns a prompt, a Figma file, or an existing URL into a working WordPress site, then hosts and optimizes it for you. AI agents plan the layout, write content, generate pages, and let you fine-tune everything visually. It is aimed at people who want a real WordPress site without manually building one from scratch.",
+    "capabilities": [
+      "Generate a full WordPress site from a text prompt, a URL to clone, or a Figma import",
+      "Edit layouts, animations, and interactions visually with an AI co-pilot",
+      "Build ecommerce stores with a dedicated AI ecommerce agent",
+      "Host on managed WordPress with a free custom domain and 90+ PageSpeed scores",
+      "Use bundled AI tools like a logo maker, business name and slogan generators"
+    ],
+    "useCases": [
+      "A student or solo founder who needs a professional WordPress site live quickly without coding",
+      "An agency or freelancer wanting to spin up client sites fast and white-label them",
+      "Anyone migrating an existing site to faster managed WordPress hosting"
+    ],
+    "howTo": [
+      "Go to 10web.io and click Get Started for Free (no card needed to try the builder)",
+      "Choose your starting point: describe your idea, clone an existing URL, or import a Figma design",
+      "Let the AI agent generate the pages, then use the visual AI editor to refine text, images, and sections",
+      "Connect or claim the free custom domain and publish on 10Web managed hosting"
+    ],
+    "example": {
+      "label": "Starter prompt for the AI builder",
+      "snippet": "Build a 5-page WordPress site for a freelance graphic designer: home, portfolio, services, about, and contact. Clean modern style, blue accent color, with a hero call-to-action to book a consultation."
+    },
+    "goodToKnow": [
+      "It produces real WordPress sites, so you keep WordPress flexibility, but you are tied to 10Web hosting to use the AI builder fully.",
+      "The free tier lets you generate and preview; a paid plan is required to keep the site live with hosting and a custom domain."
+    ]
+  },
+  "tool/120-dev": {
+    "tagline": "Fast, free, native AI chat app",
+    "overview": "120.dev makes truly native desktop apps that put AI directly into the workflow, and 120 AI Chat is its free, instant-feeling chat client. Unlike browser-based or Electron apps, it runs natively on macOS, Windows, and Linux with a 120FPS rendering engine for smooth performance. The chat app is multi-threaded and private, supporting multiple AI providers and models.",
+    "capabilities": [
+      "Chat with AI in a native desktop app that responds instantly",
+      "Run multiple separate conversation threads in parallel",
+      "Connect different AI providers and models from one interface",
+      "Works natively across macOS, Windows, and Linux without Electron",
+      "Keeps conversations private and local-feeling rather than locked to a browser"
+    ],
+    "useCases": [
+      "A student who wants a snappy desktop AI chat instead of a slow browser tab",
+      "Anyone who juggles several AI models and wants them in one native app",
+      "People who care about a smooth, private, no-cost everyday AI assistant"
+    ],
+    "howTo": [
+      "Visit 120.dev and open the Products section, then select 120 AI Chat",
+      "Download the build for your operating system (macOS, Windows, or Linux)",
+      "Install and launch the app, then add your AI provider or model in settings",
+      "Start a new thread and chat; open additional threads for parallel tasks"
+    ],
+    "example": {
+      "label": "How a multi-threaded session helps",
+      "snippet": "Thread 1: \"Summarize this article.\"  |  Thread 2: \"Draft a reply email.\"  |  Thread 3: \"Explain this code.\" — all open side by side, no context bleeding between them."
+    },
+    "goodToKnow": [
+      "The chat app is positioned as free to use, but you typically supply your own model access or provider keys.",
+      "120.dev is an app studio; some sibling products like 120 Table are still coming soon, so the lineup is evolving."
+    ]
+  },
+  "tool/15minutes": {
+    "tagline": "Read any book's core ideas in 15 minutes",
+    "overview": "15Minutes condenses books down to their key ideas so you can absorb the essentials in about fifteen minutes instead of hours. It offers a large library (over 5,000 books) of summaries and analysis across nonfiction, business, psychology, self-help, and many other genres. It is built for people who want the main takeaways of a book quickly.",
+    "capabilities": [
+      "Read short summaries that capture a book's core ideas in roughly 15 minutes",
+      "Browse a large catalog of over 5,000 books across dozens of genres",
+      "Save titles to a personal library to read later",
+      "Filter by category such as business, psychology, self-help, or history"
+    ],
+    "useCases": [
+      "A busy student who wants the gist of a recommended nonfiction book before buying it",
+      "A professional deciding which books are worth reading in full",
+      "Anyone building a habit of learning one big idea per day"
+    ],
+    "howTo": [
+      "Go to 15minutes.ai and browse or search for a book by title or genre",
+      "Open the summary to read its condensed key ideas",
+      "Add books you want to revisit to My Library",
+      "Use the analysis or PDF options where available to go deeper on a title"
+    ],
+    "example": {
+      "label": "Good searches to start with",
+      "snippet": "Search: \"Atomic Habits\"  ·  Browse: Business → Productivity  ·  Browse: Psychology → top picks"
+    },
+    "goodToKnow": [
+      "Summaries are a starting point and compression, not a replacement for reading a book you truly want to study deeply.",
+      "Full access to the library and some formats may require an account or paid plan."
+    ]
+  },
+  "tool/1minai": {
+    "tagline": "Many AI tools bundled in one app",
+    "overview": "1minAI is an all-in-one AI app that packages writing, image, audio, and video tools into a single place so you can finish quick everyday tasks fast. It is built on many underlying AI models and uses a flexible credit system instead of separate subscriptions for each tool. It is aimed at creators, marketers, and students who want one affordable hub rather than juggling many apps.",
+    "capabilities": [
+      "Generate and edit text, images, audio, and video from one interface",
+      "Use image tools like upscaler, background remover, object replace, and image-to-prompt",
+      "Access many AI models under a single credit-based plan",
+      "Work from web plus apps across multiple platforms",
+      "Use role-based starter tools for creators, marketers, students, and more"
+    ],
+    "useCases": [
+      "A student or creator who wants writing plus image and video tools without many subscriptions",
+      "A small-business marketer producing social posts, copy, and visuals on a budget",
+      "Anyone wanting to try several AI models cheaply through one shared credit pool"
+    ],
+    "howTo": [
+      "Sign up at 1min.ai for the free plan (no credit card required)",
+      "Pick a tool from the Features menu, such as the image generator or a writing assistant",
+      "Enter your prompt and run it; each action draws from your monthly credits",
+      "Upgrade to a paid plan if you need a monthly credit allowance and rollover"
+    ],
+    "example": {
+      "label": "Free-tier reality",
+      "snippet": "Free plan: 450,000 credits/month, no rollover. Paid usage is billed around $1.34 per million credits, so plan heavier image/video jobs against your credit balance."
+    },
+    "goodToKnow": [
+      "Because it bundles many models, output quality varies by which model a given tool uses.",
+      "It is credit-metered, so high-volume image or video generation can consume credits quickly."
+    ]
+  },
+  "tool/ai-music-video-generator-1-more-shot": {
+    "tagline": "Turn your song into a finished music video",
+    "overview": "One More Shot AI (1MoreShot) automatically turns a music track into a finished, beat-synced and lip-synced music video. You input your song and a photo, and AI agents act like a production crew to generate the visuals. It is trusted by independent artists and labels and works with tracks from tools like Suno, Udio, and standard DAWs.",
+    "capabilities": [
+      "Generate a complete music video automatically from a song plus a photo",
+      "Produce beat-synced visuals with high-quality lip-sync for singing scenes",
+      "Create a consistent virtual AI artist from a photo or description",
+      "Fine-tune individual shots in a Project Mode for precise editing",
+      "Export release assets like covers and banners via Content Studio"
+    ],
+    "useCases": [
+      "An independent musician who wants a music video without hiring a film crew",
+      "A creator releasing AI-made songs (e.g. from Suno) who needs matching visuals",
+      "A label producing video assets for many artists quickly and affordably"
+    ],
+    "howTo": [
+      "Sign up at onemoreshot.ai and start a free project",
+      "Upload your song and a reference photo, or describe a virtual artist to create one",
+      "Let the Auto Videos agents generate a first cut synced to your track",
+      "Open Project Mode to refine individual shots and lip-sync, then export"
+    ],
+    "example": {
+      "label": "What it pairs with",
+      "snippet": "Made a track in Suno or Udio? Drop the audio + an artist photo into One More Shot → get a beat-synced, lip-synced video ready to publish."
+    },
+    "goodToKnow": [
+      "Lip-sync and motion quality depend on the model in use; results are strong but still AI-generated, not live footage.",
+      "Free credits let you test it, but full-length, high-resolution exports generally need a paid plan."
+    ]
+  },
+  "tool/1of10": {
+    "tagline": "Data-backed YouTube ideas, titles, and thumbnails",
+    "overview": "1of10 is a set of AI tools that help YouTubers find video ideas that are likely to perform and optimize titles and thumbnails for more views. It surfaces outlier videos (ones that got far more views than a channel's average) so you can reverse-engineer what works. It is used by thousands of creators to research ideas before filming.",
+    "capabilities": [
+      "Find viral outlier videos to spot proven, high-performing ideas",
+      "Generate data-backed video ideas tailored to your niche",
+      "Create and test thumbnail concepts with AI",
+      "Generate and compare title options designed to earn clicks",
+      "Research via a browser extension while you watch YouTube"
+    ],
+    "useCases": [
+      "A new YouTuber deciding which video to make next based on what already works",
+      "A creator stuck on titles and thumbnails who wants higher click-through",
+      "A content strategist researching a niche before planning a content calendar"
+    ],
+    "howTo": [
+      "Sign up free at 1of10.com (no credit card required)",
+      "Search a topic or niche to surface outlier videos and idea suggestions",
+      "Use the title and thumbnail generators to draft and compare options",
+      "Install the browser extension to research ideas directly on YouTube"
+    ],
+    "example": {
+      "label": "Idea-finding search",
+      "snippet": "Try: \"iPhone 16 unboxing reaction\" → see outlier videos on the topic, then generate title and thumbnail variations modeled on the winners."
+    },
+    "goodToKnow": [
+      "It points you to what has worked historically; you still need a strong video to convert those ideas into views.",
+      "Deeper research limits and full features usually sit behind a paid plan."
+    ]
+  },
+  "tool/1ui": {
+    "tagline": "Prompt to editable UI design in seconds",
+    "overview": "1UI generates polished UI designs from a text prompt or a screenshot in seconds, producing fully editable output. Every element is ungrouped and customizable, and it exports clean HTML and Figma-ready layers. It can also run as a Figma plugin so you generate designs without leaving your workspace.",
+    "capabilities": [
+      "Generate complete UI screens like dashboards, forms, and landing pages from a prompt",
+      "Convert a screenshot into an editable interface (screenshot-to-UI)",
+      "Export clean, production-ready HTML",
+      "Output Figma-ready, fully editable SVG layers",
+      "Run directly inside Figma via the 1UI plugin"
+    ],
+    "useCases": [
+      "A student or developer who needs a UI mockup fast without strong design skills",
+      "A designer wanting a quick first draft to refine inside Figma",
+      "A founder prototyping screens to validate an idea before building"
+    ],
+    "howTo": [
+      "Go to 1ui.dev and start for free, or install the 1UI Figma plugin",
+      "Describe the screen you want, or drop in a screenshot to replicate",
+      "Generate the design, then edit individual elements and styles",
+      "Export to clean HTML or to Figma, and optionally rebuild as a live site with a tool like v0"
+    ],
+    "example": {
+      "label": "Generation prompt",
+      "snippet": "Generate an analytics dashboard: left sidebar nav, top KPI cards, a line chart, a recent-activity table, light theme with a blue accent."
+    },
+    "goodToKnow": [
+      "Output is a strong starting layout, not a finished product; you still wire up real logic and data yourself.",
+      "The free tier caps generations (around 50/month on the Figma plugin), with more on paid plans."
+    ]
+  },
+  "tool/1x-tech-neo-home-robot": {
+    "tagline": "Autonomous humanoid robot for household chores",
+    "overview": "NEO by 1X is an autonomous humanoid home robot designed to handle everyday household tasks like tidying, putting away dishes, and cleaning, freeing up your time. It is built to be soft, light, and quiet for safe interaction in a real home, and it doubles as a conversational companion. It runs autonomously by default, with a remote Expert mode to teach it new chores.",
+    "capabilities": [
+      "Take on routine chores such as tidying, dish handling, and cleaning",
+      "Operate autonomously for tasks it already knows, on a schedule you set",
+      "Learn new chores through 1X Expert remote guidance (Expert Mode)",
+      "Answer questions and hold natural conversations as a companion",
+      "Move gently and quietly using a soft body and tendon-driven actuators"
+    ],
+    "useCases": [
+      "A busy household wanting to offload repetitive chores",
+      "Someone curious about living with an early consumer humanoid robot",
+      "People who want both a helper and a conversational, knowledge-on-demand companion"
+    ],
+    "howTo": [
+      "Visit 1x.tech/neo and review the product, design, and FAQ sections",
+      "Place a reservation with the listed deposit to join the early order queue",
+      "Give NEO a chore list and schedule tasks once you receive it",
+      "Use Expert Mode to have a 1X expert guide NEO through chores it does not yet know"
+    ],
+    "example": {
+      "label": "Reservation terms",
+      "snippet": "Order NEO with a $200 deposit to reserve a unit. Set chores + a schedule in-app; unknown tasks can be run via a scheduled 1X Expert session so NEO learns them."
+    },
+    "goodToKnow": [
+      "This is hardware sold via reservation/deposit, not instant software; availability and full capabilities are still rolling out.",
+      "Some tasks rely on remote Expert assistance to teach the robot, so it is not fully self-sufficient on day one."
+    ]
+  },
+  "tool/2pr": {
+    "tagline": "AI agent to grow on LinkedIn",
+    "overview": "2PR (2pr.io) is an AI agent for growing on LinkedIn that helps you generate ideas, draft and format posts, plan a schedule, and reply to comments. It surfaces trending topics from multiple sources and can draft replies in your voice to keep engagement up. It pitches itself as a single app replacing an expensive ghostwriter.",
+    "capabilities": [
+      "Generate post ideas from trending topics across several sources",
+      "Draft and format LinkedIn posts, including multiple hook versions to compare",
+      "Plan and schedule posts on a content calendar",
+      "Generate replies to comments written in your voice",
+      "Track follower growth and post analytics"
+    ],
+    "useCases": [
+      "A founder or professional building a personal brand on LinkedIn consistently",
+      "A creator who struggles to come up with hooks and ideas regularly",
+      "Someone who wants ghostwriter-level output without the monthly retainer"
+    ],
+    "howTo": [
+      "Sign up free at 2pr.io",
+      "Connect your LinkedIn and pick trending topics relevant to your niche",
+      "Generate a post, compare hook versions, and refine the draft in your voice",
+      "Schedule it on the calendar and use AI replies to engage with comments"
+    ],
+    "example": {
+      "label": "Hook variations it produces",
+      "snippet": "Topic: \"AI agents replacing SaaS tools\" → v0 hook, v1 hook, v2 hook generated side by side so you can shortlist the strongest opener before scheduling."
+    },
+    "goodToKnow": [
+      "AI-drafted posts still need your judgment and edits to truly sound like you and avoid generic content.",
+      "It is a paid product after the free trial, positioned as cheaper than a human ghostwriter."
+    ]
+  },
+  "tool/2-video": {
+    "tagline": "Text or image to short AI video",
+    "overview": "2.VIDEO generates short video clips from a text prompt or a starting image using top-tier generative video models. You pick a model, write a scene description, optionally upload a start (and end) frame, and choose aspect ratio and length. It gives access to leading models like Veo, Sora, MiniMax, and Kling from one interface.",
+    "capabilities": [
+      "Generate short clips from a text prompt or from an uploaded image",
+      "Choose among multiple pro models (Veo, Sora, MiniMax Hailuo, Kling)",
+      "Use optional start and end frames for smoother transitions",
+      "Pick aspect ratio (16:9 or 9:16) and clip duration",
+      "Produce realistic motion and natural audio with supported models"
+    ],
+    "useCases": [
+      "A creator making short social clips or B-roll without filming",
+      "A marketer prototyping ad concepts quickly from a single image",
+      "A student exploring and comparing different AI video models in one place"
+    ],
+    "howTo": [
+      "Open 2.video and sign in (free credits are offered to start)",
+      "Select a model based on your need (realism, speed, character focus, or length)",
+      "Optionally upload a start frame image and add an end frame",
+      "Write the scene, set aspect ratio and duration, then click Generate Video"
+    ],
+    "example": {
+      "label": "Scene prompt",
+      "snippet": "Model: Veo 3 Fast | 9:16 | 5s — \"A coffee cup on a wooden desk by a rainy window, steam rising, slow push-in, warm morning light, gentle ambient sound.\""
+    },
+    "goodToKnow": [
+      "Different models excel at different things (Sora for length, MiniMax for characters, Kling for resolution), so model choice matters.",
+      "Generation uses credits and longer or higher-quality clips cost more, so test with short durations first."
+    ]
+  },
+  "tool/5-out": {
+    "tagline": "AI demand forecasting for restaurants",
+    "overview": "5-Out forecasts demand and sales for restaurants so operators can plan purchasing and staffing and boost profit. It automatically produces optimized purchase and prep lists and labor schedules based on predicted demand, reducing waste with little manual effort. It integrates with existing restaurant systems and is built to set up quickly.",
+    "capabilities": [
+      "Forecast sales and demand automatically for a restaurant or location",
+      "Generate purchase and prep lists based on what you will actually sell",
+      "Build optimized labor schedules aligned to predicted demand",
+      "Reduce food waste and improve consistency across locations",
+      "Integrate with existing tools in about five minutes"
+    ],
+    "useCases": [
+      "A restaurant manager trying to cut food waste and over-ordering",
+      "An operator scheduling staff to match real expected demand, not guesswork",
+      "A multi-location brand wanting consistent, data-driven decisions everywhere"
+    ],
+    "howTo": [
+      "Go to 5out.io and request a demo",
+      "Connect your POS and related systems during the quick (~5 minute) setup",
+      "Let 5-Out learn your data and generate sales forecasts",
+      "Use the resulting purchase, prep, and labor recommendations to run the day"
+    ],
+    "example": {
+      "label": "What it outputs",
+      "snippet": "Forecast: Friday dinner +18% vs avg → suggested purchase list, prep quantities, and a labor schedule sized to the predicted rush."
+    },
+    "goodToKnow": [
+      "Forecast accuracy depends on connecting clean historical data from your POS and systems.",
+      "It is a B2B product accessed via a sales demo, not a free self-serve signup."
+    ]
+  },
+  "tool/aaavatar": {
+    "tagline": "One-click consistent team profile photos",
+    "overview": "Aaavatar is a Mac app that cleans up profile photos in one click by removing backgrounds, balancing colors, and restoring missing parts of a shot. It is built for teams that want a consistent gallery of portraits across LinkedIn, Slack, and email. You drop in team photos, pick a shared background, and it polishes each one.",
+    "capabilities": [
+      "Remove photo backgrounds automatically in a single drop",
+      "Apply a shared background preset, brand color, or custom image to every portrait",
+      "Fill in missing shoulders and auto-align faces for consistency",
+      "Polish color and lighting across a batch of headshots",
+      "Export ready for LinkedIn, Slack, email, and more"
+    ],
+    "useCases": [
+      "A team or HR lead standardizing everyone's headshots for a directory",
+      "A startup wanting an on-brand, consistent About page gallery",
+      "Anyone cleaning up a casual photo into a usable profile picture"
+    ],
+    "howTo": [
+      "Download the Aaavatar app for Mac from aaavatar.nl",
+      "Drag and drop your team members' photos into the app",
+      "Choose a background preset, brand color, or upload your own",
+      "Retouch with one click to align faces and fix shoulders, then export"
+    ],
+    "example": {
+      "label": "Team gallery workflow",
+      "snippet": "Drop 12 staff photos → apply one brand-blue background → one-click retouch each → export a uniform set for the team page and Slack."
+    },
+    "goodToKnow": [
+      "It is macOS-only, so Windows and Linux users cannot run it.",
+      "Best results come from reasonably clear source photos; heavy restoration still has limits."
+    ]
+  },
+  "tool/abacus": {
+    "tagline": "Build and run AI agents and ML at scale",
+    "overview": "Abacus.AI is a platform for building and running AI agents and machine-learning systems at scale, aimed at data analysis for professionals and enterprises. Its ChatLLM product gives access to top models (like GPT, Claude, and Gemini) plus an AI agent and desktop tools in one subscription. For larger teams it offers enterprise generative AI, structured ML, and optimization.",
+    "capabilities": [
+      "Access many leading AI models (GPT, Claude, Gemini, and more) in one place via ChatLLM",
+      "Automate complex tasks with the Abacus AI Agent",
+      "Build machine-learning models on structured data",
+      "Run AI-powered optimization and data analysis workflows",
+      "Create full-stack apps and visuals without coding via Abacus AI Studio"
+    ],
+    "useCases": [
+      "A professional or small team wanting many top models plus agents under one plan",
+      "A data team building and deploying ML models on their structured data",
+      "An enterprise needing an end-to-end generative AI and optimization platform"
+    ],
+    "howTo": [
+      "Sign up at abacus.ai and start with ChatLLM for individuals and small teams",
+      "Pick a model and chat, or invoke the AI Agent to automate a multi-step task",
+      "For structured ML, upload your dataset and use the platform to train a model",
+      "Explore Enterprise plans if you need org-wide deployment and optimization"
+    ],
+    "example": {
+      "label": "Why one subscription",
+      "snippet": "ChatLLM bundles GPT-5, Claude, Gemini and more + an AI agent + desktop CLI, so you switch models for a task without separate subscriptions for each."
+    },
+    "goodToKnow": [
+      "It spans a lot (chat, agents, ML, enterprise), so the right entry point differs for an individual vs. an enterprise.",
+      "Structured ML and enterprise features assume some data and ML familiarity to use well."
+    ]
+  },
+  "tool/abc-finder": {
+    "tagline": "AI scavenger-hunt game to learn the ABCs",
+    "overview": "ABC Finder is a free iPhone app that helps young children learn their ABCs through two game modes. In the camera game, kids go on a real-world scavenger hunt and the app uses real-time AI image recognition to detect objects, then teaches the first letter and its sound. A simpler matching mode suits the youngest learners just starting out.",
+    "capabilities": [
+      "Run a camera scavenger hunt that recognizes real objects with on-device AI",
+      "Teach the first letter and the sound it makes when an object is found",
+      "Offer a simpler matching game for very young beginners",
+      "Use playful 3D emojis, soothing music, and child-friendly design",
+      "Collect no user data, per the developer's App Store privacy entry"
+    ],
+    "useCases": [
+      "A parent helping a toddler or preschooler learn letters and sounds",
+      "A young child who learns better by moving and exploring than by sitting still",
+      "Early-learning practice at home with a fun, low-pressure game"
+    ],
+    "howTo": [
+      "Open the App Store on an iPhone and search for ABC Finder",
+      "Download the free app (note it includes in-app purchases)",
+      "Choose the camera game and point the phone at everyday objects to find letters",
+      "Switch to matching mode for younger kids who need a simpler activity"
+    ],
+    "example": {
+      "label": "Camera game in action",
+      "snippet": "Point the phone at a banana → AI recognizes it → app teaches \"B\" and the /b/ sound with a 3D emoji and audio."
+    },
+    "goodToKnow": [
+      "It is iPhone-only and not verified for macOS, so it needs an Apple mobile device.",
+      "The app is free but contains in-app purchases for additional content."
+    ]
+  },
+  "tool/abnormal-security": {
+    "tagline": "AI email security against advanced attacks",
+    "overview": "Abnormal Security is a cloud-based email security platform that uses behavioral AI to detect and block malicious email attacks. It learns normal communication patterns to catch phishing, business email compromise, account takeover, and AI-crafted threats that slip past traditional filters. It extends protection to messaging tools like Slack and Teams and offers autonomous triage of the security mailbox.",
+    "capabilities": [
+      "Detect and block phishing, malware, and business email compromise",
+      "Spot account takeover by recognizing abnormal behavior",
+      "Autonomously triage and respond to reported threats (AI Security Mailbox)",
+      "Protect messaging platforms like Slack and Teams",
+      "Train users in the moment with an AI Phishing Coach"
+    ],
+    "useCases": [
+      "A security or IT team wanting to stop email attacks that bypass standard filters",
+      "An organization replacing or augmenting a legacy secure email gateway",
+      "Teams in regulated sectors (finance, healthcare) needing strong email defense"
+    ],
+    "howTo": [
+      "Go to abnormalsecurity.com and request a demo or product tour",
+      "Connect it to your email environment (e.g. Microsoft 365 or Google Workspace) via API integration",
+      "Let the behavioral AI baseline normal communication patterns",
+      "Review flagged threats and let the AI mailbox auto-triage reported emails"
+    ],
+    "example": {
+      "label": "What behavioral AI catches",
+      "snippet": "A \"CEO\" emails finance asking for an urgent wire to a new account. Abnormal flags it as impersonation/BEC because the sender behavior and request deviate from the learned norm."
+    },
+    "goodToKnow": [
+      "This is an enterprise security product set up via sales and API integration, not a self-serve consumer app.",
+      "Detection improves after it learns your organization's normal patterns, so value grows over time."
+    ]
+  },
+  "tool/abook-ai": {
+    "tagline": "Free book summaries, podcasts, and PDFs",
+    "overview": "Abook.ai is a book-summary website and app that condenses books into short reads, with a library of over 10,000 summaries. Beyond text, it offers audio podcasts of summaries and PDF downloads across genres like self-help, business, psychology, and fiction. It is built for people who want the key ideas of many books quickly and for free to start.",
+    "capabilities": [
+      "Read condensed summaries from a library of 10,000+ books",
+      "Listen to summaries as audio podcasts",
+      "Download summaries as PDFs",
+      "Browse by genre such as self-help, business, psychology, and history",
+      "Save titles to a personal library"
+    ],
+    "useCases": [
+      "A student who wants quick takeaways and a PDF to review before an exam or discussion",
+      "A commuter who prefers listening to summaries as podcasts",
+      "Anyone sampling many books to decide which to read in full"
+    ],
+    "howTo": [
+      "Visit abook.ai and click Start for Free",
+      "Browse by genre or search for a specific title",
+      "Open a summary to read it, or play the podcast version",
+      "Download the PDF or save the book to My Library for later"
+    ],
+    "example": {
+      "label": "Three ways to consume one book",
+      "snippet": "Pick a title → read the text summary, hit play for the podcast, or download the PDF — whichever fits your moment."
+    },
+    "goodToKnow": [
+      "Summaries are compressed interpretations, not the full author's text or nuance.",
+      "Free access gets you started, but full features or unlimited use may require a paid plan."
+    ]
+  },
+  "tool/accelq": {
+    "tagline": "Codeless AI test automation for QA teams",
+    "overview": "ACCELQ is an AI-powered, codeless test automation platform for agile QA teams, letting testers automate without writing code. It covers web, mobile, API, desktop, mainframe, and even manual testing in one unified platform with built-in test management. Its record-and-playback and AI features aim to make automation accessible and maintainable across complex enterprise apps.",
+    "capabilities": [
+      "Automate tests without coding using record-and-playback and AI",
+      "Cover web, mobile (iOS/Android), API (REST, SOAP, Kafka), desktop, and mainframe",
+      "Manage manual and automated testing in one unified platform",
+      "Automate enterprise apps like Salesforce, SAP, Workday, and ServiceNow",
+      "Integrate with CI/CD pipelines for in-sprint automation"
+    ],
+    "useCases": [
+      "A QA team wanting automation coverage without deep coding skills",
+      "An enterprise testing complex apps (ERP, mainframe, Salesforce) end to end",
+      "Agile teams needing in-sprint, CI/CD-integrated test automation"
+    ],
+    "howTo": [
+      "Go to accelq.com and request a demo or trial",
+      "Connect the app under test (web, mobile, API, or ERP) to ACCELQ",
+      "Build tests with codeless record-and-playback and AI assistance",
+      "Hook ACCELQ into your CI/CD pipeline to run tests each sprint"
+    ],
+    "example": {
+      "label": "Codeless test flow",
+      "snippet": "Record: open login page → enter user/pass → click Sign In → assert dashboard loads. Replay across Web, Salesforce, and a mobile build with no code edits."
+    },
+    "goodToKnow": [
+      "It is an enterprise platform accessed via demo/sales, not a free consumer tool.",
+      "Codeless does not mean effortless; complex test design and maintenance still need QA expertise."
+    ]
+  },
+  "tool/accent-genai": {
+    "tagline": "AI sales enablement to grow revenue",
+    "overview": "Accent GenAI (Accent Technologies) is an AI revenue-enablement platform for enterprise teams that surfaces the right content, makes suggestions, and gives insight into each deal to help reps sell more. It combines content management, guided selling, a custom ChatGPT knowledgebase, training and readiness, and analytics in one platform. It is aimed at marketing, sales, enablement, and customer teams.",
+    "capabilities": [
+      "Manage and deliver the right sales content for each situation",
+      "Provide a custom ChatGPT knowledgebase for real-time answers and content generation",
+      "Guide reps with AI suggestions during deals (guided selling)",
+      "Deliver training, coaching, and readiness for sales teams",
+      "Give visibility and analytics into deal and team performance"
+    ],
+    "useCases": [
+      "An enterprise sales team that wants reps to always reach the right content",
+      "An enablement leader running training, coaching, and readiness at scale",
+      "A revenue org wanting deal insights and analytics in one platform"
+    ],
+    "howTo": [
+      "Visit accent-technologies.com and request a demo",
+      "Connect your content library and CRM during onboarding",
+      "Set up the custom ChatGPT knowledgebase on your company content",
+      "Roll out guided selling, training, and analytics to your revenue teams"
+    ],
+    "example": {
+      "label": "Custom knowledgebase in use",
+      "snippet": "A rep asks the Accent ChatGPT knowledgebase \"What's our security posture for healthcare clients?\" and gets a sourced answer plus a ready-to-share one-pager."
+    },
+    "goodToKnow": [
+      "This is an enterprise B2B platform set up through sales, not a self-serve signup.",
+      "Value depends on feeding it well-organized content and connecting your CRM."
+    ]
+  },
+  "tool/accessibe": {
+    "tagline": "AI website accessibility for ADA and WCAG",
+    "overview": "accessiBe adds AI-driven accessibility adjustments to websites to help them meet ADA and WCAG requirements. Its accessWidget applies automated accessibility changes, while companion products scan sites, help developers write accessible code, and document compliance. It also offers services like manual audits, VPAT documentation, and litigation support.",
+    "capabilities": [
+      "Apply automated, AI-driven accessibility adjustments via the accessWidget",
+      "Scan a site for accessibility issues with accessScan",
+      "Help developers build accessible code (accessFlow)",
+      "Integrate with common CMS platforms",
+      "Provide compliance services: VPAT docs, manual audits, and litigation support"
+    ],
+    "useCases": [
+      "A small business wanting faster help toward ADA/WCAG compliance on its site",
+      "A developer or agency needing to assess and remediate accessibility issues",
+      "An enterprise scaling accessibility across many sites with documentation needs"
+    ],
+    "howTo": [
+      "Go to accessibe.com and run a free accessScan on your site",
+      "Review the report to see where your site falls short of WCAG",
+      "Install the accessWidget snippet to apply automated adjustments",
+      "Use accessFlow, manual audits, or VPAT services for deeper remediation"
+    ],
+    "example": {
+      "label": "Quick check first",
+      "snippet": "Run accessScan on your homepage URL → get a WCAG-oriented report flagging issues like missing alt text, low contrast, and unlabeled controls before you install anything."
+    },
+    "goodToKnow": [
+      "Automated overlay tools help but cannot guarantee full compliance or replace genuine accessible design and manual testing.",
+      "Some accessibility advocates are critical of overlay widgets, so pair it with real remediation where it matters."
+    ]
+  },
+  "tool/accountycat": {
+    "tagline": "macOS focus companion that reads screen context",
+    "overview": "AccountyCat is a macOS focus app that keeps you accountable by understanding what is on your screen rather than blocking sites outright. You tell it what you are working on, and it gently nudges you back when it notices you drifting into a rabbit hole, while leaving legitimate work (a doc, Slack, a tutorial) alone. It is open source (MIT), privacy-minded, and runs on Apple Silicon.",
+    "capabilities": [
+      "Track what you are working on instead of blocking distractions",
+      "Read on-screen context to tell real work from procrastination",
+      "Nudge you back to your set task when it detects drift",
+      "Run a private cloud mode on zero-data-retention providers, or a local mode",
+      "Stay open source (MIT) and notarized by Apple"
+    ],
+    "useCases": [
+      "A student or knowledge worker who finds hard site-blockers too blunt",
+      "Someone whose distractions and work live on the same sites (e.g. Reddit, YouTube)",
+      "A privacy-conscious user who wants accountability without a remote logger"
+    ],
+    "howTo": [
+      "Download AccountyCat for Mac from accountycat.com (macOS 26+, Apple Silicon)",
+      "During setup, choose local mode or private cloud mode (paste a launch code like ACFIRST for trial cloud credits)",
+      "Tell it what task you are focusing on for this session",
+      "Let it run; respond to its nudges when it notices you drifting off task"
+    ],
+    "example": {
+      "label": "A nudge in action",
+      "snippet": "You set Focus: \"Writing essay.\" AC sees you switch to a Cat Videos compilation and nudges: \"hey — is that helping with the essay?\" rather than blocking the tab."
+    },
+    "goodToKnow": [
+      "It requires macOS 26+ on Apple Silicon, so older or Intel Macs are out.",
+      "Cloud mode gives smarter answers but sends screen context to an AI provider; local mode keeps it on-device with simpler results."
+    ]
+  }
+}

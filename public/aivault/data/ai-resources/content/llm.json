@@ -1,0 +1,622 @@
+{
+ "llm/vibevoice": {
+  "tagline": "Open voice AI for long multi-speaker audio",
+  "overview": "VibeVoice is Microsoft's open-weights speech model that turns written scripts into long-form spoken audio with several distinct speakers, making it well-suited for podcasts, audiobooks, and dialogue. The project also ships VibeVoice-ASR, a companion speech-to-text model that transcribes up to 60 minutes of audio in one pass with speaker labels and timestamps. Because the weights are open, you can run it yourself instead of paying a per-character TTS API.",
+  "capabilities": [
+   "Generates long-form, multi-speaker spoken audio from a single text script",
+   "Keeps separate, consistent voices for each named speaker in a conversation",
+   "Includes VibeVoice-ASR for transcription with Who / When / What output",
+   "ASR is multilingual across 50+ languages and handles 60-minute clips in one pass",
+   "Integrates with Hugging Face Transformers and supports faster vLLM inference"
+  ],
+  "useCases": [
+   "Creators producing a two-host podcast from a written script without recording",
+   "Students turning study notes or articles into narrated audio to listen on the go",
+   "Anyone needing accurate, speaker-labeled transcripts of long meetings or lectures"
+  ],
+  "howTo": [
+   "Open the official Colab notebook from the repo to try streaming TTS with zero local setup",
+   "For local use, clone github.com/microsoft/VibeVoice and install its Python requirements",
+   "Download the model weights from the Hugging Face VibeVoice collection",
+   "Write a script that labels each line by speaker, then run the demo to synthesize the audio",
+   "For transcription, load microsoft/VibeVoice-ASR through Hugging Face Transformers"
+  ],
+  "example": {
+   "label": "Multi-speaker script format",
+   "content": "Speaker 1: Welcome back to the show.\nSpeaker 2: Thanks for having me, glad to be here."
+  },
+  "goodToKnow": [
+   "Generation runs best on a GPU; long multi-speaker clips are heavy to produce on CPU only.",
+   "It is a research release, so check Microsoft's license and responsible-use notes before publishing voices."
+  ]
+ },
+ "llm/kronos-2": {
+  "tagline": "Open foundation model for financial candlesticks",
+  "overview": "Kronos is an open-weights 499M-parameter foundation model built specifically to forecast financial time series like candlestick (K-line) price data. It was pre-trained on data from over 45 global exchanges, so it understands the patterns of open, high, low, close, and volume sequences. You feed it recent market history and it predicts the likely next candles.",
+  "capabilities": [
+   "Forecasts future candlestick (OHLCV) sequences from recent market history",
+   "Pre-trained across 45+ global exchanges for broad market coverage",
+   "Comes in several sizes via the NeoQuasar Hugging Face collection",
+   "Ships fine-tuning scripts to adapt the model to your own instrument or task",
+   "Provides a simple predictor wrapper for plugging in your own price data"
+  ],
+  "useCases": [
+   "Students learning quantitative finance who want a real model to experiment with",
+   "Researchers benchmarking time-series forecasting on market data",
+   "Builders prototyping a price-trend signal before committing to a full strategy"
+  ],
+  "howTo": [
+   "Clone github.com/shiyu-coder/Kronos and install the Python dependencies",
+   "Download a checkpoint such as NeoQuasar/Kronos-small from Hugging Face",
+   "Load the tokenizer and model, then wrap them with the provided KronosPredictor",
+   "Pass a dataframe of recent OHLCV history and call predict for the forecast horizon",
+   "Optionally run the fine-tuning scripts to specialize it on your own dataset"
+  ],
+  "example": {
+   "label": "Generate a forecast",
+   "content": "predictor = KronosPredictor(model, tokenizer)\npreds = predictor.predict(df=recent_klines, pred_len=24)"
+  },
+  "goodToKnow": [
+   "Forecasts are statistical estimates, not financial advice; never trade real money on raw model output.",
+   "Accuracy depends heavily on clean, correctly formatted OHLCV input at a consistent interval."
+  ]
+ },
+ "llm/kronos": {
+  "tagline": "Open foundation model for financial candlesticks",
+  "overview": "Kronos is an open-weights 499M-parameter foundation model built specifically to forecast financial time series like candlestick (K-line) price data. It was pre-trained on data from over 45 global exchanges, so it understands the patterns of open, high, low, close, and volume sequences. You feed it recent market history and it predicts the likely next candles.",
+  "capabilities": [
+   "Forecasts future candlestick (OHLCV) sequences from recent market history",
+   "Pre-trained across 45+ global exchanges for broad market coverage",
+   "Available in several sizes via the NeoQuasar Hugging Face collection",
+   "Ships fine-tuning scripts to adapt the model to your own instrument or task",
+   "Provides a simple predictor wrapper for plugging in your own price data"
+  ],
+  "useCases": [
+   "Students learning quantitative finance who want a real model to experiment with",
+   "Researchers benchmarking time-series forecasting on market data",
+   "Builders prototyping a price-trend signal before committing to a full strategy"
+  ],
+  "howTo": [
+   "Clone github.com/shiyu-coder/Kronos and install the Python dependencies",
+   "Download a checkpoint such as NeoQuasar/Kronos-small from Hugging Face",
+   "Load the tokenizer and model, then wrap them with the provided KronosPredictor",
+   "Pass a dataframe of recent OHLCV history and call predict for the forecast horizon",
+   "Optionally run the fine-tuning scripts to specialize it on your own dataset"
+  ],
+  "example": {
+   "label": "Generate a forecast",
+   "content": "predictor = KronosPredictor(model, tokenizer)\npreds = predictor.predict(df=recent_klines, pred_len=24)"
+  },
+  "goodToKnow": [
+   "Forecasts are statistical estimates, not financial advice; never trade real money on raw model output.",
+   "Accuracy depends heavily on clean, correctly formatted OHLCV input at a consistent interval."
+  ]
+ },
+ "llm/wan2-1": {
+  "tagline": "Open video generation that runs on consumer GPUs",
+  "overview": "Wan2.1 is Wan-Video's open suite of video foundation models, with a flagship 14B version and a lighter 1.3B version that needs only about 8 GB of VRAM. It generates video and images from text or image prompts and also handles image-to-video, video editing, and text-to-image. It is notable for being able to render readable Chinese and English text inside generated video.",
+  "capabilities": [
+   "Generates video from text prompts or animates a still image into motion",
+   "Runs the 1.3B model on consumer GPUs (about 8 GB VRAM, ~4 min for 5s 480p on an RTX 4090)",
+   "Supports multiple tasks: text-to-video, image-to-video, editing, and text-to-image",
+   "Can render legible English and Chinese text inside generated frames",
+   "Includes an efficient Wan-VAE for encoding and decoding longer, higher-res clips"
+  ],
+  "useCases": [
+   "Creators making short social clips or B-roll from a text description",
+   "Students experimenting with open video generation without renting a cloud GPU",
+   "Designers animating a product still into a short looping motion piece"
+  ],
+  "howTo": [
+   "Clone github.com/Wan-Video/Wan2.1 and install the listed requirements",
+   "Download the matching weights from the Wan-AI Hugging Face organization",
+   "Pick a size: the 1.3B model for consumer GPUs or 14B for higher quality",
+   "Run the generation script with your text or image prompt and target resolution",
+   "Find the rendered MP4 in the output folder and iterate on the prompt"
+  ],
+  "example": {
+   "label": "Text-to-video command",
+   "content": "python generate.py --task t2v-1.3B --size 480p --prompt \"a fox running through autumn leaves, cinematic\""
+  },
+  "goodToKnow": [
+   "The 14B model is much higher quality but needs far more VRAM than the 1.3B version.",
+   "Generation time grows quickly with resolution and clip length, so start short and small."
+  ]
+ },
+ "llm/unlimited-ocr": {
+  "tagline": "Open OCR for long, multi-page documents",
+  "overview": "Unlimited OCR Works is Baidu's open-weights OCR model that extracts text from images and documents, built specifically to handle long or multi-page inputs in a single pass. It pushes the DeepSeek-OCR approach further toward what Baidu calls one-shot long-horizon parsing. You point it at a scan, PDF page, or image and it returns the recognized text.",
+  "capabilities": [
+   "Extracts text from images, scans, and PDF pages",
+   "Designed for long-horizon, multi-page documents rather than single crops",
+   "Runs through Hugging Face Transformers with trust_remote_code",
+   "Supports faster serving via vLLM for higher throughput",
+   "Open weights available on Hugging Face and ModelScope"
+  ],
+  "useCases": [
+   "Students digitizing lecture notes, textbooks, or handwritten scans into text",
+   "Anyone converting long PDFs or reports into searchable, copyable text",
+   "Developers building a document-ingestion pipeline that needs free, local OCR"
+  ],
+  "howTo": [
+   "Install the tested dependencies (torch, transformers, Pillow, pymupdf, einops, etc.)",
+   "Load baidu/Unlimited-OCR with AutoModel and AutoTokenizer using trust_remote_code=True",
+   "Pass your image or PDF page to the model to get recognized text back",
+   "For large workloads, serve the model with vLLM for faster batch inference",
+   "Alternatively, try the model first in the Hugging Face Spaces demo"
+  ],
+  "example": {
+   "label": "Load the model",
+   "content": "from transformers import AutoModel, AutoTokenizer\nmodel = AutoModel.from_pretrained('baidu/Unlimited-OCR', trust_remote_code=True)"
+  },
+  "goodToKnow": [
+   "Requirements are tested on an NVIDIA GPU with CUDA, so a capable GPU is expected for good speed.",
+   "OCR accuracy varies with scan quality; very faint or skewed pages may still need cleanup."
+  ]
+ },
+ "llm/z-image-turbo": {
+  "tagline": "Fast, efficient open text-to-image model",
+  "overview": "Z-Image is Alibaba (Tongyi-MAI)'s open-weights image generation family with 6B parameters, and Z-Image-Turbo is the distilled variant tuned for fast generation. It uses a single-stream diffusion transformer to turn text prompts into images quickly. Open checkpoints are on Hugging Face and ModelScope, with online demos to try first.",
+  "capabilities": [
+   "Generates images from text prompts using a 6B single-stream diffusion transformer",
+   "Turbo variant is distilled for noticeably faster generation",
+   "Open checkpoints available on both Hugging Face and ModelScope",
+   "Hosted online demos let you test prompts before installing anything",
+   "Part of a family that includes a higher-quality non-turbo base model"
+  ],
+  "useCases": [
+   "Designers and students iterating on visual concepts quickly and cheaply",
+   "Builders adding local, free image generation to an app or workflow",
+   "Anyone who wants fast previews without a slow many-step diffusion run"
+  ],
+  "howTo": [
+   "Try Z-Image-Turbo first in the Hugging Face Spaces online demo",
+   "To run locally, clone github.com/Tongyi-MAI/Z-Image and install its requirements",
+   "Download the Tongyi-MAI/Z-Image-Turbo checkpoint from Hugging Face",
+   "Run the provided inference script with your text prompt",
+   "Adjust the prompt and seed, then re-run to explore variations"
+  ],
+  "example": {
+   "label": "Sample prompt",
+   "content": "\"a cozy reading nook by a rain-streaked window, warm lamp light, soft focus, photographic\""
+  },
+  "goodToKnow": [
+   "Turbo trades a little fidelity for speed; use the full Z-Image base model when quality matters most.",
+   "A GPU is recommended for comfortable local generation speeds."
+  ]
+ },
+ "llm/ace-step-1-5": {
+  "tagline": "Open 4B model that generates full music tracks",
+  "overview": "ACE-Step 1.5 is ACE Music's open-weights 4B model that generates complete music tracks from text prompts describing genre, mood, and instruments. You can run it locally on a GPU or, if you have no GPU, use the free hosted version at acemusic.ai. It offers a CLI, a Python API, a REST API, and a Gradio web UI, plus LoRA training to fine-tune your own style.",
+  "capabilities": [
+   "Generates full-length music tracks from a text description",
+   "Offers multiple interfaces: CLI wizard, Python API, REST API, and Gradio UI",
+   "Runs on CUDA GPUs with fallback support for MPS, ROCm, Intel XPU, and CPU",
+   "Supports LoRA training to teach it your own musical style",
+   "Free hosted option at acemusic.ai for users without a GPU"
+  ],
+  "useCases": [
+   "Creators needing royalty-free background music for videos or reels",
+   "Students exploring AI music generation without buying studio software",
+   "Developers adding a music-generation feature through the REST or Python API"
+  ],
+  "howTo": [
+   "If you have no GPU, just use the free hosted app at acemusic.ai",
+   "To run locally, install uv, then clone github.com/ACE-Step/ACE-Step-1.5",
+   "Run uv sync inside the folder to install dependencies (Python 3.11-3.12)",
+   "Launch the Gradio UI or CLI wizard and enter a text prompt for your track",
+   "Optionally follow the LoRA training guide to fine-tune your own sound"
+  ],
+  "example": {
+   "label": "Local setup",
+   "content": "git clone https://github.com/ACE-Step/ACE-Step-1.5.git\ncd ACE-Step-1.5\nuv sync"
+  },
+  "goodToKnow": [
+   "A CUDA GPU is recommended; CPU generation works but is slow.",
+   "Always check the license and any usage terms before publishing or monetizing generated music."
+  ]
+ },
+ "llm/gencad": {
+  "tagline": "Generate editable CAD geometry with AI",
+  "overview": "GenCAD is an open-weights generative model that produces CAD designs, turning inputs such as sketch images into editable 3D engineering geometry rather than flat pictures. It is a research project combining an autoencoder, a contrastive image-CAD model (CCIP), and a diffusion prior. You can train its components or run inference to generate CAD from images.",
+  "capabilities": [
+   "Generates editable parametric CAD geometry instead of static 3D meshes",
+   "Turns sketch or image inputs into engineering designs via a CCIP image-CAD model",
+   "Provides separate training stages for the autoencoder, CCIP, and diffusion prior",
+   "Includes inference scripts and a helper to convert STL files into images",
+   "Supports Docker and headless (xvfb) execution for server use"
+  ],
+  "useCases": [
+   "Engineering students experimenting with generative design from sketches",
+   "Researchers studying how generative models can produce editable CAD",
+   "Designers prototyping mechanical shapes before refining them in CAD software"
+  ],
+  "howTo": [
+   "Clone github.com/ferdous-alam/GenCAD and install requirements (or use the Docker image)",
+   "Download the provided model checkpoints into the expected model/ckpt folder",
+   "For headless servers, wrap inference with xvfb-run to enable visualization",
+   "Run inference_gencad.py, pointing it at your input image folder",
+   "Use stl2img.py if you need to prepare image inputs from existing STL files"
+  ],
+  "example": {
+   "label": "Headless inference",
+   "content": "xvfb-run python inference_gencad.py -image_path data/images -export_img"
+  },
+  "goodToKnow": [
+   "This is a research codebase, so setup involves training stages and checkpoints rather than a one-line install.",
+   "Visualization needs a display or xvfb; on a plain server you must run it headless."
+  ]
+ },
+ "llm/hy-world-2-0": {
+  "tagline": "Generate explorable 3D worlds from prompts",
+  "overview": "HY-World 2.0 is Tencent Hunyuan's open-weights model that generates interactive 3D worlds and scenes from prompts or images, producing real 3D assets rather than just a video clip. Unlike video world models, its output is a persistent scene you can render in real time on a consumer GPU and import into engines like Blender, Unreal, or Isaac. A companion model can even reconstruct a 3D world from a casual video.",
+  "capabilities": [
+   "Generates interactive, persistent 3D worlds and scenes from prompts or images",
+   "Outputs assets importable into Blender, Unreal Engine, and Isaac",
+   "Renders in real time on consumer GPUs after a one-time generation",
+   "Includes WorldMirror 2.0 to reconstruct 3D scenes from multi-view images or video",
+   "Supports panoramic world generation via the HY-Pano component"
+  ],
+  "useCases": [
+   "Game and XR developers prototyping explorable environments quickly",
+   "Students learning 3D world generation and digital-twin reconstruction",
+   "Creators turning a captured video into a reusable 3D scene"
+  ],
+  "howTo": [
+   "Clone github.com/Tencent-Hunyuan/HY-World-2.0 and install its inference dependencies",
+   "Download the open-sourced World Generation weights (WorldStereo 2.0 and related)",
+   "Run the world-generation inference script with a text prompt or input image",
+   "Export the generated scene and import it into Blender or Unreal Engine",
+   "To reconstruct from footage, use the WorldMirror 2.0 model on your video frames"
+  ],
+  "example": {
+   "label": "Prompt idea",
+   "content": "\"a sunlit medieval courtyard with cobblestones, a fountain, and stone archways\""
+  },
+  "goodToKnow": [
+   "World generation is GPU-heavy; rendering the finished scene is cheap, but creating it is not.",
+   "Different capabilities (world gen, panorama, reconstruction) use separate weights and code paths."
+  ]
+ },
+ "llm/void-video-object-and-interaction-deletion": {
+  "tagline": "Erase objects and their shadows from video",
+  "overview": "VOID is Netflix's open-weights 5B video-to-video model that removes objects from footage along with their interactions like shadows, reflections, and occlusions, so the cleanup looks natural. It uses two transformer passes you can chain for higher temporal consistency. The fastest way to try it is the included Colab notebook, which downloads the models and runs on a sample clip.",
+  "capabilities": [
+   "Removes target objects from video, not just from single frames",
+   "Also cleans up related artifacts like shadows, reflections, and occlusions",
+   "Uses two sequential transformer passes for stronger temporal consistency",
+   "Builds its masks with SAM2/SAM3 and a Gemini-assisted pipeline stage",
+   "Ships a ready-to-run Colab notebook plus sample sequences"
+  ],
+  "useCases": [
+   "Video editors removing an unwanted person or object from a shot",
+   "Creators cleaning up footage without frame-by-frame manual rotoscoping",
+   "Researchers studying interaction-aware video inpainting"
+  ],
+  "howTo": [
+   "Open the VOID Colab notebook from the repo for the fastest no-setup trial",
+   "For local use, clone github.com/netflix/void-model and pip install requirements",
+   "Install SAM2 and SAM3 and set a Google AI API key for the masking stage",
+   "Download the base inpainting model (CogVideoX-Fun-V1.5-5b-InP) to the repo root",
+   "Run the inference script on your clip, optionally chaining both passes"
+  ],
+  "example": {
+   "label": "Quick start",
+   "content": "# Easiest path: open notebook.ipynb in Colab — it downloads models and runs a sample"
+  },
+  "goodToKnow": [
+   "The mask pipeline's Stage 1 calls Gemini via the Google AI API, so you need an API key for that step.",
+   "It is a 5B model with several dependencies (SAM2/SAM3, ffmpeg), so expect a non-trivial GPU setup locally."
+  ]
+ },
+ "llm/lance": {
+  "tagline": "Open 3B model for text and images",
+  "overview": "Lance is ByteDance's open-weights 3B multimodal model that handles both text and images, meaning it can read an image and answer questions or follow instructions about it alongside text input. At 3B parameters it is small enough to be relatively practical to run while still covering vision-language tasks. Weights and code are available openly via the project page and GitHub.",
+  "capabilities": [
+   "Accepts both text and images as input in a single model",
+   "Answers questions and follows instructions grounded in an image",
+   "Compact 3B size keeps it lighter than large multimodal models",
+   "Open weights and code released by ByteDance",
+   "Suitable as a base for fine-tuning on multimodal tasks"
+  ],
+  "useCases": [
+   "Students building a simple visual question-answering demo",
+   "Developers adding lightweight image understanding to an app",
+   "Researchers needing a small open multimodal baseline to experiment with"
+  ],
+  "howTo": [
+   "Visit the project page at lance-project.github.io for model details and links",
+   "Clone github.com/bytedance/Lance and install its Python dependencies",
+   "Download the open weights as instructed in the repo",
+   "Load the model and pass an image plus a text question to run inference",
+   "Iterate on prompts, or fine-tune on your own multimodal data if needed"
+  ],
+  "example": {
+   "label": "Multimodal prompt",
+   "content": "image + \"What objects are on the desk, and what is the person doing?\""
+  },
+  "goodToKnow": [
+   "As a 3B model it is efficient but less capable than larger frontier multimodal models.",
+   "Check the repo for the exact supported input formats and any preprocessing steps."
+  ]
+ },
+ "llm/kandinsky-5.0-t2v-lite": {
+  "tagline": "Lightweight open text-to-video model",
+  "overview": "Kandinsky 5.0 T2V Lite is Kandinsky's open-weight text-to-video model, the lighter variant that generates short clips from text prompts. It is engineered to run on more modest hardware, with optimizations that let 5-second generation work on GPUs with as little as 12 GB of memory. It also supports image-to-video and camera-control LoRAs.",
+  "capabilities": [
+   "Generates short video clips from text prompts",
+   "Lite variant optimized to run on GPUs with around 12 GB of VRAM",
+   "Supports image-to-video in addition to text-to-video",
+   "Selectable attention backends (Flash Attention, Sage Attention, or SDPA)",
+   "Camera-control LoRAs available for directing motion"
+  ],
+  "useCases": [
+   "Creators making quick short clips on a single consumer GPU",
+   "Students learning text-to-video without high-end hardware",
+   "Builders prototyping motion ideas before moving to a heavier model"
+  ],
+  "howTo": [
+   "Clone github.com/kandinskylab/kandinsky-5 and install the requirements",
+   "Download the Kandinsky 5.0 Video Lite weights as the README directs",
+   "Pick an attention engine with --attention_engine to fit your GPU",
+   "Run the text-to-video example with your prompt to render a 5-second clip",
+   "Try the inference example notebooks for image-to-video or camera LoRAs"
+  ],
+  "example": {
+   "label": "Prompt idea",
+   "content": "\"a paper boat drifting down a rain puddle, soft reflections, slow motion\""
+  },
+  "goodToKnow": [
+   "The first run is slower because of compilation; later runs hit the quoted latency.",
+   "Lite is faster and lighter but lower quality than the Pro variant."
+  ]
+ },
+ "llm/kandinsky-5.0-t2v-pro": {
+  "tagline": "Higher-quality open text-to-video model",
+  "overview": "Kandinsky 5.0 T2V Pro is the higher-quality variant of Kandinsky's open-weight text-to-video family, generating better-looking clips from text prompts at the cost of heavier compute. It shares the same codebase as the Lite version and adds both text-to-video and image-to-video, plus camera-control LoRAs for guiding motion. Latency benchmarks were measured on an 80 GB H100 GPU.",
+  "capabilities": [
+   "Generates higher-fidelity video clips from text prompts",
+   "Supports both text-to-video and image-to-video generation",
+   "Camera-control LoRAs available to direct shot motion",
+   "Selectable attention backends for performance tuning",
+   "Shares one repo and workflow with the Lite variant"
+  ],
+  "useCases": [
+   "Creators who want the best open text-to-video quality and have a strong GPU",
+   "Studios prototyping polished short clips before a full production render",
+   "Researchers comparing Pro vs Lite quality and speed trade-offs"
+  ],
+  "howTo": [
+   "Clone github.com/kandinskylab/kandinsky-5 and install the requirements",
+   "Download the Kandinsky 5.0 Video Pro weights as the README directs",
+   "Choose an attention engine suited to your GPU memory",
+   "Run the Pro text-to-video example with your prompt",
+   "Use the provided LoRAs or notebooks for camera control and image-to-video"
+  ],
+  "example": {
+   "label": "Prompt idea",
+   "content": "\"aerial shot gliding over a misty mountain valley at sunrise, cinematic, 4k\""
+  },
+  "goodToKnow": [
+   "Pro is significantly more demanding; benchmarks used an 80 GB H100, so plan for a high-VRAM GPU.",
+   "The first inference run is slower due to compilation before reaching steady-state latency."
+  ]
+ },
+ "llm/qwen-agentworld-35b-a3b": {
+  "tagline": "Open agent model that plans and calls tools",
+  "overview": "Qwen-AgentWorld-35B-A3B is Qwen's open-weights language model with a mixture-of-experts design: 35B total parameters but only about 3B active per token, keeping it efficient. It is tuned for agent tasks that plan across multiple steps and call tools, making it a fit for building autonomous assistants. It serves through standard engines like vLLM and SGLang with an OpenAI-compatible API.",
+  "capabilities": [
+   "Plans multi-step tasks and calls tools to complete them",
+   "Mixture-of-experts: 35B total but ~3B active per token for efficiency",
+   "Served via vLLM or SGLang with an OpenAI-compatible API",
+   "Usable directly through Hugging Face Transformers",
+   "Downloadable from Hugging Face or ModelScope"
+  ],
+  "useCases": [
+   "Developers building a tool-using agent that runs locally instead of via a paid API",
+   "Students learning how agentic LLMs plan and invoke tools",
+   "Teams wanting an open model for multi-step automation workflows"
+  ],
+  "howTo": [
+   "Download Qwen/Qwen-AgentWorld-35B-A3B from Hugging Face (or ModelScope)",
+   "Serve it with vLLM or SGLang to get an OpenAI-compatible endpoint",
+   "Point your client at the local endpoint using the openai Python package",
+   "Send chat requests with tool definitions so the model can call them",
+   "For quick tests, load it directly with Transformers' AutoModelForCausalLM"
+  ],
+  "example": {
+   "label": "Serve with vLLM",
+   "content": "vllm serve Qwen/Qwen-AgentWorld-35B-A3B --port 8000 --tensor-parallel-size 4"
+  },
+  "goodToKnow": [
+   "Even with 3B active params, the full 35B weights need substantial GPU memory to serve.",
+   "Use vLLM or SGLang for practical speed; plain Transformers is fine only for small tests."
+  ]
+ },
+ "llm/dramabox-tts": {
+  "tagline": "Expressive open text-to-speech with voice cloning",
+  "overview": "Dramabox is Resemble AI's open-weights 3.3B text-to-speech model that turns written text into natural, expressive spoken audio, and it can match a reference voice sample. You can describe the delivery in the prompt (for example, warm or excited) and it follows that emotion. Every output is automatically watermarked with Resemble's imperceptible Perth watermark for traceability.",
+  "capabilities": [
+   "Generates natural, emotionally expressive speech from text",
+   "Clones a target voice from a short reference audio sample",
+   "Lets you steer tone and emotion directly in the prompt text",
+   "Auto-watermarks output with the Perth neural watermark (can be disabled for debugging)",
+   "Offers a warm-server mode for faster repeated generation"
+  ],
+  "useCases": [
+   "Creators voicing characters or narration with a specific emotional tone",
+   "Developers adding expressive TTS to an app without a per-use API fee",
+   "Students experimenting with voice cloning and emotional speech synthesis"
+  ],
+  "howTo": [
+   "Clone github.com/resemble-ai/DramaBox and install its requirements",
+   "Download the ResembleAI/Dramabox weights from Hugging Face",
+   "Provide a reference voice WAV plus a prompt describing the line and delivery",
+   "Run src/inference.py to synthesize the audio to an output file",
+   "For repeated runs, start the warm TTSServer instead of cold-loading each time"
+  ],
+  "example": {
+   "label": "Synthesize with a reference voice",
+   "content": "python src/inference.py --voice-sample reference.wav --prompt 'A woman speaks warmly, \"Hello, how are you today?\"' --output output.wav"
+  },
+  "goodToKnow": [
+   "Outputs are watermarked by default; cloning real people's voices without consent is unethical and often illegal.",
+   "Voice-reference denoising needs extra deps; without them it still runs but skips denoising."
+  ]
+ },
+ "llm/diffbot-small-xl": {
+  "tagline": "Open LLM grounded in a live knowledge graph",
+  "overview": "diffbot-small-xl is Diffbot's open-weight language model, fine-tuned from Llama and wired to Diffbot's knowledge graph and web tools so it answers from real-time facts instead of only memorized training data. It runs as a self-hosted server using vLLM and exposes an OpenAI-compatible API. Because it retrieves facts, it is aimed at reducing hallucinations on questions about real entities and current information.",
+  "capabilities": [
+   "Answers using Diffbot's knowledge graph and real-time web retrieval",
+   "Fine-tuned from Llama, so it behaves like a familiar chat model",
+   "Self-hosted via a provided Docker image running vLLM",
+   "Exposes an OpenAI-compatible API for easy client integration",
+   "Designed to cite and ground facts to cut down on hallucinations"
+  ],
+  "useCases": [
+   "Developers needing an LLM that answers factual, up-to-date entity questions",
+   "Builders of research or knowledge tools who want grounded responses",
+   "Students comparing retrieval-grounded answers against a plain LLM"
+  ],
+  "howTo": [
+   "Pull the image: docker pull diffbot/diffbot-llm-inference:latest",
+   "Run it with GPU access, mapping port 8001 and setting the model via VLLM_OPTIONS",
+   "Wait for vLLM to finish downloading weights and report it is ready",
+   "Point the OpenAI Python client at your local base URL",
+   "Send chat requests; the server fetches facts from the knowledge graph as needed"
+  ],
+  "example": {
+   "label": "Run the server",
+   "content": "docker run --runtime nvidia --gpus all -p 8001:8001 --ipc=host -e VLLM_OPTIONS=\"--model diffbot/Llama-3.3-Diffbot-Small-XL-2412 --served-model-name diffbot-small-xl --quantization fp8 --tensor-parallel-size 2\" diffbot/diffbot-llm-inference:latest"
+  },
+  "goodToKnow": [
+   "The XL model uses fp8 quantization and tensor parallelism, so it expects a multi-GPU NVIDIA setup.",
+   "First start is slow because model weights download from Hugging Face automatically."
+  ]
+ },
+ "llm/hunyuan-vision-1.5-thinking": {
+  "tagline": "Vision model that reasons step by step",
+  "overview": "Hunyuan Vision 1.5 (thinking mode) is Tencent's vision-language model that reasons step by step over images and text, working through a problem before answering rather than replying instantly. The thinking variant is aimed at harder visual tasks like chart reading, diagram interpretation, and multi-step visual questions. Note the weights are closed, so you typically access it through Tencent's API or hosted endpoints rather than downloading it.",
+  "capabilities": [
+   "Combines image and text understanding in one vision-language model",
+   "Thinking mode reasons through multiple steps before answering",
+   "Targets harder tasks like charts, diagrams, and complex visual questions",
+   "Handles document and image understanding alongside free-form questions",
+   "Accessed via Tencent's hosted API rather than local weights"
+  ],
+  "useCases": [
+   "Analysts asking detailed questions about charts, tables, or diagrams in an image",
+   "Students who need an image explained with the reasoning shown",
+   "Developers building visual QA where step-by-step accuracy matters"
+  ],
+  "howTo": [
+   "Open the repo at github.com/Tencent-Hunyuan/HunyuanVision for API and access details",
+   "Obtain access credentials for Tencent's Hunyuan Vision API",
+   "Send a request containing your image plus a question, selecting thinking mode",
+   "Read the model's reasoning trace and final answer from the response",
+   "Tune your prompt to ask for the specific visual detail you need"
+  ],
+  "example": {
+   "label": "Visual question",
+   "content": "image (a bar chart) + \"Which quarter had the largest drop, and by how much? Explain your reasoning.\""
+  },
+  "goodToKnow": [
+   "Weights are closed, so you cannot run this fully offline like the open models here.",
+   "Thinking mode is more accurate on hard tasks but uses more tokens and is slower than a direct answer."
+  ]
+ },
+ "llm/lfm2-5-230m-built-to-run-anywhere": {
+  "tagline": "Tiny 230M language model for phones and edge",
+  "overview": "LFM2.5-230M is Liquid AI's open-weights language model with just 230M parameters, small enough to run on phones and edge devices instead of a server. It is designed for on-device use where latency, privacy, and offline operation matter. Despite its tiny size, it targets practical tasks like short-form generation, classification, and extraction at the edge.",
+  "capabilities": [
+   "Runs locally on phones and edge hardware without a cloud server",
+   "Tiny 230M footprint keeps memory and battery use low",
+   "Handles everyday language tasks like short generation, classification, and extraction",
+   "Open weights you can download and embed in an app",
+   "Enables fully offline, private inference"
+  ],
+  "useCases": [
+   "Mobile developers adding offline AI features that protect user privacy",
+   "Students experimenting with LLMs on a laptop or phone without a GPU",
+   "Edge/IoT builders needing a small model that fits constrained devices"
+  ],
+  "howTo": [
+   "Read the announcement at liquid.ai/blog/lfm2-5-230m for model details and links",
+   "Download the LFM2.5-230M open weights from Liquid AI's model hub listing",
+   "Convert or load it with an edge runtime (such as llama.cpp or a mobile runtime)",
+   "Run inference locally on your device and send it short prompts",
+   "Benchmark on your target hardware to confirm latency and memory fit"
+  ],
+  "example": {
+   "label": "Edge-friendly task",
+   "content": "\"Classify this message as spam or not spam: 'You won a free prize, click here.'\""
+  },
+  "goodToKnow": [
+   "At 230M parameters it is far less capable than large models; keep tasks narrow and well-defined.",
+   "It shines on-device for privacy and offline use, not for complex multi-step reasoning."
+  ]
+ },
+ "llm/mistral-ocr-4": {
+  "tagline": "Document AI that reads PDFs and scans cleanly",
+  "overview": "Mistral OCR 4 is Mistral AI's document-understanding model that reads scanned pages, PDFs, and images and pulls out clean text, tables, and layout structure. Rather than just dumping raw characters, it preserves document structure so the output is usable downstream, for example as Markdown. It is offered through Mistral's API as a document-processing endpoint.",
+  "capabilities": [
+   "Extracts text from scanned pages, PDFs, and images",
+   "Preserves structure like tables and layout, not just plain characters",
+   "Returns clean, structured output suitable for downstream use (e.g. Markdown)",
+   "Handles multi-page documents through Mistral's API",
+   "Built for feeding documents into RAG and data pipelines"
+  ],
+  "useCases": [
+   "Teams converting large batches of PDFs into structured, searchable data",
+   "Students extracting tables and text from scanned research papers",
+   "Developers building a document pipeline that feeds a RAG system"
+  ],
+  "howTo": [
+   "Read mistral.ai/news/ocr-4 and the Mistral API docs for the OCR endpoint",
+   "Create a Mistral account and get an API key",
+   "Upload or reference your PDF or image in an OCR API request",
+   "Receive the structured text, tables, and layout in the response",
+   "Pass the cleaned output into your search index or RAG pipeline"
+  ],
+  "example": {
+   "label": "API call shape",
+   "content": "POST /v1/ocr  { \"model\": \"mistral-ocr-latest\", \"document\": { \"type\": \"document_url\", \"document_url\": \"https://.../file.pdf\" } }"
+  },
+  "goodToKnow": [
+   "This is an API service, so usage is metered and your documents are sent to Mistral's servers.",
+   "Very poor scans or unusual layouts can still produce extraction errors that need review."
+  ]
+ },
+ "llm/vibethinker-3b": {
+  "tagline": "Small 3B model that reasons through math",
+  "overview": "VibeThinker-3B is a compact 3B-parameter reasoning model from Weibo AI (Sina Weibo) that works through math and logic problems step by step. The point is to show that careful reasoning does not always require a giant model: at 3B it is light enough to run on modest hardware while still tackling structured problem-solving. It is aimed at math, logic, and other tasks that reward showing intermediate steps.",
+  "capabilities": [
+   "Solves math and logic problems with step-by-step reasoning",
+   "Compact 3B size runs on relatively modest hardware",
+   "Shows intermediate work rather than jumping to an answer",
+   "Open research model you can run and study locally",
+   "A good baseline for experimenting with small reasoning models"
+  ],
+  "useCases": [
+   "Students who want to see a worked-out reasoning chain for math problems",
+   "Researchers studying small-model reasoning and efficiency",
+   "Developers prototyping a lightweight reasoning helper on limited hardware"
+  ],
+  "howTo": [
+   "Find the VibeThinker-3B weights on its Hugging Face model page",
+   "Download the model and load it with Hugging Face Transformers",
+   "Prompt it with a math or logic problem and ask it to reason step by step",
+   "Read the intermediate steps to check the logic, not just the final answer",
+   "Run it on a single modest GPU or a capable CPU for small tests"
+  ],
+  "example": {
+   "label": "Reasoning prompt",
+   "content": "\"If a train travels 60 km in 45 minutes, what is its speed in km/h? Show your steps.\""
+  },
+  "goodToKnow": [
+   "As a small 3B model it can still make reasoning mistakes, so verify important answers.",
+   "It is tuned for math and logic; do not expect broad general-knowledge or creative strength."
+  ]
+ }
+}

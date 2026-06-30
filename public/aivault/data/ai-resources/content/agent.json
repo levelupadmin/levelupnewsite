@@ -1,0 +1,554 @@
+{
+  "agent/11x": {
+    "tagline": "AI sales workers that run outreach for you",
+    "overview": "11x builds AI 'digital workers' that act like virtual SDRs, handling sales outreach and pipeline tasks automatically. Its agents (such as Alice for outreach) research prospects, send personalized messages across channels, and book meetings so human teams can focus on closing.",
+    "capabilities": [
+      "Automated multi-channel prospecting and personalized outreach",
+      "Lead research and enrichment before each message",
+      "Pipeline and follow-up management for RevOps and GTM teams",
+      "Meeting booking handled by the AI worker"
+    ],
+    "useCases": [
+      "Sales and RevOps teams that want to scale outbound without hiring more SDRs",
+      "Go-to-market teams needing consistent, always-on prospect follow-up"
+    ],
+    "howTo": [
+      "Visit 11x.ai and request a demo or sign up for access.",
+      "Connect your CRM and define your ideal customer profile and target accounts.",
+      "Configure the AI worker's outreach sequences, tone, and channels.",
+      "Review and approve the AI's drafted messages, then let it run and monitor booked meetings."
+    ],
+    "example": {
+      "label": "Get started",
+      "command": "Visit https://11x.ai and book a demo to provision an AI sales worker"
+    },
+    "goodToKnow": [
+      "11x is a commercial SaaS platform, not open source, so pricing is custom and sales-led.",
+      "Outputs still benefit from human review; AI-sent outreach should follow your region's anti-spam and compliance rules."
+    ]
+  },
+  "agent/2501": {
+    "tagline": "Autonomous agents that operate your computer",
+    "overview": "2501 builds autonomous AI agents that can operate computer systems and carry out multi-step tasks on their own. The focus is on operations work where an agent reads context, plans, and then executes actions across software without constant human prompting.",
+    "capabilities": [
+      "Autonomous, multi-step task execution on computer systems",
+      "Agents that plan and act without step-by-step human input",
+      "Designed for operational and back-office workflows"
+    ],
+    "useCases": [
+      "Operations teams wanting to automate repetitive computer-based workflows",
+      "Businesses exploring agents that can act, not just chat"
+    ],
+    "howTo": [
+      "Visit 2501.ai to learn about the platform and request access.",
+      "Define the operational task or workflow you want the agent to automate.",
+      "Give the agent the credentials or system access it needs, scoped narrowly.",
+      "Start with a low-risk task and supervise the first runs before widening its autonomy."
+    ],
+    "example": {
+      "label": "Get started",
+      "command": "Visit https://2501.ai to request platform access"
+    },
+    "goodToKnow": [
+      "Autonomous agents that operate systems carry real risk; always scope permissions tightly and supervise early.",
+      "This is an emerging commercial product, so capabilities and availability may change."
+    ]
+  },
+  "agent/42-problems--inc-": {
+    "tagline": "AI agents that drive customer success work",
+    "overview": "42 Problems (Delegate) builds AI agents that predict, prioritize, and act on customer-success and account-management tasks for B2B teams. The agents surface which accounts need attention and can take action so CS managers spend time where it matters most.",
+    "capabilities": [
+      "Predicts which accounts are at risk or need action",
+      "Prioritizes customer-success and account-management tasks",
+      "Acts on routine CS workflows automatically"
+    ],
+    "useCases": [
+      "B2B customer-success teams managing many accounts at once",
+      "Account managers who want early warning on churn or expansion signals"
+    ],
+    "howTo": [
+      "Visit usedelegate.com to explore the product and request a demo.",
+      "Connect your CRM and customer-data sources.",
+      "Let the agent analyze accounts and review its prioritized recommendations.",
+      "Approve which actions the agent can take automatically versus suggest only."
+    ],
+    "example": {
+      "label": "Get started",
+      "command": "Visit https://usedelegate.com to request a demo"
+    },
+    "goodToKnow": [
+      "This is a commercial B2B platform; pricing is sales-led.",
+      "Predictions are only as good as the CRM data you connect, so clean data improves results."
+    ]
+  },
+  "agent/7ai": {
+    "tagline": "AI agents that detect and respond to threats",
+    "overview": "7AI is a security platform that uses AI agents to detect threats and respond to them automatically. It aims to offload repetitive security operations work from human analysts so teams can cover more ground without burning out.",
+    "capabilities": [
+      "AI-driven threat detection across security signals",
+      "Automated response actions to contain threats",
+      "Reduces manual triage load on security analysts"
+    ],
+    "useCases": [
+      "Security operations (SOC) teams overwhelmed by alert volume",
+      "Lean security teams that need to automate routine investigation"
+    ],
+    "howTo": [
+      "Visit 7ai.com to learn about the platform and request access.",
+      "Connect your security data sources and tooling.",
+      "Define which detections and responses the agents are allowed to run.",
+      "Start in a monitor-only mode, then enable automated responses once you trust it."
+    ],
+    "example": {
+      "label": "Get started",
+      "command": "Visit https://7ai.com to request access"
+    },
+    "goodToKnow": [
+      "Automated security response can be disruptive if misconfigured; begin in monitoring mode.",
+      "This is a commercial security product aimed at organizations, not individual learners."
+    ]
+  },
+  "agent/abacus-ai": {
+    "tagline": "Embed AI models into your own apps",
+    "overview": "Abacus.AI is a platform for building and embedding AI models and features directly into your own applications. It covers the lifecycle from training and deploying models to serving predictions and adding LLM-powered features, so teams can ship AI without building all the infrastructure themselves.",
+    "capabilities": [
+      "Train, deploy, and serve machine-learning models",
+      "Add LLM-powered features to your applications",
+      "End-to-end MLOps pipeline and prediction APIs",
+      "Pre-built AI services you can call from your product"
+    ],
+    "useCases": [
+      "Product teams that want to add AI features without building ML infrastructure",
+      "Data teams needing managed model training and deployment"
+    ],
+    "howTo": [
+      "Sign up at abacus.ai and create a project.",
+      "Connect your dataset or choose a pre-built use case.",
+      "Train or select a model, then deploy it to get an API endpoint.",
+      "Call the prediction or LLM endpoint from your application."
+    ],
+    "example": {
+      "label": "Get started",
+      "command": "Sign up at https://abacus.ai and create your first project"
+    },
+    "goodToKnow": [
+      "Abacus.AI is a paid managed platform; check pricing tiers before committing.",
+      "It covers a broad surface (ML + LLM), so expect a learning curve to use it fully."
+    ]
+  },
+  "agent/abanteai": {
+    "tagline": "A coding agent that lives in GitHub",
+    "overview": "AbanteAI's Mentat is a coding agent that works directly inside GitHub to read and change your codebase. You point it at issues or tasks and it proposes code edits as pull requests, acting like an AI teammate that ships changes for you to review.",
+    "capabilities": [
+      "Reads and understands your existing codebase",
+      "Makes code changes and opens pull requests",
+      "Works inside the normal GitHub workflow"
+    ],
+    "useCases": [
+      "Developers who want an AI agent to handle small tasks and fixes",
+      "Teams that want code changes delivered as reviewable PRs"
+    ],
+    "howTo": [
+      "Visit mentat.ai and connect your GitHub account or repository.",
+      "Assign it an issue or describe the change you want.",
+      "Let the agent draft the code changes as a pull request.",
+      "Review the PR like any teammate's, then merge or request changes."
+    ],
+    "example": {
+      "label": "Get started",
+      "command": "Visit https://mentat.ai and connect a GitHub repo"
+    },
+    "goodToKnow": [
+      "Always review AI-generated PRs carefully before merging, especially on production code.",
+      "Best suited to well-scoped tasks; large ambiguous changes still need human direction."
+    ]
+  },
+  "agent/ability-ai": {
+    "tagline": "AI that runs your marketing tasks",
+    "overview": "Ability AI is a tool that handles marketing work such as creating content and running campaigns for your business. It acts as an AI marketing helper so small teams can produce and ship marketing without a full department.",
+    "capabilities": [
+      "Generates marketing content for your business",
+      "Helps plan and run marketing campaigns",
+      "Automates repetitive marketing tasks"
+    ],
+    "useCases": [
+      "Small businesses and founders without a dedicated marketing team",
+      "Marketers who want to offload routine content and campaign work"
+    ],
+    "howTo": [
+      "Visit ability.ai and sign up for access.",
+      "Describe your business, audience, and marketing goals.",
+      "Let the tool generate content or campaign drafts.",
+      "Review, edit for brand voice, and publish."
+    ],
+    "example": {
+      "label": "Get started",
+      "command": "Visit https://ability.ai to sign up"
+    },
+    "goodToKnow": [
+      "AI-generated marketing still needs a human pass for brand voice and accuracy.",
+      "This is a commercial product; confirm what channels and integrations it supports for your stack."
+    ]
+  },
+  "agent/adala": {
+    "tagline": "Autonomous agents that label your data",
+    "overview": "Adala (Autonomous DAta Labeling Agent) is an open-source Python framework for building agents that label and process data reliably. You give it a ground-truth dataset to learn from, and its agents iteratively improve their labeling skills using an LLM runtime, making results more consistent than raw prompting.",
+    "capabilities": [
+      "Build autonomous agents specialized in data labeling and processing",
+      "Ground agents in a labeled dataset for reliable, consistent output",
+      "Configure strict output formats and constraints per skill",
+      "Run as a Python library or as an HTTP server / REST API",
+      "Use LLM runtimes like OpenAI to power the agents"
+    ],
+    "useCases": [
+      "Data and ML teams that need to label large datasets consistently",
+      "Researchers building custom autonomous data-processing pipelines in Python"
+    ],
+    "howTo": [
+      "Install the package with pip.",
+      "Prepare a small ground-truth dataset that defines your labeling task.",
+      "Define an Agent with the skill(s) and output constraints you need.",
+      "Set an LLM runtime (e.g. OpenAI API key) and run the agent over your data."
+    ],
+    "example": {
+      "label": "Install (PyPI)",
+      "command": "pip install adala"
+    },
+    "goodToKnow": [
+      "It is open source (Apache-licensed) from HumanSignal; you supply your own LLM API key and pay those usage costs.",
+      "Requires Python 3.8+ and some coding; it is a framework, not a no-code tool."
+    ]
+  },
+  "agent/adept": {
+    "tagline": "Agents that take action across your software",
+    "overview": "Adept builds AI agents that take actions across the software tools in your tech stack, not just answer questions. The goal is an AI teammate that can operate real applications to complete knowledge-work tasks end to end.",
+    "capabilities": [
+      "Takes real actions inside business software, not just chat",
+      "Operates across multiple tools in a workflow",
+      "Aimed at automating knowledge-worker tasks"
+    ],
+    "useCases": [
+      "Teams wanting to automate workflows that span several SaaS tools",
+      "Enterprises exploring action-taking agents for knowledge work"
+    ],
+    "howTo": [
+      "Visit adept.ai to learn about the platform and current availability.",
+      "Identify a multi-tool workflow you want to automate.",
+      "Request access or a demo to pilot the agent on that workflow.",
+      "Supervise early runs and expand scope as reliability proves out."
+    ],
+    "example": {
+      "label": "Get started",
+      "command": "Visit https://adept.ai to learn more and request access"
+    },
+    "goodToKnow": [
+      "Adept is a research-driven commercial company; check current product availability before planning around it.",
+      "Action-taking agents need careful permission scoping on the tools they touch."
+    ]
+  },
+  "agent/adot": {
+    "tagline": "Decentralized search for AI and Web3",
+    "overview": "Adot is a decentralized search network built for AI and Web3 applications. It aims to provide search and discovery infrastructure that AI agents and decentralized apps can query without relying on a single centralized provider.",
+    "capabilities": [
+      "Decentralized search and discovery network",
+      "Designed to serve AI applications and agents",
+      "Built for Web3 / on-chain use cases"
+    ],
+    "useCases": [
+      "Web3 developers needing search infrastructure that isn't centralized",
+      "AI app builders wanting a decentralized data/discovery layer"
+    ],
+    "howTo": [
+      "Visit a.xyz to read the documentation and network overview.",
+      "Review how to query the network or run a node, per their docs.",
+      "Integrate the search API into your AI or Web3 application.",
+      "Test against your use case before relying on it in production."
+    ],
+    "example": {
+      "label": "Get started",
+      "command": "Visit https://a.xyz to read the docs"
+    },
+    "goodToKnow": [
+      "This is a Web3/crypto-adjacent project; evaluate token and network mechanics carefully.",
+      "Decentralized search is an emerging space, so maturity and uptime can vary."
+    ]
+  },
+  "agent/agency-ai": {
+    "tagline": "An agency building more reliable AI agents",
+    "overview": "Agency AI (Staf.ai / AgentOps) is an agency that builds AI agents designed to be more reliable than typical ones. It pairs hands-on agent development services with AgentOps, an open-source observability toolkit for monitoring agent behavior and cost.",
+    "capabilities": [
+      "Custom AI agent development as a service",
+      "Focus on reliability and production-readiness",
+      "Backed by the open-source AgentOps observability SDK"
+    ],
+    "useCases": [
+      "Companies that want agents built for them rather than building in-house",
+      "Teams needing reliability and monitoring baked into their agents"
+    ],
+    "howTo": [
+      "Visit agents.staf.ai to learn about the agency's services.",
+      "For the open-source observability layer, install AgentOps with pip.",
+      "Add a few lines to initialize AgentOps in your agent code to track runs.",
+      "Review traces, costs, and failures in the AgentOps dashboard."
+    ],
+    "example": {
+      "label": "Install AgentOps (the open toolkit)",
+      "command": "pip install agentops"
+    },
+    "goodToKnow": [
+      "The agency itself is a paid service; the AgentOps SDK it builds on is open source (MIT).",
+      "If you mainly want monitoring, you can use AgentOps directly without engaging the agency."
+    ]
+  },
+  "agent/agency-swarm": {
+    "tagline": "Orchestrate teams of agents like a company",
+    "overview": "Agency Swarm is an open-source Python framework for building multi-agent applications, built on top of the OpenAI Agents SDK. You define agents with real-world roles (CEO, developer, assistant) and connect them with directional communication flows so they collaborate like an organization.",
+    "capabilities": [
+      "Define agents with distinct roles, instructions, and tools",
+      "Full control over each agent's prompts and behavior",
+      "Type-safe tools built with Pydantic models",
+      "Orchestrated, directional agent-to-agent communication",
+      "Built on the OpenAI Agents SDK"
+    ],
+    "useCases": [
+      "Developers building collaborative multi-agent 'agencies' for automation",
+      "Teams modeling a workflow as cooperating specialized agents"
+    ],
+    "howTo": [
+      "Install the framework with pip.",
+      "Define each agent with a role, instructions, and its tools.",
+      "Declare the communication flows that connect the agents.",
+      "Create the Agency and run it, observing how agents pass work between each other."
+    ],
+    "example": {
+      "label": "Install (PyPI)",
+      "command": "pip install -U agency-swarm"
+    },
+    "goodToKnow": [
+      "Open source and free to use, but it runs on the OpenAI Agents SDK, so you pay for the underlying LLM API calls.",
+      "If migrating from v0.x, check the official migration guide since the SDK-based version changed the API."
+    ]
+  },
+  "agent/agenta": {
+    "tagline": "Open-source LLMOps: prompts, evals, observability",
+    "overview": "Agenta is an open-source LLMOps platform that brings prompt management, evaluation, and observability into one place. It gives teams a prompt playground, versioned prompt management, automated and LLM-as-a-judge evaluation, and tracing so you can build reliable LLM apps with confidence.",
+    "capabilities": [
+      "Prompt playground and versioned prompt management",
+      "Automated and LLM-as-a-judge evaluation of outputs",
+      "Observability and tracing for LLM and agent calls",
+      "Works with any LLM provider and framework",
+      "Self-host with Docker or use Agenta Cloud"
+    ],
+    "useCases": [
+      "Teams iterating on prompts who need to compare versions systematically",
+      "Developers wanting evaluation and monitoring before shipping LLM features"
+    ],
+    "howTo": [
+      "Use Agenta Cloud at cloud.agenta.ai, or self-host with the Docker setup.",
+      "For self-hosting, copy the example env file and start the Docker Compose stack.",
+      "Create an app and add your prompts in the playground.",
+      "Run evaluations and connect observability to trace production calls."
+    ],
+    "example": {
+      "label": "Self-host (Python SDK)",
+      "command": "pip install agenta"
+    },
+    "goodToKnow": [
+      "Open source under MIT; a hosted Cloud tier also exists if you don't want to self-host.",
+      "Self-hosting uses Docker Compose, so you'll need Docker and some setup effort."
+    ]
+  },
+  "agent/agent-ai": {
+    "tagline": "A marketplace and network for AI agents",
+    "overview": "agent.ai is a marketplace and professional network for finding, sharing, and connecting with AI agents. It's a place to discover ready-made agents, publish your own, and network around agent-building, rather than a single agent itself.",
+    "capabilities": [
+      "Browse and discover existing AI agents",
+      "Publish and share agents you build",
+      "Network with other agent builders"
+    ],
+    "useCases": [
+      "People looking for an existing agent to solve a task",
+      "Builders who want distribution for the agents they create"
+    ],
+    "howTo": [
+      "Visit agent.ai and create an account.",
+      "Browse the marketplace to find agents for your use case.",
+      "Try an agent directly, or build and publish your own.",
+      "Connect with other builders in the network."
+    ],
+    "example": {
+      "label": "Get started",
+      "command": "Visit https://agent.ai and create an account"
+    },
+    "goodToKnow": [
+      "Quality varies across a marketplace; vet an agent before trusting it with sensitive tasks.",
+      "It's a directory/network, so the value depends on the agents others publish."
+    ]
+  },
+  "agent/agentbase-pro": {
+    "tagline": "No-code voice and text agents on your data",
+    "overview": "AgentBase PRO lets you build no-code AI voice and text agents trained on your own data. Without writing code, you connect your content and the platform produces agents that can answer questions and handle conversations by voice or chat.",
+    "capabilities": [
+      "Build voice and text AI agents with no code",
+      "Train agents on your own data and documents",
+      "Deploy conversational agents for support or info"
+    ],
+    "useCases": [
+      "Non-technical teams that want a custom agent without developers",
+      "Businesses needing a voice or chat assistant trained on their content"
+    ],
+    "howTo": [
+      "Visit agentbase.pro and sign up.",
+      "Upload or connect the data you want the agent to learn from.",
+      "Configure the agent's voice/text behavior in the no-code builder.",
+      "Test it, then deploy to your channel of choice."
+    ],
+    "example": {
+      "label": "Get started",
+      "command": "Visit https://agentbase.pro to build your first agent"
+    },
+    "goodToKnow": [
+      "No-code tools trade some flexibility for ease; complex logic may hit limits.",
+      "Quality of answers depends heavily on the data you train it on."
+    ]
+  },
+  "agent/agentcoin-tv": {
+    "tagline": "AI agents that host 24/7 livestreams",
+    "overview": "Agentcoin TV (now rebranded AITV) is a media platform where autonomous AI agents host round-the-clock livestreams on topics like DeFi, music, and sports. Viewers can interact in real time and shape where the conversation goes, blending streaming with autonomous agents.",
+    "capabilities": [
+      "Autonomous AI agents that host live, 24/7 streams",
+      "Real-time viewer interaction that steers the content",
+      "Topic channels spanning DeFi, music, and sports"
+    ],
+    "useCases": [
+      "People curious about live, agent-driven media and entertainment",
+      "Web3 communities exploring interactive AI streaming"
+    ],
+    "howTo": [
+      "Visit agentcoin.org (AITV) to watch the live agent streams.",
+      "Join a stream and interact via the live chat.",
+      "Try steering the conversation to see how the agents respond.",
+      "Follow the project for new channels and agent hosts."
+    ],
+    "example": {
+      "label": "Get started",
+      "command": "Visit https://agentcoin.org to watch the AI-hosted streams"
+    },
+    "goodToKnow": [
+      "The project has rebranded to AITV, so expect naming and feature changes.",
+      "It is crypto/Web3-adjacent; treat any token or financial elements with caution."
+    ]
+  },
+  "agent/agentflow": {
+    "tagline": "Write AI workflows in plain Markdown",
+    "overview": "Agentflow is a low-code, open-source framework for creating and running AI-powered workflows using Markdown and natural language. You describe what you want in plain English with logical control like loops and branching, and Agentflow executes it against any AI provider, local or hosted.",
+    "capabilities": [
+      "Write workflows as natural-language Markdown instead of heavy code",
+      "Loops and conditional branching in plain English",
+      "Connect to any AI provider or run models locally",
+      "Extend with custom actions and tools in JavaScript",
+      "Run via a starter kit or the aflow CLI"
+    ],
+    "useCases": [
+      "People who want to automate with AI without writing full programs",
+      "Developers prototyping agent workflows quickly in Markdown"
+    ],
+    "howTo": [
+      "Make sure you have a JavaScript runtime like Node.js installed.",
+      "Scaffold a project with the starter kit: npm create agentflow@latest my-agents.",
+      "Write your workflow as a Markdown file using natural language.",
+      "Run it with the aflow CLI (e.g. npx aflow) and refine."
+    ],
+    "example": {
+      "label": "Scaffold a project",
+      "command": "npm create agentflow@latest my-agents"
+    },
+    "goodToKnow": [
+      "Open source, but the README warns it's early-stage and the API may still change.",
+      "You provide your own AI provider keys (or local models), so usage costs are yours."
+    ]
+  },
+  "agent/agentforce": {
+    "tagline": "Salesforce's platform for building AI agents",
+    "overview": "Agentforce is Salesforce's platform for building AI agents that work alongside teams to support customers. It plugs into Salesforce data and workflows so agents can handle service interactions, resolve issues, and assist employees within the Salesforce ecosystem.",
+    "capabilities": [
+      "Build AI agents on top of Salesforce data and workflows",
+      "Automate customer-service and support interactions",
+      "Agents that assist human teams inside Salesforce",
+      "Native integration with the Salesforce platform"
+    ],
+    "useCases": [
+      "Salesforce customers wanting AI agents in their existing CRM",
+      "Customer-service teams automating tier-1 support"
+    ],
+    "howTo": [
+      "If you use Salesforce, visit salesforce.com/agentforce to learn about access.",
+      "Identify the service or support workflow to automate.",
+      "Configure the agent's topics, actions, and guardrails in Salesforce.",
+      "Test in a sandbox, then roll out to live customer interactions."
+    ],
+    "example": {
+      "label": "Get started",
+      "command": "Visit https://salesforce.com/agentforce (requires Salesforce)"
+    },
+    "goodToKnow": [
+      "Agentforce is tied to the Salesforce ecosystem and its licensing, so it's most relevant if you already use Salesforce.",
+      "Set clear guardrails before letting agents act on live customer cases."
+    ]
+  },
+  "agent/agent-forge": {
+    "tagline": "A consultancy for building and adopting agents",
+    "overview": "Agent Forge is a consultancy that helps businesses build and adopt AI agents. Rather than a product you install, it's a services partner that works at the intersection of human cognition and AI to design and deploy agent solutions for organizations.",
+    "capabilities": [
+      "Consulting on AI agent strategy and adoption",
+      "Custom agent design and implementation for businesses",
+      "Guidance on integrating agents into existing workflows"
+    ],
+    "useCases": [
+      "Organizations that want expert help building agents",
+      "Teams unsure how to start with agents and needing strategic guidance"
+    ],
+    "howTo": [
+      "Visit agentforge.net (or agentforge.ai) to learn about their services.",
+      "Reach out to describe your business goals and use case.",
+      "Scope an engagement to design and build the agent solution.",
+      "Collaborate through implementation and adoption."
+    ],
+    "example": {
+      "label": "Get started",
+      "command": "Visit https://agentforge.net to inquire about consulting"
+    },
+    "goodToKnow": [
+      "This is a services/consultancy offering, not a self-serve product or download.",
+      "Engagements are bespoke, so timeline and cost depend on your project."
+    ]
+  },
+  "agent/agentgenesis": {
+    "tagline": "Copy-paste components for RAG and agents",
+    "overview": "AgentGenesis is an open-source library of copy-paste code snippets for building custom RAG pipelines and AI agents. Like a components gallery, you browse the pieces you need, copy the code into your project, and modify it freely; there's no npm package to install as a dependency.",
+    "capabilities": [
+      "Ready-made code snippets for RAG pipelines and agents",
+      "Copy-paste components you fully own and can edit",
+      "Built around the modern JS/TS and LangChain.js ecosystem",
+      "No dependency lock-in since you paste code, not install a package"
+    ],
+    "useCases": [
+      "JavaScript/TypeScript developers building RAG or agent features fast",
+      "Builders who want full control over the code rather than a black-box library"
+    ],
+    "howTo": [
+      "Visit agentgenesis.dev and browse the available components.",
+      "Pick the RAG or agent snippet that fits your need.",
+      "Copy the code directly into your project (no npm install).",
+      "Modify and build on top of it for your use case."
+    ],
+    "example": {
+      "label": "Get started",
+      "command": "Visit https://agentgenesis.dev and copy a component into your project"
+    },
+    "goodToKnow": [
+      "It's not distributed via npm by design; you copy and own the code, so updates are manual.",
+      "Open source and community-built, so review snippets before using them in production."
+    ]
+  }
+}

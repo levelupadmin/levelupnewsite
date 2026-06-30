@@ -1,0 +1,622 @@
+{
+ "mcp_server/markitdown": {
+  "tagline": "Turn any document into clean Markdown",
+  "overview": "MarkItDown is a lightweight Microsoft utility that converts files like Word, PowerPoint, Excel, PDFs, images, and HTML into clean Markdown text. Markdown is token-efficient and something LLMs read very well, so this is a fast way to feed documents into an AI without losing headings, lists, tables, and links. As an MCP server it lets your assistant convert files on demand.",
+  "capabilities": [
+   "Converts PDF, Word, PowerPoint, and Excel files to structured Markdown",
+   "Extracts text from images via OCR and reads EXIF metadata",
+   "Transcribes speech from audio files",
+   "Handles HTML, CSV, JSON, XML, EPub, and ZIP archives",
+   "Preserves headings, lists, tables, and links in the output"
+  ],
+  "useCases": [
+   "Students preparing lecture slides or PDFs as clean text for an AI tutor",
+   "Anyone who needs to summarize or query an Office document with an LLM",
+   "Building a pipeline that ingests mixed file types into one text format"
+  ],
+  "howTo": [
+   "Install with pip install markitdown[all] (Python 3.10+ recommended in a virtual environment)",
+   "For the MCP server, install the markitdown-mcp package",
+   "Add the markitdown MCP server to your client config (e.g. Claude Desktop)",
+   "Ask your assistant to convert a local file path or URL to Markdown",
+   "Use the CLI directly with markitdown yourfile.pdf for a quick one-off"
+  ],
+  "example": {
+   "label": "Convert a file from the command line",
+   "snippet": "markitdown path/to/report.pdf > report.md"
+  },
+  "goodToKnow": [
+   "It does I/O with your process's permissions, so sanitize inputs in untrusted environments.",
+   "Output is optimized for AI consumption, not high-fidelity human-facing document conversion."
+  ]
+ },
+ "mcp_server/firecrawl": {
+  "tagline": "Scrape and crawl the web for AI",
+  "overview": "Firecrawl is a web scraping and crawling API built for AI use. It handles JavaScript-heavy, dynamic pages and returns clean Markdown or structured JSON instead of messy HTML, so your agent can read the web reliably. It is open source and also offered as a hosted service with an API key.",
+  "capabilities": [
+   "Scrapes single pages into clean Markdown or structured JSON",
+   "Crawls an entire site and returns content from every reachable page",
+   "Handles JavaScript-rendered and dynamic content",
+   "Extracts structured data using a schema you define",
+   "Returns screenshots and other page outputs"
+  ],
+  "useCases": [
+   "Giving an AI agent live, readable web context for research",
+   "Building a RAG knowledge base from a documentation site",
+   "Monitoring or extracting structured data from many pages at scale"
+  ],
+  "howTo": [
+   "Sign up at firecrawl.dev and get an API key (or self-host the open-source version)",
+   "Add the Firecrawl MCP server to your client and set FIRECRAWL_API_KEY",
+   "Run via npx -y firecrawl-mcp in your MCP config",
+   "Ask your assistant to scrape a URL or crawl a site",
+   "Provide a JSON schema when you want structured extraction"
+  ],
+  "example": {
+   "label": "MCP server config snippet",
+   "snippet": "{ \"mcpServers\": { \"firecrawl\": { \"command\": \"npx\", \"args\": [\"-y\", \"firecrawl-mcp\"], \"env\": { \"FIRECRAWL_API_KEY\": \"fc-...\" } } } }"
+  },
+  "goodToKnow": [
+   "The hosted API is usage-priced; heavy crawling consumes credits, so test on small scopes first.",
+   "Respect target sites' terms of service and robots rules when scraping."
+  ]
+ },
+ "mcp_server/knowledge-graph-memory": {
+  "tagline": "Give your assistant long-term memory",
+  "overview": "Knowledge Graph Memory is an official reference MCP server that stores facts as a knowledge graph of entities, relations, and observations. This lets an AI assistant remember details about you and your projects and recall them across separate conversations, instead of forgetting everything between sessions. It is a simple, local persistent memory layer.",
+  "capabilities": [
+   "Stores facts as entities connected by relations",
+   "Adds observations to entities over time",
+   "Recalls remembered information in later conversations",
+   "Lets the assistant search and read its own memory graph",
+   "Persists the graph locally as a JSON file"
+  ],
+  "useCases": [
+   "Keeping an assistant aware of your preferences and ongoing projects",
+   "Building a personal assistant that remembers people and context",
+   "Maintaining continuity across many short chat sessions"
+  ],
+  "howTo": [
+   "Add the memory server to your MCP client config",
+   "Run it with npx -y @modelcontextprotocol/server-memory",
+   "Optionally set MEMORY_FILE_PATH to choose where the graph is stored",
+   "Tell the assistant to remember a fact, then start a new chat and ask about it",
+   "Inspect the JSON memory file to see what was stored"
+  ],
+  "example": {
+   "label": "Run the memory server",
+   "snippet": "npx -y @modelcontextprotocol/server-memory"
+  },
+  "goodToKnow": [
+   "Memory is only as good as what the assistant chooses to write; results vary by client.",
+   "The graph is stored in plain text locally, so treat it as you would any local data file."
+  ]
+ },
+ "mcp_server/filesystem": {
+  "tagline": "Let your assistant read and write local files",
+  "overview": "Filesystem is an official reference MCP server that gives an AI assistant controlled access to your local files. It can read, write, search, and manage files, but only inside directories you explicitly allow, which keeps it sandboxed. This is the standard way to let an assistant work directly with files on your machine.",
+  "capabilities": [
+   "Reads and writes files within allowed directories",
+   "Lists directories and searches for files",
+   "Creates, moves, and deletes files and folders",
+   "Restricts all access to the directories you whitelist",
+   "Returns file metadata"
+  ],
+  "useCases": [
+   "Letting an assistant edit code or notes in a specific project folder",
+   "Organizing or batch-renaming files through natural language",
+   "Reading reference documents from a chosen directory"
+  ],
+  "howTo": [
+   "Add the filesystem server to your MCP client config",
+   "Pass the allowed directory paths as arguments after the package name",
+   "Run with npx -y @modelcontextprotocol/server-filesystem /path/to/allowed/dir",
+   "Restart your client so it picks up the server",
+   "Ask the assistant to list or edit files in that directory"
+  ],
+  "example": {
+   "label": "Allow one directory",
+   "snippet": "npx -y @modelcontextprotocol/server-filesystem /Users/you/projects"
+  },
+  "goodToKnow": [
+   "Only the directories you pass are accessible; choose them narrowly for safety.",
+   "Giving write access means the assistant can change or delete files, so scope it carefully."
+  ]
+ },
+ "mcp_server/sequential-thinking": {
+  "tagline": "Structured step-by-step reasoning for hard problems",
+  "overview": "Sequential Thinking is an official reference MCP server that helps a model break a complex problem into a numbered series of reasoning steps. The model can branch, revise earlier steps, and adjust how many steps it needs as understanding grows. It is a thinking aid rather than a tool that touches your files or the web.",
+  "capabilities": [
+   "Breaks a problem into explicit, ordered thought steps",
+   "Lets the model revise or correct earlier steps",
+   "Supports branching into alternative lines of reasoning",
+   "Adjusts the number of steps dynamically as the problem unfolds",
+   "Keeps the reasoning process visible and structured"
+  ],
+  "useCases": [
+   "Working through multi-step planning or design problems",
+   "Debugging logic where the path is not obvious upfront",
+   "Any task that benefits from deliberate, revisable reasoning"
+  ],
+  "howTo": [
+   "Add the sequential-thinking server to your MCP client config",
+   "Run it with npx -y @modelcontextprotocol/server-sequential-thinking",
+   "Restart your client to load the tool",
+   "Pose a hard problem and let the assistant use the thinking tool",
+   "Watch it lay out and revise numbered steps"
+  ],
+  "example": {
+   "label": "Run the server",
+   "snippet": "npx -y @modelcontextprotocol/server-sequential-thinking"
+  },
+  "goodToKnow": [
+   "It structures reasoning but does not by itself make the model smarter or factually correct.",
+   "Best paired with tools that act on the world, since it only organizes thinking."
+  ]
+ },
+ "mcp_server/context7": {
+  "tagline": "Up-to-date library docs inside your coding AI",
+  "overview": "Context7 by Upstash pulls current, version-accurate documentation and code examples for libraries straight into your coding assistant. Models often answer with outdated or made-up APIs; Context7 fixes that by injecting real docs from the source so the suggested code matches the version you are actually using. You add it by ending a prompt with 'use context7'.",
+  "capabilities": [
+   "Fetches up-to-date documentation for thousands of libraries",
+   "Provides version-specific API and code examples",
+   "Injects real source docs into the model's context on demand",
+   "Reduces hallucinated or outdated API suggestions",
+   "Works across many MCP-compatible coding clients"
+  ],
+  "useCases": [
+   "Coding against a fast-moving library and needing current APIs",
+   "Students learning a framework who want accurate examples",
+   "Avoiding deprecated methods the model learned from old data"
+  ],
+  "howTo": [
+   "Add the Context7 MCP server to your client config",
+   "Run it with npx -y @upstash/context7-mcp",
+   "Optionally add a free Context7 API key for higher limits",
+   "Append 'use context7' to your coding prompt",
+   "Let the assistant pull and use the matching docs"
+  ],
+  "example": {
+   "label": "Prompt that triggers Context7",
+   "snippet": "Create a Next.js 15 route handler that streams a response. use context7"
+  },
+  "goodToKnow": [
+   "Coverage depends on the library being indexed; obscure packages may be missing.",
+   "A free API key raises rate limits for heavier use."
+  ]
+ },
+ "mcp_server/chrome-devtools-mcp": {
+  "tagline": "Drive and debug Chrome through DevTools",
+  "overview": "Chrome DevTools MCP lets an AI assistant control a real Chrome browser through the DevTools protocol. It can navigate pages, inspect the DOM, run performance traces, and watch network requests, so the assistant can actually debug and measure a live site rather than guess. It is maintained by the Chrome DevTools team.",
+  "capabilities": [
+   "Controls a live Chrome browser for automation",
+   "Runs performance traces and analyzes load behavior",
+   "Inspects the DOM and page state",
+   "Monitors network requests and responses",
+   "Helps reproduce and debug front-end issues"
+  ],
+  "useCases": [
+   "Diagnosing why a web page is slow or janky",
+   "Letting an assistant verify a UI change in a real browser",
+   "Capturing network or console issues during debugging"
+  ],
+  "howTo": [
+   "Make sure a recent Chrome and Node.js are installed",
+   "Add the server to your MCP client config",
+   "Run it with npx -y chrome-devtools-mcp@latest",
+   "Ask the assistant to open a URL and analyze it",
+   "Request a performance trace or network inspection"
+  ],
+  "example": {
+   "label": "MCP config command",
+   "snippet": "\"command\": \"npx\", \"args\": [\"-y\", \"chrome-devtools-mcp@latest\"]"
+  },
+  "goodToKnow": [
+   "It launches and controls a real browser, so it needs Chrome present on the machine.",
+   "Automating browsing can consume real resources; point it only at sites you intend to test."
+  ]
+ },
+ "mcp_server/chrome-devtools": {
+  "tagline": "Test site speed and debug via Chrome DevTools",
+  "overview": "Chrome DevTools MCP connects your AI assistant to Chrome through the DevTools protocol so it can test website speed, debug pages, and analyze performance in a live browser. Instead of describing a bug, you let the assistant open the page and measure it directly. It is the same Chrome DevTools team integration, installed via the chrome-devtools-mcp package.",
+  "capabilities": [
+   "Opens and controls Chrome for live debugging",
+   "Measures page load and performance",
+   "Inspects page elements and console output",
+   "Tracks network activity during a session",
+   "Helps confirm fixes in a real browser"
+  ],
+  "useCases": [
+   "Checking real load performance of a page you built",
+   "Debugging a rendering or console error hands-on",
+   "Verifying that a front-end change behaves correctly"
+  ],
+  "howTo": [
+   "Install a recent Chrome and Node.js",
+   "Add the chrome-devtools-mcp server to your MCP client",
+   "Run it with npx -y chrome-devtools-mcp",
+   "Ask the assistant to load a URL and profile it",
+   "Review the performance and network results it reports"
+  ],
+  "example": {
+   "label": "Run the server",
+   "snippet": "npx -y chrome-devtools-mcp"
+  },
+  "goodToKnow": [
+   "Requires Chrome installed locally since it drives a real browser.",
+   "Pin a version if you need reproducible behavior across machines."
+  ]
+ },
+ "mcp_server/playwright-browser-automation": {
+  "tagline": "Automate browsers for testing with Playwright",
+  "overview": "Playwright MCP by Microsoft lets an AI assistant drive a web browser using Playwright, navigating pages, clicking, filling forms, and reading content. It uses the page's accessibility tree rather than screenshots, which makes it fast and reliable for automated testing and web tasks. Think of it as a modern alternative to Selenium controlled through natural language.",
+  "capabilities": [
+   "Navigates pages and clicks, types, and fills forms",
+   "Reads page content via the accessibility tree",
+   "Runs across Chromium, Firefox, and WebKit",
+   "Captures snapshots and screenshots when needed",
+   "Automates repeatable web workflows for testing"
+  ],
+  "useCases": [
+   "Writing or running automated end-to-end UI tests",
+   "Automating a repetitive web task like form submission",
+   "Letting an assistant verify a web flow step by step"
+  ],
+  "howTo": [
+   "Ensure Node.js is installed",
+   "Add the Playwright MCP server to your client config",
+   "Run it with npx -y @playwright/mcp",
+   "Ask the assistant to open a site and perform actions",
+   "Have it report the page state or test results"
+  ],
+  "example": {
+   "label": "MCP config snippet",
+   "snippet": "{ \"mcpServers\": { \"playwright\": { \"command\": \"npx\", \"args\": [\"-y\", \"@playwright/mcp\"] } } }"
+  },
+  "goodToKnow": [
+   "It uses the accessibility tree by default, which is faster but differs from pixel-based tools.",
+   "Browser binaries may download on first run, so the first launch can be slower."
+  ]
+ },
+ "mcp_server/task-master": {
+  "tagline": "AI task management for coding projects",
+  "overview": "Task Master is an AI-driven task management system that turns a project plan or PRD into a structured, trackable list of tasks and subtasks. It plugs into coding agents like Claude and Cursor through MCP, so your assistant can see what to do next and work through tasks in order. It brings agile-style organization to AI-assisted development.",
+  "capabilities": [
+   "Parses a requirements doc into discrete tasks",
+   "Breaks tasks into subtasks with dependencies",
+   "Tracks task status and what to work on next",
+   "Integrates with coding agents over MCP",
+   "Keeps the project plan and the agent in sync"
+  ],
+  "useCases": [
+   "Managing a larger coding project with an AI pair programmer",
+   "Turning a spec into an ordered, trackable backlog",
+   "Keeping an agent focused on one task at a time"
+  ],
+  "howTo": [
+   "Add the task-master MCP server to your client config",
+   "Run it with npx -y task-master-ai",
+   "Provide API keys for the model provider you want it to use",
+   "Initialize a project and parse a PRD into tasks",
+   "Ask the assistant for the next task and work through them"
+  ],
+  "example": {
+   "label": "Run the MCP server",
+   "snippet": "npx -y task-master-ai"
+  },
+  "goodToKnow": [
+   "It needs model API keys configured to generate and expand tasks.",
+   "Quality of the task breakdown depends on how clear your input spec is."
+  ]
+ },
+ "mcp_server/repomix": {
+  "tagline": "Pack a whole codebase into one AI file",
+  "overview": "Repomix packs an entire repository into a single, AI-friendly file so you can hand a whole codebase to an LLM at once. It can compress the output, respect .gitignore, and strip secrets before sharing. As an MCP server it lets your assistant package a repo on demand for analysis or review.",
+  "capabilities": [
+   "Bundles a full repo into one structured file",
+   "Compresses output to fit more code in context",
+   "Respects .gitignore and custom ignore rules",
+   "Removes detected secrets before output",
+   "Reports token counts for the packed result"
+  ],
+  "useCases": [
+   "Asking an AI to review or explain an entire project",
+   "Onboarding to an unfamiliar codebase quickly",
+   "Preparing a repo as context for a code audit"
+  ],
+  "howTo": [
+   "Ensure Node.js is installed",
+   "Run npx -y repomix in your project to produce a packed file",
+   "Or add the repomix MCP server to your client config",
+   "Ask the assistant to pack the repo and analyze it",
+   "Use the security check option to scrub secrets before sharing"
+  ],
+  "example": {
+   "label": "Pack the current repo",
+   "snippet": "npx -y repomix"
+  },
+  "goodToKnow": [
+   "Very large repos can still exceed model context limits even after compression.",
+   "Always review the output before sharing; secret removal is a safeguard, not a guarantee."
+  ]
+ },
+ "mcp_server/serena": {
+  "tagline": "Semantic, IDE-grade code tools for agents",
+  "overview": "Serena is a free, open-source coding toolkit that gives an LLM IDE-like abilities such as semantic code retrieval, editing, and refactoring at the symbol level. Instead of working with raw line numbers or plain text search, your agent understands the code's structure, which makes it faster and more reliable on large codebases. It connects to any MCP client.",
+  "capabilities": [
+   "Finds and navigates code by symbols, not just text",
+   "Performs semantic edits and refactors like renames and moves",
+   "Looks up references across files",
+   "Works language-agnostically via language servers",
+   "Connects to any LLM through MCP"
+  ],
+  "useCases": [
+   "Refactoring safely across a large or complex codebase",
+   "Helping an agent navigate unfamiliar code precisely",
+   "Cross-file renames and reference lookups without manual hunting"
+  ],
+  "howTo": [
+   "Install uv (the Python package manager) first",
+   "Run the server via uvx --from git+https://github.com/oraios/serena serena start-mcp-server",
+   "Add that command to your MCP client config",
+   "Point Serena at your project directory",
+   "Ask the agent to navigate or refactor using its semantic tools"
+  ],
+  "example": {
+   "label": "Start the MCP server",
+   "snippet": "uvx --from git+https://github.com/oraios/serena serena start-mcp-server"
+  },
+  "goodToKnow": [
+   "The maintainers warn against installing via marketplaces, which ship outdated commands; follow the official quick start.",
+   "It relies on language servers, so very niche languages may have weaker support."
+  ]
+ },
+ "mcp_server/mastra-docs": {
+  "tagline": "Mastra framework docs inside your assistant",
+  "overview": "Mastra Docs is an MCP server that gives an AI assistant direct access to the full documentation for Mastra.ai, the TypeScript agent framework. When you are building with Mastra, your assistant can answer questions and generate code grounded in the current official docs and examples instead of guessing. It is the fastest way to keep an assistant accurate about Mastra.",
+  "capabilities": [
+   "Serves Mastra's full documentation to the assistant",
+   "Provides current code examples for the framework",
+   "Answers framework-specific questions accurately",
+   "Reduces outdated or invented Mastra APIs",
+   "Runs locally via a simple npx command"
+  ],
+  "useCases": [
+   "Building an agent or workflow with the Mastra framework",
+   "Learning Mastra with accurate, up-to-date guidance",
+   "Avoiding hallucinated APIs while coding against Mastra"
+  ],
+  "howTo": [
+   "Ensure Node.js is installed",
+   "Add the Mastra docs server to your MCP client config",
+   "Run it with npx -y @mastra/mcp-docs-server",
+   "Restart your client to load it",
+   "Ask Mastra questions and let it pull from the docs"
+  ],
+  "example": {
+   "label": "Run the docs server",
+   "snippet": "npx -y @mastra/mcp-docs-server"
+  },
+  "goodToKnow": [
+   "It is specific to the Mastra framework and not a general documentation tool.",
+   "Most useful when you are actually building with Mastra."
+  ]
+ },
+ "mcp_server/beads": {
+  "tagline": "Persistent issue memory for coding agents",
+  "overview": "Beads is a lightweight issue-tracking memory layer that gives a coding agent persistent context across a project. Instead of losing track of work between sessions, the agent records and reads issues like a graph of tasks, so it stays oriented and works more reliably over time. It runs as an MCP server alongside your agent.",
+  "capabilities": [
+   "Stores work as persistent, linked issues",
+   "Lets the agent recall context across sessions",
+   "Tracks dependencies between pieces of work",
+   "Keeps the agent oriented on long-running projects",
+   "Runs locally as an MCP server"
+  ],
+  "useCases": [
+   "Long-running coding projects where context keeps getting lost",
+   "Helping an agent remember outstanding work between sessions",
+   "Tracking dependent tasks an agent is working through"
+  ],
+  "howTo": [
+   "Install the `bd` CLI: `curl -fsSL https://raw.githubusercontent.com/gastownhall/beads/main/scripts/install.sh | bash`",
+   "Run `bd init` once inside your project to set up the issue store",
+   "Point your MCP client (Claude Code, Cursor, etc.) at the beads MCP server",
+   "Let the agent create and read issues as it works",
+   "Resume a later session and have it recall prior context"
+  ],
+  "example": {
+   "label": "Install and initialize",
+   "snippet": "curl -fsSL https://raw.githubusercontent.com/gastownhall/beads/main/scripts/install.sh | bash\nbd init"
+  },
+  "goodToKnow": [
+   "It is a memory and tracking aid; the agent still has to choose to use it well.",
+   "Best value shows up on multi-session projects, less so for quick one-offs."
+  ]
+ },
+ "mcp_server/blender": {
+  "tagline": "Build 3D scenes in Blender by prompting",
+  "overview": "BlenderMCP connects Blender to an AI assistant through the Model Context Protocol, letting you create and edit 3D scenes with natural language. The assistant can add and modify objects, apply materials, inspect the scene, and even download assets, all by talking to a small server running inside Blender. It makes prompt-assisted 3D modeling possible.",
+  "capabilities": [
+   "Creates, modifies, and deletes 3D objects in a scene",
+   "Applies and edits materials and colors",
+   "Inspects the scene and views the viewport",
+   "Searches and downloads assets (Sketchfab, Poly Haven)",
+   "Runs Python code inside Blender from the assistant"
+  ],
+  "useCases": [
+   "Beginners building simple 3D scenes without learning Blender's UI first",
+   "Quickly prototyping or arranging a scene by description",
+   "Pulling in ready-made assets while modeling"
+  ],
+  "howTo": [
+   "Install Blender 3.0+ and the uv package manager",
+   "Download addon.py from the repo and enable it in Blender's add-ons",
+   "Add the blender-mcp server to your client (uvx blender-mcp or npx -y blender-mcp)",
+   "Start the server inside Blender's BlenderMCP panel",
+   "Ask the assistant to create or modify objects in the scene"
+  ],
+  "example": {
+   "label": "Run the MCP server",
+   "snippet": "uvx blender-mcp"
+  },
+  "goodToKnow": [
+   "It can run arbitrary Python inside Blender, so only use it with trusted prompts and save your work first.",
+   "It sends anonymous telemetry about which tools run, which you can review in the docs."
+  ]
+ },
+ "mcp_server/oh-my-posh": {
+  "tagline": "Validate your Oh My Posh prompt theme",
+  "overview": "This Oh My Posh MCP server checks your prompt theme configuration against the official schema so you catch mistakes before they break your terminal prompt. Oh My Posh is a cross-shell prompt theme engine, and a small typo in its config can silently misbehave; this validates it for you. It is a focused helper rather than a broad automation tool.",
+  "capabilities": [
+   "Validates Oh My Posh theme configs against the official schema",
+   "Catches structural errors before they break the prompt",
+   "Explains what is wrong in a config",
+   "Works with JSON, YAML, or TOML theme files",
+   "Helps you author valid custom prompts faster"
+  ],
+  "useCases": [
+   "Building or editing a custom Oh My Posh prompt theme",
+   "Debugging a prompt config that is not rendering right",
+   "Confirming a downloaded theme is schema-valid before using it"
+  ],
+  "howTo": [
+   "Install Oh My Posh if you have not already",
+   "Add this MCP server to your client config",
+   "Point it at your theme configuration file",
+   "Ask the assistant to validate the config",
+   "Fix any errors it reports and re-validate"
+  ],
+  "example": {
+   "label": "Ask the assistant to validate",
+   "snippet": "Validate my oh-my-posh theme at ~/.config/ohmyposh/theme.json"
+  },
+  "goodToKnow": [
+   "It validates configuration; it does not design a theme for you.",
+   "A valid config can still look wrong visually, so preview the prompt too."
+  ]
+ },
+ "mcp_server/stripe": {
+  "tagline": "Run Stripe payments and billing from Claude",
+  "overview": "The Stripe MCP server lets Claude work directly with your Stripe account to view payments data and run billing and payment workflows. You can ask about customers, charges, invoices, and subscriptions in plain language, and have the assistant perform supported Stripe operations. It connects through your Stripe API key.",
+  "capabilities": [
+   "Looks up customers, charges, and payment data",
+   "Manages invoices and subscriptions where supported",
+   "Runs billing and payment workflows by request",
+   "Answers questions about your Stripe account in plain English",
+   "Connects securely via your Stripe API key"
+  ],
+  "useCases": [
+   "Checking recent payments or a customer's billing status",
+   "Automating routine billing tasks through conversation",
+   "Pulling Stripe data without writing API code yourself"
+  ],
+  "howTo": [
+   "Get a Stripe API key from your Stripe dashboard",
+   "Add the Stripe MCP server to your Claude client config",
+   "Provide the API key as the configured credential",
+   "Restart your client to load the connector",
+   "Ask Claude to look up or act on your Stripe data"
+  ],
+  "example": {
+   "label": "Ask Claude about Stripe data",
+   "snippet": "Show me my 10 most recent successful charges in Stripe."
+  },
+  "goodToKnow": [
+   "Use a restricted or test-mode key first, since this touches real billing data and actions.",
+   "Available actions depend on the scopes your API key grants."
+  ]
+ },
+ "mcp_server/clay": {
+  "tagline": "Enrich leads and run GTM workflows in Clay",
+  "overview": "The Clay MCP server connects Claude to Clay so it can enrich data and run go-to-market and prospecting workflows. You can ask the assistant to look up and enrich contacts or companies and drive your Clay tables through conversation. It connects through your Clay account credentials.",
+  "capabilities": [
+   "Enriches contact and company data via Clay",
+   "Runs prospecting and go-to-market workflows",
+   "Works with your Clay tables and data",
+   "Answers questions about enriched records",
+   "Connects through your Clay account"
+  ],
+  "useCases": [
+   "Sales and growth users enriching a list of leads",
+   "Automating prospecting research through conversation",
+   "Driving Clay GTM workflows without manual clicking"
+  ],
+  "howTo": [
+   "Have an active Clay account with the data you want to use",
+   "Add the Clay MCP server to your Claude client config",
+   "Provide your Clay credentials as configured",
+   "Restart your client to load the connector",
+   "Ask Claude to enrich a contact or run a workflow"
+  ],
+  "example": {
+   "label": "Ask Claude to enrich a lead",
+   "snippet": "Enrich this person in Clay: jane@example.com and summarize their company."
+  },
+  "goodToKnow": [
+   "Enrichment can consume Clay credits depending on your plan.",
+   "Available actions depend on your Clay account permissions and connected sources."
+  ]
+ },
+ "mcp_server/github": {
+  "tagline": "Work with GitHub repos, issues, and PRs",
+  "overview": "The GitHub MCP server lets Claude work with your GitHub repositories, issues, and pull requests. You can browse code, search a repo, read and create issues, and review or comment on pull requests through conversation. It connects using a GitHub access token scoped to what you allow.",
+  "capabilities": [
+   "Browses and searches repository code",
+   "Reads, creates, and comments on issues",
+   "Views and reviews pull requests",
+   "Looks up repository details and history",
+   "Connects via a scoped GitHub access token"
+  ],
+  "useCases": [
+   "Triaging issues or summarizing a repo without leaving chat",
+   "Reviewing a pull request with AI help",
+   "Searching code across a project conversationally"
+  ],
+  "howTo": [
+   "Create a GitHub personal access token with the scopes you need",
+   "Add the GitHub MCP server to your Claude client config",
+   "Provide the token as the configured credential",
+   "Restart your client to load the connector",
+   "Ask Claude to read an issue, search code, or review a PR"
+  ],
+  "example": {
+   "label": "Ask Claude about a repo",
+   "snippet": "Summarize the open issues labeled 'bug' in my-org/my-repo."
+  },
+  "goodToKnow": [
+   "Scope the token to least privilege; write access lets the assistant change issues and PRs.",
+   "Available actions depend on the token's permissions and repo access."
+  ]
+ },
+ "mcp_server/microsoft-365": {
+  "tagline": "Connect Claude to your Microsoft 365 apps",
+  "overview": "The Microsoft 365 MCP server connects Claude to Microsoft 365 so it can read data and run actions across apps like Outlook, Teams, and OneDrive. You can ask about emails, calendar events, files, and more, and have the assistant act on them through conversation. It connects through your Microsoft 365 account sign-in.",
+  "capabilities": [
+   "Reads email, calendar, and file data across Microsoft 365",
+   "Runs supported actions in apps like Outlook and Teams",
+   "Searches your documents and messages",
+   "Surfaces calendar and contact information",
+   "Connects through your Microsoft 365 account"
+  ],
+  "useCases": [
+   "Summarizing recent email or your day's calendar",
+   "Finding a document across OneDrive or SharePoint",
+   "Automating routine Microsoft 365 tasks conversationally"
+  ],
+  "howTo": [
+   "Add the Microsoft 365 MCP server to your Claude client config",
+   "Sign in and authorize access to your Microsoft 365 account",
+   "Grant the permissions the connector requests",
+   "Restart your client to load the connector",
+   "Ask Claude to read or act on your Microsoft 365 data"
+  ],
+  "example": {
+   "label": "Ask Claude about your inbox",
+   "snippet": "Summarize my unread Outlook emails from today and flag anything urgent."
+  },
+  "goodToKnow": [
+   "Access scope depends on the permissions you grant and your organization's policies.",
+   "An admin may need to approve the connector in managed Microsoft 365 tenants."
+  ]
+ }
+}
