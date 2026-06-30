@@ -153,6 +153,69 @@ a.ail-det-cat:hover{text-decoration:underline}
   .ail-pager button{min-width:44px;height:44px}
 }
 @media (hover:none){ .ail-card-cta{opacity:1} }
+/* collections */
+.ail-cols{margin:8px 0 30px}
+.ail-cols-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:0 0 16px}
+.ail-cols-title{font:700 24px/1.1 'DM Sans';letter-spacing:-.01em;color:#0c1322;margin:0}
+.ail-cols-title em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--forge-blue,#1A6AFF)}
+.ail-cols-sub{font-size:14px;color:#8a93a3;margin:4px 0 0}
+.ail-cols-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.ail-col{position:relative;display:flex;flex-direction:column;text-decoration:none;color:inherit;border:1.5px solid #edf0f6;border-radius:18px;padding:20px;background:linear-gradient(180deg,#fff,#fcfdff);box-shadow:0 1px 2px rgba(20,30,55,.04);transition:transform .18s cubic-bezier(.2,.7,.3,1),box-shadow .18s,border-color .18s;overflow:hidden}
+.ail-col::after{content:'';position:absolute;right:-40px;top:-40px;width:120px;height:120px;background:radial-gradient(closest-side,rgba(26,106,255,.10),transparent);pointer-events:none}
+.ail-col:hover{transform:translateY(-3px);box-shadow:0 20px 48px -10px rgba(20,30,55,.16);border-color:#cdd6e6}
+.ail-col-ico{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:24px;line-height:1;background:rgba(26,106,255,.09)}
+.ail-col-name{font:700 18px/1.2 'DM Sans';margin:14px 0 0;color:#0c1322}
+.ail-col-blurb{font-size:13.5px;line-height:1.45;color:#5b6470;margin:8px 0 0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ail-col-foot{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:14px}
+.ail-col-count{font:600 11.5px/1 'JetBrains Mono',monospace;color:var(--forge-blue,#1A6AFF);background:rgba(26,106,255,.08);border-radius:6px;padding:5px 8px}
+.ail-col-go{margin-left:auto;font:600 12px 'JetBrains Mono',monospace;color:var(--forge-blue);opacity:0;transition:opacity .14s}
+.ail-col:hover .ail-col-go{opacity:1}
+.ail-colhero-ico{width:62px;height:62px;border-radius:16px;display:grid;place-items:center;font-size:32px;line-height:1;background:rgba(26,106,255,.09);margin-bottom:14px}
+@media (hover:none){ .ail-col-go{opacity:1} }
+@media (max-width:880px){
+  .ail-cols-grid{grid-template-columns:1fr}
+}
+/* structured detail sections */
+.ail-sec{margin:34px 0 0}
+.ail-sec:first-of-type{margin-top:30px}
+.ail-sec-t{display:flex;align-items:center;gap:9px;font:600 11px/1 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:1.4px;color:#9aa3b2;margin:0 0 14px}
+.ail-sec-t::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,#e7eaf1,transparent)}
+.ail-sec .ail-det-desc,.ail-sec .ail-install,.ail-sec .ail-ww,.ail-sec .ail-links,.ail-sec .ail-meta-grid,.ail-sec .ail-cfg,.ail-sec .ail-pop,.ail-sec .ail-vid{margin-top:0}
+.ail-sec .ail-install + .ail-cfg{margin-top:12px}
+/* client config json block (MCP) */
+.ail-cfg{position:relative;margin:14px 0 0;background:#0c1322;border:1px solid #1c2740;border-radius:12px;padding:30px 16px 16px}
+.ail-cfg-tag{position:absolute;top:9px;left:16px;font:600 10px/1 'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;color:#5b6a86}
+.ail-cfg pre{margin:0;overflow-x:auto;font:500 12.5px/1.55 'JetBrains Mono',monospace;color:#cfe0ff;white-space:pre}
+.ail-cfg .k{color:#7fa8ff}.ail-cfg .s{color:#8fe0b0}
+.ail-cfg button{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.06);color:#cfe0ff;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:7px 12px;font:600 12px 'DM Sans';cursor:pointer;transition:background .14s,border-color .14s,color .14s}
+.ail-cfg button:hover{background:var(--forge-blue,#1A6AFF);border-color:var(--forge-blue,#1A6AFF);color:#fff}
+.ail-cfg-hint{font:500 12.5px/1.5 'DM Sans';color:#8a93a3;margin:10px 0 0}
+.ail-cfg-hint code{font-family:'JetBrains Mono',monospace;color:#5b6470}
+/* popularity */
+.ail-pop{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
+.ail-pop-stars{display:inline-flex;align-items:baseline;gap:7px;font:700 22px/1 'DM Sans';color:#0c1322}
+.ail-pop-stars .st{color:#f5a623;font-size:20px}
+.ail-pop-stars small{font:600 12px/1 'JetBrains Mono',monospace;color:#9aa3b2;letter-spacing:.5px}
+.ail-pop-upd{font:600 13px/1 'DM Sans';color:#5b6470}
+.ail-pop-upd b{color:#0c1322;font-weight:700}
+/* works-with toolbar (skills browse) */
+.ail-toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin:0 0 14px;padding:12px 14px;border:1px solid #e6e9f1;border-radius:14px;background:linear-gradient(180deg,#f7f9ff,#fff)}
+.ail-toolbar-lead{display:flex;align-items:center;gap:8px;font:600 13px/1.2 'DM Sans';color:#3b4453}
+.ail-toolbar-lead svg{flex:0 0 auto}
+.ail-tool-pills{display:flex;flex-wrap:wrap;gap:7px}
+.ail-tool-pill{display:inline-flex;align-items:center;gap:6px;border:1px solid #e2e6ee;background:#fff;border-radius:999px;padding:7px 13px;font:600 13px/1 'DM Sans';color:#3b4453;cursor:pointer;transition:all .12s}
+.ail-tool-pill:hover{border-color:#bcc7da}
+.ail-tool-pill.is-on{background:var(--forge-blue,#1A6AFF);border-color:var(--forge-blue,#1A6AFF);color:#fff;box-shadow:0 2px 8px rgba(26,106,255,.28)}
+.ail-tool-pill .ct{font:600 10.5px/1 'JetBrains Mono',monospace;color:#9aa3b2;background:#f1f3f8;border-radius:5px;padding:1px 5px}
+.ail-tool-pill.is-on .ct{background:rgba(255,255,255,.22);color:#fff}
+.ail-tool-strict{display:inline-flex;align-items:center;gap:7px;font:500 12.5px/1.2 'DM Sans';color:#5a6373;cursor:pointer;margin-left:auto;user-select:none}
+.ail-tool-strict input{width:15px;height:15px;accent-color:var(--forge-blue,#1A6AFF);cursor:pointer}
+.ail-card-ww{display:inline-flex;align-items:center;gap:4px;font:600 11px/1 'JetBrains Mono',monospace;color:#1A6AFF;background:rgba(26,106,255,.08);border-radius:6px;padding:3px 7px}
+@media(max-width:760px){
+  .ail-toolbar{padding:11px 12px}
+  .ail-tool-strict{margin-left:0;width:100%;order:9}
+  .ail-tool-pill{padding:9px 14px;min-height:40px}
+}
 
 </style>
 </head>
@@ -246,6 +309,7 @@ a.ail-det-cat:hover{text-decoration:underline}
         '<div class="ail-stats">7,748 skills · 3,537 tools · 1,725 MCP servers · 585 LLMs · 800 agents · 70 designs</div>'+
         '<div class="ail-search">'+ICON_SEARCH+'<input id="ailGlobal" type="text" placeholder="Search all 14,465 resources…" autocomplete="off" aria-label="Search the AI Library"></div>'+
         '<div class="ail-gres" id="ailGlobalRes"></div>'+
+        collectionsSectionHTML()+
         '<div class="ail-tiles" id="ailTiles">'+ CATS.map(function(c){
           return '<a class="ail-tile" href="#/c/'+c.key+'">'+
             '<div class="ail-tile-ico">'+ICONS[c.key]+'</div>'+
@@ -273,6 +337,7 @@ a.ail-det-cat:hover{text-decoration:underline}
     },180);
     gi.addEventListener('input',run);
     gi.focus();
+    hydrateCollections();
   }
 
   // =========================================================
@@ -309,6 +374,46 @@ a.ail-det-cat:hover{text-decoration:underline}
     return a; }
   function fmtStars(n){ if(n>=1000) return (n/1000).toFixed(n<10000?1:0)+'k'; return ''+n; }
   function cardStatsHTML(r){ var e=r.extra||{}; if(typeof e.stars!=='number') return ''; var up=(e.pushed||e.created||'').slice(0,7); return '<span class="ail-card-stars" title="GitHub stars · last updated">★ '+fmtStars(e.stars)+(up?' · '+up:'')+'</span>'; }
+  // ---- "Works with my tool" preference (persistent) -------------------------
+  var WW_TOOLS = ['Claude Code','Cursor','Cline','Windsurf','Codex','Goose'];
+  var WW_KEY = 'aivault.tool';
+  var WW_STRICT_KEY = 'aivault.toolStrict';
+  function wwGetPref(){ try{ return localStorage.getItem(WW_KEY)||''; }catch(e){ return ''; } }
+  function wwSetPref(v){ try{ v?localStorage.setItem(WW_KEY,v):localStorage.removeItem(WW_KEY); }catch(e){} }
+  function wwGetStrict(){ try{ return localStorage.getItem(WW_STRICT_KEY)==='1'; }catch(e){ return false; } }
+  function wwSetStrict(on){ try{ on?localStorage.setItem(WW_STRICT_KEY,'1'):localStorage.removeItem(WW_STRICT_KEY); }catch(e){} }
+  function wwRowTools(r){ var w=(r.extra||{}).works_with; return w?String(w).split(';').map(function(x){return x.trim().toLowerCase();}).filter(Boolean):[]; }
+  function wwRowMatches(r, tool){
+    if(!tool) return true;
+    var ts=wwRowTools(r);
+    if(!ts.length) return !wwGetStrict();        // compat-unknown: keep unless strict
+    return ts.indexOf(tool)>=0;
+  }
+  function wwCounts(rows){
+    if(rows.__wwCounts) return rows.__wwCounts;
+    var c={}; WW_TOOLS.forEach(function(t){ c[t.toLowerCase()]=0; });
+    rows.forEach(function(r){ wwRowTools(r).forEach(function(t){ if(c.hasOwnProperty(t)) c[t]++; }); });
+    try{ Object.defineProperty(rows,'__wwCounts',{value:c,enumerable:false}); }catch(e){ rows.__wwCounts=c; }
+    return c;
+  }
+  function wwToolbarHTML(rows){
+    var pref=(B.toolPref||'').toLowerCase(), c=wwCounts(rows);
+    var pills = WW_TOOLS.map(function(t){
+      var lk=t.toLowerCase(), on=(pref===lk);
+      return '<button class="ail-tool-pill'+(on?' is-on':'')+'" data-tool="'+esc(lk)+'" aria-pressed="'+(on?'true':'false')+'">'+
+        esc(t)+'<span class="ct">'+(c[lk]||0)+'</span></button>';
+    }).join('');
+    return '<div class="ail-toolbar" id="ailToolbar">'+
+      '<span class="ail-toolbar-lead">'+ICON_WW+'I work in:</span>'+
+      '<div class="ail-tool-pills">'+pills+
+        '<button class="ail-tool-pill'+(!pref?' is-on':'')+'" data-tool="" aria-pressed="'+(!pref?'true':'false')+'">Any tool</button>'+
+      '</div>'+
+      '<label class="ail-tool-strict"><input type="checkbox" id="ailToolStrict"'+(wwGetStrict()?' checked':'')+'>'+
+        'Verified compatible only</label>'+
+    '</div>';
+  }
+  var ICON_WW='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A6AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.3L4 17v3h3l5.4-5.3a4 4 0 0 0 5.3-5.4l-2.6 2.6-2.1-2.1z"/></svg>';
+
   function applyBrowse(){
     var def=CAT_BY[B.key];
     var rows=B.rows;
@@ -323,6 +428,10 @@ a.ail-det-cat:hover{text-decoration:underline}
         });
       }
     });
+    // "works with my tool" pass (Skills only) — soft filter
+    if(B.key==='skill' && B.toolPref){
+      rows=rows.filter(function(r){ return wwRowMatches(r, B.toolPref); });
+    }
     rows=search(rows,B.query,'_hay','name');
     if(B.sort) rows=sortRows(rows,B.sort);
     var total=rows.length;
@@ -336,6 +445,11 @@ a.ail-det-cat:hover{text-decoration:underline}
       var d=(B.facetDisp&&B.facetDisp[f+''+v])||v;
       chips.push('<button class="ail-chip-active" data-f="'+esc(f)+'" data-v="'+esc(v)+'">'+esc(d)+' ✕</button>'); }); });
     if(B.query) chips.push('<span class="ail-chip-active" style="cursor:default">“'+esc(B.query)+'”</span>');
+    if(B.key==='skill' && B.toolPref){
+      var _tlabel=(WW_TOOLS.filter(function(t){return t.toLowerCase()===B.toolPref;})[0])||B.toolPref;
+      chips.unshift('<button class="ail-chip-active" data-tool-chip="1">Works with '+esc(_tlabel)+
+        (wwGetStrict()?' (verified)':'')+' ✕</button>');
+    }
     $('#ailChips').innerHTML = chips.join('') + (chips.length?'<button class="ail-clear" id="ailClear">Clear all</button>':'');
     // results
     var rc=$('#ailResults');
@@ -395,7 +509,7 @@ a.ail-det-cat:hover{text-decoration:underline}
   function renderBrowse(key){
     var host=$('#aivaultHost'); if(!host) return;
     var def=CAT_BY[key]; if(!def){ renderHub(); return; }
-    B={key:key, rows:[], query:'', facets:{}, page:0, sort:''};
+    B={key:key, rows:[], query:'', facets:{}, page:0, sort:'', toolPref:(key==='skill'?wwGetPref():'')};
     // deep-link filters: #/c/<cat>?<field>=<value>  (used by clickable category tags on detail pages)
     var _qp=location.hash.indexOf('?');
     if(_qp>=0){ location.hash.slice(_qp+1).split('&').forEach(function(p){ var kv=p.split('='); if(kv[0]&&kv[1]!=null){ var f=decodeURIComponent(kv[0]); if(!B.facets[f])B.facets[f]=new Set(); B.facets[f].add(decodeURIComponent(kv[1]).toLowerCase()); } }); }
@@ -412,6 +526,7 @@ a.ail-det-cat:hover{text-decoration:underline}
           '<div class="ail-main-head"><div class="ail-count" id="ailCount">Loading…</div>'+
             '<select class="ail-sort" id="ailSort" aria-label="Sort results"><option value="">Sort: Relevant</option><option value="popular">★ Popular</option><option value="top">Top rated</option><option value="newest">Newest</option><option value="name">Name A–Z</option></select>'+
           '</div>'+
+          (key==='skill'?'<div id="ailToolbarMount"></div>':'')+
           '<div class="ail-chips" id="ailChips"></div>'+
           '<div id="ailResults"><div class="ail-load">Loading '+def.label.toLowerCase()+'…</div></div>'+
         '</div>'+
@@ -433,12 +548,27 @@ a.ail-det-cat:hover{text-decoration:underline}
       if(e.target.id==='ailClear'||e.target.id==='ailReset'){ B.facets={}; B.query=''; var qi=$('#ailQ'); if(qi)qi.value=''; B.page=0; renderRail(); applyBrowse(); return; }
       var fc=e.target.closest&&e.target.closest('.ail-facet');
       if(fc){ var ff=fc.getAttribute('data-field'), fv=fc.getAttribute('data-val'); if(!B.facets[ff])B.facets[ff]=new Set(); if(B.facets[ff].has(fv))B.facets[ff].delete(fv); else B.facets[ff].add(fv); B.page=0; renderRail(); applyBrowse(); return; }
+      // works-with: tool pill toggles the active preference (persistent)
+      var tp=e.target.closest&&e.target.closest('.ail-tool-pill');
+      if(tp){ var tool=tp.getAttribute('data-tool')||''; B.toolPref=tool; wwSetPref(tool); B.page=0; renderToolbar(); applyBrowse(); window.scrollTo({top:0,behavior:'smooth'}); return; }
+      // works-with: removable chip clears the preference
+      var tc=e.target.closest&&e.target.closest('[data-tool-chip]');
+      if(tc){ B.toolPref=''; wwSetPref(''); B.page=0; renderToolbar(); applyBrowse(); return; }
+    });
+    // works-with: "verified compatible only" checkbox
+    host.addEventListener('change',function(e){
+      if(e.target&&e.target.id==='ailToolStrict'){ wwSetStrict(e.target.checked); B.page=0; renderToolbar(); applyBrowse(); }
     });
 
     loadCat(key).then(function(rows){
       if(!B||B.key!==key) return;
-      B.rows=rows; renderRail(); applyBrowse();
+      B.rows=rows; renderRail(); renderToolbar(); applyBrowse();
     });
+  }
+  // render the "works with my tool" toolbar (Skills browse only)
+  function renderToolbar(){
+    var mount=$('#ailToolbarMount'); if(!mount||!B||B.key!=='skill') return;
+    mount.innerHTML=wwToolbarHTML(B.rows);
   }
   function renderRail(){
     var rail=$('#ailRail'); if(!rail||!B) return;
@@ -461,6 +591,22 @@ a.ail-det-cat:hover{text-decoration:underline}
   // =========================================================
   // DETAIL
   // =========================================================
+  // titled section wrapper — renders nothing when body is empty (progressive enhancement)
+  function secHTML(title, body){ return body ? '<section class="ail-sec"><h2 class="ail-sec-t">'+esc(title)+'</h2>'+body+'</section>' : ''; }
+  // build a copy-ready MCP client config from an `npx [-y] <pkg>` install command
+  function mcpConfigHTML(name, cmd){
+    var parts=String(cmd||'').trim().split(/\s+/);
+    if(parts[0]!=='npx') return '';
+    var args=parts.slice(1).filter(function(a){return a;});
+    var pkg=args[args.length-1]; if(!pkg) return '';
+    var srv=String(name||pkg).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'server';
+    var cfg={mcpServers:{}}; cfg.mcpServers[srv]={command:'npx',args:args};
+    var json=JSON.stringify(cfg,null,2);
+    var pretty=esc(json).replace(/&quot;([^&]*?)&quot;(\s*:)/g,'<span class="k">&quot;$1&quot;</span>$2').replace(/:\s(&quot;[^&]*?&quot;)/g,': <span class="s">$1</span>');
+    return '<div class="ail-cfg"><span class="ail-cfg-tag">claude_desktop_config.json</span>'+
+      '<button data-copy="'+esc(json)+'">Copy</button><pre>'+pretty+'</pre></div>'+
+      '<p class="ail-cfg-hint">Add to your MCP client config (Claude Desktop, Cursor, Cline…) then restart the client.</p>';
+  }
   function renderDetail(slug){
     var host=$('#resourceHost'); if(!host) return;
     host.innerHTML='<div class="ail-det"><div class="ail-load">Loading…</div></div>';
@@ -478,20 +624,52 @@ a.ail-det-cat:hover{text-decoration:underline}
       if(key==='agent'){ if(e.agent_category)meta.push(['Category',prettyLabel(e.agent_category)]); if(e.open_source)meta.push(['Open source',e.open_source==='yes'?'Yes':e.open_source]); if(e.author)meta.push(['Author',e.author]); }
 
       var descParts=String(r.description||'').split('|').map(function(s){return s.trim();}).filter(Boolean);
+      var enc=encodeURIComponent;
+
+      // --- header (unchanged structure) ---
       var html='<div class="ail-det">'+
         '<a class="ail-back" href="#/c/'+key+'">'+ICON_BACK+' '+esc(def.label)+'</a>'+
         '<div class="ail-det-head"><span class="ail-det-badge" style="background:'+mono(r.name).bg+';color:'+mono(r.name).fg+'">'+esc((r.name||'?').charAt(0).toUpperCase())+'</span>'+
-          '<div style="min-width:0"><a class="ail-det-cat" href="#/c/'+key+'">'+esc(def.label)+'</a><h1>'+esc(r.name)+'</h1>'+detailTagHTML(r,key)+'</div></div>'+
-        (descParts.length?'<div class="ail-det-desc">'+descParts.map(esc).join('<br><br>')+'</div>':'');
+          '<div style="min-width:0"><a class="ail-det-cat" href="#/c/'+key+'">'+esc(def.label)+'</a><h1>'+esc(r.name)+'</h1>'+detailTagHTML(r,key)+'</div></div>';
+
+      // --- What it does ---
+      html+=secHTML('What it does', descParts.length?'<div class="ail-det-desc">'+descParts.map(esc).join('<br><br>')+'</div>':'');
+
+      // --- How to install (terminal block + MCP client config) ---
+      var installBody='';
       if((key==='skill'||key==='mcp_server')&&e.install_command){
-        html+='<div class="ail-install"><span class="ail-install-tag">terminal</span><code id="ailCmd">'+esc(e.install_command)+'</code><button data-copy="'+esc(e.install_command)+'">Copy</button></div>';
+        installBody+='<div class="ail-install"><span class="ail-install-tag">terminal</span><code id="ailCmd">'+esc(e.install_command)+'</code><button data-copy="'+esc(e.install_command)+'">Copy</button></div>';
+        if(key==='mcp_server') installBody+=mcpConfigHTML(r.name, e.install_command);
       }
-      if(meta.length){ html+='<div class="ail-meta-grid">'+meta.map(function(m){return '<div class="ail-meta-cell"><div class="ail-meta-k">'+esc(m[0])+'</div><div class="ail-meta-v">'+esc(m[1])+'</div></div>';}).join('')+'</div>'; }
-      if(key==='skill'&&e.works_with){ html+='<div class="ail-ww">'+String(e.works_with).split(';').map(function(w){w=w.trim();return w?'<span>'+esc(w)+'</span>':'';}).join('')+'</div>'; }
-      if(key==='skill'&&e.install_video_url){ html+='<div class="ail-vid"><iframe src="'+esc(e.install_video_url)+'" loading="lazy" allowfullscreen title="Install video"></iframe></div>'; }
-      // Direct access — prefer the real source link (enriched from detail pages);
-      // fall back to a targeted search only where we don't yet have a direct URL.
-      var links=[], enc=encodeURIComponent;
+      if(key==='skill'&&e.install_video_url){
+        installBody+='<div class="ail-vid"><iframe src="'+esc(e.install_video_url)+'" loading="lazy" allowfullscreen title="Install video"></iframe></div>';
+      }
+      if(key==='skill'){
+        installBody+='<p class="ail-cfg-hint" style="margin-top:14px">Universal install: <code>npx skills init</code> → <code>npx skills add '+esc(e.github_url||r.external_url||'')+' --skill '+esc(r.name)+'</code> → pick your platform.</p>';
+      }
+      html+=secHTML('How to install', installBody);
+
+      // --- Works with (skills) ---
+      var wwBody = (key==='skill'&&e.works_with)
+        ? '<div class="ail-ww">'+String(e.works_with).split(';').map(function(w){w=w.trim();return w?'<span>'+esc(w)+'</span>':'';}).join('')+'</div>'
+        : '';
+      html+=secHTML('Works with', wwBody);
+
+      // --- Details (the existing meta grid) ---
+      var metaBody = meta.length
+        ? '<div class="ail-meta-grid">'+meta.map(function(m){return '<div class="ail-meta-cell"><div class="ail-meta-k">'+esc(m[0])+'</div><div class="ail-meta-v">'+esc(m[1])+'</div></div>';}).join('')+'</div>'
+        : '';
+      html+=secHTML('Details', metaBody);
+
+      // --- Popularity (★ stars + last updated) ---
+      var popBody='';
+      if(typeof e.stars==='number'){ popBody+='<div class="ail-pop-stars"><span class="st">★</span>'+fmtStars(e.stars)+' <small>GitHub stars</small></div>'; }
+      var upd=(e.pushed||e.last_updated||e.created||'').slice(0,10);
+      if(upd){ popBody+='<div class="ail-pop-upd">Last updated <b>'+esc(upd)+'</b></div>'; }
+      html+=secHTML('Popularity', popBody?'<div class="ail-pop">'+popBody+'</div>':'');
+
+      // --- Links (logic unchanged) ---
+      var links=[];
       function L(u,t){ return '<a href="'+esc(u)+'" target="_blank" rel="noopener">'+esc(t)+' ↗</a>'; }
       var gh = e.github_url || ((r.external_url && !/explainx\.ai/.test(r.external_url))?r.external_url:'');
       var site = e.website || ((e.website_url && !/explainx/.test(e.website_url))?e.website_url:'');
@@ -503,15 +681,13 @@ a.ail-det-cat:hover{text-decoration:underline}
         else if(key==='agent'){ var su=(e.source_url&&!/explainx/.test(e.source_url))?e.source_url:''; links.push(su?L(su,'Source'):L('https://www.google.com/search?q='+enc(r.name+' AI agent'),'Open '+r.name)); }
         else if(key==='llm') links.push(e.weights==='open'?L('https://huggingface.co/models?search='+enc(r.name),'Hugging Face'):L('https://www.google.com/search?q='+enc(r.name+' '+(e.provider||'')+' model'),'Open '+r.name));
       }
-      if(links.length) html+='<div class="ail-links">'+links.join('')+'</div>';
+      html+=secHTML('Links', links.length?'<div class="ail-links">'+links.join('')+'</div>':'');
       html+='<div id="ailXlink"></div>';
-      if(key==='skill'){ html+='<p style="margin:26px 0 0;font-size:13.5px;color:#8a93a3">Universal install: <code style="font-family:\'JetBrains Mono\',monospace">npx skills init</code> → <code style="font-family:\'JetBrains Mono\',monospace">npx skills add '+esc(e.github_url||r.external_url||'')+' --skill '+esc(r.name)+'</code> → pick your platform.</p>'; }
       html+='</div>';
       host.innerHTML=html;
       window.scrollTo({top:0});
-      // copy
-      var cb=host.querySelector('[data-copy]');
-      if(cb) cb.addEventListener('click',function(){ var txt=cb.getAttribute('data-copy'); (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(function(){cb.textContent='Copied';setTimeout(function(){cb.textContent='Copy';},1500);}).catch(function(){}); });
+      // copy (bind every copy button — terminal + MCP config)
+      $$('[data-copy]',host).forEach(function(cb){ cb.addEventListener('click',function(){ var txt=cb.getAttribute('data-copy'); (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(function(){cb.textContent='Copied';setTimeout(function(){cb.textContent='Copy';},1500);}).catch(function(){}); }); });
       // perk cross-link
       renderXlink(r);
     });
@@ -546,10 +722,80 @@ a.ail-det-cat:hover{text-decoration:underline}
     design:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="8.5" cy="10" r="1"/><circle cx="12" cy="8" r="1"/><circle cx="15.5" cy="10" r="1"/><path d="M12 21a3 3 0 0 0 0-6 2 2 0 0 1 0-4"/></svg>'
   };
 
+  // =========================================================
+  // COLLECTIONS  (curated bundles spanning multiple categories)
+  // =========================================================
+  var collectionsP=null;
+  function loadCollections(){ return collectionsP || (collectionsP = fetch(DATA_BASE+'collections.json').then(function(r){return r.json();}).catch(function(){return [];})); }
+
+  function collectionsSectionHTML(){
+    return '<div class="ail-cols" id="ailCols" hidden>'+
+      '<div class="ail-cols-head"><div>'+
+        '<h2 class="ail-cols-title">Curated <em>collections</em></h2>'+
+        '<p class="ail-cols-sub">Hand-picked bundles to get you started fast.</p>'+
+      '</div></div>'+
+      '<div class="ail-cols-grid" id="ailColsGrid"></div></div>';
+  }
+  function hydrateCollections(){
+    var wrap=$('#ailCols'), grid=$('#ailColsGrid'); if(!wrap||!grid) return;
+    loadCollections().then(function(cols){
+      if(!grid.isConnected) return;
+      if(!cols.length){ wrap.hidden=true; return; }
+      grid.innerHTML=cols.map(function(c){
+        return '<a class="ail-col" href="#/collection/'+esc(c.slug)+'">'+
+          '<div class="ail-col-ico">'+esc(c.icon||'📦')+'</div>'+
+          '<div class="ail-col-name">'+esc(c.title)+'</div>'+
+          '<div class="ail-col-blurb">'+esc(c.blurb||'')+'</div>'+
+          '<div class="ail-col-foot"><span class="ail-col-count">'+(c.items?c.items.length:0)+' resources</span>'+
+            '<span class="ail-col-go">Open →</span></div></a>';
+      }).join('');
+      wrap.hidden=false;
+    });
+  }
+
+  function renderCollection(slug){
+    var host=$('#aivaultHost'); if(!host) return;
+    host.innerHTML='<div class="ail-wrap"><div class="ail-det"><div class="ail-load">Loading collection…</div></div></div>';
+    function paint(col,rows){
+      var host=$('#aivaultHost'); if(!host) return;
+      var grid = rows.length
+        ? '<div class="ail-grid">'+rows.map(cardHTML).join('')+'</div>'
+        : '<div class="ail-empty" role="status">This collection is being assembled. <a href="#/">Browse the full library →</a></div>';
+      host.innerHTML=
+        '<div class="ail-wrap"><div class="ail-hero" style="padding-bottom:14px">'+
+          '<a class="ail-back" href="#/">'+ICON_BACK+' AI Library</a>'+
+          '<div class="ail-colhero-ico">'+esc(col.icon||'📦')+'</div>'+
+          '<h1 class="ail-h1">'+esc(col.title)+'</h1>'+
+          '<p class="ail-lede">'+esc(col.blurb||'')+'</p>'+
+          '<div class="ail-stats">'+rows.length+' resource'+(rows.length===1?'':'s')+' · hand-picked</div>'+
+        '</div>'+
+        '<div class="ail-layout ail-layout--solo"><div class="ail-main">'+
+          '<div id="ailResults">'+grid+'</div>'+
+        '</div></div></div>';
+      markPerks(rows);
+      window.scrollTo(0,0);
+    }
+    loadCollections().then(function(cols){
+      var col=null; for(var i=0;i<cols.length;i++){ if(cols[i].slug===slug){ col=cols[i]; break; } }
+      if(!col){ host.innerHTML='<div class="ail-wrap"><div class="ail-hero" style="padding-bottom:14px"><a class="ail-back" href="#/">'+ICON_BACK+' AI Library</a><h1 class="ail-h1">Collection not found</h1><p class="ail-lede">It may have been renamed. <a href="#/">Back to the library</a>.</p></div></div>'; window.scrollTo(0,0); return; }
+      var items=col.items||[];
+      var catKeys={}; items.forEach(function(it){ catKeys[it.category]=true; });
+      var keys=Object.keys(catKeys);
+      Promise.all(keys.map(function(k){return cache[k]||loadCat(k);})).then(function(loaded){
+        var lookup={};
+        keys.forEach(function(k,ix){ (loaded[ix]||[]).forEach(function(r){ lookup[r.slug]=r; }); });
+        var rows=[];
+        items.forEach(function(it){ var r=lookup[it.slug]; if(r) rows.push(r); });  // preserve curated order
+        paint(col,rows);
+      });
+    });
+  }
+
   // expose for the router
   window.renderResourcesHub = renderHub;
   window.renderResourcesBrowse = renderBrowse;
   window.renderResourceDetail = renderDetail;
+  window.renderResourcesCollection = renderCollection;
 })();
 </script>
 <script>
@@ -560,7 +806,7 @@ a.ail-det-cat:hover{text-decoration:underline}
     document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
     var el=document.getElementById(pg); if(el) el.classList.add('active');
     if(pg==='page-resource'){ window.renderResourceDetail(decodeURIComponent(h.slice(4))); }
-    else { var m=h.match(/^#\/c\/([^/?]+)/); if(m) window.renderResourcesBrowse(m[1]); else window.renderResourcesHub(); }
+    else { var mc=h.match(/^#\/collection\/([^/?]+)/); var m=h.match(/^#\/c\/([^/?]+)/); if(mc) window.renderResourcesCollection(decodeURIComponent(mc[1])); else if(m) window.renderResourcesBrowse(m[1]); else window.renderResourcesHub(); }
     if(pg!=='page-resource') window.scrollTo(0,0);
   }
   window.addEventListener('hashchange',route);
