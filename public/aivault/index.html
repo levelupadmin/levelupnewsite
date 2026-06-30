@@ -92,6 +92,9 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#fbfbfd;color:#0c1322
 .ail-det-tag:hover{background:rgba(26,106,255,.15)}
 a.ail-det-cat{text-decoration:none;cursor:pointer}
 a.ail-det-cat:hover{text-decoration:underline}
+.ail-sort{font:600 12.5px 'DM Sans';color:#3b4453;border:1px solid #e2e6ee;border-radius:9px;padding:7px 28px 7px 11px;background:#fff;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%237a8497' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+.ail-sort:hover{border-color:#bcc7da}
+.ail-card-stars{font:600 11px/1 'JetBrains Mono',monospace;color:#8a93a3;white-space:nowrap}
 .ail-card-cta{margin-left:auto;font:600 12px 'JetBrains Mono',monospace;color:var(--forge-blue);opacity:0;transition:opacity .14s}
 .ail-card:hover .ail-card-cta{opacity:1}
 .ail-pager{display:flex;justify-content:center;align-items:center;gap:6px;margin:32px 0 0;flex-wrap:wrap}
@@ -294,6 +297,18 @@ a.ail-det-cat:hover{text-decoration:underline}
       return {key:k, disp:prettyLabel(best), n:m[k].n};
     }).sort(function(a,b){return b.n-a.n;}).slice(0, def.top||99);
   }
+  // --- sort metrics (GitHub stars + dates) ---
+  function starN(r){ var s=(r.extra||{}).stars; return (typeof s==='number')?s:-1; }
+  function dateN(r){ var e=r.extra||{}; var t=Date.parse(e.created||e.pushed||e.last_updated||''); return isNaN(t)?-1:t; }
+  function topScore(r){ var s=starN(r); if(s<0) return -1; var p=Date.parse((r.extra||{}).pushed||(r.extra||{}).created||''); var fresh=1; if(!isNaN(p)){ var months=(Date.now()-p)/2628000000; fresh=1/(1+Math.max(0,months)/18); } return s*fresh; }
+  function sortRows(rows,mode){ var a=rows.slice();
+    if(mode==='popular') a.sort(function(x,y){return starN(y)-starN(x);});
+    else if(mode==='top') a.sort(function(x,y){return topScore(y)-topScore(x);});
+    else if(mode==='newest') a.sort(function(x,y){return dateN(y)-dateN(x);});
+    else if(mode==='name') a.sort(function(x,y){return String(x.name).localeCompare(String(y.name));});
+    return a; }
+  function fmtStars(n){ if(n>=1000) return (n/1000).toFixed(n<10000?1:0)+'k'; return ''+n; }
+  function cardStatsHTML(r){ var e=r.extra||{}; if(typeof e.stars!=='number') return ''; var up=(e.pushed||e.created||'').slice(0,7); return '<span class="ail-card-stars" title="GitHub stars · last updated">★ '+fmtStars(e.stars)+(up?' · '+up:'')+'</span>'; }
   function applyBrowse(){
     var def=CAT_BY[B.key];
     var rows=B.rows;
@@ -309,6 +324,7 @@ a.ail-det-cat:hover{text-decoration:underline}
       }
     });
     rows=search(rows,B.query,'_hay','name');
+    if(B.sort) rows=sortRows(rows,B.sort);
     var total=rows.length;
     var pages=Math.max(1,Math.ceil(total/PAGE));
     if(B.page>=pages) B.page=0;
@@ -356,7 +372,7 @@ a.ail-det-cat:hover{text-decoration:underline}
         '<div style="min-width:0"><div class="ail-card-name">'+esc(r.name)+'</div><div class="ail-card-meta">'+esc(metaLine(r))+'</div></div>'+
       '</div>'+
       '<p class="ail-card-desc">'+esc((r.description||'').split('|')[0])+'</p>'+
-      '<div class="ail-card-foot">'+cardTagHTML(r)+'<span class="ail-perk" data-perkfor="'+esc(r.primary_url||'')+'" hidden></span>'+
+      '<div class="ail-card-foot">'+cardTagHTML(r)+cardStatsHTML(r)+'<span class="ail-perk" data-perkfor="'+esc(r.primary_url||'')+'" hidden></span>'+
         '<span class="ail-card-cta">View →</span></div></a>';
   }
   function pagerHTML(page,pages){
@@ -379,7 +395,7 @@ a.ail-det-cat:hover{text-decoration:underline}
   function renderBrowse(key){
     var host=$('#aivaultHost'); if(!host) return;
     var def=CAT_BY[key]; if(!def){ renderHub(); return; }
-    B={key:key, rows:[], query:'', facets:{}, page:0};
+    B={key:key, rows:[], query:'', facets:{}, page:0, sort:''};
     // deep-link filters: #/c/<cat>?<field>=<value>  (used by clickable category tags on detail pages)
     var _qp=location.hash.indexOf('?');
     if(_qp>=0){ location.hash.slice(_qp+1).split('&').forEach(function(p){ var kv=p.split('='); if(kv[0]&&kv[1]!=null){ var f=decodeURIComponent(kv[0]); if(!B.facets[f])B.facets[f]=new Set(); B.facets[f].add(decodeURIComponent(kv[1]).toLowerCase()); } }); }
@@ -393,7 +409,9 @@ a.ail-det-cat:hover{text-decoration:underline}
       '<div class="ail-layout'+(def.facets.length?'':' ail-layout--solo')+'">'+
         (def.facets.length?'<aside class="ail-rail" id="ailRail"></aside>':'')+
         '<div class="ail-main">'+
-          '<div class="ail-main-head"><div class="ail-count" id="ailCount">Loading…</div></div>'+
+          '<div class="ail-main-head"><div class="ail-count" id="ailCount">Loading…</div>'+
+            '<select class="ail-sort" id="ailSort" aria-label="Sort results"><option value="">Sort: Relevant</option><option value="popular">★ Popular</option><option value="top">Top rated</option><option value="newest">Newest</option><option value="name">Name A–Z</option></select>'+
+          '</div>'+
           '<div class="ail-chips" id="ailChips"></div>'+
           '<div id="ailResults"><div class="ail-load">Loading '+def.label.toLowerCase()+'…</div></div>'+
         '</div>'+
@@ -402,6 +420,7 @@ a.ail-det-cat:hover{text-decoration:underline}
     var q=$('#ailQ');
     q.addEventListener('input',debounce(function(){ B.query=q.value; B.page=0; applyBrowse(); },150));
     q.addEventListener('keydown',function(e){ if(e.key==='Escape'){ q.value=''; B.query=''; B.page=0; applyBrowse(); } });
+    var ss=$('#ailSort'); if(ss) ss.addEventListener('change',function(){ B.sort=ss.value; B.page=0; applyBrowse(); window.scrollTo({top:0,behavior:'smooth'}); });
 
     // event delegation on host
     host.addEventListener('click',function(e){
