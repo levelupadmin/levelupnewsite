@@ -32,6 +32,16 @@
   --badge-amber:#b1671a;--badge-amber-bg:rgba(200,120,30,.10);--badge-amber-line:rgba(200,120,30,.18);
   --press:rgba(12,19,34,.06);--video-bg:#000;
   --cmd-hair:#eef0f5;
+  /* signature accent gradient — used sparingly (hero word, primary CTAs, active states) */
+  --grad-accent:linear-gradient(135deg,#2E7BFF 0%,#1A6AFF 52%,#0B5BE8 100%);
+  --grad-accent-soft:linear-gradient(135deg,rgba(46,123,255,.16),rgba(11,91,232,.10));
+  --accent-2:#7A5AF0;                       /* violet companion for 2-stop washes */
+  --grad-hero:radial-gradient(120% 90% at 12% -10%,rgba(46,123,255,.10),transparent 55%),radial-gradient(90% 70% at 92% 8%,rgba(122,90,240,.07),transparent 60%);
+  --grad-mesh-dot:rgba(26,106,255,.05);     /* hero micro-texture dot color */
+  --btn-primary-sh:rgba(26,106,255,.34);    /* primary button glow */
+  --ring:rgba(26,106,255,.14);              /* unified focus ring */
+  --hairline:rgba(12,19,34,.06);            /* premium 1px inner top-highlight */
+  --radius-lg:20px;
 }
 [data-theme='dark']{
   --bg:#0b0e14;--bg-nav:13,16,22;--surface:#141925;--surface-2:#1b2230;--surface-3:#16243f;--surface-4:#1b2230;
@@ -48,6 +58,14 @@
   --badge-amber:#d9a05a;--badge-amber-bg:rgba(200,120,30,.18);--badge-amber-line:rgba(200,120,30,.30);
   --press:rgba(255,255,255,.07);--video-bg:#000;
   --cmd-hair:#1e2532;
+  --grad-accent:linear-gradient(135deg,#4C8CFF 0%,#2E7BFF 52%,#1A6AFF 100%);
+  --grad-accent-soft:linear-gradient(135deg,rgba(76,140,255,.22),rgba(26,106,255,.12));
+  --accent-2:#a48bff;
+  --grad-hero:radial-gradient(120% 95% at 12% -12%,rgba(46,123,255,.16),transparent 55%),radial-gradient(95% 75% at 92% 6%,rgba(122,90,240,.12),transparent 60%);
+  --grad-mesh-dot:rgba(120,160,255,.06);
+  --btn-primary-sh:rgba(26,106,255,.5);
+  --ring:rgba(90,150,255,.26);
+  --hairline:rgba(255,255,255,.06);
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
@@ -68,14 +86,25 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(-
 .page.active{display:block}
 @media(max-width:560px){.ailnav-links a[target="_blank"]{display:none}}
 .ail-wrap{max-width:1180px;margin:0 auto;padding:0 24px}
-.ail-hero{position:relative;padding:88px 0 24px}
-.ail-hero::before{content:'';position:absolute;left:-120px;top:-40px;width:520px;height:340px;background:radial-gradient(closest-side,var(--accent-soft-2),transparent);filter:blur(8px);z-index:-1;pointer-events:none}
+.ail-hero{position:relative;padding:92px 0 28px}
+/* soft aurora wash — pure CSS gradients, zero image cost, painted behind content */
+.ail-hero::before{content:'';position:absolute;left:50%;top:-60px;transform:translateX(-50%);width:min(1180px,100vw);height:520px;background:var(--grad-hero);z-index:-2;pointer-events:none}
+/* faint dot mesh for texture — 22px grid, fades out downward */
+.ail-hero::after{content:'';position:absolute;left:0;right:0;top:0;height:440px;z-index:-1;pointer-events:none;
+  background-image:radial-gradient(var(--grad-mesh-dot) 1px,transparent 1.4px);
+  background-size:22px 22px;
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.5) 45%,transparent 82%);
+  mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.5) 45%,transparent 82%)}
 .ail-stats{margin:18px 0 0;font:600 13px/1.6 'JetBrains Mono',monospace;color:var(--muted-2)}
 .ail-back{display:inline-flex;align-items:center;gap:6px;font:600 13px/1 'DM Sans',sans-serif;color:var(--muted);text-decoration:none;padding:10px 2px;margin-bottom:8px}
 .ail-back:hover{color:var(--forge-blue,#1A6AFF)}
-.ail-eyebrow{font:600 12px/1 'JetBrains Mono',monospace;letter-spacing:2px;text-transform:uppercase;color:var(--forge-blue,#1A6AFF)}
-.ail-h1{font:700 clamp(32px,5vw,56px)/1.05 'DM Sans',sans-serif;margin:14px 0 0;letter-spacing:-.02em;color:var(--text)}
-.ail-h1 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--forge-blue,#1A6AFF)}
+.ail-eyebrow{display:inline-flex;align-items:center;gap:8px;font:600 11.5px/1 'JetBrains Mono',monospace;letter-spacing:2.4px;text-transform:uppercase;color:var(--forge-blue,#1A6AFF)}
+.ail-eyebrow::before{content:'';width:16px;height:1.5px;border-radius:2px;background:var(--grad-accent);opacity:.9}
+.ail-h1{font:700 clamp(33px,5.1vw,58px)/1.02 'DM Sans',sans-serif;margin:16px 0 0;letter-spacing:-.032em;color:var(--text);text-wrap:balance}
+.ail-h1 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:-.005em;padding-right:.04em;
+  background:var(--grad-accent);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--forge-blue,#1A6AFF)}
+/* graceful fallback where background-clip:text is unsupported */
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){.ail-h1 em{-webkit-text-fill-color:currentColor;color:var(--forge-blue,#1A6AFF)}}
 .ail-lede{max-width:64ch;margin:16px 0 0;font-size:17px;line-height:1.5;color:var(--muted)}
 .ail-search{position:relative;margin:26px 0 0;max-width:680px}
 .ail-search input{width:100%;height:54px;border:1.5px solid var(--border);border-radius:14px;padding:0 18px 0 48px;font-size:16px;background:var(--surface);color:var(--text);transition:border-color .15s,box-shadow .15s}
@@ -196,6 +225,13 @@ a.ail-det-cat:hover{text-decoration:underline}
 .ail-card-stars{font:600 11px/1 'JetBrains Mono',monospace;color:var(--muted-2);white-space:nowrap}
 .ail-card-cta{margin-left:auto;font:600 12px 'JetBrains Mono',monospace;color:var(--forge-blue);opacity:0;transition:opacity .14s}
 .ail-card:hover .ail-card-cta{opacity:1}
+/* ---- Freshness pills (cards + detail) ---- */
+.ail-fresh-pill{display:inline-flex;align-items:center;gap:5px;font:600 10.5px/1 'JetBrains Mono',monospace;letter-spacing:.3px;border-radius:6px;padding:5px 8px;white-space:nowrap}
+.ail-fresh-pill svg{width:11px;height:11px}
+.ail-fresh-pill--ok{color:var(--muted-2);background:var(--surface-4);border:1px solid var(--border)}
+.ail-fresh-pill--stale{color:var(--muted-3);background:transparent;border:1px dashed var(--border-strong)}
+.ail-det-fresh{margin-top:6px}
+.ail-det-fresh .ail-fresh-pill{font-size:11.5px;padding:6px 10px}
 .ail-pager{display:flex;justify-content:center;align-items:center;gap:6px;margin:32px 0 0;flex-wrap:wrap}
 .ail-pager button{min-width:38px;height:38px;border:1px solid var(--border);background:var(--surface);border-radius:9px;font:600 13px/1 'DM Sans';color:var(--text-2);cursor:pointer;padding:0 10px}
 .ail-pager button:hover:not(:disabled){border-color:var(--forge-blue,#1A6AFF);color:var(--forge-blue,#1A6AFF)}
@@ -382,6 +418,38 @@ a.ail-det-cat:hover{text-decoration:underline}
 @media (max-width:880px){
   .ail-cols-grid{grid-template-columns:1fr}
 }
+/* ---- Trending + Recently added (hub) ---- */
+.ail-trend{margin:30px 0 4px}
+.ail-trend-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:0 0 14px}
+.ail-trend-title{font:700 24px/1.1 'DM Sans';letter-spacing:-.01em;color:var(--text);margin:0}
+.ail-trend-title em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--forge-blue,#1A6AFF)}
+.ail-trend-sub{font-size:14px;color:var(--muted-2);margin:4px 0 0}
+.ail-trend-row{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(240px,1fr);gap:14px;overflow-x:auto;padding:2px 2px 10px;scroll-snap-type:x proximity;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.ail-trend-row::-webkit-scrollbar{height:6px}
+.ail-trend-row::-webkit-scrollbar-thumb{background:var(--border);border-radius:6px}
+.ail-tcard{scroll-snap-align:start;position:relative;display:flex;flex-direction:column;gap:8px;min-width:0;text-decoration:none;color:inherit;border:1.5px solid var(--border-2);border-radius:14px;padding:15px 15px 13px;background:var(--surface);box-shadow:0 1px 2px var(--sh-card);transition:transform .18s cubic-bezier(.2,.7,.3,1),box-shadow .18s,border-color .18s}
+.ail-tcard:hover{transform:translateY(-3px);box-shadow:0 16px 40px -10px var(--sh-hover);border-color:var(--border-hover)}
+.ail-tcard-top{display:flex;align-items:center;gap:8px}
+.ail-tcard-rank{flex:none;width:22px;height:22px;border-radius:7px;display:grid;place-items:center;font:700 11px/1 'JetBrains Mono',monospace;color:var(--forge-blue,#1A6AFF);background:var(--accent-soft)}
+.ail-tcard-cat{font:700 10px/1 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.6px;color:var(--muted-3);margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:52%}
+.ail-tcard-name{font:700 15px/1.25 'DM Sans';color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ail-tcard-desc{font-size:12.5px;line-height:1.4;color:var(--muted);margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ail-tcard-stars{margin-top:auto;font:600 11px/1 'JetBrains Mono',monospace;color:var(--muted-2);white-space:nowrap}
+.ail-tcard-stars .st{color:var(--star)}
+/* Recently added: same visual family as .ail-recent (Recently *viewed*), lighter chips */
+.ail-fresh{margin:22px 0 6px;text-align:left}
+.ail-fresh-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:11px}
+.ail-fresh-row{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.ail-fresh-row::-webkit-scrollbar{height:6px}
+.ail-fresh-row::-webkit-scrollbar-thumb{background:var(--border);border-radius:6px}
+.ail-fresh-card{flex:none;display:flex;align-items:center;gap:9px;max-width:250px;text-decoration:none;border:1.5px solid var(--border-2);border-radius:12px;padding:9px 13px 9px 9px;background:var(--surface);transition:border-color .15s,transform .15s,box-shadow .15s}
+.ail-fresh-card:hover{border-color:var(--border-hover);transform:translateY(-2px);box-shadow:0 8px 22px -10px var(--sh-hover-md)}
+.ail-fresh-badge{flex:none;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font-family:'Instrument Serif',serif;font-size:17px}
+.ail-fresh-txt{min-width:0;overflow:hidden;flex:1 1 auto}
+.ail-fresh-name{display:block;font:600 13.5px/1.25 'DM Sans';color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ail-fresh-cat{font:600 10px/1 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.5px;color:var(--muted-3);margin-top:3px}
+.ail-fresh-new{flex:none;font:700 9.5px/1 'JetBrains Mono',monospace;letter-spacing:.5px;color:var(--green);background:var(--green-soft);border:1px solid var(--green-line);border-radius:5px;padding:3px 5px;text-transform:uppercase}
+@media (max-width:880px){ .ail-trend-row{grid-auto-columns:minmax(220px,86%)} }
 /* structured detail sections */
 .ail-sec{margin:34px 0 0}
 .ail-sec:first-of-type{margin-top:30px}
@@ -463,6 +531,9 @@ a.ail-det-cat:hover{text-decoration:underline}
 @media (max-width:560px){
   .ailnav-k .ailnav-k-txt,.ailnav-k kbd{display:none}
   .ailnav-k{min-width:44px;min-height:44px;padding:0;border-radius:10px;justify-content:center}
+  .ailnav-theme{min-width:44px;min-height:44px}
+  .ail-dx-back{min-height:44px;padding:10px 4px;margin:0 0 8px;align-items:center}
+  .ail-aicopy{min-height:44px}
   .ailnav{padding:8px 16px;gap:10px}
   .ailnav-links{gap:10px;flex-wrap:nowrap;font-size:12.5px;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 22px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 22px),transparent)}
   .ailnav-links::-webkit-scrollbar{display:none}
@@ -599,6 +670,99 @@ a.ail-det-cat:hover{text-decoration:underline}
   .ail-cmp{padding:88px 14px 80px}
   .ail-cmp-table th,.ail-cmp-table td{padding:13px 13px}
   .ail-cmp-rowkey{width:96px;font-size:10px}
+}
+
+/* ═══════════ PREMIUM DESIGN PASS — additive, ordered last to win specificity ties ═══════════ */
+
+/* ---- BLOCK B — TYPE SCALE & RHYTHM ---- */
+.ail-hero .ail-lede{font-size:18px;line-height:1.55;letter-spacing:-.006em;color:var(--muted);max-width:60ch}
+.ail-hero .ail-stats{color:var(--muted-3);letter-spacing:.2px}
+.ail-cols-title em,.ail-goals-title em{
+  background:var(--grad-accent);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--forge-blue,#1A6AFF)}
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){
+  .ail-cols-title em,.ail-goals-title em{-webkit-text-fill-color:currentColor;color:var(--forge-blue)}}
+.ail-cols-title{letter-spacing:-.02em}
+.ail-rail-label,.ail-sec-t,.ail-cols .ail-sec-h,.ail-recent .ail-sec-h{font-feature-settings:"tnum" 1}
+
+/* ---- BLOCK C — SIGNATURE ACCENT ---- */
+.ail-onb-acts a.is-primary,
+.ail-guide-cta a.is-primary,
+.ail-cmpbar-go{
+  background:var(--grad-accent);
+  box-shadow:0 1px 0 rgba(255,255,255,.18) inset,0 6px 18px -6px var(--btn-primary-sh);
+  border:0}
+.ail-onb-acts a.is-primary:hover,
+.ail-guide-cta a.is-primary:hover,
+.ail-cmpbar-go:hover:not(:disabled){
+  transform:translateY(-1px);
+  box-shadow:0 1px 0 rgba(255,255,255,.22) inset,0 12px 26px -8px var(--btn-primary-sh)}
+.ail-facet.is-on,
+.ail-tool-pill.is-on{background:var(--grad-accent);border-color:transparent;box-shadow:0 4px 12px -4px var(--btn-primary-sh)}
+.ail-pager button.is-cur{background:var(--grad-accent);border-color:transparent;box-shadow:0 4px 12px -5px var(--btn-primary-sh)}
+.ail-aicopy:hover,.ail-aicopy.is-done{background:var(--grad-accent);border-color:transparent}
+.ail-hero .ail-search input:focus{
+  outline:none;border-color:var(--forge-blue,#1A6AFF);
+  box-shadow:0 0 0 4px var(--ring),0 2px 22px -6px var(--btn-primary-sh)}
+.ail-hero .ail-search input{box-shadow:0 2px 18px -8px var(--sh-hover),0 1px 0 var(--hairline) inset}
+.ail-install button:hover,.ail-cfg button:hover{background:var(--grad-accent);border-color:transparent}
+
+/* ---- BLOCK D — ELEVATION, BORDERS, RADII, HAIRLINE HIGHLIGHTS ---- */
+.ail-card,.ail-tile,.ail-goal,.ail-col,.ail-path,.ail-step,.ail-dx-hero,.ail-dx-stat{
+  box-shadow:0 1px 0 var(--hairline) inset,0 1px 2px var(--sh-card),0 1px 3px var(--sh-card2)}
+.ail-tile,.ail-col{border-radius:var(--radius-lg)}
+.ail-card:hover,.ail-tile:hover,.ail-goal:hover,.ail-col:hover,.ail-path:hover{
+  border-color:var(--accent-line);
+  box-shadow:0 1px 0 var(--hairline) inset,0 18px 44px -14px var(--sh-hover),0 2px 8px -4px var(--sh-card2)}
+.ail-tile-ico,.ail-col-ico,.ail-goal-ico,.ail-colhero-ico,.ail-path-ico{
+  background:var(--grad-accent-soft);border:1px solid var(--accent-line)}
+.ail-tile-ico svg{color:var(--forge-blue)}
+.ail-card-badge,.ail-det-badge,.ail-dx-badge,.ail-gres-badge,.ail-recent-badge,.ailcmd-badge,.ail-cmp-h-badge{
+  background:var(--grad-accent-soft);box-shadow:0 1px 0 var(--hairline) inset}
+.ail-meta-grid{box-shadow:0 1px 0 var(--hairline) inset}
+
+/* ---- BLOCK E — MICRO-INTERACTIONS ---- */
+.ail-card-cta,.ail-col-go,.ail-goal-go{transform:translateX(-4px);transition:opacity .16s ease,transform .16s cubic-bezier(.2,.7,.3,1)}
+.ail-card:hover .ail-card-cta,.ail-col:hover .ail-col-go{transform:none}
+.ail-exq-chip{transition:transform .14s cubic-bezier(.2,.7,.3,1),border-color .14s,background .14s,color .14s,box-shadow .14s}
+.ail-exq-chip:hover{background:var(--grad-accent-soft);border-color:var(--accent-line);box-shadow:0 4px 12px -6px var(--btn-primary-sh)}
+.ail-save.is-saved{box-shadow:0 0 0 3px var(--ring)}
+@media(prefers-reduced-motion:no-preference){
+  @keyframes ailSavePop{0%{transform:scale(1)}45%{transform:scale(1.16)}100%{transform:scale(1)}}
+  .ail-save.is-saved .ail-save-ic{animation:ailSavePop .28s cubic-bezier(.2,.7,.3,1)}
+}
+.ailnav-k:hover,.ailnav-theme:hover{box-shadow:0 0 0 3px var(--ring)}
+
+/* ---- BLOCK F — SKELETON → CONTENT TRANSITION ---- */
+@media(prefers-reduced-motion:no-preference){
+  @keyframes ailFadeRise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .ail-grid .ail-card:not(.is-sk),
+  .ail-pairs-grid .ail-card:not(.is-sk){animation:ailFadeRise .34s cubic-bezier(.2,.7,.3,1) both}
+  .ail-grid .ail-card:not(.is-sk):nth-child(1){animation-delay:.02s}
+  .ail-grid .ail-card:not(.is-sk):nth-child(2){animation-delay:.05s}
+  .ail-grid .ail-card:not(.is-sk):nth-child(3){animation-delay:.08s}
+  .ail-grid .ail-card:not(.is-sk):nth-child(4){animation-delay:.11s}
+}
+.ail-sk{background:linear-gradient(90deg,var(--sk-1) 0%,var(--sk-2) 45%,var(--sk-1) 90%)}
+
+/* ---- BLOCK G — DARK MODE POLISH (intentional, not inverted) ---- */
+[data-theme='dark'] html,[data-theme='dark'] body{
+  background:
+    radial-gradient(1200px 600px at 15% -8%,rgba(26,106,255,.06),transparent 60%),
+    radial-gradient(1000px 520px at 88% -4%,rgba(122,90,240,.045),transparent 62%),
+    var(--bg)}
+[data-theme='dark'] .ail-card,
+[data-theme='dark'] .ail-tile,
+[data-theme='dark'] .ail-goal,
+[data-theme='dark'] .ail-col,
+[data-theme='dark'] .ail-path,
+[data-theme='dark'] .ail-step,
+[data-theme='dark'] .ail-dx-hero{
+  background:linear-gradient(180deg,rgba(255,255,255,.028),transparent 40%),var(--surface)}
+[data-theme='dark'] .ailnav{border-bottom-color:var(--border-2);box-shadow:0 1px 0 rgba(255,255,255,.03)}
+[data-theme='dark'] .ail-tcard{background:linear-gradient(180deg,rgba(255,255,255,.028),transparent 40%),var(--surface)}
+/* respect reduced motion — kill all premium-pass animations */
+@media(prefers-reduced-motion:reduce){
+  .ail-grid .ail-card,.ail-pairs-grid .ail-card,.ail-save.is-saved .ail-save-ic{animation:none!important}
 }
 
 </style>
@@ -822,6 +986,7 @@ a.ail-det-cat:hover{text-decoration:underline}
         '</div>'+
         '<div class="ail-gres" id="ailGlobalRes"></div>'+
         goalsSectionHTML()+
+        trendingSectionHTML()+
         onbBannerHTML()+
         recentStripHTML()+
         collectionsSectionHTML()+
@@ -865,6 +1030,7 @@ a.ail-det-cat:hover{text-decoration:underline}
     var warm=function(){ loadIndex(); };
     if('requestIdleCallback' in window) requestIdleCallback(warm,{timeout:2500});
     else setTimeout(warm,1200);
+    hydrateTrending();
     hydrateCollections();
   }
 
@@ -906,7 +1072,31 @@ a.ail-det-cat:hover{text-decoration:underline}
     else if(mode==='name') a.sort(function(x,y){return String(x.name).localeCompare(String(y.name));});
     return a; }
   function fmtStars(n){ if(n>=1000) return (n/1000).toFixed(n<10000?1:0)+'k'; return ''+n; }
-  function cardStatsHTML(r){ var e=r.extra||{}; var isRepo=(typeof e.stars!=='number'&&typeof e.repo_stars==='number'); var s=(typeof e.stars==='number')?e.stars:(isRepo?e.repo_stars:null); if(s==null) return ''; var up=(e.pushed||e.created||'').slice(0,7); return '<span class="ail-card-stars" title="'+(isRepo?'Repo stars':'GitHub stars · last updated')+'">★ '+fmtStars(s)+(isRepo?' repo':(up?' · '+up:''))+'</span>'; }
+  var FRESH_CUTOFF='2025-07';   // TODAY 2026-07 minus 12 months; string compare vs "YYYY-MM..." is exact
+  var MON_ABBR=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var ICON_FRESH_OK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+  var ICON_FRESH_STALE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+  // Returns {tone:'ok'|'stale', label, title} or null when we have no usable date.
+  function freshInfo(r){
+    var p=String((r.extra||{}).pushed||'').slice(0,10);
+    if(!/^\d{4}-\d{2}/.test(p)) return null;        // no honest date -> no claim
+    var d=new Date(), ty=d.getFullYear(), tm=d.getMonth()+1;
+    var today=ty+'-'+(tm<10?'0':'')+tm;
+    if(p.slice(0,7)>today){ // future 'pushed' date is a data artifact — clamp to now, don't print a future month
+      return {tone:'ok', label:'Updated recently', title:'Recently updated'};
+    }
+    var yr=p.slice(0,4), mo=parseInt(p.slice(5,7),10)||1;
+    if(p<FRESH_CUTOFF){
+      return {tone:'stale', label:'Updated '+yr, title:'Last updated '+p+' · may be outdated'};
+    }
+    return {tone:'ok', label:'Updated '+(MON_ABBR[mo-1]||'')+' '+yr, title:'Last updated '+p};
+  }
+  function freshPillHTML(r){
+    var f=freshInfo(r); if(!f) return '';
+    return '<span class="ail-fresh-pill ail-fresh-pill--'+f.tone+'" title="'+esc(f.title)+'">'+
+      (f.tone==='ok'?ICON_FRESH_OK:ICON_FRESH_STALE)+esc(f.label)+'</span>';
+  }
+  function cardStatsHTML(r){ var e=r.extra||{}; var isRepo=(typeof e.stars!=='number'&&typeof e.repo_stars==='number'); var s=(typeof e.stars==='number')?e.stars:(isRepo?e.repo_stars:null); if(s==null) return ''; return '<span class="ail-card-stars" title="'+(isRepo?'Repo stars':'GitHub stars')+'">★ '+fmtStars(s)+(isRepo?' repo':'')+'</span>'; }
   // ---- "Works with my tool" preference (persistent) -------------------------
   var WW_TOOLS = ['Claude Code','Cursor','Cline','Windsurf','Codex','Goose'];
   var WW_KEY = 'aivault.tool';
@@ -1066,7 +1256,7 @@ a.ail-det-cat:hover{text-decoration:underline}
         saveBtnHTML(r,false)+
       '</div>'+
       '<p class="ail-card-desc">'+esc((r.description||'').split('|')[0])+'</p>'+
-      '<div class="ail-card-foot">'+badgeHTML(r)+cardTagHTML(r)+cardStatsHTML(r)+'<span class="ail-perk" data-perkfor="'+esc(r.primary_url||'')+'" hidden></span>'+
+      '<div class="ail-card-foot">'+badgeHTML(r)+cardTagHTML(r)+cardStatsHTML(r)+freshPillHTML(r)+'<span class="ail-perk" data-perkfor="'+esc(r.primary_url||'')+'" hidden></span>'+
         '<span class="ail-card-cta">View →</span></div></a>';
   }
   function pagerHTML(page,pages){
@@ -1512,6 +1702,7 @@ a.ail-det-cat:hover{text-decoration:underline}
             return '<span class="ail-dx-stat'+(s.cls||'')+'">'+s.ic+'<span class="ail-dx-stcol"><span class="ail-dx-st-k">'+esc(s.k)+'</span><span class="ail-dx-st-v">'+esc(s.v)+'</span></span></span>';
           }).join('')+'</div>';
         }
+        H+=(function(){ var fp=freshPillHTML(r); return fp?'<div class="ail-det-fresh">'+fp+'</div>':''; })();
         // works-with chips inside hero
         if(key==='skill'&&e.works_with){
           H+='<div class="ail-dx-ww"><span class="ail-dx-ww-lab">'+DXI.plug+' Works with</span>'+
@@ -1625,7 +1816,7 @@ a.ail-det-cat:hover{text-decoration:underline}
       if(typeof e.stars==='number'){ var starLbl=(e.repo_skill_count>1?'repo stars':(e.github_url?'GitHub stars':'stars')); popBody+='<div class="ail-pop-stars"><span class="st">★</span>'+fmtStars(e.stars)+' <small>'+starLbl+'</small></div>'; }
       else if(key==='skill'&&typeof e.repo_stars==='number'&&e.repo_skill_count>1){ popBody+='<div class="ail-pop-stars"><span class="st">★</span>'+fmtStars(e.repo_stars)+' <small>repo stars</small></div><div class="ail-pop-upd">Shared across '+e.repo_skill_count+' skills in this repo</div>'; }
       var raw=(e.pushed||e.last_updated||e.created||''); var upd=/^\d{4}-\d{2}-\d{2}/.test(raw)?raw.slice(0,10):raw;
-      if(upd){ popBody+='<div class="ail-pop-upd">Last updated <b>'+esc(upd)+'</b></div>'; }
+      if(upd){ popBody+='<div class="ail-pop-upd">Last updated <b>'+esc(upd)+'</b> '+freshPillHTML(r)+'</div>'; }
       html+=secHTML('Popularity', popBody?'<div class="ail-pop">'+popBody+'</div>':'');
 
       // --- Links (logic unchanged) ---
@@ -1714,6 +1905,66 @@ a.ail-det-cat:hover{text-decoration:underline}
           '<div class="ail-goal-go">Explore →</div></a>';
       }).join('') +'</div></div>';
   }
+  var trendingP=null;
+  function loadTrending(){ return trendingP || (trendingP = fetch(DATA_BASE+'trending.json').then(function(r){return r.ok?r.json():{};}).catch(function(){return {};})); }
+
+  // Placeholder markup rendered synchronously in renderHub; filled by hydrateTrending().
+  function trendingSectionHTML(){
+    return '<div class="ail-trend" id="ailTrend" hidden>'+
+      '<div class="ail-trend-head"><div>'+
+        '<h2 class="ail-trend-title">Trending <em>now</em></h2>'+
+        '<p class="ail-trend-sub">The resources students are opening most this week.</p>'+
+      '</div></div>'+
+      '<div class="ail-trend-row" id="ailTrendRow"></div>'+
+      '<div class="ail-fresh" id="ailFresh" hidden>'+
+        '<div class="ail-fresh-head"><h2 class="ail-sec-h">Recently added</h2></div>'+
+        '<div class="ail-fresh-row" id="ailFreshRow"></div>'+
+      '</div></div>';
+  }
+
+  function hydrateTrending(){
+    var wrap=$('#ailTrend'), row=$('#ailTrendRow'); if(!wrap||!row) return;
+    loadTrending().then(function(data){
+      if(!row.isConnected) return;
+      data=data||{};
+      var trending=Array.isArray(data.trending)?data.trending:[];
+      var recent=Array.isArray(data.recent)?data.recent:[];
+      if(!trending.length && !recent.length){ wrap.hidden=true; return; }
+      // ---- Trending cards (top 12) ----
+      if(trending.length){
+        row.innerHTML=trending.slice(0,12).map(function(t,i){
+          var cc=CAT_BY[t.category]||{label:t.category||''};
+          var m=mono(t.name);
+          var stars=(typeof t.stars==='number' && t.stars>=0)
+            ? '<span class="ail-tcard-stars"><span class="st">★</span> '+fmtStars(t.stars)+'</span>' : '';
+          return '<a class="ail-tcard" href="#/r/'+esc(t.slug)+'">'+
+            '<div class="ail-tcard-top">'+
+              '<span class="ail-tcard-rank" style="background:'+m.bg+';color:'+m.fg+'">'+(i+1)+'</span>'+
+              '<span class="ail-tcard-cat">'+esc(cc.label)+'</span>'+
+            '</div>'+
+            '<div class="ail-tcard-name">'+esc(t.name)+'</div>'+
+            '<p class="ail-tcard-desc">'+esc((t.description||'').split('|')[0])+'</p>'+
+            stars+'</a>';
+        }).join('');
+      } else { row.hidden=true; }
+      // ---- Recently added strip ----
+      var freshWrap=$('#ailFresh'), freshRow=$('#ailFreshRow');
+      if(freshWrap && freshRow && recent.length){
+        freshRow.innerHTML=recent.slice(0,12).map(function(t){
+          var cc=CAT_BY[t.category]||{label:t.category||''};
+          var m=mono(t.name);
+          return '<a class="ail-fresh-card" href="#/r/'+esc(t.slug)+'">'+
+            '<span class="ail-fresh-badge" style="background:'+m.bg+';color:'+m.fg+'">'+esc((t.name||'?').charAt(0).toUpperCase())+'</span>'+
+            '<span class="ail-fresh-txt"><span class="ail-fresh-name">'+esc(t.name)+'</span>'+
+              '<span class="ail-fresh-cat">'+esc(cc.label)+'</span></span>'+
+            '<span class="ail-fresh-new">New</span></a>';
+        }).join('');
+        freshWrap.hidden=false;
+      } else if(freshWrap){ freshWrap.hidden=true; }
+      wrap.hidden=false;
+    });
+  }
+
   function collectionsSectionHTML(){
     return '<div class="ail-cols" id="ailCols" hidden>'+
       '<div class="ail-cols-head"><div>'+
