@@ -81,6 +81,33 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(-
 .ail-search input{width:100%;height:54px;border:1.5px solid var(--border);border-radius:14px;padding:0 18px 0 48px;font-size:16px;background:var(--surface);color:var(--text);transition:border-color .15s,box-shadow .15s}
 .ail-search input:focus{outline:none;border-color:var(--forge-blue,#1A6AFF);box-shadow:0 0 0 4px rgba(26,106,255,.12)}
 .ail-search > svg{position:absolute;left:17px;top:50%;transform:translateY(-50%);color:var(--muted-3);pointer-events:none}
+/* Hero search: bigger, centerpiece treatment on the hub */
+.ail-hero .ail-search{margin:30px 0 0;max-width:720px}
+.ail-hero .ail-search input{height:64px;font-size:18px;border-radius:16px;border-width:2px;padding:0 20px 0 54px;box-shadow:0 2px 14px var(--sh-card)}
+.ail-hero .ail-search > svg{left:19px;width:22px;height:22px}
+.ail-exq{display:flex;flex-wrap:wrap;gap:8px;max-width:720px;margin:14px 0 0}
+.ail-exq-label{font:600 11px/1.9 'JetBrains Mono',monospace;letter-spacing:.6px;text-transform:uppercase;color:var(--muted-4);margin-right:2px}
+.ail-exq-chip{font:600 13px/1 'DM Sans';color:var(--text);background:var(--surface-2);border:1.5px solid var(--border-2);border-radius:999px;padding:8px 13px;cursor:pointer;transition:transform .12s,border-color .12s,background .12s,color .12s}
+.ail-exq-chip:hover{transform:translateY(-1px);border-color:rgba(26,106,255,.42);background:var(--accent-soft-2);color:var(--forge-blue,#1A6AFF)}
+.ail-exq-chip:focus-visible{outline:2px solid var(--forge-blue,#1A6AFF);outline-offset:2px}
+@media(max-width:640px){.ail-hero .ail-search input{height:56px;font-size:16px}}
+/* Intent-first goal tiles */
+.ail-goals{margin:30px 0 8px}
+.ail-goals-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 16px}
+.ail-goals-title{font:600 20px 'Instrument Serif',Georgia,serif;letter-spacing:.2px;margin:0}
+.ail-goals-title em{font-style:italic;color:var(--forge-blue)}
+.ail-goals-sub{font:400 13.5px 'DM Sans';color:var(--muted);margin:0}
+.ail-goals-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ail-goal{position:relative;display:flex;flex-direction:column;gap:9px;text-decoration:none;color:inherit;border:1.5px solid var(--border-2);border-radius:16px;padding:18px 18px 16px;background:var(--surface);box-shadow:0 1px 2px var(--sh-card);transition:transform .18s cubic-bezier(.2,.7,.3,1),box-shadow .18s,border-color .18s}
+.ail-goal:hover{transform:translateY(-3px);box-shadow:0 20px 48px -12px var(--sh-hover);border-color:var(--accent-line)}
+.ail-goal:focus-visible{outline:2px solid var(--forge-blue);outline-offset:2px}
+.ail-goal-ico{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:20px;line-height:1;background:var(--accent-soft-3)}
+.ail-goal-label{font:600 15.5px 'DM Sans';color:var(--text);letter-spacing:-.1px}
+.ail-goal-hint{font:400 13px 'DM Sans';color:var(--muted);line-height:1.4}
+.ail-goal-go{margin-top:auto;font:600 12.5px 'DM Sans';color:var(--forge-blue);opacity:0;transform:translateX(-4px);transition:opacity .18s,transform .18s}
+.ail-goal:hover .ail-goal-go,.ail-goal:focus-visible .ail-goal-go{opacity:1;transform:none}
+@media(max-width:900px){.ail-goals-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.ail-goals-grid{grid-template-columns:1fr}.ail-goals-head{flex-direction:column;align-items:flex-start;gap:2px}}
 .ail-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:32px 0 80px}
 .ail-tile{display:block;text-decoration:none;color:inherit;border:1.5px solid var(--border-2);border-radius:18px;padding:22px;background:var(--surface);box-shadow:0 1px 2px var(--sh-card);transition:transform .18s cubic-bezier(.2,.7,.3,1),box-shadow .18s,border-color .18s}
 .ail-tile:hover{transform:translateY(-3px);box-shadow:0 20px 48px -10px var(--sh-hover);border-color:var(--border-hover)}
@@ -276,12 +303,34 @@ a.ail-det-cat:hover{text-decoration:underline}
 .ail-dx-note code{font:500 12.5px/1.4 'JetBrains Mono',monospace;background:var(--surface-2);border:1px solid var(--border-3);border-radius:6px;padding:1px 6px;color:var(--text-2)}
 .ail-dx .ail-sec{margin:26px 0 0}
 .ail-dx .ail-sec-t{font:700 13px/1 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted-3);margin:0 0 16px}
+/* --- PAGES INTO PATHS: Copy-for-your-AI + Pairs well with --- */
+.ail-aicopy{display:inline-flex;align-items:center;gap:8px;flex:none;border:1.5px solid var(--forge-blue);border-radius:11px;padding:9px 14px;font:600 13.5px 'DM Sans';color:var(--forge-blue);background:var(--accent-soft);cursor:pointer;transition:background .15s,color .15s,border-color .15s,transform .12s}
+.ail-aicopy svg{width:16px;height:16px;flex:none}
+.ail-aicopy:hover{background:var(--forge-blue);color:var(--surface);transform:translateY(-1px)}
+.ail-aicopy.is-done{background:var(--forge-blue);color:var(--surface);border-color:var(--forge-blue)}
+.ail-dx-actions{display:flex;align-items:center;gap:10px;flex:none;margin-left:auto}
+.ail-dx-actions .ail-dx-save{margin-left:0}
+.ail-det-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px}
+.ail-pairs{margin-top:34px}
+.ail-pairs-grp{margin-top:22px}
+.ail-pairs-grp:first-of-type{margin-top:0}
+.ail-pairs-sub{font:700 14px/1.2 'DM Sans';color:var(--text-2);margin:0 0 13px;display:flex;align-items:center;gap:9px}
+.ail-pairs-sub::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--forge-blue);flex:none}
+.ail-pairs-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.ail-pairs-grid .ail-card{padding:15px}
+.ail-pairs-grid .ail-card-desc{-webkit-line-clamp:2}
+@media (max-width:640px){ .ail-pairs-grid{grid-template-columns:1fr} }
 @media (max-width:880px){
+  /* Let the hero row wrap so the actions block drops to its own line instead of
+     crushing the title column to width:0 (title-per-character + off-screen Save). */
+  .ail-dx-top{flex-wrap:wrap;gap:14px}
+  .ail-dx-hd{flex:1 1 60%;min-width:0}
+  .ail-dx-actions{margin-left:0;flex:1 1 100%;width:100%;margin-top:14px}
+  .ail-dx-actions .ail-aicopy{flex:1;justify-content:center}
+  .ail-dx-top .ail-dx-actions .ail-dx-save{position:static}
   .ail-dx-hero{padding:20px 18px}
-  .ail-dx-top{gap:14px}
   .ail-dx-badge{width:54px;height:54px;font-size:26px;border-radius:15px}
   .ail-dx-feat{grid-template-columns:1fr;gap:12px}
-  .ail-dx-save{position:absolute;top:0;right:0}
 }
 @media (max-width:880px){
   .ail-layout{grid-template-columns:minmax(0,1fr);gap:8px}
@@ -307,6 +356,8 @@ a.ail-det-cat:hover{text-decoration:underline}
   .ail-chip{font-size:11.5px;padding:5px 9px}
   .ailfoot{font-size:13px;line-height:1.7}
   .ail-pager button{min-width:44px;height:44px}
+  /* Bump hero example-chips to the 44px touch-target minimum */
+  .ail-exq-chip{min-height:44px;padding:11px 14px}
 }
 @media (hover:none){ .ail-card-cta{opacity:1} }
 /* collections */
@@ -370,7 +421,7 @@ a.ail-det-cat:hover{text-decoration:underline}
 @media(max-width:760px){
   .ail-toolbar{padding:11px 12px}
   .ail-tool-strict{margin-left:0;width:100%;order:9}
-  .ail-tool-pill{padding:9px 14px;min-height:40px}
+  .ail-tool-pill{padding:9px 14px;min-height:44px}
 }
 /* ===== ⌘K command palette ===== */
 .ailnav-k{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);background:var(--surface);border-radius:10px;padding:7px 9px 7px 11px;font:600 13px/1 'DM Sans';color:var(--muted);cursor:pointer;transition:border-color .14s,color .14s,box-shadow .14s;white-space:nowrap}
@@ -578,7 +629,7 @@ a.ail-det-cat:hover{text-decoration:underline}
   var PAGE = 24;
   var $ = function(s,r){return (r||document).querySelector(s);};
   var esc = function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
-  var debounce = function(fn,ms){var t;return function(){var a=arguments,c=this;clearTimeout(t);t=setTimeout(function(){fn.apply(c,a);},ms);};};
+  var debounce = function(fn,ms){var t,la,lc;var deb=function(){la=arguments;lc=this;clearTimeout(t);t=setTimeout(function(){fn.apply(lc,la);},ms);};deb.flush=function(){clearTimeout(t);if(la)fn.apply(lc,la);};return deb;};
 
   // =========================================================
   // SAVE TO MY STACK + RECENTLY VIEWED  (localStorage, no login)
@@ -750,8 +801,14 @@ a.ail-det-cat:hover{text-decoration:underline}
         '<h1 class="ail-h1">14,465 AI <em>resources</em>, in one place.</h1>'+
         '<p class="ail-lede">Every agent skill, AI tool, MCP server, LLM, agent and design system — searchable, categorized, and free. No signup, nothing locked. Built for LevelUp AI students.</p>'+
         '<div class="ail-stats">7,748 skills · 3,537 tools · 1,725 MCP servers · 585 LLMs · 800 agents · 70 designs</div>'+
-        '<div class="ail-search">'+ICON_SEARCH+'<input id="ailGlobal" type="text" placeholder="Search all 14,465 resources…" autocomplete="off" aria-label="Search the AI Library"></div>'+
+        '<div class="ail-search">'+ICON_SEARCH+'<input id="ailGlobal" type="text" placeholder="Try “postgres mcp”, “summarize youtube”, “resume builder”…" autocomplete="off" aria-label="Search the AI Library"></div>'+
+        '<div class="ail-exq" id="ailExq" aria-label="Example searches">'+
+          '<span class="ail-exq-label">Try</span>'+
+          ['postgres mcp','summarize youtube','free image generation','resume builder','claude code testing skill','open-source LLM']
+            .map(function(x){return '<button type="button" class="ail-exq-chip" data-q="'+esc(x)+'">'+esc(x)+'</button>';}).join('')+
+        '</div>'+
         '<div class="ail-gres" id="ailGlobalRes"></div>'+
+        goalsSectionHTML()+
         onbBannerHTML()+
         recentStripHTML()+
         collectionsSectionHTML()+
@@ -781,7 +838,20 @@ a.ail-det-cat:hover{text-decoration:underline}
       });
     },180);
     gi.addEventListener('input',run);
-    gi.focus();
+    // Example-query chips: fill the box and fire the same instant results path
+    var exq=$('#ailExq');
+    if(exq) exq.addEventListener('click',function(e){
+      var b=e.target.closest&&e.target.closest('.ail-exq-chip'); if(!b) return;
+      gi.value=b.getAttribute('data-q'); gi.focus();
+      run(); run.flush&&run.flush();
+    });
+    // Autofocus the hero search on desktop; skip on touch so the keyboard
+    // doesn't pop up and shove the page on mobile hub load.
+    if(!('ontouchstart' in window) && !(navigator.maxTouchPoints>0)) gi.focus();
+    // Warm the 2.74MB search index on idle so the first keystroke is instant.
+    var warm=function(){ loadIndex(); };
+    if('requestIdleCallback' in window) requestIdleCallback(warm,{timeout:2500});
+    else setTimeout(warm,1200);
     hydrateCollections();
   }
 
@@ -813,9 +883,9 @@ a.ail-det-cat:hover{text-decoration:underline}
     }).sort(function(a,b){return b.n-a.n;}).slice(0, def.top||99);
   }
   // --- sort metrics (GitHub stars + dates) ---
-  function starN(r){ var s=(r.extra||{}).stars; return (typeof s==='number')?s:-1; }
+  function starN(r){ var e=r.extra||{}; var s=(typeof e.stars==='number')?e.stars:(typeof e.repo_stars==='number'?e.repo_stars:null); return (s==null)?-1:s; }
   function dateN(r){ var e=r.extra||{}; var t=Date.parse(e.created||e.pushed||e.last_updated||''); return isNaN(t)?-1:t; }
-  function topScore(r){ var s=starN(r); if(s<0) return -1; var p=Date.parse((r.extra||{}).pushed||(r.extra||{}).created||''); var fresh=1; if(!isNaN(p)){ var months=(Date.now()-p)/2628000000; fresh=1/(1+Math.max(0,months)/18); } return s*fresh; }
+  function topScore(r){ var s=starN(r); if(s<0) return -1; var e=r.extra||{}; var p=Date.parse(e.pushed||e.created||''); var fresh=1; if(!isNaN(p)){ var months=(Date.now()-p)/2628000000; fresh=1/(1+Math.max(0,months)/18); } return s*fresh; }
   function sortRows(rows,mode){ var a=rows.slice();
     if(mode==='popular') a.sort(function(x,y){return starN(y)-starN(x);});
     else if(mode==='top') a.sort(function(x,y){return topScore(y)-topScore(x);});
@@ -823,7 +893,7 @@ a.ail-det-cat:hover{text-decoration:underline}
     else if(mode==='name') a.sort(function(x,y){return String(x.name).localeCompare(String(y.name));});
     return a; }
   function fmtStars(n){ if(n>=1000) return (n/1000).toFixed(n<10000?1:0)+'k'; return ''+n; }
-  function cardStatsHTML(r){ var e=r.extra||{}; if(typeof e.stars!=='number') return ''; var up=(e.pushed||e.created||'').slice(0,7); return '<span class="ail-card-stars" title="GitHub stars · last updated">★ '+fmtStars(e.stars)+(up?' · '+up:'')+'</span>'; }
+  function cardStatsHTML(r){ var e=r.extra||{}; var isRepo=(typeof e.stars!=='number'&&typeof e.repo_stars==='number'); var s=(typeof e.stars==='number')?e.stars:(isRepo?e.repo_stars:null); if(s==null) return ''; var up=(e.pushed||e.created||'').slice(0,7); return '<span class="ail-card-stars" title="'+(isRepo?'Repo stars':'GitHub stars · last updated')+'">★ '+fmtStars(s)+(isRepo?' repo':(up?' · '+up:''))+'</span>'; }
   // ---- "Works with my tool" preference (persistent) -------------------------
   var WW_TOOLS = ['Claude Code','Cursor','Cline','Windsurf','Codex','Goose'];
   var WW_KEY = 'aivault.tool';
@@ -1006,10 +1076,10 @@ a.ail-det-cat:hover{text-decoration:underline}
   function renderBrowse(key){
     var host=$('#aivaultHost'); if(!host) return;
     var def=CAT_BY[key]; if(!def){ renderHub(); return; }
-    B={key:key, rows:[], query:'', facets:{}, page:0, sort:'', toolPref:(key==='skill'?wwGetPref():'')};
+    B={key:key, rows:[], query:'', facets:{}, page:0, sort:'popular', toolPref:(key==='skill'?wwGetPref():'')};
     // deep-link filters: #/c/<cat>?<field>=<value>  (used by clickable category tags on detail pages)
     var _qp=location.hash.indexOf('?');
-    if(_qp>=0){ var _dec=function(s){ try{ return decodeURIComponent(s); }catch(_){ return s; } }; location.hash.slice(_qp+1).split('&').forEach(function(p){ var kv=p.split('='); if(kv[0]&&kv[1]!=null){ var f=_dec(kv[0]); if(!B.facets[f])B.facets[f]=new Set(); B.facets[f].add(_dec(kv[1]).toLowerCase()); } }); }
+    if(_qp>=0){ var _dec=function(s){ try{ return decodeURIComponent(s.replace(/\+/g,' ')); }catch(_){ return s; } }; location.hash.slice(_qp+1).split('&').forEach(function(p){ var kv=p.split('='); if(kv[0]&&kv[1]!=null){ var f=_dec(kv[0]); var v=_dec(kv[1]); if(f==='q'){ B.query=v; } else { if(!B.facets[f])B.facets[f]=new Set(); B.facets[f].add(v.toLowerCase()); } } }); }
     host.innerHTML=
       '<div class="ail-wrap"><div class="ail-hero" style="padding-bottom:14px">'+
         '<a class="ail-back" href="#/">'+ICON_BACK+' AI Library</a>'+
@@ -1024,7 +1094,7 @@ a.ail-det-cat:hover{text-decoration:underline}
           '<div class="ail-main-head"><div class="ail-count" id="ailCount"><span class="ail-sk ail-sk-count" aria-label="Loading results"></span></div>'+
             '<div style="display:flex;align-items:center;gap:8px">'+
             (key==='llm'?'<button type="button" class="ail-cmp-toggle" id="ailCmpToggle" aria-pressed="false" title="Pick up to 4 models to compare side by side"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="21"/><line x1="18" y1="3" x2="18" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>Compare</button>':'')+
-            '<select class="ail-sort" id="ailSort" aria-label="Sort results"><option value="">Sort: Relevant</option><option value="popular">★ Popular</option><option value="top">Top rated</option><option value="newest">Newest</option><option value="name">Name A–Z</option></select>'+
+            '<select class="ail-sort" id="ailSort" aria-label="Sort results"><option value="popular" selected>★ Popular</option><option value="">Relevant</option><option value="top">Top rated</option><option value="newest">Newest</option><option value="name">Name A–Z</option></select>'+
             '</div>'+
           '</div>'+
           (key==='skill'?'<div id="ailToolbarMount">'+skToolbarHTML()+'</div>':'')+
@@ -1034,6 +1104,7 @@ a.ail-det-cat:hover{text-decoration:underline}
       '</div></div>';
 
     var q=$('#ailQ');
+    if(B.query){ q.value=B.query; }
     q.addEventListener('input',debounce(function(){ B.query=q.value; B.page=0; applyBrowse(); },150));
     q.addEventListener('keydown',function(e){ if(e.key==='Escape'){ q.value=''; B.query=''; B.page=0; applyBrowse(); } });
     var ss=$('#ailSort'); if(ss) ss.addEventListener('change',function(){ B.sort=ss.value; B.page=0; applyBrowse(); window.scrollTo({top:0,behavior:'smooth'}); });
@@ -1207,6 +1278,131 @@ a.ail-det-cat:hover{text-decoration:underline}
     info:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>'
   };
 
+  // =========================================================
+  //  PAGES INTO PATHS  — Copy-for-your-AI + Pairs well with
+  // =========================================================
+  // (1) paste-ready plain-text context block for Claude / Cursor / ChatGPT
+  function aiContextText(r, key, e){
+    e = e || r.extra || {};
+    var def = CAT_BY[key] || {};
+    var lines = [];
+    lines.push(r.name + (def.label ? ' ('+def.label.replace(/s$/,'')+')' : ''));
+    var one = String(r.description||'').split('|')[0].trim();
+    if(one) lines.push(one);
+    if((key==='skill'||key==='mcp_server') && e.install_command && runnableInstall(e.install_command)){
+      lines.push('Install: '+String(e.install_command).trim());
+    }
+    var gh   = e.github_url || ((r.external_url && !/explainx/i.test(r.external_url)) ? r.external_url : '');
+    var site = e.website || ((e.website_url && !/explainx/i.test(e.website_url)) ? e.website_url : '');
+    var link = gh || site || '';
+    if(link) lines.push('Link: '+link);
+    lines.push('Reference: '+location.origin+location.pathname+'#/r/'+r.slug);
+    lines.push('');
+    lines.push('Help me use this in my project — explain setup and give me a first example.');
+    return lines.join('\n');
+  }
+  function aiCopyBtnHTML(r, key, e){
+    var payload = aiContextText(r, key, e);
+    return '<button type="button" class="ail-aicopy" data-aicopy="'+esc(payload)+'" '+
+      'title="Copy this resource as paste-ready context for Claude, Cursor or ChatGPT">'+
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>'+
+      '<span class="ail-aicopy-t">Copy for your AI</span></button>';
+  }
+  function bindAiCopy(host){
+    $$('[data-aicopy]',host).forEach(function(cb){
+      cb.addEventListener('click',function(){
+        var txt=cb.getAttribute('data-aicopy');
+        var lab=cb.querySelector('.ail-aicopy-t');
+        (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(function(){
+          cb.classList.add('is-done'); if(lab) lab.textContent='Copied for AI';
+          setTimeout(function(){ cb.classList.remove('is-done'); if(lab) lab.textContent='Copy for your AI'; },1800);
+        }).catch(function(){
+          try{ var ta=document.createElement('textarea'); ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); cb.classList.add('is-done'); if(lab) lab.textContent='Copied for AI'; setTimeout(function(){ cb.classList.remove('is-done'); if(lab) lab.textContent='Copy for your AI'; },1800);}catch(_){}
+        });
+      });
+    });
+  }
+
+  // (2) related-resource discovery — same category, shared primary tag, by stars
+  function relScore(r){ var s=starN(r); return s<0?0:s; }
+  // A per-repo key so one mega-repo's many bundled skills can't dominate "like this".
+  function relRepoKey(r){ var e=r.extra||{}; var k=(e.owner||'')+'/'+(e.repo||''); return k==='/' ? '' : k.toLowerCase(); }
+  function getRelated(item, rows){
+    var out = { primary:[] };
+    if(!item || !rows || !rows.length) return out;
+    var tag = cardTagInfo(item);            // {f,v} primary facet, or null
+    var self = item.slug;
+    if(tag){
+      var f=tag.f, want=String(tag.v).toLowerCase(), matches=[];
+      for(var i=0;i<rows.length;i++){
+        var r=rows[i]; if(r.slug===self) continue;
+        var raw=(r.extra||{})[f]; if(raw==null) continue;
+        var vals = (f==='categories')
+          ? String(raw).split(/[;,]/).map(function(s){return s.trim().toLowerCase();})
+          : [String(raw).toLowerCase()];
+        if(vals.indexOf(want)>=0) matches.push(r);
+      }
+      matches.sort(function(a,b){ return relScore(b)-relScore(a); });
+      // De-dupe by owner/repo first: skills bundled in one mega-repo all inherit that
+      // repo's full star count, so a plain star sort would surface "whatever lives in the
+      // biggest repo". Take at most one skill per repo, then backfill from the rest if we
+      // still have fewer than 4 (e.g. small categories where everything is one repo).
+      var seen={}, uniq=[], rest=[];
+      for(var j=0;j<matches.length;j++){
+        var m=matches[j], rk=relRepoKey(m);
+        if(rk && seen[rk]){ rest.push(m); continue; }
+        if(rk) seen[rk]=1;
+        uniq.push(m);
+      }
+      out.primary = uniq.concat(rest).slice(0,4);
+    }
+    return out;
+  }
+  // complementary MCP-server categories derivable from a skill/tool's tag
+  var REL_MCP_HINTS = {
+    'coding':['developer-tools'],'developer tools':['developer-tools'],'devops':['developer-tools','cloud-infrastructure'],
+    'data':['databases','analytics-data'],'data science':['databases','analytics-data'],'analytics':['analytics-data'],
+    'research':['search-web'],'search':['search-web'],'writing':['content'],'content':['content'],
+    'marketing':['analytics-data','content'],'productivity':['productivity'],'automation':['productivity','developer-tools'],
+    'finance':['finance','accounting'],'security':['auth-security'],'design':['content'],
+    'web':['browser-automation','search-web'],'websites':['browser-automation'],'chatbots':['ai-ml']
+  };
+  function crossMcpCats(item){
+    var cats={}, tag=cardTagInfo(item);
+    if(tag){ var hints=REL_MCP_HINTS[String(tag.v).toLowerCase()]; if(hints) hints.forEach(function(c){cats[c]=1;}); }
+    return Object.keys(cats);
+  }
+  function renderPairs(item){
+    var mount=$('#ailPairs'); if(!mount) return;
+    var key=item.category||String(item.slug).split('/')[0];
+    loadCat(key).then(function(rows){
+      var rel=getRelated(item, rows);
+      var wantCross=(key==='skill'||key==='tool');
+      var crossCats=wantCross?crossMcpCats(item):[];
+      var finish=function(crossRows){
+        var blocks='';
+        if(rel.primary.length){
+          blocks+='<div class="ail-pairs-grp"><h3 class="ail-pairs-sub">More '+esc(String((CAT_BY[key]||{}).label||'like this').toLowerCase())+' like this</h3>'+
+            '<div class="ail-grid ail-pairs-grid">'+rel.primary.map(cardHTML).join('')+'</div></div>';
+        }
+        if(crossRows && crossRows.length){
+          blocks+='<div class="ail-pairs-grp"><h3 class="ail-pairs-sub">Connect it up with an MCP server</h3>'+
+            '<div class="ail-grid ail-pairs-grid">'+crossRows.map(cardHTML).join('')+'</div></div>';
+        }
+        if(!blocks){ mount.innerHTML=''; return; }
+        mount.innerHTML='<section class="ail-sec ail-pairs"><h2 class="ail-sec-t">Pairs well with</h2>'+blocks+'</section>';
+        if(typeof markPerks==='function') markPerks();
+      };
+      if(wantCross && crossCats.length){
+        loadCat('mcp_server').then(function(mrows){
+          var all=mrows.filter(function(r){ var raw=String((r.extra||{}).categories||'').toLowerCase(); for(var c=0;c<crossCats.length;c++){ if(raw.indexOf(crossCats[c])>=0) return true; } return false; });
+          all.sort(function(a,b){return relScore(b)-relScore(a);});
+          finish(all.slice(0,2));
+        }).catch(function(){ finish([]); });
+      } else { finish([]); }
+    }).catch(function(){});
+  }
+
   function renderDetail(slug){
     var host=$('#resourceHost'); if(!host) return;
     host.innerHTML=skDetailHTML();
@@ -1268,7 +1464,9 @@ a.ail-det-cat:hover{text-decoration:underline}
       function tailBind(){
         window.scrollTo({top:0});
         pushRecent(r);
-        $$('[data-copy]',host).forEach(function(cb){ cb.addEventListener('click',function(){ var txt=cb.getAttribute('data-copy'); (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(function(){cb.textContent='Copied';setTimeout(function(){cb.textContent='Copy';},1500);}).catch(function(){}); }); });
+        $$('[data-copy]',host).forEach(function(cb){ cb.addEventListener('click',function(){ var txt=cb.getAttribute('data-copy'); (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(function(){cb.textContent='Copied';setTimeout(function(){cb.textContent='Copy';},1500);}).catch(function(){ try{ var ta=document.createElement('textarea'); ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); cb.textContent='Copied'; setTimeout(function(){cb.textContent='Copy';},1500);}catch(_){}} ); }); });
+        bindAiCopy(host);
+        renderPairs(r);
         renderXlink(r);
       }
 
@@ -1287,7 +1485,7 @@ a.ail-det-cat:hover{text-decoration:underline}
                '<h1 class="ail-dx-h1">'+esc(r.name)+'</h1>'+
                (c.tagline?'<p class="ail-dx-tagline">'+esc(c.tagline)+'</p>':'')+
              '</div>'+
-             '<div class="ail-dx-save">'+saveBtnHTML(r,true)+'</div>'+
+             '<div class="ail-dx-actions">'+aiCopyBtnHTML(r,key,e)+'<div class="ail-dx-save">'+saveBtnHTML(r,true)+'</div></div>'+
            '</div>';
         // badges row
         (function(){ var b=deriveBadge({category:(r.category||key),extra:e}); if(b) H+='<div class="ail-dx-badges">'+badgeHTML({category:(r.category||key),extra:e})+'</div>'; })();
@@ -1365,6 +1563,7 @@ a.ail-det-cat:hover{text-decoration:underline}
 
         // Links
         H+=secHTML('Links', buildLinks());
+        H+='<div id="ailPairs"></div>';
         H+='<div id="ailXlink"></div></div>';
         host.innerHTML=H;
         tailBind();
@@ -1377,6 +1576,7 @@ a.ail-det-cat:hover{text-decoration:underline}
         '<div class="ail-det-head"><span class="ail-det-badge" style="background:'+mono(r.name).bg+';color:'+mono(r.name).fg+'">'+esc((r.name||'?').charAt(0).toUpperCase())+'</span>'+
           '<div style="min-width:0"><a class="ail-det-cat" href="#/c/'+key+'">'+esc(def.label)+'</a><h1>'+esc(r.name)+'</h1>'+detailTagHTML(r,key)+
           (function(){var b=deriveBadge({category:(r.category||key),extra:e});return b?'<div class="ail-det-badges">'+badgeHTML({category:(r.category||key),extra:e})+'</div>':'';})()+
+          '<div class="ail-det-actions">'+aiCopyBtnHTML(r,key,e)+'</div>'+
           '</div>'+saveBtnHTML(r,true)+'</div>';
 
       // --- What it does ---
@@ -1431,6 +1631,7 @@ a.ail-det-cat:hover{text-decoration:underline}
         else if(key==='llm') links.push(e.weights==='open'?L('https://huggingface.co/models?search='+enc(r.name),'Hugging Face'):L('https://www.google.com/search?q='+enc(r.name+' '+(e.provider||'')+' model'),'Open '+r.name));
       }
       html+=secHTML('Links', links.length?'<div class="ail-links">'+links.join('')+'</div>':'');
+      html+='<div id="ailPairs"></div>';
       html+='<div id="ailXlink"></div>';
       html+='</div>';
       host.innerHTML=html;
@@ -1438,6 +1639,8 @@ a.ail-det-cat:hover{text-decoration:underline}
       pushRecent(r);   // track for the hub "Recently viewed" strip
       // copy (bind every copy button — terminal + MCP config)
       $$('[data-copy]',host).forEach(function(cb){ cb.addEventListener('click',function(){ var txt=cb.getAttribute('data-copy'); (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(function(){cb.textContent='Copied';setTimeout(function(){cb.textContent='Copy';},1500);}).catch(function(){}); }); });
+      bindAiCopy(host);
+      renderPairs(r);
       // perk cross-link
       renderXlink(r);
     });
@@ -1478,6 +1681,28 @@ a.ail-det-cat:hover{text-decoration:underline}
   var collectionsP=null;
   function loadCollections(){ return collectionsP || (collectionsP = fetch(DATA_BASE+'collections.json').then(function(r){return r.json();}).catch(function(){return [];})); }
 
+  var GOALS = [
+    {ico:'🚀', label:'Build an app',            hint:'Frameworks & starters to ship your first AI product.', href:'#/collection/build-your-first-ai-agent'},
+    {ico:'⚡', label:'Automate my work',        hint:'Workflows & agents that do the boring parts for you.', href:'#/collection/automation-and-workflow'},
+    {ico:'✍️', label:'Write & research',        hint:'Draft, summarize and dig into sources faster.',        href:'#/collection/research-and-writing'},
+    {ico:'🎬', label:'Make media',              hint:'Generate images, video, music & voice.',               href:'#/c/tool?q='+encodeURIComponent('video image audio')},
+    {ico:'🤖', label:'Set up my AI coding agent',hint:'Skills, MCP servers & agents for Claude Code / Cursor.',href:'#/collection/coding-agent-starter-kit'},
+    {ico:'🎓', label:'Learn to code',           hint:'Beginner-friendly, 1-line-install resources.',         href:'#/collection/beginner-friendly-one-line-installs'}
+  ];
+  function goalsSectionHTML(){
+    return '<div class="ail-goals" id="ailGoals">'+
+      '<div class="ail-goals-head">'+
+        '<h2 class="ail-goals-title">What do you want to <em>do</em>?</h2>'+
+        '<p class="ail-goals-sub">Pick a goal — we’ll point you at the right resources.</p>'+
+      '</div>'+
+      '<div class="ail-goals-grid">'+ GOALS.map(function(g){
+        return '<a class="ail-goal" href="'+g.href+'">'+
+          '<div class="ail-goal-ico" aria-hidden="true">'+g.ico+'</div>'+
+          '<div class="ail-goal-label">'+esc(g.label)+'</div>'+
+          '<div class="ail-goal-hint">'+esc(g.hint)+'</div>'+
+          '<div class="ail-goal-go">Explore →</div></a>';
+      }).join('') +'</div></div>';
+  }
   function collectionsSectionHTML(){
     return '<div class="ail-cols" id="ailCols" hidden>'+
       '<div class="ail-cols-head"><div>'+
