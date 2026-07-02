@@ -99,6 +99,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(-
 .ail-layout{display:grid;grid-template-columns:230px 1fr;gap:34px;align-items:start;padding-bottom:90px}
 .ail-layout--solo{grid-template-columns:1fr;max-width:1000px;margin:0 auto}
 .ail-rail{position:sticky;top:84px}
+.ail-filtoggle{display:none}
 .ail-rail-grp{margin-bottom:22px}
 .ail-rail-label{font:700 11px/1 'JetBrains Mono',monospace;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted-3);margin-bottom:10px}
 .ail-facet{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);background:var(--surface);border-radius:999px;padding:6px 11px;font:500 13px/1 'DM Sans';color:var(--text-2);cursor:pointer;margin:0 6px 6px 0;transition:all .12s}
@@ -285,9 +286,14 @@ a.ail-det-cat:hover{text-decoration:underline}
 @media (max-width:880px){
   .ail-layout{grid-template-columns:minmax(0,1fr);gap:8px}
   .ail-rail,.ail-main{min-width:0}
-  .ail-rail{position:static;top:auto;display:block;overflow:visible;border:1px solid var(--border-3);border-radius:12px;padding:12px;margin-bottom:8px}
+  .ail-rail{position:static;top:auto;display:block;overflow:hidden;border:1px solid var(--border-3);border-radius:12px;padding:0 12px;margin-bottom:8px;max-height:0;border-color:transparent}
+  .ail-rail.is-open{max-height:none;padding:12px;border-color:var(--border-3)}
   .ail-rail-grp{margin-bottom:14px}
   .ail-rail-grp:last-child{margin-bottom:0}
+  /* mobile "Filters" disclosure — collapsed by default so result cards are visible without scrolling past the whole facet list */
+  .ail-filtoggle{display:flex;align-items:center;gap:8px;width:100%;min-height:44px;margin-bottom:8px;padding:11px 14px;border:1px solid var(--border-3);border-radius:12px;background:var(--surface);color:var(--text);font:600 14px 'DM Sans';cursor:pointer}
+  .ail-filtoggle .ct{margin-left:auto;color:var(--muted-3);font-weight:600}
+  .ail-filtoggle svg{width:18px;height:18px;flex:none;color:var(--muted-3)}
   .ail-tiles{grid-template-columns:1fr}
   .ail-grid{grid-template-columns:minmax(0,1fr)}
   .ail-hero{padding:84px 0 18px}
@@ -603,6 +609,13 @@ a.ail-det-cat:hover{text-decoration:underline}
     if(/^[a-z0-9][a-z0-9 _\/-]*$/.test(s)) return s.split(/[ _-]+/).map(function(p){return p.split('/').map(titleWord).join('/');}).join(' ');
     return s;
   }
+  // Guard: a github.com install URL whose owner/repo segment contains whitespace is un-runnable — suppress it.
+  function runnableInstall(cmd){
+    cmd=String(cmd||'');
+    var m=cmd.match(/github\.com\/([^\s]*\s[^\s]*)/); // space anywhere in the path -> broken URL
+    if(m) return false;
+    return true;
+  }
 
   var CATS = [
     {key:'skill',      label:'Skills',      icon:'⚡', count:7748, blurb:'Install-ready agent skills for Claude Code, Cursor, Codex & 23 more tools.',
@@ -630,24 +643,100 @@ a.ail-det-cat:hover{text-decoration:underline}
     }).catch(function(){return [];});
     return cache[key];
   }
+  // Category-level search synonyms so queries like "mcp", "model", "language model", "agent" reach the right rows
+  var CAT_SYN={ skill:'skill agent skill', tool:'tool app', mcp_server:'mcp mcp server mcp servers connector', llm:'llm model language model ai model', agent:'agent autonomous agent assistant', design:'design design system ui' };
   function loadIndex(){ return indexP || (indexP = fetch(DATA_BASE+'index.json').then(function(r){return r.json();}).then(function(rows){
-    rows.forEach(function(x){ x._hay=(x.n+' '+(x.d||'')).toLowerCase(); }); return rows; }).catch(function(){return [];})); }
+    rows.forEach(function(x){ x._hay=(x.n+' '+(x.d||'')+' '+(CAT_SYN[x.c]||x.c||'')).toLowerCase(); }); return rows; }).catch(function(){return [];})); }
   function loadPerks(){ return perksP || (perksP = fetch(DATA_BASE+'perks_resource_matches.json').then(function(r){return r.json();}).catch(function(){return [];})); }
 
   // --- search scoring (tokenized substring) ---
+  var STOPWORDS={ 'free':1,'best':1,'small':1,'open':1,'source':1,'a':1,'an':1,'for':1,'the':1,'to':1,'of':1,'my':1,'with':1,'and':1,'in':1,'on':1,'top':1,'good':1,'great':1,'new':1 };
+  // Common student typos / aliases -> canonical term (fires as a fallback only)
+  var SEARCH_ALIASES={ 'pyhton':'python','pyton':'python','phyton':'python','chatgtp':'chatgpt','chatgp':'chatgpt','chatpgt':'chatgpt','gpt4':'gpt','midjourny':'midjourney','stabe':'stable','difussion':'diffusion','diffuson':'diffusion','generaton':'generation','automaton':'automation','javascprit':'javascript','automization':'automation' };
+  function levDist(a,b){
+    if(a===b) return 0; var al=a.length, bl=b.length; if(!al) return bl; if(!bl) return al;
+    var prev=[], cur=[], i, j;
+    for(j=0;j<=bl;j++) prev[j]=j;
+    for(i=1;i<=al;i++){ cur[0]=i;
+      for(j=1;j<=bl;j++){ var cost=a.charCodeAt(i-1)===b.charCodeAt(j-1)?0:1;
+        cur[j]=Math.min(prev[j]+1, cur[j-1]+1, prev[j-1]+cost); }
+      var tmp=prev; prev=cur; cur=tmp;
+    }
+    return prev[bl];
+  }
   function search(rows, q, hayKey, nameKey){
     q=(q||'').trim().toLowerCase(); if(!q) return rows;
-    var toks=q.split(/\s+/);
-    var out=[];
-    for(var i=0;i<rows.length;i++){
-      var r=rows[i], hay=r[hayKey], ok=true, sc=0, nm=(r[nameKey]||'').toLowerCase();
-      for(var t=0;t<toks.length;t++){ if(hay.indexOf(toks[t])<0){ok=false;break;} }
-      if(!ok) continue;
-      if(nm===q) sc=100; else if(nm.indexOf(q)===0) sc=60; else if(nm.indexOf(q)>=0) sc=30; else sc=10;
-      out.push([sc,r]);
+    var rawToks=q.split(/\s+/).filter(function(t){return t.length>0;});
+    // strong tokens gate results; weak (stopword / very short) tokens only add score
+    var strong=[], weak=[];
+    rawToks.forEach(function(t){ if(t.length>=3 && !STOPWORDS[t]) strong.push(t); else weak.push(t); });
+    if(!strong.length){ strong=rawToks.slice(); weak=[]; } // all-weak query: fall back to matching what we have
+    function scan(strongToks){
+      var out=[];
+      for(var i=0;i<rows.length;i++){
+        var r=rows[i], hay=r[hayKey], nm=(r[nameKey]||'').toLowerCase();
+        var matched=0, sc=0;
+        for(var t=0;t<strongToks.length;t++){
+          var tk=strongToks[t];
+          if(hay.indexOf(tk)<0) continue;
+          matched++;
+          // token found in name ranks far above body-only match
+          if(nm===tk) sc+=50; else if(nm.indexOf(tk)===0) sc+=35; else if(nm.indexOf(tk)>=0) sc+=25; else sc+=8;
+        }
+        if(!matched) continue; // require at least one strong token (graded OR)
+        // coverage bonus: reward rows containing more of the strong tokens
+        sc += (matched/strongToks.length)*40;
+        // weak/stopword tokens: bonus only, never a filter
+        for(var w=0;w<weak.length;w++){ if(hay.indexOf(weak[w])>=0) sc+=3; }
+        // whole-query boosts
+        if(nm===q) sc+=60; else if(nm.indexOf(q)===0) sc+=30; else if(nm.indexOf(q)>=0) sc+=15;
+        out.push([sc,r]);
+      }
+      return out;
+    }
+    var out=scan(strong);
+    // typo-tolerant fallback: only if strict pass found nothing
+    if(!out.length){
+      var corrected=strong.map(function(tk){
+        if(SEARCH_ALIASES[tk]) return SEARCH_ALIASES[tk];
+        return tk;
+      });
+      // if aliases changed something, retry; else try single-edit fuzzy against name tokens
+      if(corrected.join(' ')!==strong.join(' ')){
+        out=scan(corrected);
+      }
+      if(!out.length){
+        // fuzzy: keep a row if every strong token is within edit distance 1-2 of some word in its haystack
+        var maxD=function(t){ return t.length<=6?1:2; };
+        for(var i=0;i<rows.length;i++){
+          var r=rows[i], hay=r[hayKey], nm=(r[nameKey]||'').toLowerCase();
+          var words=hay.split(/[^a-z0-9]+/), allHit=true, sc=0;
+          for(var t=0;t<strong.length;t++){
+            var tk=strong[t], hit=false, md=maxD(tk);
+            for(var wi=0;wi<words.length;wi++){ var wrd=words[wi];
+              if(!wrd || Math.abs(wrd.length-tk.length)>md) continue;
+              if(levDist(wrd,tk)<=md){ hit=true; break; }
+            }
+            if(!hit){ allHit=false; break; }
+            sc+=10;
+          }
+          if(allHit){ if(nm.indexOf(strong[0])>=0) sc+=20; out.push([sc,r]); }
+        }
+      }
     }
     out.sort(function(a,b){ return b[0]-a[0] || String(a[1][nameKey]).localeCompare(String(b[1][nameKey])); });
-    return out.map(function(p){return p[1];});
+    // de-dupe by slug AND by identical name+description+category (the data has near-dup rows
+    // like skill/figma vs skill/figma-2). Keep the highest-scored instance of each.
+    var seen={}, seenND={}, dedup=[];
+    for(var k=0;k<out.length;k++){
+      var row=out[k][1];
+      var slugKey=row.s||row.slug||(String(row[nameKey])+'|'+(row.c||''));
+      if(seen[slugKey]) continue;
+      var ndKey=(String(row[nameKey]||'')+'|'+String(row.d||row.description||'')+'|'+(row.c||row.category||'')).toLowerCase();
+      if(seenND[ndKey]) continue;
+      seen[slugKey]=1; seenND[ndKey]=1; dedup.push(row);
+    }
+    return dedup;
   }
 
   // =========================================================
@@ -803,7 +892,7 @@ a.ail-det-cat:hover{text-decoration:underline}
     // active chips
     var chips=[];
     Object.keys(B.facets).forEach(function(f){ (B.facets[f]||new Set()).forEach(function(v){
-      var d=(B.facetDisp&&B.facetDisp[f+''+v])||v;
+      var d=(B.facetDisp&&B.facetDisp[f+''+v])||prettyLabel(v);
       chips.push('<button class="ail-chip-active" data-f="'+esc(f)+'" data-v="'+esc(v)+'">'+esc(d)+' ✕</button>'); }); });
     if(B.query) chips.push('<span class="ail-chip-active" style="cursor:default">“'+esc(B.query)+'”</span>');
     if(B.key==='skill' && B.toolPref){
@@ -812,6 +901,8 @@ a.ail-det-cat:hover{text-decoration:underline}
         (wwGetStrict()?' (verified)':'')+' ✕</button>');
     }
     $('#ailChips').innerHTML = chips.join('') + (chips.length?'<button class="ail-clear" id="ailClear">Clear all</button>':'');
+    // mobile filters button: show count of active facet values
+    var _fc=$('#ailFilCt'); if(_fc){ var _fn=0; Object.keys(B.facets).forEach(function(f){ _fn+=(B.facets[f]||new Set()).size; }); _fc.textContent=_fn?_fn+' active':''; }
     // results
     var rc=$('#ailResults');
     if(!slice.length){ rc.innerHTML='<div class="ail-empty" role="status">'+(B.query?'No matches for “'+esc(B.query)+'”.':'No resources match these filters.')+'<br><button class="btn btn-primary btn-sm" id="ailReset">Clear filters</button></div>'; }
@@ -918,7 +1009,7 @@ a.ail-det-cat:hover{text-decoration:underline}
     B={key:key, rows:[], query:'', facets:{}, page:0, sort:'', toolPref:(key==='skill'?wwGetPref():'')};
     // deep-link filters: #/c/<cat>?<field>=<value>  (used by clickable category tags on detail pages)
     var _qp=location.hash.indexOf('?');
-    if(_qp>=0){ location.hash.slice(_qp+1).split('&').forEach(function(p){ var kv=p.split('='); if(kv[0]&&kv[1]!=null){ var f=decodeURIComponent(kv[0]); if(!B.facets[f])B.facets[f]=new Set(); B.facets[f].add(decodeURIComponent(kv[1]).toLowerCase()); } }); }
+    if(_qp>=0){ var _dec=function(s){ try{ return decodeURIComponent(s); }catch(_){ return s; } }; location.hash.slice(_qp+1).split('&').forEach(function(p){ var kv=p.split('='); if(kv[0]&&kv[1]!=null){ var f=_dec(kv[0]); if(!B.facets[f])B.facets[f]=new Set(); B.facets[f].add(_dec(kv[1]).toLowerCase()); } }); }
     host.innerHTML=
       '<div class="ail-wrap"><div class="ail-hero" style="padding-bottom:14px">'+
         '<a class="ail-back" href="#/">'+ICON_BACK+' AI Library</a>'+
@@ -927,6 +1018,7 @@ a.ail-det-cat:hover{text-decoration:underline}
         '<div class="ail-search">'+ICON_SEARCH+'<input id="ailQ" type="text" placeholder="Search '+def.count.toLocaleString()+' '+def.label.toLowerCase()+'…" autocomplete="off" aria-label="Search '+def.label+'. Press slash to focus, arrow keys to browse results, Enter to open."></div>'+
       '</div>'+
       '<div class="ail-layout'+(def.facets.length?'':' ail-layout--solo')+'">'+
+        (def.facets.length?'<button type="button" class="ail-filtoggle" id="ailFilToggle" aria-expanded="false" aria-controls="ailRail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></svg>Filters<span class="ct" id="ailFilCt"></span></button>':'')+
         (def.facets.length?'<aside class="ail-rail" id="ailRail"></aside>':'')+
         '<div class="ail-main" id="ailMain">'+
           '<div class="ail-main-head"><div class="ail-count" id="ailCount"><span class="ail-sk ail-sk-count" aria-label="Loading results"></span></div>'+
@@ -951,6 +1043,9 @@ a.ail-det-cat:hover{text-decoration:underline}
       // --- compare mode: toggle button ---
       var cmpT=e.target.closest&&e.target.closest('#ailCmpToggle');
       if(cmpT){ var main=$('#ailMain'); var on=main.classList.toggle('is-cmp'); cmpT.classList.toggle('is-on',on); cmpT.setAttribute('aria-pressed',on?'true':'false'); renderCmpBar(); applyCmpFull(); return; }
+      // --- mobile filters disclosure ---
+      var filT=e.target.closest&&e.target.closest('#ailFilToggle');
+      if(filT){ var rail=$('#ailRail'); if(rail){ var ropen=rail.classList.toggle('is-open'); filT.setAttribute('aria-expanded',ropen?'true':'false'); } return; }
       // --- compare mode: clicking a card picks it instead of navigating ---
       var mainEl=$('#ailMain');
       if(mainEl && mainEl.classList.contains('is-cmp')){
@@ -1137,7 +1232,7 @@ a.ail-det-cat:hover{text-decoration:underline}
       // ---- shared builders (install block, works-with, links) reused by both paths ----
       function buildInstall(){
         var b='';
-        if((key==='skill'||key==='mcp_server')&&e.install_command){
+        if((key==='skill'||key==='mcp_server')&&e.install_command&&runnableInstall(e.install_command)){
           b+='<div class="ail-install"><span class="ail-install-tag">terminal</span><code id="ailCmd">'+esc(e.install_command)+'</code><button data-copy="'+esc(e.install_command)+'">Copy</button></div>';
           if(key==='mcp_server') b+=mcpConfigHTML(r.name, e.install_command);
         }
@@ -1239,14 +1334,16 @@ a.ail-det-cat:hover{text-decoration:underline}
         // How to install (terminal + config) — real install data
         H+=secHTML('How to install', buildInstall());
 
-        // How to use it (numbered steps)
-        if(Array.isArray(c.howTo)&&c.howTo.length){
+        // How to use it (numbered steps) — drop any step embedding an un-runnable install URL
+        var howToSteps=Array.isArray(c.howTo)?c.howTo.filter(function(s){return s&&runnableInstall(String(s));}):[];
+        if(howToSteps.length){
           H+=secHTML('How to use it','<ol class="ail-dx-steps">'+
-            c.howTo.filter(Boolean).map(function(s){return '<li class="ail-dx-step"><div class="ail-dx-step-bd"><p class="ail-dx-step-p">'+dxProse(s)+'</p></div></li>';}).join('')+'</ol>');
+            howToSteps.map(function(s){return '<li class="ail-dx-step"><div class="ail-dx-step-bd"><p class="ail-dx-step-p">'+dxProse(s)+'</p></div></li>';}).join('')+'</ol>');
         }
 
         // Example (copyable snippet/prompt/config)
         var exCode=dxExampleCode(c.example);
+        if(exCode&&!runnableInstall(exCode)) exCode=''; // suppress un-runnable install snippet (space in github url)
         if(exCode){
           var exLabel=(c.example&&c.example.label)||'Example';
           var looksJson=/[{:]/.test(exCode)&&/[}\n]/.test(exCode)&&exCode.indexOf('"')>-1;
@@ -1287,7 +1384,7 @@ a.ail-det-cat:hover{text-decoration:underline}
 
       // --- How to install (terminal block + MCP client config) ---
       var installBody='';
-      if((key==='skill'||key==='mcp_server')&&e.install_command){
+      if((key==='skill'||key==='mcp_server')&&e.install_command&&runnableInstall(e.install_command)){
         installBody+='<div class="ail-install"><span class="ail-install-tag">terminal</span><code id="ailCmd">'+esc(e.install_command)+'</code><button data-copy="'+esc(e.install_command)+'">Copy</button></div>';
         if(key==='mcp_server') installBody+=mcpConfigHTML(r.name, e.install_command);
       }
@@ -1815,7 +1912,8 @@ a.ail-det-cat:hover{text-decoration:underline}
     hideCmpBar();
     var host=$('#aivaultHost'); if(!host) return;
     var slugs=[];
-    (qs||'').split('&').forEach(function(p){ var kv=p.split('='); if(kv[0]==='slugs'&&kv[1]) slugs=decodeURIComponent(kv[1]).split(',').map(function(s){return s.trim();}).filter(Boolean); });
+    var _dec=function(s){ try{ return decodeURIComponent(s); }catch(_){ return s; } };
+    (qs||'').split('&').forEach(function(p){ var i=p.indexOf('='); if(i<0) return; var k=p.slice(0,i), v=p.slice(i+1); if(k==='slugs'&&v){ slugs=_dec(v).split(',').map(function(s){return s.trim();}).filter(Boolean); } });
     slugs=slugs.filter(function(s){return s.indexOf('llm/')===0;}).slice(0,CMP_MAX);
     host.innerHTML='<div class="ail-cmp"><a class="ail-back" href="#/c/llm">'+ICON_BACK+' LLMs</a>'+
       '<h1 class="ail-h1" style="margin-top:6px">Compare <em>models</em></h1>'+
@@ -1883,6 +1981,11 @@ a.ail-det-cat:hover{text-decoration:underline}
 </script>
 <script>
 (function(){
+  // Decode a hash segment without ever throwing. decodeURIComponent() raises
+  // "URI malformed" on a literal or dangling '%', which would abort route() and
+  // leave the detail/collection page blank. Fall back to the raw text so the
+  // exact-slug lookup still runs (and can show a clean "not found" if needed).
+  function safeDecode(s){ try{ return decodeURIComponent(s); }catch(_){ return s; } }
   function route(){
     var h=location.hash||'';
     var pg = h.indexOf('#/r/')===0 ? 'page-resource' : 'page-aivault';
@@ -1890,11 +1993,11 @@ a.ail-det-cat:hover{text-decoration:underline}
     var el=document.getElementById(pg); if(el) el.classList.add('active');
     // hide the floating compare bar whenever we leave the LLM browse view
     if(!/^#\/c\/llm(\?|$)/.test(h)){ var _cb=document.getElementById('ailCmpBar'); if(_cb) _cb.classList.remove('is-show'); }
-    if(pg==='page-resource'){ window.renderResourceDetail(decodeURIComponent(h.slice(4))); }
+    if(pg==='page-resource'){ window.renderResourceDetail(safeDecode(h.slice(4))); }
     else if(h.indexOf('#/guide')===0){ window.renderResourcesGuide(); }
     else if(h.indexOf('#/stack')===0){ window.renderResourcesStack(); }
     else if(h.indexOf('#/compare')===0){ var _ci=h.indexOf('?'); window.renderResourcesCompare(_ci>=0?h.slice(_ci+1):''); }
-    else { var mc=h.match(/^#\/collection\/([^/?]+)/); var m=h.match(/^#\/c\/([^/?]+)/); if(mc) window.renderResourcesCollection(decodeURIComponent(mc[1])); else if(m) window.renderResourcesBrowse(m[1]); else window.renderResourcesHub(); }
+    else { var mc=h.match(/^#\/collection\/([^/?]+)/); var m=h.match(/^#\/c\/([^/?]+)/); if(mc) window.renderResourcesCollection(safeDecode(mc[1])); else if(m) window.renderResourcesBrowse(m[1]); else window.renderResourcesHub(); }
     if(pg!=='page-resource') window.scrollTo(0,0);
   }
   window.addEventListener('hashchange',route);
