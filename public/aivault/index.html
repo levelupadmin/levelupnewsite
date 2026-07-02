@@ -687,13 +687,26 @@ a.ail-det-cat:hover{text-decoration:underline}
   var cache = {}, indexP = null, perksP = null;
   function loadCat(key){
     if(cache[key]) return cache[key];
-    cache[key] = fetch(DATA_BASE+key+'.json').then(function(r){return r.json();}).then(function(rows){
+    // browse loads the SLIM file (cards/facets/sort/search fields only) — full item + content load per-slug on detail
+    cache[key] = fetch(DATA_BASE+key+'.slim.json').then(function(r){return r.ok?r.json():[];}).then(function(rows){
       rows.forEach(function(x){ x._hay = (x.name+' '+(x.description||'')+' '+Object.values(x.extra||{}).join(' ')).toLowerCase(); });
       if(key==='llm'){ rows.forEach(function(x){ CMP_NAMES[x.slug]=x.name; }); }
       return rows;
     }).catch(function(){return [];});
     return cache[key];
   }
+  // --- per-slug bucketed loading for detail pages (avoids parsing the whole category + content file) ---
+  var BUCKETS={skill:52,tool:24,mcp_server:12,llm:4,agent:6,design:1}, bkCache={};
+  function bhash(s){var h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return h;}
+  function bnum(key,slug){var n=BUCKETS[key]||1,m=bhash(slug)%n;return m<10?'0'+m:''+m;}
+  function loadBucket(key,slug,kind){
+    var ck=key+'/'+kind+bnum(key,slug);
+    if(bkCache[ck]) return bkCache[ck];
+    bkCache[ck]=fetch(DATA_BASE+key+'/'+kind+bnum(key,slug)+'.json').then(function(r){return r.ok?r.json():{};}).catch(function(){return {};});
+    return bkCache[ck];
+  }
+  function loadItemBucket(key,slug){ return loadBucket(key,slug,'d').then(function(m){ var x=m&&m[slug]; if(x&&!x._hay){ x._hay=(x.name+' '+(x.description||'')+' '+Object.values(x.extra||{}).join(' ')).toLowerCase(); } return x||null; }); }
+  function loadContentBucket(key,slug){ return loadBucket(key,slug,'c').then(function(m){ return (m&&m[slug])||null; }); }
   // Category-level search synonyms so queries like "mcp", "model", "language model", "agent" reach the right rows
   var CAT_SYN={ skill:'skill agent skill', tool:'tool app', mcp_server:'mcp mcp server mcp servers connector', llm:'llm model language model ai model', agent:'agent autonomous agent assistant', design:'design design system ui' };
   function loadIndex(){ return indexP || (indexP = fetch(DATA_BASE+'index.json').then(function(r){return r.json();}).then(function(rows){
@@ -1408,11 +1421,9 @@ a.ail-det-cat:hover{text-decoration:underline}
     host.innerHTML=skDetailHTML();
     var key=String(slug).split('/')[0];
     if(!CAT_BY[key]){ host.innerHTML='<div class="ail-det"><a class="ail-back" href="#/">'+ICON_BACK+' AI Library</a><h1 class="ail-h1">Not found</h1></div>'; return; }
-    Promise.all([loadCat(key), loadContent(key)]).then(function(res){
-      var rows=res[0], cmap=res[1];
-      var r=null; for(var i=0;i<rows.length;i++){ if(rows[i].slug===slug){ r=rows[i]; break; } }
+    Promise.all([loadItemBucket(key,slug), loadContentBucket(key,slug)]).then(function(res){
+      var r=res[0], c=res[1];   // full item + its rich content, fetched as small per-slug buckets
       if(!r){ host.innerHTML='<div class="ail-det"><a class="ail-back" href="#/">'+ICON_BACK+' AI Library</a><h1 class="ail-h1">Resource not found</h1><p class="ail-det-desc">It may have been renamed. <a href="#/c/'+key+'">Browse '+esc(CAT_BY[key].label)+'</a>.</p></div>'; return; }
-      var c=contentFor(cmap, slug);   // null when no rich content for this slug
       var e=r.extra||{}, def=CAT_BY[key];
       var meta=[];
       if(key==='llm'){ if(e.provider)meta.push(['Provider',e.provider]); if(e.parameters)meta.push(['Parameters',e.parameters]); if(e.context_length)meta.push(['Context',e.context_length]); if(e.weights)meta.push(['Weights',e.weights==='open'?'Open':'Closed']); if(e.kind)meta.push(['Type',prettyLabel(e.kind)]); }
