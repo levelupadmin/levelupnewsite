@@ -158,9 +158,15 @@ const Terms = () => {
             <p>To the extent the Service or any portion thereof is made available for any fee, you will be required to select a payment plan and provide Level Up Learning information regarding your credit card or other payment instrument. You represent and warrant to Level Up Learning that such information is true and that you are authorized to use the payment instrument. You will promptly update your account information with any changes (for example, a change in your billing address or credit card expiration date) that may occur. You agree to pay Level Up Learning the amount that is specified in the payment plan in accordance with the terms of such plan and this Terms of Service. You hereby authorize Level Up Learning to bill your payment instrument in accordance with the terms of the applicable payment plan until you terminate your account, and you further agree to pay any charges so incurred. If you dispute any charges you must let Level Up Learning know within sixty (60) days after the date that Level Up Learning charges you. We reserve the right to change Level Up Learning's prices. Level Up Learning will notify such changes through ordinary recourse such as via email or other electronic media. Your continued use of the Service after the price change becomes effective constitutes your agreement to pay the changed amount. You shall be responsible for all taxes associated with the Services other than Indian taxes based on Level Up Learning's net income.</p>
             <h3 className="text-lg font-medium text-foreground mt-6 mb-2">Refunds</h3>
             <p>
-              Refund eligibility depends on the product (masterclass, live cohort, workshop) and how much of it
+              Refund eligibility depends on the product (masterclass, workshop) and how much of it
               you've used. The full breakdown lives in our{" "}
               <Link to="/refund-policy" className="text-primary hover:underline font-medium">Refund Policy</Link>, which is part of these Terms by reference.
+            </p>
+            <p className="mt-3">
+              Live cohort programs and the Forge program are governed by their own dedicated policies:{" "}
+              <a href="https://www.leveluplearning.live/refund-cancellation-policy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">Live programs Refund &amp; Cancellation Policy</a>{" "}
+              and{" "}
+              <a href="https://creators.forgebylevelup.com/cancellation-and-refund-policy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">the Forge Cancellation &amp; Refund Policy</a>.
             </p>
             <h3 className="text-lg font-medium text-foreground mt-6 mb-2">In-app purchases on iOS</h3>
             <p>

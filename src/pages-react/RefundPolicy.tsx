@@ -7,11 +7,15 @@ import MotionProvider from "@/components/MotionProvider";
 import usePageSeo from "@/hooks/usePageSeo";
 
 /**
- * Refund Policy — covers every product tier LevelUp sells:
+ * Refund Policy — covers LevelUp's self-serve product tiers:
  *   • Masterclasses (pre-recorded, one-time payment, lifetime access)
- *   • Live Cohorts / Forge programs (multi-week instructor-led)
  *   • Workshops (short 1-3 day intensives)
- *   • The Breakthrough Filmmaker Programme (BFP)
+ *   • Free events
+ *
+ * Live programs (BFP, the Advance Direction Program, and other multi-week
+ * instructor-led cohorts) and the Forge program have their OWN dedicated
+ * Refund & Cancellation policies. This page links out to them in Section 3
+ * rather than restating their terms.
  *
  * Required for: Apple App Store review (Guideline 1.1.6 — they expect
  * a refund mechanism for paid content), Razorpay merchant compliance,
@@ -21,7 +25,7 @@ import usePageSeo from "@/hooks/usePageSeo";
 const tocSections = [
   { id: "overview",          label: "1. Overview" },
   { id: "masterclasses",     label: "2. Masterclasses" },
-  { id: "live-cohorts",      label: "3. Live cohorts + Forge programs" },
+  { id: "live-cohorts",      label: "3. Live programs & the Forge" },
   { id: "workshops",         label: "4. Workshops" },
   { id: "free-events",       label: "5. Free events" },
   { id: "how-to-request",    label: "6. How to request a refund" },
@@ -39,7 +43,7 @@ const RefundPolicy = () => {
 
   usePageSeo({
     title: "Refund Policy — LevelUp Learning",
-    description: "Clear refund policy for LevelUp Learning's masterclasses, live cohorts, and workshops. 7-day no-questions-asked window on masterclasses; cohort-specific windows for live programs.",
+    description: "Clear refund policy for LevelUp Learning's masterclasses and workshops. 7-day no-questions-asked window on masterclasses. Live programs and the Forge have their own dedicated policies.",
     path: "/refund-policy",
   });
 
@@ -100,8 +104,9 @@ const RefundPolicy = () => {
         <div className="space-y-0 font-sans-body text-sm md:text-base text-muted-foreground leading-relaxed">
           <p className="border-b border-border pb-8 mb-8">
             We want you to learn from us with confidence. This Refund Policy explains exactly when, why, and
-            how you can get your money back across every product we sell — masterclasses, live cohorts (Forge,
-            BFP, the Advance Direction Program), workshops, and Resources bundles.
+            how you can get your money back across the products covered here — masterclasses, workshops, and
+            Resources bundles. Live programs and the Forge program each have their own dedicated Refund &amp;
+            Cancellation Policy (see <a href="#live-cohorts" className="text-primary hover:underline">Section 3</a>).
           </p>
 
           <section id="overview" className="border-b border-border pb-8 mb-8">
@@ -110,7 +115,7 @@ const RefundPolicy = () => {
               <p className="text-foreground font-medium mb-3">At a glance:</p>
               <ul className="list-disc pl-6 space-y-2 text-sm">
                 <li><strong className="text-foreground">Masterclasses:</strong> 7 days from purchase, full refund, no questions asked — provided you've watched under 25% of the content.</li>
-                <li><strong className="text-foreground">Live cohorts / Forge programs:</strong> full refund before the cohort starts. Pro-rated refunds within the first 7 days of the cohort, conditional on attendance. No refunds after Day 7.</li>
+                <li><strong className="text-foreground">Live programs &amp; the Forge:</strong> governed by their own dedicated Refund &amp; Cancellation Policies — see <a href="#live-cohorts" className="text-primary hover:underline">Section 3</a>.</li>
                 <li><strong className="text-foreground">Workshops:</strong> full refund up to 48 hours before the start time. No refund after.</li>
                 <li><strong className="text-foreground">Free events:</strong> nothing to refund.</li>
               </ul>
@@ -137,23 +142,22 @@ const RefundPolicy = () => {
           </section>
 
           <section id="live-cohorts" className="border-b border-border pb-8 mb-8">
-            <h2 className="text-xl font-semibold text-foreground mb-3">3. Live cohorts + Forge programs</h2>
-            <p className="mb-3">
-              Examples: <em>The Breakthrough Filmmaker Programme (BFP), Forge Creators, The Advance Direction Program</em>, and any other live, instructor-led program with weekly assignments + live sessions.
+            <h2 className="text-xl font-semibold text-foreground mb-3">3. Live programs &amp; the Forge</h2>
+            <p className="mb-4">
+              Our live cohort programs — the 8–12 week instructor-led programs across filmmaking, editing, AI,
+              and communication (including the Breakthrough Filmmaker Programme and the Advance Direction
+              Program) — and the Forge program are each governed by their own dedicated Refund &amp; Cancellation
+              Policy. <strong className="text-foreground">The refund terms on this page do not apply to them.</strong> Please refer to the applicable policy:
             </p>
             <ul className="list-disc pl-6 space-y-2">
-              <li><strong className="text-foreground">Before the cohort starts:</strong> full refund, no questions asked. Email us up to 24 hours before the announced start date.</li>
-              <li><strong className="text-foreground">Within Day 1–7 of the cohort:</strong> pro-rated refund (the amount you paid minus the value of weeks already started), provided:
-                <ul className="list-disc pl-6 mt-2 space-y-1">
-                  <li>You attended the first live session, or</li>
-                  <li>You submitted Week 1's assignment.</li>
-                </ul>
-                We need this evidence so we know you actually gave the cohort a chance — refunds without participation are routinely abused.
+              <li>
+                <strong className="text-foreground">Live programs:</strong>{" "}
+                <a href="https://www.leveluplearning.live/refund-cancellation-policy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Refund &amp; Cancellation Policy →</a>
               </li>
-              <li><strong className="text-foreground">After Day 7:</strong> no refunds. By this point, the cohort has invested mentor time, peer-review pairings, and live-session capacity in you.</li>
-              <li><strong className="text-foreground">Application fee:</strong> if you paid a separate application fee to be considered for the cohort, the application fee is non-refundable once we've reviewed your application (typically within 7 days). It is refundable up until review.</li>
-              <li><strong className="text-foreground">Confirmation fee + balance model:</strong> some cohorts (e.g. Forge editions) use a confirmation fee to hold your seat, followed by a balance due on a specific deadline. The confirmation fee is refundable within 7 days of payment if you haven't been admitted yet, but non-refundable once we've confirmed your seat and you've signed the joining agreement.</li>
-              <li><strong className="text-foreground">Deferral instead of refund:</strong> if you have a genuine emergency that prevents you from completing the cohort, you can request a one-time deferral to the next batch instead of a refund. Email us with the reason — we approve almost all deferral requests on first ask.</li>
+              <li>
+                <strong className="text-foreground">The Forge:</strong>{" "}
+                <a href="https://creators.forgebylevelup.com/cancellation-and-refund-policy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Cancellation &amp; Refund Policy →</a>
+              </li>
             </ul>
           </section>
 
@@ -177,7 +181,6 @@ const RefundPolicy = () => {
               <li>Email <a href="mailto:support@leveluplearning.in" className="text-primary hover:underline">support@leveluplearning.in</a> from the email address you used to purchase.</li>
               <li>Subject line: "Refund request — [name of course/cohort]"</li>
               <li>In the body, share: the order ID (from your purchase email), the date you paid, and a one-line reason. Reasons are appreciated but not required for in-window masterclass refunds.</li>
-              <li>For cohort refunds, also tell us whether you attended Session 1 and/or submitted Week 1.</li>
             </ol>
             <p className="mt-3">
               We acknowledge every refund email within 24 hours (Indian business hours: Mon–Fri, 10am–6pm IST).
@@ -199,7 +202,6 @@ const RefundPolicy = () => {
             <h2 className="text-xl font-semibold text-foreground mb-3">8. What's non-refundable</h2>
             <ul className="list-disc pl-6 space-y-2">
               <li>Masterclasses where 25%+ of the runtime has been watched.</li>
-              <li>Live cohorts after Day 7 of the cohort starting (deferral may still be possible — see Section 3).</li>
               <li>Workshops once they've started or are within 48 hours of starting.</li>
               <li>Razorpay payment-gateway fees on disputed/chargeback transactions (set by Razorpay, not us).</li>
               <li>"Bundle" purchases where you've already consumed one of the bundled items beyond the masterclass 25% watch limit.</li>
