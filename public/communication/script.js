@@ -377,7 +377,10 @@
     if (!vid || vid.dataset.swapped) return;
     vid.dataset.swapped = '1';
     var img = document.createElement('img');
-    img.src = 'https://cdn.leveluplearning.in/live-hub/communication/img/hero-dark.webp';
+    // Reuse whatever poster the page declared, so each domain keeps serving
+    // this from its own fastest source rather than a hardcoded CDN path.
+    img.src = vid.getAttribute('poster') ||
+      'https://cdn.leveluplearning.in/live-hub/communication/img/hero-dark.webp';
     img.alt = '';
     vid.parentNode.replaceChild(img, vid);
   }
