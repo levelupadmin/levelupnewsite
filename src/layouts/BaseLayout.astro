@@ -152,7 +152,13 @@ const allJsonLd = jsonLd
     -->
     <script is:inline>
       (function () {
-        var CHECKOUT_HOSTS = ["study.leveluplearning.in", "courses.leveluplearning.in"];
+        var CHECKOUT_HOSTS = ["app.leveluplearning.in", "study.leveluplearning.in", "courses.leveluplearning.in"];
+        // app.leveluplearning.in is the live checkout host. It MUST be listed
+        // here: this array is the sole gate on the click handler below, so a
+        // checkout link on an unlisted host silently loses UTM forwarding AND
+        // stops firing Meta Lead/InitiateCheckout — ad attribution would go
+        // quiet with nothing visibly broken. The two legacy hosts stay listed so
+        // any stray old link still tracks.
         var UTM_KEYS = ["utm_source","utm_medium","utm_campaign","utm_content","utm_term","fbclid","gclid"];
         // Course slug + price + display name keyed by URL pathname
         var COURSE_MAP = {
@@ -160,9 +166,9 @@ const allJsonLd = jsonLd
           "/masterclass/nelson-dilipkumar":  { slug: "nelson-dilipkumar",  name: "Nelson Dilipkumar Masterclass",  price: 2499 },
           "/masterclass/ravi-basrur":        { slug: "ravi-basrur",        name: "Ravi Basrur Music Masterclass",  price: 2499 },
           "/masterclass/karthik-subbaraj":   { slug: "karthik-subbaraj",   name: "Karthik Subbaraj Masterclass",   price: 2499 },
-          "/masterclass/anthony-gonsalvez":  { slug: "anthony-gonsalvez",  name: "Anthony Gonsalvez Masterclass",  price: 1499 },
-          "/masterclass/drk-kiran":          { slug: "drk-kiran",          name: "DRK Kiran Masterclass",          price: 1499 },
-          "/masterclass/g-venket-ram":       { slug: "g-venket-ram",       name: "G Venket Ram Masterclass",       price: 1499 }
+          "/masterclass/anthony-gonsalvez":  { slug: "anthony-gonsalvez",  name: "Anthony Gonsalvez Masterclass",  price: 1999 },
+          "/masterclass/drk-kiran":          { slug: "drk-kiran",          name: "DRK Kiran Masterclass",          price: 999 },
+          "/masterclass/g-venket-ram":       { slug: "g-venket-ram",       name: "G Venket Ram Masterclass",       price: 2499 }
         };
 
         // Capture incoming UTMs (FB ads land users with these), merge with any

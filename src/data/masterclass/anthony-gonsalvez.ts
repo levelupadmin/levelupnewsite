@@ -156,7 +156,7 @@ const data: MasterclassPageData = {
   price: 1999,
   originalPrice: 7999,
   currency: "₹",
-  ctaLink: "https://study.leveluplearning.in/web/checkout/63bb56ee63f1437ecb2cb17c",
+  ctaLink: "https://app.leveluplearning.in/checkout/7bebcde3-fef9-4431-b7f8-e9f933a739eb",
   ctaText: "BUY FOR ₹1999",
   seo: {
     title: "Anthony Gonsalvez Film Editing Masterclass | LevelUp Learning",

@@ -146,7 +146,7 @@ const data: MasterclassPageData = {
   price: 999,
   originalPrice: 2999,
   currency: "₹",
-  ctaLink: "https://study.leveluplearning.in/web/checkout/64e7670a1e642660e96fc8e9",
+  ctaLink: "https://app.leveluplearning.in/checkout/b057ed17-a520-4192-8699-f0ba62cf1d32",
   ctaText: "BUY FOR ₹999",
   seo: {
     title: "DRK Kiran Art Direction Masterclass | LevelUp Learning",
