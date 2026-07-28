@@ -1,1 +1,0 @@
-{"buckets":{"skill":52,"tool":24,"mcp_server":12,"llm":4,"agent":6,"design":1},"hash":"h=(h*31+c)>>>0; bucket=h%buckets[cat]"}
