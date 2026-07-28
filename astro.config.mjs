@@ -23,6 +23,9 @@ export default defineConfig({
     tailwind({ applyBaseStyles: false }),
     mdx(),
     sitemap({
+      // Static landing pages live in public/ rather than src/pages/, so the
+      // integration never sees them. List them here or they stay unindexed.
+      customPages: ['https://www.leveluplearning.in/communication'],
       filter: (page) => !page.includes('/404'),
       serialize(item) {
         if (item.url === 'https://www.leveluplearning.in/') {
