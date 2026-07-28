@@ -251,7 +251,7 @@ const Navbar = () => {
             <div className="flex items-center gap-2.5">
               {/* Sign In */}
               <a
-                href="https://study.leveluplearning.in/web/login"
+                href="https://app.leveluplearning.in/login"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={[
@@ -604,7 +604,7 @@ const Navbar = () => {
               })}
 
               <m.a
-                href="https://study.leveluplearning.in/web/login"
+                href="https://app.leveluplearning.in/login"
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 15 }}

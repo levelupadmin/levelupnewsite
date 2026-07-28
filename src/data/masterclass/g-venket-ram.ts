@@ -176,7 +176,7 @@ const data: MasterclassPageData = {
   price: 2499,
   originalPrice: 2999,
   currency: "₹",
-  ctaLink: "https://study.leveluplearning.in/web/checkout/631f6d223938790196fb7a31",
+  ctaLink: "https://app.leveluplearning.in/checkout/d9084740-4d74-449c-a667-03de38d4a0d5",
   ctaText: "BUY NOW AT ₹ 2499",
   seo: {
     title: "G Venket Ram Photography Masterclass | LevelUp Learning",
