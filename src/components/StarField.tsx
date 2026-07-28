@@ -1,0 +1,171 @@
+import { useRef, useEffect } from "react";
+
+interface Star {
+  x: number;
+  y: number;
+  z: number;
+  sizeScale: number;
+}
+
+const DEFAULT_STAR_COUNT = 250;
+const DEFAULT_MAX_DEPTH = 1000;
+const DEFAULT_SPEED = 0.3;
+
+interface StarFieldProps {
+  starCount?: number;
+  speed?: number;
+}
+
+const StarField = ({ starCount = DEFAULT_STAR_COUNT, speed = DEFAULT_SPEED }: StarFieldProps) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const grainRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    // Cached dimensions to avoid layout thrashing
+    let cachedW = 0;
+    let cachedH = 0;
+    let isVisible = true;
+
+    // Initialize stars
+    const stars: Star[] = Array.from({ length: starCount }, () => ({
+      x: (Math.random() - 0.5) * 2000,
+      y: (Math.random() - 0.5) * 2000,
+      z: Math.random() * DEFAULT_MAX_DEPTH,
+      sizeScale: 0.5 + Math.random() * 0.8,
+    }));
+
+    // Grain canvas
+    const grainCanvas = document.createElement("canvas");
+    grainCanvas.width = 128;
+    grainCanvas.height = 128;
+    const grainCtx = grainCanvas.getContext("2d")!;
+    let grainGenerated = false;
+
+    const generateGrain = () => {
+      if (grainGenerated) return;
+      grainGenerated = true;
+      const imageData = grainCtx.createImageData(128, 128);
+      const data = imageData.data;
+      for (let i = 0; i < data.length; i += 4) {
+        const v = Math.random() * 255;
+        data[i] = v;
+        data[i + 1] = v;
+        data[i + 2] = v;
+        data[i + 3] = 18;
+      }
+      grainCtx.putImageData(imageData, 0, 0);
+      if (grainRef.current) {
+        grainRef.current.style.backgroundImage = `url(${grainCanvas.toDataURL()})`;
+      }
+    };
+
+    const resize = () => {
+      cachedW = canvas.clientWidth;
+      cachedH = canvas.clientHeight;
+      canvas.width = cachedW * dpr;
+      canvas.height = cachedH * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    resize();
+    generateGrain();
+    window.addEventListener("resize", resize);
+
+    let raf: number;
+
+    const render = () => {
+      if (!isVisible) return;
+
+      const w = cachedW;
+      const h = cachedH;
+      const cx = w / 2;
+      const cy = h / 2;
+
+      ctx.clearRect(0, 0, w, h);
+
+      // Draw stars
+      for (const star of stars) {
+        star.z -= speed;
+        if (star.z <= 1) {
+          star.x = (Math.random() - 0.5) * 2000;
+          star.y = (Math.random() - 0.5) * 2000;
+          star.z = DEFAULT_MAX_DEPTH;
+          star.sizeScale = 0.5 + Math.random() * 0.8;
+        }
+
+        const k = 300 / star.z;
+        const sx = cx + star.x * k;
+        const sy = cy + star.y * k;
+
+        if (sx < -10 || sx > w + 10 || sy < -10 || sy > h + 10) continue;
+
+        const size = Math.max(0.5, (1 - star.z / DEFAULT_MAX_DEPTH) * 3.5) * star.sizeScale;
+        const opacity = Math.max(0.1, (1 - star.z / DEFAULT_MAX_DEPTH) * 1);
+
+        const isAmber = star.x * star.y % 5 < 1;
+        const color = isAmber
+          ? `rgba(230, 104, 29, ${opacity})`
+          : `rgba(255, 255, 255, ${opacity})`;
+
+        ctx.beginPath();
+        ctx.arc(sx, sy, size, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+      }
+
+      // Vignette
+      const vg = ctx.createRadialGradient(cx, cy, w * 0.3, cx, cy, w * 0.85);
+      vg.addColorStop(0, "transparent");
+      vg.addColorStop(1, "rgba(0, 0, 0, 0.4)");
+      ctx.fillStyle = vg;
+      ctx.fillRect(0, 0, w, h);
+
+      raf = requestAnimationFrame(render);
+    };
+
+    raf = requestAnimationFrame(render);
+
+    // Pause animation when off-screen
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible && !raf) {
+          raf = requestAnimationFrame(render);
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(canvas);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+      observer.disconnect();
+    };
+  }, []);
+
+  return (
+    <>
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        aria-hidden="true"
+      />
+      <div
+        ref={grainRef}
+        className="absolute inset-0 pointer-events-none"
+        aria-hidden="true"
+        style={{ backgroundRepeat: "repeat", mixBlendMode: "overlay", opacity: 0.4 }}
+      />
+    </>
+  );
+};
+
+export default StarField;

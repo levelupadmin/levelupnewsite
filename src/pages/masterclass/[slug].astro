@@ -1,0 +1,57 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import MasterclassDetail from "@/pages-react/MasterclassDetail.tsx";
+import StickyMobileCta from "@/components/lokesh/StickyMobileCta.astro";
+import { VALID_SLUGS, getMasterclassData } from "@/data/masterclassPages";
+import { courseJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/structuredData";
+
+export async function getStaticPaths() {
+  const entries = await Promise.all(
+    VALID_SLUGS.map(async (slug) => {
+      const data = await getMasterclassData(slug);
+      return { params: { slug }, props: { data } };
+    })
+  );
+  return entries;
+}
+
+const { data } = Astro.props;
+
+if (!data) {
+  return Astro.redirect("/404");
+}
+
+const course = courseJsonLd({
+  name: `${data.name}'s ${data.discipline} Masterclass`,
+  description: data.seo.description,
+  path: `/masterclass/${data.slug}`,
+  instructorName: data.name,
+  image: data.heroImage,
+  courseMode: "online",
+});
+
+const breadcrumb = breadcrumbJsonLd([
+  { name: "Home", path: "/" },
+  { name: "Masterclasses", path: "/" },
+  { name: data.name, path: `/masterclass/${data.slug}` },
+]);
+
+const faq = data.faqs?.length
+  ? faqJsonLd(data.faqs.map((f) => ({ question: f.question, answer: f.answer })))
+  : null;
+
+const allJsonLd = [course, breadcrumb, ...(faq ? [faq] : [])];
+---
+
+<BaseLayout
+  title={data.seo.title}
+  description={data.seo.description}
+  path={`/masterclass/${data.slug}`}
+  type="course"
+  ogImage={data.heroImage}
+  preloadImage={data.heroImage}
+  jsonLd={allJsonLd}
+>
+  <StickyMobileCta href={data.ctaLink} price={data.price} course={data.slug} />
+  <MasterclassDetail slug={data.slug} initialData={data} client:load />
+</BaseLayout>

@@ -1,0 +1,93 @@
+import { m } from "framer-motion";
+import { Picture } from "@/components/Picture";
+import { Sparkles, Users, Award } from "lucide-react";
+import ConcentricRings from "./ConcentricRings";
+
+import allMasters from "@/assets/all-masters.png";
+import shapeCommunity from "@/assets/shape-community-unique.png";
+import forgeCreators from "@/assets/forge-creators-banner.jpg";
+
+const pillars = [
+  {
+    icon: Sparkles,
+    title: "Mentor IP",
+    description: "Exclusive masterclasses with India's top filmmakers, editors, photographers, and musicians. Content you can't find anywhere else.",
+    image: allMasters,
+  },
+  {
+    icon: Users,
+    title: "Community Flywheel",
+    description: "300K+ creators fueling organic acquisition, peer learning, and real-world opportunity. A self-reinforcing ecosystem.",
+    image: shapeCommunity,
+  },
+  {
+    icon: Award,
+    title: "Brand & Certification Partners",
+    description: "Partnered with India's leading entertainment houses, production studios, and institutions for credibility and placement.",
+    image: forgeCreators,
+  },
+];
+
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.3 },
+};
+
+const WhyUsSection = () => (
+  <section className="py-12 md:py-16 px-6 md:px-12 bg-[hsl(24,40%,96%)] relative overflow-hidden">
+    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+    <ConcentricRings className="-top-8 -right-12 opacity-60" size={380} count={6} />
+
+    <div className="relative max-w-7xl mx-auto">
+      <m.p
+        {...fadeUp}
+        transition={{ duration: 0.5 }}
+        className="font-sans-body text-xs md:text-sm uppercase tracking-[0.2em] text-primary text-center mb-3"
+      >
+        Why LevelUp
+      </m.p>
+      <m.h2
+        {...fadeUp}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="font-serif-display text-2xl md:text-3xl text-hero-headline text-center mb-10"
+      >
+        Why should we be the ones building this?
+      </m.h2>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {pillars.map((p, i) => (
+          <m.div
+            key={p.title}
+            {...fadeUp}
+            transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
+            className="rounded-xl bg-card overflow-hidden shadow-cinematic group"
+          >
+            {/* Card image */}
+            <div className="relative h-36 overflow-hidden">
+              <Picture
+                src={p.image}
+                alt={`LevelUp Learning ${p.title} — ${p.description.substring(0, 60)}`}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+            </div>
+            {/* Card content */}
+            <div className="p-6 md:p-8 flex flex-col gap-4">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <p.icon className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="font-serif-display text-lg text-foreground">{p.title}</h3>
+              <p className="font-sans-body text-sm text-muted-foreground leading-relaxed">
+                {p.description}
+              </p>
+            </div>
+          </m.div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+export default WhyUsSection;

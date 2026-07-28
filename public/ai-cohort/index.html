@@ -1,0 +1,878 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LevelUp AI — The 3-Month AI Program for Founders & Operators</title>
+<meta name="description" content="A 3-month live program for founders and operators. Learn to build with AI and leave with three real things working in your business. No coding required." />
+<link rel="canonical" href="https://leveluplearning.in/ai-cohort" />
+<meta property="og:title" content="LevelUp AI — The 3-Month AI Program" />
+<meta property="og:url" content="https://leveluplearning.in/ai-cohort" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bone:#F1EAD9; --bone-2:#EAE2D0; --bone-3:#E4DBC6;
+  --charcoal:#171410; --charcoal-2:#211C17; --charcoal-3:#2B2620;
+  --ink:#17140F; --cream:#F3ECDD; --cream-soft:#CFC7B6;
+  --orange:#FF5A1F; --orange-2:#FF7A45; --orange-deep:#D9430E;
+  --muted:#6F675A; --muted-d:#9A9182; --hair:#D8CEBA; --hair-d:#332C24;
+  --serif:"Fraunces",Georgia,serif; --sans:"Inter",system-ui,-apple-system,sans-serif; --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1200px; --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bone);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;position:relative}
+a{color:inherit;text-decoration:none}
+::selection{background:rgba(255,90,31,.25)}
+h1,h2,h3{font-family:var(--serif);font-weight:500;letter-spacing:-.022em;line-height:1.04}
+h2{font-size:clamp(28px,4vw,46px);line-height:1.06}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);display:inline-block}
+.eyebrow.muted{color:var(--muted)}
+.on-dark .eyebrow{color:var(--orange-2)}
+.lead{font-size:18px;color:var(--muted);max-width:54ch}
+svg.ic{width:18px;height:18px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:9px;border-radius:999px;font-weight:600;font-size:15px;padding:13px 22px;transition:transform .25s var(--ease),box-shadow .25s,background .25s,border-color .25s,color .25s;cursor:pointer;border:1px solid transparent;white-space:nowrap}
+.btn-solid{background:var(--orange);color:#1a1206;box-shadow:0 1px 0 rgba(255,255,255,.2) inset}
+.btn-solid:hover{transform:translateY(-2px);box-shadow:0 16px 34px -14px rgba(255,90,31,.6)}
+.btn-ghost{border-color:var(--ink);color:var(--ink)}
+.on-dark .btn-ghost{border-color:rgba(243,236,221,.4);color:var(--cream)}
+.btn-ghost:hover{border-color:var(--orange);color:var(--orange)}
+.tlink{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:500;border-bottom:1px solid currentColor;padding-bottom:2px;transition:gap .25s}
+.tlink .ar{color:var(--orange)} .tlink:hover{gap:12px}
+
+/* nav + logo lockup */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:76px;display:flex;align-items:center;transition:background .35s,height .35s,border-color .35s;border-bottom:1px solid transparent}
+nav.scrolled{background:rgba(241,234,217,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);height:64px;border-bottom-color:var(--hair)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;width:100%}
+.brandlock{display:flex;align-items:center;gap:11px;color:var(--ink)}
+.brandlock .logo{height:23px;width:auto;display:block}
+.brandlock .div{width:1px;height:20px;background:var(--hair)}
+.brandlock .sub{font-family:var(--serif);font-style:italic;font-size:20px;font-weight:500;color:var(--orange);letter-spacing:-.01em}
+.navlinks{display:flex;gap:26px;align-items:center}
+.navlinks a{font-size:14.5px;color:var(--muted);transition:color .2s}
+.navlinks a:hover{color:var(--ink)}
+.navright{display:flex;gap:14px;align-items:center}
+
+/* section */
+.sec{padding:104px 0;position:relative}
+.sec.dark{background:var(--charcoal);color:var(--cream)}
+.sec.dark h2{color:var(--cream)} .sec.dark .lead{color:var(--cream-soft)}
+.center{text-align:center}.center .lead{margin-left:auto;margin-right:auto}
+.sec-head{margin-bottom:18px}.sec-head .eyebrow{margin-bottom:18px}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}.rv.d4{transition-delay:.32s}
+
+/* ===== HERO ===== */
+.hero{padding:118px 0 36px}
+.hero-panel{background:var(--charcoal);border-radius:26px;padding:52px;display:grid;grid-template-columns:1.02fr .98fr;gap:46px;align-items:center;position:relative;overflow:hidden;color:var(--cream)}
+.hero-panel::after{content:"";position:absolute;width:440px;height:440px;right:-90px;top:-130px;background:radial-gradient(circle,rgba(255,90,31,.16),transparent 70%);pointer-events:none}
+.hero-eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange-2);margin-bottom:22px;display:flex;align-items:center;gap:10px}
+.hero-eyebrow .pip{width:7px;height:7px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 0 rgba(255,90,31,.6);animation:pulse 2.4s infinite}
+.hero-h1{font-size:clamp(40px,5.2vw,66px);line-height:1.0;color:var(--cream);letter-spacing:-.03em}
+.hero-h1 .em{font-style:italic;color:var(--orange)}
+.hero-sub{margin-top:22px;color:var(--cream-soft);font-size:17px;max-width:36ch;line-height:1.6}
+.hero-cta{display:flex;gap:20px;align-items:center;margin-top:30px;flex-wrap:wrap}
+.hero-stamps{margin-top:30px;padding-top:18px;border-top:1px solid var(--hair-d);font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--muted-d);display:flex;gap:10px;flex-wrap:wrap;text-transform:uppercase}
+.hero-stamps .sd{color:#473f33}
+/* blunt stat strip */
+.statstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:26px;border:1px solid var(--hair);border-radius:14px;overflow:hidden;background:var(--bone-2)}
+.statstrip .st{padding:18px 22px;border-right:1px solid var(--hair)}
+.statstrip .st:last-child{border-right:0}
+.statstrip .sv{font-family:var(--serif);font-size:24px;color:var(--ink);line-height:1}
+.statstrip .sl{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.statstrip .sv .o{color:var(--orange)}
+
+/* ===== refined product mockup ===== */
+.pm{background:linear-gradient(180deg,#1c1710,#14100b);border:1px solid var(--hair-d);border-radius:18px;overflow:hidden;box-shadow:0 36px 70px -34px rgba(0,0,0,.7)}
+.pm-bar{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--hair-d);background:rgba(255,255,255,.015)}
+.pm-bar .dots{display:flex;gap:6px}.pm-bar .dots i{width:9px;height:9px;border-radius:50%;background:#3a342b;display:block}
+.pm-bar .os{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--muted-d);text-transform:uppercase}
+.pm-toggle{margin-left:auto;display:flex;gap:4px;background:var(--charcoal);border:1px solid var(--hair-d);border-radius:999px;padding:4px}
+.pm-toggle button{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-d);background:none;border:0;padding:6px 13px;border-radius:999px;cursor:pointer;display:flex;align-items:center;gap:5px;transition:.25s}
+.pm-toggle button.on{background:var(--orange);color:#1a1206;font-weight:700}
+.pm-tabs{display:flex;position:relative;padding:7px;gap:5px;border-bottom:1px solid var(--hair-d)}
+.pm-tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;padding:15px 6px;border-radius:13px;cursor:pointer;transition:background .25s;position:relative;z-index:1}
+.pm-tab .ti{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;border:1px solid var(--hair-d);background:var(--charcoal-2);color:var(--cream-soft);transition:.3s}
+.pm-tab .tn{font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--muted-d)}
+.pm-tab .tt{font-size:12.5px;color:var(--cream-soft);font-weight:500}
+.pm-tab:hover{background:rgba(255,255,255,.02)}
+.pm-tab.on .ti{background:var(--orange);border-color:var(--orange);color:#1a1206}
+.pm-tab.on .tt{color:var(--cream)}.pm-tab.on .tn{color:var(--orange-2)}
+.pm-ind{position:absolute;bottom:0;left:7px;width:80px;height:2px;background:var(--orange);transition:left .4s var(--ease),width .4s var(--ease);z-index:2}
+.pm-body{padding:22px;position:relative;display:grid}
+.pm-pane{grid-area:1/1;opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.pm-pane.on{opacity:1;transform:none;pointer-events:auto}
+.pm-h{font-family:var(--serif);font-size:21px;color:var(--cream);font-weight:500}
+.pm-s{font-size:12.5px;color:var(--muted-d);margin:4px 0 18px}
+.pm-lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-d);margin:18px 0 9px}
+.pl{display:flex;align-items:center}
+.pl .node{flex:1;text-align:center;font-size:11px;color:var(--cream-soft);background:var(--charcoal-2);border:1px solid var(--hair-d);border-radius:9px;padding:10px 4px}
+.pl .node.pub{background:var(--orange);border-color:var(--orange);color:#1a1206;font-weight:700}
+.pl .seg{flex:0 0 16px;height:2px;background:var(--hair-d);position:relative;overflow:hidden;border-radius:2px}
+.pl .seg::after{content:"";position:absolute;inset:0;background:var(--orange);transform:translateX(-101%)}
+.pm-pane.on .pl .seg::after{animation:fillseg .45s var(--ease) forwards}
+.pl .s1::after{animation-delay:.3s}.pl .s2::after{animation-delay:.55s}.pl .s3::after{animation-delay:.8s}.pl .s4::after{animation-delay:1.05s}
+@keyframes fillseg{to{transform:translateX(0)}}
+.pm-op{display:flex;align-items:center;gap:12px;background:var(--charcoal-2);border:1px solid var(--hair-d);border-radius:11px;padding:12px 14px}
+.pm-op .opt{font-size:13px;color:var(--cream)}
+.pm-op .ops{font-family:var(--mono);font-size:10.5px;color:var(--muted-d)}
+.pm-op .opg{margin-left:auto;color:var(--muted-d);letter-spacing:3px}
+.pm-op .live{margin-left:auto;display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10px;color:var(--orange-2)}
+.pm-op .live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--orange);animation:pulse 1.8s infinite}
+.pm-chips{display:flex;flex-wrap:wrap;gap:7px}
+.pm-chips span{font-family:var(--mono);font-size:10.5px;background:var(--charcoal-2);border:1px solid var(--hair-d);border-radius:8px;padding:6px 11px;color:var(--cream-soft)}
+/* node graph */
+.pm-nodes{position:relative;height:150px}
+.pm-nodes svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.pm-nd{position:absolute;display:flex;align-items:center;gap:7px;background:var(--charcoal-2);border:1px solid var(--hair-d);border-radius:10px;padding:8px 12px;font-size:11px;color:var(--cream-soft)}
+.pm-nd .d{width:7px;height:7px;border-radius:50%;background:var(--muted-d)}
+.pm-nd.ai{border-color:rgba(255,90,31,.6);background:rgba(255,90,31,.1);color:var(--orange-2)}
+.pm-nd.ai .d{background:var(--orange);animation:pulse 2s infinite}
+.travel{fill:var(--orange);r:3.2}
+/* app window */
+.pm-app{border:1px solid var(--hair-d);border-radius:11px;overflow:hidden}
+.pm-app .ab{display:flex;align-items:center;gap:8px;padding:9px 11px;background:var(--charcoal-2);border-bottom:1px solid var(--hair-d)}
+.pm-app .ab .d{display:flex;gap:5px}.pm-app .ab .d i{width:7px;height:7px;border-radius:50%;background:#3a342b;display:block}
+.pm-app .ab .u{font-family:var(--mono);font-size:9.5px;color:var(--muted-d);background:var(--charcoal);border:1px solid var(--hair-d);border-radius:6px;padding:3px 9px;margin-left:auto}
+.pm-app .ur{display:flex;align-items:center;gap:9px;padding:9px 12px;border-top:1px solid var(--hair-d);font-size:11.5px;color:var(--cream-soft)}
+.pm-app .ur:first-of-type{border-top:0}
+.pm-app .ur .av{width:18px;height:18px;border-radius:50%;background:var(--charcoal-3)}
+.pm-app .ur .tg{margin-left:auto;font-family:var(--mono);font-size:9px;color:var(--orange-2);border:1px solid rgba(255,90,31,.4);border-radius:5px;padding:2px 6px}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,90,31,.5)}70%{box-shadow:0 0 0 9px rgba(255,90,31,0)}100%{box-shadow:0 0 0 0 rgba(255,90,31,0)}}
+
+/* ===== GAP ===== */
+.gap-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.tabpile{background:var(--charcoal);border-radius:18px;padding:26px;position:relative;min-height:300px;overflow:hidden;color:var(--cream)}
+.tab{position:absolute;left:24px;right:24px;background:var(--charcoal-2);border:1px solid var(--hair-d);border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted-d)}
+.tab .x{margin-left:auto;color:#534a3d}.tab .fav{width:10px;height:10px;border-radius:2px;background:#4a4236}
+.readout{position:absolute;left:24px;right:24px;bottom:24px;font-family:var(--mono);font-size:15px;color:var(--cream);border-top:1px solid var(--hair-d);padding-top:16px;line-height:1.9}
+.readout b{color:var(--orange);font-weight:700;font-size:18px}
+
+/* ===== BECOME ===== */
+.become-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:42px}
+.bc{background:var(--charcoal);border-radius:14px;padding:22px;color:var(--cream)}
+.bc .ic{color:var(--orange-2);margin-bottom:22px}
+.bc .n{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--orange-2);margin-bottom:7px}
+.bc .t{font-size:14px;color:var(--cream-soft);line-height:1.4}
+.bline{height:2px;background:var(--hair);margin-top:22px;position:relative;border-radius:2px}
+.bline .fill{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--orange);border-radius:2px;transition:width 1.3s var(--ease)}
+.bline.in .fill{width:100%}
+.bline .dot{position:absolute;right:0;top:50%;width:12px;height:12px;border-radius:50%;background:var(--orange);transform:translate(50%,-50%) scale(0);transition:transform .4s var(--ease) 1.1s}
+.bline.in .dot{transform:translate(50%,-50%) scale(1)}
+
+/* ===== AGENTIC ===== */
+.aw-flow{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--charcoal);border-radius:18px;padding:40px 30px;margin-top:38px;flex-wrap:wrap}
+.aw-node{display:flex;flex-direction:column;align-items:center;gap:11px;flex:1;min-width:84px}
+.aw-dot{width:58px;height:58px;border-radius:16px;background:var(--charcoal-2);border:1px solid var(--hair-d);display:grid;place-items:center;color:var(--cream-soft)}
+.aw-node.hot .aw-dot{background:var(--orange);border-color:var(--orange);color:#1a1206;animation:pulse 2.6s infinite}
+.aw-node.done .aw-dot{background:var(--orange);border-color:var(--orange);color:#1a1206}
+.aw-node .aw-lb{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-d)}
+.aw-arrow{color:#4a4236;flex:0 0 auto}
+/* functions */
+.fn-tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:38px}
+.fn-tab{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:none;border:1px solid var(--hair);border-radius:999px;padding:9px 16px;cursor:pointer;transition:.25s}
+.fn-tab.on{background:var(--ink);color:var(--bone);border-color:var(--ink)}
+.fn-desc{text-align:center;color:var(--muted);font-size:15px;margin-top:16px;min-height:22px}
+.fn-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:22px}
+.fn-card{border-radius:16px;padding:26px;min-height:200px}
+.fn-card.old{background:var(--bone-3);border:1px solid var(--hair)}
+.fn-card .ft{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.fn-card.old .ft{color:var(--muted)}
+.fn-card.old h3{font-size:19px;color:#8c8475;margin:12px 0 12px;font-family:var(--serif);font-weight:500}
+.fn-card.old p{color:var(--muted);font-size:14.5px}
+.fn-card.old .clk{font-size:24px;color:#b6ab97;float:right}
+.oldlist{list-style:none;margin:14px 0;display:flex;flex-direction:column;gap:9px}
+.oldlist li{font-size:13px;color:#9c937f;padding-left:24px;position:relative}
+.oldlist li::before{content:"";position:absolute;left:0;top:3px;width:13px;height:13px;border:1.5px solid #b6ab97;border-radius:50%}
+.fn-card.new{background:var(--charcoal);border:1px solid var(--hair-d);color:var(--cream)}
+.fn-card.new .ft{color:var(--orange-2)}
+.fn-card.new h3{font-size:19px;color:var(--cream);margin:12px 0 16px;font-family:var(--serif);font-weight:500}
+.fn-card.new p{color:var(--cream-soft);font-size:14.5px}
+/* animated agent flow inside function card */
+.agentflow{position:relative;background:var(--charcoal-2);border:1px solid var(--hair-d);border-radius:12px;padding:18px 14px;margin-bottom:16px}
+.agentflow .track{display:flex;align-items:center;justify-content:space-between;position:relative}
+.agentflow .gn{display:flex;flex-direction:column;align-items:center;gap:7px;z-index:2}
+.agentflow .gn .b{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:var(--charcoal);border:1px solid var(--hair-d);color:var(--cream-soft)}
+.agentflow .gn.ai .b{background:var(--orange);border-color:var(--orange);color:#1a1206;animation:pulse 2s infinite}
+.agentflow .gn .l{font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-d)}
+.agentflow .line{position:absolute;top:19px;left:38px;right:38px;height:2px;background:var(--hair-d)}
+.agentflow .pkt{position:absolute;top:15px;left:38px;width:9px;height:9px;border-radius:50%;background:var(--orange);box-shadow:0 0 10px 1px rgba(255,90,31,.7);animation:travel 3.2s var(--ease) infinite}
+@keyframes travel{0%{left:38px;opacity:0}10%{opacity:1}50%{left:50%;opacity:1}90%{opacity:1}100%{left:calc(100% - 46px);opacity:0}}
+.fn-foot{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--orange-2);margin-top:14px;display:flex;align-items:center;gap:7px}
+
+/* ===== BUILD ===== */
+.builds{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:46px}
+.buildcard{background:var(--charcoal);border:1px solid var(--hair-d);border-radius:16px;padding:22px;color:var(--cream);transition:transform .3s var(--ease),border-color .3s;display:flex;flex-direction:column}
+.buildcard:hover{transform:translateY(-6px);border-color:rgba(255,90,31,.4)}
+.buildcard .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.buildcard .tag{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--muted-d)}
+.shipped{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;background:var(--orange);color:#1a1206;border-radius:999px;padding:4px 9px;font-weight:700}
+.buildcard h3{font-size:20px;color:var(--cream);margin-bottom:6px}
+.buildcard .bd{font-size:13px;color:var(--muted-d);margin-bottom:16px;line-height:1.45}
+.bviz{margin-bottom:16px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:10px}
+.cal i{aspect-ratio:1;border-radius:3px;background:var(--charcoal-2);display:block}
+.cal i.on{background:rgba(255,90,31,.6)}
+.feed{display:flex;flex-direction:column;gap:7px}
+.feeditem{display:flex;align-items:center;gap:8px;background:var(--charcoal-2);border-radius:8px;padding:7px 9px;font-size:11px;color:var(--cream-soft)}
+.feeditem .th{width:22px;height:22px;border-radius:5px;background:var(--charcoal-3)}
+.yours{margin-top:auto;padding-top:14px;border-top:1px solid var(--hair-d);display:flex;align-items:center;gap:8px;font-size:12px;color:var(--cream-soft)}
+.yours .dia{color:var(--orange)}
+.yours b{color:var(--cream);font-weight:600}
+
+/* ===== STACK (real logos) ===== */
+.stackpanel{background:var(--charcoal);border-radius:20px;padding:14px 30px;margin-top:42px;color:var(--cream)}
+.stackrow{display:grid;grid-template-columns:180px 1fr;gap:18px;align-items:center;padding:22px 0;border-top:1px solid var(--hair-d)}
+.stackrow:first-child{border-top:0}
+.stackrow .rl{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--muted-d)}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}
+.tile{display:flex;flex-direction:column;align-items:center;gap:8px;width:84px;padding:14px 6px;border-radius:13px;background:var(--charcoal-2);border:1px solid var(--hair-d);transition:transform .25s var(--ease),border-color .25s}
+.tile:hover{transform:translateY(-4px);border-color:var(--muted-d)}
+.tile img{width:26px;height:26px;object-fit:contain;display:block}
+.tile .glyph{font-size:22px;line-height:26px;height:26px;color:var(--cream-soft)}
+.tile .tl{font-size:10.5px;color:var(--cream-soft);text-align:center;line-height:1.15}
+.tile.hot{border-color:var(--orange);background:rgba(255,90,31,.1)}
+.tile.hot .tl{color:var(--orange-2)}
+
+/* ===== CURRICULUM (two-pane) ===== */
+.curric{display:grid;grid-template-columns:.85fr 1.15fr;gap:30px;margin-top:50px;text-align:left}
+.cur-list{display:flex;flex-direction:column;gap:6px}
+.cur-item{display:flex;gap:14px;align-items:flex-start;padding:18px;border-radius:13px;border:1px solid transparent;cursor:pointer;transition:.25s}
+.cur-item:hover{background:rgba(255,255,255,.03)}
+.cur-item.on{background:rgba(255,255,255,.04);border-color:var(--hair-d)}
+.cur-item .cn{font-family:var(--mono);font-size:12px;color:var(--muted-d);padding-top:2px}
+.cur-item.on .cn{color:var(--orange-2)}
+.cur-item .cti{font-family:var(--serif);font-size:18px;color:var(--cream-soft);font-weight:500}
+.cur-item.on .cti{color:var(--cream)}
+.cur-item .cw{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-d);margin-top:4px}
+.cur-detail{background:var(--charcoal-2);border:1px solid var(--hair-d);border-radius:18px;padding:34px}
+.cur-detail .dw{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-2)}
+.cur-detail h3{font-size:26px;color:var(--cream);margin:12px 0 10px}
+.cur-detail .dsub{color:var(--cream-soft);font-size:15px;margin-bottom:22px}
+.cur-detail .dl{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-d);margin-bottom:12px}
+.cur-detail ul{list-style:none;display:flex;flex-direction:column;gap:11px;margin-bottom:22px}
+.cur-detail li{font-size:14.5px;color:var(--cream-soft);padding-left:26px;position:relative;line-height:1.4}
+.cur-detail li::before{content:"";position:absolute;left:0;top:6px;width:13px;height:9px;border-left:1.6px solid var(--orange);border-bottom:1.6px solid var(--orange);transform:rotate(-45deg)}
+.cur-ship{display:flex;align-items:center;gap:10px;background:rgba(255,90,31,.1);border:1px solid rgba(255,90,31,.4);border-radius:11px;padding:14px 16px}
+.cur-ship .st{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;background:var(--orange);color:#1a1206;border-radius:999px;padding:4px 9px;font-weight:700}
+.cur-ship .sx{font-size:13.5px;color:var(--cream)}
+
+/* ===== HOW IT WORKS ===== */
+.schedule{background:var(--charcoal);border-radius:18px;overflow:hidden;margin-top:42px;color:var(--cream)}
+.srow{display:flex;align-items:center;gap:16px;padding:20px 24px;border-top:1px solid var(--hair-d)}
+.srow:first-child{border-top:0}
+.srow .ic{color:var(--orange-2)}
+.srow .sl{font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--cream);text-transform:uppercase}
+.srow .sd{font-size:13px;color:var(--muted-d);margin-top:2px}
+.verdict{margin-left:auto;display:flex;gap:5px;background:var(--charcoal-2);border:1px solid var(--hair-d);border-radius:999px;padding:5px}
+.verdict button{font-family:var(--mono);font-size:11px;color:var(--muted-d);background:none;border:0;padding:6px 13px;border-radius:999px;cursor:pointer;transition:.2s}
+.verdict button.on{background:var(--orange);color:#1a1206;font-weight:700}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+.stat{background:var(--bone-2);border:1px solid var(--hair);border-radius:12px;padding:16px;text-align:center;font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--ink)}
+
+/* ===== WHO ===== */
+.who-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:42px}
+.whocard{background:var(--charcoal);border-radius:14px;padding:24px;color:var(--cream);border-top:2px solid transparent;transition:transform .3s var(--ease)}
+.whocard:hover{transform:translateY(-5px)}
+.whocard.hot{border-top-color:var(--orange)}
+.whocard .ic{color:var(--orange-2);margin-bottom:16px}
+.whocard h3{font-size:18px;color:var(--cream);margin-bottom:7px}
+.whocard p{font-size:13.5px;color:var(--muted-d)}
+.nocode{text-align:center;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:30px}
+
+/* ===== CONTRAST ===== */
+.ctable{margin-top:46px;max-width:920px;margin-left:auto;margin-right:auto}
+.chead,.crow{display:grid;grid-template-columns:1fr 1fr;gap:30px;padding:16px 0;border-top:1px solid var(--hair-d)}
+.chead{border-top:0}
+.chead div{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase}
+.chead .l{color:var(--muted-d)}.chead .r{color:var(--orange-2)}
+.crow .l{color:var(--muted-d);font-size:15px}
+.crow .r{color:var(--cream);font-size:15px;display:flex;gap:10px;align-items:flex-start}
+.crow .r .ck{color:var(--orange);flex:0 0 auto;margin-top:3px}
+
+/* ===== MENTORS ===== */
+.mentors-wrap{display:grid;grid-template-columns:1fr 1fr 1fr .7fr;gap:18px;margin-top:42px;align-items:stretch}
+.mentor{background:var(--charcoal);border-radius:16px;padding:24px;color:var(--cream);text-align:center}
+.mentor .av{width:62px;height:62px;border-radius:50%;background:var(--charcoal-3);margin:0 auto 16px;display:grid;place-items:center;color:var(--muted-d)}
+.mentor h3{font-size:18px;color:var(--cream);margin-bottom:5px}
+.mentor .role{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--orange-2);line-height:1.5;text-transform:uppercase}
+.mentor .mb{font-size:12.5px;color:var(--muted-d);margin-top:11px;line-height:1.5}
+.ratio{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.ratio .big{font-family:var(--serif);font-size:54px;color:var(--orange);line-height:1}
+.ratio .cap{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:8px;max-width:14ch}
+
+/* ===== PROOF ===== */
+.proofstats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:42px}
+.ps{background:var(--charcoal-2);border:1px solid var(--hair-d);border-radius:12px;padding:18px 20px;display:flex;align-items:center;gap:14px}
+.ps .num{font-family:var(--serif);font-size:34px;color:var(--orange);line-height:1}
+.ps .lab{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--cream-soft)}
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+.quote{background:var(--charcoal-2);border:1px solid var(--hair-d);border-radius:14px;padding:22px}
+.quote p{color:var(--cream);font-size:15px;line-height:1.55;margin-bottom:16px}
+.quote .by{display:flex;align-items:center;gap:10px}
+.quote .by .av{width:34px;height:34px;border-radius:50%;background:var(--charcoal-3)}
+.quote .by .r{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-d)}
+
+/* ===== PRICING ===== */
+.prices{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:46px;align-items:stretch;max-width:740px;margin-left:auto;margin-right:auto}
+.price{background:var(--charcoal);border:1px solid var(--hair-d);border-radius:18px;padding:28px;color:var(--cream);display:flex;flex-direction:column;position:relative;transition:transform .3s var(--ease)}
+.price:hover{transform:translateY(-5px)}
+.price.rec{border-color:rgba(255,90,31,.6);box-shadow:0 0 0 1px rgba(255,90,31,.25),0 30px 60px -36px rgba(255,90,31,.5)}
+.price .rtag{position:absolute;top:-11px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:var(--orange);color:#1a1206;padding:5px 12px;border-radius:999px;font-weight:700}
+.price .pn{font-size:17px;color:var(--cream);margin-bottom:14px;text-align:center;font-weight:600}
+.price .amt{font-family:var(--serif);font-size:40px;color:var(--cream);text-align:center}
+.price .amt small{font-family:var(--mono);font-size:11px;color:var(--muted-d);display:block;letter-spacing:.06em;margin-top:4px}
+.price ul{list-style:none;margin:22px 0;display:flex;flex-direction:column;gap:11px;flex:1}
+.price li{font-size:13.5px;color:var(--cream-soft);padding-left:24px;position:relative;line-height:1.4}
+.price li::before{content:"";position:absolute;left:0;top:5px;width:12px;height:8px;border-left:1.6px solid var(--orange);border-bottom:1.6px solid var(--orange);transform:rotate(-45deg)}
+.price .btn{justify-content:center;width:100%}
+
+/* ===== FAQ ===== */
+.faq{max-width:800px;margin:46px auto 0}
+.qa{border-top:1px solid var(--hair)}
+.qa:last-child{border-bottom:1px solid var(--hair)}
+.qa .q{width:100%;background:none;border:0;text-align:left;cursor:pointer;padding:24px 46px 24px 0;font-family:var(--serif);font-size:19px;font-weight:500;color:var(--ink);position:relative;letter-spacing:-.01em}
+.qa .q::after,.qa .q::before{content:"";position:absolute;right:8px;top:33px;background:var(--orange);transition:transform .3s}
+.qa .q::after{width:14px;height:2px}
+.qa .q::before{width:2px;height:14px;right:14px;top:27px}
+.qa.open .q::before{transform:scaleY(0)}
+.qa .a{max-height:0;overflow:hidden;transition:max-height .4s var(--ease)}
+.qa .a p{padding:0 46px 24px 0;color:var(--muted);font-size:15px;line-height:1.65}
+
+/* ===== FINAL ===== */
+.final{position:relative;background:var(--charcoal);color:var(--cream);text-align:center;padding:130px 0;overflow:hidden}
+.final video,.final .bgfallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.final .bgfallback{background:var(--charcoal) url('/ai-cohort/assets/cta-motion.png') center/cover no-repeat;opacity:.5;animation:kenburns 26s ease-in-out infinite alternate;transform-origin:62% 42%}
+@keyframes kenburns{from{transform:scale(1.03)}to{transform:scale(1.14)}}
+.final video{opacity:.55}
+.final .scrim{position:absolute;inset:0;z-index:1;background:radial-gradient(70% 90% at 50% 50%,rgba(23,20,16,.3),rgba(23,20,16,.82))}
+.final .wrap{position:relative;z-index:2}
+.final h2{font-size:clamp(30px,4.4vw,52px);color:var(--cream);max-width:20ch;margin:0 auto 20px}
+.final p{color:var(--cream-soft);font-size:18px;margin-bottom:30px}
+.final .fcta{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:26px}
+.final .fstamp{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-d);display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.final .fstamp .sd{color:#473f33}
+
+/* footer */
+footer{background:var(--charcoal-2);color:var(--cream-soft);padding:64px 0 36px}
+.fgrid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:36px}
+.brandlock.foot .logo{height:28px;color:var(--cream)}
+.brandlock.foot .div{background:var(--hair-d)}.brandlock.foot .sub{color:var(--orange-2)}
+.ftag{font-size:14px;color:var(--muted-d);margin-top:16px;max-width:30ch;line-height:1.6}
+.fcol h4{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-d);margin-bottom:14px;font-weight:400}
+.fcol a{display:block;font-size:14px;color:var(--cream-soft);margin-bottom:10px;transition:color .2s}
+.fcol a:hover{color:var(--orange-2)}
+.fbot{margin-top:48px;padding-top:22px;border-top:1px solid var(--hair-d);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--muted-d)}
+
+@media(max-width:980px){
+  .hero-panel{grid-template-columns:1fr;gap:30px;padding:32px}
+  .statstrip{grid-template-columns:1fr 1fr}.statstrip .st:nth-child(2){border-right:0}
+  .gap-grid,.become-grid,.builds,.who-grid,.prices,.quotes,.proofstats,.mentors-wrap,.curric{grid-template-columns:1fr}
+  .navlinks,.navright .ghostnav{display:none}
+  .stackrow{grid-template-columns:1fr}.fgrid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){.wrap{padding:0 20px}.sec{padding:74px 0}.fn-cards{grid-template-columns:1fr}.crow,.chead{grid-template-columns:1fr;gap:6px}.statstrip{grid-template-columns:1fr}.statstrip .st{border-right:0;border-bottom:1px solid var(--hair)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="lvl" viewBox="0 0 115 56">
+<path d="M14.205 43.1576H0V24.1143H4.35524V39.5162H14.205V43.1576Z" fill="currentColor"/>
+<path d="M28.7699 36.9215H18.3934C18.6424 39.7357 19.8641 40.5644 21.4999 40.5644C23.0263 40.5644 24.0528 39.7273 24.3018 38.3563H28.6033C27.7988 41.7514 25.0238 43.5461 21.4175 43.5461C17.2844 43.5461 14.0381 41.0349 14.0381 35.8451C14.0381 31.4287 17.0067 28.062 21.6951 28.062C26.4071 28.062 28.8523 31.6212 28.8523 35.5404C28.8486 36.0019 28.821 36.4629 28.7699 36.9215ZM18.5045 34.1893H24.3305C24.0814 32.1184 23.1104 31.042 21.4999 31.042C19.9466 31.042 18.8646 32.0079 18.5045 34.1893Z" fill="currentColor"/>
+<path d="M38.8122 43.1577H34.0413L28.2422 28.4487H33.0703L36.4815 39.8211L39.8674 28.4504H44.5794L38.8122 43.1577Z" fill="currentColor"/>
+<path d="M57.9229 36.9215H47.5514C47.8022 39.7357 49.0223 40.5644 50.6597 40.5644C52.1844 40.5644 53.2109 39.7273 53.4616 38.3563H57.7547C56.9502 41.7514 54.1752 43.5461 50.5688 43.5461C46.4357 43.5461 43.1895 41.0349 43.1895 35.8451C43.1895 31.4287 46.158 28.062 50.8465 28.062C55.5585 28.062 58.0037 31.6212 58.0037 35.5404C58.0005 36.0018 57.9735 36.4628 57.9229 36.9215ZM47.6574 34.1893H53.4836C53.2345 32.1184 52.2634 31.042 50.6546 31.042C49.1047 31.042 48.0226 32.0079 47.6574 34.1893Z" fill="currentColor"/>
+<path d="M63.281 38.1349C63.281 38.7694 63.281 39.1009 63.3096 39.4877C63.3921 40.1573 63.6984 40.3699 65.0026 40.3146V43.2678C64.1361 43.3596 63.2655 43.406 62.3941 43.4067C60.3125 43.4067 59.0924 42.6066 58.9813 40.6746C58.9258 39.9564 58.9258 39.2382 58.9258 38.217V22.8735H63.281V38.1349Z" fill="currentColor"/>
+<path d="M91.6325 35.6894C91.6325 36.9216 91.6325 37.69 91.516 39.0762C91.2062 43.5394 88.0729 47.4268 80.2598 47.4268C72.4459 47.4268 69.3124 43.5394 68.9641 39.0762C68.8867 37.69 68.8867 36.9216 68.8867 35.6894V20.3359H74.9198V36.5751C74.9198 37.3066 74.9197 37.8056 74.9584 38.3446C75.1906 41.2308 76.9309 42.9635 80.2575 42.9635C83.5848 42.9635 85.3251 41.2308 85.5183 38.3446C85.5873 37.7574 85.6134 37.166 85.5958 36.5751V20.3359H91.6302L91.6325 35.6894Z" fill="currentColor"/>
+<path d="M115 36.9434C115 44.2828 110.505 48.1048 105.239 48.1048C103.556 48.1048 101.512 47.6846 100.475 47.035L99.1289 44.8939V55.0558H93.0938V27.1965H99.1267V30.2552L100.667 27.9985C101.82 27.1195 103.864 26.6592 105.931 26.6592C111.58 26.6609 115 30.9483 115 36.9434ZM108.813 37.3251C108.813 33.3071 106.855 30.796 104.01 30.796C101.246 30.796 99.1305 32.4784 99.1305 37.1409V38.0583C99.1305 42.4546 101.512 43.9831 103.817 43.9831C106.739 43.9764 108.813 41.7598 108.813 37.3251Z" fill="currentColor"/>
+<path d="M71.9524 12.1978C71.2961 12.1978 70.6545 12.3914 70.1087 12.7541C69.563 13.1169 69.1376 13.6325 68.8865 14.2358C68.6352 14.839 68.5695 15.5028 68.6975 16.1432C68.8257 16.7836 69.1417 17.3719 69.6058 17.8336C70.0699 18.2953 70.6612 18.6098 71.305 18.7371C71.9488 18.8645 72.616 18.7992 73.2224 18.5492C73.8288 18.2994 74.3471 17.8762 74.7117 17.3333C75.0764 16.7904 75.271 16.1521 75.271 15.4991C75.271 15.0656 75.1852 14.6363 75.0184 14.2358C74.8517 13.8353 74.6072 13.4713 74.299 13.1647C73.9908 12.8582 73.625 12.615 73.2224 12.4491C72.8198 12.2832 72.3882 12.1978 71.9524 12.1978ZM71.9524 17.4462C71.565 17.4462 71.1864 17.3318 70.8644 17.1176C70.5424 16.9034 70.2915 16.5989 70.1436 16.2427C69.9957 15.8865 69.9573 15.4947 70.0334 15.1169C70.1094 14.739 70.2965 14.3921 70.5709 14.12C70.8453 13.848 71.1947 13.6631 71.5748 13.5888C71.9548 13.5144 72.3486 13.5539 72.7061 13.7023C73.0636 13.8507 73.3688 14.1013 73.583 14.4223C73.7973 14.7434 73.9109 15.1205 73.9096 15.5059C73.9096 16.0222 73.7033 16.5175 73.3363 16.8826C72.9693 17.2477 72.4715 17.4529 71.9524 17.4529V17.4462Z" fill="currentColor"/>
+<path d="M85.6363 1.81836C84.9801 1.81836 84.3384 2.01198 83.7925 2.37474C83.2466 2.7375 82.8211 3.25311 82.5704 3.85636C82.319 4.45961 82.253 5.12341 82.3811 5.76381C82.5091 6.40422 82.8257 6.99248 83.2896 7.45418C83.7534 7.91587 84.3453 8.23031 84.9885 8.35773C85.6325 8.48507 86.2995 8.41972 86.9059 8.16986C87.5124 7.91994 88.0306 7.49681 88.3956 6.9539C88.7597 6.41099 88.9545 5.7727 88.9545 5.11975C88.9545 4.24416 88.6049 3.40444 87.9831 2.78531C87.3606 2.16618 86.5165 1.81836 85.6363 1.81836ZM85.6363 7.06676C85.2492 7.06676 84.8704 6.95257 84.5484 6.73863C84.2272 6.52469 83.9757 6.2206 83.8278 5.86483C83.6798 5.50907 83.6407 5.11759 83.7166 4.7399C83.7917 4.36222 83.9788 4.01529 84.2525 3.743C84.5262 3.4707 84.8743 3.28527 85.2545 3.21014C85.634 3.13502 86.0273 3.17357 86.3854 3.32094C86.7426 3.4683 87.0485 3.71786 87.2632 4.03805C87.4786 4.35823 87.5936 4.73466 87.5936 5.11975C87.5913 5.63467 87.3836 6.12776 87.0171 6.49109C86.6506 6.85442 86.1538 7.05839 85.6363 7.05839V7.06676Z" fill="currentColor"/>
+<path d="M98.4442 10.125C97.7879 10.125 97.1462 10.3186 96.6004 10.6814C96.0553 11.0442 95.6298 11.5598 95.3783 12.163C95.1276 12.7662 95.0617 13.4301 95.1897 14.0705C95.3177 14.7109 95.6336 15.2991 96.0974 15.7608C96.562 16.2226 97.1531 16.5369 97.7971 16.6643C98.4404 16.7917 99.1081 16.7263 99.7146 16.4765C100.321 16.2266 100.839 15.8035 101.203 15.2605C101.568 14.7176 101.763 14.0794 101.763 13.4264C101.763 12.5508 101.413 11.7111 100.791 11.092C100.168 10.4728 99.3243 10.125 98.4442 10.125ZM98.4442 15.3734C98.057 15.3737 97.6783 15.2598 97.3563 15.0461C97.0343 14.8323 96.7836 14.5284 96.6349 14.1726C96.4869 13.8169 96.4478 13.4253 96.5229 13.0476C96.5981 12.6698 96.7844 12.3227 97.0581 12.0502C97.3318 11.7778 97.6806 11.5921 98.0601 11.5169C98.4404 11.4416 98.8337 11.4801 99.1909 11.6274C99.549 11.7747 99.8549 12.0242 100.07 12.3445C100.285 12.6647 100.4 13.0412 100.4 13.4264C100.401 13.6824 100.35 13.9359 100.253 14.1726C100.155 14.4093 100.01 14.6245 99.8288 14.8058C99.6471 14.9871 99.4317 15.131 99.194 15.2293C98.9563 15.3275 98.7018 15.3782 98.4442 15.3784V15.3734Z" fill="currentColor"/>
+<path d="M111.656 1.69869e-06C110.999 -0.00066067 110.358 0.192399 109.812 0.554758C109.265 0.917119 108.84 1.43249 108.587 2.03568C108.336 2.63887 108.27 3.30278 108.397 3.94341C108.525 4.58403 108.841 5.1726 109.305 5.63464C109.769 6.09668 110.36 6.41144 111.004 6.5391C111.648 6.66675 112.316 6.60157 112.922 6.3518C113.528 6.10202 114.047 5.67888 114.412 5.13589C114.777 4.59291 114.971 3.95448 114.971 3.30138C114.971 2.42638 114.622 1.58717 114.001 0.968133C113.379 0.349101 112.536 0.000889127 111.656 1.69869e-06ZM111.656 5.24673C111.269 5.24706 110.89 5.13311 110.568 4.9193C110.246 4.70549 109.995 4.40142 109.846 4.04558C109.698 3.68974 109.659 3.29812 109.735 2.92028C109.81 2.54245 109.996 2.19536 110.27 1.92296C110.545 1.65057 110.893 1.46511 111.273 1.39003C111.652 1.31496 112.046 1.35366 112.404 1.50123C112.762 1.6488 113.068 1.89861 113.282 2.21906C113.497 2.5395 113.612 2.91616 113.611 3.30138C113.611 3.81732 113.406 4.31213 113.039 4.67695C112.672 5.04177 112.175 5.24673 111.656 5.24673Z" fill="currentColor"/>
+<path d="M82.5152 5.49316L73.6094 13.572L74.4315 14.4688L83.3378 6.39003L82.5152 5.49316Z" fill="currentColor"/>
+<path d="M109.615 4.60693L100.709 12.6857L101.532 13.5826L110.437 5.5038L109.615 4.60693Z" fill="currentColor"/>
+<path d="M88.4832 5.0835L87.6904 6.00671L95.8255 12.9134L96.6175 11.9903L88.4832 5.0835Z" fill="currentColor"/>
+</symbol></svg>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="wrap">
+    <a class="brandlock" href="#top" aria-label="LevelUp"><svg class="logo"><use href="#lvl"/></svg></a>
+    <div class="navlinks">
+      <a href="#build">What you build</a>
+      <a href="#curriculum">Curriculum</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="navright">
+      <a class="btn btn-ghost ghostnav" href="#">Download Brochure</a>
+      <a class="btn btn-solid" href="#final">Apply</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-panel">
+      <div class="hero-copy">
+        <div class="hero-eyebrow"><span class="pip"></span>LevelUp · The 3-Month AI Program</div>
+        <h1 class="hero-h1 rv">Direct AI like<br>you run a <span class="em">team</span>.</h1>
+        <p class="hero-sub rv d1">A live program for founders and operators who want to build with AI, not just talk about it. No coding. You leave AI-native, with three real things working in your business.</p>
+        <div class="hero-cta rv d2">
+          <a class="btn btn-solid" href="#final">Apply for Cohort 01 <span aria-hidden="true">→</span></a>
+          <a class="tlink" href="#">Download the brochure <span class="ar" aria-hidden="true">→</span></a>
+        </div>
+        <div class="hero-stamps rv d3">
+          <span>Refundable application fee</span><span class="sd">·</span>
+          <span>Real seat cap</span><span class="sd">·</span>
+          <span>We teach before we pitch</span>
+        </div>
+      </div>
+      <div class="mockwrap rv d2">
+        <div class="pm" id="pm">
+          <div class="pm-bar"><span class="dots"><i></i><i></i><i></i></span><span class="os">LevelUp OS</span>
+            <span class="pm-toggle"><button data-w="0">▷ Watch</button><button data-w="1" class="on">◆ Build</button></span></div>
+          <div class="pm-tabs" id="pmtabs">
+            <div class="pm-tab on" data-i="0"><span class="ti"><svg class="ic" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span><span class="tn">01</span><span class="tt">Content System</span></div>
+            <div class="pm-tab" data-i="1"><span class="ti"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.5 5.5l2 2M16.5 16.5l2 2M5.5 18.5l2-2M16.5 7.5l2-2"/></svg></span><span class="tn">02</span><span class="tt">Automation</span></div>
+            <div class="pm-tab" data-i="2"><span class="ti"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8"/></svg></span><span class="tn">03</span><span class="tt">Real Product</span></div>
+            <span class="pm-ind" id="pmind"></span>
+          </div>
+          <div class="pm-body">
+            <div class="pm-pane on" data-p="0">
+              <div class="pm-h">Content System</div><div class="pm-s">Turn ideas into a repeatable machine.</div>
+              <div class="pl"><span class="node">Idea</span><span class="seg s1"></span><span class="node">Outline</span><span class="seg s2"></span><span class="node">Draft</span><span class="seg s3"></span><span class="node">Review</span><span class="seg s4"></span><span class="node pub">Publish</span></div>
+              <div class="pm-lbl">Output preview</div>
+              <div class="pm-op"><span class="opt">Weekly Batch</span><span class="ops">12 posts · 4 formats</span><span class="opg">▣ ▤ ◍</span></div>
+              <div class="pm-lbl">Automated by AI</div>
+              <div class="pm-chips"><span>Research</span><span>Writing</span><span>Editing</span><span>Scheduling</span></div>
+            </div>
+            <div class="pm-pane" data-p="1">
+              <div class="pm-h">Automation</div><div class="pm-s">Run the work that runs on repeat.</div>
+              <div class="pm-nodes">
+                <svg><line x1="48" y1="28" x2="130" y2="74" stroke="#332C24" stroke-width="1.5"/><line x1="210" y1="74" x2="280" y2="28" stroke="#332C24" stroke-width="1.5"/><line x1="210" y1="80" x2="280" y2="120" stroke="#332C24" stroke-width="1.5"/></svg>
+                <div class="pm-nd" style="left:0;top:14px"><span class="d"></span>Form submit</div>
+                <div class="pm-nd ai" style="left:130px;top:60px"><span class="d"></span>AI enrich</div>
+                <div class="pm-nd" style="left:270px;top:14px"><span class="d"></span>Route lead</div>
+                <div class="pm-nd" style="left:270px;top:110px"><span class="d"></span>Notify team</div>
+              </div>
+              <div class="pm-lbl">Status</div>
+              <div class="pm-op"><span class="opt">3 agents live</span><span class="live">running 24/7</span></div>
+            </div>
+            <div class="pm-pane" data-p="2">
+              <div class="pm-h">Real Product</div><div class="pm-s">Ship something people actually use.</div>
+              <div class="pm-app">
+                <div class="ab"><span class="d"><i></i><i></i><i></i></span><span class="u">app.levelup.build</span></div>
+                <div class="ur"><span class="av"></span>Jane Thompson<span class="tg">Admin</span></div>
+                <div class="ur"><span class="av"></span>Marcus Reed<span class="tg">Editor</span></div>
+                <div class="ur"><span class="av"></span>Sarah Patel<span class="tg">Member</span></div>
+              </div>
+              <div class="pm-lbl">Deployed</div>
+              <div class="pm-op"><span class="opt">Live product</span><span class="live">5 users this week</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- blunt stat strip (OutSkill-style) -->
+    <div class="statstrip rv d1">
+      <div class="st"><div class="sv">3 <span class="o">months</span></div><div class="sl">Live &amp; online</div></div>
+      <div class="st"><div class="sv">Capped at <span class="o">25</span></div><div class="sl">A real room, not a stadium</div></div>
+      <div class="st"><div class="sv"><span class="o">3</span> builds</div><div class="sl">Shipped, not theory</div></div>
+      <div class="st"><div class="sv">1 : <span class="o">5</span></div><div class="sl">Mentor ratio</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- GAP -->
+<section class="sec">
+  <div class="wrap gap-grid">
+    <div>
+      <span class="eyebrow muted rv">The honest part</span>
+      <h2 class="rv d1" style="margin:18px 0 16px">Knowing about AI and building with AI are different sports.</h2>
+      <p class="lead rv d2">You can explain what an agent is. You have never shipped one. The people pulling ahead are not the ones who watched the most videos. They are the ones who can make AI do the work. In three months, that becomes you.</p>
+    </div>
+    <div class="tabpile rv d2" aria-hidden="true">
+      <div class="tab" style="top:22px"><span class="fav"></span>Top 30 AI Tools in 2026<span class="x">✕</span></div>
+      <div class="tab" style="top:58px"><span class="fav"></span>Build an AI Agent (saved)<span class="x">✕</span></div>
+      <div class="tab" style="top:94px"><span class="fav"></span>Prompt engineering masterclass<span class="x">✕</span></div>
+      <div class="tab" style="top:130px"><span class="fav"></span>n8n crash course<span class="x">✕</span></div>
+      <div class="readout">videos watched: a lot<br>things built: <b>0</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- BECOME -->
+<section class="sec" style="background:var(--bone-2)">
+  <div class="wrap center">
+    <span class="eyebrow rv">The outcome</span>
+    <h2 class="rv d1" style="margin:18px 0 0">Walk in curious. Walk out AI-native.</h2>
+    <div class="become-grid" style="text-align:left">
+      <div class="bc rv d1"><div class="ic"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></div><div class="n">01 / AI-FIRST BY DEFAULT</div><div class="t">Reach for AI for everything.</div></div>
+      <div class="bc rv d2"><div class="ic"><svg class="ic" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></div><div class="n">02 / IDEA TO WORKING THING</div><div class="t">Build it yourself, fast.</div></div>
+      <div class="bc rv d3"><div class="ic"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="8.5" y="14" width="7" height="7" rx="1"/><path d="M6.5 10v2M17.5 10v2M12 10v4"/></svg></div><div class="n">03 / SYSTEMS, NOT PROMPTS</div><div class="t">Think in agents.</div></div>
+      <div class="bc rv d4"><div class="ic"><svg class="ic" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg></div><div class="n">04 / DEPLOY &amp; MAINTAIN</div><div class="t">Put AI into a real business.</div></div>
+    </div>
+    <div class="bline rv" id="bline"><div class="fill"></div><div class="dot"></div></div>
+  </div>
+</section>
+
+<!-- AGENTIC -->
+<section class="sec" id="agentic">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">AI beyond automation</span>
+      <h2 style="margin-top:18px">What are agentic workflows?</h2>
+      <p class="lead" style="margin-top:14px">In plain terms: an agentic workflow does the work that used to need a person at every step. You set the goal, the agents handle the busywork, and you stay on strategy.</p>
+    </div>
+    <div class="aw-flow rv d1">
+      <div class="aw-node"><div class="aw-dot"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></div><div class="aw-lb">Goal</div></div>
+      <div class="aw-arrow">→</div>
+      <div class="aw-node hot"><div class="aw-dot"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></svg></div><div class="aw-lb">AI Agent</div></div>
+      <div class="aw-arrow">→</div>
+      <div class="aw-node"><div class="aw-dot"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg></div><div class="aw-lb">Tools</div></div>
+      <div class="aw-arrow">→</div>
+      <div class="aw-node"><div class="aw-dot"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg></div><div class="aw-lb">Check</div></div>
+      <div class="aw-arrow">→</div>
+      <div class="aw-node done"><div class="aw-dot"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg></div><div class="aw-lb">Done</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FUNCTIONS -->
+<section class="sec" id="functions" style="background:var(--bone-2)">
+  <div class="wrap center">
+    <span class="eyebrow rv">The same job, with agents</span>
+    <h2 class="rv d1" style="margin-top:18px">See it in your world.</h2>
+    <div class="fn-tabs rv d1">
+      <button class="fn-tab on" data-fn="0">Marketing</button>
+      <button class="fn-tab" data-fn="1">Operations</button>
+      <button class="fn-tab" data-fn="2">Data &amp; Reporting</button>
+    </div>
+    <div class="fn-desc rv" id="fndesc">Leverage AI to streamline campaigns and ship faster.</div>
+    <div class="fn-cards rv" style="text-align:left">
+      <div class="fn-card old"><span class="clk">◷</span><div class="ft">The old way</div><h3 id="oldh">Manual marketing</h3><ul class="oldlist" id="oldlist"><li>Research competitors</li><li>Draft campaign copy</li><li>Design variations</li><li>Run A/B tests</li></ul><p id="oldp">Weeks of manual research, drafting, and A/B testing before anything ships.</p></div>
+      <div class="fn-card new">
+        <div class="ft">With agents</div><h3 id="newh">Agentic marketing</h3>
+        <div class="agentflow">
+          <div class="line"></div><div class="pkt"></div>
+          <div class="track">
+            <div class="gn"><span class="b" id="gn0"><svg class="ic" viewBox="0 0 24 24"><path d="M4 5h16M4 12h10M4 19h13"/></svg></span><span class="l" id="gl0">Brief</span></div>
+            <div class="gn ai"><span class="b"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></svg></span><span class="l">AI Agent</span></div>
+            <div class="gn"><span class="b" id="gn2"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><span class="l" id="gl2">Publish</span></div>
+          </div>
+        </div>
+        <p id="newp">Agents draft, test, and optimise campaigns in hours, not weeks.</p>
+        <div class="fn-foot"><span>◆</span> Runs by itself, on your brief.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUILD -->
+<section class="sec" id="build">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">What you leave with</span>
+      <h2 style="margin-top:18px">Three things that did not exist before you.</h2>
+      <p class="lead" style="margin-top:14px">Not demos, not templates. Three working things, built by you, for your business, and yours to keep.</p>
+    </div>
+    <div class="builds">
+      <div class="buildcard rv d1">
+        <div class="top"><span class="tag">SHIP 01</span><span class="shipped">Shipped</span></div>
+        <h3>Content Engine</h3><div class="bd">A repeatable system that turns out on-brand content every week.</div>
+        <div class="bviz">
+          <div class="cal"><i></i><i class="on"></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i class="on"></i><i></i></div>
+          <div class="feed"><div class="feeditem"><span class="th"></span>3 AI Workflows That Save 10+ Hours</div><div class="feeditem"><span class="th"></span>Automate This, Not That</div></div>
+        </div>
+        <div class="yours"><span class="dia">◆</span><span>Built for <b>your</b> brand. Yours to keep.</span></div>
+      </div>
+      <div class="buildcard rv d2">
+        <div class="top"><span class="tag">SHIP 02</span><span class="shipped">Live</span></div>
+        <h3>Live Automation</h3><div class="bd">An AI agent quietly doing a real piece of your job.</div>
+        <div class="bviz pm-nodes" style="height:150px">
+          <svg><line x1="40" y1="28" x2="115" y2="74" stroke="#332C24" stroke-width="1.5"/><line x1="185" y1="74" x2="250" y2="28" stroke="#332C24" stroke-width="1.5"/><line x1="185" y1="80" x2="250" y2="120" stroke="#332C24" stroke-width="1.5"/></svg>
+          <div class="pm-nd" style="left:0;top:16px"><span class="d"></span>Trigger</div>
+          <div class="pm-nd ai" style="left:115px;top:62px"><span class="d"></span>AI enrich</div>
+          <div class="pm-nd" style="left:250px;top:16px"><span class="d"></span>Route</div>
+          <div class="pm-nd" style="left:250px;top:108px"><span class="d"></span>Notify</div>
+        </div>
+        <div class="yours"><span class="dia">◆</span><span>Runs <b>your</b> real process. Yours to keep.</span></div>
+      </div>
+      <div class="buildcard rv d3">
+        <div class="top"><span class="tag">SHIP 03</span><span class="shipped">Deployed</span></div>
+        <h3>Working Product</h3><div class="bd">A real, deployed app or tool, built without code.</div>
+        <div class="bviz pm-app">
+          <div class="ab"><span class="d"><i></i><i></i><i></i></span><span class="u">app.levelup.build</span></div>
+          <div class="ur"><span class="av"></span>Jane Thompson<span class="tg">Admin</span></div>
+          <div class="ur"><span class="av"></span>Marcus Reed<span class="tg">Editor</span></div>
+          <div class="ur"><span class="av"></span>Sarah Patel<span class="tg">Member</span></div>
+        </div>
+        <div class="yours"><span class="dia">◆</span><span>Solves <b>your</b> problem. Yours to keep.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STACK -->
+<section class="sec" style="background:var(--bone-2)" id="stack">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Your new toolkit</span>
+      <h2 style="margin-top:18px">Command the whole modern AI stack.</h2>
+      <p class="lead" style="margin-top:14px">You go deep on the tools that matter, and learn to wire them together. The real stack, not a tour.</p>
+    </div>
+    <div class="stackpanel rv d1" id="stackpanel"></div>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section class="sec dark on-dark" id="curriculum">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">The three months</span>
+      <h2 style="margin-top:18px">Twelve weeks. One rhythm. Three things shipped.</h2>
+      <p class="lead" style="margin-top:14px">A step-by-step path: become AI-native, then ship a content engine, an automation, and a product. Click a module.</p>
+    </div>
+    <div class="curric">
+      <div class="cur-list" id="curlist"></div>
+      <div class="cur-detail" id="curdetail"></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="sec" id="how">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="eyebrow">How it runs</span><h2 style="margin-top:18px">A studio, not a webinar.</h2></div>
+    <div class="schedule rv d1">
+      <div class="srow"><span class="ic"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><div class="sl">Sun · Build Lab (live)</div><div class="sd">A mentor teaches the week's skill and you build alongside.</div></div></div>
+      <div class="srow"><span class="ic"><svg class="ic" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span><div><div class="sl">Mon–Fri · Build Sprint</div><div class="sd">You build the week's real thing on your own schedule.</div></div></div>
+      <div class="srow"><span class="ic"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg></span><div><div class="sl">Sat · Build Review</div><div class="sd">Your work gets reviewed live and gets one verdict.</div></div>
+        <div class="verdict" id="verdict"><button class="on">Ship</button><button>Fix</button><button>Rebuild</button></div></div>
+    </div>
+    <div class="stats rv d2"><div class="stat">8–12 HRS / WEEK</div><div class="stat">1 : 5 MENTORS</div><div class="stat">CAPPED COHORT</div></div>
+  </div>
+</section>
+
+<!-- WHO -->
+<section class="sec" style="background:var(--bone-2)">
+  <div class="wrap center">
+    <span class="eyebrow rv">Is this you</span>
+    <h2 class="rv d1" style="margin-top:18px">Built for people who make decisions.</h2>
+    <div class="who-grid" style="text-align:left">
+      <div class="whocard rv d1"><div class="ic"><svg class="ic" viewBox="0 0 24 24"><path d="M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg></div><h3>Startup founders</h3><p>Run a lean team like a big one.</p></div>
+      <div class="whocard hot rv d2"><div class="ic"><svg class="ic" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h.01M15 10h.01M9 14h.01M15 14h.01"/></svg></div><h3>Family-business leaders</h3><p>Bring AI in from the top.</p></div>
+      <div class="whocard rv d3"><div class="ic"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/></svg></div><h3>Corporate operators</h3><p>Become the one who gets AI.</p></div>
+      <div class="whocard rv d4"><div class="ic"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></svg></div><h3>Aspiring founders</h3><p>Build it instead of waiting.</p></div>
+    </div>
+    <div class="nocode rv">No coding background needed</div>
+  </div>
+</section>
+
+<!-- CONTRAST -->
+<section class="sec dark on-dark">
+  <div class="wrap center">
+    <span class="eyebrow rv">Why this, not that</span>
+    <h2 class="rv d1" style="margin-top:18px">Ten thousand people watching is not a class.<br>A capped room building is.</h2>
+    <div class="ctable" style="text-align:left">
+      <div class="chead rv"><div class="l">The big AI programs</div><div class="r">This program</div></div>
+      <div class="crow rv"><div class="l">Six months of theory</div><div class="r"><span class="ck">✓</span>Three months of building</div></div>
+      <div class="crow rv"><div class="l">Generic assignments</div><div class="r"><span class="ck">✓</span>Three real builds for your business</div></div>
+      <div class="crow rv"><div class="l">A stadium, no attention</div><div class="r"><span class="ck">✓</span>A capped room, weekly review</div></div>
+      <div class="crow rv"><div class="l">Influencers who present</div><div class="r"><span class="ck">✓</span>Practitioners who build with you</div></div>
+      <div class="crow rv"><div class="l">You leave with notes</div><div class="r"><span class="ck">✓</span>A content engine, an automation, a product</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MENTORS -->
+<section class="sec" id="mentors">
+  <div class="wrap">
+    <div class="sec-head center rv"><span class="eyebrow">Who teaches</span><h2 style="margin-top:18px">Practitioners, not presenters.</h2></div>
+    <div class="mentors-wrap">
+      <div class="mentor rv d1"><div class="av">◔</div><h3>Vaibhav Kejriwal</h3><div class="role">n8n Bangalore Ambassador · Operations</div><div class="mb">Builds and scales the automations you ship in weeks six to eight.</div></div>
+      <div class="mentor rv d2"><div class="av">◑</div><h3>Sabilashan Ganeshan</h3><div class="role">Lovable Ambassador · Perplexity Lead · Product</div><div class="mb">From a sentence to a deployed product, no code.</div></div>
+      <div class="mentor rv d3"><div class="av">◕</div><h3>Kevin Adams</h3><div class="role">Content &amp; Design</div><div class="mb">Turns AI tools into a studio you run yourself.</div></div>
+      <div class="ratio rv d4"><div class="big">1:5</div><div class="cap">One mentor for every five builders</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section class="sec dark on-dark">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="eyebrow">Receipts</span><h2 style="margin-top:18px">Proof, not a PDF.</h2></div>
+    <div class="proofstats">
+      <div class="ps rv d1"><span class="num" data-count="3">0</span><span class="lab">Builds shipped</span></div>
+      <div class="ps rv d2"><span class="num" data-count="12">0</span><span class="lab">Month AI plan</span></div>
+      <div class="ps rv d3"><span class="num">∞</span><span class="lab">Alumni network</span></div>
+    </div>
+    <div class="quotes">
+      <div class="quote rv d1"><p>"I came in to watch demos. I left with an automation that does three hours of my week for me."</p><div class="by"><span class="av"></span><span class="r">Founder</span></div></div>
+      <div class="quote rv d2"><p>"The Saturday review is the whole thing. Someone actually looks at what you built."</p><div class="by"><span class="av"></span><span class="r">Operator</span></div></div>
+      <div class="quote rv d3"><p>"I shipped a tool my team uses daily. Three months earlier I couldn't write a line of code."</p><div class="by"><span class="av"></span><span class="r">Corporate lead</span></div></div>
+    </div>
+    <p style="font-family:var(--mono);font-size:11px;color:var(--muted-d);margin-top:22px;letter-spacing:.04em">* Sample quotes, to be replaced with real graduate testimonials before launch.</p>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="sec" id="pricing" style="background:var(--bone-2)">
+  <div class="wrap center">
+    <span class="eyebrow rv">Pricing</span>
+    <h2 class="rv d1" style="margin-top:18px">A fraction of the six-month fellowships. Twice the output.</h2>
+    <div class="prices" style="text-align:left">
+      <div class="price rec rv d1"><div class="rtag">Start here</div><div class="pn">The 3-Month Program</div><div class="amt">₹—<small>per cohort · confirm price</small></div><ul><li>12 weeks live, three shipped builds</li><li>Weekly 1:1 mentor review</li><li>Capped cohort, pods by profile</li><li>Refundable application fee</li></ul><a class="btn btn-solid" href="#final">Apply for Cohort 01</a></div>
+      <div class="price rv d3"><div class="pn">Forge AI Residency</div><div class="amt">₹1,20,000<small>9-day residential</small></div><ul><li>Nine days in person</li><li>All three pillars and the tribe</li><li>For graduates who want more</li></ul><a class="btn btn-ghost" href="#final">Learn more</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec" id="faq">
+  <div class="wrap center">
+    <span class="eyebrow rv">Straight answers</span>
+    <h2 class="rv d1" style="margin-top:18px">The things people actually ask.</h2>
+    <div class="faq" style="text-align:left">
+      <div class="qa open"><button class="q">Do I need to know how to code?</button><div class="a"><p>No. The program is built for non-technical founders and operators. The product you build uses no-code tools. A code-first track comes later.</p></div></div>
+      <div class="qa"><button class="q">How much time per week?</button><div class="a"><p>Roughly 8 to 12 hours, loaded on the weekend. A live Sunday session, a build sprint you fit around your week, and a live Saturday review.</p></div></div>
+      <div class="qa"><button class="q">What exactly do I leave with?</button><div class="a"><p>Three working things built for your business: a content engine, a live automation, and a deployed product. Plus a 12-month plan and a certificate.</p></div></div>
+      <div class="qa"><button class="q">Is the application fee really refundable?</button><div class="a"><p>Yes. We are upfront about the program before you ever pay, and the application fee is fully refundable. Real caps, no fake scarcity.</p></div></div>
+      <div class="qa"><button class="q">How is this different from the six-month fellowships?</button><div class="a"><p>They teach you about AI across six months of levels. We make you able to use it in three, with your work reviewed every week and three real things to show for it.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section class="final" id="final">
+  <div class="bgfallback"></div>
+  <video class="ctavid" autoplay muted loop playsinline><source src="/ai-cohort/assets/cta-motion.mp4" type="video/mp4"></video>
+  <div class="scrim"></div>
+  <div class="wrap">
+    <h2 class="rv">Three months from now, you have built three things. Or you have watched more videos.</h2>
+    <p class="rv d1">Your call. Apply for Cohort 01, or sit in on a free class first and decide there.</p>
+    <div class="fcta rv d2"><a class="btn btn-solid" href="#">Apply now <span aria-hidden="true">→</span></a><a class="btn btn-ghost" href="#">Download Brochure</a></div>
+    <div class="fstamp rv d3"><span>Starts soon</span><span class="sd">·</span><span>Limited seats</span><span class="sd">·</span><span>Refundable fee</span></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <span class="brandlock foot"><svg class="logo"><use href="#lvl"/></svg><span class="div"></span><span class="sub">AI</span></span>
+        <p class="ftag">An AI program by LevelUp. Direct AI like you run a team.</p>
+      </div>
+      <div class="fcol"><h4>Program</h4><a href="#build">What you build</a><a href="#curriculum">Curriculum</a><a href="#how">How it works</a><a href="#pricing">Pricing</a></div>
+      <div class="fcol"><h4>Start</h4><a href="#final">Apply</a><a href="#final">Free class</a><a href="#faq">FAQ</a></div>
+      <div class="fcol"><h4>LevelUp</h4><a href="#">About</a><a href="#">The Forge</a><a href="#">Contact</a></div>
+    </div>
+    <div class="fbot"><span>© 2026 LevelUp Learning</span><span>Privacy · Terms · Refund policy</span></div>
+  </div>
+</footer>
+
+<script>
+// nav
+var nav=document.getElementById('nav');
+function ns(){nav.classList.toggle('scrolled',scrollY>40);}ns();addEventListener('scroll',ns,{passive:true});
+// reveal
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.14,rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+['bline'].forEach(function(id){var el=document.getElementById(id);if(el)new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target);}});},{threshold:.5}).observe(el);});
+// count-up
+var cu=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var el=e.target,t=+el.dataset.count,n=0,s=Math.max(1,Math.round(t/30));var iv=setInterval(function(){n+=s;if(n>=t){n=t;clearInterval(iv);}el.textContent=n;},28);cu.unobserve(el);}});},{threshold:.6});
+document.querySelectorAll('[data-count]').forEach(function(el){cu.observe(el);});
+
+// ===== hero product mockup =====
+(function(){
+  var tabs=document.querySelectorAll('#pm .pm-tab'),panes=document.querySelectorAll('#pm .pm-pane'),ind=document.getElementById('pmind');
+  var cur=0,timer=null;
+  function place(){var t=tabs[cur];ind.style.left=t.offsetLeft+'px';ind.style.width=t.offsetWidth+'px';}
+  function go(i){cur=i;tabs.forEach(function(t,j){t.classList.toggle('on',j===i);});panes.forEach(function(p,j){p.classList.toggle('on',j===i);});place();}
+  tabs.forEach(function(t,j){t.addEventListener('click',function(){go(j);rest();});});
+  function rest(){clearInterval(timer);timer=setInterval(function(){go((cur+1)%tabs.length);},4200);}
+  document.querySelectorAll('#pm .pm-toggle button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#pm .pm-toggle button').forEach(function(x){x.classList.toggle('on',x===b);});});});
+  window.addEventListener('load',function(){place();});setTimeout(place,400);place();rest();
+  addEventListener('resize',place);
+})();
+
+// ===== functions comparison =====
+(function(){
+  var data=[
+    {desc:"Leverage AI to streamline campaigns and ship faster.",oldh:"Manual marketing",oldlist:["Research competitors","Draft campaign copy","Design variations","Run A/B tests"],oldp:"Weeks of manual research, drafting, and A/B testing before anything ships.",newh:"Agentic marketing",newp:"Agents draft, test, and optimise campaigns in hours, not weeks.",g0:"Brief",g2:"Publish",foot:"Runs by itself, on your brief."},
+    {desc:"Hand the repetitive half of operations to an agent.",oldh:"Manual operations",oldlist:["Collect form entries","Copy between tools","Chase follow-ups","Compile reports"],oldp:"Hours of copy-paste between tools, forms, follow-ups, and reports.",newh:"Agentic operations",newp:"An agent captures, enriches, routes, and follows up on its own.",g0:"Trigger",g2:"Action",foot:"Runs by itself, 24/7."},
+    {desc:"Turn raw data into decisions, automatically.",oldh:"Manual reporting",oldlist:["Gather raw data","Clean and dedupe","Build the charts","Write the summary"],oldp:"Analysts gather and clean the data, then build the report by hand.",newh:"Agentic reporting",newp:"AI synthesises the data and delivers the report in plain language.",g0:"Data",g2:"Report",foot:"From raw data to decision."}
+  ];
+  var tabs=document.querySelectorAll('.fn-tab');
+  function set(i){var d=data[i];
+    document.getElementById('fndesc').textContent=d.desc;
+    document.getElementById('oldh').textContent=d.oldh;
+    document.getElementById('oldp').textContent=d.oldp;
+    document.getElementById('oldlist').innerHTML=d.oldlist.map(function(x){return '<li>'+x+'</li>';}).join('');
+    document.getElementById('newh').textContent=d.newh;
+    document.getElementById('newp').textContent=d.newp;
+    document.getElementById('gl0').textContent=d.g0;
+    document.getElementById('gl2').textContent=d.g2;
+    document.querySelector('.fn-foot').innerHTML='<span>◆</span> '+d.foot;
+    tabs.forEach(function(t,j){t.classList.toggle('on',j===i);});
+  }
+  tabs.forEach(function(t,j){t.addEventListener('click',function(){set(j);});});
+})();
+
+// ===== stack with real tool logos (local SVGs sourced from simple-icons) =====
+(function(){
+  var rows=[
+    ["Reason & research",[["ChatGPT",""],["Claude","claude"],["Gemini","googlegemini"],["Perplexity","perplexity"]]],
+    ["Create",[["ElevenLabs","elevenlabs"],["Suno","suno"],["Hugging Face","huggingface"],["Framer","framer"]]],
+    ["Automate",[["n8n","n8n",1],["Make","make"],["Zapier","zapier"],["LangChain","langchain"],["CrewAI","crewai"]]],
+    ["Build & ship",[["Cursor","cursor"],["Supabase","supabase"],["Vercel","vercel"],["Replit","replit"],["GitHub","github"]]]
+  ];
+  var html=rows.map(function(r){
+    var tiles=r[1].map(function(t){
+      var name=t[0],slug=t[1],hot=t[2]?' hot':'';
+      var img=slug?'<img src="/ai-cohort/assets/logos/'+slug+'.svg" alt="'+name+'">':'<span class="glyph">✦</span>';
+      return '<div class="tile'+hot+'">'+img+'<span class="tl">'+name+'</span></div>';
+    }).join('');
+    return '<div class="stackrow"><div class="rl">'+r[0].toUpperCase()+'</div><div class="tiles">'+tiles+'</div></div>';
+  }).join('');
+  document.getElementById('stackpanel').innerHTML=html;
+})();
+
+// ===== curriculum two-pane =====
+(function(){
+  var mods=[
+    {n:"00",t:"Foundations",w:"Weeks 1–2",sub:"Become AI-native.",learn:["The model toolkit and when to use which","Prompt and context engineering as a method","Custom assistants trained on your own data"],ship:"Your AI command center + 2 custom assistants",shipn:""},
+    {n:"01",t:"Content",w:"Weeks 3–5",sub:"Run a content studio of one.",learn:["The full idea to script to image to video pipeline","Lock your brand voice into reusable templates","The weekly batch system that runs without you"],ship:"A repeatable AI content engine",shipn:"Ship 01"},
+    {n:"02",t:"Operations",w:"Weeks 6–8",sub:"Automate the boring half.",learn:["The automation mindset and your first agent","n8n: connect your tools, add an AI step","Multi-step agents with reliability and guardrails"],ship:"A live AI agent running a real process",shipn:"Ship 02"},
+    {n:"03",t:"Product",w:"Weeks 9–11",sub:"Build without code.",learn:["Vibe-coding with Lovable and Supabase","Data, auth, and where payments fit","Iterate from real user feedback, not guesses"],ship:"A deployed product real people use",shipn:"Ship 03"},
+    {n:"04",t:"Demo Day",w:"Week 12",sub:"Integrate and present.",learn:["Wire all three builds into your business","Write your 12-month AI operating plan","Present what you shipped, then graduate"],ship:"Your three builds, live and demoed",shipn:""}
+  ];
+  var list=document.getElementById('curlist'),det=document.getElementById('curdetail');
+  list.innerHTML=mods.map(function(m,i){return '<div class="cur-item'+(i===0?' on':'')+'" data-i="'+i+'"><span class="cn">'+m.n+'</span><div><div class="cti">'+m.t+'</div><div class="cw">'+m.w+'</div></div></div>';}).join('');
+  function render(i){var m=mods[i];
+    det.innerHTML='<div class="dw">'+m.w+'</div><h3>'+m.t+'</h3><div class="dsub">'+m.sub+'</div><div class="dl">What you learn</div><ul>'+m.learn.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul><div class="cur-ship">'+(m.shipn?'<span class="st">'+m.shipn+'</span>':'<span class="st">Capstone</span>')+'<span class="sx">'+m.ship+'</span></div>';
+    list.querySelectorAll('.cur-item').forEach(function(el,j){el.classList.toggle('on',j===i);});
+  }
+  list.querySelectorAll('.cur-item').forEach(function(el,i){el.addEventListener('click',function(){render(i);});});
+  render(0);
+})();
+
+// verdict + faq
+document.querySelectorAll('#verdict button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#verdict button').forEach(function(x){x.classList.toggle('on',x===b);});});});
+document.querySelectorAll('.qa .q').forEach(function(q){q.addEventListener('click',function(){var qa=q.parentElement,a=qa.querySelector('.a'),open=qa.classList.contains('open');document.querySelectorAll('.qa.open').forEach(function(o){o.classList.remove('open');o.querySelector('.a').style.maxHeight=null;});if(!open){qa.classList.add('open');a.style.maxHeight=a.scrollHeight+'px';}});});
+var f0=document.querySelector('.qa.open .a');if(f0)f0.style.maxHeight=f0.scrollHeight+'px';
+</script>
+</body>
+</html>

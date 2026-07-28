@@ -1,0 +1,39 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import StudentStory from "@/pages-react/StudentStory.tsx";
+import { studentStories } from "@/data/studentStories";
+import { articleJsonLd, breadcrumbJsonLd } from "@/lib/structuredData";
+
+export async function getStaticPaths() {
+  return studentStories.map((story) => ({
+    params: { slug: story.slug },
+    props: { story },
+  }));
+}
+
+const { story } = Astro.props;
+
+const article = articleJsonLd({
+  title: story.h1,
+  description: story.metaDescription,
+  path: `/student-stories/${story.slug}`,
+  authorName: story.authorName,
+  datePublished: "2026-03-01",
+});
+
+const breadcrumb = breadcrumbJsonLd([
+  { name: "Home", path: "/" },
+  { name: "Student Stories", path: "/student-stories" },
+  { name: story.h1, path: `/student-stories/${story.slug}` },
+]);
+---
+
+<BaseLayout
+  title={story.seoTitle}
+  description={story.metaDescription}
+  path={`/student-stories/${story.slug}`}
+  type="article"
+  jsonLd={[article, breadcrumb]}
+>
+  <StudentStory slug={story.slug} client:idle />
+</BaseLayout>

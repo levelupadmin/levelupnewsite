@@ -1,0 +1,44 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Reviews from "@/pages-react/Reviews.tsx";
+import { breadcrumbJsonLd } from "@/lib/structuredData";
+import { studentStories } from "@/data/studentStories";
+import { SITE_URL } from "@/lib/constants";
+
+const title = "Student Stories & Reviews | LevelUp Learning";
+const description =
+  "Honest reviews from creators who transformed their careers through LevelUp's filmmaking, editing, screenwriting & photography programs. Real stories.";
+
+const breadcrumb = breadcrumbJsonLd([
+  { name: "Home", path: "/" },
+  { name: "Student Stories", path: "/student-stories" },
+]);
+
+const itemList = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "LevelUp Learning Student Stories",
+  description,
+  url: `${SITE_URL}/student-stories/`,
+  mainEntity: {
+    "@type": "ItemList",
+    numberOfItems: studentStories.length,
+    itemListElement: studentStories.map((story, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      url: `${SITE_URL}/student-stories/${story.slug}/`,
+      name: story.h1,
+    })),
+  },
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path="/student-stories"
+  ogImage="/og-student-stories.jpg"
+  jsonLd={[breadcrumb, itemList]}
+>
+  <Reviews client:idle />
+</BaseLayout>

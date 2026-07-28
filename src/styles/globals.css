@@ -1,0 +1,1570 @@
+/* Self-hosted fonts (latin subset). Variable fonts for Sora + Funnel Display
+   declare one @font-face per weight pointing to the single variable file —
+   browsers pick the correct axis. */
+@font-face {
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/bebas-neue-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Sora';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/fonts/sora-var.woff2') format('woff2-variations');
+}
+@font-face {
+  font-family: 'Funnel Display';
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url('/fonts/funnel-display-var.woff2') format('woff2-variations');
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Mindly-inspired palette — pure black base with bright orange accents */
+    --background: 22 14% 6%;
+    --foreground: 0 0% 93%;
+
+    --card: 22 12% 9%;
+    --card-foreground: 0 0% 93%;
+
+    --popover: 22 12% 9%;
+    --popover-foreground: 0 0% 93%;
+
+    --primary: 24 95% 53%;
+    --primary-foreground: 0 0% 4%;
+
+    --secondary: 22 10% 13%;
+    --secondary-foreground: 0 0% 75%;
+
+    --muted: 22 10% 13%;
+    --muted-foreground: 0 0% 55%;
+
+    --accent: 24 95% 53%;
+    --accent-foreground: 0 0% 4%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 22 8% 15%;
+    --input: 22 8% 15%;
+    --ring: 24 95% 53%;
+
+    --radius: 0.5rem;
+
+    /* Custom tokens */
+    --hero-headline: 0 0% 96%;
+    --hero-subtext: 0 0% 50%;
+    --cue-text: 0 0% 42%;
+    --cue-value: 0 0% 85%;
+    --gradient-cinematic: linear-gradient(180deg, hsl(22 14% 6%) 0%, hsl(22 14% 4%) 100%);
+    --gradient-amber-glow: radial-gradient(ellipse at 50% 0%, hsl(24 95% 53% / 0.06) 0%, transparent 60%);
+    --gradient-amber-gold: linear-gradient(135deg, hsl(24 95% 53%) 0%, hsl(30 90% 60%) 50%, hsl(20 85% 48%) 100%);
+    --shadow-cinematic: 0 20px 60px -15px hsl(22 14% 0% / 0.6);
+    --text-shadow-hero: 0 2px 20px hsl(22 14% 0% / 0.5), 0 1px 4px hsl(22 14% 0% / 0.3);
+
+    /* Unified section backgrounds — no per-section shifts */
+    --bg-live-programs: 22 14% 6%;
+    --bg-forge: 22 14% 6%;
+
+    /* Section accent colors — unified to primary orange */
+    --accent-live: 24 95% 53%;
+    --accent-forge: 24 95% 53%;
+
+    --sidebar-background: 20 6% 8%;
+    --sidebar-foreground: 0 0% 93%;
+    --sidebar-primary: 24 95% 53%;
+    --sidebar-primary-foreground: 0 0% 4%;
+    --sidebar-accent: 20 5% 12%;
+    --sidebar-accent-foreground: 0 0% 93%;
+    --sidebar-border: 20 5% 14%;
+    --sidebar-ring: 24 95% 53%;
+  }
+
+  /* Warm earthy theme — scoped to About page */
+  .theme-warm {
+    --background: 20 20% 97%;
+    --foreground: 0 0% 8%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 8%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 8%;
+
+    --primary: 24 95% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 20 10% 93%;
+    --secondary-foreground: 0 0% 25%;
+
+    --muted: 20 10% 93%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 24 95% 53%;
+    --accent-foreground: 0 0% 100%;
+
+    --border: 20 5% 90%;
+    --input: 20 5% 90%;
+    --ring: 24 95% 53%;
+
+    --hero-headline: 0 0% 5%;
+    --hero-subtext: 0 0% 35%;
+    --cue-text: 0 0% 50%;
+    --cue-value: 0 0% 15%;
+    --gradient-amber-glow: radial-gradient(ellipse at 50% 0%, hsl(24 95% 53% / 0.06) 0%, transparent 60%);
+    --gradient-amber-gold: linear-gradient(135deg, hsl(24 95% 53%) 0%, hsl(30 90% 60%) 50%, hsl(20 85% 48%) 100%);
+    --shadow-cinematic: 0 4px 20px -4px hsl(22 14% 0% / 0.06);
+  }
+
+  /* Invert white-only SVG logos inside the warm theme */
+  .theme-warm footer img[src$=".svg"] {
+    filter: invert(1);
+  }
+
+  /* Wall of Love — warm editorial light theme with texture */
+  .theme-reviews {
+    --background: 28 25% 95%;
+    --foreground: 20 15% 15%;
+
+    --card: 30 20% 98%;
+    --card-foreground: 20 15% 15%;
+
+    --popover: 30 20% 98%;
+    --popover-foreground: 20 15% 15%;
+
+    --primary: 24 95% 48%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 28 18% 90%;
+    --secondary-foreground: 20 12% 30%;
+
+    --muted: 28 12% 91%;
+    --muted-foreground: 20 8% 42%;
+
+    --accent: 24 95% 48%;
+    --accent-foreground: 0 0% 100%;
+
+    --border: 28 12% 85%;
+    --input: 28 12% 85%;
+    --ring: 24 95% 48%;
+
+    --hero-headline: 20 18% 10%;
+    --hero-subtext: 20 8% 38%;
+    --cue-text: 20 5% 45%;
+    --cue-value: 20 12% 15%;
+    --gradient-amber-glow: radial-gradient(ellipse at 50% 0%, hsl(24 80% 55% / 0.08) 0%, transparent 60%);
+    --shadow-cinematic: 0 2px 12px -2px hsl(20 20% 0% / 0.06);
+  }
+
+  /* Disable dark vignette in light reviews theme */
+  .theme-reviews body::before {
+    display: none;
+  }
+
+  /* Replace film grain with subtle warm paper texture */
+  .theme-reviews body::after {
+    opacity: 0.04;
+    mix-blend-mode: multiply;
+  }
+
+  .theme-reviews footer img[src$=".svg"] {
+    filter: invert(1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Sora', system-ui, sans-serif;
+    position: relative;
+  }
+
+  /* Ambient vignette — depth like light falling on a surface */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 50% 30%, transparent 40%, hsl(22 14% 4% / 0.4) 100%);
+  }
+
+  /* Film grain overlay — organic analogue texture */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.14;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Sora', system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  
+  p, span, a, li, label {
+    letter-spacing: 0.01em;
+  }
+}
+
+@layer utilities {
+  .font-serif-display {
+    font-family: 'Sora', system-ui, sans-serif;
+    font-weight: 600;
+  }
+
+  .font-sans-body {
+    font-family: 'Sora', system-ui, sans-serif;
+  }
+
+  .text-hero-headline {
+    color: hsl(var(--hero-headline));
+  }
+
+  .text-hero-subtext {
+    color: hsl(var(--hero-subtext));
+  }
+
+  .text-cue {
+    color: hsl(var(--cue-text));
+  }
+
+  .text-cue-value {
+    color: hsl(var(--cue-value));
+  }
+
+  .bg-gradient-cinematic {
+    background: var(--gradient-cinematic);
+  }
+
+  .bg-gradient-amber-glow {
+    background: var(--gradient-amber-glow);
+  }
+
+  .shadow-cinematic {
+    box-shadow: var(--shadow-cinematic);
+  }
+
+  .text-gradient-amber {
+    background: var(--gradient-amber-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-shadow-hero {
+    text-shadow: var(--text-shadow-hero);
+  }
+
+  /* Nav card accent hover */
+  .nav-card-accent:hover .nav-card-title {
+    color: var(--card-accent);
+  }
+
+  .nav-card-accent:hover {
+    background-color: var(--card-accent-bg);
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* CTA sweep effect */
+  .cta-sweep {
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .cta-sweep::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      90deg,
+      hsl(24 95% 53% / 0.12) 0%,
+      hsl(30 90% 60% / 0.18) 50%,
+      hsl(24 95% 53% / 0.12) 100%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  .cta-sweep:hover::before {
+    transform: translateX(0);
+  }
+
+  /* CTA glow effect */
+  .cta-glow {
+    transition: box-shadow 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  .cta-glow:hover {
+    box-shadow: 0 0 20px hsl(24 95% 53% / 0.15), 0 0 40px hsl(24 95% 53% / 0.08);
+  }
+
+  /* Section CTA underline grow */
+  .cta-underline {
+    position: relative;
+  }
+
+  .cta-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: hsl(24 95% 53% / 0.5);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  .cta-underline:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+@keyframes hero-stagger {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+.animate-hero-stagger {
+  opacity: 0;
+  animation: hero-stagger 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes badge-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.badge-shimmer {
+  background-image: linear-gradient(
+    110deg,
+    transparent 25%,
+    hsl(24 95% 53% / 0.15) 45%,
+    hsl(24 95% 53% / 0.25) 50%,
+    hsl(24 95% 53% / 0.15) 55%,
+    transparent 75%
+  );
+  background-size: 200% 100%;
+  background-position: -200% center;
+  animation: badge-shimmer 1.2s ease-out 0.6s forwards;
+}
+
+
+@keyframes counter-celebrate {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.08); }
+  70% { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
+
+.counter-celebrate {
+  animation: counter-celebrate 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+}
+
+/* ═══ Impact Immersive Scene Keyframes ═══ */
+@keyframes impact-review-scroll {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+.animate-impact-review-scroll {
+  animation: impact-review-scroll 18s linear infinite;
+}
+@keyframes impact-review-scroll-reverse {
+  0% { transform: translateY(-50%); }
+  100% { transform: translateY(0); }
+}
+.animate-impact-review-scroll-reverse {
+  animation: impact-review-scroll-reverse 22s linear infinite;
+}
+
+@keyframes impact-photo-drift {
+  0%, 100% { transform: scale(1) translate(0, 0); }
+  25% { transform: scale(1.03) translate(2px, -2px); }
+  50% { transform: scale(1.01) translate(-1px, 2px); }
+  75% { transform: scale(1.04) translate(1px, -1px); }
+}
+.animate-impact-photo-drift {
+  animation: impact-photo-drift 8s ease-in-out infinite;
+}
+
+@keyframes impact-glow-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+.animate-impact-glow-pulse {
+  animation: impact-glow-pulse 3s ease-in-out infinite;
+}
+
+@keyframes impact-enrollment-ticker {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+.animate-impact-enrollment-ticker {
+  animation: impact-enrollment-ticker 12s linear infinite;
+}
+
+@keyframes impact-city-ping {
+  0% { opacity: 0; r: 3; }
+  20% { opacity: 0.7; }
+  100% { opacity: 0; r: 10; }
+}
+.animate-impact-city-ping {
+  animation: impact-city-ping 2s ease-out infinite;
+  transform-origin: center;
+}
+
+@keyframes impact-network-pulse {
+  0% { opacity: 0.4; r: 6; }
+  100% { opacity: 0; r: 18; }
+}
+.animate-impact-network-pulse {
+  animation: impact-network-pulse 2s ease-out infinite;
+}
+
+/* === Collaborations section animations === */
+
+/* Spark burst particles */
+@keyframes collab-spark {
+  0% { opacity: 1; r: 1.5; }
+  100% { opacity: 0; r: 0; transform: scale(1.5); }
+}
+.animate-collab-spark {
+  animation: collab-spark 0.6s ease-out forwards;
+}
+
+/* Floating collaboration tags bob */
+@keyframes collab-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.animate-collab-float {
+  animation: collab-float 4s ease-in-out infinite;
+}
+
+/* Sonar expanding rings */
+@keyframes collab-sonar {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(12); opacity: 0; }
+}
+.animate-collab-sonar {
+  animation: collab-sonar 2s ease-out forwards;
+}
+
+/* Live activity ticker scroll */
+@keyframes collab-ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-collab-ticker {
+  animation: collab-ticker 30s linear infinite;
+}
+
+@keyframes impact-dot-ripple {
+  0% { opacity: 0; }
+  100% { opacity: var(--dot-opacity, 0.6); }
+}
+.animate-impact-dot-ripple {
+  animation: impact-dot-ripple 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes impact-arc-draw {
+  0% { stroke-dashoffset: 200; opacity: 0; }
+  30% { opacity: 0.6; }
+  100% { stroke-dashoffset: 0; opacity: 0.7; }
+}
+.animate-impact-arc-draw {
+  stroke-dasharray: 200;
+  animation: impact-arc-draw 2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Glowing arc trail overlay */
+@keyframes arc-glow-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+.animate-arc-glow-pulse {
+  animation: arc-glow-pulse 3s ease-in-out infinite;
+}
+
+@keyframes impact-internal-arc {
+  0% { stroke-dashoffset: 60; opacity: 0; }
+  100% { stroke-dashoffset: 0; opacity: 0.5; }
+}
+.animate-impact-internal-arc {
+  stroke-dasharray: 60;
+  animation: impact-internal-arc 0.9s ease-out both;
+}
+
+@keyframes impact-world-fade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.animate-impact-world-fade {
+  animation: impact-world-fade 1s ease-out both;
+}
+
+/* World map SVG styling — thin outlines for all countries, India filled */
+.world-map-container {
+  position: relative;
+}
+
+.world-map-svg path,
+.world-map-svg g path {
+  fill: none;
+  stroke: hsl(var(--muted-foreground));
+  stroke-width: 0.6;
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+
+/* India — filled and highlighted with glow */
+.world-map-svg #in path,
+.world-map-svg path#in,
+.world-map-svg #in .mainland {
+  fill: hsl(var(--primary) / 0.45);
+  stroke: hsl(var(--primary));
+  stroke-width: 1;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 3px hsl(var(--primary) / 0.4));
+}
+
+/* Neighboring countries — slightly brighter outline */
+.world-map-svg #pk path,
+.world-map-svg path#pk,
+.world-map-svg #bd path,
+.world-map-svg path#bd,
+.world-map-svg #lk path,
+.world-map-svg path#lk,
+.world-map-svg #np path,
+.world-map-svg path#np,
+.world-map-svg #mm path,
+.world-map-svg path#mm {
+  opacity: 0.5;
+  stroke: hsl(var(--primary) / 0.5);
+}
+
+@keyframes impact-label-fade {
+  0% { opacity: 0; }
+  100% { opacity: 0.9; }
+}
+.animate-impact-label-fade {
+  animation: impact-label-fade 0.5s ease-out both;
+}
+
+/* Heartbeat pulse at India center */
+@keyframes impact-heartbeat {
+  0%, 100% { opacity: 0.5; r: 2.5; }
+  50% { opacity: 1; r: 4; }
+}
+.animate-impact-heartbeat {
+  animation: impact-heartbeat 2s ease-in-out infinite;
+}
+
+@keyframes impact-heartbeat-ring {
+  0% { opacity: 0.5; r: 3; }
+  50% { opacity: 0.2; }
+  100% { opacity: 0; r: 18; }
+}
+.animate-impact-heartbeat-ring {
+  animation: impact-heartbeat-ring 2s ease-out infinite;
+}
+
+/* Second staggered ring for richer heartbeat */
+.animate-impact-heartbeat-ring-2 {
+  animation: impact-heartbeat-ring 2s ease-out 0.5s infinite;
+}
+
+/* ═══ Geo Reach — Concentric Rings ═══ */
+@keyframes geo-heartbeat {
+  0% { opacity: 0.5; r: inherit; }
+  50% { opacity: 0; }
+  100% { opacity: 0; r: 40; }
+}
+.animate-geo-heartbeat {
+  animation: geo-heartbeat 2.2s ease-out infinite;
+  transform-origin: center;
+}
+
+/* Subtle float for pills */
+.geo-pill {
+  will-change: opacity, transform;
+}
+
+/* Particle breathing */
+.geo-particle {
+  will-change: opacity;
+}
+
+/* Shimmer for dark-on-primary backgrounds (Learners scene) */
+.learner-shimmer {
+  color: hsl(0 0% 98%);
+  background-image: linear-gradient(
+    110deg,
+    hsl(0 0% 98%) 25%,
+    hsl(45 100% 90%) 45%,
+    hsl(45 100% 95%) 50%,
+    hsl(45 100% 90%) 55%,
+    hsl(0 0% 98%) 75%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: text-shimmer 1.5s ease-in-out forwards;
+}
+
+
+/* Bento grid award-winning keyframes */
+@keyframes ken-burns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+
+.animate-ken-burns {
+  animation: ken-burns 12s ease-in-out infinite alternate;
+}
+
+/* India dot map breathing animation */
+@keyframes dot-breathe {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
+@keyframes india-dot-breathe {
+  0%, 100% { opacity: var(--dot-base-opacity, 0.6); }
+  50% { opacity: 1; }
+}
+.animate-india-dot-breathe {
+  animation: india-dot-breathe 3s ease-in-out infinite;
+}
+
+/* ═══ India States Map Animations ═══ */
+@keyframes india-state-glow {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.animate-india-state-glow {
+  animation: india-state-glow 0.8s ease-out both;
+}
+
+@keyframes india-city-pop {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.animate-india-city-pop {
+  animation: india-city-pop 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ═══ Hub-Spoke Map Keyframes ═══ */
+
+/* Range rings fade in — opacity only, no r animation */
+@keyframes range-ring-fade {
+  0% { opacity: 0; }
+  100% { opacity: 0.2; }
+}
+.animate-range-ring-fade {
+  animation: range-ring-fade 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* City fade-in — replaces broken CSS scale on SVG <g> */
+@keyframes city-fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.animate-city-fade-in {
+  animation: city-fade-in 0.6s ease-out both;
+}
+
+@keyframes handshake-wiggle {
+  0% { transform: rotate(0deg); }
+  15% { transform: rotate(-12deg); }
+  30% { transform: rotate(10deg); }
+  45% { transform: rotate(-8deg); }
+  60% { transform: rotate(6deg); }
+  75% { transform: rotate(-3deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.animate-handshake {
+  animation: handshake-wiggle 0.8s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes star-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.18); }
+}
+
+@keyframes globe-ring-pulse {
+  0% { transform: scale(1); opacity: 0.3; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+@keyframes text-shimmer {
+  0% { background-position: 0% center; }
+  50% { background-position: 200% center; }
+  100% { background-position: 0% center; }
+}
+
+.text-shimmer {
+  background-image: linear-gradient(
+    110deg,
+    currentColor 25%,
+    hsl(30 90% 75%) 45%,
+    hsl(30 95% 85%) 50%,
+    hsl(30 90% 75%) 55%,
+    currentColor 75%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: text-shimmer 1.5s ease-in-out forwards;
+}
+
+@keyframes progress-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.dot-progress {
+  position: relative;
+  overflow: hidden;
+}
+
+.dot-progress::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: hsl(var(--primary));
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: progress-fill 5s linear forwards;
+}
+
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes scroll-chat-up {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+@keyframes orbit-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(calc(var(--orbit-dir, 1) * 360deg)); }
+}
+
+@layer utilities {
+  .animate-scroll-left {
+    animation: scroll-left 40s linear infinite;
+  }
+  .animate-scroll-right {
+    animation: scroll-right 40s linear infinite;
+  }
+  .animate-scroll-chat-up {
+    animation: scroll-chat-up 28s linear infinite;
+  }
+  .pause-on-hover:hover {
+    animation-play-state: paused;
+  }
+}
+
+/* ── LMS Multi-Screen Cursor Flow (~16s loop) ── */
+
+/* Cursor visits 4 sidebar tabs. Positions target the sidebar nav items. */
+@keyframes lms-cursor-flow {
+  /* Tab 1 — dwell */
+  0%, 2% { top: 28%; left: 10%; opacity: 1; }
+  5% { top: 28%; left: 10%; }
+  /* Travel to Tab 2 — overshoot past 40% then settle */
+  20% { top: 28%; left: 10%; }
+  23% { top: 42%; left: 9.5%; }
+  24.5% { top: 39.5%; left: 10.2%; }
+  25%, 27% { top: 40%; left: 10%; opacity: 1; }
+  /* Travel to Tab 3 — overshoot past 52% then settle */
+  45% { top: 40%; left: 10%; }
+  48% { top: 54%; left: 10.3%; }
+  49.5% { top: 51.5%; left: 9.8%; }
+  50%, 52% { top: 52%; left: 10%; opacity: 1; }
+  /* Travel to Tab 4 — overshoot past 64% then settle */
+  70% { top: 52%; left: 10%; }
+  73% { top: 66%; left: 9.6%; }
+  74.5% { top: 63.5%; left: 10.2%; }
+  75%, 77% { top: 64%; left: 10%; opacity: 1; }
+  /* Return to Tab 1 — overshoot upward then settle */
+  95% { top: 64%; left: 10%; }
+  97.5% { top: 26.5%; left: 10.3%; }
+  99% { top: 28.5%; left: 9.8%; }
+  100% { top: 28%; left: 10%; }
+}
+
+.animate-lms-cursor {
+  animation: lms-cursor-flow 16s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* ── Screen visibility: each screen with scale+slide entrance ── */
+@keyframes lms-screen-1 {
+  0%, 1% { opacity: 1; z-index: 2; transform: scale(1) translateY(0); }
+  22% { opacity: 1; z-index: 2; transform: scale(1) translateY(0); }
+  24% { opacity: 0; z-index: 0; transform: scale(0.96) translateY(6px); }
+  25%, 97% { opacity: 0; z-index: 0; transform: scale(0.96) translateY(6px); }
+  98% { opacity: 0; z-index: 0; transform: scale(0.96) translateY(6px); }
+  100% { opacity: 1; z-index: 2; transform: scale(1) translateY(0); }
+}
+@keyframes lms-screen-2 {
+  0%, 22% { opacity: 0; z-index: 0; transform: scale(0.96) translateY(6px); }
+  24% { opacity: 0.5; z-index: 2; transform: scale(0.98) translateY(3px); }
+  26% { opacity: 1; z-index: 2; transform: scale(1) translateY(0); }
+  47% { opacity: 1; z-index: 2; transform: scale(1) translateY(0); }
+  49% { opacity: 0; z-index: 0; transform: scale(0.96) translateY(6px); }
+  50%, 100% { opacity: 0; z-index: 0; transform: scale(0.96) translateY(6px); }
+}
+@keyframes lms-screen-3 {
+  0%, 47% { opacity: 0; z-index: 0; transform: scale(0.96) translateY(6px); }
+  49% { opacity: 0.5; z-index: 2; transform: scale(0.98) translateY(3px); }
+  51% { opacity: 1; z-index: 2; transform: scale(1) translateY(0); }
+  72% { opacity: 1; z-index: 2; transform: scale(1) translateY(0); }
+  74% { opacity: 0; z-index: 0; transform: scale(0.96) translateY(6px); }
+  75%, 100% { opacity: 0; z-index: 0; transform: scale(0.96) translateY(6px); }
+}
+@keyframes lms-screen-4 {
+  0%, 72% { opacity: 0; z-index: 0; transform: scale(0.96) translateY(6px); }
+  74% { opacity: 0.5; z-index: 2; transform: scale(0.98) translateY(3px); }
+  76% { opacity: 1; z-index: 2; transform: scale(1) translateY(0); }
+  97% { opacity: 1; z-index: 2; transform: scale(1) translateY(0); }
+  99% { opacity: 0; z-index: 0; transform: scale(0.96) translateY(6px); }
+  100% { opacity: 0; z-index: 0; transform: scale(0.96) translateY(6px); }
+}
+
+.animate-lms-screen-1 { animation: lms-screen-1 16s ease infinite; }
+.animate-lms-screen-2 { animation: lms-screen-2 16s ease infinite; }
+.animate-lms-screen-3 { animation: lms-screen-3 16s ease infinite; }
+.animate-lms-screen-4 { animation: lms-screen-4 16s ease infinite; }
+
+/* ── Tab highlight: active state for each tab ── */
+@keyframes lms-tab-1 {
+  0%, 22% { background: hsl(24 95% 53% / 0.12); color: hsl(24 95% 53%); }
+  25%, 97% { background: transparent; color: hsl(22 10% 40%); }
+  100% { background: hsl(24 95% 53% / 0.12); color: hsl(24 95% 53%); }
+}
+@keyframes lms-tab-2 {
+  0%, 22% { background: transparent; color: hsl(22 10% 40%); }
+  25%, 47% { background: hsl(24 95% 53% / 0.12); color: hsl(24 95% 53%); }
+  50%, 100% { background: transparent; color: hsl(22 10% 40%); }
+}
+@keyframes lms-tab-3 {
+  0%, 47% { background: transparent; color: hsl(22 10% 40%); }
+  50%, 72% { background: hsl(24 95% 53% / 0.12); color: hsl(24 95% 53%); }
+  75%, 100% { background: transparent; color: hsl(22 10% 40%); }
+}
+@keyframes lms-tab-4 {
+  0%, 72% { background: transparent; color: hsl(22 10% 40%); }
+  75%, 97% { background: hsl(24 95% 53% / 0.12); color: hsl(24 95% 53%); }
+  100% { background: transparent; color: hsl(22 10% 40%); }
+}
+
+.animate-lms-tab-1 { animation: lms-tab-1 16s ease infinite; }
+.animate-lms-tab-2 { animation: lms-tab-2 16s ease infinite; }
+.animate-lms-tab-3 { animation: lms-tab-3 16s ease infinite; }
+.animate-lms-tab-4 { animation: lms-tab-4 16s ease infinite; }
+
+/* ── Click ripples at each tab position ── */
+@keyframes lms-ripple {
+  0%, 90% { transform: scale(0); opacity: 0; }
+  93% { transform: scale(0.3); opacity: 0.5; }
+  96% { transform: scale(1); opacity: 0.25; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+.lms-ripple {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid hsl(24 95% 53% / 0.5);
+  background: hsl(24 95% 53% / 0.1);
+  pointer-events: none;
+  transform: scale(0);
+  opacity: 0;
+}
+
+.lms-ripple-tab1 { top: 28%; left: 10%; animation: lms-ripple 16s ease infinite; animation-delay: 0s; }
+.lms-ripple-tab2 { top: 40%; left: 10%; animation: lms-ripple 16s ease infinite; animation-delay: 4s; }
+.lms-ripple-tab3 { top: 52%; left: 10%; animation: lms-ripple 16s ease infinite; animation-delay: 8s; }
+.lms-ripple-tab4 { top: 64%; left: 10%; animation: lms-ripple 16s ease infinite; animation-delay: 12s; }
+
+/* Pause all LMS animations on card hover */
+.group:hover .animate-lms-cursor,
+.group:hover .animate-lms-screen-1,
+.group:hover .animate-lms-screen-2,
+.group:hover .animate-lms-screen-3,
+.group:hover .animate-lms-screen-4,
+.group:hover .animate-lms-tab-1,
+.group:hover .animate-lms-tab-2,
+.group:hover .animate-lms-tab-3,
+.group:hover .animate-lms-tab-4,
+.group:hover .lms-ripple {
+  animation-play-state: paused;
+}
+
+/* ── Portfolio Card Animations (~20s loop for 5 projects) ── */
+
+/* Scroll the activity feed upward in a seamless loop */
+@keyframes scroll-portfolio-up {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+.animate-scroll-portfolio-up {
+  animation: scroll-portfolio-up 32s linear infinite;
+}
+
+/* Featured project cycling — 5 projects, 4s each = 20s loop */
+@keyframes pf-featured-1 {
+  0%, 2%   { opacity: 1; z-index: 2; }
+  18%      { opacity: 1; z-index: 2; }
+  20%      { opacity: 0; z-index: 0; }
+  96%      { opacity: 0; z-index: 0; }
+  98%      { opacity: 0; z-index: 0; }
+  100%     { opacity: 1; z-index: 2; }
+}
+@keyframes pf-featured-2 {
+  0%, 18%  { opacity: 0; z-index: 0; }
+  20%      { opacity: 1; z-index: 2; }
+  38%      { opacity: 1; z-index: 2; }
+  40%      { opacity: 0; z-index: 0; }
+  100%     { opacity: 0; z-index: 0; }
+}
+@keyframes pf-featured-3 {
+  0%, 38%  { opacity: 0; z-index: 0; }
+  40%      { opacity: 1; z-index: 2; }
+  58%      { opacity: 1; z-index: 2; }
+  60%      { opacity: 0; z-index: 0; }
+  100%     { opacity: 0; z-index: 0; }
+}
+@keyframes pf-featured-4 {
+  0%, 58%  { opacity: 0; z-index: 0; }
+  60%      { opacity: 1; z-index: 2; }
+  78%      { opacity: 1; z-index: 2; }
+  80%      { opacity: 0; z-index: 0; }
+  100%     { opacity: 0; z-index: 0; }
+}
+@keyframes pf-featured-5 {
+  0%, 78%  { opacity: 0; z-index: 0; }
+  80%      { opacity: 1; z-index: 2; }
+  98%      { opacity: 1; z-index: 2; }
+  100%     { opacity: 0; z-index: 0; }
+}
+
+.pf-featured-1 { animation: pf-featured-1 20s ease infinite; }
+.pf-featured-2 { animation: pf-featured-2 20s ease infinite; }
+.pf-featured-3 { animation: pf-featured-3 20s ease infinite; }
+.pf-featured-4 { animation: pf-featured-4 20s ease infinite; }
+.pf-featured-5 { animation: pf-featured-5 20s ease infinite; }
+
+/* Notification toast — appears every 20s, stays for 3s */
+@keyframes pf-notification-pop {
+  0%, 55%  { opacity: 0; transform: translateY(-8px) scale(0.95); }
+  58%      { opacity: 1; transform: translateY(0) scale(1); }
+  72%      { opacity: 1; transform: translateY(0) scale(1); }
+  75%      { opacity: 0; transform: translateY(-4px) scale(0.98); }
+  100%     { opacity: 0; transform: translateY(-8px) scale(0.95); }
+}
+
+.pf-notification {
+  animation: pf-notification-pop 20s ease infinite;
+}
+
+/* Progress bar fill animation */
+.pf-progress-fill {
+  animation: pf-progress 1.2s ease-out both;
+}
+
+@keyframes pf-progress {
+  0% { transform: scaleX(0); transform-origin: left; }
+  100% { transform: scaleX(1); transform-origin: left; }
+}
+
+/* Pause all portfolio animations on card hover */
+.group\/portfolio:hover .animate-scroll-portfolio-up,
+.group\/portfolio:hover .pf-featured-1,
+.group\/portfolio:hover .pf-featured-2,
+.group\/portfolio:hover .pf-featured-3,
+.group\/portfolio:hover .pf-featured-4,
+.group\/portfolio:hover .pf-featured-5,
+.group\/portfolio:hover .pf-notification {
+  animation-play-state: paused;
+}
+
+
+/* Logo marquee items.
+   Start at opacity:0 so an unloaded <img> doesn't render as a solid
+   white box (the `brightness(0) invert(1)` inline filter inverts an
+   empty element to pure white, which was the flash users were seeing).
+   The img's onLoad handler adds .logo-loaded once the SVG/PNG is
+   actually decoded, at which point we fade to the resting opacity. */
+.logo-marquee-item {
+  opacity: 0;
+  filter: grayscale(1) brightness(1.5);
+  mix-blend-mode: screen;
+  transition: opacity 0.4s ease, filter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.logo-marquee-item.logo-loaded {
+  opacity: 0.5;
+}
+
+.logo-marquee-item.logo-loaded:hover {
+  opacity: 1;
+  filter: grayscale(0) brightness(1.1);
+}
+
+/* Pause the entire marquee row when hovering anywhere on it */
+.logo-marquee-row:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* AI Mentor typing dots */
+@keyframes typing-dot {
+  0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-1.5px); }
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Noise overlay for active sidebar items */
+.noise-overlay {
+  position: relative;
+}
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* ═══════════════════════════════════════════════
+   "From Class to Career" — LiveProjectsCard animations
+   16s loop · "Always Buzzing" — elements persist & rotate
+   ═══════════════════════════════════════════════ */
+
+/* ── Continuous float bob for thumbnails ── */
+@keyframes pf-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+/* ── Thumbnails: scale in staggered, then float forever ── */
+@keyframes pf-thumb-1 {
+  0%, 2% { opacity: 0.2; transform: scale(0.85); filter: saturate(0); }
+  8%, 100% { opacity: 1; transform: scale(1); filter: saturate(1); }
+}
+@keyframes pf-thumb-2 {
+  0%, 6% { opacity: 0.2; transform: scale(0.85); filter: saturate(0); }
+  14%, 100% { opacity: 1; transform: scale(1); filter: saturate(1); }
+}
+@keyframes pf-thumb-3 {
+  0%, 10% { opacity: 0.2; transform: scale(0.85); filter: saturate(0); }
+  18%, 100% { opacity: 1; transform: scale(1); filter: saturate(1); }
+}
+.animate-pf-thumb-1 { animation: pf-thumb-1 9s ease infinite, pf-float 3s ease-in-out 1.5s infinite; }
+.animate-pf-thumb-2 { animation: pf-thumb-2 9s ease infinite, pf-float 3.4s ease-in-out 2s infinite; }
+.animate-pf-thumb-3 { animation: pf-thumb-3 9s ease infinite, pf-float 3.8s ease-in-out 2.5s infinite; }
+
+/* ── Program origin tags ── */
+@keyframes pf-views-1 {
+  0%, 5% { opacity: 0; transform: translateY(3px); }
+  10%, 100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes pf-views-2 {
+  0%, 10% { opacity: 0; transform: translateY(3px); }
+  16%, 100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes pf-views-3 {
+  0%, 14% { opacity: 0; transform: translateY(3px); }
+  20%, 100% { opacity: 1; transform: translateY(0); }
+}
+.animate-pf-views-1 { animation: pf-views-1 9s ease infinite; }
+.animate-pf-views-2 { animation: pf-views-2 9s ease infinite; }
+.animate-pf-views-3 { animation: pf-views-3 9s ease infinite; }
+
+/* ── View counters: 3 values cycle via opacity ── */
+@keyframes pf-viewcount {
+  0%, 30% { }
+  33%, 63% { }
+  66%, 96% { }
+}
+.animate-pf-viewcount-1,
+.animate-pf-viewcount-2,
+.animate-pf-viewcount-3 { animation: pf-viewcount 9s ease infinite; }
+
+/* View count value rotation */
+.pf-vc-a, .pf-vc-b, .pf-vc-c { display: none; }
+.animate-pf-viewcount-1 .pf-vc-a,
+.animate-pf-viewcount-2 .pf-vc-a,
+.animate-pf-viewcount-3 .pf-vc-a { display: inline; }
+
+@keyframes pf-vc-cycle {
+  0%, 30% { opacity: 1; }
+  33%, 100% { opacity: 0; display: none; }
+}
+@keyframes pf-vc-cycle-b {
+  0%, 30% { opacity: 0; display: none; }
+  33%, 63% { opacity: 1; display: inline; }
+  66%, 100% { opacity: 0; display: none; }
+}
+@keyframes pf-vc-cycle-c {
+  0%, 63% { opacity: 0; display: none; }
+  66%, 96% { opacity: 1; display: inline; }
+  100% { opacity: 0; }
+}
+
+[class*="animate-pf-viewcount-"] .pf-vc-a { display: inline; animation: pf-vc-cycle 9s ease infinite; }
+[class*="animate-pf-viewcount-"] .pf-vc-b { display: none; animation: pf-vc-cycle-b 9s ease infinite; }
+[class*="animate-pf-viewcount-"] .pf-vc-c { display: none; animation: pf-vc-cycle-c 9s ease infinite; }
+
+/* ── DM #1: visible 0–25% (12s cycle, 4 DMs, continuous coverage) ── */
+@keyframes pf-notif-1 {
+  0% { opacity: 0; transform: translateX(20px); }
+  3% { opacity: 1; transform: translateX(0); }
+  22% { opacity: 1; transform: translateX(0); }
+  25% { opacity: 0; transform: translateX(-10px); }
+  100% { opacity: 0; }
+}
+.animate-pf-notif-1 { animation: pf-notif-1 12s ease infinite; }
+
+@keyframes pf-typing-1 {
+  0% { opacity: 0; }
+  2%, 12% { opacity: 1; }
+  14%, 100% { opacity: 0; }
+}
+.animate-pf-typing-1 { animation: pf-typing-1 12s ease infinite; }
+
+@keyframes pf-type-1 {
+  0%, 3% { max-width: 0; overflow: hidden; white-space: nowrap; }
+  15% { max-width: 250px; overflow: hidden; white-space: nowrap; }
+  18%, 100% { max-width: 250px; overflow: visible; white-space: normal; }
+}
+.animate-pf-type-1 { animation: pf-type-1 12s ease infinite; display: inline-block; }
+
+/* ── DM #2: visible 25–50% ── */
+@keyframes pf-notif-1b {
+  0%, 23% { opacity: 0; transform: translateX(20px); }
+  28% { opacity: 1; transform: translateX(0); }
+  47% { opacity: 1; transform: translateX(0); }
+  50% { opacity: 0; transform: translateX(-10px); }
+  100% { opacity: 0; }
+}
+.animate-pf-notif-1b { animation: pf-notif-1b 12s ease infinite; }
+
+@keyframes pf-type-1b {
+  0%, 28% { max-width: 0; overflow: hidden; white-space: nowrap; }
+  40% { max-width: 250px; overflow: hidden; white-space: nowrap; }
+  44%, 100% { max-width: 250px; overflow: visible; white-space: normal; }
+}
+.animate-pf-type-1b { animation: pf-type-1b 12s ease infinite; display: inline-block; }
+
+/* ── DM #3: visible 50–75% ── */
+@keyframes pf-notif-1c {
+  0%, 48% { opacity: 0; transform: translateX(20px); }
+  53% { opacity: 1; transform: translateX(0); }
+  72% { opacity: 1; transform: translateX(0); }
+  75% { opacity: 0; transform: translateX(-10px); }
+  100% { opacity: 0; }
+}
+.animate-pf-notif-1c { animation: pf-notif-1c 12s ease infinite; }
+
+@keyframes pf-type-1c {
+  0%, 53% { max-width: 0; overflow: hidden; white-space: nowrap; }
+  65% { max-width: 250px; overflow: hidden; white-space: nowrap; }
+  68%, 100% { max-width: 250px; overflow: visible; white-space: normal; }
+}
+.animate-pf-type-1c { animation: pf-type-1c 12s ease infinite; display: inline-block; }
+
+/* ── DM #4: visible 75–100% ── */
+@keyframes pf-notif-1d {
+  0%, 73% { opacity: 0; transform: translateX(20px); }
+  78% { opacity: 1; transform: translateX(0); }
+  97% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(-10px); }
+}
+.animate-pf-notif-1d { animation: pf-notif-1d 12s ease infinite; }
+
+@keyframes pf-type-1d {
+  0%, 78% { max-width: 0; overflow: hidden; white-space: nowrap; }
+  90% { max-width: 250px; overflow: hidden; white-space: nowrap; }
+  93%, 100% { max-width: 250px; overflow: visible; white-space: normal; }
+}
+.animate-pf-type-1d { animation: pf-type-1d 12s ease infinite; display: inline-block; }
+
+/* ── Freelance enquiry: visible from 25% ── */
+@keyframes pf-notif-2 {
+  0%, 23% { opacity: 0; transform: translateY(8px); }
+  27% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-pf-notif-2 { animation: pf-notif-2 12s ease infinite; }
+
+/* Gig A visible 25–42%, Gig B visible 44–65%, Gig C visible 67–92% */
+@keyframes pf-gig-a-cycle {
+  0%, 23% { opacity: 0; }
+  27%, 40% { opacity: 1; }
+  44%, 100% { opacity: 0; display: none; }
+}
+@keyframes pf-gig-b-cycle {
+  0%, 42% { opacity: 0; display: none; }
+  44%, 63% { opacity: 1; display: inline; }
+  67%, 100% { opacity: 0; display: none; }
+}
+@keyframes pf-gig-c-cycle {
+  0%, 65% { opacity: 0; display: none; }
+  67%, 92% { opacity: 1; display: inline; }
+  100% { opacity: 1; }
+}
+.pf-gig-a { display: inline; animation: pf-gig-a-cycle 12s ease infinite; }
+.pf-gig-b { display: none; animation: pf-gig-b-cycle 12s ease infinite; }
+.pf-gig-c { display: none; animation: pf-gig-c-cycle 12s ease infinite; }
+
+/* ── Milestone notification: visible from 45% ── */
+@keyframes pf-notif-milestone {
+  0%, 43% { opacity: 0; transform: translateY(8px); }
+  47% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-pf-notif-milestone { animation: pf-notif-milestone 12s ease infinite; }
+
+/* Milestone text swap */
+@keyframes pf-mile-a {
+  0%, 43% { opacity: 0; }
+  47%, 68% { opacity: 1; display: inline; }
+  72%, 100% { opacity: 0; display: none; }
+}
+@keyframes pf-mile-b {
+  0%, 70% { opacity: 0; display: none; }
+  72%, 100% { opacity: 1; display: inline; }
+}
+.pf-mile-a { display: inline; animation: pf-mile-a 12s ease infinite; }
+.pf-mile-b { display: none; animation: pf-mile-b 12s ease infinite; }
+
+/* ── Cohort reactions: visible from 55%, persist ── */
+@keyframes pf-notif-3 {
+  0%, 53% { opacity: 0; transform: translateY(8px); }
+  57% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-pf-notif-3 { animation: pf-notif-3 12s ease infinite; }
+
+/* ── Emoji reactions pop in + tick up ── */
+@keyframes pf-reactions {
+  0%, 55% { opacity: 0; transform: scale(0.7); }
+  60% { opacity: 1; transform: scale(1.1); }
+  63%, 100% { opacity: 1; transform: scale(1); }
+}
+.animate-pf-reactions { animation: pf-reactions 12s ease infinite; }
+
+/* Reaction count swap: A visible 57–75%, B from 75% onward */
+@keyframes pf-rc-a {
+  0%, 57% { opacity: 0; }
+  60%, 73% { opacity: 1; }
+  76%, 100% { opacity: 0; display: none; }
+}
+@keyframes pf-rc-b {
+  0%, 73% { opacity: 0; display: none; }
+  76%, 100% { opacity: 1; display: inline; }
+}
+.pf-rc-a { display: inline; animation: pf-rc-a 12s ease infinite; }
+.pf-rc-b { display: none; animation: pf-rc-b 12s ease infinite; }
+
+/* ── Stacked avatars ── */
+@keyframes pf-avatars {
+  0%, 58% { opacity: 0; transform: translateX(8px); }
+  64%, 100% { opacity: 1; transform: translateX(0); }
+}
+.animate-pf-avatars { animation: pf-avatars 12s ease infinite; }
+
+/* ── Bottom summary: visible from 22%, text swaps at 55% ── */
+@keyframes pf-earnings {
+  0%, 20% { opacity: 0.3; }
+  24%, 100% { opacity: 1; }
+}
+.animate-pf-earnings { animation: pf-earnings 12s ease infinite; }
+
+@keyframes pf-earned {
+  0%, 20% { opacity: 0; }
+  24%, 100% { opacity: 1; }
+}
+.animate-pf-earned { animation: pf-earned 12s ease infinite; }
+
+/* Summary text swap */
+@keyframes pf-sum-a {
+  0%, 22% { opacity: 0; }
+  24%, 52% { opacity: 1; display: inline; }
+  55%, 100% { opacity: 0; display: none; }
+}
+@keyframes pf-sum-b {
+  0%, 52% { opacity: 0; display: none; }
+  55%, 100% { opacity: 1; display: inline; }
+}
+.pf-sum-a { display: inline; animation: pf-sum-a 12s ease infinite; }
+.pf-sum-b { display: none; animation: pf-sum-b 12s ease infinite; }
+
+/* ── Card border glow pulse ── */
+@keyframes pf-border-glow {
+  0%, 15% { border-color: hsl(var(--primary) / 0.1); }
+  18%, 21% { border-color: hsl(var(--primary) / 0.3); }
+  28%, 45% { border-color: hsl(var(--primary) / 0.1); }
+  48%, 51% { border-color: hsl(var(--primary) / 0.25); }
+  58%, 68% { border-color: hsl(var(--primary) / 0.1); }
+  71%, 74% { border-color: hsl(var(--primary) / 0.3); }
+  82%, 100% { border-color: hsl(var(--primary) / 0.1); }
+}
+.animate-pf-border-glow {
+  border: 1px solid hsl(var(--primary) / 0.1);
+  animation: pf-border-glow 12s ease infinite;
+}
+
+/* ── Pause all portfolio animations on hover ── */
+.group\/portfolio:hover .animate-pf-thumb-1,
+.group\/portfolio:hover .animate-pf-thumb-2,
+.group\/portfolio:hover .animate-pf-thumb-3,
+.group\/portfolio:hover .animate-pf-views-1,
+.group\/portfolio:hover .animate-pf-views-2,
+.group\/portfolio:hover .animate-pf-views-3,
+.group\/portfolio:hover [class*="animate-pf-viewcount-"],
+.group\/portfolio:hover .animate-pf-notif-1,
+.group\/portfolio:hover .animate-pf-notif-1b,
+.group\/portfolio:hover .animate-pf-notif-1c,
+.group\/portfolio:hover .animate-pf-notif-1d,
+.group\/portfolio:hover .animate-pf-notif-2,
+.group\/portfolio:hover .animate-pf-notif-milestone,
+.group\/portfolio:hover .animate-pf-notif-3,
+.group\/portfolio:hover .animate-pf-typing-1,
+.group\/portfolio:hover .animate-pf-type-1,
+.group\/portfolio:hover .animate-pf-type-1b,
+.group\/portfolio:hover .animate-pf-type-1c,
+.group\/portfolio:hover .animate-pf-type-1d,
+.group\/portfolio:hover .animate-pf-reactions,
+.group\/portfolio:hover .animate-pf-avatars,
+.group\/portfolio:hover .animate-pf-earnings,
+.group\/portfolio:hover .animate-pf-earned,
+.group\/portfolio:hover .animate-pf-border-glow {
+  animation-play-state: paused;
+}
+/* Also pause child swap animations on hover */
+.group\/portfolio:hover .pf-vc-a,
+.group\/portfolio:hover .pf-vc-b,
+.group\/portfolio:hover .pf-vc-c,
+.group\/portfolio:hover .pf-gig-a,
+.group\/portfolio:hover .pf-gig-b,
+.group\/portfolio:hover .pf-gig-c,
+.group\/portfolio:hover .pf-rc-a,
+.group\/portfolio:hover .pf-rc-b,
+.group\/portfolio:hover .pf-mile-a,
+.group\/portfolio:hover .pf-mile-b,
+.group\/portfolio:hover .pf-sum-a,
+.group\/portfolio:hover .pf-sum-b {
+  animation-play-state: paused;
+}
+
+/* ═══ Wall of Love — Gradient Mesh ═══ */
+@keyframes reviews-mesh-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(30px, -20px) scale(1.05); }
+  50% { transform: translate(-20px, 15px) scale(0.98); }
+  75% { transform: translate(15px, 25px) scale(1.03); }
+}
+
+/* Warm editorial ambient glow for reviews page */
+.reviews-editorial-glow {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.reviews-editorial-glow::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  top: -15%;
+  right: -10%;
+  border-radius: 50%;
+  background: radial-gradient(circle, hsl(24 80% 65% / 0.08) 0%, transparent 70%);
+  filter: blur(80px);
+}
+
+.reviews-editorial-glow::after {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  bottom: 10%;
+  left: -10%;
+  border-radius: 50%;
+  background: radial-gradient(circle, hsl(30 70% 70% / 0.06) 0%, transparent 70%);
+  filter: blur(60px);
+}
+
+/* ═══ Wall of Love — Marquee ═══ */
+@keyframes reviews-marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes reviews-marquee-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.reviews-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 2rem;
+}
+
+.reviews-marquee-left {
+  animation: reviews-marquee-left 40s linear infinite;
+}
+
+.reviews-marquee-right {
+  animation: reviews-marquee-right 45s linear infinite;
+}
+
+/* Fade edges */
+.reviews-marquee-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.reviews-marquee-container::before,
+.reviews-marquee-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.reviews-marquee-container::before {
+  left: 0;
+  background: linear-gradient(to right, hsl(28 25% 95%), transparent);
+}
+
+.reviews-marquee-container::after {
+  right: 0;
+  background: linear-gradient(to left, hsl(28 25% 95%), transparent);
+}
+
+/* ═══ Wall of Love — Hover Spotlight ═══ */
+.reviews-grid-spotlight:hover > * {
+  opacity: 0.45;
+  transition: opacity 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.reviews-grid-spotlight:hover > *:hover {
+  opacity: 1;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px -8px hsl(24 60% 40% / 0.12);
+}
+
+.reviews-grid-spotlight > * {
+  transition: opacity 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* ═══ Careers Marquee ═══ */
+@keyframes careers-marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.careers-marquee {
+  animation: careers-marquee-scroll 20s linear infinite;
+}
+
+/* ═══ Hero Stats Ticker ═══ */
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); }
+}
+.animate-ticker {
+  animation: ticker 15s linear infinite;
+}
+
+/* ═══ Hide scrollbar for carousels ═══ */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

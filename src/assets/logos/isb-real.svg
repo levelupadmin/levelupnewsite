@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 60" fill="white">
+  <!-- Globe/bird mark inspired by ISB's actual logo -->
+  <circle cx="30" cy="28" r="16" fill="none" stroke="white" stroke-width="1.5"/>
+  <path d="M18 22 Q30 14 42 22" fill="none" stroke="white" stroke-width="1.2"/>
+  <path d="M22 32 Q30 24 38 32" fill="none" stroke="white" stroke-width="1"/>
+  <path d="M30 12 Q34 20 30 28 Q26 20 30 12" fill="white" opacity="0.6"/>
+  <!-- ISB text -->
+  <text x="58" y="36" font-family="system-ui, -apple-system, 'Helvetica Neue', sans-serif" font-size="30" font-weight="700" letter-spacing="3">ISB</text>
+</svg>

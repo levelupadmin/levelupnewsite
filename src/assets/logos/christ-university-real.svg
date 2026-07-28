@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 50" fill="white">
+  <!-- Cross mark -->
+  <line x1="18" y1="10" x2="18" y2="42" stroke="white" stroke-width="2.5"/>
+  <line x1="10" y1="18" x2="26" y2="18" stroke="white" stroke-width="2.5"/>
+  <!-- CHRIST text in distinctive uppercase -->
+  <text x="40" y="24" font-family="'Garamond', 'Georgia', serif" font-size="22" font-weight="700" letter-spacing="4">CHRIST</text>
+  <text x="40" y="42" font-family="system-ui, sans-serif" font-size="10" font-weight="400" letter-spacing="3" opacity="0.8">UNIVERSITY</text>
+</svg>

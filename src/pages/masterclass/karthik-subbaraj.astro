@@ -1,0 +1,499 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import EpisodeAccordion from "@/components/lokesh/EpisodeAccordion";
+import TestimonialCarousel from "@/components/lokesh/TestimonialCarousel";
+import IntersectionPlayVideo from "@/components/lokesh/IntersectionPlayVideo";
+import StickyMobileCta from "@/components/lokesh/StickyMobileCta.astro";
+import PageInteractions from "@/components/lokesh/PageInteractions";
+import { courseJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/structuredData";
+
+const ASSET = "/masterclass/karthik";
+
+const CTA_HREF = "https://study.leveluplearning.in/web/checkout/63579ff53b15755299fbe082";
+
+const LOGO = `${ASSET}/a8eE1EildFXNeATLOwL1H78K0bc.png`;
+const HERO_BG = `${ASSET}/sw7kIUP7AnyBvf57dO2F4Y96Ryo.jpg`;
+const HERO_VIDEO = `${ASSET}/UCXfFQRLOPyAhT7UYvqMrrVttY.mp4`;
+const TITLE_IMG = `${ASSET}/WQZTBlUPCA8Z0ZamKHnmURN7g.png`;
+const STAGE_BG = `${ASSET}/1zj5LPCMiUBOgtwRrMIAhBS9cM8.png`;
+const TRAILER_VIDEO = `${ASSET}/CdsBMjZPxHfcxZT01qMKgo9NeJ0.mp4`;
+const TRAILER_POSTER = `${ASSET}/QoADD6MJ0hOF3uiMrmuSkEtPG4.png`;
+const CLASSINFO_BG = `${ASSET}/l5morsJ1odtaOFccrOgLQslzs.png`;
+const FILMSTRIP_BG = `${ASSET}/e9liRJamCSpmlzngSxt65LymFFw.png`;
+const REEL = `${ASSET}/SsZ1glhQF4nnbsxeD5nq3qO5O8o.png`;
+const RINGS = `${ASSET}/JNo817gaJtgUMYq7V8sUdzBHM.png`;
+const WHO_PILLS = `${ASSET}/l8BvqqI8AQsZB54imLU7fogLRR0.png`;
+const WHY_BG = `${ASSET}/Cc2kJRwz6AeaFjFQmylubnTv2E.png`;
+const CUTOUT_L = `${ASSET}/IHEuFBe9iwHtVmPjoIxuDpx2x9Q.png`;
+const CUTOUT_R = `${ASSET}/NTY3oU17X40h3eJmiunmYaM57Y.png`;
+const CERT_BG = `${ASSET}/G0QgGhabjypHbqS4ywFcDMJCMw.png`;
+const CERT_BANNER = `${ASSET}/CeEeSQZ6BSQTC2wrnrTbSN3GQU.png`;
+const REVIEWS_BG = `${ASSET}/gy2I8jYLhOBOTXke3EkuIL75o.png`;
+const GET_BG = `${ASSET}/9Ls6v83DqKarYkmLsjyRTpyJyik.png`;
+
+// Curriculum lessons. Titles and descriptions are verbatim from the live
+// Framer original (descriptions recovered from the expanded accordion).
+const episodes = [
+  { number: 1, title: "Discover the Roots of Filmmaking", description: "How did an award-winning filmmaker turn childhood passions into cinematic masterpieces? Learn how Karthik Subbaraj's creative journey shaped his unique approach to filmmaking—starting from writing poetry to directing his first short film." },
+  { number: 2, title: "The Power of Stories", description: "Film has the power to shape cultures. Dive into the deep responsibility of storytelling and how to craft messages that audiences will connect with—and remember long after they leave the theater." },
+  { number: 3, title: "Unearth Stories from Everyday Moments", description: "Ever wonder how filmmakers find their stories? Discover Karthik's process for capturing everyday experiences and turning them into cinematic gold." },
+  { number: 4, title: "Research That Elevates Stories", description: "Great filmmakers know that research can transform a film. Explore how Karthik uses research to deepen his films and create believable, compelling worlds." },
+  { number: 5, title: "Master the Art of Story Structure", description: "Learn how to shape your story, balancing creativity with practical constraints like time and budget, without losing narrative power." },
+  { number: 6, title: "Crafting the Blueprint—Your Screenplay", description: "A great screenplay is the foundation of any film. Uncover how Karthik writes screenplays that serve as guides, not just for himself, but for his entire team." },
+  { number: 7, title: "Inside Jigarthanda—Scene Breakdown", description: "Get an exclusive look into the creative process behind the scenes of Jigarthanda. Karthik reveals his inspirations and how he shaped key moments." },
+  { number: 8, title: "Breathing Life into Characters", description: "Learn how to create multidimensional, unforgettable characters that drive your story and captivate audiences." },
+  { number: 9, title: "The Journey of Sethu in Jigarthanda", description: "Explore the character arc of Sethu and discover the strategies behind crafting compelling, dynamic characters." },
+  { number: 10, title: "Master Montages—Create Magic on Screen", description: "Discover how montages can enrich your film's storytelling. Learn from Jigarthanda's creative use of this technique." },
+  { number: 11, title: "Crafting Powerful Dialogue", description: "Struggling with dialogue? Learn Karthik's tips for writing and revising lines that feel authentic and drive the narrative." },
+  { number: 12, title: "Is Your Script Ready?", description: "Get the techniques for evaluating and improving your script, with insights into feedback and revisions." },
+  { number: 13, title: "Planning Like a Pro—Pre-Production Essentials", description: "Master the often-overlooked art of pre-production. Learn how planning affects everything from filming to post-production and beyond." },
+  { number: 14, title: "Cinematography—The Director's Eye", description: "Learn how to collaborate with cinematographers to turn your vision into a visual reality that tells a story through every shot." },
+  { number: 15, title: "Pizza's Visual Storytelling", description: "See how Karthik planned shots in Pizza, and learn how every angle and movement was designed to engage audiences." },
+  { number: 16, title: "Creating a Signature Visual Style", description: "Discover how Karthik develops his unique visual style with storyboards and shot divisions, ensuring consistency and artistic impact." },
+  { number: 17, title: "Petta's Storyboard Masterclass", description: "Learn how storyboarding is essential for creating a coherent visual style, with an in-depth case study from Petta." },
+  { number: 18, title: "The Art of Production Design", description: "Understand how art direction shapes the visual language of a film, working closely with the director and cinematographer." },
+  { number: 19, title: "Building Petta's World—Behind the Scenes", description: "See how world-building made Petta's world immersive and believable, and how you can apply these techniques to your own films." },
+  { number: 20, title: "Directing Actors to Excellence", description: "Learn how to direct actors to bring out the best performances and how casting decisions can transform your film." },
+  { number: 21, title: "The Art of Editing—A Director's Best Friend", description: "Discover how editors can save a film, and how directors and editors work together to bring the best version of the story to life." },
+  { number: 22, title: "Music & Sound—The Heartbeat of a Film", description: "Music and sound design can make or break a film. Learn Karthik's approach to scoring films and how sound adds depth to storytelling." },
+  { number: 23, title: "Music's Role in Iraivi", description: "Get an insider's look at how Karthik used songs in Iraivi to move the story forward and evoke emotion." },
+  { number: 24, title: "The Filmmaker's Journey", description: "Take a final lesson from Karthik as he shares the realities, challenges, and rewards of life as a filmmaker—and what it takes to succeed." },
+];
+
+// "What you'll get" 3D coverflow — four on-set stills fanned in a perspective stage.
+const coverflow = {
+  front: `${ASSET}/ClYKXiRyht3B49LiGvt1h3Ys8k4.png`,
+  back: `${ASSET}/VtYabB70qe6NdtSJjJ5uSLlSN7s.png`,
+  left: `${ASSET}/2S4HcsEFBSz3lg9dbf4Go3XkK4.png`,
+  right: `${ASSET}/DI1OOeZ57xFz2law2yc0tSSV0a4.png`,
+};
+
+const audience = [
+  "Dialogue Writers",
+  "Screenplay Writers",
+  "Filmmakers",
+  "Film Enthusiasts",
+  "Aspiring Directors",
+  "Cinema Aspirants",
+];
+
+// Why-masterclass static fanned poster stack (3 cards, all visible — no cycle).
+// Back-to-front paint order matches the original: the -12 card is at the back,
+// the +4 card sits on top. Stacked concentrically via grid-area:1/1.
+const whyCards = [
+  { caption: "Understand the importance of storyboarding for a scene", image: `${ASSET}/cx8Cc19SgSO5w6TPi0kjSgcvp0.png`, rot: -12 },
+  { caption: "Dive deeper into scene analysis with the Instructor's insightful case studies.", image: `${ASSET}/sF8gHjdHzP2c2QYYGykFUhPvxE.png`, rot: -4 },
+  { caption: "Provides a fresh perspective on the art of filmmaking.", image: `${ASSET}/g1EH6zoC7bMvJv2iMIeJKmoocBM.png`, rot: 4 },
+];
+
+const testimonials = [
+  { name: "Swetha", role: "Theatre Artist", quote: "Karthik's course is amazing. I want to be able to write a screenplay for film one day and this course has really helped me to get my feet wet in the world of screenwriting. What I like about this class so much is the combination of actionable steps and theory derived from the craft of story telling.", image: `${ASSET}/2de6WAVM1jKH5Jy1NACbiTZA7jE.webp` },
+  { name: "Prem Kumar", role: "Actor", quote: "As an aspiring filmmaker with a burning passion for storytelling, taking Karthik's filmmaking class was an absolute game-changer for me. The course provided a comprehensive and practical guide, covering everything from crafting compelling storylines to the nitty-gritty of directing and editing.", image: `${ASSET}/Rj7zTcDJTxVKUd8onKeWL9jrM.png` },
+  { name: "Gokulnath", role: "Director", quote: "Enrolling in Karthik's filmmaking course was a turning point in my artistic journey. The course caters to filmmakers of all levels, and I appreciated how Karthik emphasized the importance of creative expression throughout the process. If you have a love for filmmaking, this course is a must!", image: `${ASSET}/x6sjoC33XsZbirH06hqok8eVmCI.webp` },
+];
+
+const faqs = [
+  { question: "Who is this class for?", answer: "This class is for aspiring filmmakers, screenwriters, dialogue writers, assistant directors, actors, and anyone who loves cinema and wants to understand how films are really made. No prior filmmaking experience is required." },
+  { question: "I'm an Intermediate or Professional Filmmaker, would I benefit from this?", answer: "Yes. Karthik shares the actual craft and decision-making behind his films, scene breakdowns, visual style, casting, editing and sound, that experienced filmmakers rarely get to see explained first-hand." },
+  { question: "What do I need to learn from this class?", answer: "You'll learn Karthik Subbaraj's complete approach to filmmaking: finding and structuring stories, writing screenplays and dialogue, pre-production planning, cinematography, production design, directing actors, editing, and music, with real case studies from his own films." },
+  { question: "Will Karthik Subbaraj be teaching the Class?", answer: "Yes. Every lesson is taught directly by Karthik Subbaraj, using examples and stories from his own films." },
+  { question: "Which Language is the course in?", answer: "The lessons are in simple Tamil with English subtitles. Dubbed versions in Hindi, Telugu, Kannada and Malayalam will be available soon." },
+  { question: "Are there any recurring costs that I need to pay to access the videos?", answer: "No. You pay once, ₹2,499, and get lifetime access. No subscription, no renewals, no hidden charges." },
+  { question: "How long is the Class?", answer: "25 video lessons, around 3 hours 20 minutes of content in total. Watch at your own pace and revisit any lesson any time." },
+  { question: "When do I get to download the customised signed certificate?", answer: "Once you complete the course, you'll receive a personalised Certificate of Completion signed by Karthik Subbaraj, ready to download and share." },
+  { question: "Where can I watch these classes?", answer: "On any device, laptop, tablet or phone, through the LevelUp Learning platform. Accessible 24/7 once you enroll." },
+  { question: "Will I get a certificate for this masterclass?", answer: "Yes. A personalised Certificate of Completion signed by Karthik Subbaraj, downloadable as a PDF and shareable on social media or LinkedIn." },
+];
+
+const course = courseJsonLd({
+  name: "Karthik Subbaraj Filmmaking Masterclass",
+  description: "Exclusive online filmmaking masterclass with award-winning director Karthik Subbaraj (Jigarthanda, Petta, Pizza, Mahaan, Jagame Thandhiram). 25 lessons covering storytelling, screenplay, dialogue, cinematography, directing, editing and sound. Tamil with English subtitles. Signed Certificate. ₹2,499.",
+  path: "/masterclass/karthik-subbaraj",
+  instructorName: "Karthik Subbaraj",
+  image: HERO_BG,
+  courseMode: "online",
+});
+const breadcrumb = breadcrumbJsonLd([
+  { name: "Home", path: "/" },
+  { name: "Masterclasses", path: "/" },
+  { name: "Karthik Subbaraj", path: "/masterclass/karthik-subbaraj" },
+]);
+const faq = faqJsonLd(faqs);
+---
+
+<BaseLayout
+  title="Karthik Subbaraj Filmmaking Masterclass | LevelUp Learning"
+  description="Learn filmmaking with award-winning director Karthik Subbaraj, behind Jigarthanda, Petta, Pizza, Mahaan and Jagame Thandhiram. 25 video lessons. Tamil with English subtitles. Signed Certificate. ₹2,499 lifetime access."
+  path="/masterclass/karthik-subbaraj"
+  type="course"
+  ogImage={HERO_BG}
+  preloadImage={HERO_BG}
+  jsonLd={[course, breadcrumb, faq]}
+>
+  <link rel="preconnect" href="https://fonts.googleapis.com" slot="head" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin slot="head" />
+  <link rel="preconnect" href="https://api.fontshare.com" slot="head" />
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin slot="head" />
+
+  <style is:global>
+    @import url("https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700,800&f[]=satoshi@400,500,700&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&family=DM+Serif+Text&display=swap");
+
+    .karthik-page {
+      --bg: #000;
+      --bg-card: #120a08;
+      background: var(--bg);
+      color: white;
+      font-family: "Switzer", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .karthik-page .font-switzer { font-family: "Switzer", sans-serif; }
+    .karthik-page .font-rethink { font-family: "Rethink Sans", sans-serif; }
+    .karthik-page .font-manrope { font-family: "Manrope", sans-serif; }
+    .karthik-page .font-satoshi { font-family: "Satoshi", sans-serif; }
+    .karthik-page .font-dmserif { font-family: "DM Serif Text", serif; }
+
+    /* Heading gradients pulled from the Framer page. */
+    .karthik-page .k-grad-1 { background: linear-gradient(90deg, #c4a723 0%, #bc3608 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .karthik-page .k-grad-2 { background: linear-gradient(0deg, #c4a723 0%, #8e0b05 105%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    /* Certificate "01/02/03" — solid gold at the baseline fading up to transparent. */
+    .karthik-page .k-num { background: linear-gradient(0deg, #f9bc21 0%, rgba(249, 188, 33, 0) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+    /* Buy pill — the original is a SOLID #C32F08 (rgb 195,47,8) with a subtle
+       white top-gloss overlay and ~10px radius. White label, Satoshi 700. */
+    .karthik-page .buy-pill {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 100%), #c32f08;
+      color: #fff;
+      box-shadow: 0 14px 28px -12px rgba(195, 47, 8, 0.5);
+      font-family: "Satoshi", sans-serif;
+      font-weight: 700;
+      border-radius: 10px;
+      transition: filter 0.25s, transform 0.25s;
+    }
+    .karthik-page .buy-pill:hover { filter: brightness(1.07); transform: translateY(-1px); }
+
+    /* Hero background video fades in over the static poster (original: spring appear, ~1.6s).
+       Base opacity is 1 so the video is always visible if the animation never runs. */
+    .karthik-page .hero-video { opacity: 1; animation: kHeroFade 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both; }
+    @keyframes kHeroFade { from { opacity: 0; } to { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .karthik-page .hero-video { animation: none; opacity: 1; } }
+
+    .karthik-page .star-bg { background-image: radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1px), radial-gradient(rgba(255,255,255,0.035) 1px, transparent 1px); background-size: 36px 36px, 88px 88px; }
+    .karthik-page .reveal { opacity: 1; transform: none; transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+    html.mc-js-on .karthik-page .reveal { opacity: 0; transform: translateY(28px); }
+    html.mc-js-on .karthik-page .reveal.mc-in { opacity: 1; transform: translateY(0); }
+    /* Cert cards drop IN from above (original: card 1 from -160px, cards 2-3 from
+       -80px, with a subtle spring/bounce). Per-card distance via --drop. */
+    html.mc-js-on .karthik-page .reveal.reveal-drop { transform: translateY(var(--drop, -80px)); transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.34, 1.3, 0.55, 1); }
+    html.mc-js-on .karthik-page .reveal.reveal-drop.mc-in { transform: translateY(0); }
+    /* Coverflow ("what you'll get") appear: fade only — no translate — so the
+       preserve-3d card transforms are never overwritten (original: opacity 0.001 -> 1). */
+    html.mc-js-on .karthik-page .reveal.reveal-fade,
+    html.mc-js-on .karthik-page .reveal.reveal-fade.mc-in { transform: none; }
+    @media (prefers-reduced-motion: reduce) { html.mc-js-on .karthik-page .reveal { opacity: 1 !important; transform: none !important; } }
+    .karthik-page .lift { transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease; will-change: transform; }
+    .karthik-page .lift:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -16px rgba(0, 0, 0, 0.55), 0 8px 24px -8px rgba(0, 0, 0, 0.7); border-color: rgba(117, 75, 12, 0.5); }
+    .karthik-page .tilt { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); will-change: transform; }
+
+    /* Native-details FAQ chevron. */
+    .karthik-page .k-faq summary { list-style: none; }
+    .karthik-page .k-faq summary::-webkit-details-marker { display: none; }
+    .karthik-page .k-faq .k-faq-icon { transition: transform 0.3s ease; }
+    .karthik-page .k-faq details[open] .k-faq-icon { transform: rotate(45deg); }
+
+    /* Role pills for the "who is this for" orbit. */
+    .karthik-page .role-pill {
+      background: linear-gradient(180deg, #2a0d06 0%, #160604 100%);
+      border: 1px solid rgba(117, 75, 12, 0.6);
+      box-shadow: inset 0 1px 0 rgba(255, 220, 150, 0.12);
+    }
+
+    /* Curriculum: internally scrolling list with a thin warm scrollbar. */
+    .karthik-page .k-curriculum { scrollbar-width: thin; scrollbar-color: rgba(195, 47, 8, 0.5) transparent; }
+    .karthik-page .k-curriculum::-webkit-scrollbar { width: 6px; }
+    .karthik-page .k-curriculum::-webkit-scrollbar-thumb { background: rgba(195, 47, 8, 0.45); border-radius: 999px; }
+    .karthik-page .k-curriculum::-webkit-scrollbar-track { background: transparent; }
+
+    /* "Why is this masterclass" — static fanned photo-stack: 3 concentric
+       poster cards, all visible, tilted +4 / -4 / -12. No animation in the
+       original; the +4 card sits on top. */
+    .karthik-page .why-card { grid-area: 1 / 1; }
+
+    /* "What you'll get" 3D coverflow cards (perspective lives on the parent stage). */
+    .karthik-page .cf-card {
+      position: absolute; left: 50%; top: 50%;
+      width: 214px; height: 284px; margin-left: -107px; margin-top: -142px;
+      object-fit: cover; border-radius: 6px;
+      outline: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 24px 60px -22px rgba(0, 0, 0, 0.85);
+      backface-visibility: hidden;
+    }
+
+    html { scroll-behavior: smooth; }
+  </style>
+
+  <main id="main-content" class="karthik-page">
+    <StickyMobileCta href={CTA_HREF} price={2499} course="karthik-subbaraj" />
+
+    {/* ===================== HERO ===================== */}
+    <section class="relative min-h-[92vh] md:min-h-screen overflow-hidden flex flex-col">
+      <div class="absolute inset-0">
+        <img src={HERO_BG} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-right md:object-center" />
+        <video
+          src={HERO_VIDEO}
+          poster={HERO_BG}
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          aria-hidden="true"
+          class="hero-video absolute inset-0 w-full h-full object-cover object-right md:object-center"
+        ></video>
+        <div class="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/60"></div>
+      </div>
+
+      <header class="relative z-30 pt-5 md:pt-7">
+        <div class="max-w-[1320px] mx-auto px-5 md:px-12 flex items-center">
+          <a href="/" aria-label="LevelUp Learning home">
+            <img src={LOGO} alt="LevelUp" class="h-10 md:h-[52px] w-auto" />
+          </a>
+        </div>
+      </header>
+
+      <div class="relative z-10 flex-1 flex items-center">
+        <div class="max-w-[1320px] mx-auto px-5 md:px-12 w-full">
+          <div class="max-w-[640px] py-12 md:py-0">
+            <p class="font-manrope text-[15px] md:text-[18px] uppercase text-white font-bold leading-[1.2]">Learn Filmmaking With</p>
+            <img src={TITLE_IMG} alt="Karthik Subbaraj" class="mt-4 md:mt-5 w-[280px] md:w-[440px] lg:w-[500px] h-auto" />
+            <p class="font-manrope mt-5 md:mt-6 text-[16px] md:text-[18px] leading-[1.25] text-white max-w-[540px]">
+              Join award-winning filmmaker Karthik Subbaraj in this exclusive class to master storytelling, editing and direction.
+            </p>
+            <div class="mt-7 md:mt-8">
+              <a href={CTA_HREF} target="_blank" rel="noopener noreferrer" data-mc-hero-cta="true" class="buy-pill inline-flex items-center justify-center leading-none px-6 py-3 text-[15px] md:text-[18px] lg:text-[20px]">
+                Buy now at ₹2,499
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ===================== STAGE BAND (decorative) ===================== */}
+    <section class="relative overflow-hidden bg-black">
+      <img src={STAGE_BG} alt="" aria-hidden="true" class="block w-full h-auto select-none pointer-events-none" loading="lazy" />
+    </section>
+
+    {/* ===================== CLASS INFO + CURRICULUM ===================== */}
+    <section class="relative px-5 md:px-12 py-16 md:py-24" style={`background-image:url('${CLASSINFO_BG}'); background-size:cover; background-position:center;`}>
+      <div class="absolute inset-0 bg-[#070707]/70"></div>
+      <div class="relative max-w-[1200px] mx-auto">
+        <div class="mb-10 md:mb-14">
+          <h2 class="font-switzer k-grad-1 text-[40px] md:text-[52px] lg:text-[58px] leading-[1] tracking-[-0.03em] font-bold">Class Info</h2>
+          <p class="font-manrope mt-3 text-[16px] md:text-[18px] text-white/55 font-medium">25 video lessons (3h 20m)</p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-6 md:gap-8">
+          <aside class="rounded-2xl border border-[#754B0C]/55 bg-[#120a08] p-7 md:p-8 h-fit lg:sticky lg:top-6">
+            <p class="font-manrope text-[20px] font-medium text-white leading-[1.5] tracking-[0.4px]">Start your journey with Outstanding excellence</p>
+            <p class="font-manrope mt-3 text-[16px] md:text-[18px] text-white/55 leading-[1.5]">(No complex theories- No prior filmmaking experience required- Just practical, actionable lessons)</p>
+
+            <ul class="mt-7 space-y-4 font-manrope text-[16px] md:text-[18px] text-white/90">
+              <li class="flex items-center gap-3">
+                <svg class="w-6 h-6 shrink-0 text-[#FED604]" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M3 2v4.586l7 7L14.586 9l-7-7zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586z"/><path d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1z"/></svg>
+                <span>₹2,499</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-6 h-6 shrink-0 text-[#FED604]" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445"/></svg>
+                <span>4 hours of video content</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-6 h-6 shrink-0 text-[#FED604]" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0"/><path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911z"/></svg>
+                <span>Certificate of completion</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-6 h-6 shrink-0 text-[#FED604]" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/><path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9 9 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.4 10.4 0 0 1-.524 2.318l-.003.011a11 11 0 0 1-.244.637c-.079.186.074.394.273.362a22 22 0 0 0 .693-.125m.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6-3.004 6-7 6a8 8 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a11 11 0 0 0 .398-2"/></svg>
+                <span>Free access to Cine Circle community</span>
+              </li>
+            </ul>
+
+            <a href={CTA_HREF} target="_blank" rel="noopener noreferrer" class="buy-pill mt-7 inline-flex w-full items-center justify-center leading-none px-5 py-3.5 text-[16px] md:text-[18px]">
+              Buy now at ₹2,499
+            </a>
+          </aside>
+
+          <div class="k-curriculum max-h-[560px] overflow-y-auto pr-2 -mr-2">
+            <EpisodeAccordion episodes={episodes} showEpisodeLabel={false} icon="plusminus" defaultOpen={true} allowMultiple={true} dashedDivider={true} plusminusClassName="border-[#1f1f1f] bg-[#240000] text-[#FED604]" plusminusOpenClassName="" titleClassName="font-manrope text-[16px] md:text-[18px] font-semibold text-[#f2f2f2] leading-[1.2]" bodyClassName="font-manrope text-[14px] md:text-[16px] leading-[1.6] text-white/65" client:visible />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ===================== BLOCKBUSTER (full-bleed trailer) ===================== */}
+    <section class="relative w-full overflow-hidden bg-black">
+      <div class="relative w-full aspect-[16/10] md:aspect-[1440/760]">
+        <img src={FILMSTRIP_BG} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+        <IntersectionPlayVideo src={TRAILER_VIDEO} poster={TRAILER_POSTER} className="absolute inset-0" client:visible />
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-full px-5 md:px-12 lg:px-16">
+            <h2 class="font-switzer k-grad-2 text-[30px] md:text-[52px] lg:text-[74px] leading-[1.2] tracking-[-0.06em] font-bold max-w-[280px] md:max-w-[440px] lg:max-w-[580px]">Learn from the Director Behind these Blockbuster Films</h2>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ===================== WHO IS THIS FOR ===================== */}
+    <section class="relative px-5 md:px-12 py-20 md:py-28 overflow-hidden">
+      <div class="star-bg absolute inset-0 pointer-events-none opacity-50"></div>
+      <div class="relative max-w-[1200px] mx-auto text-center">
+        <h2 class="font-switzer k-grad-2 text-[34px] md:text-[52px] lg:text-[74px] leading-[1.04] tracking-[-0.06em] font-semibold">Who is this program for?</h2>
+
+        <div class="relative mt-12 md:mt-16 mx-auto max-w-[860px] aspect-square sm:aspect-[16/10]">
+          <img src={RINGS} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-contain opacity-70" />
+          <img src={REEL} alt="" aria-hidden="true" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[34%] max-w-[230px] h-auto" />
+
+          {/* Desktop: original Framer pills composite, layered over the reel (transparent center). Mobile: stacked grid below. */}
+          <img src={WHO_PILLS} alt={`This program is for: ${audience.join(", ")}`} class="hidden sm:block absolute inset-0 w-full h-full object-contain z-10" />
+        </div>
+
+        <div class="sm:hidden mt-10 grid grid-cols-2 gap-3">
+          {audience.map((a) => (
+            <span class="role-pill rounded-xl px-4 py-3 text-[14px] font-medium text-white text-center">{a}</span>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ===================== WHY THIS MASTERCLASS ===================== */}
+    <section class="relative overflow-hidden">
+      <div class="absolute inset-0">
+        <img src={WHY_BG} alt="" aria-hidden="true" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-b from-[#070707] via-transparent to-[#070707]"></div>
+      </div>
+      <img src={CUTOUT_L} alt="" aria-hidden="true" class="hidden md:block absolute left-0 bottom-0 w-[26%] max-w-[360px] h-auto z-10 pointer-events-none" />
+      <img src={CUTOUT_R} alt="" aria-hidden="true" class="hidden md:block absolute right-0 bottom-0 w-[34%] max-w-[460px] h-auto z-10 pointer-events-none" />
+
+      <div class="relative z-20 px-5 md:px-12 py-20 md:py-28">
+        <div class="max-w-[960px] mx-auto text-center mb-14 md:mb-20">
+          <h2 class="font-switzer k-grad-2 text-[34px] md:text-[52px] lg:text-[74px] leading-[1.04] tracking-[-0.06em] font-semibold">
+            Why is this<br />masterclass for you ?
+          </h2>
+        </div>
+        <div class="why-deck mx-auto grid place-items-center w-[300px] max-w-full py-6">
+          {whyCards.map((c) => (
+            <figure class="why-card" style={`transform: rotate(${c.rot}deg)`}>
+              <div class="relative w-[260px] sm:w-[300px] aspect-[300/380] overflow-hidden rounded-[35px] shadow-[0_18px_50px_-20px_rgba(0,0,0,0.75)]">
+                <img src={c.image} alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                <figcaption class="absolute left-8 right-10 bottom-8 font-satoshi text-left text-[22px] sm:text-[26px] md:text-[28px] leading-[1.1] font-bold text-white">{c.caption}</figcaption>
+              </div>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ===================== CERTIFICATE ===================== */}
+    <section class="relative px-5 md:px-12 py-16 md:py-24" style={`background-image:url('${CERT_BG}'); background-size:cover; background-position:center;`}>
+      <div class="absolute inset-0 bg-[#070707]/70"></div>
+      <div class="relative max-w-[1200px] mx-auto">
+        <div class="rounded-2xl overflow-hidden ring-1 ring-[#754B0C]/40 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.55)]">
+          <img src={CERT_BANNER} alt="Certificate of Completion signed by Karthik Subbaraj" class="block w-full h-auto" loading="lazy" />
+        </div>
+        <ul class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          {[
+            "Download or Print out as PDF to share with others",
+            "Showcase your Certificate on social media",
+            "Share as image online to demonstrate your skill",
+          ].map((t, i) => (
+            <li class="reveal reveal-drop rounded-xl border-2 border-[#754B0C]/60 bg-[#120a08] p-5 md:p-6 flex items-center gap-5" style={`--drop:${i === 0 ? -160 : -80}px; transition-delay:${i * 120}ms`}>
+              <span class="font-dmserif text-[56px] md:text-[72px] lg:text-[80px] k-num leading-none shrink-0">0{i + 1}</span>
+              <span class="font-manrope text-[15px] md:text-[18px] text-[#f2f2f2] leading-[1.45] tracking-[-0.01em] font-medium">{t}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    {/* ===================== TESTIMONIALS ===================== */}
+    <section class="relative px-5 md:px-12 py-16 md:py-24 overflow-hidden" style={`background-image:url('${REVIEWS_BG}'); background-size:cover; background-position:center;`}>
+      <div class="absolute inset-0 bg-[#070707]/75"></div>
+      <div class="relative max-w-[1200px] mx-auto text-center mb-12 md:mb-16">
+        <h2 class="font-switzer k-grad-2 text-[32px] md:text-[52px] lg:text-[74px] leading-[1.08] tracking-[-0.06em] font-bold">This makes our heart beat faster everyday</h2>
+      </div>
+      <div class="relative"><TestimonialCarousel items={testimonials} client:visible /></div>
+    </section>
+
+    {/* ===================== WHAT YOU'LL GET ===================== */}
+    <section class="relative px-5 md:px-12 py-16 md:py-24" style={`background-image:url('${GET_BG}'); background-size:cover; background-position:center;`}>
+      <div class="absolute inset-0 bg-[#070707]/75"></div>
+      <div class="relative max-w-[1200px] mx-auto">
+        <div class="text-center max-w-[900px] mx-auto mb-14 md:mb-20">
+          <h2 class="font-rethink k-grad-2 text-[32px] md:text-[52px] lg:text-[74px] leading-[1.05] tracking-[-0.03em] font-bold">What you'll get...</h2>
+          <p class="font-rethink mt-5 text-[16px] md:text-[18px] leading-[1.55] text-white/80">
+            Enroll now and get bonuses worth Rs.19,999 for free. There was never a better time to grab this on-demand program.
+          </p>
+        </div>
+
+        <div class="flex justify-center">
+          <div class="reveal reveal-fade">
+          <div class="origin-top scale-[0.72] sm:scale-90 md:scale-100">
+            <div class="cf-stage relative mx-auto" style="width:480px; height:300px; perspective:1200px;">
+              <div class="cf-track absolute inset-0" style="transform-style:preserve-3d;">
+                <img src={coverflow.back} alt="" aria-hidden="true" class="cf-card" style="transform:translateZ(-360px); z-index:4;" loading="lazy" />
+                <img src={coverflow.left} alt="" aria-hidden="true" class="cf-card" style="transform:translateX(-124px) translateZ(-220px) rotateY(60deg); z-index:3;" loading="lazy" />
+                <img src={coverflow.right} alt="" aria-hidden="true" class="cf-card" style="transform:translateX(124px) translateZ(-220px) rotateY(-60deg); z-index:5;" loading="lazy" />
+                <img src={coverflow.front} alt="" class="cf-card" style="transform:translateZ(0); z-index:6;" loading="lazy" />
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ===================== FAQ (2-column) ===================== */}
+    <section class="relative px-5 md:px-12 py-16 md:py-28">
+      <div class="max-w-[1200px] mx-auto text-center mb-10 md:mb-14">
+        <h2 class="font-rethink k-grad-2 text-[32px] md:text-[52px] lg:text-[72px] leading-[1.08] tracking-[-0.03em] font-bold">Questions? We've got you covered</h2>
+        <p class="font-rethink mt-4 text-[18px] md:text-[22px] text-white/70 max-w-[680px] mx-auto">Answers to the burning questions in your mind. Have a different question?</p>
+        <a href={CTA_HREF} target="_blank" rel="noopener noreferrer" class="buy-pill mt-6 inline-flex items-center justify-center leading-none px-7 py-3 text-[15px] md:text-[18px]">Buy now at ₹2,499</a>
+      </div>
+      <div class="k-faq max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+        {faqs.map((f) => (
+          <details class="group rounded-xl border border-white/[0.1] bg-[#120a08] open:border-[#754B0C]/55 transition-colors h-fit">
+            <summary class="flex items-center justify-between gap-4 cursor-pointer select-none p-5 md:p-6">
+              <span class="font-rethink text-[16px] md:text-[20px] font-medium text-white leading-[1.35]">{f.question}</span>
+              <svg class="k-faq-icon shrink-0 text-[#FED604]" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" /></svg>
+            </summary>
+            <div class="font-rethink px-5 md:px-6 pb-5 md:pb-6 -mt-1 text-[15px] md:text-[16px] leading-[1.6] text-white/70">{f.answer}</div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    {/* ===================== FOOTER ===================== */}
+    <footer class="relative bg-[#181818] mt-12 md:mt-20 px-5 md:px-12 py-12 md:py-16">
+      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 md:gap-12 items-center">
+        <div class="text-center md:text-left">
+          <p class="text-[14px] text-[#dfdee2] max-w-2xl leading-[1.6] tracking-[-0.02em]">
+            LevelUp Learning is an e-learning platform focused on creative arts like music, science, sports, film-making and other such skill development disciplines. Students can access pre-recorded lectures or tutorials by experts in various fields.
+          </p>
+          <div class="mt-6 flex justify-center md:justify-start gap-5 text-white/70">
+            <a href="https://www.instagram.com/levelup_filmmaking/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="hover:text-white transition-colors"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.43.36 1.06.41 2.23.07 1.25.07 1.65.07 4.85s0 3.6-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.43.16-1.06.36-2.23.41-1.25.07-1.65.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.43-.36-1.06-.41-2.23C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.43-.16 1.06-.36 2.23-.41C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.52 0-4.76.06-1.07.05-1.65.23-2.04.38-.51.2-.88.44-1.27.83-.39.39-.63.76-.83 1.27-.15.39-.33.97-.38 2.04C2.66 8.48 2.66 8.85 2.66 12s0 3.52.06 4.76c.05 1.07.23 1.65.38 2.04.2.51.44.88.83 1.27.39.39.76.63 1.27.83.39.15.97.33 2.04.38 1.24.06 1.61.06 4.76.06s3.52 0 4.76-.06c1.07-.05 1.65-.23 2.04-.38.51-.2.88-.44 1.27-.83.39-.39.63-.76.83-1.27.15-.39.33-.97.38-2.04.06-1.24.06-1.61.06-4.76s0-3.52-.06-4.76c-.05-1.07-.23-1.65-.38-2.04a3.4 3.4 0 0 0-.83-1.27 3.4 3.4 0 0 0-1.27-.83c-.39-.15-.97-.33-2.04-.38C15.52 4 15.15 4 12 4zm0 3.07a4.93 4.93 0 1 1 0 9.86 4.93 4.93 0 0 1 0-9.86zm0 1.8a3.13 3.13 0 1 0 0 6.26 3.13 3.13 0 0 0 0-6.26zm5.13-2.27a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3z"/></svg></a>
+            <a href="https://www.linkedin.com/company/levelup-learning/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="hover:text-white transition-colors"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14C2.24 0 0 2.24 0 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5V5c0-2.76-2.24-5-5-5zM7.5 19h-3v-9h3v9zM6 8.7a1.7 1.7 0 1 1 0-3.4 1.7 1.7 0 0 1 0 3.4zM20 19h-3v-4.7c0-1.1-.4-1.9-1.4-1.9-.8 0-1.3.5-1.5 1-.1.2-.1.5-.1.7V19h-3s.04-7.6 0-9h3v1.3c.4-.6 1.1-1.5 2.7-1.5 2 0 3.5 1.3 3.5 4V19z"/></svg></a>
+            <a href="https://x.com/LevelUp_edu" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" class="hover:text-white transition-colors"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          </div>
+        </div>
+        <div class="text-center md:text-right text-[14px] text-[#dfdee2] space-y-2">
+          <p class="font-medium tracking-[-0.02em]">Copyright © 2025 LevelUp Learning · All Rights Reserved</p>
+          <p class="space-x-4 tracking-[-0.04em]">
+            <a href="/privacy-policy" class="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="/terms" class="hover:text-white transition-colors">Terms Of Service</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <PageInteractions course="karthik-subbaraj" courseName="Karthik Subbaraj Filmmaking Masterclass" price={2499} client:idle />
+  </main>
+</BaseLayout>

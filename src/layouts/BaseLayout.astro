@@ -1,0 +1,308 @@
+---
+import "@/styles/globals.css";
+import Seo from "@/components/Seo.astro";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/structuredData";
+import { META_PIXEL_ID } from "@/lib/constants";
+
+export interface Props {
+  title: string;
+  description: string;
+  path: string;
+  ogImage?: string;
+  type?: "website" | "article" | "course";
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  noIndex?: boolean;
+  bodyClass?: string;
+  preloadImage?: string;
+}
+
+const {
+  title,
+  description,
+  path,
+  ogImage,
+  type = "website",
+  jsonLd,
+  noIndex = false,
+  bodyClass = "",
+  preloadImage,
+} = Astro.props;
+
+const siteJsonLd = [organizationJsonLd, websiteJsonLd];
+const allJsonLd = jsonLd
+  ? [...siteJsonLd, ...(Array.isArray(jsonLd) ? jsonLd : [jsonLd])]
+  : siteJsonLd;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+
+    <link rel="preconnect" href="https://www.clarity.ms" crossorigin />
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <link rel="preconnect" href="https://connect.facebook.net" crossorigin />
+    <link rel="dns-prefetch" href="https://www.facebook.com" />
+
+    <Seo
+      title={title}
+      description={description}
+      path={path}
+      ogImage={ogImage}
+      type={type}
+      jsonLd={allJsonLd}
+      noIndex={noIndex}
+    />
+
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/sora-var.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/funnel-display-var.woff2" />
+
+    {preloadImage && (
+      <link
+        rel="preload"
+        as="image"
+        href={preloadImage.replace(/\.(jpe?g|png)(\?.*)?$/i, ".avif")}
+        type="image/avif"
+        fetchpriority="high"
+      />
+    )}
+
+    <style is:inline>
+      html, body { margin: 0; padding: 0; }
+      body { background-color: hsl(22, 14%, 6%); color: hsl(0, 0%, 93%); }
+    </style>
+
+    <script is:inline>
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "vtl0nas964");
+    </script>
+
+    <!-- Google Ads (gtag.js) -->
+    <script
+      is:inline
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=AW-336295558"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "AW-336295558");
+    </script>
+
+    <script
+      is:inline
+      type="text/javascript"
+      define:vars={{ pixelId: META_PIXEL_ID }}
+    >
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        "script",
+        "https://connect.facebook.net/en_US/fbevents.js"
+      );
+      window.fbq("init", pixelId);
+      window.fbq("track", "PageView");
+    </script>
+
+    <!--
+      Site-wide UTM forwarding + checkout-click event tracking.
+      Runs on EVERY page (homepage, all masterclass landing pages, student
+      stories, etc.). When the user clicks any anchor pointing at the LevelUp
+      checkout subdomains (study.* / courses.*), this:
+        1. Appends incoming utm_source/medium/campaign/content/term + fbclid +
+           gclid params from the landing URL (so Tag Mango / TagMango Studio
+           attributes the conversion to the right ad).
+        2. Tags an extra mc_course param derived from the pathname so the
+           checkout page knows which masterclass drove the click.
+        3. Fires Meta Pixel `Lead` + `InitiateCheckout` events with
+           content_name + content_ids + value + currency.
+        4. Fires Microsoft Clarity `initiate_checkout` event for the same.
+      Captured UTMs persist in sessionStorage so they survive in-page nav.
+    -->
+    <script is:inline>
+      (function () {
+        var CHECKOUT_HOSTS = ["study.leveluplearning.in", "courses.leveluplearning.in"];
+        var UTM_KEYS = ["utm_source","utm_medium","utm_campaign","utm_content","utm_term","fbclid","gclid"];
+        // Course slug + price + display name keyed by URL pathname
+        var COURSE_MAP = {
+          "/masterclass/lokesh-kanagaraj":   { slug: "lokesh-kanagaraj",   name: "Lokesh Kanagaraj Masterclass",   price: 1499 },
+          "/masterclass/nelson-dilipkumar":  { slug: "nelson-dilipkumar",  name: "Nelson Dilipkumar Masterclass",  price: 2499 },
+          "/masterclass/ravi-basrur":        { slug: "ravi-basrur",        name: "Ravi Basrur Music Masterclass",  price: 2499 },
+          "/masterclass/karthik-subbaraj":   { slug: "karthik-subbaraj",   name: "Karthik Subbaraj Masterclass",   price: 2499 },
+          "/masterclass/anthony-gonsalvez":  { slug: "anthony-gonsalvez",  name: "Anthony Gonsalvez Masterclass",  price: 1499 },
+          "/masterclass/drk-kiran":          { slug: "drk-kiran",          name: "DRK Kiran Masterclass",          price: 1499 },
+          "/masterclass/g-venket-ram":       { slug: "g-venket-ram",       name: "G Venket Ram Masterclass",       price: 1499 }
+        };
+
+        // Capture incoming UTMs (FB ads land users with these), merge with any
+        // previously-stored set, and persist for the rest of the session.
+        var stored = {};
+        try { stored = JSON.parse(sessionStorage.getItem("mc_utm") || "{}"); } catch (e) {}
+        var incoming = new URLSearchParams(window.location.search);
+        var snap = {};
+        for (var i = 0; i < UTM_KEYS.length; i++) {
+          var k = UTM_KEYS[i];
+          var fromUrl = incoming.get(k);
+          if (fromUrl) snap[k] = fromUrl;
+          else if (stored[k]) snap[k] = stored[k];
+        }
+        if (Object.keys(snap).length) {
+          try { sessionStorage.setItem("mc_utm", JSON.stringify(snap)); } catch (e) {}
+        }
+
+        // ViewContent: deeper than auto-PageView. Builds retargeting audiences
+        // for "viewed masterclass X but didn't checkout".
+        (function fireViewContent() {
+          var path = window.location.pathname.replace(/\/$/, "");
+          var c = COURSE_MAP[path];
+          if (!c) return;
+          try {
+            window.fbq && window.fbq("track", "ViewContent", {
+              content_type: "product",
+              content_name: c.name,
+              content_ids: [c.slug],
+              content_category: "Masterclass",
+              value: c.price,
+              currency: "INR"
+            });
+          } catch (e) {}
+          try { window.clarity && window.clarity("set", "viewed_masterclass", c.slug); } catch (e) {}
+        })();
+
+        // Click handler, global. Catches every anchor on every page that
+        // points at a checkout host. Runs in capture phase so it fires before
+        // the browser navigates.
+        document.addEventListener("click", function (ev) {
+          var t = ev.target.closest && ev.target.closest("a[href]");
+          if (!t || !t.href) return;
+          var dest;
+          try { dest = new URL(t.href, window.location.href); } catch (e) { return; }
+          var isCheckout = false;
+          for (var j = 0; j < CHECKOUT_HOSTS.length; j++) {
+            if (dest.hostname === CHECKOUT_HOSTS[j] || dest.hostname.endsWith("." + CHECKOUT_HOSTS[j])) {
+              isCheckout = true; break;
+            }
+          }
+          if (!isCheckout) return;
+
+          // Append UTMs (don't overwrite if already set on the link)
+          for (var key in snap) {
+            if (snap.hasOwnProperty(key) && !dest.searchParams.has(key)) {
+              dest.searchParams.set(key, snap[key]);
+            }
+          }
+          // Tag with current course slug
+          var path = window.location.pathname.replace(/\/$/, "");
+          var course = COURSE_MAP[path] || { slug: path.split("/").pop() || "homepage", name: "LevelUp Learning", price: 0 };
+          if (!dest.searchParams.has("mc_course")) dest.searchParams.set("mc_course", course.slug);
+
+          // One event ID per click, passed to fbq for client-side dedupe
+          // with TagMango's server-side CAPI fire of the same Lead/IC. Same
+          // ID for both events is fine: Meta dedupes on (event_name + event_id)
+          // so different event names won't collide. ID is also forwarded on
+          // the URL as `mc_eid` so TagMango can read it and fire CAPI with
+          // the matching ID.
+          function genEventId() {
+            try { if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID(); } catch (e) {}
+            return "ev-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 12);
+          }
+          var eventId = genEventId();
+          if (!dest.searchParams.has("mc_eid")) dest.searchParams.set("mc_eid", eventId);
+          t.href = dest.toString();
+
+          // Fire conversion events BEFORE navigation. Pass eventID so Meta
+          // can deduplicate against the matching CAPI event from TagMango.
+          try {
+            window.fbq && window.fbq("track", "Lead", {
+              content_name: course.name,
+              content_category: "Masterclass",
+              value: course.price,
+              currency: "INR"
+            }, { eventID: eventId });
+            window.fbq && window.fbq("track", "InitiateCheckout", {
+              content_type: "product",
+              content_name: course.name,
+              content_ids: [course.slug],
+              content_category: "Masterclass",
+              value: course.price,
+              currency: "INR",
+              num_items: 1
+            }, { eventID: eventId });
+          } catch (e) {}
+          try { window.clarity && window.clarity("set", "initiate_checkout", course.slug + " | INR " + course.price); } catch (e) {}
+        }, true);
+      })();
+    </script>
+  </head>
+
+  <body class={bodyClass}>
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        style="display:none"
+        src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
+      />
+    </noscript>
+
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:px-4 focus:py-2 focus:rounded-md focus:bg-primary focus:text-primary-foreground focus:font-sans focus:text-sm"
+    >
+      Skip to main content
+    </a>
+
+    <slot />
+
+    <!-- Floating WhatsApp button. Matches the green-icon style on the Framer
+         masterclass pages. Pure brand mark, no extra label. -->
+    <a
+      href="https://api.whatsapp.com/send?phone=919791520177&text=Hi"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat with us on WhatsApp"
+      class="fixed bottom-5 right-5 md:bottom-7 md:right-7 z-50 inline-flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#25D366] shadow-[0_10px_30px_-6px_rgba(37,211,102,0.55),0_0_0_4px_rgba(37,211,102,0.18)] hover:scale-105 hover:shadow-[0_14px_36px_-6px_rgba(37,211,102,0.7),0_0_0_6px_rgba(37,211,102,0.22)] transition-all duration-300"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 32 32"
+        class="w-7 h-7 md:w-8 md:h-8"
+        fill="#FFFFFF"
+        aria-hidden="true"
+      >
+        <path d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.49 0-.143-.73-2.09-.832-2.335-.143-.372-.214-.487-.6-.487-.187 0-.36-.043-.53-.043-.302 0-.53.115-.746.315-.688.645-1.032 1.318-1.06 2.264v.114c-.015.99.472 1.977 1.017 2.78 1.23 1.82 2.506 3.41 4.554 4.34.616.287 2.035.917 2.722.917.317 0 1.033-.072 1.36-.18.487-.157 1.41-.886 1.41-1.398 0-.46-1.733-1.462-1.756-1.462zm-3.74 5.825c-3.86 0-7.025-3.165-7.025-7.025 0-3.86 3.165-7.025 7.025-7.025 3.86 0 7.025 3.165 7.025 7.025 0 3.86-3.165 7.025-7.025 7.025zM15.37 4C8.732 4 3.346 9.39 3.346 16.024c0 2.272.643 4.475 1.85 6.348L3.4 28l5.736-1.78a12.04 12.04 0 0 0 6.234 1.764c6.638 0 12.024-5.39 12.024-12.024S22.008 4 15.37 4z" />
+      </svg>
+    </a>
+  </body>
+</html>
