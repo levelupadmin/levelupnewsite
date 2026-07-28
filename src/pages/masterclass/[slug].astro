@@ -48,7 +48,7 @@ const allJsonLd = [course, breadcrumb, ...(faq ? [faq] : [])];
   description={data.seo.description}
   path={`/masterclass/${data.slug}`}
   type="course"
-  ogImage={data.heroImage}
+  ogImage={`/og/mc-${data.slug}.jpg`}
   preloadImage={data.heroImage}
   jsonLd={allJsonLd}
 >
