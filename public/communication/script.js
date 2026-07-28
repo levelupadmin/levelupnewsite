@@ -370,6 +370,10 @@
   }
   function tryPlay() {
     if (!vid || vid.dataset.swapped || !vid.paused) return;
+    // Safari only honours muted autoplay when the property is set, not just the
+    // attribute, and it re-checks on every play() call.
+    vid.muted = true;
+    vid.removeAttribute('controls');
     var p = vid.play();
     if (p && p.catch) p.catch(function () { /* blocked: poster frame remains visible */ });
   }
