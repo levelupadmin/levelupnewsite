@@ -1,16 +1,39 @@
 import { useRef, useState, type ReactNode, type CSSProperties } from "react";
+import { useReducedMotion } from "framer-motion";
+import { useIsTouch } from "@/lib/motion-utils";
+
+type Variant = "button" | "card" | "tile";
 
 interface MagneticButtonProps {
   children: ReactNode;
   className?: string;
   strength?: number;
+  variant?: Variant;
+  unstyled?: boolean;
 }
 
-const MagneticButton = ({ children, className = "", strength = 5 }: MagneticButtonProps) => {
+const variantBaseClass: Record<Variant, string> = {
+  button:
+    "inline-block opacity-100 bg-primary text-primary-foreground rounded-full border-primary-foreground",
+  card: "block",
+  tile: "inline-block",
+};
+
+const MagneticButton = ({
+  children,
+  className = "",
+  strength = 5,
+  variant = "button",
+  unstyled = false,
+}: MagneticButtonProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const prefersReducedMotion = useReducedMotion();
+  const isTouch = useIsTouch();
+  const enabled = !prefersReducedMotion && !isTouch;
 
   const handleMouseMove = (e: React.MouseEvent) => {
+    if (!enabled) return;
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -25,15 +48,18 @@ const MagneticButton = ({ children, className = "", strength = 5 }: MagneticButt
 
   const style: CSSProperties = {
     transform: `translate(${offset.x}px, ${offset.y}px)`,
-    transition: offset.x === 0 && offset.y === 0
-      ? "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)"
-      : "transform 0.15s ease-out",
+    transition:
+      offset.x === 0 && offset.y === 0
+        ? "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)"
+        : "transform 0.15s ease-out",
   };
+
+  const baseClass = unstyled ? "" : variantBaseClass[variant];
 
   return (
     <div
       ref={ref}
-      className={`inline-block opacity-100 bg-primary text-primary-foreground rounded-full border-primary-foreground ${className}`}
+      className={`${baseClass} ${className}`.trim()}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={style}
