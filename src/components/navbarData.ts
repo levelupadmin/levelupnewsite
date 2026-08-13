@@ -7,6 +7,9 @@ import navCreator from "@/assets/live-creator-logo.jpg";
 import navForgeFilmmaking from "@/assets/nav-forge-filmmaking.jpg";
 import navForgeWriting from "@/assets/nav-forge-writing.jpg";
 import navForgeCreators from "@/assets/nav-forge-creators.jpg";
+import navAiBuilderCohort from "@/assets/nav-ai-builder-cohort.webp";
+import navForgeAiResidency from "@/assets/nav-forge-ai-residency.jpg";
+import navExecutivePresence from "@/assets/nav-executive-presence.jpg";
 import nelsonImg from "@/assets/nav-nelson-dilipkumar.png";
 import karthikImg from "@/assets/navbar-hero-image.png";
 import anthonyImg from "@/assets/anthony-gonsalvez.png";
@@ -129,6 +132,18 @@ export const navLinks: NavLink[] = [
         subtitle: "12-week cohort",
         href: "https://www.leveluplearning.live/creator-academy",
       },
+      {
+        image: navAiBuilderCohort,
+        title: "The LevelUp AI Builder Cohort",
+        subtitle: "Live cohort",
+        href: "https://www.leveluplearning.live/ai",
+      },
+      {
+        image: navExecutivePresence,
+        title: "Executive Presence",
+        subtitle: "Own every room",
+        href: "https://www.leveluplearning.in/communication",
+      },
     ],
   },
   {
@@ -155,6 +170,12 @@ export const navLinks: NavLink[] = [
         title: "Creator Residency",
         subtitle: "Build your personal brand in 12 days",
         href: "https://creators.forgebylevelup.com/",
+      },
+      {
+        image: navForgeAiResidency,
+        title: "AI Residency",
+        subtitle: "Build with AI, in person",
+        href: "https://www.forgebylevelup.com/ai",
       },
     ],
   },
