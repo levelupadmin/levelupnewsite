@@ -62,6 +62,17 @@ const Footer = () => {
             >
               admin@leveluplearning.in
             </a>
+
+            <address className="not-italic font-sans-body text-sm text-muted-foreground leading-relaxed mt-6 max-w-[260px]">
+              <span className="block text-xs font-medium uppercase tracking-widest text-primary mb-2">
+                Office
+              </span>
+              7th floor, CITY TOWERS,<br />
+              Sir Thyagaraya Rd, next to Kasi Arcade,<br />
+              Drivers Colony, T. Nagar,<br />
+              Chennai, Greater Chennai,<br />
+              Tamil Nadu 600017
+            </address>
           </div>
 
           {Object.entries(footerLinks).map(([category, links]) => (
