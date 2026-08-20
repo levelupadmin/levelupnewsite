@@ -8,9 +8,12 @@ interface SectionConfig {
 }
 
 const sections: SectionConfig[] = [
+  { id: "credibility", label: "Ecosystem", color: "hsl(24 95% 53%)" },
+  { id: "why-levelup", label: "Why LevelUp", color: "hsl(24 95% 53%)" },
   { id: "masterclasses", label: "Masterclasses", color: "hsl(38 75% 55%)" },
-  { id: "live-programs", label: "Live Programs", color: "hsl(200 35% 55%)" },
+  { id: "live-programs", label: "Live Programs", color: "hsl(24 95% 53%)" },
   { id: "forge", label: "The Forge", color: "hsl(15 65% 55%)" },
+  { id: "community", label: "Community", color: "hsl(38 75% 55%)" },
   { id: "testimonials", label: "Stories", color: "hsl(38 75% 55%)" },
   { id: "faq", label: "FAQs", color: "hsl(38 75% 55%)" },
 ];

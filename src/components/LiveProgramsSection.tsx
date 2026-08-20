@@ -1,10 +1,10 @@
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Picture } from "@/components/Picture";
 import { AnimatePresence, motion } from "framer-motion";
 import FadeInSection from "./FadeInSection";
 import AccentLine from "./AccentLine";
 import { AnimatedCounter } from "./AnimatedCounter";
-import { ArrowRight, ChevronLeft, ChevronRight, Check } from "lucide-react";
+import { ArrowRight, CalendarDays, Check, CircleDot, Clock3, Radio, Sparkles } from "lucide-react";
 import { trackCTAClick } from "@/lib/clarity";
 import { showcasePrograms } from "@/data/programs";
 
@@ -16,83 +16,35 @@ const filterPills = [
   { label: "Write Stories", targetIndex: 4 },
 ];
 
-const rotatingWords = ["Creator", "Editor", "Designer", "Screenwriter", "Filmmaker", "Storyteller"];
-
-const testimonials = [
+const fieldNotes = [
   { quote: "Went from zero to shooting my first short film in 12 weeks.", name: "BFP Alumni" },
   { quote: "I now edit for a 2M+ YouTube creator. This changed everything.", name: "VE Alumni" },
-  { quote: "21 posts in 12 weeks. My account went from 200 to 25K followers.", name: "Creator Academy Alumni" },
-  { quote: "Landed my first product design role 3 weeks after the program.", name: "UIUX Alumni" },
-  { quote: "I finally finished a screenplay. Not just started one — finished.", name: "Screenwriting Alumni" },
-  { quote: "The mentors don't let you hide. That's what makes this different.", name: "BFP Alumni" },
+  { quote: "I finally finished a screenplay. Not just started one - finished.", name: "Screenwriting Alumni" },
 ];
 
 const stats = [
-  { value: 750, suffix: "+", label: "Learners" },
-  { value: 40, suffix: "+", label: "Industry Mentors" },
-  { value: 0, suffix: "", label: "Weekends Only", isText: true },
+  { value: 750, suffix: "+", label: "Learners", icon: null },
+  { value: 40, suffix: "+", label: "Industry Mentors", icon: null },
+  { value: 0, suffix: "", label: "Weekends Only", icon: CalendarDays },
 ];
-
-const cardVariants = {
-  enter: (dir: number) => ({ x: dir > 0 ? 80 : -80, opacity: 0 }),
-  center: { x: 0, opacity: 1 },
-  exit: (dir: number) => ({ x: dir > 0 ? -80 : 80, opacity: 0 }),
-};
-
-const wordVariants = {
-  enter: { y: 30, opacity: 0 },
-  center: { y: 0, opacity: 1 },
-  exit: { y: -30, opacity: 0 },
-};
 
 const LiveProgramsSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [direction, setDirection] = useState(1);
-  const [wordIndex, setWordIndex] = useState(0);
-  const [autoPlay, setAutoPlay] = useState(true);
-  const [isHovered, setIsHovered] = useState(false);
-  const touchStart = useRef(0);
-
-  // Rotating word animation
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setWordIndex((prev) => (prev + 1) % rotatingWords.length);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Auto-advance carousel
-  useEffect(() => {
-    if (!autoPlay || isHovered) return;
-    const interval = setInterval(() => {
-      setDirection(1);
-      setActiveIndex((prev) => (prev + 1) % showcasePrograms.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [autoPlay, isHovered]);
-
-  const navigate = useCallback(
-    (newIndex: number) => {
-      setDirection(newIndex > activeIndex ? 1 : -1);
-      setActiveIndex(newIndex);
-      setAutoPlay(false); // Freeze on pill click
-    },
-    [activeIndex],
-  );
-
-  const prev = useCallback(() => {
-    const newIdx = activeIndex === 0 ? showcasePrograms.length - 1 : activeIndex - 1;
-    setDirection(-1);
-    setActiveIndex(newIdx);
-  }, [activeIndex]);
-
-  const next = useCallback(() => {
-    const newIdx = activeIndex === showcasePrograms.length - 1 ? 0 : activeIndex + 1;
-    setDirection(1);
-    setActiveIndex(newIdx);
-  }, [activeIndex]);
-
+  const [autoAdvance, setAutoAdvance] = useState(true);
   const program = showcasePrograms[activeIndex];
+
+  useEffect(() => {
+    if (!autoAdvance) return;
+    const interval = setInterval(() => {
+      setActiveIndex((current) => (current + 1) % showcasePrograms.length);
+    }, 5200);
+    return () => clearInterval(interval);
+  }, [autoAdvance]);
+
+  const selectProgram = (index: number) => {
+    setActiveIndex(index);
+    setAutoAdvance(false);
+  };
 
   const coursesJsonLd = {
     "@context": "https://schema.org",
@@ -114,243 +66,187 @@ const LiveProgramsSection = () => {
     <section
       id="live-programs"
       aria-label="LevelUp LIVE cohort programs"
-      className="relative py-16 md:py-24"
-      style={{ background: "hsl(22 14% 5%)" }}
+      className="relative scroll-mt-24 overflow-hidden bg-[hsl(20_13%_4%)] py-16 md:py-24"
     >
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(coursesJsonLd) }} />
       <AccentLine />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_10%,rgba(249,112,21,0.12),transparent_42%),linear-gradient(180deg,transparent,rgba(255,255,255,0.025),transparent)]" />
 
-      <div className="max-w-6xl mx-auto px-6 md:px-12">
-        {/* Intro */}
-        <FadeInSection className="text-center mb-6">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-sans-body text-[11px] tracking-[0.2em] uppercase font-semibold">
-            LIVE MENTORSHIP COHORTS
-          </span>
-        </FadeInSection>
-
-        {/* Heading with rotating word */}
-        <FadeInSection className="text-center mb-5" delay={60}>
-          <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.15] tracking-tight">
-            <span>From Learner to </span>
-            <span className="inline-block relative overflow-hidden align-bottom" style={{ minWidth: "4ch" }}>
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={rotatingWords[wordIndex]}
-                  variants={wordVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-                  className="inline-block text-primary"
-                >
-                  {rotatingWords[wordIndex]}
-                </motion.span>
-              </AnimatePresence>
+      <div className="relative mx-auto max-w-7xl px-6 md:px-12">
+        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+          <FadeInSection>
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3.5 py-1.5 font-sans-body text-[11px] font-semibold uppercase text-primary" style={{ letterSpacing: 0 }}>
+              <Radio className="h-3.5 w-3.5" />
+              Live mentorship cohorts
             </span>
-            <span>.</span>
-          </h2>
-        </FadeInSection>
+            <h2 className="mt-5 max-w-3xl font-serif-display text-4xl font-semibold text-foreground sm:text-5xl md:text-6xl" style={{ lineHeight: 1.02, letterSpacing: 0 }}>
+              A live studio for people who are done only watching.
+            </h2>
+          </FadeInSection>
 
-        {/* Subheading */}
-        <FadeInSection className="text-center mb-10 md:mb-14" delay={120}>
-          <p className="font-sans-body text-sm md:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            LIVE mentorship cohorts designed for one thing : taking you from "I know about it" to "I can actually do
-            it." With industry mentors, live feedback, real work, and placement assistance to get you where you want to
-            be.
-          </p>
-        </FadeInSection>
-
-        {/* Stats */}
-        <FadeInSection delay={180}>
-          <div className="grid grid-cols-3 gap-4 md:gap-6 mb-14 md:mb-20 max-w-lg mx-auto">
-            {stats.map((stat, i) => (
-              <div key={stat.label} className="text-center py-4 px-3 rounded-xl border border-border/50 bg-card/40">
-                <div className="font-serif-display text-2xl md:text-3xl font-bold text-foreground mb-1">
-                  {stat.isText ? (
-                    <span>🗓️</span>
-                  ) : (
-                    <AnimatedCounter target={stat.value} suffix={stat.suffix} delay={i * 100} />
-                  )}
+          <FadeInSection delay={120}>
+            <p className="max-w-xl font-sans-body text-sm leading-relaxed text-white/58 md:text-base" style={{ letterSpacing: 0 }}>
+              LIVE mentorship cohorts designed for one thing: taking you from "I know about it" to "I can actually do it." With industry mentors, live feedback, real work, and placement assistance to get you where you want to be.
+            </p>
+            <div className="mt-6 grid grid-cols-3 gap-2.5">
+              {stats.map((stat, index) => (
+                <div key={stat.label} className="rounded-lg border border-white/10 bg-white/[0.035] p-3.5">
+                  <div className="flex min-h-[32px] items-center font-serif-display text-2xl font-semibold text-white" style={{ letterSpacing: 0 }}>
+                    {stat.icon ? <stat.icon className="h-6 w-6 text-primary" /> : <AnimatedCounter target={stat.value} suffix={stat.suffix} delay={index * 80} />}
+                  </div>
+                  <p className="mt-1 font-sans-body text-[11px] leading-tight text-white/45" style={{ letterSpacing: 0 }}>
+                    {stat.label}
+                  </p>
                 </div>
-                <div className="font-sans-body text-xs text-muted-foreground tracking-wide">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </FadeInSection>
+              ))}
+            </div>
+          </FadeInSection>
+        </div>
 
-        {/* Pills */}
-        <FadeInSection className="mb-10 md:mb-14" delay={240}>
-          <p className="font-sans-body text-sm text-muted-foreground text-center mb-4">I want to...</p>
-          <div
-            className="flex flex-wrap justify-center gap-2.5"
-            role="tablist"
-            aria-label="Filter programs by interest"
-          >
-            {filterPills.map((pill) => (
-              <button
-                key={pill.targetIndex}
-                role="tab"
-                aria-selected={activeIndex === pill.targetIndex}
-                onClick={() => navigate(pill.targetIndex)}
-                className={`px-5 py-2 rounded-full font-sans-body text-sm font-medium transition-all duration-200 border ${
-                  activeIndex === pill.targetIndex
-                    ? "bg-primary text-primary-foreground border-primary shadow-[0_0_16px_hsl(24_95%_53%/0.3)]"
-                    : "bg-transparent text-muted-foreground border-border hover:border-foreground/30 hover:text-foreground"
-                }`}
-              >
-                {pill.label}
-              </button>
-            ))}
-          </div>
-        </FadeInSection>
+        <div className="mt-10 grid gap-4 lg:mt-14 lg:grid-cols-[310px_1fr]">
+          <FadeInSection delay={180} className="space-y-2.5">
+            <p className="mb-4 font-sans-body text-xs font-semibold uppercase text-white/45" style={{ letterSpacing: 0 }}>
+              Choose the work you want to make
+            </p>
+            {filterPills.map((pill, index) => {
+              const option = showcasePrograms[pill.targetIndex];
+              const isActive = activeIndex === pill.targetIndex;
 
-        {/* Single Program Card */}
-        <FadeInSection className="mb-6" delay={300}>
-          <div
-            className="relative"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            onTouchStart={(e) => {
-              touchStart.current = e.touches[0].clientX;
-            }}
-            onTouchEnd={(e) => {
-              const diff = touchStart.current - e.changedTouches[0].clientX;
-              if (Math.abs(diff) > 50) diff > 0 ? next() : prev();
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "ArrowLeft") prev();
-              if (e.key === "ArrowRight") next();
-            }}
-            tabIndex={0}
-            role="tabpanel"
-          >
-            {/* Desktop arrows */}
-            <button
-              onClick={prev}
-              aria-label="Previous program"
-              className="hidden md:flex absolute -left-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 items-center justify-center rounded-full bg-card/60 border border-border/50 text-muted-foreground hover:text-foreground hover:bg-card transition-colors"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={next}
-              aria-label="Next program"
-              className="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 items-center justify-center rounded-full bg-card/60 border border-border/50 text-muted-foreground hover:text-foreground hover:bg-card transition-colors"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
+              return (
+                <button
+                  key={pill.label}
+                  type="button"
+                  onClick={() => selectProgram(pill.targetIndex)}
+                  onMouseEnter={() => setActiveIndex(pill.targetIndex)}
+                  aria-pressed={isActive}
+                  className={`group flex w-full items-center gap-3 rounded-lg border p-3.5 text-left transition-all duration-300 ${
+                    isActive
+                      ? "border-primary/40 bg-primary/10"
+                      : "border-white/10 bg-white/[0.025] hover:border-white/20 hover:bg-white/[0.04]"
+                  }`}
+                >
+                  <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-md border text-xs font-semibold transition-colors ${
+                    isActive ? "border-primary/35 bg-primary text-background" : "border-white/10 text-white/40"
+                  }`}>
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block font-sans-body text-xs text-white/45" style={{ letterSpacing: 0 }}>
+                      {pill.label}
+                    </span>
+                    <span className="mt-0.5 block truncate font-serif-display text-base text-white" style={{ letterSpacing: 0 }}>
+                      {option.title}
+                    </span>
+                  </span>
+                </button>
+              );
+            })}
+          </FadeInSection>
 
-            <div
-              className="overflow-hidden rounded-2xl border border-border/50"
-              style={{ background: "hsl(22 12% 8%)" }}
-            >
-              <AnimatePresence mode="wait" custom={direction}>
+          <FadeInSection delay={240}>
+            <div className="overflow-hidden rounded-lg border border-white/10 bg-[hsl(22_12%_8%)]">
+              <AnimatePresence mode="wait">
                 <motion.div
                   key={program.id}
-                  custom={direction}
-                  variants={cardVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{ duration: 0.35, ease: "easeInOut" }}
-                  className="flex flex-col md:flex-row"
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -16 }}
+                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  className="grid min-h-[520px] lg:grid-cols-[1fr_0.86fr]"
                 >
-                  {/* Image */}
-                  <div className="md:order-2 md:w-[40%] relative aspect-[16/10] md:aspect-auto overflow-hidden md:min-h-[380px]">
-                    <Picture
-                      src={program.image}
-                      alt={`LevelUp Learning ${program.title} course thumbnail`}
-                      loading="lazy"
-                      className="absolute inset-0 w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-[hsl(22_12%_8%)] via-transparent to-transparent hidden md:block" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[hsl(22_12%_8%)] via-transparent to-transparent md:hidden" />
-                  </div>
-
-                  {/* Content */}
-                  <div className="md:order-1 md:w-[60%] p-6 md:p-8 lg:p-10 flex flex-col justify-center">
-                    <span className="inline-block self-start px-3 py-1 rounded-full bg-primary/10 text-primary font-sans-body text-[10px] tracking-[0.2em] uppercase font-semibold mb-4">
-                      {program.tag}
-                    </span>
-                    <h3 className="font-serif-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground leading-tight tracking-tight mb-3">
-                      {program.headline}
-                    </h3>
-                    <p className="font-sans-body text-sm text-muted-foreground leading-relaxed mb-5 max-w-lg">
-                      {program.oneLiner}
-                    </p>
-                    <div className="flex flex-wrap gap-2 mb-5">
-                      {program.stats.map((stat) => (
-                        <span
-                          key={stat}
-                          className="px-3 py-1 rounded-full bg-secondary/60 border border-border/40 font-sans-body text-[11px] text-muted-foreground tracking-wide"
-                        >
-                          {stat}
+                  <div className="flex flex-col justify-between p-5 md:p-8 lg:p-10">
+                    <div>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 font-sans-body text-[10px] font-semibold uppercase text-primary" style={{ letterSpacing: 0 }}>
+                          <Sparkles className="h-3 w-3" />
+                          {program.tag}
                         </span>
+                        <span className="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1 font-sans-body text-[10px] uppercase text-white/50" style={{ letterSpacing: 0 }}>
+                          <Clock3 className="h-3 w-3" />
+                          {program.format}
+                        </span>
+                      </div>
+
+                      <h3 className="mt-6 max-w-2xl font-serif-display text-3xl font-semibold text-white sm:text-4xl md:text-5xl" style={{ lineHeight: 1.03, letterSpacing: 0 }}>
+                        {program.headline}
+                      </h3>
+                      <p className="mt-5 max-w-xl font-sans-body text-sm leading-relaxed text-white/58 md:text-base" style={{ letterSpacing: 0 }}>
+                        {program.oneLiner}
+                      </p>
+
+                      <div className="mt-6 flex flex-wrap gap-2">
+                        {program.stats.map((stat) => (
+                          <span key={stat} className="rounded-full border border-white/10 bg-white/[0.035] px-3 py-1.5 font-sans-body text-[11px] text-white/58" style={{ letterSpacing: 0 }}>
+                            {stat}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="mt-8 grid gap-3 md:grid-cols-3">
+                      {program.bullets.map((bullet) => (
+                        <div key={bullet} className="rounded-md border border-white/[0.08] bg-black/20 p-3.5">
+                          <Check className="mb-3 h-4 w-4 text-primary" />
+                          <p className="font-sans-body text-xs leading-relaxed text-white/66" style={{ letterSpacing: 0 }}>
+                            {bullet}
+                          </p>
+                        </div>
                       ))}
                     </div>
-                    <ul className="space-y-2.5 mb-6" aria-label={`${program.title} highlights`}>
-                      {program.bullets.map((bullet, i) => (
-                        <li key={i} className="flex items-start gap-2.5">
-                          <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                          <span className="font-sans-body text-sm text-foreground/80 leading-snug">{bullet}</span>
-                        </li>
-                      ))}
-                    </ul>
+
                     <a
                       href={program.ctaLink}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => trackCTAClick("live-programs", program.title)}
-                      className="inline-flex items-center gap-2 self-start px-6 py-3 rounded-full bg-primary text-primary-foreground font-sans-body text-sm font-semibold tracking-wide transition-all duration-200 hover:scale-[1.03] hover:shadow-[0_0_24px_hsl(24_95%_53%/0.35)]"
+                      className="group mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 font-sans-body text-sm font-semibold text-primary-foreground transition-all duration-300 hover:bg-primary/90 sm:w-fit"
                     >
                       {program.ctaLabel}
-                      <ArrowRight className="w-4 h-4" />
+                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                     </a>
+                  </div>
+
+                  <div className="relative min-h-[320px] overflow-hidden border-t border-white/10 lg:border-l lg:border-t-0">
+                    <Picture
+                      src={program.image}
+                      alt={`LevelUp Learning ${program.title} course thumbnail`}
+                      loading="lazy"
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+                    <div className="absolute bottom-5 left-5 right-5 rounded-lg border border-white/10 bg-black/45 p-4 backdrop-blur-md">
+                      <p className="font-sans-body text-[11px] uppercase text-white/45" style={{ letterSpacing: 0 }}>
+                        Current cohort
+                      </p>
+                      <p className="mt-1 font-serif-display text-xl font-semibold text-white" style={{ letterSpacing: 0 }}>
+                        {program.title}
+                      </p>
+                      <div className="mt-3 flex items-center gap-2 font-sans-body text-xs text-white/55" style={{ letterSpacing: 0 }}>
+                        <CircleDot className="h-3.5 w-3.5 text-primary" />
+                        {program.status}
+                        {program.spotsLeft ? ` - ${program.spotsLeft} spots left` : ""}
+                      </div>
+                    </div>
                   </div>
                 </motion.div>
               </AnimatePresence>
             </div>
-          </div>
-        </FadeInSection>
-
-        {/* Dot indicators */}
-        <div className="flex justify-center gap-2 mb-14 md:mb-20">
-          {showcasePrograms.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => navigate(i)}
-              aria-label={`Go to program ${i + 1}`}
-              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                i === activeIndex ? "bg-primary scale-125" : "bg-border hover:bg-muted-foreground"
-              }`}
-            />
-          ))}
+          </FadeInSection>
         </div>
 
-        {/* Marquee */}
-        <FadeInSection className="mb-16 md:mb-24">
-          <div className="overflow-hidden relative" aria-label="Student testimonials">
-            <div className="absolute left-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-r from-[hsl(22_14%_5%)] to-transparent pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-l from-[hsl(22_14%_5%)] to-transparent pointer-events-none" />
-            <div className="marquee-track flex gap-6 hover:[animation-play-state:paused]">
-              {[...testimonials, ...testimonials].map((t, i) => (
-                <div
-                  key={i}
-                  className="flex-shrink-0 w-[380px] p-6 border border-border/40 bg-card/30 min-h-[120px] flex flex-col justify-between rounded-xl"
-                >
-                  <p className="font-sans-body text-base text-foreground/80 italic leading-relaxed mb-3">"{t.quote}"</p>
-                  <span className="font-sans-body text-xs text-primary font-medium">— {t.name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+        <FadeInSection delay={320} className="mt-6 grid gap-3 md:grid-cols-3">
+          {fieldNotes.map((note) => (
+            <figure key={note.quote} className="rounded-lg border border-white/10 bg-white/[0.025] p-5">
+              <blockquote className="font-serif-display text-lg leading-snug text-white/82" style={{ letterSpacing: 0 }}>
+                "{note.quote}"
+              </blockquote>
+              <figcaption className="mt-4 font-sans-body text-xs text-primary/80" style={{ letterSpacing: 0 }}>
+                - {note.name}
+              </figcaption>
+            </figure>
+          ))}
         </FadeInSection>
       </div>
-
-      <style>{`
-        .marquee-track { animation: marquee-scroll 40s linear infinite; width: max-content; }
-        @keyframes marquee-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-      `}</style>
     </section>
   );
 };
