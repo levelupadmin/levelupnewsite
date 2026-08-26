@@ -1049,6 +1049,30 @@
   animation-play-state: paused;
 }
 
+/* Pause all portfolio animations whenever the parent WhyLevelUp card is
+   in its default (compressed) state. The activity feed should only
+   "come alive" when the user has actively expanded the card to engage
+   with it. Previously every visitor saw the feed scrolling endlessly
+   in the background, which read as decorative noise. */
+[data-expanded="false"] .animate-scroll-portfolio-up,
+[data-expanded="false"] .pf-featured-1,
+[data-expanded="false"] .pf-featured-2,
+[data-expanded="false"] .pf-featured-3,
+[data-expanded="false"] .pf-featured-4,
+[data-expanded="false"] .pf-featured-5,
+[data-expanded="false"] .pf-notification {
+  animation-play-state: paused;
+}
+
+/* Respect prefers-reduced-motion users — kill the loops entirely. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll-portfolio-up,
+  .pf-featured-1, .pf-featured-2, .pf-featured-3, .pf-featured-4, .pf-featured-5,
+  .pf-notification {
+    animation: none !important;
+  }
+}
+
 
 /* Logo marquee items.
    Start at opacity:0 so an unloaded <img> doesn't render as a solid

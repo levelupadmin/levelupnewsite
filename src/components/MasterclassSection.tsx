@@ -73,7 +73,7 @@ const masterclasses = [
   },
 ];
 
-const MasterclassCard = ({ mc }: { mc: typeof masterclasses[0] }) => {
+const MasterclassCard = ({ mc, priority = false }: { mc: typeof masterclasses[0]; priority?: boolean }) => {
   const rafId = useRef<number | null>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -115,8 +115,9 @@ const MasterclassCard = ({ mc }: { mc: typeof masterclasses[0] }) => {
           src={mc.image}
           alt={`Portrait of ${mc.name}, ${mc.format} at LevelUp Learning`}
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
-          loading="lazy"
-          decoding="async"
+          loading={priority ? "eager" : "lazy"}
+          decoding={priority ? "sync" : "async"}
+          {...(priority ? { fetchPriority: "high" as const } : {})}
         />
         <div className="absolute inset-0 rounded-sm ring-1 ring-inset ring-white/0 group-hover:ring-primary/40 transition-all duration-500 pointer-events-none" />
       </div>
@@ -183,8 +184,13 @@ const MasterclassSection = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-6">
           {masterclasses.map((mc, i) => (
+            // The first 4 cards (2x2 on mobile, 4-up on desktop) are
+            // visible in the initial paint of this section once the
+            // user scrolls down. Eager-load them so they're already in
+            // memory when the section comes into view, instead of
+            // waiting for the intersection observer to fire.
             <FadeInSection key={mc.name} delay={i * 80}>
-              <MasterclassCard mc={mc} />
+              <MasterclassCard mc={mc} priority={i < 4} />
             </FadeInSection>
           ))}
           <FadeInSection delay={masterclasses.length * 80}>
