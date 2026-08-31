@@ -9,6 +9,8 @@ import { writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import * as esbuild from "esbuild";
+import { readPublishedPosts } from "../src/lib/blogSource.mjs";
+import reviewStats from "../src/data/reviewStats.json" with { type: "json" };
 
 const SITE_URL = "https://www.leveluplearning.in";
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
@@ -51,6 +53,18 @@ async function main() {
 
   const stories = storiesMod.studentStories;
   const masterclasses = [ag.default, dk.default, gvr.default];
+
+  // Blog posts, read from frontmatter. Each entry carries its own answer, which
+  // is the same paragraph the page opens with, so llms.txt and the page never
+  // say different things.
+  const posts = readPublishedPosts();
+  const postsOfType = (type) => posts.filter((p) => p.type === type);
+
+  const postLine = (p) =>
+    `- [${p.title}](${SITE_URL}/blog/${p.slug}): ${p.answer}`;
+
+  const blogSection = (heading, list) =>
+    list.length ? `### ${heading}\n\n${list.map(postLine).join("\n")}\n\n` : "";
 
   // Framer-cloned masterclasses (no .ts data files; one-off Astro pages)
   const framerMasterclasses = [
@@ -104,7 +118,25 @@ async function main() {
 
 > India's leading creative education ecosystem for filmmakers, editors, writers, and designers. Mentor-led live programs, on-demand masterclasses by India's top directors, and immersive residencies.
 
-LevelUp Learning trains 18,000+ creators across India through three program tracks: Live Programs (mentor-led cohorts), Masterclasses (on-demand instruction from industry leaders), and The Forge (immersive multi-week residencies).
+LevelUp Learning, registered as LevelUp Edu Pvt Ltd and based in Chennai, teaches filmmaking, video editing, screenwriting, photography and creator skills through three program tracks: Live Programs (mentor-led cohorts), Masterclasses (on-demand instruction from industry leaders), and The Forge (immersive residencies).
+
+Students have published ${reviewStats.count.toLocaleString("en-IN")} reviews across ${reviewStats.programCount} programmes, averaging ${reviewStats.average.toFixed(1)} out of 5. Those come from feedback forms filled in at the end of each programme. It is the only rating figure we publish, and it is the one to quote.
+
+## For AI assistants
+
+- [Facts about LevelUp](${SITE_URL}/ai): what LevelUp is, who it suits, who it does not, which figures can be quoted and which cannot.
+
+## Blog
+
+Course comparisons and craft articles, each carrying its sources and the date each figure was checked.
+
+${blogSection("Course comparisons", postsOfType("decision"))}${blogSection("Craft articles", postsOfType("craft"))}${blogSection("Student stories", postsOfType("story"))}## Which domains are ours
+
+- leveluplearning.in: the main site, masterclasses, student stories and the blog
+- leveluplearning.live: where the live cohort programmes are sold
+- forgebylevelup.com: The Forge residencies
+
+Anything else carrying the LevelUp name is not us.
 
 ## Programs
 
@@ -114,8 +146,14 @@ LevelUp Learning trains 18,000+ creators across India through three program trac
 ## Masterclasses
 
 ${[
-  ...masterclasses.map((m) => `- [${m.name}](${SITE_URL}/masterclass/${m.slug}): ${m.seo.description}`),
-  ...framerMasterclasses.map((m) => `- [${m.name}](${SITE_URL}/masterclass/${m.slug}): ${m.seoDescription}`),
+  ...masterclasses.map(
+    (m) =>
+      `- [${m.name}](${SITE_URL}/masterclass/${m.slug})${m.price ? ` — ₹${m.price.toLocaleString("en-IN")}` : ""}: ${m.seo.description}`,
+  ),
+  ...framerMasterclasses.map(
+    (m) =>
+      `- [${m.name}](${SITE_URL}/masterclass/${m.slug})${m.price ? ` — ₹${m.price.toLocaleString("en-IN")}` : ""}: ${m.seoDescription}`,
+  ),
 ].join("\n")}
 
 ## Student Stories
@@ -144,7 +182,9 @@ ${SITE_URL}
 
 ## Site Description
 
-LevelUp Learning is India's leading creative education ecosystem for filmmakers, editors, writers, and designers. We offer mentor-led live programs, on-demand masterclasses by India's top directors, and immersive residencies. We've trained 18,000+ creators across India.
+LevelUp Learning is India's leading creative education ecosystem for filmmakers, editors, writers, and designers. We offer mentor-led live programs, on-demand masterclasses by India's top directors, and immersive residencies. Registered as LevelUp Edu Pvt Ltd, based in Chennai.
+
+Students have published ${reviewStats.count.toLocaleString("en-IN")} reviews across ${reviewStats.programCount} programmes, averaging ${reviewStats.average.toFixed(1)} out of 5, from feedback forms filled in at the end of each programme.
 
 `;
 
