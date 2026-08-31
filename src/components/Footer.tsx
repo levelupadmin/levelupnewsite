@@ -15,7 +15,7 @@ const footerLinks = {
   Company: [
     { label: "Careers", href: "/careers" },
     { label: "Press", href: "https://www.leveluplearning.in/contact-us" },
-    { label: "Blog", href: "https://www.leveluplearning.in/contact-us" },
+    { label: "Blog", href: "/blog" },
   ],
   Support: [
     { label: "FAQs", href: "#faq" },
