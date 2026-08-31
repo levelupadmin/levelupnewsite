@@ -1,0 +1,36 @@
+---
+import { formatDate, type Post } from "@/lib/blog";
+
+interface Props {
+  sources: Post["data"]["sources"];
+}
+
+const { sources } = Astro.props as Props;
+---
+
+{
+  sources.length > 0 && (
+    <section class="mt-16 border-t border-border pt-8">
+      <h2 class="text-[0.6875rem] uppercase tracking-[0.2em] text-foreground/40">Sources</h2>
+      <ul class="mt-5 space-y-3">
+        {sources.map((s) => (
+          <li class="text-sm leading-relaxed text-foreground/55">
+            <a
+              href={s.url}
+              rel="nofollow noopener"
+              target="_blank"
+              class="text-foreground/75 underline decoration-foreground/25 underline-offset-4 transition-colors hover:decoration-foreground/60"
+            >
+              {s.label}
+            </a>
+            <span class="text-foreground/35"> · checked {formatDate(s.checked)}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-5 max-w-2xl text-sm leading-relaxed text-foreground/35">
+        Fees and figures change between admission cycles. Check the current prospectus before you
+        act on anything here.
+      </p>
+    </section>
+  )
+}

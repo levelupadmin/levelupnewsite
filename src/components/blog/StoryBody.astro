@@ -1,0 +1,50 @@
+---
+import { render } from "astro:content";
+import PostHeader from "./PostHeader.astro";
+import RelatedLinks from "./RelatedLinks.astro";
+import SourceList from "./SourceList.astro";
+import StoryStrip from "./StoryStrip.astro";
+import FilmEmbed from "./FilmEmbed.astro";
+import type { Post, Related } from "@/lib/blog";
+
+interface Props {
+  post: Post;
+  related: Related;
+}
+
+const { post, related } = Astro.props as Props;
+const { Content } = await render(post);
+const student = post.data.student;
+---
+
+<PostHeader post={post} />
+
+<div class="mx-auto max-w-3xl px-6 pb-24 pt-2 md:px-8 md:pb-32">
+  {student && <StoryStrip student={student} />}
+
+  <div class="post-body mt-12">
+    <Content />
+  </div>
+
+  {student?.filmUrl && <FilmEmbed url={student.filmUrl} title={`${student.name}'s film`} />}
+
+  {
+    student?.profileUrl && (
+      <p class="mt-12 text-sm text-foreground/55">
+        Check this for yourself:{" "}
+        <a
+          href={student.profileUrl}
+          rel="noopener"
+          target="_blank"
+          class="text-foreground/80 underline decoration-primary/40 underline-offset-4 transition-colors hover:decoration-primary"
+        >
+          {student.name}'s profile
+        </a>
+      </p>
+    )
+  }
+
+  <SourceList sources={post.data.sources} />
+  {/* Up to the category decision page, across to the programme they took. */}
+  <RelatedLinks post={post} related={related} storyLimit={0} />
+</div>

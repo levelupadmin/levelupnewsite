@@ -1,0 +1,66 @@
+---
+interface Props {
+  url: string;
+  title: string;
+}
+
+const { url, title } = Astro.props as Props;
+
+/**
+ * Recognised hosts get an iframe; anything else gets a plain link. Guessing an
+ * embed URL for an unknown host produces a silent empty box, and a link that
+ * works beats a player that does not.
+ */
+function embedSrc(raw: string): string | null {
+  let u: URL;
+  try {
+    u = new URL(raw);
+  } catch {
+    return null;
+  }
+  const host = u.hostname.replace(/^www\./, "");
+
+  if (host === "youtu.be") {
+    const id = u.pathname.slice(1);
+    return id ? `https://www.youtube-nocookie.com/embed/${id}` : null;
+  }
+  if (host === "youtube.com" || host === "m.youtube.com") {
+    const id = u.searchParams.get("v") ?? u.pathname.match(/\/(?:embed|shorts)\/([^/]+)/)?.[1];
+    return id ? `https://www.youtube-nocookie.com/embed/${id}` : null;
+  }
+  if (host === "vimeo.com") {
+    const id = u.pathname.split("/").filter(Boolean)[0];
+    return id && /^\d+$/.test(id) ? `https://player.vimeo.com/video/${id}` : null;
+  }
+  return null;
+}
+
+const src = embedSrc(url);
+---
+
+<section class="mt-12">
+  <h2 class="text-[0.6875rem] uppercase tracking-[0.2em] text-foreground/40">The film</h2>
+  {
+    src ? (
+      <div class="mt-4 aspect-video overflow-hidden rounded-2xl border border-border bg-card/60">
+        <iframe
+          src={src}
+          title={title}
+          loading="lazy"
+          class="h-full w-full"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        />
+      </div>
+    ) : (
+      <a
+        href={url}
+        rel="noopener"
+        target="_blank"
+        class="mt-4 inline-block text-base text-foreground/80 underline decoration-primary/40 underline-offset-4 transition-colors hover:decoration-primary"
+      >
+        Watch {title}
+      </a>
+    )
+  }
+</section>

@@ -1,0 +1,65 @@
+---
+import Breadcrumbs from "./Breadcrumbs.astro";
+import {
+  CATEGORY_BY_SLUG,
+  TYPE_LABEL,
+  breadcrumbsFor,
+  formatDate,
+  isoDate,
+  type Post,
+} from "@/lib/blog";
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props as Props;
+const { title, category, type, answer, publishDate, updatedDate } = post.data;
+const cat = CATEGORY_BY_SLUG[category];
+---
+
+<header class="relative overflow-hidden border-b border-border/40">
+  <div
+    class="pointer-events-none absolute inset-x-0 -top-40 h-80 opacity-[0.14]"
+    style="background: radial-gradient(60% 100% at 50% 100%, hsl(var(--primary)), transparent 70%)"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="relative mx-auto max-w-3xl px-6 pb-12 pt-28 md:px-8 md:pb-16 md:pt-36">
+    <Breadcrumbs items={breadcrumbsFor(post)} />
+
+    <div class="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 text-[0.6875rem] uppercase tracking-[0.16em]">
+      <a href={`/blog/category/${cat.slug}`} class="text-primary/80 transition-colors hover:text-primary">
+        {cat.label}
+      </a>
+      <span aria-hidden="true" class="text-foreground/20">/</span>
+      <span class="text-foreground/40">{TYPE_LABEL[type]}</span>
+    </div>
+
+    <h1 class="mt-5 text-balance text-[2.125rem] font-semibold leading-[1.08] tracking-[-0.03em] text-foreground sm:text-[2.75rem] md:text-[3.25rem]">
+      {title}
+    </h1>
+
+    {/*
+      The answer. First thing after the H1, in the server-rendered HTML, in the
+      same words as the meta description, the FAQ schema and llms.txt. This is
+      the paragraph an assistant is meant to be able to lift whole.
+    */}
+    <p class="mt-7 text-lg leading-relaxed text-foreground/75 md:text-xl md:leading-relaxed">
+      {answer}
+    </p>
+
+    <p class="mt-8 text-[0.6875rem] uppercase tracking-[0.16em] text-foreground/30">
+      <time datetime={isoDate(publishDate)}>Published {formatDate(publishDate)}</time>
+      {
+        updatedDate && updatedDate.valueOf() !== publishDate.valueOf() && (
+          <>
+            <span aria-hidden="true" class="px-2 text-foreground/20">/</span>
+            <time datetime={isoDate(updatedDate)}>Updated {formatDate(updatedDate)}</time>
+          </>
+        )
+      }
+    </p>
+  </div>
+</header>

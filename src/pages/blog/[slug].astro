@@ -1,0 +1,34 @@
+---
+import BlogLayout from "@/layouts/BlogLayout.astro";
+import DecisionBody from "@/components/blog/DecisionBody.astro";
+import CraftBody from "@/components/blog/CraftBody.astro";
+import StoryBody from "@/components/blog/StoryBody.astro";
+import { getPosts, postPath, relatedFor, type Post } from "@/lib/blog";
+import { postJsonLd } from "@/lib/blogSchema";
+
+/* Flat URLs on purpose: a post keeps its address when it is recategorised. */
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props as { post: Post };
+const related = await relatedFor(post);
+
+const Body =
+  post.data.type === "decision"
+    ? DecisionBody
+    : post.data.type === "story"
+      ? StoryBody
+      : CraftBody;
+---
+
+<BlogLayout
+  title={`${post.data.title} | LevelUp Learning`}
+  description={post.data.description || post.data.answer}
+  path={postPath(post)}
+  type="article"
+  jsonLd={postJsonLd(post)}
+>
+  <Body post={post} related={related} />
+</BlogLayout>

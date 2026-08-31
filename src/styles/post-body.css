@@ -1,0 +1,126 @@
+/*
+  Post body styling. Written against the design-system tokens rather than
+  prose-invert, so a page rendered under .theme-warm or .theme-reviews stays
+  readable instead of turning light-on-light.
+*/
+.post-body {
+  color: hsl(var(--foreground) / 0.72);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.post-body > * + * {
+  margin-top: 1.35rem;
+}
+
+.post-body h2 {
+  margin-top: 3.25rem;
+  margin-bottom: 1.25rem;
+  color: hsl(var(--foreground));
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  scroll-margin-top: 6rem;
+}
+
+.post-body h3 {
+  margin-top: 2.25rem;
+  margin-bottom: 0.75rem;
+  color: hsl(var(--foreground));
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  scroll-margin-top: 6rem;
+}
+
+.post-body strong {
+  color: hsl(var(--foreground));
+  font-weight: 600;
+}
+
+.post-body a {
+  color: hsl(var(--primary));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: hsl(var(--primary) / 0.4);
+}
+
+.post-body a:hover {
+  text-decoration-color: hsl(var(--primary));
+}
+
+.post-body ul,
+.post-body ol {
+  padding-left: 1.25rem;
+}
+
+.post-body ul { list-style: disc; }
+.post-body ol { list-style: decimal; }
+.post-body li + li { margin-top: 0.5rem; }
+.post-body li::marker { color: hsl(var(--foreground) / 0.35); }
+
+/* Comparison tables are wide by nature. Scroll the table, never the page. */
+.post-body table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  white-space: nowrap;
+}
+
+.post-body thead th {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid hsl(var(--border));
+  color: hsl(var(--foreground) / 0.5);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.post-body tbody td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid hsl(var(--border) / 0.6);
+  vertical-align: top;
+}
+
+.post-body tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.post-body tbody td:first-child {
+  color: hsl(var(--foreground));
+  white-space: nowrap;
+}
+
+/* Comparison tables hold short values and read better on one line each. A table
+   whose cells are sentences does not, so it opts out. */
+.post-body table.wrap {
+  white-space: normal;
+}
+
+.post-body blockquote {
+  padding-left: 1.25rem;
+  border-left: 2px solid hsl(var(--primary) / 0.5);
+  color: hsl(var(--foreground) / 0.65);
+  font-style: normal;
+}
+
+.post-body hr {
+  margin: 2.75rem 0;
+  border: 0;
+  border-top: 1px solid hsl(var(--border));
+}
+
+.post-body code {
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  background: hsl(var(--muted));
+  color: hsl(var(--foreground) / 0.9);
+  font-size: 0.9em;
+}
