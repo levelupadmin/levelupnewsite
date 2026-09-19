@@ -1,0 +1,111 @@
+---
+import { formatDate, toFiveScale, type Review } from "@/lib/reviews";
+
+interface Props {
+  review: Review;
+  /** Every nth card is set as a pull-quote so the grid has a rhythm. */
+  feature?: boolean;
+}
+
+const { review, feature = false } = Astro.props as Props;
+
+const stars = toFiveScale(review.score);
+const full = Math.floor(stars);
+const half = stars - full >= 0.5;
+
+const ACCENT: Record<string, string> = {
+  forge: "var(--review-forge)",
+  levelup: "var(--review-levelup)",
+  "online-programs": "var(--review-online)",
+};
+const accent = ACCENT[review.category] ?? "var(--review-levelup)";
+---
+
+<figure
+  class:list={[
+    "review-card group relative flex flex-col rounded-2xl border border-border/60 bg-card/60",
+    "px-6 py-7 md:px-8 md:py-9 transition-colors duration-500 hover:border-[var(--accent)]/40",
+    feature && "review-card--feature",
+  ]}
+  style={`--accent: ${accent}`}
+>
+  <span
+    class="absolute left-0 top-8 h-10 w-[3px] rounded-r-full bg-[var(--accent)]"
+    aria-hidden="true"
+  ></span>
+
+  <div class="mb-5 flex items-center gap-3">
+    <div
+      class="flex items-center gap-0.5 text-[var(--accent)]"
+      role="img"
+      aria-label={`Rated ${stars} out of 5`}
+    >
+      {
+        Array.from({ length: 5 }).map((_, i) => (
+          <svg
+            viewBox="0 0 20 20"
+            class:list={[
+              "h-3.5 w-3.5",
+              i < full ? "fill-current" : half && i === full ? "fill-current opacity-50" : "fill-current opacity-20",
+            ]}
+            aria-hidden="true"
+          >
+            <path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.5 7.7l5.9-.9z" />
+          </svg>
+        ))
+      }
+    </div>
+    <span class="text-xs tabular-nums text-foreground/45">{stars.toFixed(1)}</span>
+  </div>
+
+  <blockquote
+    class:list={[
+      "flex-1 text-foreground/85",
+      feature
+        ? "font-medium leading-[1.45] tracking-[-0.015em] text-[1.375rem] md:text-[1.75rem]"
+        : "text-[0.9375rem] leading-[1.72] md:text-base",
+    ]}
+  >
+    {review.text}
+  </blockquote>
+
+  <figcaption class="mt-7 flex flex-wrap items-baseline gap-x-2.5 gap-y-1 border-t border-border/40 pt-5">
+    <span class="text-sm font-semibold text-foreground/90">
+      {
+        review.profileUrl ? (
+          <a
+            href={review.profileUrl}
+            rel="nofollow noopener"
+            target="_blank"
+            class="underline decoration-[var(--accent)]/40 underline-offset-4 hover:decoration-[var(--accent)]"
+          >
+            {review.name || "Verified student"}
+          </a>
+        ) : (
+          review.name || "Verified student"
+        )
+      }
+    </span>
+    {
+      review.role && (
+        <span class="text-xs text-foreground/40">{review.role}</span>
+      )
+    }
+    <span class="ml-auto flex items-center gap-2.5 text-[0.6875rem] uppercase tracking-[0.14em] text-foreground/35">
+      <span class="text-[var(--accent)]/70">{review.program}</span>
+      <time datetime={review.submittedAt.slice(0, 10)}>{formatDate(review.submittedAt)}</time>
+    </span>
+  </figcaption>
+</figure>
+
+<style>
+  /* Break the grid rhythm rather than run a flat wall of equal cards. */
+  .review-card--feature {
+    grid-column: span 1;
+  }
+  @media (min-width: 768px) {
+    .review-card--feature {
+      grid-column: span 2;
+    }
+  }
+</style>

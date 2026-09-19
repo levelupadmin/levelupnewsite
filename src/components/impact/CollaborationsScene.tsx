@@ -1,7 +1,11 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { Handshake } from "lucide-react";
 import { m, AnimatePresence } from "framer-motion";
 import FadeInSection from "@/components/FadeInSection";
+import {
+  useIsomorphicLayoutEffect,
+  prefersReducedMotion,
+} from "@/components/AnimatedCounter";
 import ImpactScene from "./ImpactScene";
 import CollabNetwork from "./CollabNetwork";
 
@@ -177,72 +181,100 @@ const AnimatedCounterWithProgress = ({
   onProgress: (value: number) => void;
   onComplete: () => void;
 }) => {
-  const [value, setValue] = useState(0);
+  // Starts at the real number so the static build ships it; the count-up is
+  // client-only enhancement. Same reasoning as components/AnimatedCounter.tsx.
+  const [value, setValue] = useState(target);
   const [done, setDone] = useState(false);
   const hasAnimated = useRef(false);
   const elRef = useRef<HTMLSpanElement>(null);
 
-  const runAnimation = useCallback(() => {
-    if (hasAnimated.current) return;
-    hasAnimated.current = true;
+  const onProgressRef = useRef(onProgress);
+  const onCompleteRef = useRef(onComplete);
+  useEffect(() => {
+    onProgressRef.current = onProgress;
+    onCompleteRef.current = onComplete;
+  }, [onProgress, onComplete]);
 
-    const duration = 1800;
-    const startTime = performance.now();
+  useIsomorphicLayoutEffect(() => {
+    // Reduced motion: hold the real number and push dependent UI to its end state.
+    if (prefersReducedMotion()) {
+      setDone(true);
+      onProgressRef.current(target);
+      onCompleteRef.current();
+      return;
+    }
 
-    const animate = (currentTime: number) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = eased * target;
-      setValue(current);
-      onProgress(current);
+    const el = elRef.current;
+    let observer: IntersectionObserver | null = null;
+    let frame = 0;
+    let cancelled = false;
 
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        setDone(true);
-        onComplete();
-      }
+    const runAnimation = () => {
+      if (hasAnimated.current || cancelled) return;
+      hasAnimated.current = true;
+      observer?.disconnect();
+
+      setValue(0);
+
+      const duration = 1800;
+      const startTime = performance.now();
+
+      const animate = (currentTime: number) => {
+        if (cancelled) return;
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = eased * target;
+        setValue(current);
+        onProgressRef.current(current);
+
+        if (progress < 1) {
+          frame = requestAnimationFrame(animate);
+        } else {
+          setValue(target);
+          setDone(true);
+          onCompleteRef.current();
+        }
+      };
+
+      frame = requestAnimationFrame(animate);
     };
 
-    requestAnimationFrame(animate);
-  }, [target, onProgress, onComplete]);
+    if (!el || typeof IntersectionObserver === "undefined") {
+      setDone(true);
+      onProgressRef.current(target);
+      onCompleteRef.current();
+      return;
+    }
 
-  const observerRef = useRef<IntersectionObserver | null>(null);
-
-  const setRef = useCallback(
-    (node: HTMLSpanElement | null) => {
-      (elRef as any).current = node;
-      if (!node) return;
-      if (hasAnimated.current) return;
-
-      observerRef.current = new IntersectionObserver(
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      runAnimation();
+    } else {
+      observer = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting) {
-            runAnimation();
-            observerRef.current?.disconnect();
-          }
+          if (entry.isIntersecting) runAnimation();
         },
-        { threshold: 0.3 }
+        { threshold: 0, rootMargin: "0px 0px 20% 0px" }
       );
-      observerRef.current.observe(node);
+      observer.observe(el);
+    }
 
-      setTimeout(() => {
-        if (!hasAnimated.current) runAnimation();
-      }, 2500);
-    },
-    [runAnimation]
-  );
+    return () => {
+      cancelled = true;
+      observer?.disconnect();
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, [target]);
 
   const formatNumber = (num: number) => {
-    if (hasComma) return Math.floor(num).toLocaleString();
+    if (hasComma) return Math.floor(num).toLocaleString("en-US");
     return Math.floor(num).toString();
   };
 
   return (
-    <span ref={setRef} className={done && celebrate ? "counter-celebrate inline-block" : undefined}>
-      {formatNumber(value)}
-      {suffix}
+    <span ref={elRef} className={done && celebrate ? "counter-celebrate inline-block" : undefined}>
+      {formatNumber(value) + (suffix ?? "")}
     </span>
   );
 };

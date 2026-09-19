@@ -1,8 +1,14 @@
 import { SITE_URL } from "./constants";
 
+/** Shared so any page that says more about the organisation (the reviews
+ *  pages attach an aggregateRating) is understood as the same entity rather
+ *  than a second company with the same name. */
+export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
+
 export const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": ORGANIZATION_ID,
   name: "LevelUp Learning",
   url: SITE_URL,
   logo: `${SITE_URL}/favicon.png`,

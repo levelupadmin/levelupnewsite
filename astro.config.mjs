@@ -25,12 +25,22 @@ export default defineConfig({
     sitemap({
       // Static landing pages live in public/ rather than src/pages/, so the
       // integration never sees them. List them here or they stay unindexed.
-      customPages: ['https://www.leveluplearning.in/communication'],
+      customPages: [
+        'https://www.leveluplearning.in/communication',
+        'https://www.leveluplearning.in/aivault',
+        'https://www.leveluplearning.in/ai-cohort',
+      ],
       filter: (page) => !page.includes('/404'),
       serialize(item) {
         if (item.url === 'https://www.leveluplearning.in/') {
           item.changefreq = 'weekly';
           item.priority = 1.0;
+        } else if (item.url === 'https://www.leveluplearning.in/reviews/') {
+          item.changefreq = 'weekly';
+          item.priority = 0.9;
+        } else if (item.url.includes('/reviews/')) {
+          item.changefreq = 'weekly';
+          item.priority = 0.8;
         } else if (item.url.includes('/student-stories/') && item.url !== 'https://www.leveluplearning.in/student-stories/') {
           item.changefreq = 'monthly';
           item.priority = 0.7;

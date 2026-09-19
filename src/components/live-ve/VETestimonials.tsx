@@ -51,6 +51,15 @@ const VETestimonials = () => {
               </div>
             ))}
           </div>
+
+          <div className="mt-8">
+            <a
+              href="/reviews/levelup/"
+              className="inline-flex items-center gap-2 text-sm text-white/55 underline decoration-white/20 underline-offset-4 transition-colors hover:text-white hover:decoration-white/50"
+            >
+              Read verified reviews from our live cohorts
+            </a>
+          </div>
         </div>
       </div>
 
