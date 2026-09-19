@@ -2,10 +2,13 @@
 import ReviewCard from "./ReviewCard.astro";
 import {
   CATEGORIES,
+  PAGE_SIZE,
   aggregate,
   categoryCounts,
   formatRange,
-  reviewsFor,
+  pageCount,
+  pagePath,
+  reviewsPage,
   type CategorySlug,
 } from "@/lib/reviews";
 
@@ -14,11 +17,26 @@ interface Props {
   category: CategorySlug | null;
   heading: string;
   blurb: string;
+  /** 1-based. Page 1 is the newest hundred. */
+  page?: number;
 }
 
-const { category, heading, blurb } = Astro.props as Props;
+const { category, heading, blurb, page = 1 } = Astro.props as Props;
 
-const reviews = reviewsFor(category);
+const reviews = reviewsPage(category, page);
+const pages = pageCount(category);
+const first = (page - 1) * PAGE_SIZE + 1;
+const last = first + reviews.length - 1;
+
+/* Page links: first, last, and a window around the current page. Plain
+   anchors, so every page is reachable without JavaScript. */
+const window = 2;
+const pageLinks: (number | null)[] = [];
+for (let n = 1; n <= pages; n++) {
+  const near = Math.abs(n - page) <= window || n === 1 || n === pages;
+  if (near) pageLinks.push(n);
+  else if (pageLinks[pageLinks.length - 1] !== null) pageLinks.push(null);
+}
 const agg = aggregate(category);
 const counts = categoryCounts();
 const total = aggregate(null).count;
@@ -167,11 +185,61 @@ const tabs = [
           </a>
         </div>
       ) : (
-        <div class="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
-          {reviews.map((r, i) => (
-            <ReviewCard review={r} feature={isFeature(r, i)} />
-          ))}
-        </div>
+        <>
+          {agg.count > PAGE_SIZE && (
+            <p class="mb-8 text-sm text-foreground/40">
+              Showing {first.toLocaleString("en-US")} to {last.toLocaleString("en-US")} of{" "}
+              {agg.count.toLocaleString("en-US")}, newest first.
+            </p>
+          )}
+
+          <div class="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
+            {reviews.map((r, i) => (
+              <ReviewCard review={r} feature={isFeature(r, i)} />
+            ))}
+          </div>
+
+          {pages > 1 && (
+            <nav aria-label="Review pages" class="mt-14 flex flex-wrap items-center justify-center gap-2">
+              {page > 1 && (
+                <a
+                  href={pagePath(category, page - 1)}
+                  rel="prev"
+                  class="rounded-full border border-border px-4 py-2 text-sm text-foreground/60 transition-colors hover:border-foreground/30 hover:text-foreground"
+                >
+                  Newer
+                </a>
+              )}
+              {pageLinks.map((n) =>
+                n === null ? (
+                  <span aria-hidden="true" class="px-1 text-foreground/30">…</span>
+                ) : (
+                  <a
+                    href={pagePath(category, n)}
+                    aria-current={n === page ? "page" : undefined}
+                    class:list={[
+                      "min-w-[2.5rem] rounded-full px-3 py-2 text-center text-sm tabular-nums transition-colors",
+                      n === page
+                        ? "bg-primary text-primary-foreground font-medium"
+                        : "text-foreground/55 hover:bg-secondary hover:text-foreground/85",
+                    ]}
+                  >
+                    {n}
+                  </a>
+                ),
+              )}
+              {page < pages && (
+                <a
+                  href={pagePath(category, page + 1)}
+                  rel="next"
+                  class="rounded-full border border-border px-4 py-2 text-sm text-foreground/60 transition-colors hover:border-foreground/30 hover:text-foreground"
+                >
+                  Older
+                </a>
+              )}
+            </nav>
+          )}
+        </>
       )
     }
   </section>

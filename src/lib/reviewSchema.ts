@@ -36,6 +36,11 @@ function reviewNode(r: Review) {
 /**
  * Omitted entirely when there is nothing published: an AggregateRating of
  * 0 from 0 reviews is invalid markup and reads worse than saying nothing.
+ *
+ * `reviews` is the page's own slice, not the whole set. reviewCount is still
+ * the full total, which is the number the page prints in its headline, so the
+ * figure a crawler cross-checks is the one it can read. Attaching all seven
+ * thousand nodes to every page put 3.8MB of JSON-LD in each one.
  */
 function ratingFields(agg: Aggregate, reviews: Review[]) {
   if (agg.count === 0) return {};
@@ -51,7 +56,7 @@ function ratingFields(agg: Aggregate, reviews: Review[]) {
   };
 }
 
-/** The whole published corpus, attached to the organisation. */
+/** The published aggregate, attached to the organisation, with this page's reviews. */
 export function organizationReviewsJsonLd(agg: Aggregate, reviews: Review[]) {
   return {
     "@context": "https://schema.org",

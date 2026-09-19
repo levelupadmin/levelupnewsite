@@ -58,8 +58,10 @@ function visibleText(html) {
 
 // "0+ Learners", "0 + Learners", "0.00 Rating", "0.0/5 Rating"
 const LABELS_RE = STAT_LABELS.join("|");
+// The 0 must not be the tail of another number: "4.0 Mentor explained..." on
+// the reviews page is a rating followed by a review, not a zero-valued stat.
 const ZERO_STAT = new RegExp(
-  String.raw`\b0(?:[.,]0+)?\s*(?:\+|%|\/\s*\d+)?\s*(?:${LABELS_RE})\w*`,
+  String.raw`(?<![\d.,])0(?:[.,]0+)?\s*(?:\+|%|\/\s*\d+)?\s*(?:${LABELS_RE})\w*`,
   "gi"
 );
 

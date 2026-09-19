@@ -2,7 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { SiteNavbar, SiteFooter } from "@/components/SiteChrome";
 import ReviewsBody from "@/components/reviews/ReviewsBody.astro";
-import { aggregate, reviewsFor } from "@/lib/reviews";
+import { aggregate, reviewsPage } from "@/lib/reviews";
 import { breadcrumbJsonLd } from "@/lib/structuredData";
 import {
   organizationReviewsJsonLd,
@@ -10,7 +10,7 @@ import {
 } from "@/lib/reviewSchema";
 
 const agg = aggregate(null);
-const reviews = reviewsFor(null);
+const reviews = reviewsPage(null, 1);
 
 const title =
   agg.count > 0
@@ -37,6 +37,7 @@ const jsonLd = [
   <main>
     <ReviewsBody
       category={null}
+      page={1}
       heading="What students say, in their own words"
       blurb="Every review here comes from a real feedback form filled in at the end of a LevelUp residency, cohort or masterclass. We publish the rating, the programme and the date it was written."
     />

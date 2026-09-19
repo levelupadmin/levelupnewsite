@@ -1,0 +1,51 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { SiteNavbar, SiteFooter } from "@/components/SiteChrome";
+import ReviewsBody from "@/components/reviews/ReviewsBody.astro";
+import { CATEGORIES, aggregate, pageCount, pagePath, reviewsPage } from "@/lib/reviews";
+import { breadcrumbJsonLd } from "@/lib/structuredData";
+import { categoryReviewsJsonLd, reviewsCollectionJsonLd } from "@/lib/reviewSchema";
+
+/* Pages 2 onward for each category. Page 1 is /reviews/<category>/ itself. */
+export function getStaticPaths() {
+  return CATEGORIES.flatMap((category) => {
+    const pages = pageCount(category.slug);
+    return Array.from({ length: Math.max(0, pages - 1) }, (_, i) => ({
+      params: { category: category.slug, page: String(i + 2) },
+      props: { category, page: i + 2 },
+    }));
+  });
+}
+
+const { category, page } = Astro.props;
+const agg = aggregate(category.slug);
+const reviews = reviewsPage(category.slug, page);
+const path = pagePath(category.slug, page);
+
+const title = `${category.label} reviews, page ${page} of ${pageCount(category.slug)} | LevelUp Learning`;
+const description = `Page ${page} of ${agg.count.toLocaleString("en-US")} reviews of LevelUp ${category.label}, averaging ${agg.average.toFixed(1)} out of 5, newest first.`;
+
+const jsonLd = [
+  breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Reviews", path: "/reviews" },
+    { name: category.label, path: `/reviews/${category.slug}` },
+    { name: `Page ${page}`, path },
+  ]),
+  reviewsCollectionJsonLd(`${category.label} reviews, page ${page}`, description, path, agg),
+  categoryReviewsJsonLd(category.label, category.slug, category.blurb, agg, reviews),
+];
+---
+
+<BaseLayout title={title} description={description} path={path} jsonLd={jsonLd}>
+  <SiteNavbar client:load />
+  <main>
+    <ReviewsBody
+      category={category.slug}
+      page={page}
+      heading={category.label}
+      blurb={category.blurb}
+    />
+  </main>
+  <SiteFooter client:idle />
+</BaseLayout>

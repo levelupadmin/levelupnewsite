@@ -24,6 +24,29 @@ export function reviewsFor(category?: CategorySlug | null): Review[] {
   return category ? BY_DATE.filter((r) => r.category === category) : BY_DATE;
 }
 
+/**
+ * Reviews per page. Every published review is still on a crawlable page, and
+ * the headline count on each page is the whole set. What changes is that one
+ * page no longer carries all seven thousand: at roughly 3KB a card that was a
+ * 22MB HTML file, which no crawler will finish and no phone will open.
+ */
+export const PAGE_SIZE = 100;
+
+export function pageCount(category?: CategorySlug | null): number {
+  return Math.max(1, Math.ceil(reviewsFor(category).length / PAGE_SIZE));
+}
+
+/** 1-based. Page 1 is the newest hundred. */
+export function reviewsPage(category: CategorySlug | null | undefined, page: number): Review[] {
+  return reviewsFor(category).slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+}
+
+/** Page 1 lives at the plain URL; later pages under /page/N/. */
+export function pagePath(category: CategorySlug | null | undefined, page: number): string {
+  const base = category ? `/reviews/${category}/` : "/reviews/";
+  return page === 1 ? base : `${base}page/${page}/`;
+}
+
 export interface Aggregate {
   count: number;
   /** Mean on the 5-point scale, one decimal. */

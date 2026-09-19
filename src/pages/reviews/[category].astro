@@ -2,7 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { SiteNavbar, SiteFooter } from "@/components/SiteChrome";
 import ReviewsBody from "@/components/reviews/ReviewsBody.astro";
-import { CATEGORIES, aggregate, reviewsFor } from "@/lib/reviews";
+import { CATEGORIES, aggregate, reviewsPage } from "@/lib/reviews";
 import { breadcrumbJsonLd } from "@/lib/structuredData";
 import { categoryReviewsJsonLd, reviewsCollectionJsonLd } from "@/lib/reviewSchema";
 
@@ -13,7 +13,7 @@ export function getStaticPaths() {
 const { category } = Astro.props;
 
 const agg = aggregate(category.slug);
-const reviews = reviewsFor(category.slug);
+const reviews = reviewsPage(category.slug, 1);
 
 const title =
   agg.count > 0
@@ -43,6 +43,7 @@ const jsonLd = [
   <main>
     <ReviewsBody
       category={category.slug}
+      page={1}
       heading={category.label}
       blurb={category.blurb}
     />
