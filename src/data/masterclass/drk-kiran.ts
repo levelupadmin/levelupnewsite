@@ -30,7 +30,7 @@ const data: MasterclassPageData = {
     "Welcome to DRK Kiran's Art Direction Masterclass, where you'll explore the essentials of art direction through his real-life case studies from the movies he has worked on. Learn how to think fast on set, master set designing, solve creative problems, and use miniatures to make stunning designs.",
   courseDetails: {
     chapters: 20,
-    duration: "3h 20m",
+    duration: "1h 52m",
     level: "All Levels",
     language: "Tamil & English",
     access: "Lifetime Access",
@@ -112,7 +112,7 @@ const data: MasterclassPageData = {
   ],
   benefits: [
     { title: "PDF workbook for every class" },
-    { title: "4+ hours of course content" },
+    { title: "1h 52m of course content" },
     { title: "Exclusive workshops and events" },
     { title: "Signed certificate from the Instructor" },
   ],

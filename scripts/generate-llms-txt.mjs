@@ -62,7 +62,7 @@ async function main() {
       audience: "Dialogue writers, screenplay writers, filmmakers, film enthusiasts, aspiring directors, cinema aspirants.",
       films: ["Pizza", "Jigarthanda", "Iraivi", "Petta", "Jagame Thandhiram", "Mahaan"],
       lessons: 24,
-      durationMin: 200,
+      durationMin: 184,
       price: 2499,
     },
     {
@@ -73,7 +73,7 @@ async function main() {
       audience: "Aspiring filmmakers, dialogue writers, story architects, visionary directors, future directors, cinema lovers, film dreamers.",
       films: ["Kaithi", "Master", "Vikram", "Leo", "Maanagaram"],
       lessons: 15,
-      durationMin: 120,
+      durationMin: 94,
       price: 1499,
     },
     {
@@ -91,7 +91,7 @@ async function main() {
       slug: "ravi-basrur",
       name: "Ravi Basrur",
       discipline: "Music Composition",
-      seoDescription: "Learn film scoring with Ravi Basrur, music director of KGF, Mufti, Ugramm, Salaar. 16 video lessons. In Kannada. Signed Certificate. ₹2,499 lifetime access.",
+      seoDescription: "Learn film scoring with Ravi Basrur, music director of KGF, Mufti, Ugramm, Salaar. 16 video lessons. In Kannada with English subtitles. Signed Certificate. ₹2,499 lifetime access.",
       audience: "Aspiring composers, intermediate musicians, sound designers, music directors, film-music enthusiasts.",
       films: ["KGF Chapter 1", "KGF Chapter 2", "Mufti", "Ugramm", "Salaar"],
       lessons: 16,
