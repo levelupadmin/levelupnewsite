@@ -34,7 +34,11 @@ export default function PosterMarquee({ posters = [], films, dir = "left", speed
       role={label ? "region" : undefined}
       aria-label={label}
     >
-      <style>{`
+      {/* Raw CSS via __html: React escapes text in <style> on the server but
+          not in the browser, and the mismatch breaks hydration. */}
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
         @keyframes lokesh-marquee {
           from { transform: translateX(0); }
           to { transform: translateX(-33.333%); }
@@ -54,9 +58,11 @@ export default function PosterMarquee({ posters = [], films, dir = "left", speed
         @media (prefers-reduced-motion: reduce) {
           .lokesh-marquee__track { animation: none !important; }
           .lokesh-marquee { overflow-x: auto !important; -webkit-mask-image: none; mask-image: none; }
-          .lokesh-marquee__track > [data-copy] { display: none; }
+          .lokesh-marquee__track [data-copy] { display: none; }
         }
-      `}</style>
+      `,
+        }}
+      />
       <div
         className="lokesh-marquee__track flex gap-3 md:gap-4 w-max"
         style={{

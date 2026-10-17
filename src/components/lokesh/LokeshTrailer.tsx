@@ -13,6 +13,9 @@ interface Props {
   noCookie?: boolean;
 }
 
+const RING_KEYFRAMES =
+  "@keyframes mck-trailer-ring{0%{transform:scale(1);opacity:.9}70%,100%{transform:scale(1.55);opacity:0}}";
+
 /**
  * Click-to-load YouTube trailer. Shows a thumbnail and a play button; the
  * YouTube player (about 1 MB of script) loads only after a tap.
@@ -99,7 +102,7 @@ export default function LokeshTrailer({
           </span>
         </span>
       </div>
-      <style>{`@keyframes mck-trailer-ring{0%{transform:scale(1);opacity:.9}70%,100%{transform:scale(1.55);opacity:0}}`}</style>
+      <style dangerouslySetInnerHTML={{ __html: RING_KEYFRAMES }} />
     </a>
   );
 }
