@@ -21,7 +21,8 @@ const cta = { href: o.checkoutUrl, label: "Get the masterclass", price: o.price,
 
 - Server HTML is always visible. The reveal script hides only blocks that start below the fold, after it runs. `prefers-reduced-motion` turns all motion off.
 - Motion uses `transform` and `opacity` only.
-- Buy buttons are plain `<a>` links to `app.leveluplearning.in/checkout/<offering id>`, same tab, so the tracking script in `BaseLayout.astro` sees every tap. Each carries `data-mc-buy`, `data-mc-cta="<placement>"` and, if passed, `data-mc-course`.
+- Buy buttons are plain `<a>` links to `app.leveluplearning.in/checkout/<offering id>`, same tab, so the tracking script in `BaseLayout.astro` sees every tap. Each carries `data-mc-cta="<placement>"` and, if passed, `data-mc-course`; links to a checkout also carry `data-mc-buy` (a ghost button that links to `#lessons` does not).
+- Every interactive element has a gold focus ring (`--mck-focus`) for keyboard users; buttons have hover, pressed and focus states.
 - Tap targets are at least 44 px. No horizontal scroll at 360 px.
 - Reviews come only from approved rows in `src/data/reviews.json`, printed exactly as stored.
 
@@ -117,6 +118,8 @@ Section frame: eyebrow, heading, body, then your content.
 <CtaButton href={o.checkoutUrl} label="Watch all 29 lessons" price={o.price} placement="hero" course={o.slug} hero size="lg" />
 ```
 
+The last word of the label, the price and the arrow never break apart. Under 480 px a `size="lg"` button spans its column so the label fits one line at 360 px.
+
 ### RefundLine
 
 The refund rule with a "Refund policy" link. `full` uses the full sentence; `link={false}` drops the link.
@@ -197,19 +200,21 @@ Quote wall. Use exact lines from the course transcripts or subtitles only. Rende
 | `quotes` | `{ text, lesson?, note? }[]` | required |
 | `speaker` | `string` | required |
 | `note` | line under the wall | none |
-| `featureFirst` | first quote large | `true` |
+| `featureFirst` | first quote drawn as a frame from the lesson, the line set as a subtitle | `true` |
 | `heading` / `eyebrow` | | `"In his words"` / `"From the lessons"` |
 
 ```astro
 <InHisWords
   speaker="Nelson Dilipkumar"
-  note="From the English subtitles. Nelson speaks Tamil."
+  note="From the masterclass, English subtitles"
   quotes={[
-    { text: "I will see what can be written within 5 lines and lock the story.", lesson: 13 },
-    { text: "I will not fit the scene into a set.", lesson: 21, note: "Translated from Tamil" },
+    { text: "Even if it's a 20th draft, 19 drafts would've been in my mind.", lesson: 13 },
+    { text: "So, if someone gives me a storyboard, I will dismantle it first.", lesson: 22 },
   ]}
 />
 ```
+
+Print the quote file's `display` field and check each lesson number against the page's lesson list before printing it.
 
 ### TryItFor7Days
 
@@ -271,7 +276,7 @@ The price card: included items, bonuses for every buyer, price, button, full ref
 
 ### ReviewWall
 
-Real reviews only. Get them with `reviewsForMasterclass(slug, { limit })` (build time only; never import `reviewPicks` from a React island). The page's own course reviews come first with a "This masterclass" tag; the rest are reviews of other LevelUp programmes in the same craft, each naming its programme. No review appears on two masterclass pages. Cards past `initial` sit in a native `<details>`.
+Real reviews only. Get them with `reviewsForMasterclass(slug, { limit })` (build time only; never import `reviewPicks` from a React island). The page's own course reviews come first with a "This masterclass" tag; the rest are reviews of other LevelUp programmes in the same craft, each naming its programme. No review appears on two masterclass pages. Cards past `initial` sit in a native `<details>`. Desktop shows three columns filled left to right (the first row holds reviews 1 to 3); tablets a two-column grid; phones one column in order. Cards carry initials, never a photo.
 
 | Prop | Type | Default |
 |---|---|---|
@@ -314,7 +319,7 @@ Static poster grid, two columns on phones, `cols` (default 4) from 760 px. Items
 
 ### CrossSell
 
-Cards for the other masterclasses with portrait, craft, name, lessons, runtime and price as text. `current` leaves that page out; `order` puts slugs first; `limit` caps the count. Swipe row on phones, three-column grid from 1000 px.
+Cards for the other masterclasses with portrait, craft, name, lessons, runtime and price as text, built by `crossSell.ts` from `OFFERINGS` (the React `OtherMasterclasses` uses the same helper and markup). `current` leaves that page out; `order` puts slugs first; `limit` caps the count. Two columns on phones, three from 760 px, and one row from 1100 px when there are four to six cards.
 
 ```astro
 <CrossSell current="drk-kiran" order={["nelson-dilipkumar"]} />
@@ -324,19 +329,21 @@ Cards for the other masterclasses with portrait, craft, name, lessons, runtime a
 
 ## Changed components outside this folder
 
-All changes are optional props; existing call sites render as before.
+All changes are optional props; existing call sites keep working. Behaviour changes from the polish pass are noted per component.
 
 - `lokesh/LokeshTrailer`: `title` (iframe title and button label), `alt`, `poster`, `noCookie` (default `true`, youtube-nocookie.com). Still a click-to-load facade.
   `<LokeshTrailer ytId="km7nB-tf1FE" title="Nelson Dilipkumar Teaches Filmmaking, official trailer" alt="Nelson Dilipkumar masterclass trailer" client:visible />`
-- `lokesh/HeroPlayer`: server HTML has a `<picture>` poster (`poster`, `mobilePoster`) and a `<video preload="none">` with a source per breakpoint (`src`, `mobileSrc`); playback starts after window load; poster fades once frames play. `hasAudio={false}` removes the unmute hint and tap toggle (default `true`). Also `posterAlt`, `objectPosition`, `mobileObjectPosition`, `autoPlay`. The touch handler that cancelled itself is gone.
+- `lokesh/HeroPlayer`: server HTML has a `<picture>` poster (`poster`, `mobilePoster`) and a `<video preload="none">` with a source per breakpoint (`src`, `mobileSrc`); playback starts after window load; poster fades once frames play. `hasAudio={false}` removes the unmute hint and tap toggle (default `true`). Even with `hasAudio`, "Tap to unmute" shows only when the browser reports a sound track in the file. Also `posterAlt`, `objectPosition`, `mobileObjectPosition`, `autoPlay`. The touch handler that cancelled itself is gone.
   `<HeroPlayer src={desk} mobileSrc={mob} poster={deskPoster} mobilePoster={mobPoster} hasAudio={false} ariaLabel="Nelson Dilipkumar" client:load />`
-- `lokesh/IntersectionPlayVideo`: `poster`, `ariaLabel`, `threshold`; preload none, plays only in view, shows controls when autoplay is refused or motion is reduced.
-- `lokesh/EpisodeAccordion`: `accent` (any CSS colour), `itemLabel`, `aria-controls` on every toggle, `Episode.duration` and `Episode.free`, all rows in the HTML behind `showMoreAfter`. `initialVisible` is still ignored; use `showMoreAfter`.
-  `<EpisodeAccordion episodes={episodes} showMoreAfter={6} accent="#d4a36c" client:visible />`
-- `lokesh/FAQAccordion`: `aria-controls`, `showSearch`, `defaultOpenIndex`, `FAQ.link`; WhatsApp button text now dark green on green (6.2:1).
-- `lokesh/FilmsScrollStack`: `films` (`{ src, title, year?, alt? }[]`, also builds the subline), `ctaNewTab` (default `false`, same tab), `runwayPerPoster`; reduced motion shows the settled deck with no runway.
-- `lokesh/PosterMarquee`: `films` with titles for alt text, `label`; pauses on hover and for reduced motion; needs no hydration directive.
+- `lokesh/IntersectionPlayVideo`: `poster`, `ariaLabel`, `threshold`; preload none, metadata about one screen ahead, plays only in view, a dark placeholder instead of a black box, and controls when autoplay is refused, motion is reduced or Save-Data is on.
+- `lokesh/EpisodeAccordion`: native `<details>` rows, so a row opens before hydration and every description is in the HTML; one open at a time (details `name`) unless `allowMultiple`. `accent` (any CSS colour), `itemLabel`, `Episode.duration`, `Episode.free`. Rows past `showMoreAfter` sit in a "Show N more" `<details>`; `initialVisible` acts as `showMoreAfter` when that is unset. It works with no client directive; `client:visible` only adds the fallback for browsers without details `name`.
+  `<EpisodeAccordion episodes={episodes} showMoreAfter={6} accent="#d4a36c" />`
+- `lokesh/FAQAccordion`: native `<details>` rows (answers in the HTML, open before hydration), `showSearch` (needs a client directive to filter), `defaultOpenIndex`, `FAQ.link`; search placeholder "Search questions"; WhatsApp button text dark green on green (6.2:1).
+- `lokesh/FilmsScrollStack`: `films` (`{ src, title, year?, alt? }[]`, also builds the subline), `ctaNewTab` (default `false`, same tab), `runwayPerPoster`; reduced motion shows the settled deck with no runway. Transforms are written to the DOM per frame (no React renders on scroll), posters load two screens ahead, and on phones the deck fits under the text with room for the sticky bar. `caption` now defaults to nothing (the old default, "5 films, ₹1,500 crore box office, 6 years", was wrong and unsourced). The button is the kit's buy button with `data-mc-buy`.
+- `lokesh/PosterMarquee`: `films` with titles for alt text, `label`; edges fade into the page; pauses on hover, press and focus; with reduced motion it stands still as a scrollable strip; needs no hydration directive.
+- `lokesh/ScrollGlowLine`: scaleY and translate3d instead of height and top, only while near the screen; fully lit for reduced motion.
+- `lokesh/PageInteractions`: no card tilt on touch screens or for reduced motion.
 - `FadeInSection` and `useScrollReveal`: visible in server HTML; animate only below the fold with JS running.
-- `OtherMasterclasses`: cards print craft, lessons, runtime and price; `currentSlug` and `order` props.
+- `OtherMasterclasses`: same cards and styles as `CrossSell` (shared `crossSell.ts`); `currentName`, `currentSlug` and `order` props; plain links, no client directive needed.
 - `Picture`: `priority` prop.
 - `Seo.astro`: `og:type` is `website` except articles; `twitter:site` is `@LevelUp_edu`.
