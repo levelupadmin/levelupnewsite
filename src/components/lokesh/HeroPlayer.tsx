@@ -30,6 +30,23 @@ interface Props {
 const MOBILE = "(max-width: 767px)";
 
 /**
+ * True only when the playing clip is known to carry sound. Browsers expose
+ * this differently; when none of them answers, assume silence so a silent
+ * loop never shows a "Tap to unmute" hint that does nothing.
+ */
+function clipHasSound(v: HTMLVideoElement): boolean {
+  const m = v as HTMLVideoElement & {
+    mozHasAudio?: boolean;
+    webkitAudioDecodedByteCount?: number;
+    audioTracks?: { length: number };
+  };
+  if (typeof m.mozHasAudio === "boolean") return m.mozHasAudio;
+  if (m.audioTracks && typeof m.audioTracks.length === "number") return m.audioTracks.length > 0;
+  if (typeof m.webkitAudioDecodedByteCount === "number") return m.webkitAudioDecodedByteCount > 0;
+  return false;
+}
+
+/**
  * First-screen video.
  *
  * - The server HTML carries a <picture> poster (mobile and desktop) and a
@@ -38,8 +55,9 @@ const MOBILE = "(max-width: 767px)";
  * - After window load the muted loop starts; the poster fades out once
  *   frames are playing. prefers-reduced-motion and Save-Data skip autoplay.
  * - If the browser refuses autoplay, a play button appears.
- * - With hasAudio, a tap toggles sound and a short "Tap to unmute" hint
- *   shows. Without it, taps do nothing and no hint shows.
+ * - With hasAudio, a tap toggles sound, and a short "Tap to unmute" hint
+ *   shows only if the browser reports a sound track in the file. Without
+ *   hasAudio, taps do nothing and no hint shows.
  */
 export default function HeroPlayer({
   src,
@@ -84,9 +102,14 @@ export default function HeroPlayer({
         p.then(() => {
           setAutoplayBlocked(false);
           if (hasAudio) {
-            setShowHint(true);
+            // Check for a sound track once a little audio could have been
+            // decoded; the hint only shows when there is something to hear.
             window.clearTimeout(hintTimer.current);
-            hintTimer.current = window.setTimeout(() => setShowHint(false), 4500);
+            hintTimer.current = window.setTimeout(() => {
+              if (!clipHasSound(v)) return;
+              setShowHint(true);
+              hintTimer.current = window.setTimeout(() => setShowHint(false), 4500);
+            }, 700);
           }
         }).catch(() => {
           if (!fromTap) setAutoplayBlocked(true);
@@ -169,9 +192,10 @@ export default function HeroPlayer({
     </video>
   );
 
+  // Same play button as the trailer: dark glass, gold ring, white glyph.
   const playIcon = (
-    <span className="inline-flex items-center justify-center h-16 w-16 md:h-20 md:w-20 rounded-full bg-white/95 text-black shadow-[0_10px_30px_rgba(0,0,0,0.45)]">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+    <span className="inline-flex items-center justify-center h-16 w-16 md:h-20 md:w-20 rounded-full bg-black/45 text-white ring-1 ring-[#f5d59a]/70 shadow-[0_0_0_6px_rgba(245,213,154,0.12),0_14px_34px_rgba(0,0,0,0.5)] backdrop-blur-[6px] transition-transform duration-300 group-hover:scale-105 group-active:scale-95 motion-reduce:transition-none">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="ml-1"><path d="M8 5v14l11-7z" /></svg>
     </span>
   );
 
@@ -187,7 +211,7 @@ export default function HeroPlayer({
             type="button"
             onClick={handleClick}
             aria-label={ariaLabel || "Play video"}
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+            className="group absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#f5d59a]"
           >
             {playIcon}
           </button>
@@ -201,7 +225,7 @@ export default function HeroPlayer({
       type="button"
       onClick={handleClick}
       aria-label={ariaLabel || "Play hero video"}
-      className="absolute inset-0 w-full h-full p-0 m-0 border-0 bg-transparent cursor-pointer block"
+      className="group absolute inset-0 w-full h-full p-0 m-0 border-0 bg-transparent cursor-pointer block focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-[#f5d59a]"
     >
       {video}
       {posterLayer}
