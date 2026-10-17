@@ -1,0 +1,808 @@
+---
+/**
+ * Karthik Subbaraj masterclass, the landing page for Meta ads.
+ *
+ * Facts (24 lessons, 3 h 4 min, Tamil with English subtitles, price) come
+ * from OFFERINGS; lessons, skills, FAQ and reviews from
+ * src/data/masterclass/content/karthik-subbaraj.ts. No transcript of this
+ * course exists, so there is no "In his words" section. Only the site navbar
+ * and footer hydrate.
+ */
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { SiteNavbar, SiteFooter } from "@/components/SiteChrome";
+import StickyMobileCta from "@/components/lokesh/StickyMobileCta.astro";
+import {
+  SectionShell,
+  CtaButton,
+  RefundLine,
+  CourseFacts,
+  IsThisForYou,
+  SkillsYouGain,
+  TryItFor7Days,
+  ValueAgainstPrice,
+  WhatYouGetToday,
+  ReviewWall,
+  FaqList,
+  CrossSell,
+  RevealScript,
+} from "@/components/masterclass";
+import { lessonLabel } from "@/components/masterclass/types";
+import { OFFERINGS, formatPrice, formatRuntime, courseSchemaFields } from "@/data/masterclass/shared";
+import { courseJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/structuredData";
+import {
+  ASSET,
+  lessons,
+  skills,
+  forYou,
+  notForYou,
+  taughtFilms,
+  faqs,
+  reviews,
+  heroReview,
+} from "@/data/masterclass/content/karthik-subbaraj";
+
+const o = OFFERINGS["karthik-subbaraj"];
+const runtime = formatRuntime(o.runtimeMinutes);
+const BUY_LABEL = "Buy the masterclass";
+const cta = { href: o.checkoutUrl, label: BUY_LABEL, price: o.price, course: o.slug };
+const FIRST_LESSONS = 6;
+const ownReviews = reviews.filter((r) => r.ownCourse).length;
+
+const HERO = `${ASSET}/hero`;
+const srcset = (stem: string, widths: number[], ext: string) =>
+  widths.map((w) => `${stem}-${w}.${ext} ${w}w`).join(", ");
+
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const heroDate = (() => {
+  const d = new Date(new Date(heroReview.submittedAt).getTime() + 330 * 60 * 1000);
+  return `${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+})();
+
+const pageTitle = "Karthik Subbaraj Filmmaking Masterclass | LevelUp Learning";
+const pageDescription = `Karthik Subbaraj teaches filmmaking through Pizza, Jigarthanda, Petta and Iraivi. ${o.lessons} lessons, ${runtime}, Tamil with English subtitles. ${formatPrice(o.price)}.`;
+
+const course = courseJsonLd({
+  name: o.courseName,
+  description: `Karthik Subbaraj teaches filmmaking from story to final mix, through Pizza, Jigarthanda, Petta and Iraivi. ${o.lessons} video lessons, ${runtime} in all, in Tamil with English subtitles. Certificate of completion. ${formatPrice(o.price)}, paid once.`,
+  path: `/masterclass/${o.slug}`,
+  image: `${HERO}/poster-d-1200.jpg`,
+  ...courseSchemaFields(o.slug),
+});
+const breadcrumb = breadcrumbJsonLd([
+  { name: "Home", path: "/" },
+  { name: "Masterclasses", path: "/" },
+  { name: "Karthik Subbaraj", path: `/masterclass/${o.slug}` },
+]);
+const faq = faqJsonLd(faqs.map(({ question, answer }) => ({ question, answer })));
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path={`/masterclass/${o.slug}`}
+  type="course"
+  ogImage="/og/mc-karthik-subbaraj.jpg"
+  jsonLd={[course, breadcrumb, faq]}
+>
+  <SiteNavbar client:idle />
+
+  <main id="main-content" class="bp bp--karthik">
+    <StickyMobileCta href={o.checkoutUrl} price={o.price} label={`${BUY_LABEL} · ${formatPrice(o.price)}`} course={o.slug} />
+
+    {/* ── Hero ── */}
+    <section class="bp-hero bp-hero--overlay" aria-labelledby="bp-h1">
+      <div class="bp-hero__media" data-hero-video data-src-m={`${HERO}/intro-m.mp4`} data-src-d={`${HERO}/intro-d.mp4`}>
+        <picture>
+          <source media="(max-width: 767px)" type="image/avif" srcset={srcset(`${HERO}/poster-m`, [480, 660], "avif")} sizes="100vw" />
+          <source media="(max-width: 767px)" type="image/webp" srcset={srcset(`${HERO}/poster-m`, [480, 660], "webp")} sizes="100vw" />
+          <source media="(max-width: 767px)" srcset={srcset(`${HERO}/poster-m`, [480, 660], "jpg")} sizes="100vw" />
+          <source type="image/avif" srcset={srcset(`${HERO}/poster-d`, [800, 1200], "avif")} sizes="100vw" />
+          <source type="image/webp" srcset={srcset(`${HERO}/poster-d`, [800, 1200], "webp")} sizes="100vw" />
+          <img
+            src={`${HERO}/poster-d-1200.jpg`}
+            srcset={srcset(`${HERO}/poster-d`, [800, 1200], "jpg")}
+            sizes="100vw"
+            width="1200"
+            height="750"
+            alt="Karthik Subbaraj in front of a round window, with actors from his films behind him"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </picture>
+        <video muted playsinline preload="none" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
+        <div class="bp-hero__veil" aria-hidden="true"></div>
+      </div>
+
+      <div class="bp-hero__copy">
+        <p class="bp-kicker">Masterclass · Filmmaking</p>
+        <h1 id="bp-h1" class="bp-h1">
+          <span class="bp-h1__name">Karthik Subbaraj</span>
+          teaches filmmaking through Pizza, Jigarthanda, Petta and Iraivi.
+        </h1>
+        <p class="bp-lead">See the Petta storyboards and his Jigarthanda scene breakdown.</p>
+        <ul class="bp-facts" aria-label="Course facts">
+          <li>{o.lessons} lessons</li>
+          <li>{runtime}</li>
+          <li data-first-screen-lang>Tamil, English subtitles</li>
+        </ul>
+        <div class="bp-hero__cta">
+          <CtaButton href={o.checkoutUrl} label={BUY_LABEL} price={o.price} placement="hero" course={o.slug} hero size="lg" />
+          <RefundLine />
+        </div>
+        <figure class="bp-hero-review">
+          <blockquote>{heroReview.text}</blockquote>
+          <figcaption>
+            <span class="bp-hero-review__stars"><span aria-hidden="true">★</span> <span>{heroReview.score}/5</span></span>
+            <span>{heroReview.name} · {heroReview.program} · {heroDate}</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <div class="bp-wrap bp-facts-strip">
+      <CourseFacts slug={o.slug} />
+    </div>
+
+    <IsThisForYou forYou={forYou} notForYou={notForYou} />
+
+    <SkillsYouGain
+      items={skills}
+      heading="What you'll know *how to do*"
+      body="Each skill points to the lesson that teaches it."
+      tone="raised"
+    />
+
+    {/* ── Lessons ── */}
+    <SectionShell
+      id="lessons"
+      eyebrow="The lessons"
+      heading={`${o.lessons} lessons, *${runtime}*`}
+      body="From finding a story to the final sound mix. Recorded lessons in Tamil with English subtitles."
+      width="narrow"
+    >
+      <ol class="bp-lessons">
+        {lessons.slice(0, FIRST_LESSONS).map((l, i) => (
+          <li class="bp-lesson mck-reveal" style={`--mck-delay:${Math.min(i, 4) * 50}ms`}>
+            <details>
+              <summary>
+                <span class="bp-lesson__num">{String(l.number).padStart(2, "0")}</span>
+                <span class="bp-lesson__title">{l.title}</span>
+                <span class="bp-lesson__icon" aria-hidden="true"></span>
+              </summary>
+              <p class="bp-lesson__body">{l.description}</p>
+            </details>
+          </li>
+        ))}
+      </ol>
+      <details class="bp-more">
+        <summary>
+          <span class="bp-more__open">Show all {o.lessons} lessons</span>
+          <span class="bp-more__close">Show fewer lessons</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+        </summary>
+        <ol class="bp-lessons" start={FIRST_LESSONS + 1}>
+          {lessons.slice(FIRST_LESSONS).map((l) => (
+            <li class="bp-lesson">
+              <details>
+                <summary>
+                  <span class="bp-lesson__num">{String(l.number).padStart(2, "0")}</span>
+                  <span class="bp-lesson__title">{l.title}</span>
+                  <span class="bp-lesson__icon" aria-hidden="true"></span>
+                </summary>
+                <p class="bp-lesson__body">{l.description}</p>
+              </details>
+            </li>
+          ))}
+        </ol>
+      </details>
+      <div class="bp-cta-row mck-reveal">
+        <CtaButton href={o.checkoutUrl} label={BUY_LABEL} price={o.price} placement="lessons" course={o.slug} size="lg" />
+        <RefundLine />
+      </div>
+    </SectionShell>
+
+    {/* ── Films ── */}
+    <SectionShell
+      id="films"
+      eyebrow="His films"
+      heading="Four films, *taken apart*"
+      body="Each one is a worked example in the lessons."
+      tone="raised"
+    >
+      <div class="bp-reel">
+        <div class="bp-reel__media mck-reveal" data-reveal="scale">
+          <video
+            data-inview-video
+            src={`${ASSET}/reel/reel.mp4`}
+            poster={`${ASSET}/reel/poster-600.webp`}
+            muted
+            loop
+            playsinline
+            preload="none"
+            disablepictureinpicture
+            aria-hidden="true"
+            tabindex="-1"
+            width="420"
+            height="540"
+          ></video>
+        </div>
+        <ol class="bp-taught">
+          {taughtFilms.map((f, i) => (
+            <li class="bp-taught__item mck-reveal" style={`--mck-delay:${i * 80}ms`}>
+              <p class="bp-taught__title">{f.title}</p>
+              <p class="bp-taught__what">{f.what}</p>
+              <span class="mck-chip">{lessonLabel(f.lessons)}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </SectionShell>
+
+    <ReviewWall
+      reviews={reviews}
+      heading="What learners *wrote*"
+      body={`Quoted as written in our feedback forms. The ${ownReviews} cards marked "This masterclass" review this course; the rest name the LevelUp course they review.`}
+    />
+
+    <ValueAgainstPrice
+      price={o.price}
+      lessons={o.lessons}
+      runtimeMinutes={o.runtimeMinutes}
+      comparisons={[
+        { label: "Language", value: "Tamil, English subtitles" },
+        { label: "Certificate", value: "Certificate of completion" },
+        { label: "Bonuses", value: "Worth ₹19,999, included" },
+        { label: "Access", value: "For life", highlight: true },
+      ]}
+      cta={{ ...cta, placement: "value" }}
+    />
+
+    <TryItFor7Days cta={{ ...cta, placement: "try" }} />
+
+    <WhatYouGetToday
+      price={o.price}
+      items={[
+        { title: `${o.lessons} video lessons`, detail: `${runtime} in all` },
+        { title: "Tamil, with English subtitles" },
+        { title: "Certificate of completion" },
+        { title: "Lifetime access", detail: "On your phone, tablet or laptop" },
+      ]}
+      bonusHeading="Bonuses worth ₹19,999, for every buyer"
+      bonuses={[
+        { title: "PDF workbooks", detail: "To work through as you watch" },
+        { title: "LevelUp community access", detail: "Talk with other learners" },
+      ]}
+      cta={{ ...cta, placement: "price-card" }}
+    />
+
+    <SectionShell id="faq" eyebrow="FAQ" heading="Questions buyers *ask*" width="narrow">
+      <FaqList faqs={faqs} courseName={o.courseName} />
+    </SectionShell>
+
+    <CrossSell current={o.slug} order={["nelson-dilipkumar", "lokesh-kanagaraj", "anthony-gonsalvez"]} />
+    <RevealScript />
+  </main>
+
+  <SiteFooter client:visible />
+</BaseLayout>
+
+<style is:global>
+  /* Page tokens. Warm near-black and the Lokesh gold, read by the kit too. */
+  .bp {
+    --bp-bg: #080604;
+    --bp-ink: #f6f1ea;
+    --bp-ink-2: rgba(246, 241, 234, 0.8);
+    --bp-ink-3: rgba(246, 241, 234, 0.62);
+    --bp-gold-1: #f5d59a;
+    --bp-gold-2: #d4a36c;
+    --bp-gold-3: #a06a36;
+    --bp-display: "Funnel Display", "Sora", system-ui, sans-serif;
+    --bp-name-gradient: linear-gradient(100deg, #b98149 0%, #f5d59a 34%, #fff1d6 50%, #d4a36c 72%, #f0bb7a 100%);
+    --bp-gutter: 20px;
+    --mck-bg: var(--bp-bg);
+    --mck-font-body: "Sora", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mck-font-display: "Sora", system-ui, sans-serif;
+    --mck-pill-gradient: radial-gradient(120% 100% at 50% 0%, #ffe5b8 0%, #e3b671 30%, #c8924d 60%, #a87545 100%);
+    position: relative;
+    background: var(--bp-bg);
+    color: var(--bp-ink);
+    font-family: var(--mck-font-body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  @media (max-width: 767px) {
+    /* Room for the sticky buy bar, so it never covers the last block. */
+    .bp { padding-bottom: 84px; }
+  }
+  .bp :focus-visible { outline: 2px solid var(--bp-gold-1); outline-offset: 3px; border-radius: 6px; }
+  .bp-wrap { width: 100%; max-width: 1120px; margin-inline: auto; padding-inline: var(--bp-gutter); }
+
+  /* ── Hero ── */
+  .bp-hero { position: relative; isolation: isolate; }
+  .bp-hero__media {
+    position: relative;
+    height: clamp(300px, 50svh, 470px);
+    overflow: hidden;
+    background: #000;
+  }
+  .bp-hero__media picture,
+  .bp-hero__media img,
+  .bp-hero__media video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--bp-pos, 50% 18%);
+  }
+  .bp-hero__media img { animation: bp-settle 2.2s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .bp-hero__media video { z-index: 1; opacity: 0; transition: opacity 0.7s ease; }
+  .bp-hero__media.is-playing video { opacity: 1; }
+  .bp-hero__veil {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(8, 6, 4, 0.7) 0%, rgba(8, 6, 4, 0) 22%),
+      linear-gradient(0deg, var(--bp-bg) 0%, rgba(8, 6, 4, 0.75) 16%, rgba(8, 6, 4, 0) 46%);
+  }
+  .bp-hero__copy {
+    position: relative;
+    z-index: 3;
+    margin-top: -56px;
+    padding: 0 var(--bp-gutter) 8px;
+  }
+  .bp-hero__copy > * { animation: bp-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .bp-hero__copy > :nth-child(2) { animation-delay: 60ms; }
+  .bp-hero__copy > :nth-child(3) { animation-delay: 120ms; }
+  .bp-hero__copy > :nth-child(4) { animation-delay: 180ms; }
+  .bp-hero__copy > :nth-child(5) { animation-delay: 240ms; }
+  .bp-hero__copy > :nth-child(6) { animation-delay: 300ms; }
+  .bp-kicker {
+    margin: 0 0 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--bp-gold-1);
+  }
+  .bp-h1 {
+    margin: 0;
+    font-family: var(--bp-display);
+    font-size: clamp(27px, 7.3vw, 56px);
+    font-weight: 600;
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+    color: var(--bp-ink);
+    text-wrap: balance;
+  }
+  .bp-h1__name {
+    display: block;
+    padding-bottom: 0.04em;
+    background-image: var(--bp-name-gradient);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: bp-shine 6s ease-in-out 1.2s infinite alternate;
+  }
+  .bp-lead {
+    margin: 14px 0 0;
+    max-width: 44ch;
+    font-size: clamp(15px, 4vw, 18px);
+    line-height: 1.5;
+    color: var(--bp-ink-2);
+  }
+  .bp-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .bp-facts li {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(245, 213, 154, 0.28);
+    background: rgba(245, 213, 154, 0.06);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--bp-ink);
+    white-space: nowrap;
+  }
+  .bp-hero__cta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .bp-hero__cta .mck-cta { width: 100%; }
+  .bp-proof {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 8px;
+    margin: 16px 0 0;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--bp-ink-3);
+  }
+  .bp-proof strong { color: var(--bp-ink); font-weight: 600; }
+  .bp-proof__stars { color: #f4c36a; letter-spacing: 1px; }
+
+  @media (min-width: 480px) {
+    .bp-hero__cta .mck-cta { width: auto; }
+  }
+  @media (max-width: 419px) {
+    /* Keep "Buy the masterclass · ₹1,499" on one line on narrow phones. */
+    .bp .mck-cta__arrow { display: none; }
+  }
+  @media (max-width: 399px) {
+    .bp .mck-cta--lg { font-size: 16px; padding-inline: 18px; }
+  }
+  @media (min-width: 768px) {
+    .bp-hero__media { height: auto; aspect-ratio: 16 / 9; }
+    .bp-hero__copy { max-width: 760px; margin-inline: auto; margin-top: -80px; }
+  }
+  @media (min-width: 1024px) {
+    .bp-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+      align-items: center;
+      min-height: min(90vh, 820px);
+      padding-top: 88px;
+    }
+    .bp-hero__media {
+      grid-column: 2;
+      grid-row: 1;
+      align-self: stretch;
+      aspect-ratio: auto;
+      min-height: 520px;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 24%);
+      mask-image: linear-gradient(90deg, transparent 0%, #000 24%);
+    }
+    .bp-hero__veil {
+      background:
+        linear-gradient(0deg, var(--bp-bg) 0%, rgba(8, 6, 4, 0) 22%),
+        linear-gradient(180deg, var(--bp-bg) 0%, rgba(8, 6, 4, 0) 18%);
+    }
+    .bp-hero__copy {
+      grid-column: 1;
+      grid-row: 1;
+      margin: 0;
+      max-width: none;
+      padding: 40px 0 40px max(48px, calc((100vw - 1240px) / 2 + 20px));
+    }
+    .bp-h1 { font-size: clamp(40px, 3.5vw, 52px); }
+  }
+
+  .bp-facts-strip { margin-top: 28px; }
+  @media (min-width: 1024px) { .bp-facts-strip { margin-top: 0; } }
+
+  /* Framed media (trailer, certificate). */
+  .bp-frame {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    border: 1px solid rgba(245, 213, 154, 0.18);
+    box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.03);
+    background: #000;
+  }
+
+  /* ── Lessons ── */
+  .bp-lessons { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .bp-lesson details {
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+  .bp-lesson details[open] { border-color: rgba(245, 213, 154, 0.3); background-color: rgba(245, 213, 154, 0.03); }
+  .bp-lesson summary {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr) 22px;
+    align-items: center;
+    gap: 12px;
+    min-height: 60px;
+    padding: 14px 16px;
+    cursor: pointer;
+    list-style: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .bp-lesson summary::-webkit-details-marker { display: none; }
+  .bp-lesson__num {
+    font-family: var(--bp-display);
+    font-size: 15px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--bp-gold-2);
+  }
+  .bp-lesson__title { font-size: 15.5px; font-weight: 600; line-height: 1.35; color: var(--bp-ink); }
+  .bp-lesson__icon { position: relative; width: 22px; height: 22px; }
+  .bp-lesson__icon::before,
+  .bp-lesson__icon::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    right: 5px;
+    top: 10px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--bp-gold-1);
+    transition: transform 0.3s ease;
+  }
+  .bp-lesson__icon::after { transform: rotate(90deg); }
+  .bp-lesson details[open] .bp-lesson__icon::after { transform: rotate(0deg); }
+  .bp-lesson__body { margin: 0; padding: 0 16px 16px 62px; font-size: 15px; line-height: 1.6; color: var(--bp-ink-2); }
+  @media (max-width: 479px) { .bp-lesson__body { padding-left: 16px; } }
+
+  .bp-more { margin-top: 10px; }
+  .bp-more > summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 52px;
+    margin: 4px auto 0;
+    padding: 12px 22px;
+    max-width: 320px;
+    border-radius: 999px;
+    border: 1px solid rgba(245, 213, 154, 0.3);
+    color: var(--bp-gold-1);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+  }
+  .bp-more > summary::-webkit-details-marker { display: none; }
+  .bp-more > summary svg { transition: transform 0.3s ease; }
+  .bp-more[open] > summary svg { transform: rotate(180deg); }
+  .bp-more__close { display: none; }
+  .bp-more[open] .bp-more__open { display: none; }
+  .bp-more[open] .bp-more__close { display: inline; }
+  .bp-more[open] > summary { margin-bottom: 10px; }
+
+  .bp-cta-row { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 32px; text-align: center; }
+
+  /* ── Films ── */
+  .bp-films {
+    list-style: none;
+    margin: 0 calc(var(--mck-gutter, 20px) * -1);
+    padding: 6px var(--mck-gutter, 20px) 18px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(140px, 42%);
+    gap: 14px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--mck-gutter, 20px);
+    scrollbar-width: none;
+  }
+  .bp-films::-webkit-scrollbar { display: none; }
+  .bp-film { scroll-snap-align: start; transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--bp-i, 0) * 70ms); }
+  html.mck-js .bp-films.mck-pending .bp-film { transform: translate3d(0, 28px, 0); }
+  .bp-film__poster {
+    position: relative;
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #15110c;
+    box-shadow: 0 24px 50px -24px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 255, 255, 0.06);
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
+  }
+  .bp-film__poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .bp-film__title { margin: 12px 0 0; font-size: 15px; font-weight: 600; color: var(--bp-ink); }
+  .bp-film__title span { margin-left: 4px; font-weight: 500; color: var(--bp-ink-3); }
+  @media (min-width: 900px) {
+    .bp-films {
+      margin: 0;
+      padding: 0;
+      grid-auto-flow: row;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      overflow: visible;
+      gap: 18px;
+    }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .bp-film:hover .bp-film__poster {
+      transform: translate3d(0, -6px, 0) rotate(-0.6deg);
+      box-shadow: 0 34px 60px -26px rgba(212, 163, 108, 0.35), 0 0 0 1px rgba(245, 213, 154, 0.25);
+    }
+  }
+
+  /* ── Certificate ── */
+  .bp-cert {
+    position: relative;
+    max-width: 1000px;
+    margin-inline: auto;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(245, 213, 154, 0.32);
+    box-shadow: 0 50px 100px -50px rgba(212, 163, 108, 0.45);
+  }
+  .bp-cert img { display: block; width: 100%; height: auto; }
+  .bp-cert::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(105deg, transparent 35%, rgba(255, 236, 200, 0.22) 50%, transparent 65%);
+    transform: translate3d(-120%, 0, 0);
+  }
+  .bp-cert.mck-in::after { animation: bp-sweep 2.4s cubic-bezier(0.22, 1, 0.36, 1) 0.4s 1 both; }
+
+  @keyframes bp-settle { from { transform: scale(1.06); } to { transform: scale(1); } }
+  @keyframes bp-rise { from { transform: translate3d(0, 12px, 0); } to { transform: none; } }
+  @keyframes bp-shine { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+  @keyframes bp-sweep { from { transform: translate3d(-120%, 0, 0); } to { transform: translate3d(120%, 0, 0); } }
+  @media (prefers-reduced-motion: reduce) {
+    .bp-hero__media img,
+    .bp-hero__copy > *,
+    .bp-h1__name,
+    .bp-cert.mck-in::after { animation: none !important; }
+    .bp-hero__media video { display: none; }
+  }
+</style>
+
+<script>
+  /*
+   * Hero intro: the poster is the first paint. After the page has loaded,
+   * the light intro cut for this screen size plays once and holds on its
+   * last frame. Skipped for reduced motion, Save-Data and 2G links.
+   */
+  const box = document.querySelector<HTMLElement>("[data-hero-video]");
+  const video = box?.querySelector("video");
+  if (box && video) {
+    const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+    const skip =
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      Boolean(conn?.saveData) ||
+      /(^|-)2g$/.test(conn?.effectiveType ?? "");
+    const start = () => {
+      const src = window.matchMedia("(max-width: 767px)").matches ? box.dataset.srcM : box.dataset.srcD;
+      if (!src) return;
+      video.src = src;
+      video.muted = true;
+      video.addEventListener("playing", () => box.classList.add("is-playing"), { once: true });
+      video.play()?.catch(() => {});
+    };
+    if (!skip) {
+      if (document.readyState === "complete") window.setTimeout(start, 300);
+      else window.addEventListener("load", () => window.setTimeout(start, 300), { once: true });
+    }
+  }
+</script>
+
+<style is:global>
+  /* Karthik: his own red and yellow, from the original page. */
+  .bp.bp--karthik {
+    --bp-bg: #070504;
+    --bp-gold-1: #ffd75e;
+    --bp-gold-2: #f2a516;
+    --bp-gold-3: #c32f08;
+    --bp-name-gradient: linear-gradient(100deg, #c4a723 0%, #ffd75e 30%, #fff3c4 46%, #f39a1c 66%, #d4400e 100%);
+    --bp-pos: 50% 28%;
+    --mck-gold-1: #ffd75e;
+    --mck-gold-2: #f2a516;
+    --mck-accent: #f9bc21;
+    --mck-line-gold: rgba(249, 188, 33, 0.3);
+    --mck-gold-gradient: linear-gradient(100deg, #e0b52c 0%, #ffd75e 35%, #f39a1c 65%, #e0521a 100%);
+    --mck-pill-gradient: linear-gradient(180deg, #e8521f 0%, #c32f08 55%, #a32505 100%);
+    --mck-on-gold: #ffffff;
+  }
+  /* The sticky buy bar follows the page's red buttons. */
+  .bp--karthik #mc-sticky-cta a[data-cta="sticky-mobile-bottom"] {
+    background: linear-gradient(180deg, #e8521f 0%, #c32f08 55%, #a32505 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 14px 28px -10px rgba(195, 47, 8, 0.6), inset 0 1px 0 rgba(255, 200, 170, 0.5) !important;
+  }
+
+  /* Phones: a shorter frame on Karthik, so the review fits the first screen. */
+  @media (max-width: 767px) {
+    .bp--karthik .bp-hero__media { height: clamp(260px, 40svh, 380px); }
+  }
+  /* Desktop: full-bleed frame, copy over the black left side of the artwork. */
+  @media (min-width: 1024px) {
+    .bp-hero.bp-hero--overlay {
+      display: block;
+      min-height: min(92vh, 860px);
+      padding-top: 0;
+    }
+    .bp-hero--overlay .bp-hero__media {
+      position: absolute;
+      inset: 0;
+      min-height: 0;
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+    .bp-hero--overlay .bp-hero__media img,
+    .bp-hero--overlay .bp-hero__media video { object-position: 70% 40%; }
+    .bp-hero--overlay .bp-hero__veil {
+      background:
+        linear-gradient(90deg, rgba(7, 5, 4, 0.92) 0%, rgba(7, 5, 4, 0.7) 34%, rgba(7, 5, 4, 0) 58%),
+        linear-gradient(0deg, var(--bp-bg) 0%, rgba(7, 5, 4, 0) 26%),
+        linear-gradient(180deg, rgba(7, 5, 4, 0.6) 0%, rgba(7, 5, 4, 0) 20%);
+    }
+    .bp-hero--overlay .bp-hero__copy {
+      position: relative;
+      max-width: calc(620px + max(48px, calc((100vw - 1240px) / 2 + 20px)));
+      padding-top: 140px;
+      padding-bottom: 56px;
+    }
+  }
+
+  .bp-hero-review {
+    margin: 18px 0 0;
+    padding: 14px 16px;
+    border-left: 2px solid var(--bp-gold-2);
+    border-radius: 0 12px 12px 0;
+    background: rgba(255, 255, 255, 0.035);
+    max-width: 520px;
+  }
+  .bp-hero-review blockquote { margin: 0; font-size: 15px; line-height: 1.5; color: var(--bp-ink); }
+  .bp-hero-review figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 8px;
+    font-size: 12.5px;
+    line-height: 1.4;
+    color: var(--bp-ink-3);
+  }
+  .bp-hero-review__stars { color: #f4c36a; letter-spacing: 1px; }
+  .bp-hero-review__stars span { margin-left: 4px; color: var(--bp-ink); letter-spacing: 0; font-weight: 600; }
+
+  /* Films reel and the four taught films. */
+  .bp-reel { display: grid; gap: 28px; align-items: center; }
+  .bp-reel__media {
+    justify-self: center;
+    width: min(320px, 78vw);
+    aspect-ratio: 420 / 540;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #000;
+    box-shadow: 0 40px 80px -40px rgba(195, 47, 8, 0.55), 0 0 0 1px rgba(249, 188, 33, 0.18);
+  }
+  .bp-reel__media video { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .bp-taught { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .bp-taught__item {
+    padding: 18px 18px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.01));
+  }
+  .bp-taught__title { margin: 0; font-family: var(--bp-display); font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: var(--bp-ink); }
+  .bp-taught__what { margin: 4px 0 12px; font-size: 15px; line-height: 1.5; color: var(--bp-ink-2); }
+  @media (min-width: 760px) {
+    .bp-reel { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 40px; }
+    .bp-reel__media { width: 100%; max-width: 380px; }
+    .bp-taught { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+</style>
+
+<script>
+  /* The film reel plays only while it is on screen, and never for reduced motion. */
+  const reels = document.querySelectorAll<HTMLVideoElement>("[data-inview-video]");
+  if (reels.length && "IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          const v = e.target as HTMLVideoElement;
+          if (e.isIntersecting) {
+            v.muted = true;
+            v.play()?.catch(() => {});
+          } else v.pause();
+        }
+      },
+      { threshold: 0.35 }
+    );
+    reels.forEach((v) => io.observe(v));
+  }
+</script>
