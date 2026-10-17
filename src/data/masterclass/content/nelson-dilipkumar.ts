@@ -112,12 +112,18 @@ export interface NelsonFilm {
 
 /**
  * Newest first. Lessons named here are the ones whose transcript covers the
- * film. Jailer 2 is not listed: no lesson covers it (lesson 13 only mentions
- * a scene he was stuck on), and a "New" card at the head of "The films
- * behind the lessons" implied Jailer 2 lessons (QA POLICY-07). The hero
- * kicker still names it.
+ * film. Jailer 2 is listed because it is his newest film (the founder asked
+ * for it), but its note says plainly that only lesson 13 touches it, so the
+ * card does not imply Jailer 2 lessons (QA POLICY-07).
  */
 export const FILMS: NelsonFilm[] = [
+  {
+    title: "Jailer 2",
+    year: 2026,
+    stem: `${ASSET}/film-jailer-2`,
+    note: "In cinemas now. Not a lesson topic; lesson 13 tells how one scene kept him stuck for two months.",
+    isNew: true,
+  },
   { title: "Jailer", year: 2023, stem: `${ASSET}/film-jailer`, note: "Lessons 14, 18 and 26" },
   { title: "Beast", year: 2022, stem: `${ASSET}/film-beast`, note: "Lessons 15 and 17" },
   { title: "Doctor", year: 2021, stem: `${ASSET}/film-doctor`, note: "Lessons 10 and 16" },
@@ -398,5 +404,5 @@ export const META = {
   description:
     "Nelson Dilipkumar teaches how he wrote and directed Kolamaavu Kokila, Doctor, Beast and Jailer. 29 lessons in Tamil with English subtitles. ₹2,499.",
   schemaDescription:
-    "Nelson Dilipkumar, director of Kolamaavu Kokila, Doctor, Beast and Jailer, explains how he writes, casts, designs sets and runs a shoot. 29 lessons in Tamil with English subtitles. Lifetime access. ₹2,499.",
+    "Nelson Dilipkumar, director of Kolamaavu Kokila, Doctor, Beast, Jailer and Jailer 2, explains how he writes, casts, designs sets and runs a shoot. 29 lessons in Tamil with English subtitles. Lifetime access. ₹2,499.",
 } as const;
