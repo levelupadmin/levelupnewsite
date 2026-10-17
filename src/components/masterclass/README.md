@@ -36,7 +36,7 @@ Tokens sit on `:root`. Override any of them on an ancestor or through a section'
 
 Main tokens: `--mck-bg`, `--mck-surface`, `--mck-surface-2`, `--mck-line`, `--mck-line-gold`, `--mck-text`, `--mck-text-2`, `--mck-text-3`, `--mck-gold-1`, `--mck-gold-2`, `--mck-accent`, `--mck-on-gold`, `--mck-pill-gradient`, `--mck-gold-gradient` (override this one too if you change the golds), `--mck-font-body`, `--mck-font-display` (Cinzel when the page loads it, else the body sans), `--mck-radius`, `--mck-gutter`.
 
-Headings take `*asterisks*` around words to set them in the gold gradient: `heading="What you get *today*"`.
+Headings take `*asterisks*` around words to set them in the gold gradient: `heading="What you *get*"`.
 
 Every section accepts `eyebrow` (string, or `false` to hide), `heading`, `body`, `id`, `tone` (`"plain"` or `"raised"`), `class` and `style`.
 
@@ -249,7 +249,7 @@ Price, "about ₹86 a lesson", then rows. Replaces struck-through prices. Pass o
 
 ### WhatYouGetToday
 
-The price card: included items, bonuses for every buyer, price, button, full refund sentence, optional payment note.
+The price card: included items, bonuses for every buyer, price (labelled "Price", never "Today": the price does not change), button, full refund sentence, optional payment note. Default heading "What you *get*".
 
 | Prop | Type | Default |
 |---|---|---|

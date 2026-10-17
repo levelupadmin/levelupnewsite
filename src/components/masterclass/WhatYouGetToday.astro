@@ -1,6 +1,6 @@
 ---
 /**
- * "What you get today": the price card. What is included, the bonuses every
+ * "What you get": the price card. What is included, the bonuses every
  * buyer gets, the price, the button and the refund line.
  *
  *   <WhatYouGetToday
@@ -45,7 +45,7 @@ const {
   payNote,
   cta,
   eyebrow = "Your order",
-  heading = "What you get *today*",
+  heading = "What you *get*",
   body,
   id = "what-you-get-today",
   tone = "raised",
@@ -91,7 +91,7 @@ const gift = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke
       )}
     </div>
     <div class="mck-offer__side">
-      <p class="mck-value__label">Today</p>
+      <p class="mck-value__label">Price</p>
       <p class="mck-price" style="margin:0">{formatPrice(price)}</p>
       <p class="mck-offer__price-note">{priceNote ?? defaultPriceNote(price)}</p>
       <CtaButton
