@@ -5,8 +5,23 @@ interface Poster {
   alt: string;
 }
 
+/** A film with its poster. `title` and `year` also feed the film list. */
+export interface StackFilm {
+  src: string;
+  title: string;
+  year?: number | string;
+  alt?: string;
+}
+
 interface Props {
-  posters: Poster[];
+  /** Poster images, bottom of the deck first. Optional when `films` is set. */
+  posters?: Poster[];
+  /**
+   * Films, in deck order. Takes priority over `posters`; each film's alt
+   * text defaults to "<title> poster". When `subline` is not given, the
+   * titles become the subline ("Jailer. Beast. Doctor.").
+   */
+  films?: StackFilm[];
   /** Optional eyebrow above the heading. Defaults to "Learn from the". */
   eyebrow?: string;
   /** Heading text. Defaults to "Director Behind these Blockbuster Films". */
@@ -20,6 +35,10 @@ interface Props {
   /** Checkout URL for THIS masterclass. Required to prevent traffic
    *  silently routing to the wrong product if the prop is forgotten. */
   ctaHref: string;
+  /** Open the checkout in a new tab. Default false (same tab). */
+  ctaNewTab?: boolean;
+  /** Scroll runway per extra poster, in vh. Default 35. */
+  runwayPerPoster?: number;
 }
 
 /**
@@ -39,18 +58,34 @@ interface Props {
  *     the deck position with a slight rotation
  */
 export default function FilmsScrollStack({
-  posters,
+  posters: posterProp = [],
+  films,
   eyebrow = "Learn from the",
   heading = "Director Behind these Blockbuster Films",
-  subline = "Maanagaram. Kaithi. Master. Vikram. Leo.",
+  subline: sublineProp,
   caption = "5 films · ₹1,500 crore box office · 6 years.",
   ctaLabel = "Enrol now",
   ctaHref,
+  ctaNewTab = false,
+  runwayPerPoster = 35,
 }: Props) {
+  const posters: Poster[] = films
+    ? films.map((f) => ({ src: f.src, alt: f.alt ?? `${f.title} poster` }))
+    : posterProp;
+  const subline =
+    sublineProp ??
+    (films ? films.map((f) => `${f.title}.`).join(" ") : "Maanagaram. Kaithi. Master. Vikram. Leo.");
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const [progress, setProgress] = useState(0); // 0 → 1 across the runway
+  const [progress, setProgress] = useState(0); // 0 to 1 across the runway
+  const [still, setStill] = useState(false);
 
   useEffect(() => {
+    // Reduced motion: show the settled deck with no scroll runway.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setStill(true);
+      setProgress(1);
+      return;
+    }
     const el = sectionRef.current;
     if (!el) return;
     let raf = 0;
@@ -94,9 +129,9 @@ export default function FilmsScrollStack({
       // deck takes 100 + 4*35 = 240vh — tight enough that the section
       // doesn't feel like it has dead space, while still giving each
       // poster a meaningful scroll trigger.
-      style={{ height: `${100 + Math.max(0, posters.length - 1) * 35}vh` }}
+      style={{ height: still ? "auto" : `${100 + Math.max(0, posters.length - 1) * runwayPerPoster}vh` }}
     >
-      <div className="sticky top-0 h-screen flex items-center overflow-hidden">
+      <div className={still ? "py-16 flex items-center" : "sticky top-0 h-screen flex items-center overflow-hidden"}>
         <div className="w-full max-w-[1320px] mx-auto px-5 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
           {/* LEFT: text + concrete film list (CRO P0 — gives the user
               the verifiable box-office anchor instead of generic copy). */}
@@ -117,9 +152,9 @@ export default function FilmsScrollStack({
             </p>
             <a
               href={ctaHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="buy-pill mt-7 md:mt-9 inline-flex items-center justify-center px-7 py-3 rounded-full text-[14px] md:text-[15px]"
+              target={ctaNewTab ? "_blank" : undefined}
+              rel={ctaNewTab ? "noopener" : undefined}
+              className="buy-pill mt-7 md:mt-9 inline-flex min-h-[48px] items-center justify-center px-7 py-3 rounded-full text-[15px]"
             >
               {ctaLabel}
             </a>

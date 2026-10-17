@@ -1,9 +1,11 @@
-import { useMemo, useState } from "react";
+import { useId, useMemo, useState } from "react";
 import { Plus, Minus, Search } from "lucide-react";
 
 export interface FAQ {
   question: string;
   answer: string;
+  /** Optional link after the answer, e.g. the refund policy. */
+  link?: { href: string; label: string };
 }
 
 /**
@@ -28,10 +30,15 @@ interface Props {
    *  ("Hi, I have a question about the {courseName}"). Defaults to a
    *  generic phrasing so the link is never wrong, just less specific. */
   courseName?: string;
+  /** Show the search box. Default true. */
+  showSearch?: boolean;
+  /** Index of the question open on load; null for none. Default 0. */
+  defaultOpenIndex?: number | null;
 }
 
-export default function FAQAccordion({ faqs, courseName }: Props) {
-  const [openIdx, setOpenIdx] = useState<number | null>(0); // open the first by default
+export default function FAQAccordion({ faqs, courseName, showSearch = true, defaultOpenIndex = 0 }: Props) {
+  const uid = useId().replace(/:/g, "");
+  const [openIdx, setOpenIdx] = useState<number | null>(defaultOpenIndex);
   const [query, setQuery] = useState("");
 
   const filtered = useMemo(() => {
@@ -48,28 +55,32 @@ export default function FAQAccordion({ faqs, courseName }: Props) {
   return (
     <div className="max-w-3xl mx-auto">
       {/* Search bar */}
-      <div className="relative mb-7 md:mb-9">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/35" />
+      {showSearch && (
+      <div className="relative mb-7 md:mb-9" role="search">
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/45" aria-hidden="true" />
         <input
-          type="text"
+          type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search the FAQ. Try 'language', 'certificate', 'refund'…"
           aria-label="Search frequently asked questions"
-          className="w-full bg-[#0E0E0E] border border-white/10 focus:border-amber-200/40 outline-none rounded-full pl-11 pr-4 py-3 md:py-3.5 text-sm md:text-[15px] text-white placeholder:text-white/30 transition-colors"
+          className="w-full min-h-[46px] bg-[#0E0E0E] border border-white/10 focus:border-amber-200/40 focus-visible:ring-2 focus-visible:ring-amber-200/40 outline-none rounded-full pl-11 pr-4 py-3 md:py-3.5 text-[16px] md:text-[15px] text-white placeholder:text-white/40 transition-colors"
         />
       </div>
+      )}
 
       {/* Question list */}
       <div className="space-y-3 md:space-y-4">
         {filtered.length === 0 && (
-          <p className="text-center text-white/50 text-sm py-10">
+          <p className="text-center text-white/60 text-sm py-10" role="status">
             No questions match "{query}". Try a different keyword, or message us
             on WhatsApp.
           </p>
         )}
         {filtered.map((faq) => {
           const isOpen = openIdx === faq.originalIndex;
+          const panelId = `faq-${uid}-${faq.originalIndex}`;
+          const btnId = `${panelId}-q`;
           return (
             <div
               key={faq.originalIndex}
@@ -93,9 +104,12 @@ export default function FAQAccordion({ faqs, courseName }: Props) {
               />
 
               <button
+                type="button"
+                id={btnId}
                 onClick={() => setOpenIdx(isOpen ? null : faq.originalIndex)}
-                className="w-full px-6 py-5 md:px-7 md:py-6 flex items-center justify-between text-left gap-4"
+                className="w-full min-h-[56px] px-6 py-5 md:px-7 md:py-6 flex items-center justify-between text-left gap-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-amber-200/70 rounded-xl"
                 aria-expanded={isOpen}
+                aria-controls={panelId}
               >
                 <span
                   className={`font-sans-body text-[15px] md:text-[17px] leading-snug font-medium transition-colors ${
@@ -105,6 +119,7 @@ export default function FAQAccordion({ faqs, courseName }: Props) {
                   {faq.question}
                 </span>
                 <span
+                  aria-hidden="true"
                   className={`shrink-0 w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center transition-all ${
                     isOpen
                       ? "bg-amber-200/15 text-amber-200/95 rotate-180"
@@ -116,13 +131,29 @@ export default function FAQAccordion({ faqs, courseName }: Props) {
               </button>
 
               <div
-                className={`grid transition-[grid-template-rows,opacity] duration-400 ease-out ${
+                id={panelId}
+                role="region"
+                aria-labelledby={btnId}
+                aria-hidden={!isOpen}
+                className={`grid transition-[grid-template-rows,opacity] duration-400 ease-out motion-reduce:transition-none ${
                   isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                 }`}
               >
                 <div className="overflow-hidden">
-                  <p className="px-6 pb-6 md:px-7 md:pb-7 font-sans-body text-[14px] md:text-[15px] leading-[1.65] text-white/70">
+                  <p className="px-6 pb-6 md:px-7 md:pb-7 font-sans-body text-[15px] leading-[1.65] text-white/75">
                     {faq.answer}
+                    {faq.link && (
+                      <>
+                        {" "}
+                        <a
+                          href={faq.link.href}
+                          tabIndex={isOpen ? undefined : -1}
+                          className="text-amber-200 underline underline-offset-[3px] decoration-amber-200/40 hover:decoration-amber-200"
+                        >
+                          {faq.link.label}
+                        </a>
+                      </>
+                    )}
                   </p>
                 </div>
               </div>
@@ -133,7 +164,7 @@ export default function FAQAccordion({ faqs, courseName }: Props) {
 
       {/* Still have questions, soft fallback to WhatsApp */}
       <div className="mt-10 md:mt-14 text-center">
-        <p className="text-[13px] md:text-[14px] text-white/55">Still have questions?</p>
+        <p className="text-[13px] md:text-[14px] text-white/65">Still have questions?</p>
         <a
           href={`https://api.whatsapp.com/send?phone=919791520177&text=${encodeURIComponent(
             courseName
@@ -141,8 +172,8 @@ export default function FAQAccordion({ faqs, courseName }: Props) {
               : "Hi, I have a question about a LevelUp masterclass"
           )}`}
           target="_blank"
-          rel="noopener noreferrer"
-          className="mt-3 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#25D366] text-white text-[13px] md:text-[14px] font-semibold tracking-[0.01em] shadow-[0_8px_24px_-8px_rgba(37,211,102,0.55)] hover:scale-[1.03] transition-transform"
+          rel="noopener"
+          className="mt-3 inline-flex min-h-[44px] items-center gap-2 px-5 py-2.5 rounded-full bg-[#25D366] text-[#0b3d1f] text-[14px] font-bold tracking-[0.01em] shadow-[0_8px_24px_-8px_rgba(37,211,102,0.55)] hover:scale-[1.03] transition-transform motion-reduce:transition-none"
         >
           <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4" aria-hidden="true">
             <path d="M20.52 3.48A11.83 11.83 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2.1.55 4.13 1.6 5.93L0 24l6.27-1.65A11.94 11.94 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.18-1.24-6.18-3.48-8.52ZM12 22a9.9 9.9 0 0 1-5.05-1.39l-.36-.21-3.72.98 1-3.62-.24-.37A9.94 9.94 0 0 1 2 12c0-5.5 4.5-10 10-10s10 4.5 10 10-4.5 10-10 10Zm5.45-7.42c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.66.15-.2.3-.76.97-.93 1.16-.17.2-.34.22-.64.07-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.5-1.79-1.67-2.09-.17-.3-.02-.46.13-.61.13-.13.3-.34.45-.51.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.51-.07-.15-.66-1.6-.91-2.18-.24-.58-.49-.5-.66-.51-.17 0-.37 0-.56 0-.2 0-.51.07-.78.37-.27.3-1.04 1.01-1.04 2.47 0 1.46 1.07 2.87 1.21 3.07.15.2 2.11 3.22 5.12 4.5 2.51 1.07 3.13.86 3.69.81.56-.05 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.56-.34Z" />
