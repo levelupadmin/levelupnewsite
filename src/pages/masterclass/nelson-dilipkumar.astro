@@ -140,8 +140,6 @@ const ytWatch = `https://www.youtube.com/watch?v=${TRAILER.ytId}`;
     onload="this.media='all'"
   />
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&display=swap" /></noscript>
-  {/* Hide the WhatsApp button while the hero button is on screen (phones), so it never sits on the hero copy. */}
-  <script is:inline>document.documentElement.classList.add("nl-fab-hold");</script>
 
   <div class="nl-progress" aria-hidden="true"></div>
   <SiteNavbar client:idle />
@@ -681,13 +679,16 @@ const ytWatch = `https://www.youtube.com/watch?v=${TRAILER.ytId}`;
     .nl-proof__buyers { font-size: 15px; }
   }
 
-  /* Phones: hide the site WhatsApp button while the hero button shows, and keep it clear of the home bar. */
+  /* Phones: the site WhatsApp button shows only beside the sticky bar
+     (html.mc-dock-on, set in updateBars), in the 80 px the bar leaves on its
+     right. Without the bar it sat on the hero copy, the FAQ + and buy
+     buttons. Kept clear of the home bar. */
   @media (max-width: 899px) {
     a[aria-label="Chat with us on WhatsApp"] {
       bottom: max(20px, env(safe-area-inset-bottom)) !important;
       transition: opacity 0.25s ease, transform 0.3s var(--mck-ease), visibility 0s linear 0s;
     }
-    html.nl-fab-hold a[aria-label="Chat with us on WhatsApp"] {
+    html:not(.mc-dock-on) a[aria-label="Chat with us on WhatsApp"] {
       opacity: 0;
       visibility: hidden;
       transform: translate3d(0, 12px, 0);
@@ -1121,12 +1122,13 @@ const ytWatch = `https://www.youtube.com/watch?v=${TRAILER.ytId}`;
   const onScreen = new Set<Element>();
 
   function updateBars() {
-    const heroShowing = heroCta ? onScreen.has(heroCta) : false;
     const heroPassed = heroCta ? heroCta.getBoundingClientRect().bottom < 0 : true;
     const anyBuy = buys.some((b) => onScreen.has(b));
     const footerShowing = footer ? onScreen.has(footer) : false;
-    sticky?.classList.toggle("is-on", heroPassed && !anyBuy && !footerShowing);
-    root.classList.toggle("nl-fab-hold", heroShowing);
+    const on = !!sticky && heroPassed && !anyBuy && !footerShowing;
+    sticky?.classList.toggle("is-on", on);
+    // The WhatsApp button shows on phones only while the bar does (BaseLayout).
+    root.classList.toggle("mc-dock-on", on);
   }
 
   if ("IntersectionObserver" in window) {
@@ -1139,8 +1141,6 @@ const ytWatch = `https://www.youtube.com/watch?v=${TRAILER.ytId}`;
     });
     buys.forEach((b) => barIo.observe(b));
     if (footer) barIo.observe(footer);
-  } else {
-    root.classList.remove("nl-fab-hold");
   }
 
   /* ------------------------------------------------------------ */

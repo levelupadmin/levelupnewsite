@@ -13,8 +13,9 @@
  * React islands that render buy buttons late (the template pages) are picked
  * up when they mount.
  *
- * While it shows, the floating WhatsApp button moves up to sit above it
- * (html.mc-dock-on, see BaseLayout), so the bar never covers it.
+ * While it shows, html.mc-dock-on is set and the floating WhatsApp button
+ * shows in the 80 px the bar leaves free on its right (see BaseLayout). On
+ * phones that button shows only while the bar does.
  * It clears the iPhone home indicator (safe-area inset), its button is 48 px
  * tall, and it moves with transform and opacity only, so it causes no
  * layout shift.
@@ -50,7 +51,7 @@ const captionText = caption ?? offering?.instructor ?? "";
 ---
 
 <div id="mc-sticky-cta" class="mc-dock" aria-hidden="true" inert>
-  <div class="mc-dock__inner">
+  <div class:list={["mc-dock__inner", { "mc-dock__inner--full": !showPrice }]}>
     {showPrice && (
       <div class="mc-dock__price">
         <span class="mc-dock__amount">{formatInr(amount!)}</span>
@@ -78,7 +79,8 @@ const captionText = caption ?? offering?.instructor ?? "";
     position: fixed;
     z-index: 55;
     left: max(10px, env(safe-area-inset-left, 0px));
-    right: max(10px, env(safe-area-inset-right, 0px));
+    /* Room for the WhatsApp button (48 px at right 20 px) beside the bar. */
+    right: calc(80px + env(safe-area-inset-right, 0px));
     bottom: calc(10px + env(safe-area-inset-bottom, 0px));
     opacity: 0;
     visibility: hidden;
@@ -177,7 +179,21 @@ const captionText = caption ?? offering?.instructor ?? "";
     -webkit-tap-highlight-color: transparent;
     transition: transform 0.15s ease, filter 0.2s ease;
   }
-  .mc-dock__btn--full { flex: 1 1 auto; }
+  /* The label carries the price, so the button fills the bar. The bar
+     leaves 80 px for the WhatsApp button, so a thinner rim, smaller padding
+     and text that scales with the screen keep "Buy the masterclass ·
+     ₹2,499" and the arrow on one line from 360 px. On a narrower screen the
+     label ends in an ellipsis and the arrow stays. */
+  .mc-dock__inner--full { padding: 5px; }
+  .mc-dock__btn--full {
+    flex: 1 1 auto;
+    min-width: 0;
+    gap: 6px;
+    padding: 0 12px;
+    font-size: clamp(13.5px, 3.9vw, 15px);
+  }
+  .mc-dock__btn--full .mc-dock__label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+  .mc-dock__btn svg { flex: none; }
   .mc-dock__btn:active { transform: scale(0.97); filter: brightness(0.96); }
   .mc-dock__btn:focus-visible { outline: 2px solid #ffe5b8; outline-offset: 3px; }
   .mc-dock__label, .mc-dock__btn svg { position: relative; z-index: 1; }

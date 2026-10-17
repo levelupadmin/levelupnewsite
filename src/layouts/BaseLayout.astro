@@ -184,9 +184,9 @@ const checkoutHost = new URL(CHECKOUT_ORIGIN).hostname;
     <style is:inline>
       html, body { margin: 0; padding: 0; }
       body { background-color: hsl(22, 14%, 6%); color: hsl(0, 0%, 93%); }
-      /* Floating WhatsApp button: clears the iPhone home indicator and moves
-         up while the sticky mobile buy bar (StickyMobileCta) is showing, so
-         the bar never covers it. `translate` composes with the hover scale. */
+      /* Floating WhatsApp button: clears the iPhone home indicator. On
+         phones on masterclass pages it shows only beside the sticky buy bar
+         (see below). */
       .mc-fab {
         bottom: calc(20px + env(safe-area-inset-bottom, 0px));
         transition:
@@ -198,9 +198,6 @@ const checkoutHost = new URL(CHECKOUT_ORIGIN).hostname;
       }
       @media (min-width: 768px) {
         .mc-fab { bottom: calc(28px + env(safe-area-inset-bottom, 0px)); }
-      }
-      @media (max-width: 767px) {
-        html.mc-dock-on .mc-fab { translate: 0 -66px; }
       }
       @media (prefers-reduced-motion: reduce) {
         .mc-fab { transition: none; }
@@ -224,10 +221,19 @@ const checkoutHost = new URL(CHECKOUT_ORIGIN).hostname;
         /* On the first screen the WhatsApp button sat on the proof line
            (MB-20). It fades in after the first scroll. At the very end of
            the page it sat on the footer's legal links (MB-05), so it fades
-           out for the last 120 px of scroll. */
+           out for the last 120 px of scroll.
+           On phones it shows only while a sticky buy bar shows
+           (html.mc-dock-on, set by StickyMobileCta and Nelson's bar). The
+           bar leaves 80 px on its right for it, so the two sit side by side
+           at the bottom. With no bar the button sat over in-page buy
+           buttons and the + of lesson and FAQ rows, and a tap meant for
+           them opened WhatsApp and left the in-app browser (MOBILE-A-05).
+           The bar hides whenever a buy button is on screen, so the WhatsApp
+           button hides with it. The FAQ keeps its own WhatsApp link. */
         @media (max-width: 767px) {
           html.mc-fab-wait .mc-fab,
-          html.mc-fab-end .mc-fab { opacity: 0; scale: 0.85; pointer-events: none; }
+          html.mc-fab-end .mc-fab,
+          html:not(.mc-dock-on) .mc-fab { opacity: 0; scale: 0.85; pointer-events: none; }
         }
       </style>
     )}

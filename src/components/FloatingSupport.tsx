@@ -6,9 +6,9 @@ const WHATSAPP_URL =
 /**
  * "Need help?" WhatsApp pill. Not mounted on any page today; the masterclass
  * pages use the round WhatsApp button in BaseLayout. It carries the same
- * `mc-fab` hook so, if mounted, it moves up above the sticky mobile buy bar
- * instead of sitting under it. Its own bottom offset stays in the inline
- * style because `mc-fab` sets a lower default.
+ * `mc-fab` hook, so on a masterclass phone it shows only beside the sticky
+ * buy bar. Its own bottom offset stays in the inline style because `mc-fab`
+ * sets a lower default.
  */
 const FloatingSupport = () => {
   return (
