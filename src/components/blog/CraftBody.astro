@@ -1,0 +1,27 @@
+---
+import { render } from "astro:content";
+import PostHeader from "./PostHeader.astro";
+import RelatedLinks from "./RelatedLinks.astro";
+import SourceList from "./SourceList.astro";
+import type { Post, Related } from "@/lib/blog";
+
+interface Props {
+  post: Post;
+  related: Related;
+}
+
+const { post, related } = Astro.props as Props;
+const { Content } = await render(post);
+---
+
+<PostHeader post={post} />
+
+<div class="mx-auto max-w-3xl px-6 pb-24 pt-12 md:px-8 md:pb-32">
+  <div class="post-body">
+    <Content />
+  </div>
+
+  <SourceList sources={post.data.sources} />
+  {/* Up to the category decision page, across to two stories. */}
+  <RelatedLinks post={post} related={related} storyLimit={2} />
+</div>

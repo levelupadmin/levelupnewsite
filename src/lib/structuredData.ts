@@ -10,12 +10,24 @@ export const organizationJsonLd = {
   "@type": "Organization",
   "@id": ORGANIZATION_ID,
   name: "LevelUp Learning",
+  // The registered company behind the brand. Assistants asked whether LevelUp
+  // is a real business have nothing to check unless the legal name is stated,
+  // and it is already on /terms, /privacy-policy, /refund-policy and /support.
+  legalName: "LevelUp Edu Pvt Ltd",
   url: SITE_URL,
   logo: `${SITE_URL}/favicon.png`,
   description:
     "India's leading creative education ecosystem for filmmakers, editors, writers, and designers.",
-  email: "hello@leveluplearning.com",
-  sameAs: [],
+  email: "support@leveluplearning.in",
+  // The accounts linked in the site footer. Third-party corroboration is the
+  // thing we are short of, so the profiles that do exist should be findable
+  // from the markup rather than only from the page furniture.
+  sameAs: [
+    "https://www.instagram.com/leveluplearning.in/",
+    "https://www.youtube.com/@leveluplearning_in/",
+    "https://x.com/LevelUp_edu",
+    "https://www.linkedin.com/company/levelup-learning/",
+  ],
 };
 
 export const websiteJsonLd = {

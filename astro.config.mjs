@@ -4,6 +4,7 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
 import vercel from '@astrojs/vercel';
+import { storyRedirects } from './src/lib/storyMigration.mjs';
 
 export default defineConfig({
   site: 'https://www.leveluplearning.in',
@@ -12,6 +13,11 @@ export default defineConfig({
     // /privacy is an alias some external references (incl. Play Console history)
     // expect; the canonical policy lives at /privacy-policy.
     '/privacy': '/privacy-policy',
+    // Student stories that have moved to /blog. Derived from the collection, so
+    // the 301 appears the moment a story publishes and never before. The same
+    // pairing drops the old page from getStaticPaths, so the two URLs are never
+    // live together.
+    ...storyRedirects(),
   },
   adapter: vercel({
     webAnalytics: { enabled: true },

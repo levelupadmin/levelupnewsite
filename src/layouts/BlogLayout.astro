@@ -1,0 +1,32 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import "@/styles/post-body.css";
+import { SiteNavbar, SiteFooter } from "@/components/SiteChrome";
+
+export interface Props {
+  title: string;
+  description: string;
+  path: string;
+  type?: "website" | "article" | "course";
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  ogImage?: string;
+}
+
+const { title, description, path, type = "website", jsonLd, ogImage } = Astro.props;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path={path}
+  type={type}
+  jsonLd={jsonLd}
+  ogImage={ogImage}
+>
+  <SiteNavbar client:load />
+  <main class="bg-background">
+    <slot />
+  </main>
+  <SiteFooter client:idle />
+</BaseLayout>
+

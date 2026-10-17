@@ -266,12 +266,21 @@ const ForgeSection = () => {
             </div>
           ))}
         </div>
-        <div className="mt-8 text-center">
+        <div className="mt-8 flex flex-col items-center gap-3 text-center sm:flex-row sm:justify-center sm:gap-8">
           <a
             href="/reviews/forge/"
             className="inline-flex items-center gap-2 font-sans-body text-sm text-muted-foreground underline decoration-border underline-offset-4 transition-colors hover:text-primary hover:decoration-primary/50"
           >
             Read verified reviews from Forge residencies
+          </a>
+          {/* The comparison names FTII, Whistling Woods and regional schools on
+              the same terms as the Forge, fees and dates sourced. Linking it from
+              here is what gets it crawled and weighted. */}
+          <a
+            href="/blog/best-filmmaking-courses-india"
+            className="inline-flex items-center gap-2 font-sans-body text-sm text-muted-foreground underline decoration-border underline-offset-4 transition-colors hover:text-primary hover:decoration-primary/50"
+          >
+            Compare filmmaking courses in India
           </a>
         </div>
       </FadeInSection>

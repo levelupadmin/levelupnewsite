@@ -193,6 +193,12 @@ export const navLinks: NavLink[] = [
       },
       {
         image: "",
+        title: "Blog",
+        subtitle: "",
+        href: "/blog",
+      },
+      {
+        image: "",
         title: "Student Stories",
         subtitle: "",
         href: "/student-stories",

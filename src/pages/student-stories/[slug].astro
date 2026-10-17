@@ -3,12 +3,20 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import StudentStory from "@/pages-react/StudentStory.tsx";
 import { studentStories } from "@/data/studentStories";
 import { articleJsonLd, breadcrumbJsonLd } from "@/lib/structuredData";
+import { migratedLegacySlugs } from "@/lib/storyMigration.mjs";
 
 export async function getStaticPaths() {
-  return studentStories.map((story) => ({
-    params: { slug: story.slug },
-    props: { story },
-  }));
+  // A story that has moved to /blog 301s from here instead of rendering, or the
+  // same words would sit on two of our own URLs. Duplicating ourselves across
+  // the domain is part of what this work exists to undo.
+  const migrated = migratedLegacySlugs();
+
+  return studentStories
+    .filter((story) => !migrated.has(story.slug))
+    .map((story) => ({
+      params: { slug: story.slug },
+      props: { story },
+    }));
 }
 
 const { story } = Astro.props;

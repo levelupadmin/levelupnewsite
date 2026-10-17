@@ -1,0 +1,47 @@
+---
+import { CATEGORIES, type CategorySlug } from "@/lib/blog";
+
+interface Props {
+  /** null marks the "All" chip as current. */
+  active: CategorySlug | null;
+  counts: Record<CategorySlug, number>;
+  total: number;
+}
+
+const { active, counts, total } = Astro.props as Props;
+
+const chips = [
+  { slug: null as CategorySlug | null, label: "All", href: "/blog", count: total },
+  ...CATEGORIES.map((c) => ({
+    slug: c.slug,
+    label: c.label,
+    href: `/blog/category/${c.slug}`,
+    count: counts[c.slug] ?? 0,
+  })),
+];
+---
+
+{/* Plain links, not a client-side filter: a crawler follows these and reaches
+    every category index without running JavaScript. */}
+<nav aria-label="Post categories" class="flex flex-wrap gap-2">
+  {
+    chips.map((chip) => {
+      const current = chip.slug === active;
+      return (
+        <a
+          href={chip.href}
+          aria-current={current ? "page" : undefined}
+          class:list={[
+            "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition-colors",
+            current
+              ? "border-primary/60 bg-primary/10 text-foreground"
+              : "border-border text-foreground/55 hover:border-foreground/25 hover:text-foreground/80",
+          ]}
+        >
+          {chip.label}
+          <span class="text-[0.6875rem] tabular-nums text-foreground/35">{chip.count}</span>
+        </a>
+      );
+    })
+  }
+</nav>

@@ -1,0 +1,81 @@
+---
+import BlogLayout from "@/layouts/BlogLayout.astro";
+import Breadcrumbs from "@/components/blog/Breadcrumbs.astro";
+import CategoryChips from "@/components/blog/CategoryChips.astro";
+import PostCard from "@/components/blog/PostCard.astro";
+import { CATEGORIES, getPosts, postPath, type CategorySlug } from "@/lib/blog";
+import { breadcrumbJsonLd } from "@/lib/structuredData";
+import { SITE_URL } from "@/lib/constants";
+
+const posts = await getPosts();
+
+const counts = Object.fromEntries(
+  CATEGORIES.map((c) => [c.slug, posts.filter((p) => p.data.category === c.slug).length]),
+) as Record<CategorySlug, number>;
+
+const title = "Blog | LevelUp Learning";
+const description =
+  "Honest comparisons of creative courses in India, what these crafts actually pay, and what people who retrained did next. Every figure carries a source and the date it was checked.";
+
+const jsonLd = [
+  breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Blog", path: "/blog" },
+  ]),
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: "LevelUp Learning Blog",
+    description,
+    url: `${SITE_URL}/blog`,
+    publisher: { "@type": "Organization", name: "LevelUp Learning", sameAs: SITE_URL },
+    blogPost: posts.map((post) => ({
+      "@type": "BlogPosting",
+      headline: post.data.title,
+      url: `${SITE_URL}${postPath(post)}`,
+      datePublished: post.data.publishDate.toISOString().slice(0, 10),
+    })),
+  },
+];
+---
+
+<BlogLayout title={title} description={description} path="/blog" jsonLd={jsonLd}>
+  <section class="relative overflow-hidden border-b border-border/40">
+    <div
+      class="pointer-events-none absolute inset-x-0 -top-40 h-80 opacity-[0.16]"
+      style="background: radial-gradient(60% 100% at 50% 100%, hsl(var(--primary)), transparent 70%)"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="relative mx-auto max-w-5xl px-6 pb-14 pt-28 md:px-10 md:pb-16 md:pt-36">
+      <Breadcrumbs items={[{ name: "Home", path: "/" }, { name: "Blog", path: "/blog" }]} />
+
+      <h1 class="mt-8 max-w-3xl text-balance text-[2.5rem] font-semibold leading-[1.06] tracking-[-0.03em] text-foreground sm:text-[3.25rem] md:text-[4rem]">
+        Straight answers about creative careers in India
+      </h1>
+
+      <p class="mt-6 max-w-2xl text-base leading-relaxed text-foreground/55 md:text-lg">
+        {description}
+      </p>
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-5xl px-6 py-14 md:px-10 md:py-20">
+    <CategoryChips active={null} counts={counts} total={posts.length} />
+
+    {/* Server-rendered list. No client fetch, no hydration gate: the titles are
+        in the HTML a crawler receives. */}
+    {
+      posts.length > 0 ? (
+        <div class="mt-10 grid gap-5 md:grid-cols-2">
+          {posts.map((post) => (
+            <PostCard post={post} />
+          ))}
+        </div>
+      ) : (
+        <p class="mt-10 text-foreground/50">No posts published yet.</p>
+      )
+    }
+  </div>
+</BlogLayout>
