@@ -11,6 +11,17 @@ interface Props {
   ariaLabel?: string;
   /** Share of the clip that must be on screen before it plays. Default 0.3. */
   threshold?: number;
+  /** Paint the dark placeholder on the video itself. Default true. Pass
+   *  false when the caller puts its own poster image behind the video: the
+   *  opaque placeholder covered that image until a frame painted, and for
+   *  good when the clip never loads (reduced motion, Save-Data, no JS). */
+  placeholder?: boolean;
+  /** Poster set only once native controls show (reduced motion, Save-Data,
+   *  autoplay refused). Chrome paints its controls grey over a video with no
+   *  frame, hiding any image behind it. It is not in the HTML, so nothing
+   *  downloads with the page; pass the URL the image behind the video has
+   *  already loaded. */
+  lazyPoster?: string;
 }
 
 /** Shown behind the clip until a frame paints, so the box is never flat black. */
@@ -27,12 +38,13 @@ const PLACEHOLDER: CSSProperties = {
  *   first frame is ready by the time it is in view.
  * - Plays while at least `threshold` of it is visible, pauses when it leaves.
  * - With no poster, a dark warm placeholder sits behind the clip until its
- *   first frame paints.
+ *   first frame paints (unless `placeholder` is false: the caller's own
+ *   image behind the video then shows through).
  * - If the browser refuses autoplay (Low Power Mode), the visitor prefers
  *   reduced motion, or Save-Data is on, native controls appear and nothing
  *   plays by itself, so the box is never a dead rectangle.
  */
-export default function IntersectionPlayVideo({ src, poster, className = "", ariaLabel, threshold = 0.3 }: Props) {
+export default function IntersectionPlayVideo({ src, poster, className = "", ariaLabel, threshold = 0.3, placeholder = true, lazyPoster }: Props) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [needsControls, setNeedsControls] = useState(false);
 
@@ -98,7 +110,7 @@ export default function IntersectionPlayVideo({ src, poster, className = "", ari
     <video
       ref={videoRef}
       src={src}
-      poster={poster}
+      poster={poster ?? (needsControls ? lazyPoster : undefined)}
       muted
       loop
       playsInline
@@ -108,7 +120,7 @@ export default function IntersectionPlayVideo({ src, poster, className = "", ari
       aria-label={ariaLabel}
       aria-hidden={ariaLabel || needsControls ? undefined : true}
       className={`w-full h-full object-cover ${className}`}
-      style={PLACEHOLDER}
+      style={placeholder ? PLACEHOLDER : undefined}
     />
   );
 }
