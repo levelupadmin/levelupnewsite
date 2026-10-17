@@ -82,6 +82,7 @@ const faq = faqJsonLd(faqs.map(({ question, answer }) => ({ question, answer }))
   type="course"
   ogImage="/og/mc-ravi-basrur.jpg"
   jsonLd={[course, breadcrumb, faq]}
+  preloadFonts={["sora", "funnel-display"]}
 >
   <SiteNavbar client:idle />
 

@@ -45,7 +45,11 @@ export interface Props {
    * (KitPicture, Picture), or the object form with the exact file painted.
    */
   preloadImage?: string | PreloadImage | PreloadImage[];
-  /** Self-hosted fonts to preload. Defaults: Sora only on /masterclass/ pages, Sora and Funnel Display elsewhere. */
+  /**
+   * Self-hosted fonts to preload. Defaults: Sora only on /masterclass/ pages, Sora and Funnel Display elsewhere.
+   * A masterclass page whose headline uses Funnel Display must pass both, or
+   * the hero moves when the font arrives (MOBILE-A-04).
+   */
   preloadFonts?: FontKey[];
 }
 
@@ -73,7 +77,9 @@ const FONT_FILES: Record<FontKey, string> = {
   sora: "/fonts/sora-var.woff2",
   "funnel-display": "/fonts/funnel-display-var.woff2",
 };
-// Funnel Display is used by one page (LiveVE). No masterclass page uses it.
+// Funnel Display is used by LiveVE and by the headlines of the Lokesh, Ravi
+// and Karthik masterclass pages, which pass preloadFonts to load it early.
+// Nelson and the template pages do not use it.
 const fonts: FontKey[] = preloadFonts ?? (isMasterclass ? ["sora"] : ["sora", "funnel-display"]);
 
 function imageType(href: string): string | undefined {
