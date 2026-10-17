@@ -1,0 +1,82 @@
+---
+/**
+ * Real reviews, quoted as written. Pass the output of reviewsForMasterclass():
+ * the page's own course reviews come first and carry a "This masterclass"
+ * tag; every card names the programme it reviews. Extra reviews sit in a
+ * native <details> ("Show N more"), so there is no JS. Renders nothing when
+ * there are no reviews.
+ *
+ *   ---
+ *   import { reviewsForMasterclass } from "@/components/masterclass/reviewPicks";
+ *   const reviews = reviewsForMasterclass("nelson-dilipkumar");
+ *   ---
+ *   <ReviewWall reviews={reviews} />
+ */
+import SectionShell from "./SectionShell.astro";
+import ReviewCard from "./ReviewCard.astro";
+import type { ReviewCardData } from "./reviewPicks";
+
+interface Props {
+  reviews: ReviewCardData[];
+  /** Cards shown before "Show more". Default 6. */
+  initial?: number;
+  eyebrow?: string | false;
+  heading?: string;
+  body?: string;
+  /** Tag on reviews of this page's own course. */
+  ownLabel?: string;
+  /** Line above the "all reviews" link, e.g. how many buyers wrote in. */
+  note?: string;
+  allHref?: string;
+  allLabel?: string;
+  id?: string;
+  tone?: "plain" | "raised";
+  class?: string;
+  style?: string;
+}
+
+const {
+  reviews,
+  initial = 6,
+  eyebrow = "Reviews",
+  heading = "What learners *wrote*",
+  body = "Quoted as written in our feedback form. Each card names the course it reviews.",
+  ownLabel = "This masterclass",
+  note,
+  allHref = "/reviews/",
+  allLabel = "Read all reviews",
+  id = "reviews",
+  tone,
+  class: className,
+  style,
+} = Astro.props;
+
+const shown = reviews.slice(0, initial);
+const more = reviews.slice(initial);
+---
+
+{reviews.length > 0 && (
+  <SectionShell eyebrow={eyebrow} heading={heading} body={body} id={id} tone={tone} width="wide" class={className} style={style}>
+    <div class="mck-reviews">
+      {shown.map((r, i) => <ReviewCard review={r} ownLabel={ownLabel} reveal delay={(i % 3) * 80} />)}
+    </div>
+    {more.length > 0 && (
+      <details class="mck-more">
+        <summary>
+          <span class="mck-more__btn">
+            <span class="mck-more__label">Show {more.length} more {more.length === 1 ? "review" : "reviews"}</span>
+            <span class="mck-more__less">Show fewer reviews</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+          </span>
+        </summary>
+        <div class="mck-more__body mck-reviews" style="margin-top:16px">
+          {more.map((r) => <ReviewCard review={r} ownLabel={ownLabel} />)}
+        </div>
+      </details>
+    )}
+    <div class="mck-reviews-foot mck-reveal">
+      {note && <p class="mck-small" style="margin:0;max-width:60ch">{note}</p>}
+      <a class="mck-link" href={allHref} style="font-size:15px;font-weight:600">{allLabel}</a>
+    </div>
+  </SectionShell>
+)}

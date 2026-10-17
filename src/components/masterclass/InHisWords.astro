@@ -1,0 +1,71 @@
+---
+/**
+ * "In his words": a wall of the instructor's own sentences. Use only exact
+ * lines from the course transcripts or subtitles; renders nothing when
+ * `quotes` is empty, so a page with no source simply omits it.
+ *
+ *   <InHisWords
+ *     speaker="Nelson Dilipkumar"
+ *     note="From the English subtitles. Nelson speaks Tamil."
+ *     quotes={[{ text: "I will see what can be written within 5 lines and lock the story.", lesson: 13 }]}
+ *   />
+ */
+import SectionShell from "./SectionShell.astro";
+import { lessonLabel, type QuoteItem } from "./types";
+
+interface Props {
+  quotes: QuoteItem[];
+  /** Name shown in each citation. */
+  speaker: string;
+  /** One line under the wall, e.g. "From the English subtitles." */
+  note?: string;
+  eyebrow?: string | false;
+  heading?: string;
+  body?: string;
+  /** Make the first quote large. Default true. */
+  featureFirst?: boolean;
+  id?: string;
+  tone?: "plain" | "raised";
+  class?: string;
+  style?: string;
+}
+
+const {
+  quotes,
+  speaker,
+  note,
+  eyebrow = "From the lessons",
+  heading = "In his words",
+  body,
+  featureFirst = true,
+  id = "in-his-words",
+  tone = "raised",
+  class: className,
+  style,
+} = Astro.props;
+---
+
+{quotes.length > 0 && (
+  <SectionShell eyebrow={eyebrow} heading={heading} body={body} id={id} tone={tone} class={className} style={style}>
+    <div class="mck-quotes">
+      {quotes.map((q, i) => {
+        const lesson = typeof q.lesson === "number" ? lessonLabel(q.lesson) : q.lesson;
+        return (
+          <figure
+            class:list={["mck-card", "mck-quote", "mck-reveal", featureFirst && i === 0 && "mck-quote--feature mck-card--gold"]}
+            style={`--mck-delay:${(i % 3) * 80}ms`}
+            data-reveal={featureFirst && i === 0 ? "scale" : undefined}
+          >
+            <blockquote class="mck-quote__text">{q.text}</blockquote>
+            <figcaption class="mck-quote__cite">
+              <span class="mck-quote__who">{speaker}</span>
+              {lesson && <span class="mck-chip">{lesson}</span>}
+              {q.note && <span>{q.note}</span>}
+            </figcaption>
+          </figure>
+        );
+      })}
+    </div>
+    {note && <p class="mck-small mck-quotes-note mck-reveal">{note}</p>}
+  </SectionShell>
+)}

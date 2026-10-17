@@ -1,0 +1,92 @@
+---
+/**
+ * "Value against price": the price, what it works out to per lesson, and any
+ * honest comparisons the page passes in. Replaces struck-through prices.
+ * Never pass a number you cannot source.
+ *
+ *   <ValueAgainstPrice
+ *     price={2499}
+ *     lessons={29}
+ *     runtimeMinutes={140}
+ *     comparisons={[{ label: "You pay once and keep it", value: "For life" }]}
+ *     cta={{ href, label: "Get the masterclass", price: 2499, placement: "value" }}
+ *   />
+ */
+import SectionShell from "./SectionShell.astro";
+import CtaRow from "./CtaRow.astro";
+import { formatPrice, formatRuntime, pricePerLesson } from "@/data/masterclass/shared";
+import type { Comparison, CtaProps } from "./types";
+
+interface Props {
+  price: number;
+  lessons: number;
+  runtimeMinutes?: number;
+  comparisons?: Comparison[];
+  /** Add the lesson-count and runtime rows before `comparisons`. Default true. */
+  factRows?: boolean;
+  eyebrow?: string | false;
+  heading?: string;
+  body?: string;
+  /** Small line under the price, e.g. "One payment. GST included." */
+  priceNote?: string;
+  cta?: CtaProps;
+  id?: string;
+  tone?: "plain" | "raised";
+  class?: string;
+  style?: string;
+}
+
+const {
+  price,
+  lessons,
+  runtimeMinutes,
+  comparisons = [],
+  factRows = true,
+  eyebrow = "Value",
+  heading = "Value against *price*",
+  body,
+  priceNote = "Paid once. No subscription.",
+  cta,
+  id = "value-against-price",
+  tone,
+  class: className,
+  style,
+} = Astro.props;
+
+const per = pricePerLesson(price, lessons);
+const rows: Comparison[] = [
+  ...(factRows
+    ? [
+        { label: "Video lessons", value: String(lessons) },
+        ...(runtimeMinutes ? [{ label: "Total running time", value: formatRuntime(runtimeMinutes) }] : []),
+      ]
+    : []),
+  ...comparisons,
+];
+---
+
+<SectionShell eyebrow={eyebrow} heading={heading} body={body} id={id} tone={tone} class={className} style={style}>
+  <div class="mck-value">
+    <div class="mck-card mck-card--gold mck-value__price mck-reveal" data-reveal="scale">
+      <p class="mck-value__label">You pay</p>
+      <p class="mck-price">{formatPrice(price)}<span class="mck-price__once">once</span></p>
+      <p class="mck-small" style="margin:0">{priceNote}</p>
+      <p class="mck-value__per">
+        <strong>about {formatPrice(per)}</strong>
+        <span>a lesson, across {lessons} lessons</span>
+      </p>
+    </div>
+    {rows.length > 0 && (
+      <dl class="mck-card mck-value__rows mck-reveal" style="--mck-delay:120ms;margin:0">
+        {rows.map((r) => (
+          <div class:list={["mck-value__row", r.highlight && "mck-value__row--us"]}>
+            <dt>{r.label}</dt>
+            <dd>{r.value}</dd>
+            {r.note && <p class="mck-value__note">{r.note}</p>}
+          </div>
+        ))}
+      </dl>
+    )}
+  </div>
+  {cta && <CtaRow {...cta} />}
+</SectionShell>

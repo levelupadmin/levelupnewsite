@@ -1,0 +1,70 @@
+---
+/**
+ * <picture> for images in /public or imported with ?url. For .jpg/.jpeg/.png
+ * it adds the AVIF and WebP siblings that scripts/optimize-images.mjs writes
+ * after the build. Files under 8 KB get no siblings from that script, so
+ * pass `siblings={false}` for those.
+ */
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  sizes?: string;
+  /** Default "lazy". Use "eager" plus priority for a first-screen image. */
+  loading?: "lazy" | "eager";
+  priority?: boolean;
+  siblings?: boolean;
+  class?: string;
+  style?: string;
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  sizes,
+  loading = "lazy",
+  priority = false,
+  siblings = true,
+  class: className,
+  style,
+} = Astro.props;
+
+const m = src.match(/^(.*)\.(png|jpe?g)(\?.*)?$/i);
+const stem = siblings && m ? m[1] : null;
+const query = m?.[3] ?? "";
+---
+
+{stem ? (
+  <picture>
+    <source srcset={`${stem}.avif${query}`} type="image/avif" />
+    <source srcset={`${stem}.webp${query}`} type="image/webp" />
+    <img
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      sizes={sizes}
+      loading={priority ? "eager" : loading}
+      decoding="async"
+      fetchpriority={priority ? "high" : undefined}
+      class={className}
+      style={style}
+    />
+  </picture>
+) : (
+  <img
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    sizes={sizes}
+    loading={priority ? "eager" : loading}
+    decoding="async"
+    fetchpriority={priority ? "high" : undefined}
+    class={className}
+    style={style}
+  />
+)}

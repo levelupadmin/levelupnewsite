@@ -1,0 +1,12 @@
+---
+/**
+ * Adds the reveal script to the page once. Kit sections include it; a page
+ * only needs it to animate its own `.mck-reveal` elements without using a
+ * kit section. Astro bundles and de-duplicates the script.
+ */
+---
+
+<script>
+  import { initReveal } from "./reveal";
+  initReveal();
+</script>

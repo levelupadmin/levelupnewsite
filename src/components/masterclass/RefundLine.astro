@@ -1,0 +1,36 @@
+---
+/**
+ * The refund rule, worded once in src/data/masterclass/shared.ts, with a
+ * link to the full policy. Put it under any buy button.
+ *
+ *   <RefundLine />            short form
+ *   <RefundLine full />       full sentence
+ */
+import "@/styles/masterclass.css";
+import { REFUND } from "@/data/masterclass/shared";
+
+interface Props {
+  /** Use the full sentence instead of the short form. */
+  full?: boolean;
+  /** Show the "Refund policy" link. Default true. */
+  link?: boolean;
+  class?: string;
+}
+
+const { full = false, link = true, class: className } = Astro.props;
+---
+
+<p class:list={["mck-refund", className]}>
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="m9 12 2 2 4-4" />
+  </svg>
+  <span>
+    {full ? REFUND.sentence : REFUND.short}
+    {link && (
+      <>
+        {" "}
+        <a class="mck-link" href={REFUND.href}>{REFUND.linkLabel}</a>
+      </>
+    )}
+  </span>
+</p>

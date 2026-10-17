@@ -1,0 +1,91 @@
+---
+/**
+ * Other masterclasses, as real cards: portrait, name, craft, then lessons,
+ * runtime and price as text from OFFERINGS. Leaves out the current page.
+ *
+ *   <CrossSell current="nelson-dilipkumar" />
+ *   <CrossSell current="drk-kiran" order={["nelson-dilipkumar", "lokesh-kanagaraj"]} />
+ */
+import SectionShell from "./SectionShell.astro";
+import KitPicture from "./KitPicture.astro";
+import {
+  MASTERCLASS_SLUGS,
+  OFFERINGS,
+  formatPrice,
+  formatRuntime,
+  type MasterclassSlug,
+} from "@/data/masterclass/shared";
+import karthikImg from "@/assets/karthik-subbaraj-masterclass.png?url";
+import anthonyImg from "@/assets/anthony-gonsalvez-masterclass.png?url";
+import venketImg from "@/assets/venket-ram.png?url";
+import kiranImg from "@/assets/drk-kiran.webp?url";
+import raviImg from "@/assets/ravi-basrur.webp?url";
+import lokeshImg from "@/assets/lokesh-kanagaraj.png?url";
+import nelsonImg from "@/assets/nelson-dilipkumar.jpg?url";
+
+const PORTRAITS: Record<MasterclassSlug, string> = {
+  "nelson-dilipkumar": nelsonImg,
+  "lokesh-kanagaraj": lokeshImg,
+  "ravi-basrur": raviImg,
+  "karthik-subbaraj": karthikImg,
+  "g-venket-ram": venketImg,
+  "anthony-gonsalvez": anthonyImg,
+  "drk-kiran": kiranImg,
+};
+
+interface Props {
+  current?: MasterclassSlug;
+  /** Slugs to show first, in this order; the rest follow. */
+  order?: MasterclassSlug[];
+  /** Most cards to show. Default all. */
+  limit?: number;
+  eyebrow?: string | false;
+  heading?: string;
+  body?: string;
+  id?: string;
+  tone?: "plain" | "raised";
+  class?: string;
+  style?: string;
+}
+
+const {
+  current,
+  order = [],
+  limit,
+  eyebrow = "Keep learning",
+  heading = "More *masterclasses*",
+  body,
+  id = "more-masterclasses",
+  tone,
+  class: className,
+  style,
+} = Astro.props;
+
+const slugs = [...order, ...MASTERCLASS_SLUGS.filter((s) => !order.includes(s))]
+  .filter((s) => s !== current)
+  .slice(0, limit);
+---
+
+<SectionShell eyebrow={eyebrow} heading={heading} body={body} id={id} tone={tone} class={className} style={style}>
+  <ul class="mck-xsell mck-reveal">
+    {slugs.map((slug) => {
+      const o = OFFERINGS[slug];
+      return (
+        <li class="mck-xsell__item">
+          <a class="mck-card mck-card--lift mck-xsell__link" href={`/masterclass/${slug}/`}>
+            <div class="mck-xsell__img">
+              <KitPicture src={PORTRAITS[slug]} alt={`${o.instructor}`} width={480} height={600} sizes="(min-width: 1000px) 340px, 240px" />
+            </div>
+            <div class="mck-xsell__body">
+              <p class="mck-xsell__craft">{o.craft}</p>
+              <p class="mck-xsell__name">{o.instructor}</p>
+              <p class="mck-xsell__facts">
+                {o.lessons} lessons · {formatRuntime(o.runtimeMinutes)} · {formatPrice(o.price)}
+              </p>
+            </div>
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+</SectionShell>
