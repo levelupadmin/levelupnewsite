@@ -39,8 +39,8 @@ const data: MasterclassPageData = {
   courseDescription:
     "This class is for anyone who has an interest in Photography and wants to learn the know-how of capturing the perfect image. Through this course, Venket Ram will divulge into a diverse range of case studies, touching on various locations, lighting techniques and a culmination of other aspects that can be used to establish how you can stand apart as a photographer. He discusses how you can tap into your unique identity, creative style and way of thinking.",
   courseDetails: {
-    chapters: 25,
-    duration: "3h 20m",
+    chapters: 21,
+    duration: "2h 19m",
     level: "All Levels",
     language: "Tamil & English",
     access: "Lifetime Access",
@@ -142,7 +142,7 @@ const data: MasterclassPageData = {
   ],
   benefits: [
     { title: "PDF workbook for every class" },
-    { title: "4+ hours of course content" },
+    { title: "2h 19m of course content" },
     { title: "Exclusive workshops and events" },
     { title: "Signed certificate from the Instructor" },
   ],
@@ -169,7 +169,7 @@ const data: MasterclassPageData = {
     { question: "Will G. Venket Ram be teaching the Class?", answer: "Yes, G. Venket Ram will be teaching all the lessons in the Class. However, the lessons will be recorded & will not have or involve any live sessions/interactions." },
     { question: "Which Language is the course in?", answer: "This course is in Tamil and English with English Subtitles." },
     { question: "Are there any recurring costs that I need to pay to access the videos?", answer: "There are no recurring costs or any additional charge that you need to pay after purchasing the Learning experience." },
-    { question: "How long is the Class?", answer: "The Class is approximately 190 minutes long and is divided into 25 Video Lessons." },
+    { question: "How long is the Class?", answer: "The Class is approximately 139 minutes long and is divided into 21 Video Lessons." },
     { question: "When do I get to download the customised signed certificate?", answer: "You get to access the certificate once you complete watching all the lessons in the course." },
     { question: "Where can I watch these classes?", answer: "You can access classes on mobile by downloading the LevelUp Learning App for Android and iOS devices." },
   ],
