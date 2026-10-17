@@ -32,7 +32,8 @@ const data: MasterclassPageData = {
     ],
     image: `${DIR}/hero`,
     imageAlt: "Anthony Gonsalvez explaining a point, seated on a sofa",
-    mobilePosition: "50% 18%",
+    // Face sits above the timeline motif on phones (it crossed his chin at 18%).
+    mobilePosition: "50% 60%",
   },
 
   proofLine: "1800+ Students have bought this course",
