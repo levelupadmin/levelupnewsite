@@ -121,9 +121,8 @@ export const OFFERINGS: Record<MasterclassSlug, Offering> = {
     price: 2499,
     language: "Kannada, with English subtitles",
     inLanguage: ["kn", "en"],
-    lessons: 16,
-    runtimeMinutes: 310,
-    verify: "Audit counts 15 lessons and 5 h 12 min in VdoCipher; the page lists 16 and 5 h 10 min.",
+    lessons: 15,
+    runtimeMinutes: 312,
   }),
   "karthik-subbaraj": offering({
     slug: "karthik-subbaraj",
@@ -255,12 +254,12 @@ export interface SharedFaq {
 
 /**
  * FAQ answers that are the same on every page. Spread the ones you need into
- * the page's FAQ list; FAQAccordion and FaqList both render `link`.
+ * the page's FAQ list; FaqList renders `link`.
  */
 export const SHARED_FAQ = {
   refund: {
     question: "What if it's not for me?",
-    answer: `Email ${REFUND.email} within 7 days of buying. If you have watched less than a quarter of the course, you get the full amount back.`,
+    answer: `Email ${REFUND.email} within 7 days of buying. If you have watched less than a quarter of the course, you get a full refund.`,
     link: { href: REFUND.href, label: REFUND.linkLabel },
   },
   access: {

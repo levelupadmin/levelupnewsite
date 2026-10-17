@@ -1,7 +1,6 @@
 /**
- * The cross-sell cards, worked out once for both CrossSell.astro (Astro
- * pages) and OtherMasterclasses.tsx (the React template), so the two can
- * never show different names, prices or facts. Every fact comes from
+ * The cross-sell cards for CrossSell.astro, worked out in one place so no
+ * page can show a different name, price or fact. Every fact comes from
  * OFFERINGS in src/data/masterclass/shared.ts.
  *
  * Light on purpose: safe to import from a React island.
@@ -48,7 +47,7 @@ export interface CrossSellCard {
 
 /**
  * Cards for every masterclass except `current`, with `order` first.
- * `currentName` is accepted for OtherMasterclasses' older prop.
+ * `currentName` matches a card by instructor name instead of slug.
  */
 export function crossSellCards(opts: {
   current?: string;

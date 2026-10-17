@@ -144,7 +144,7 @@ To animate your own markup without a kit section, add `class="mck-reveal"` (opti
 `<picture>` with the AVIF and WebP siblings that `scripts/optimize-images.mjs` writes for `.png`/`.jpg` over 8 KB. Props: `src`, `alt`, `width`, `height`, `sizes`, `loading` (`"lazy"`), `priority` (eager plus `fetchpriority="high"`), `siblings` (`true`; pass `false` for files under 8 KB).
 
 ```astro
-<KitPicture src="/masterclass/nelson/frame.jpg" alt="Nelson Dilipkumar on set" width={720} height={908} priority />
+<KitPicture src="/masterclass/nelson/nelson-hero-m.jpg" alt="Nelson Dilipkumar on set" width={720} height={908} priority />
 ```
 
 ### CourseFacts
@@ -312,14 +312,14 @@ Static poster grid, two columns on phones, `cols` (default 4) from 760 px. Items
 
 ```astro
 <FilmGrid films={[
-  { src: "/masterclass/nelson/Du0bmXvfwK2WLbhbymBmcCdk.jpg", title: "Jailer", year: 2023, note: "Lesson 18" },
-  { src: "/masterclass/nelson/KtbVjsCcNMvRhcGUeMA1qjBNkM.jpg", title: "Beast", year: 2022, note: "Lesson 15" },
+  { src: "/masterclass/nelson/film-jailer.jpg", title: "Jailer", year: 2023, note: "Lesson 18" },
+  { src: "/masterclass/nelson/film-beast.jpg", title: "Beast", year: 2022, note: "Lesson 15" },
 ]} />
 ```
 
 ### CrossSell
 
-Cards for the other masterclasses with portrait, craft, name, lessons, runtime and price as text, built by `crossSell.ts` from `OFFERINGS` (the React `OtherMasterclasses` uses the same helper and markup). `current` leaves that page out; `order` puts slugs first; `limit` caps the count. Two columns on phones, three from 760 px, and one row from 1100 px when there are four to six cards.
+Cards for the other masterclasses with portrait, craft, name, lessons, runtime and price as text, built by `crossSell.ts` from `OFFERINGS`. `current` leaves that page out; `order` puts slugs first; `limit` caps the count. Two columns on phones, three from 760 px, and one row from 1100 px when there are four to six cards.
 
 ```astro
 <CrossSell current="drk-kiran" order={["nelson-dilipkumar"]} />
@@ -344,6 +344,5 @@ All changes are optional props; existing call sites keep working. Behaviour chan
 - `lokesh/ScrollGlowLine`: scaleY and translate3d instead of height and top, only while near the screen; fully lit for reduced motion.
 - `lokesh/PageInteractions`: no card tilt on touch screens or for reduced motion.
 - `FadeInSection` and `useScrollReveal`: visible in server HTML; animate only below the fold with JS running.
-- `OtherMasterclasses`: same cards and styles as `CrossSell` (shared `crossSell.ts`); `currentName`, `currentSlug` and `order` props; plain links, no client directive needed.
 - `Picture`: `priority` prop.
 - `Seo.astro`: `og:type` is `website` except articles; `twitter:site` is `@LevelUp_edu`.

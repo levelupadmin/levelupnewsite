@@ -238,6 +238,8 @@
     inset 0 -2px 0 rgba(90, 40, 0, 0.32);
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  flex-wrap: nowrap;
+  gap: 8px;
   user-select: none;
   transition:
     transform 0.35s var(--mck-ease),
@@ -786,8 +788,8 @@ html.mck-js .mck-pending .mck-day__bar::after { transform: scaleX(0); }
 /* Value against price                                                 */
 /* ------------------------------------------------------------------ */
 
-.mck-value { display: grid; gap: 14px; }
-@media (min-width: 880px) { .mck-value { grid-template-columns: 0.9fr 1.1fr; gap: 20px; align-items: stretch; } }
+.mck-value { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+@media (min-width: 880px) { .mck-value { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 20px; align-items: stretch; } }
 .mck-value__price { padding: 28px 22px; display: flex; flex-direction: column; gap: 6px; }
 @media (min-width: 640px) { .mck-value__price { padding: 40px 38px; } }
 .mck-value__label { margin: 0; font-size: 12.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mck-text-3); }
@@ -817,7 +819,7 @@ html.mck-js .mck-pending .mck-day__bar::after { transform: scaleX(0); }
 @media (min-width: 640px) { .mck-value__rows { padding: 14px 34px; } }
 .mck-value__row {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 4px 16px;
   align-items: baseline;
   padding: 18px 0;
@@ -825,7 +827,7 @@ html.mck-js .mck-pending .mck-day__bar::after { transform: scaleX(0); }
 }
 .mck-value__row:first-child { border-top: 0; }
 .mck-value__row dt { font-size: 15.5px; color: var(--mck-text-2); line-height: 1.45; }
-.mck-value__row dd { margin: 0; font-size: 17px; font-weight: 700; color: var(--mck-text); text-align: right; white-space: nowrap; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.mck-value__row dd { margin: 0; max-width: 16ch; font-size: 17px; font-weight: 700; color: var(--mck-text); text-align: right; text-wrap: balance; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
 .mck-value__note { grid-column: 1 / -1; margin: 0; font-size: 13px; color: var(--mck-text-3); line-height: 1.5; }
 .mck-value__row--us dd { color: var(--mck-gold-1); }
 
@@ -1163,7 +1165,7 @@ html.mck-js .mck-pending .mck-day__bar::after { transform: scaleX(0); }
 .mck-wa:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 
 /* ------------------------------------------------------------------ */
-/* Lesson and FAQ accordions (lokesh/EpisodeAccordion, FAQAccordion)   */
+/* Lesson and FAQ accordions (lokesh/EpisodeAccordion, FaqList)        */
 /* Native <details>, so a row opens before any script runs.            */
 /* ------------------------------------------------------------------ */
 
