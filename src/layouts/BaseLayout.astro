@@ -290,9 +290,12 @@ const checkoutHost = new URL(CHECKOUT_ORIGIN).hostname;
     {/* Microsoft Clarity and the Google tag (Google Ads AW-336295558, which
         also feeds GA4 G-6WP0M4T6CJ). Together they cost about 0.5 s of main
         thread on a mid-range phone (audit PF-11), so they load once the page
-        is idle, on the first tap, key or scroll, or after 5 s, whichever
-        comes first. Calls made before that are queued by these stubs and
-        sent when the scripts arrive. */}
+        is idle, on the first tap, key or page scroll, or after 5 s,
+        whichever comes first. Calls made before that are queued by these
+        stubs and sent when the scripts arrive. Only a scroll of the page
+        itself counts: on Nelson's page the swipe row of quotes settles a few
+        pixels as it loads, and a capture listener took that for a visitor
+        scroll and started both tags before the load event (SPEED-01). */}
     <script is:inline>
       (function (w, d) {
         w.clarity =
@@ -310,7 +313,7 @@ const checkoutHost = new URL(CHECKOUT_ORIGIN).hostname;
         w.gtag("config", "AW-336295558");
 
         var started = false;
-        var EVENTS = ["pointerdown", "keydown", "touchstart", "scroll"];
+        var EVENTS = ["pointerdown", "keydown", "touchstart"];
         function add(src) {
           var s = d.createElement("script");
           s.async = true;
@@ -323,12 +326,16 @@ const checkoutHost = new URL(CHECKOUT_ORIGIN).hostname;
           for (var i = 0; i < EVENTS.length; i++) {
             w.removeEventListener(EVENTS[i], start, true);
           }
+          w.removeEventListener("scroll", start);
           add("https://www.clarity.ms/tag/vtl0nas964");
           add("https://www.googletagmanager.com/gtag/js?id=AW-336295558");
         }
         for (var i = 0; i < EVENTS.length; i++) {
           w.addEventListener(EVENTS[i], start, { capture: true, passive: true });
         }
+        // Not capture: a scroll inside an element does not bubble to window,
+        // so this fires only when the page scrolls.
+        w.addEventListener("scroll", start, { passive: true });
         function idle() {
           if (w.requestIdleCallback) w.requestIdleCallback(start, { timeout: 2000 });
           else setTimeout(start, 200);
