@@ -464,6 +464,14 @@ const MasterclassDetail = ({ slug: slugProp, initialData }: MasterclassDetailPro
               ))}
             </div>
           </FadeInSection>
+          <FadeInSection delay={150} className="mt-10 text-center">
+            <a
+              href="/reviews/online-programs/"
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground underline decoration-border underline-offset-4 transition-colors hover:text-primary hover:decoration-primary/50"
+            >
+              Read verified reviews of our online programmes
+            </a>
+          </FadeInSection>
         </div>
       </section>
 

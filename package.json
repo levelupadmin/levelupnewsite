@@ -5,7 +5,8 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/optimize-images.mjs && node scripts/generate-llms-txt.mjs",
+    "build": "astro build && node scripts/optimize-images.mjs && node scripts/generate-llms-txt.mjs && node scripts/check-static-stats.mjs",
+    "check:stats": "node scripts/check-static-stats.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "typecheck": "astro check"

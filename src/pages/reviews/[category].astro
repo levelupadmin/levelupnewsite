@@ -1,0 +1,52 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { SiteNavbar, SiteFooter } from "@/components/SiteChrome";
+import ReviewsBody from "@/components/reviews/ReviewsBody.astro";
+import { CATEGORIES, aggregate, reviewsPage } from "@/lib/reviews";
+import { breadcrumbJsonLd } from "@/lib/structuredData";
+import { categoryReviewsJsonLd, reviewsCollectionJsonLd } from "@/lib/reviewSchema";
+
+export function getStaticPaths() {
+  return CATEGORIES.map((c) => ({ params: { category: c.slug }, props: { category: c } }));
+}
+
+const { category } = Astro.props;
+
+const agg = aggregate(category.slug);
+const reviews = reviewsPage(category.slug, 1);
+
+const title =
+  agg.count > 0
+    ? `${category.label} reviews: ${agg.average.toFixed(1)}/5 from ${agg.count.toLocaleString("en-US")} students | LevelUp Learning`
+    : `${category.label} reviews | LevelUp Learning`;
+
+const description =
+  agg.count > 0
+    ? `${agg.count.toLocaleString("en-US")} reviews of LevelUp ${category.label}, averaging ${agg.average.toFixed(1)} out of 5 across ${agg.programCount} programmes. ${category.blurb}`
+    : `Reviews of LevelUp ${category.label}. ${category.blurb}`;
+
+const path = `/reviews/${category.slug}`;
+
+const jsonLd = [
+  breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Reviews", path: "/reviews" },
+    { name: category.label, path },
+  ]),
+  reviewsCollectionJsonLd(`${category.label} reviews`, description, `${path}/`, agg),
+  categoryReviewsJsonLd(category.label, category.slug, category.blurb, agg, reviews),
+];
+---
+
+<BaseLayout title={title} description={description} path={path} jsonLd={jsonLd}>
+  <SiteNavbar client:load />
+  <main>
+    <ReviewsBody
+      category={category.slug}
+      page={1}
+      heading={category.label}
+      blurb={category.blurb}
+    />
+  </main>
+  <SiteFooter client:idle />
+</BaseLayout>

@@ -187,6 +187,12 @@ export const navLinks: NavLink[] = [
     items: [
       {
         image: "",
+        title: "Reviews",
+        subtitle: "",
+        href: "/reviews",
+      },
+      {
+        image: "",
         title: "Student Stories",
         subtitle: "",
         href: "/student-stories",

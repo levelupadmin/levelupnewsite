@@ -1,10 +1,24 @@
 import { AnimatedCounter } from "./AnimatedCounter";
 import FadeInSection from "./FadeInSection";
 import CredibilityParticles from "./CredibilityParticles";
+import reviewStats from "@/data/reviewStats.json";
 
+/**
+ * The rating and its review count are computed from the reviews we actually
+ * publish, not typed in. Anyone can open /reviews and count them. The old
+ * "4.86 / 15,000+ reviews" line could not be checked against anything, which
+ * is the sort of claim an answer engine calls out.
+ */
 const cues = [
   { value: "67,746+", numericValue: 67746, label: "Learners", suffix: "+", hasComma: true },
-  { value: "4.86", numericValue: 4.86, label: "Rating (15,000+ reviews)", suffix: "", decimals: 2 },
+  {
+    value: reviewStats.average.toFixed(1),
+    numericValue: reviewStats.average,
+    label: `Rating (${reviewStats.count.toLocaleString("en-US")} published reviews)`,
+    suffix: "",
+    decimals: 1,
+    href: "/reviews/",
+  },
   { value: "821+", numericValue: 821, label: "Cities", suffix: "+" },
   { value: "3,000+", numericValue: 3000, label: "Collaborations enabled", suffix: "+", hasComma: true },
 ];
@@ -33,7 +47,16 @@ const CredibilityCues = () => {
                 />
               </p>
               <p className="font-sans-body text-xs md:text-sm text-white/60 mt-2 tracking-wide">
-                {cue.label}
+                {cue.href ? (
+                  <a
+                    href={cue.href}
+                    className="underline decoration-white/20 underline-offset-4 transition-colors hover:text-white/85 hover:decoration-white/50"
+                  >
+                    {cue.label}
+                  </a>
+                ) : (
+                  cue.label
+                )}
               </p>
             </FadeInSection>
           ))}

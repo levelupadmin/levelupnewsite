@@ -1,17 +1,108 @@
 {
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/reviews",
+      "has": [
+        {
+          "type": "query",
+          "key": "filter",
+          "value": "forge"
+        }
+      ],
+      "destination": "/reviews/forge",
+      "permanent": true
+    },
+    {
+      "source": "/reviews",
+      "has": [
+        {
+          "type": "query",
+          "key": "filter",
+          "value": "levelup"
+        }
+      ],
+      "destination": "/reviews/levelup",
+      "permanent": true
+    },
+    {
+      "source": "/reviews",
+      "has": [
+        {
+          "type": "query",
+          "key": "filter",
+          "value": "online-programs"
+        }
+      ],
+      "destination": "/reviews/online-programs",
+      "permanent": true
+    },
+    {
+      "source": "/reviews/",
+      "has": [
+        {
+          "type": "query",
+          "key": "filter",
+          "value": "forge"
+        }
+      ],
+      "destination": "/reviews/forge",
+      "permanent": true
+    },
+    {
+      "source": "/reviews/",
+      "has": [
+        {
+          "type": "query",
+          "key": "filter",
+          "value": "levelup"
+        }
+      ],
+      "destination": "/reviews/levelup",
+      "permanent": true
+    },
+    {
+      "source": "/reviews/",
+      "has": [
+        {
+          "type": "query",
+          "key": "filter",
+          "value": "online-programs"
+        }
+      ],
+      "destination": "/reviews/online-programs",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/llms.txt",
       "headers": [
-        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=3600" }
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
       ]
     },
     {
       "source": "/llms-full.txt",
       "headers": [
-        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=3600" }
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
       ]
     },
     {
@@ -34,17 +125,33 @@
     },
     {
       "source": "/sitemap-index.xml",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
     },
     {
       "source": "/sitemap-:index.xml",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
     },
     {
       "source": "/.well-known/assetlinks.json",
       "headers": [
-        { "key": "Content-Type", "value": "application/json" },
-        { "key": "Cache-Control", "value": "public, max-age=300" }
+        {
+          "key": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300"
+        }
       ]
     }
   ]

@@ -266,6 +266,14 @@ const ForgeSection = () => {
             </div>
           ))}
         </div>
+        <div className="mt-8 text-center">
+          <a
+            href="/reviews/forge/"
+            className="inline-flex items-center gap-2 font-sans-body text-sm text-muted-foreground underline decoration-border underline-offset-4 transition-colors hover:text-primary hover:decoration-primary/50"
+          >
+            Read verified reviews from Forge residencies
+          </a>
+        </div>
       </FadeInSection>
     </section>);
 

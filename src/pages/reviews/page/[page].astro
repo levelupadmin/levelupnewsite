@@ -1,0 +1,48 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { SiteNavbar, SiteFooter } from "@/components/SiteChrome";
+import ReviewsBody from "@/components/reviews/ReviewsBody.astro";
+import { aggregate, pageCount, pagePath, reviewsPage } from "@/lib/reviews";
+import { breadcrumbJsonLd } from "@/lib/structuredData";
+import { organizationReviewsJsonLd, reviewsCollectionJsonLd } from "@/lib/reviewSchema";
+
+/* Pages 2 onward. Page 1 is /reviews/ itself. */
+export function getStaticPaths() {
+  const pages = pageCount(null);
+  return Array.from({ length: Math.max(0, pages - 1) }, (_, i) => ({
+    params: { page: String(i + 2) },
+    props: { page: i + 2 },
+  }));
+}
+
+const { page } = Astro.props as { page: number };
+const agg = aggregate(null);
+const reviews = reviewsPage(null, page);
+const path = pagePath(null, page);
+
+const title = `Reviews, page ${page} of ${pageCount(null)} | LevelUp Learning`;
+const description = `Page ${page} of ${agg.count.toLocaleString("en-US")} student reviews of LevelUp programmes, averaging ${agg.average.toFixed(1)} out of 5, newest first.`;
+
+const jsonLd = [
+  breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Reviews", path: "/reviews" },
+    { name: `Page ${page}`, path },
+  ]),
+  reviewsCollectionJsonLd(`LevelUp Learning reviews, page ${page}`, description, path, agg),
+  organizationReviewsJsonLd(agg, reviews),
+];
+---
+
+<BaseLayout title={title} description={description} path={path} jsonLd={jsonLd}>
+  <SiteNavbar client:load />
+  <main>
+    <ReviewsBody
+      category={null}
+      page={page}
+      heading="What students say, in their own words"
+      blurb="Every review here comes from a real feedback form filled in at the end of a LevelUp residency, cohort or masterclass. We publish the rating, the programme and the date it was written."
+    />
+  </main>
+  <SiteFooter client:idle />
+</BaseLayout>

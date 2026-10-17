@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StarField from "@/components/StarField";
 import usePageSeo from "@/hooks/usePageSeo";
+import reviewStats from "@/data/reviewStats.json";
 
 /* ─── Team carousel data ─── */
 const teamCards = [
@@ -16,7 +17,7 @@ const teamCards = [
   { name: "Vikram T.", achievement: "Automated event ops for 100+ live programs" },
   { name: "Ananya R.", achievement: "Designed the brand system you're looking at right now" },
   { name: "Karthik P.", achievement: "Grew Instagram to 200K followers in 6 months" },
-  { name: "Sneha G.", achievement: "Built the learner review system — 15,000+ reviews and counting" },
+  { name: "Sneha G.", achievement: "Built the learner review system that powers our reviews page" },
   { name: "Arjun V.", achievement: "Launched LevelUp in 3 new cities in one quarter" },
   { name: "Divya N.", achievement: "Produced 50+ masterclass trailers that went viral" },
   { name: "Rahul B.", achievement: "Closed partnerships with India's top creative universities" },
@@ -345,7 +346,7 @@ const Careers = () => {
                 <div key={repeat} className="flex shrink-0 items-center">
                   {[
                     "67,746+ Learners",
-                    "4.86 Rating (15,000+ reviews)",
+                    `${reviewStats.average.toFixed(1)} Rating (${reviewStats.count.toLocaleString("en-US")} published reviews)`,
                     "821+ Cities",
                     "3,000+ Collaborations enabled",
                   ].map((stat, i) => (

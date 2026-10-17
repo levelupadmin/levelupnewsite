@@ -4,6 +4,7 @@ import { Star, Play, ArrowRight, X } from "lucide-react";
 import FadeInSection from "./FadeInSection";
 import AccentLine from "./AccentLine";
 import { Picture } from "./Picture";
+import reviewStats from "@/data/reviewStats.json";
 
 /* ─── Data ─── */
 
@@ -401,7 +402,9 @@ const TestimonialsSection = () => {
                 <Star key={i} className="w-3.5 h-3.5 fill-primary text-primary" />
               ))}
             </span>
-            Rated 4.8+ by 15,000+ learners across the globe.
+            {reviewStats.count > 0
+              ? `Rated ${reviewStats.average.toFixed(1)} out of 5 across ${reviewStats.count.toLocaleString("en-US")} published reviews.`
+              : "Rated by learners across the globe."}
           </p>
         </FadeInSection>
 
@@ -443,13 +446,22 @@ const TestimonialsSection = () => {
         {/* CTA */}
         <FadeInSection className="mt-10 md:mt-14 flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <p className="font-sans-body text-sm text-muted-foreground">
-            Curious what the journey looks like?
+            {reviewStats.count > 0
+              ? `Read all ${reviewStats.count.toLocaleString("en-US")} of them, with ratings and dates.`
+              : "Curious what the journey looks like?"}
           </p>
-          <Link
-            to="/student-stories"
+          <a
+            href="/reviews/"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border text-sm font-sans-body text-foreground hover:border-primary/40 hover:text-primary transition-colors duration-300"
           >
-            Read our student stories
+            See every review
+            <ArrowRight className="w-4 h-4" />
+          </a>
+          <Link
+            to="/student-stories"
+            className="inline-flex items-center gap-2 text-sm font-sans-body text-muted-foreground hover:text-foreground transition-colors duration-300"
+          >
+            Read student stories
             <ArrowRight className="w-4 h-4" />
           </Link>
         </FadeInSection>

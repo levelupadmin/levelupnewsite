@@ -1,0 +1,46 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { SiteNavbar, SiteFooter } from "@/components/SiteChrome";
+import ReviewsBody from "@/components/reviews/ReviewsBody.astro";
+import { aggregate, reviewsPage } from "@/lib/reviews";
+import { breadcrumbJsonLd } from "@/lib/structuredData";
+import {
+  organizationReviewsJsonLd,
+  reviewsCollectionJsonLd,
+} from "@/lib/reviewSchema";
+
+const agg = aggregate(null);
+const reviews = reviewsPage(null, 1);
+
+const title =
+  agg.count > 0
+    ? `Reviews: ${agg.average.toFixed(1)}/5 from ${agg.count.toLocaleString("en-US")} students | LevelUp Learning`
+    : "Reviews | LevelUp Learning";
+
+const description =
+  agg.count > 0
+    ? `${agg.count.toLocaleString("en-US")} reviews from students across ${agg.programCount} LevelUp programmes, averaging ${agg.average.toFixed(1)} out of 5. Written on the feedback form at the end of each programme.`
+    : "Reviews from students across LevelUp residencies, live cohorts and online masterclasses.";
+
+const jsonLd = [
+  breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Reviews", path: "/reviews" },
+  ]),
+  reviewsCollectionJsonLd("LevelUp Learning reviews", description, "/reviews/", agg),
+  organizationReviewsJsonLd(agg, reviews),
+];
+---
+
+<BaseLayout title={title} description={description} path="/reviews" jsonLd={jsonLd}>
+  <SiteNavbar client:load />
+  <main>
+    <ReviewsBody
+      category={null}
+      page={1}
+      heading="What students say, in their own words"
+      blurb="Every review here comes from a real feedback form filled in at the end of a LevelUp residency, cohort or masterclass. We publish the rating, the programme and the date it was written."
+    />
+  </main>
+  <SiteFooter client:idle />
+</BaseLayout>

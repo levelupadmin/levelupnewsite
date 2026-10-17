@@ -1,0 +1,6 @@
+{
+  "_comment": "Generated from the approved set by scripts/approve-reviews.mjs. Do not edit by hand: the homepage renders these and /reviews recomputes the same figures, so a hand edit shows up as a contradiction between the two pages.",
+  "count": 7015,
+  "average": 4.7,
+  "programCount": 92
+}
