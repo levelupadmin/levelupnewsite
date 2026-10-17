@@ -1,0 +1,39 @@
+---
+/**
+ * Three short silent loops from the course. Nothing downloads until a clip
+ * scrolls into view (preload="none"); a lazy poster frame fills the box
+ * first, so it is never an empty black rectangle.
+ */
+import "./template.css";
+import IntersectionPlayVideo from "@/components/lokesh/IntersectionPlayVideo";
+import { lessonLabel } from "@/components/masterclass/types";
+import type { Clip } from "@/data/masterclass/types";
+
+interface Props {
+  clips: Clip[];
+}
+
+const { clips } = Astro.props;
+const webp = (p: string) => p.replace(/\.jpe?g$/i, ".webp");
+---
+
+<ul class="tpl-clips">
+  {clips.map((c, i) => (
+    <li class="mck-card tpl-clip mck-reveal" style={`--mck-delay:${i * 90}ms`}>
+      <div class="tpl-clip__media">
+        {/* Poster as a lazy image behind the video: a <video poster> would
+            download with the page, this waits until the card is near. */}
+        <picture class="tpl-clip__poster">
+          <source type="image/webp" srcset={webp(c.poster)} />
+          <img src={c.poster} alt="" width="640" height="360" loading="lazy" decoding="async" />
+        </picture>
+        {c.lesson !== undefined && <span class="tpl-clip__tag">{lessonLabel(c.lesson)}</span>}
+        <IntersectionPlayVideo src={c.src} ariaLabel={c.alt} threshold={0.45} client:visible />
+      </div>
+      <div class="tpl-clip__body">
+        <h3 class="tpl-clip__title">{c.title}</h3>
+        <p class="tpl-clip__text">{c.body}</p>
+      </div>
+    </li>
+  ))}
+</ul>

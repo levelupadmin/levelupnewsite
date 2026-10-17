@@ -1,0 +1,83 @@
+{
+ "_source": "LevelUp's English subtitles of the Kannada lessons (Ravi Basrur Masterclass Notes/Episode-N.srt). text is exactly as in the file; display adds only the full stops and capitals the subtitle line breaks leave out. The transcript file order does not match the lesson list, so lesson is null and no lesson number is printed. Episodes 2 to 4 (his life story) are left out on purpose.",
+ "slug": "ravi-basrur",
+ "quotes": [
+  {
+   "episode": 1,
+   "lesson": null,
+   "text": "There were only 15 days left. He learnt keyboard, within those 15 days. Even today, the musical journey he has embarked on, is rooted to what he learnt in those 15 days.",
+   "display": "There were only 15 days left. He learnt keyboard, within those 15 days. Even today, the musical journey he has embarked on, is rooted to what he learnt in those 15 days.",
+   "context": "He tells his childhood story in the third person, then reveals the boy was him. His booked musicians had pulled out of his orchestra show."
+  },
+  {
+   "episode": 5,
+   "lesson": null,
+   "text": "If we do the work we like with all our heart, first it becomes fashion, then passion then it gets converted into business.",
+   "display": "If we do the work we like with all our heart, first it becomes fashion, then passion then it gets converted into business.",
+   "context": "Answering \"do I need to know music to do music?\""
+  },
+  {
+   "episode": 6,
+   "lesson": null,
+   "text": "I don't even know how to play these instruments around me But I know how music gets created",
+   "display": "I don't even know how to play these instruments around me. But I know how music gets created.",
+   "context": "Opening of the hands-on composing lessons. Fits the page FAQ for non-musicians."
+  },
+  {
+   "episode": 7,
+   "lesson": null,
+   "text": "As per my knowledge it took 18 hours for 18 days to get this playing style. That's it. I didn't learn anything. I have only practiced fingering.",
+   "display": "As per my knowledge it took 18 hours for 18 days to get this playing style. That's it. I didn't learn anything. I have only practiced fingering.",
+   "context": "How he taught himself keyboard."
+  },
+  {
+   "episode": 7,
+   "lesson": null,
+   "text": "Happy songs are made in major. Emotionally connecting songs are being made in minor",
+   "display": "Happy songs are made in major. Emotionally connecting songs are being made in minor.",
+   "context": "His 1-4-8 and 1-5-8 way of explaining chords."
+  },
+  {
+   "episode": 11,
+   "lesson": null,
+   "text": "If audience eyes are filled with tears Our work is to bring those tears down. But filling of tears is left to them",
+   "display": "If audience eyes are filled with tears, our work is to bring those tears down. But filling of tears is left to them.",
+   "context": "When to leave space with no music."
+  },
+  {
+   "episode": 12,
+   "lesson": null,
+   "text": "Music is everywhere It just depends on how we portray the sound",
+   "display": "Music is everywhere. It just depends on how we portray the sound.",
+   "context": "After building a drum pulse from a table top."
+  },
+  {
+   "episode": 15,
+   "lesson": null,
+   "text": "Everyone expects something heroic there But Director's vision was different In it's next version we had to show his respect towards the mother... ...not his heroism.",
+   "display": "Everyone expects something heroic there. But Director's vision was different. In it's next version we had to show his respect towards the mother... not his heroism.",
+   "context": "Scoring a KGF Chapter 1 scene."
+  },
+  {
+   "episode": 11,
+   "lesson": null,
+   "text": "Our \"Dheera dheera\" Song from KGF movie..",
+   "display": "Our \"Dheera dheera\" Song from KGF movie..",
+   "context": "Start of his KGF Dheera Dheera breakdown. The passage that follows is long and loosely punctuated; read it in the file before quoting more."
+  },
+  {
+   "episode": 9,
+   "lesson": null,
+   "text": "if you start working on it, it may take 4-5 hours until we get a sound that we want. We don't drop until we get that desired result.",
+   "display": "If you start working on it, it may take 4-5 hours until we get a sound that we want. We don't drop until we get that desired result.",
+   "context": "Sound design."
+  },
+  {
+   "episode": 15,
+   "lesson": null,
+   "text": "We don't think twice before deleting it... If it is not good..it's not good that's it.",
+   "display": "We don't think twice before deleting it... If it is not good..it's not good that's it.",
+   "context": "Closing advice on not locking a design early."
+  }
+ ]
+}

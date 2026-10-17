@@ -1,0 +1,67 @@
+---
+/**
+ * Other masterclasses, as real cards: portrait, craft, name, then lessons,
+ * runtime and price as text from OFFERINGS. Leaves out the current page.
+ *
+ *   <CrossSell current="nelson-dilipkumar" />
+ *   <CrossSell current="drk-kiran" order={["nelson-dilipkumar", "lokesh-kanagaraj"]} />
+ */
+import SectionShell from "./SectionShell.astro";
+import KitPicture from "./KitPicture.astro";
+import { crossSellCards } from "./crossSell";
+import type { MasterclassSlug } from "@/data/masterclass/shared";
+
+interface Props {
+  current?: MasterclassSlug;
+  /** Slugs to show first, in this order; the rest follow. */
+  order?: MasterclassSlug[];
+  /** Most cards to show. Default all. */
+  limit?: number;
+  eyebrow?: string | false;
+  heading?: string;
+  body?: string;
+  id?: string;
+  tone?: "plain" | "raised";
+  class?: string;
+  style?: string;
+}
+
+const {
+  current,
+  order = [],
+  limit,
+  eyebrow = "Keep learning",
+  heading = "More *masterclasses*",
+  body,
+  id = "more-masterclasses",
+  tone,
+  class: className,
+  style,
+} = Astro.props;
+
+const cards = crossSellCards({ current, order, limit });
+const arrow = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
+---
+
+<SectionShell eyebrow={eyebrow} heading={heading} body={body} id={id} tone={tone} class={className} style={style}>
+  <ul class="mck-xsell" data-count={cards.length} style={`--mck-xsell-n:${cards.length}`}>
+    {cards.map((c, i) => (
+      <li class="mck-xsell__item mck-reveal" style={`--mck-delay:${(i % 3) * 80}ms`}>
+        <a class="mck-card mck-card--lift mck-xsell__link" href={c.href}>
+          <div class="mck-xsell__img">
+            <KitPicture src={c.image} alt={c.alt} width={480} height={600} sizes="(min-width: 760px) 340px, 46vw" />
+          </div>
+          <div class="mck-xsell__body">
+            <p class="mck-xsell__craft">{c.craft}</p>
+            <p class="mck-xsell__name">{c.instructor}</p>
+            <p class="mck-xsell__facts">{c.facts}</p>
+            <p class="mck-xsell__buy">
+              <span>{c.price}</span>
+              <span class="mck-xsell__go" set:html={arrow} />
+            </p>
+          </div>
+        </a>
+      </li>
+    ))}
+  </ul>
+</SectionShell>

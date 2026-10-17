@@ -1,0 +1,39 @@
+---
+/** Last call before the cross-sell: name, one line, facts, the button. */
+import "./template.css";
+import CtaButton from "@/components/masterclass/CtaButton.astro";
+import RefundLine from "@/components/masterclass/RefundLine.astro";
+import { OFFERINGS, formatPrice, formatRuntime } from "@/data/masterclass/shared";
+import type { MasterclassPageData } from "@/data/masterclass/types";
+
+interface Props {
+  data: MasterclassPageData;
+  line: string;
+}
+
+const { data: d, line } = Astro.props;
+const o = OFFERINGS[d.slug];
+const img = d.hero.image;
+---
+
+<section class="tpl-close" aria-labelledby="tpl-close-h">
+  <div class="tpl-close__bg" aria-hidden="true">
+    <picture>
+      <source type="image/avif" srcset={`${img}-660.avif`} />
+      <source type="image/webp" srcset={`${img}-660.webp`} />
+      <img src={`${img}-660.jpg`} alt="" width="660" height="759" loading="lazy" decoding="async" />
+    </picture>
+  </div>
+  <div class="tpl-close__inner mck-reveal">
+    <p class="tpl-close__name" style={`--tpl-name-len:${d.name.length}`}>{d.name}</p>
+    <h2 id="tpl-close-h" class="tpl-close__line">{line}</h2>
+    <p class="tpl-close__facts">
+      {o.lessons} lessons · {formatRuntime(o.runtimeMinutes)} · {o.language} · {formatPrice(o.price)}, paid once
+    </p>
+    <div class="tpl-close__cta">
+      <CtaButton href={o.checkoutUrl} label={d.ctaLabel} price={o.price} placement="closing" course={d.slug} size="lg" />
+      <RefundLine />
+    </div>
+    <p class="tpl-close__proof">{d.proofLine}</p>
+  </div>
+</section>
