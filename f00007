@@ -1,0 +1,193 @@
+---
+/**
+ * Template masterclass pages: G Venket Ram, Anthony Gonsalvez, DRK Kiran.
+ *
+ * Static HTML with no JavaScript by default. Small islands only where a tap
+ * or a scroll needs one: the site navbar (client:idle), the trailer facade,
+ * the lesson list and the three clips (client:visible). Every word, price
+ * and buy button is in the server HTML.
+ *
+ * Page facts (price, checkout, lessons, runtime, language) come from
+ * OFFERINGS in src/data/masterclass/shared.ts; page copy comes from
+ * src/data/masterclass/<slug>.ts. The build fails if the two disagree.
+ */
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import StickyMobileCta from "@/components/lokesh/StickyMobileCta.astro";
+import LokeshTrailer from "@/components/lokesh/LokeshTrailer";
+import EpisodeAccordion from "@/components/lokesh/EpisodeAccordion";
+import { SiteNavbar, SiteFooter } from "@/components/SiteChrome";
+import SectionShell from "@/components/masterclass/SectionShell.astro";
+import CtaRow from "@/components/masterclass/CtaRow.astro";
+import CourseFacts from "@/components/masterclass/CourseFacts.astro";
+import SkillsYouGain from "@/components/masterclass/SkillsYouGain.astro";
+import IsThisForYou from "@/components/masterclass/IsThisForYou.astro";
+import InHisWords from "@/components/masterclass/InHisWords.astro";
+import WhatYouGetToday from "@/components/masterclass/WhatYouGetToday.astro";
+import ValueAgainstPrice from "@/components/masterclass/ValueAgainstPrice.astro";
+import TryItFor7Days from "@/components/masterclass/TryItFor7Days.astro";
+import ReviewWall from "@/components/masterclass/ReviewWall.astro";
+import FaqList from "@/components/masterclass/FaqList.astro";
+import CrossSell from "@/components/masterclass/CrossSell.astro";
+import TemplateHero from "@/components/masterclass-template/TemplateHero.astro";
+import LessonStrip from "@/components/masterclass-template/LessonStrip.astro";
+import TeachingClips from "@/components/masterclass-template/TeachingClips.astro";
+import CreditsGrid from "@/components/masterclass-template/CreditsGrid.astro";
+import ClosingBlock from "@/components/masterclass-template/ClosingBlock.astro";
+import { VALID_SLUGS, getMasterclassData } from "@/data/masterclassPages";
+import { OFFERINGS, formatPrice, courseSchemaFields } from "@/data/masterclass/shared";
+import { lessonLength, reviewCards } from "@/data/masterclass/template";
+import { courseJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/structuredData";
+
+export function getStaticPaths() {
+  return VALID_SLUGS.map((slug) => ({ params: { slug } }));
+}
+
+const d = getMasterclassData(Astro.params.slug as string);
+if (!d) return Astro.redirect("/404");
+
+const o = OFFERINGS[d.slug];
+const path = `/masterclass/${d.slug}`;
+const cta = { href: o.checkoutUrl, label: d.ctaLabel, price: o.price, course: d.slug };
+
+const episodes = d.lessons.map((l) => ({
+  number: l.number,
+  title: l.title,
+  description: l.description,
+  duration: lessonLength(l.seconds),
+}));
+
+const reviews = reviewCards(d.reviews);
+
+const jsonLd = [
+  courseJsonLd({
+    name: o.courseName,
+    description: d.courseDescription,
+    path,
+    image: d.ogImage,
+    courseMode: "online",
+    ...courseSchemaFields(d.slug),
+  }),
+  breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Masterclasses", path: "/" },
+    { name: d.name, path },
+  ]),
+  faqJsonLd(d.faqs.map((f) => ({ question: f.question, answer: f.answer }))),
+];
+
+const pageStyle = [
+  `--tpl-accent:${d.theme.accent}`,
+  `--tpl-accent-rgb:${d.theme.accentRgb}`,
+  `--mck-accent:${d.theme.accent}`,
+].join(";");
+---
+
+<BaseLayout
+  title={d.seo.title}
+  description={d.seo.description}
+  path={path}
+  type="course"
+  ogImage={d.ogImage}
+  preloadImage={`${d.hero.image}-660.jpg`}
+  jsonLd={jsonLd}
+>
+  <SiteNavbar client:idle />
+
+  <main id="main-content" class="tpl-page mck" style={pageStyle} data-course={d.slug}>
+    <TemplateHero data={d} />
+
+    <SectionShell eyebrow={false} tight width="wide" style="padding-top:0">
+      <CourseFacts slug={d.slug} />
+    </SectionShell>
+
+    <SectionShell
+      id="trailer"
+      eyebrow="Trailer"
+      heading="Watch the *trailer*"
+      body={`${d.name} introduces his masterclass.`}
+      width="wide"
+      tight
+    >
+      <div class="tpl-trailer mck-reveal" data-reveal="scale">
+        <LokeshTrailer ytId={d.trailer.youtubeId} title={d.trailer.title} alt={`${d.name} masterclass trailer`} poster={d.trailer.poster.replace(/\.jpg$/, ".webp")} client:visible />
+      </div>
+    </SectionShell>
+
+    <SkillsYouGain items={d.skills} body="Each line points to the lesson that teaches it." />
+
+    <SectionShell
+      id="lessons"
+      eyebrow="The lessons"
+      heading="Every lesson, *in order*"
+      body={d.courseDescription}
+      width="narrow"
+      tone="raised"
+    >
+      <LessonStrip lessons={d.lessons} motif={d.theme.motif} />
+      <div class="mck-reveal">
+        <EpisodeAccordion
+          episodes={episodes}
+          itemLabel="Lesson"
+          showMoreAfter={6}
+          accent={d.theme.accent}
+          client:visible
+        />
+      </div>
+      <CtaRow {...cta} placement="lessons" />
+    </SectionShell>
+
+    <ValueAgainstPrice
+      price={o.price}
+      lessons={o.lessons}
+      runtimeMinutes={o.runtimeMinutes}
+      comparisons={d.valueComparisons}
+      body="What the price works out to, from the real lesson count and running time."
+    />
+
+    {d.clips.length > 0 && (
+      <SectionShell eyebrow="Inside the lessons" heading="See how he *teaches*" body={d.clipsBody} width="wide">
+        <TeachingClips clips={d.clips} />
+      </SectionShell>
+    )}
+
+    <SectionShell eyebrow="His work" heading={d.credits.heading} body={d.credits.body} width="wide">
+      <CreditsGrid items={d.credits.items} />
+    </SectionShell>
+
+    <WhatYouGetToday
+      id="buy"
+      price={o.price}
+      items={d.whatYouGet}
+      bonuses={d.bonuses}
+      bonusHeading={d.bonusHeading}
+      priceNote={`One payment of ${formatPrice(o.price)}. No subscription.`}
+      payNote={d.proofLine}
+      cta={{ ...cta, price: undefined, placement: "price-card" }}
+    />
+
+    <TryItFor7Days cta={{ ...cta, placement: "try" }} />
+
+    <InHisWords
+      speaker={d.name}
+      quotes={d.quotes}
+      note={d.quotesNote ?? "From the masterclass, English subtitles"}
+      heading="In his words"
+    />
+
+    <ReviewWall reviews={reviews} body={d.reviewsBody} initial={6} />
+
+    <IsThisForYou forYou={d.forYou} notForYou={d.notForYou} cta={{ ...cta, placement: "fit" }} />
+
+    <SectionShell id="faq" eyebrow="FAQ" heading="Questions buyers *ask*" width="narrow">
+      <FaqList faqs={d.faqs} courseName={`${d.name} masterclass`} />
+    </SectionShell>
+
+    <ClosingBlock data={d} line={d.closingLine} />
+
+    <CrossSell current={d.slug} order={d.crossSell} />
+  </main>
+
+  <SiteFooter />
+
+  <StickyMobileCta href={o.checkoutUrl} price={o.price} label={`${d.ctaLabel} · ${formatPrice(o.price)}`} course={d.slug} />
+</BaseLayout>
