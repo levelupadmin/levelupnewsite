@@ -224,14 +224,14 @@ const ytWatch = `https://www.youtube.com/watch?v=${TRAILER.ytId}`;
     <section class="mck mck-section nl-films" id="films" aria-labelledby="nl-films-title">
       <div class="mck-wrap mck-wrap--wide">
         <header class="mck-head mck-reveal">
-          <p class="mck-eyebrow">His films, 2018 to 2026</p>
+          <p class="mck-eyebrow">His films, 2018 to 2023</p>
           <h2 id="nl-films-title" class="mck-h2">The films behind <em>the lessons</em></h2>
           <div class="mck-body"><p>Kolamaavu Kokila, Doctor, Beast and Jailer each get their own lessons.</p></div>
         </header>
         <div class="nl-swipe mck-reveal" data-reveal="right">
         <ul class="nl-rail" aria-label="Films directed by Nelson Dilipkumar">
           {FILMS.map((f, i) => (
-            <li class="nl-film mck-reveal" style={`--mck-delay:${i * 70}ms`}>
+            <li class:list={["nl-film mck-reveal", { "nl-film--new": f.isNew }]} style={`--mck-delay:${i * 70}ms`}>
               <div class="nl-film__poster">
                 <picture>
                   <source type="image/avif" srcset={`${f.stem}.avif`} />
@@ -748,9 +748,9 @@ const ytWatch = `https://www.youtube.com/watch?v=${TRAILER.ytId}`;
   .nl-film__title { margin: 12px 0 0; font-size: 16px; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; color: #fff; }
   .nl-film__year { font-weight: 500; color: var(--mck-text-3); }
   .nl-film__note { margin: 4px 0 0; font-size: 13.5px; line-height: 1.45; color: var(--mck-text-3); }
-  .nl-film:first-child .nl-film__note { color: var(--mck-gold-1); }
+  .nl-film--new .nl-film__note { color: var(--mck-gold-1); }
   @media (min-width: 900px) {
-    .nl-rail { grid-auto-flow: row; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 22px; margin: 0; padding: 0; overflow: visible; }
+    .nl-rail { grid-auto-flow: row; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; margin: 0; padding: 0; overflow: visible; }
   }
   @media (hover: hover) and (pointer: fine) {
     .nl-film:hover .nl-film__poster { transform: translate3d(0, -6px, 0); box-shadow: 0 36px 60px -30px rgba(212, 163, 108, 0.35), 0 0 0 1px var(--mck-line-gold); }
