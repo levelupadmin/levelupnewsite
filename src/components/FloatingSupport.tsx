@@ -3,6 +3,13 @@ import { MessageCircle } from "lucide-react";
 const WHATSAPP_URL =
   "https://api.whatsapp.com/send?phone=919791520177&text=Hi";
 
+/**
+ * "Need help?" WhatsApp pill. Not mounted on any page today; the masterclass
+ * pages use the round WhatsApp button in BaseLayout. It carries the same
+ * `mc-fab` hook so, if mounted, it moves up above the sticky mobile buy bar
+ * instead of sitting under it. Its own bottom offset stays in the inline
+ * style because `mc-fab` sets a lower default.
+ */
 const FloatingSupport = () => {
   return (
     <a
@@ -10,7 +17,8 @@ const FloatingSupport = () => {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"
-      className="fixed bottom-16 right-5 md:bottom-8 md:right-8 z-50 inline-flex items-center gap-2 px-4 py-2.5 md:px-5 md:py-3 rounded-full bg-card/90 backdrop-blur-md border border-border text-foreground font-sans-body text-xs md:text-sm shadow-cinematic hover:border-primary/50 hover:shadow-[0_0_24px_hsl(38_75%_55%/0.15)] transition-all duration-400"
+      className="mc-fab fixed right-5 md:right-8 z-50 inline-flex items-center gap-2 px-4 py-2.5 md:px-5 md:py-3 rounded-full bg-card/90 backdrop-blur-md border border-border text-foreground font-sans-body text-xs md:text-sm shadow-cinematic hover:border-primary/50 hover:shadow-[0_0_24px_hsl(38_75%_55%/0.15)]"
+      style={{ bottom: "calc(4rem + env(safe-area-inset-bottom, 0px))" }}
     >
       <MessageCircle className="w-4 h-4 text-primary" strokeWidth={1.5} />
       <span className="hidden sm:inline">Need help?</span>

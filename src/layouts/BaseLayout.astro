@@ -130,7 +130,12 @@ const checkoutHost = new URL(CHECKOUT_ORIGIN).hostname;
 <html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content={isMasterclass
+        ? "width=device-width, initial-scale=1.0, viewport-fit=cover"
+        : "width=device-width, initial-scale=1.0"}
+    />
     <link rel="icon" href="/favicon.png" type="image/png" />
 
     {/* The Meta Pixel script loads in the first second, so it is the only
@@ -173,7 +178,79 @@ const checkoutHost = new URL(CHECKOUT_ORIGIN).hostname;
     <style is:inline>
       html, body { margin: 0; padding: 0; }
       body { background-color: hsl(22, 14%, 6%); color: hsl(0, 0%, 93%); }
+      /* Floating WhatsApp button: clears the iPhone home indicator and moves
+         up while the sticky mobile buy bar (StickyMobileCta) is showing, so
+         the bar never covers it. `translate` composes with the hover scale. */
+      .mc-fab {
+        bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+        transition:
+          translate 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+          scale 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+          opacity 0.25s ease,
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      @media (min-width: 768px) {
+        .mc-fab { bottom: calc(28px + env(safe-area-inset-bottom, 0px)); }
+      }
+      @media (max-width: 767px) {
+        html.mc-dock-on .mc-fab { translate: 0 -66px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .mc-fab { transition: none; }
+      }
     </style>
+    {isMasterclass && (
+      <style is:inline>
+        /* viewport-fit=cover (above) lets the sticky bar sit clear of the
+           home indicator. In landscape it would also put text under the
+           notch, so pad the sides by the notch width. Zero in portrait. */
+        body {
+          padding-left: env(safe-area-inset-left, 0px);
+          padding-right: env(safe-area-inset-right, 0px);
+        }
+        /* One element wider than the screen makes Android Chrome widen the
+           layout viewport (Karthik: 435 px on a 390 px phone), which pushes
+           every fixed element, the buy bar and WhatsApp button included,
+           below the screen (MB-04). clip, unlike hidden, keeps
+           position: sticky working. Needs both html and body. */
+        html, body { overflow-x: clip; }
+        /* On the first screen the WhatsApp button sat on the proof line
+           (MB-20). It fades in after the first scroll. At the very end of
+           the page it sat on the footer's legal links (MB-05), so it fades
+           out for the last 120 px of scroll. */
+        @media (max-width: 767px) {
+          html.mc-fab-wait .mc-fab,
+          html.mc-fab-end .mc-fab { opacity: 0; scale: 0.85; pointer-events: none; }
+        }
+      </style>
+    )}
+    {isMasterclass && (
+      <script is:inline>
+        (function () {
+          var root = document.documentElement;
+          root.classList.add("mc-fab-wait");
+          function check() {
+            if (window.scrollY > 120) {
+              root.classList.remove("mc-fab-wait");
+              window.removeEventListener("scroll", check);
+            }
+          }
+          window.addEventListener("scroll", check, { passive: true });
+          check();
+
+          function watchEnd() {
+            var end = document.getElementById("mc-page-end");
+            if (!end || !("IntersectionObserver" in window)) return;
+            new IntersectionObserver(function (entries) {
+              root.classList.toggle("mc-fab-end", entries[0].isIntersecting);
+            }, { rootMargin: "0px 0px 120px 0px" }).observe(end);
+          }
+          if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", watchEnd);
+          else watchEnd();
+        })();
+      </script>
+    )}
 
     {/* Meta Pixel. Loads early (async) so PageView and ViewContent reach Meta
         for every ad click, including visitors who leave in two seconds.
@@ -544,14 +621,16 @@ const checkoutHost = new URL(CHECKOUT_ORIGIN).hostname;
 
     <slot />
 
-    <!-- Floating WhatsApp button. Matches the green-icon style on the Framer
-         masterclass pages. Pure brand mark, no extra label. -->
+    {isMasterclass && <div id="mc-page-end" aria-hidden="true" style="height:1px;margin-top:-1px"></div>}
+
+    {/* Floating WhatsApp button. Position rules live in .mc-fab above. */}
     <a
       href="https://api.whatsapp.com/send?phone=919791520177&text=Hi"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"
-      class="fixed bottom-5 right-5 md:bottom-7 md:right-7 z-50 inline-flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#25D366] shadow-[0_10px_30px_-6px_rgba(37,211,102,0.55),0_0_0_4px_rgba(37,211,102,0.18)] hover:scale-105 hover:shadow-[0_14px_36px_-6px_rgba(37,211,102,0.7),0_0_0_6px_rgba(37,211,102,0.22)] transition-all duration-300"
+      id="mc-wa-fab"
+      class="mc-fab fixed right-5 md:right-7 z-50 inline-flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#25D366] shadow-[0_10px_30px_-6px_rgba(37,211,102,0.55),0_0_0_4px_rgba(37,211,102,0.18)] hover:scale-105 hover:shadow-[0_14px_36px_-6px_rgba(37,211,102,0.7),0_0_0_6px_rgba(37,211,102,0.22)]"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
