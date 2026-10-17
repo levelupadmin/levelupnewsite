@@ -63,7 +63,7 @@ const pageDescription = `Karthik Subbaraj teaches filmmaking through Pizza, Jiga
 
 const course = courseJsonLd({
   name: o.courseName,
-  description: `Karthik Subbaraj teaches filmmaking from story to final mix, through Pizza, Jigarthanda, Petta and Iraivi. ${o.lessons} video lessons, ${runtime} in all, in Tamil with English subtitles. Certificate of completion. ${formatPrice(o.price)}, paid once.`,
+  description: `Karthik Subbaraj teaches filmmaking from story to final mix, through Pizza, Jigarthanda, Petta and Iraivi. ${o.lessons} video lessons, ${runtime} in all, in Tamil with English subtitles. Certificate signed by Karthik Subbaraj. ${formatPrice(o.price)}, paid once.`,
   path: `/masterclass/${o.slug}`,
   image: `${HERO}/poster-d-1200.jpg`,
   ...courseSchemaFields(o.slug),
@@ -251,7 +251,7 @@ const faq = faqJsonLd(faqs.map(({ question, answer }) => ({ question, answer }))
       runtimeMinutes={o.runtimeMinutes}
       comparisons={[
         { label: "Language", value: "Tamil, English subtitles" },
-        { label: "Certificate", value: "Certificate of completion" },
+        { label: "Certificate", value: "Signed by Karthik Subbaraj" },
         { label: "Bonuses", value: "Worth ₹19,999, included" },
         { label: "Access", value: "For life", highlight: true },
       ]}
@@ -265,7 +265,7 @@ const faq = faqJsonLd(faqs.map(({ question, answer }) => ({ question, answer }))
       items={[
         { title: `${o.lessons} video lessons`, detail: `${runtime} in all` },
         { title: "Tamil, with English subtitles" },
-        { title: "Certificate of completion" },
+        { title: "Certificate signed by Karthik Subbaraj" },
         { title: "Lifetime access", detail: "On your phone, tablet or laptop" },
       ]}
       bonusHeading="Bonuses worth ₹19,999, for every buyer"
