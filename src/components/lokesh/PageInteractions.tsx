@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 
 interface PageInteractionsProps {
-  /** Course slug (e.g. "lokesh-kanagaraj") — used for ViewContent + Lead tracking */
+  /** Course slug (e.g. "lokesh-kanagaraj"), used for ViewContent + Lead tracking */
   course?: string;
   /** Course display name (e.g. "Lokesh Kanagaraj Masterclass") */
   courseName?: string;
-  /** Course price in INR — used for InitiateCheckout value */
+  /** Course price in INR, used for InitiateCheckout value */
   price?: number;
 }
 
@@ -28,7 +28,7 @@ declare global {
  *
  * Mounted as a client:idle island so it never blocks first paint or breaks
  * server-rendered HTML for SEO / no-JS / screenshot tools. Content is always
- * visible by default — this only ADDS animation when JS is available.
+ * visible by default, this only ADDS animation when JS is available.
  */
 export default function PageInteractions({ course, courseName, price }: PageInteractionsProps = {}) {
   useEffect(() => {
@@ -55,14 +55,18 @@ export default function PageInteractions({ course, courseName, price }: PageInte
     });
     document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
-    // (Removed) Hero parallax — was rewriting transform on every scroll tick
+    // (Removed) Hero parallax, was rewriting transform on every scroll tick
     // which caused some browsers to stutter the video element. The hero video
     // now plays cleanly without scroll-driven transforms.
 
     // ─────────────────────────────────────────────────────────────────
     // Mouse-position tilt for cards with .tilt
     // ─────────────────────────────────────────────────────────────────
-    const tilts = document.querySelectorAll<HTMLElement>(".tilt");
+    // Only for a mouse, and never when the visitor asks for less motion.
+    const canTilt =
+      window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const tilts = canTilt ? document.querySelectorAll<HTMLElement>(".tilt") : ([] as unknown as NodeListOf<HTMLElement>);
     const tiltMove = (e: MouseEvent) => {
       const el = e.currentTarget as HTMLElement;
       const r = el.getBoundingClientRect();

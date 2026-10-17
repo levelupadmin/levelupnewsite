@@ -18,7 +18,9 @@ interface Props {
 
 /**
  * Endless poster strip. Pure CSS animation (transform only), so it needs no
- * hydration directive. Pauses on hover and for prefers-reduced-motion.
+ * hydration directive. The edges fade into the page; the strip pauses on
+ * hover, on a press and hold, and while a link inside has focus; with
+ * prefers-reduced-motion it stands still.
  */
 export default function PosterMarquee({ posters = [], films, dir = "left", speed = 38, label }: Props) {
   const base: MarqueeFilm[] = films ?? posters.map((src) => ({ src }));
@@ -41,9 +43,18 @@ export default function PosterMarquee({ posters = [], films, dir = "left", speed
           from { transform: translateX(-33.333%); }
           to { transform: translateX(0); }
         }
-        .lokesh-marquee:hover .lokesh-marquee__track { animation-play-state: paused; }
+        .lokesh-marquee {
+          -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+        }
+        .lokesh-marquee__track { will-change: transform; }
+        .lokesh-marquee:hover .lokesh-marquee__track,
+        .lokesh-marquee:active .lokesh-marquee__track,
+        .lokesh-marquee:focus-within .lokesh-marquee__track { animation-play-state: paused; }
         @media (prefers-reduced-motion: reduce) {
           .lokesh-marquee__track { animation: none !important; }
+          .lokesh-marquee { overflow-x: auto !important; -webkit-mask-image: none; mask-image: none; }
+          .lokesh-marquee__track > [data-copy] { display: none; }
         }
       `}</style>
       <div
@@ -59,14 +70,15 @@ export default function PosterMarquee({ posters = [], films, dir = "left", speed
             <div
               key={i}
               aria-hidden={copy ? true : undefined}
-              className="shrink-0 w-[125px] md:w-[140px] aspect-[2/3] rounded-md overflow-hidden ring-1 ring-white/[0.06] shadow-[0_15px_30px_-15px_rgba(0,0,0,0.7)]"
+              data-copy={copy ? "" : undefined}
+              className="shrink-0 w-[125px] md:w-[140px] aspect-[2/3] rounded-md overflow-hidden ring-1 ring-white/[0.08] shadow-[0_15px_30px_-15px_rgba(0,0,0,0.7)] bg-[#141210]"
             >
               <img
                 src={f.src}
                 alt={alt}
                 width={140}
                 height={210}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover text-transparent"
                 loading="lazy"
                 decoding="async"
               />
