@@ -6,19 +6,18 @@ import levelupLogo from "@/assets/levelup-logo.svg";
 
 const footerLinks = {
   Learn: [
-    { label: "Masterclasses", href: "#masterclasses" },
-    { label: "LevelUp Live", href: "#live-programs" },
-    { label: "The Forge", href: "#forge" },
+    { label: "Masterclasses", href: "/#masterclasses" },
+    { label: "LevelUp Live", href: "/#live-programs" },
+    { label: "The Forge", href: "/#forge" },
     { label: "Reviews", href: "/reviews" },
     { label: "Student Stories", href: "/student-stories" },
   ],
   Company: [
     { label: "Careers", href: "/careers" },
-    { label: "Press", href: "https://www.leveluplearning.in/contact-us" },
     { label: "Blog", href: "/blog" },
   ],
   Support: [
-    { label: "FAQs", href: "#faq" },
+    { label: "FAQs", href: "/#faq" },
     { label: "Contact Us", href: "https://api.whatsapp.com/send?phone=919791520177&text=Hi" },
     { label: "Terms", href: "/terms" },
     { label: "Privacy Policy", href: "/privacy-policy" },

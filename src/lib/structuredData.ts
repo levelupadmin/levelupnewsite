@@ -18,7 +18,7 @@ export const organizationJsonLd = {
   logo: `${SITE_URL}/favicon.png`,
   description:
     "India's leading creative education ecosystem for filmmakers, editors, writers, and designers.",
-  email: "hello@leveluplearning.com",
+  email: "support@leveluplearning.in",
   // The accounts linked in the site footer. Third-party corroboration is the
   // thing we are short of, so the profiles that do exist should be findable
   // from the markup rather than only from the page furniture.

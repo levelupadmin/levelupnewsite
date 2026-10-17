@@ -141,7 +141,7 @@ Anything else carrying the LevelUp name is not us.
 ## Programs
 
 - [LevelUp Video Editing Academy](${SITE_URL}/live/ve): Live mentor-led video editing program
-- [The Forge](https://theforgebylevelup.com): Multi-week immersive filmmaking residency
+- [The Forge](https://www.forgebylevelup.com/): In-person residencies for filmmaking, writing and creators
 
 ## Masterclasses
 
