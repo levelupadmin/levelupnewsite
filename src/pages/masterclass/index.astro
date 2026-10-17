@@ -1,0 +1,461 @@
+---
+// /masterclass: the index of all seven recorded masterclasses.
+// Every figure comes from src/data/masterclassIndex.ts, which also feeds the
+// comparison table and the JSON-LD, so the three can never disagree.
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { SiteNavbar, SiteFooter } from "@/components/SiteChrome";
+import {
+  masterclassListings,
+  CRAFT_LABEL,
+  formatRupees,
+  lowestPrice,
+  type Craft,
+} from "@/data/masterclassIndex";
+import { breadcrumbJsonLd, faqJsonLd, ORGANIZATION_ID } from "@/lib/structuredData";
+import { SITE_URL } from "@/lib/constants";
+
+const path = "/masterclass";
+const title = "Masterclasses by Nelson, Lokesh, Karthik Subbaraj | LevelUp";
+const description = `Seven recorded masterclasses from the people behind Jailer, Vikram, KGF and Enthiran. Direction, editing, scoring, art and photography, from ${formatRupees(lowestPrice)}.`;
+
+const crafts = (Object.keys(CRAFT_LABEL) as Craft[])
+  .map((c) => ({ craft: c, label: CRAFT_LABEL[c], count: masterclassListings.filter((m) => m.craft === c).length }))
+  .filter((c) => c.count > 0);
+
+// The credit roll: every film named on the wall, once, in wall order.
+const rollTitles = [...new Set(masterclassListings.flatMap((m) => m.credits.filter((c) => !c.startsWith("the "))))];
+
+// Three one-sheets for the hero, fanned like posters on a lobby wall.
+const heroFan = ["lokesh-kanagaraj", "nelson-dilipkumar", "ravi-basrur"]
+  .map((s) => masterclassListings.find((m) => m.slug === s))
+  .filter((m): m is (typeof masterclassListings)[number] => Boolean(m));
+
+const rasterSiblings = (src: string) => {
+  const m = src.match(/^(.*)\.(png|jpe?g)(\?.*)?$/i);
+  return m ? { avif: `${m[1]}.avif${m[3] ?? ""}`, webp: `${m[1]}.webp${m[3] ?? ""}` } : null;
+};
+
+const faqs = [
+  {
+    question: "What is a LevelUp masterclass?",
+    answer: `A recorded course taught by one working film professional, about their own craft and their own films. You pay once, from ${formatRupees(lowestPrice)} to ${formatRupees(Math.max(...masterclassListings.map((m) => m.price)))}, and watch the lessons whenever you like.`,
+  },
+  {
+    question: "Which masterclass should I start with?",
+    answer: "Start with the craft you want to work in. For directing, Lokesh Kanagaraj's class is the shortest, at 1h 34m, and Karthik Subbaraj's is the longest, at 3h 4m. Anthony Gonsalvez teaches editing, Ravi Basrur film scoring, DRK Kiran art direction and G Venket Ram photography.",
+  },
+  {
+    question: "What language are the masterclasses in?",
+    answer: "Nelson Dilipkumar, Lokesh Kanagaraj and Karthik Subbaraj teach in Tamil with English subtitles. Ravi Basrur teaches in Kannada with English subtitles. Anthony Gonsalvez teaches in English. DRK Kiran and G Venket Ram teach in Tamil and English.",
+  },
+  {
+    question: "How long do I keep access?",
+    answer: "For life. Once you buy a masterclass it stays in your LevelUp account, and you can rewatch any lesson as often as you like. You sign in with a one-time code sent to your phone.",
+  },
+  {
+    question: "Can I get a refund?",
+    answer: "Yes, within 7 days of buying, as long as you have watched less than 25% of the class. The full terms are in the LevelUp refund policy.",
+  },
+];
+
+const itemList = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "LevelUp Learning masterclasses",
+  url: `${SITE_URL}${path}`,
+  numberOfItems: masterclassListings.length,
+  itemListElement: masterclassListings.map((m, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "Course",
+      name: m.courseName,
+      description: m.summary,
+      url: `${SITE_URL}/masterclass/${m.slug}`,
+      image: `${SITE_URL}/og/mc-${m.slug}.jpg`,
+      provider: { "@id": ORGANIZATION_ID },
+      instructor: { "@type": "Person", name: m.name, jobTitle: m.role },
+      inLanguage: m.languageCodes.length === 1 ? m.languageCodes[0] : m.languageCodes,
+      timeRequired: m.runtimeIso,
+      educationalLevel: "Beginner",
+      offers: {
+        "@type": "Offer",
+        category: "Paid",
+        price: m.price,
+        priceCurrency: "INR",
+        url: `${SITE_URL}/masterclass/${m.slug}`,
+      },
+      hasCourseInstance: {
+        "@type": "CourseInstance",
+        courseMode: "online",
+        courseWorkload: m.runtimeIso,
+      },
+    },
+  })),
+};
+
+const jsonLd = [
+  breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Masterclasses", path },
+  ]),
+  itemList,
+  faqJsonLd(faqs),
+];
+---
+
+<BaseLayout title={title} description={description} path={path} jsonLd={jsonLd} ogImage="/og/home.jpg">
+  <SiteNavbar client:load />
+  <main class="mc-index bg-background">
+    <section class="hero" aria-labelledby="mc-title">
+      <div class="shell hero-grid">
+        <p class="eyebrow">LevelUp Masterclasses <span aria-hidden="true">·</span> {masterclassListings.length} recorded classes</p>
+        <h1 id="mc-title">
+          Learn the craft from the people who made <em>Jailer</em>, <em>Vikram</em>, <em>KGF</em> and <em>Enthiran</em>.
+        </h1>
+        <p class="lede">
+          Seven recorded masterclasses in direction, film editing, film scoring, art direction and photography.
+          Each is taught by the person who did the work. Pay once, from {formatRupees(lowestPrice)}, and keep it for life.
+        </p>
+        <div class="hero-links">
+          <a class="btn-primary" href="#wall">See all seven</a>
+          <a class="btn-quiet" href="#compare">Compare them side by side</a>
+        </div>
+        <div class="fan" aria-hidden="true">
+          {heroFan.map((m, i) => {
+            const sib = rasterSiblings(m.image);
+            return (
+              <figure class={`sheet sheet-${i}`}>
+                {sib ? (
+                  <picture>
+                    <source srcset={sib.avif} type="image/avif" />
+                    <source srcset={sib.webp} type="image/webp" />
+                    <img src={m.image} width="470" height="600" alt="" loading="eager" decoding="async" />
+                  </picture>
+                ) : (
+                  <img src={m.image} width="470" height="600" alt="" loading="eager" decoding="async" />
+                )}
+              </figure>
+            );
+          })}
+        </div>
+      </div>
+
+      <div class="roll" aria-label="Films made by the instructors on this page">
+        <div class="roll-track">
+          {[0, 1].map((copy) => (
+            <ul aria-hidden={copy === 1 ? "true" : undefined}>
+              {rollTitles.map((t) => <li>{t}</li>)}
+            </ul>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="wall" class="wall" aria-labelledby="wall-title">
+      <div class="shell">
+        <div class="wall-head">
+          <h2 id="wall-title">The seven masterclasses</h2>
+          <div class="filters" role="group" aria-label="Filter by craft" data-filters hidden>
+            <button type="button" aria-pressed="true" data-craft="all">All <span>{masterclassListings.length}</span></button>
+            {crafts.map((c) => (
+              <button type="button" aria-pressed="false" data-craft={c.craft}>{c.label} <span>{c.count}</span></button>
+            ))}
+          </div>
+        </div>
+
+        <ol class="grid" role="list">
+          {masterclassListings.map((m, i) => {
+            const sib = rasterSiblings(m.image);
+            const loading = i < 3 ? "eager" : "lazy";
+            return (
+              <li class="card" data-craft={m.craft}>
+                <a class="poster" href={`/masterclass/${m.slug}`} tabindex="-1" aria-hidden="true">
+                  {sib ? (
+                    <picture>
+                      <source srcset={sib.avif} type="image/avif" />
+                      <source srcset={sib.webp} type="image/webp" />
+                      <img src={m.image} width="470" height="600" alt="" loading={loading} decoding="async" />
+                    </picture>
+                  ) : (
+                    <img src={m.image} width="470" height="600" alt="" loading={loading} decoding="async" />
+                  )}
+                </a>
+                <div class="placard">
+                  <p class="craft">{m.role}</p>
+                  <h3><a href={`/masterclass/${m.slug}`}>{m.name}</a></h3>
+                  <p class="summary">{m.summary}</p>
+                  <p class="credits"><span>{m.creditsLabel}</span> {m.credits.join(" · ")}</p>
+                  <dl class="slate">
+                    {m.lessons !== null && (
+                      <div><dt>Lessons</dt><dd>{m.lessons}</dd></div>
+                    )}
+                    <div><dt>Runtime</dt><dd>{m.runtime}</dd></div>
+                    <div class="lang"><dt>Language</dt><dd>{m.language}</dd></div>
+                  </dl>
+                  <div class="buy">
+                    <span class="price">{formatRupees(m.price)}</span>
+                    <a class="see" href={`/masterclass/${m.slug}`} aria-label={`See ${m.courseName}`}>See the class <span aria-hidden="true">→</span></a>
+                  </div>
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+
+        <p class="crossover">
+          <em>Doctor</em>, <em>Beast</em> and <em>Jailer</em> appear twice on this wall. Nelson Dilipkumar directed them, and DRK Kiran was their art director.
+        </p>
+      </div>
+    </section>
+
+    <section id="compare" class="compare" aria-labelledby="compare-title">
+      <div class="shell">
+        <h2 id="compare-title">All seven at a glance</h2>
+        <div class="table-wrap">
+          <table>
+            <caption class="sr-only">LevelUp masterclasses compared by craft, lessons, runtime, language and price</caption>
+            <thead>
+              <tr><th scope="col">Masterclass</th><th scope="col">Craft</th><th scope="col">Lessons</th><th scope="col">Runtime</th><th scope="col">Language</th><th scope="col">Price</th></tr>
+            </thead>
+            <tbody>
+              {masterclassListings.map((m) => (
+                <tr>
+                  <th scope="row"><a href={`/masterclass/${m.slug}`}>{m.name}</a></th>
+                  <td>{CRAFT_LABEL[m.craft]}</td>
+                  <td class="num">{m.lessons ?? "See class page"}</td>
+                  <td class="num">{m.runtime}</td>
+                  <td>{m.language}</td>
+                  <td class="num">{formatRupees(m.price)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="terms" aria-labelledby="terms-title">
+      <div class="shell">
+        <h2 id="terms-title">What comes with every masterclass</h2>
+        <ul class="terms-grid" role="list">
+          <li><h3>One payment</h3><p>No subscription. Each class is a single payment, between {formatRupees(lowestPrice)} and {formatRupees(Math.max(...masterclassListings.map((m) => m.price)))}.</p></li>
+          <li><h3>Yours for life</h3><p>The class stays in your LevelUp account. Rewatch any lesson as often as you like.</p></li>
+          <li><h3>Sign in with your phone</h3><p>Your account is your phone number. You sign in with a one-time code; there is no password to remember.</p></li>
+          <li><h3>7-day refund</h3><p>Ask within 7 days of buying and before you have watched 25% of the class. <a href="/refund-policy">Read the refund policy</a>.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="faq" aria-labelledby="faq-title">
+      <div class="shell faq-shell">
+        <h2 id="faq-title">Questions people ask</h2>
+        <div class="faq-list">
+          {faqs.map((f) => (
+            <details>
+              <summary>{f.question}</summary>
+              <p>{f.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="next" aria-labelledby="next-title">
+      <div class="shell next-grid">
+        <h2 id="next-title">Want a mentor to watch your work?</h2>
+        <a class="next-card" href="/#live-programs">
+          <span class="eyebrow">LevelUp Live</span>
+          <strong>Live cohorts over 12 weeks</strong>
+          <span>Filmmaking, video editing and creator cohorts, with mentors reviewing what you make.</span>
+        </a>
+        <a class="next-card" href="https://creators.forgebylevelup.com/filmmaking">
+          <span class="eyebrow">The Forge</span>
+          <strong>In-person residencies</strong>
+          <span>Write, shoot and finish a short film, or build a creator practice, alongside mentors on location.</span>
+        </a>
+        <a class="next-card" href="/blog/best-filmmaking-courses-india">
+          <span class="eyebrow">Blog</span>
+          <strong>Best filmmaking courses in India</strong>
+          <span>FTII, Whistling Woods and short programmes compared on fees, seats and time.</span>
+        </a>
+      </div>
+    </section>
+  </main>
+  <SiteFooter client:idle />
+</BaseLayout>
+
+<script>
+  // Craft filter. Without JavaScript the bar stays hidden and all seven show.
+  const bar = document.querySelector<HTMLElement>("[data-filters]");
+  if (bar) {
+    bar.hidden = false;
+    const cards = document.querySelectorAll<HTMLElement>(".mc-index .card");
+    bar.addEventListener("click", (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-craft]");
+      if (!btn) return;
+      const craft = btn.dataset.craft;
+      bar.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+      cards.forEach((c) => {
+        c.hidden = craft !== "all" && c.dataset.craft !== craft;
+      });
+    });
+  }
+</script>
+
+<style>
+  /* Layout: a cinema lobby. A text-led hero over a slow credit roll of every
+     film the instructors made, then a wall of one-sheet posters, each with a
+     placard below it styled after a clapperboard slate. */
+  .mc-index {
+    --amber: hsl(var(--primary));
+    --amber-soft: hsl(var(--primary) / 0.14);
+    --ink: hsl(var(--foreground));
+    --ink-2: hsl(var(--muted-foreground));
+    --line: hsl(var(--border));
+    --panel: hsl(var(--card));
+    --cream: hsl(36 60% 86%);
+    --f-display: "Bebas Neue", "Arial Narrow", system-ui, sans-serif;
+    --f-head: "Funnel Display", "Sora", system-ui, sans-serif;
+    --f-body: "Sora", system-ui, sans-serif;
+    color: var(--ink);
+    font-family: var(--f-body);
+  }
+  .shell { max-width: 1240px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 40px); }
+  .eyebrow { font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--amber); font-weight: 600; margin: 0; }
+  h1, h2, h3 { text-wrap: balance; }
+
+  /* Hero */
+  .hero { position: relative; padding-top: clamp(96px, 14vw, 168px); overflow: hidden; background:
+      radial-gradient(60% 70% at 85% 0%, hsl(var(--primary) / 0.16), transparent 70%),
+      radial-gradient(40% 50% at 0% 100%, hsl(var(--primary) / 0.06), transparent 70%); }
+  .hero-grid { display: grid; gap: 1.4rem; padding-bottom: clamp(40px, 6vw, 72px); }
+  .fan { display: none; }
+  @media (min-width: 1024px) {
+    .hero-grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); column-gap: 3rem; align-items: center; }
+    .hero-grid > :not(.fan) { grid-column: 1; }
+    .fan { display: block; grid-column: 2; grid-row: 1 / span 4; position: relative; height: clamp(380px, 34vw, 500px); }
+    .sheet { position: absolute; top: 50%; left: 50%; width: 42%; margin: 0; aspect-ratio: 3 / 4; border-radius: 6px; overflow: hidden; background: hsl(var(--secondary)); box-shadow: 0 30px 60px -20px hsl(22 14% 0% / 0.8), 0 0 0 1px hsl(var(--border)); transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1); }
+    .sheet img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .sheet-0 { transform: translate(-132%, -45%) rotate(-6deg); }
+    .sheet-1 { transform: translate(-50%, -54%); z-index: 2; }
+    .sheet-2 { transform: translate(32%, -45%) rotate(6deg); }
+  }
+  @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+    .fan:hover .sheet-0 { transform: translate(-140%, -47%) rotate(-9deg); }
+    .fan:hover .sheet-2 { transform: translate(40%, -47%) rotate(9deg); }
+  }
+  .hero h1 { font-family: var(--f-head); font-weight: 600; font-size: clamp(2.1rem, 5.6vw, 4.6rem); line-height: 1.04; letter-spacing: -0.025em; max-width: 17ch; margin: 0; }
+  .hero h1 em { font-style: normal; color: var(--cream); }
+  .lede { font-size: clamp(1rem, 1.4vw, 1.2rem); line-height: 1.6; color: var(--ink-2); max-width: 58ch; margin: 0; }
+  .hero-links { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.4rem; }
+  .btn-primary, .btn-quiet { display: inline-flex; align-items: center; min-height: 48px; padding: 0 1.4rem; border-radius: 999px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: background-color 0.2s, border-color 0.2s, color 0.2s; }
+  .btn-primary { background: var(--amber); color: hsl(var(--primary-foreground)); }
+  .btn-primary:hover { background: hsl(30 90% 60%); }
+  .btn-quiet { border: 1px solid var(--line); color: var(--ink); }
+  .btn-quiet:hover { border-color: var(--amber); color: var(--amber); }
+
+  /* Credit roll */
+  .roll { border-block: 1px solid var(--line); padding-block: 0.9rem; overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+  .roll-track { display: flex; width: max-content; }
+  .roll ul { display: flex; gap: 2.4rem; margin: 0; padding: 0 1.2rem; list-style: none; }
+  .roll li { font-family: var(--f-display); font-size: clamp(1.5rem, 2.6vw, 2.2rem); letter-spacing: 0.04em; line-height: 1; color: var(--ink-2); white-space: nowrap; display: flex; align-items: center; gap: 2.4rem; }
+  .roll li::after { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--amber); opacity: 0.7; }
+  @media (prefers-reduced-motion: no-preference) {
+    .roll-track { animation: roll 70s linear infinite; }
+    .roll:hover .roll-track { animation-play-state: paused; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .roll { mask-image: none; }
+    .roll-track { width: auto; }
+    .roll ul { flex-wrap: wrap; row-gap: 0.8rem; }
+    .roll ul[aria-hidden="true"] { display: none; }
+  }
+  @keyframes roll { to { transform: translateX(-50%); } }
+
+  /* Wall */
+  .wall { padding-block: clamp(56px, 8vw, 104px); }
+  .wall-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem 2rem; margin-bottom: clamp(28px, 4vw, 44px); }
+  .wall-head h2, .compare h2, .terms h2, .faq h2, .next h2 { font-family: var(--f-head); font-weight: 600; font-size: clamp(1.7rem, 3.2vw, 2.6rem); letter-spacing: -0.02em; line-height: 1.1; margin: 0; }
+  .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .filters[hidden] { display: none; }
+  .filters button { font: inherit; font-size: 0.85rem; padding: 0.5rem 0.95rem; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--ink-2); cursor: pointer; transition: border-color 0.2s, color 0.2s, background-color 0.2s; }
+  .filters button span { color: var(--ink-2); opacity: 0.7; margin-left: 0.2rem; font-variant-numeric: tabular-nums; }
+  .filters button:hover { border-color: var(--ink-2); color: var(--ink); }
+  .filters button[aria-pressed="true"] { background: var(--amber-soft); border-color: var(--amber); color: var(--ink); }
+  .grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: clamp(20px, 2.4vw, 32px); }
+  .card[hidden] { display: none; }
+  .card { display: flex; flex-direction: column; min-width: 0; }
+  .poster { display: block; aspect-ratio: 3 / 4; overflow: hidden; border-radius: 6px 6px 0 0; background: hsl(var(--secondary)); }
+  .poster img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .card:hover .poster img, .card:focus-within .poster img { transform: scale(1.04); }
+  .placard { flex: 1; display: flex; flex-direction: column; gap: 0.7rem; padding: 1.1rem 1.15rem 1.2rem; background: var(--panel); border: 1px solid var(--line); border-top: 0; border-radius: 0 0 6px 6px; position: relative; }
+  /* The slate stripe: the diagonal bars of a clapperboard, on every placard. */
+  .placard::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 6px; background: repeating-linear-gradient(-45deg, var(--cream) 0 10px, hsl(var(--background)) 10px 20px); opacity: 0.85; }
+  .craft { margin: 0.35rem 0 0; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); font-weight: 600; }
+  .placard h3 { margin: 0; font-family: var(--f-display); font-weight: 400; font-size: 2.1rem; letter-spacing: 0.03em; line-height: 0.95; }
+  .placard h3 a { color: var(--ink); text-decoration: none; }
+  .placard h3 a:hover { color: var(--cream); }
+  .summary { margin: 0; font-size: 0.92rem; line-height: 1.55; color: var(--ink); }
+  .credits { margin: 0; font-size: 0.82rem; line-height: 1.55; color: var(--ink-2); }
+  .credits span { display: block; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2); opacity: 0.8; margin-bottom: 0.1rem; }
+  .slate { display: flex; flex-wrap: wrap; margin: 0.2rem 0 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .slate div { flex: 1 1 auto; padding: 0.55rem 0.7rem 0.6rem 0; min-width: 0; }
+  .slate div + div { padding-left: 0.7rem; border-left: 1px solid var(--line); }
+  .slate .lang { flex-basis: 100%; border-left: 0 !important; padding-left: 0 !important; border-top: 1px solid var(--line); }
+  .slate dt { font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-2); }
+  .slate dd { margin: 0.15rem 0 0; font-weight: 600; font-size: 0.95rem; font-variant-numeric: tabular-nums; }
+  .buy { margin-top: auto; padding-top: 0.4rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .price { font-family: var(--f-head); font-weight: 600; font-size: 1.45rem; font-variant-numeric: tabular-nums; }
+  .see { font-size: 0.88rem; font-weight: 600; color: var(--amber); text-decoration: none; white-space: nowrap; }
+  .see:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .crossover { margin: clamp(28px, 4vw, 44px) 0 0; max-width: 62ch; color: var(--ink-2); font-size: 0.95rem; line-height: 1.6; border-left: 2px solid var(--amber); padding-left: 1rem; }
+  .crossover em { font-style: normal; color: var(--ink); }
+
+  /* Compare */
+  .compare { padding-block: clamp(48px, 7vw, 88px); border-top: 1px solid var(--line); }
+  .table-wrap { margin-top: 1.6rem; overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; }
+  .compare table { width: 100%; min-width: 720px; border-collapse: collapse; font-size: 0.92rem; }
+  .compare th, .compare td { padding: 0.85rem 1rem; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .compare thead th { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2); font-weight: 600; background: hsl(var(--secondary) / 0.5); }
+  .compare tbody tr:last-child > * { border-bottom: 0; }
+  .compare tbody th a { color: var(--ink); font-weight: 600; text-decoration: none; }
+  .compare tbody th a:hover { color: var(--amber); }
+  .compare .num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  /* Terms */
+  .terms { padding-block: clamp(48px, 7vw, 88px); border-top: 1px solid var(--line); }
+  .terms-grid { list-style: none; margin: 1.8rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 1.5rem 2rem; }
+  .terms-grid li { border-top: 1px solid var(--amber); padding-top: 1rem; }
+  .terms-grid h3 { margin: 0 0 0.45rem; font-family: var(--f-head); font-weight: 600; font-size: 1.15rem; }
+  .terms-grid p { margin: 0; color: var(--ink-2); font-size: 0.92rem; line-height: 1.6; }
+  .terms-grid a { color: var(--amber); }
+
+  /* FAQ */
+  .faq { padding-block: clamp(48px, 7vw, 88px); border-top: 1px solid var(--line); }
+  .faq-shell { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: 2rem 4rem; align-items: start; }
+  .faq-list { display: grid; }
+  .faq details { border-bottom: 1px solid var(--line); }
+  .faq details:first-child { border-top: 1px solid var(--line); }
+  .faq summary { cursor: pointer; list-style: none; padding: 1.1rem 2rem 1.1rem 0; font-weight: 600; font-size: 1.02rem; position: relative; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; position: absolute; right: 0.2rem; top: 0.95rem; font-size: 1.3rem; color: var(--amber); transition: transform 0.2s; }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq details p { margin: 0 0 1.2rem; color: var(--ink-2); line-height: 1.65; max-width: 62ch; }
+
+  /* Next */
+  .next { padding-block: clamp(48px, 7vw, 96px); border-top: 1px solid var(--line); }
+  .next-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+  .next-grid h2 { grid-column: 1 / -1; margin-bottom: 0.6rem; }
+  .next-card { display: grid; gap: 0.45rem; align-content: start; padding: 1.3rem; border: 1px solid var(--line); border-radius: 6px; text-decoration: none; color: var(--ink); transition: border-color 0.2s, background-color 0.2s; }
+  .next-card:hover { border-color: var(--amber); background: var(--amber-soft); }
+  .next-card strong { font-family: var(--f-head); font-weight: 600; font-size: 1.15rem; }
+  .next-card span:last-child { color: var(--ink-2); font-size: 0.9rem; line-height: 1.55; }
+
+  .mc-index a:focus-visible, .mc-index button:focus-visible, .mc-index summary:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 4px; }
+
+  @media (max-width: 860px) {
+    .faq-shell { grid-template-columns: minmax(0, 1fr); }
+    .next-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

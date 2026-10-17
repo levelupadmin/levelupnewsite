@@ -193,7 +193,14 @@ const MasterclassSection = () => {
         </div>
       </div>
 
-      {/* Soft CTA */}
+      <FadeInSection className="text-center px-6 md:px-12 mt-10 md:mt-12">
+        <Link
+          to="/masterclass"
+          className="inline-flex items-center gap-2 font-sans-body text-sm md:text-base text-primary hover:underline underline-offset-4"
+        >
+          Compare all seven masterclasses <ArrowRight className="w-4 h-4" aria-hidden="true" />
+        </Link>
+      </FadeInSection>
     </section>
   );
 };

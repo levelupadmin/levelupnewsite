@@ -140,10 +140,18 @@ Anything else carrying the LevelUp name is not us.
 
 ## Programs
 
-- [LevelUp Video Editing Academy](${SITE_URL}/live/ve): Live mentor-led video editing program
-- [The Forge](https://www.forgebylevelup.com/): In-person residencies for filmmaking, writing and creators
+- [Breakthrough Filmmakers' Program](https://www.leveluplearning.live/bfp-2): 12-week live online filmmaking cohort, weekends
+- [LevelUp Video Editing Academy](https://www.leveluplearning.live/ve): 12-week live video editing cohort
+- [LevelUp Creator Academy](https://www.leveluplearning.live/creator-academy): 12-week live cohort for content creators
+- [Executive Presence Cohort](${SITE_URL}/communication): 12-week live communication cohort, 40 seats
+- [The Forge Filmmaking](https://creators.forgebylevelup.com/filmmaking): In-person filmmaking residency
+- [The Forge Writing](https://creators.forgebylevelup.com/writing): Six-day in-person writing retreat
+- [The Forge Creators](https://creators.forgebylevelup.com/): In-person residency for founders and creators
+- [The Forge AI Residency](https://www.forgebylevelup.com/ai): In-person AI building residency for founders and operators
 
 ## Masterclasses
+
+All seven compared on one page, with lessons, runtime, language and price: ${SITE_URL}/masterclass
 
 ${[
   ...masterclasses.map(
