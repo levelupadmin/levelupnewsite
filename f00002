@@ -1,0 +1,663 @@
+---
+import "@/styles/globals.css";
+import Seo from "@/components/Seo.astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/structuredData";
+import { META_PIXEL_ID } from "@/lib/constants";
+import { OFFERINGS, CHECKOUT_ORIGIN } from "@/data/masterclass/offerings";
+import { statSync } from "node:fs";
+import { join } from "node:path";
+
+/**
+ * An image to preload. Give the exact file the page paints first (usually
+ * the LCP image), ideally AVIF or WebP. `media` lets a page preload a
+ * different file per breakpoint; `imagesrcset`/`imagesizes` match an <img
+ * srcset>.
+ */
+export interface PreloadImage {
+  href: string;
+  type?: string;
+  media?: string;
+  imagesrcset?: string;
+  imagesizes?: string;
+  fetchpriority?: "high" | "low" | "auto";
+}
+
+type FontKey = "sora" | "funnel-display";
+
+export interface Props {
+  title: string;
+  description: string;
+  path: string;
+  ogImage?: string;
+  type?: "website" | "article" | "course";
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  noIndex?: boolean;
+  bodyClass?: string;
+  /**
+   * String: an .avif or .webp URL is preloaded as given. A PNG or JPG URL is
+   * rewritten to its .avif sibling (written by scripts/optimize-images.mjs)
+   * when that sibling exists (source of 8 KB or more), which suits the
+   * homepage, whose hero paints the sibling; a smaller file is preloaded as
+   * itself. On /masterclass/ pages a PNG or JPG string is ignored: a page
+   * that paints the original would download the hero twice (audit PF-02).
+   * There, pass the .avif URL when the hero is a <picture> with siblings
+   * (KitPicture, Picture), or the object form with the exact file painted.
+   */
+  preloadImage?: string | PreloadImage | PreloadImage[];
+  /**
+   * Self-hosted fonts to preload. Defaults: Sora only on /masterclass/ pages, Sora and Funnel Display elsewhere.
+   * A masterclass page whose headline uses Funnel Display must pass both, or
+   * the hero moves when the font arrives (MOBILE-A-04).
+   */
+  preloadFonts?: FontKey[];
+}
+
+const {
+  title,
+  description,
+  path,
+  ogImage,
+  type = "website",
+  jsonLd,
+  noIndex = false,
+  bodyClass = "",
+  preloadImage,
+  preloadFonts,
+} = Astro.props;
+
+const siteJsonLd = [organizationJsonLd, websiteJsonLd];
+const allJsonLd = jsonLd
+  ? [...siteJsonLd, ...(Array.isArray(jsonLd) ? jsonLd : [jsonLd])]
+  : siteJsonLd;
+
+const isMasterclass = path.startsWith("/masterclass/");
+
+const FONT_FILES: Record<FontKey, string> = {
+  sora: "/fonts/sora-var.woff2",
+  "funnel-display": "/fonts/funnel-display-var.woff2",
+};
+// Funnel Display is used by LiveVE and by the headlines of the Lokesh, Ravi
+// and Karthik masterclass pages, which pass preloadFonts to load it early.
+// Nelson and the template pages do not use it.
+const fonts: FontKey[] = preloadFonts ?? (isMasterclass ? ["sora"] : ["sora", "funnel-display"]);
+
+function imageType(href: string): string | undefined {
+  const ext = href.split("?")[0].split(".").pop()?.toLowerCase();
+  if (ext === "avif") return "image/avif";
+  if (ext === "webp") return "image/webp";
+  return undefined;
+}
+
+// scripts/optimize-images.mjs writes .avif and .webp siblings after the
+// build, but only for PNG and JPG files of 8 KB or more. Check the source in
+// public/ so a smaller file is preloaded as itself, not as a sibling that
+// does not exist.
+const SIBLING_MIN_BYTES = 8 * 1024;
+function hasAvifSibling(href: string): boolean {
+  const clean = href.split("?")[0];
+  if (!clean.startsWith("/") || clean.startsWith("//")) return false;
+  try {
+    return statSync(join(process.cwd(), "public", decodeURIComponent(clean))).size >= SIBLING_MIN_BYTES;
+  } catch {
+    // Not in public/ (a hashed /_astro/ import): the optimizer covers dist/
+    // as a whole, so assume the sibling exists, as before.
+    return clean.startsWith("/_astro/");
+  }
+}
+
+const preloads: PreloadImage[] = (() => {
+  if (!preloadImage) return [];
+  if (typeof preloadImage === "string") {
+    const t = imageType(preloadImage);
+    if (t) return [{ href: preloadImage, type: t }];
+    if (isMasterclass) return [];
+    if (!/\.(jpe?g|png)(\?.*)?$/i.test(preloadImage) || !hasAvifSibling(preloadImage)) {
+      return [{ href: preloadImage }];
+    }
+    return [{ href: preloadImage.replace(/\.(jpe?g|png)(\?.*)?$/i, ".avif"), type: "image/avif" }];
+  }
+  const list = Array.isArray(preloadImage) ? preloadImage : [preloadImage];
+  return list.map((p) => ({ ...p, type: p.type ?? imageType(p.href) }));
+})();
+
+// Only what the inline tracking script needs. Prices and ids come from one
+// file (src/data/masterclass/offerings.ts) so events, buttons and checkout agree.
+const mcOfferings = OFFERINGS.map((o) => ({
+  slug: o.slug,
+  id: o.offeringId,
+  price: o.price,
+  name: o.name,
+}));
+const checkoutHost = new URL(CHECKOUT_ORIGIN).hostname;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content={isMasterclass
+        ? "width=device-width, initial-scale=1.0, viewport-fit=cover"
+        : "width=device-width, initial-scale=1.0"}
+    />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+
+    {/* The Meta Pixel script loads in the first second, so it is the only
+        third-party origin worth a preconnect. The Google tag and Clarity
+        load after the page is idle (below), so they get none. Events are
+        sent to www.facebook.com. */}
+    <link rel="preconnect" href="https://connect.facebook.net" />
+    <link rel="dns-prefetch" href="https://www.facebook.com" />
+    {isMasterclass && <link rel="dns-prefetch" href={CHECKOUT_ORIGIN} />}
+
+    <Seo
+      title={title}
+      description={description}
+      path={path}
+      ogImage={ogImage}
+      type={type}
+      jsonLd={allJsonLd}
+      noIndex={noIndex}
+    />
+
+    {fonts.map((f) => (
+      <link rel="preload" as="font" type="font/woff2" crossorigin href={FONT_FILES[f]} />
+    ))}
+
+    {preloads.map((p) => (
+      <link
+        rel="preload"
+        as="image"
+        href={p.href}
+        type={p.type}
+        media={p.media}
+        imagesrcset={p.imagesrcset}
+        imagesizes={p.imagesizes}
+        fetchpriority={p.fetchpriority ?? "high"}
+      />
+    ))}
+
+    <slot name="head" />
+
+    <style is:inline>
+      html, body { margin: 0; padding: 0; }
+      body { background-color: hsl(22, 14%, 6%); color: hsl(0, 0%, 93%); }
+      /* Floating WhatsApp button: clears the iPhone home indicator and moves
+         up while the sticky mobile buy bar (StickyMobileCta) is showing, so
+         the bar never covers it. `translate` composes with the hover scale. */
+      .mc-fab {
+        bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+        transition:
+          translate 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+          scale 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+          opacity 0.25s ease,
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      @media (min-width: 768px) {
+        .mc-fab { bottom: calc(28px + env(safe-area-inset-bottom, 0px)); }
+      }
+      @media (max-width: 767px) {
+        html.mc-dock-on .mc-fab { translate: 0 -66px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .mc-fab { transition: none; }
+      }
+    </style>
+    {isMasterclass && (
+      <style is:inline>
+        /* viewport-fit=cover (above) lets the sticky bar sit clear of the
+           home indicator. In landscape it would also put text under the
+           notch, so pad the sides by the notch width. Zero in portrait. */
+        body {
+          padding-left: env(safe-area-inset-left, 0px);
+          padding-right: env(safe-area-inset-right, 0px);
+        }
+        /* One element wider than the screen makes Android Chrome widen the
+           layout viewport (Karthik: 435 px on a 390 px phone), which pushes
+           every fixed element, the buy bar and WhatsApp button included,
+           below the screen (MB-04). clip, unlike hidden, keeps
+           position: sticky working. Needs both html and body. */
+        html, body { overflow-x: clip; }
+        /* On the first screen the WhatsApp button sat on the proof line
+           (MB-20). It fades in after the first scroll. At the very end of
+           the page it sat on the footer's legal links (MB-05), so it fades
+           out for the last 120 px of scroll. */
+        @media (max-width: 767px) {
+          html.mc-fab-wait .mc-fab,
+          html.mc-fab-end .mc-fab { opacity: 0; scale: 0.85; pointer-events: none; }
+        }
+      </style>
+    )}
+    {isMasterclass && (
+      <script is:inline>
+        (function () {
+          var root = document.documentElement;
+          root.classList.add("mc-fab-wait");
+          function check() {
+            if (window.scrollY > 120) {
+              root.classList.remove("mc-fab-wait");
+              window.removeEventListener("scroll", check);
+            }
+          }
+          window.addEventListener("scroll", check, { passive: true });
+          check();
+
+          function watchEnd() {
+            var end = document.getElementById("mc-page-end");
+            if (!end || !("IntersectionObserver" in window)) return;
+            new IntersectionObserver(function (entries) {
+              root.classList.toggle("mc-fab-end", entries[0].isIntersecting);
+            }, { rootMargin: "0px 0px 120px 0px" }).observe(end);
+          }
+          if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", watchEnd);
+          else watchEnd();
+        })();
+      </script>
+    )}
+
+    {/* Meta Pixel. Loads early (async) so PageView and ViewContent reach Meta
+        for every ad click, including visitors who leave in two seconds.
+        On masterclass pages Meta's automatic button-click events are off:
+        each buy tap sent a SubscribedButtonClick next to the
+        InitiateCheckout, with a button text scraped as "Sign Up Now ₹0,0"
+        (audit TR-04). Other pages keep Meta's setting. */}
+    <script is:inline define:vars={{ pixelId: META_PIXEL_ID, noAutoConfig: isMasterclass }}>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        "script",
+        "https://connect.facebook.net/en_US/fbevents.js"
+      );
+      if (noAutoConfig) window.fbq("set", "autoConfig", false, pixelId);
+      window.fbq("init", pixelId);
+      window.fbq("track", "PageView");
+    </script>
+
+    {/* Microsoft Clarity and the Google tag (Google Ads AW-336295558, which
+        also feeds GA4 G-6WP0M4T6CJ). Together they cost about 0.5 s of main
+        thread on a mid-range phone (audit PF-11), so they load once the page
+        is idle, on the first tap, key or page scroll, or after 5 s,
+        whichever comes first. Calls made before that are queued by these
+        stubs and sent when the scripts arrive. Only a scroll of the page
+        itself counts: on Nelson's page the swipe row of quotes settles a few
+        pixels as it loads, and a capture listener took that for a visitor
+        scroll and started both tags before the load event (SPEED-01). */}
+    <script is:inline>
+      (function (w, d) {
+        w.clarity =
+          w.clarity ||
+          function () {
+            (w.clarity.q = w.clarity.q || []).push(arguments);
+          };
+        w.dataLayer = w.dataLayer || [];
+        w.gtag =
+          w.gtag ||
+          function () {
+            w.dataLayer.push(arguments);
+          };
+        w.gtag("js", new Date());
+        w.gtag("config", "AW-336295558");
+
+        var started = false;
+        var EVENTS = ["pointerdown", "keydown", "touchstart"];
+        function add(src) {
+          var s = d.createElement("script");
+          s.async = true;
+          s.src = src;
+          d.head.appendChild(s);
+        }
+        function start() {
+          if (started) return;
+          started = true;
+          for (var i = 0; i < EVENTS.length; i++) {
+            w.removeEventListener(EVENTS[i], start, true);
+          }
+          w.removeEventListener("scroll", start);
+          add("https://www.clarity.ms/tag/vtl0nas964");
+          add("https://www.googletagmanager.com/gtag/js?id=AW-336295558");
+        }
+        for (var i = 0; i < EVENTS.length; i++) {
+          w.addEventListener(EVENTS[i], start, { capture: true, passive: true });
+        }
+        // Not capture: a scroll inside an element does not bubble to window,
+        // so this fires only when the page scrolls.
+        w.addEventListener("scroll", start, { passive: true });
+        function idle() {
+          if (w.requestIdleCallback) w.requestIdleCallback(start, { timeout: 2000 });
+          else setTimeout(start, 200);
+        }
+        if (d.readyState === "complete") idle();
+        else w.addEventListener("load", idle);
+        setTimeout(start, 5000);
+      })(window, document);
+    </script>
+
+    {/* Masterclass tracking and checkout link decoration.
+
+        Events (Meta pixel 662214098433203):
+          PageView          every page, base code above.
+          ViewContent       once per masterclass page load. content_ids is
+                            the app offering UUID (same id the app uses on
+                            InitiateCheckout and Purchase), eventID vc_<uuid>.
+          InitiateCheckout  once per tap on a checkout link, eventID
+                            ic_<uuid>, with cta_placement. The app fires
+                            its own InitiateCheckout on checkout load with
+                            the same eventID (read from ic_eid), so Meta
+                            counts one. No Lead: it doubled every tap and
+                            mixed masterclass taps into cohort leads (TR-04).
+        Google tag gets view_item and begin_checkout with the same item.
+        Clarity keeps its tags (viewed_masterclass, initiate_checkout) and
+        gets a Clarity event for the tap so its funnels can count it.
+
+        Checkout links (https://app.leveluplearning.in/checkout/<offering>):
+        on tap, the link gets the landing attribution appended, existing
+        query params kept:
+          utm_source utm_medium utm_campaign utm_content utm_term fbclid gclid
+              from this URL, else from this tab's landing URL
+              (sessionStorage mc_utm), else from the first ad landing in
+              the last 30 days (localStorage mc_utm_ft). The set is taken
+              whole from one source, never mixed.
+          fbp     the _fbp cookie (created if the pixel has not set it yet)
+          fbc     the _fbc cookie, or fb.1.<click ms>.<fbclid> when missing
+          ic_eid  the eventID of this tap's InitiateCheckout
+          mc_eid  the same value, for code written to the audit's name
+          mc_course  the masterclass slug of the landing page
+          mc_cta  where the tapped button sits (hero, sticky, price-card...)
+        Both cookies live on .leveluplearning.in so the app can read them.
+        A link with target=_blank opens in the same tab unless the visitor
+        asked for a new tab (ctrl/cmd/shift click, middle click), so Back
+        returns to this page (MB-19). rel=noreferrer is dropped from
+        checkout links so the app can see where the buyer came from. */}
+    <script is:inline define:vars={{ mcOfferings, checkoutHost }}>
+      (function () {
+        var W = window, D = document, L = location;
+        if (W.__mcTrack) return;
+        W.__mcTrack = 1;
+
+        var KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid", "gclid"];
+        var FIRST_TOUCH_MS = 30 * 864e5;
+        var COOKIE_DAYS = 90;
+
+        var byPath = {}, byId = {};
+        for (var i = 0; i < mcOfferings.length; i++) {
+          var o = mcOfferings[i];
+          byPath["/masterclass/" + o.slug] = o;
+          byId[o.id] = o;
+        }
+        var page = byPath[L.pathname.replace(/\/+$/, "")] || null;
+
+        function uuid() {
+          try { if (W.crypto && W.crypto.randomUUID) return W.crypto.randomUUID(); } catch (e) {}
+          return Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 12);
+        }
+        function store(kind) {
+          try { return W[kind]; } catch (e) { return null; }
+        }
+        function readJson(kind, key) {
+          try { var s = store(kind); return s ? JSON.parse(s.getItem(key) || "null") : null; } catch (e) { return null; }
+        }
+        function writeJson(kind, key, val) {
+          try { var s = store(kind); if (s) s.setItem(key, JSON.stringify(val)); } catch (e) {}
+        }
+        function getCookie(name) {
+          var m = D.cookie.match(new RegExp("(?:^|; )" + name + "=([^;]*)"));
+          if (!m) return "";
+          try { return decodeURIComponent(m[1]); } catch (e) { return m[1]; }
+        }
+        function setCookie(name, value) {
+          var c = name + "=" + value + "; Max-Age=" + COOKIE_DAYS * 86400 + "; Path=/; SameSite=Lax";
+          if (/(^|\.)leveluplearning\.in$/.test(L.hostname)) c += "; Domain=.leveluplearning.in";
+          if (L.protocol === "https:") c += "; Secure";
+          D.cookie = c;
+        }
+        var FBCLID_OK = /^[A-Za-z0-9_.\-]{4,500}$/;
+
+        // ── Attribution: this URL, else this tab's landing, else first touch.
+        var q = new URLSearchParams(L.search);
+        var fromUrl = {}, hasUrl = false;
+        for (var k = 0; k < KEYS.length; k++) {
+          var v = q.get(KEYS[k]);
+          if (v) { fromUrl[KEYS[k]] = v.slice(0, 500); hasUrl = true; }
+        }
+        var attr;
+        if (hasUrl) {
+          attr = { t: Date.now(), p: fromUrl };
+          writeJson("sessionStorage", "mc_utm", attr);
+          var ft = readJson("localStorage", "mc_utm_ft");
+          if (!ft || !ft.t || Date.now() - ft.t > FIRST_TOUCH_MS) writeJson("localStorage", "mc_utm_ft", attr);
+        } else {
+          attr = readJson("sessionStorage", "mc_utm");
+          // Older sessions stored the bare params object.
+          if (attr && !attr.p) attr = { t: Date.now(), p: attr };
+          if (!attr) {
+            var ft2 = readJson("localStorage", "mc_utm_ft");
+            if (ft2 && ft2.p && ft2.t && Date.now() - ft2.t <= FIRST_TOUCH_MS) attr = ft2;
+          }
+        }
+        attr = attr || { t: Date.now(), p: {} };
+
+        // A fresh ad click: write _fbc now on the parent domain, so it exists
+        // even if the pixel script is blocked or slow. The pixel keeps an
+        // _fbc that already carries the same fbclid.
+        if (fromUrl.fbclid && FBCLID_OK.test(fromUrl.fbclid)) {
+          var curFbc = getCookie("_fbc");
+          if (curFbc.indexOf("." + fromUrl.fbclid) === -1) {
+            setCookie("_fbc", "fb.1." + attr.t + "." + fromUrl.fbclid);
+          }
+        }
+
+        function itemOf(o) {
+          return { item_id: o.id, item_name: o.name, price: o.price, quantity: 1 };
+        }
+
+        // ── ViewContent, once per masterclass page load.
+        if (page && !W.__mcVC) {
+          W.__mcVC = 1;
+          try {
+            W.fbq && W.fbq("track", "ViewContent", {
+              content_ids: [page.id],
+              content_type: "product",
+              content_category: "Masterclass",
+              content_name: page.name,
+              contents: [{ id: page.id, quantity: 1 }],
+              value: page.price,
+              currency: "INR"
+            }, { eventID: "vc_" + uuid() });
+          } catch (e) {}
+          try { W.gtag && W.gtag("event", "view_item", { currency: "INR", value: page.price, items: [itemOf(page)] }); } catch (e) {}
+          try { W.clarity && W.clarity("set", "viewed_masterclass", page.slug); } catch (e) {}
+        }
+
+        // ── Checkout links.
+        function checkoutInfo(a) {
+          var u;
+          try { u = new URL(a.href, L.href); } catch (e) { return null; }
+          if (u.hostname !== checkoutHost) return null;
+          var m = u.pathname.match(/^\/checkout\/([^\/?#]+)/);
+          if (!m) return null;
+          var id = m[1];
+          try { id = decodeURIComponent(id); } catch (e) {}
+          id = id.toLowerCase();
+          return { url: u, id: id, offering: byId[id] || null };
+        }
+        function placementOf(a) {
+          return a.getAttribute("data-mc-cta") ||
+            (a.hasAttribute("data-mc-hero-cta") ? "hero" : "") ||
+            a.getAttribute("data-cta") || "in-page";
+        }
+
+        function fbpValue() {
+          var v = getCookie("_fbp");
+          if (/^fb\.\d+\.\d+\.\S+$/.test(v)) return v;
+          v = "fb.1." + Date.now() + "." + Math.floor(Math.random() * 2147483647);
+          setCookie("_fbp", v);
+          return v;
+        }
+        function fbcValue() {
+          var v = getCookie("_fbc");
+          if (/^fb\.\d+\.\d+\.\S+$/.test(v)) return v;
+          var id = attr.p.fbclid;
+          if (!id || !FBCLID_OK.test(id)) return "";
+          v = "fb.1." + (attr.t || Date.now()) + "." + id;
+          setCookie("_fbc", v);
+          return v;
+        }
+
+        function decorate(info, icId, placement) {
+          var sp = info.url.searchParams;
+          for (var k = 0; k < KEYS.length; k++) {
+            var key = KEYS[k];
+            if (attr.p[key] && !sp.has(key)) sp.set(key, attr.p[key]);
+          }
+          var fbp = fbpValue();
+          if (fbp && !sp.has("fbp")) sp.set("fbp", fbp);
+          var fbc = fbcValue();
+          if (fbc && !sp.has("fbc")) sp.set("fbc", fbc);
+          // Set on every tap: a link tapped before (Back, then tap again)
+          // already carries the last tap's ids.
+          sp.set("ic_eid", icId);
+          sp.set("mc_eid", icId);
+          sp.set("mc_cta", placement);
+          var slug = page ? page.slug : (L.pathname.replace(/\/+$/, "").split("/").pop() || "home");
+          if (!sp.has("mc_course")) sp.set("mc_course", slug);
+          return info.url.toString();
+        }
+
+        var last = { at: 0, id: "", href: "" };
+        function onActivate(ev) {
+          if (ev.type === "auxclick" && ev.button !== 1) return;
+          if (ev.type === "click" && ev.button !== 0) return;
+          var a = ev.target && ev.target.closest ? ev.target.closest("a[href]") : null;
+          if (!a) return;
+          var info = checkoutInfo(a);
+          if (!info) return;
+
+          // A double tap is one tap: same eventID, no second event.
+          var base = info.url.origin + info.url.pathname;
+          var now = Date.now();
+          var repeat = now - last.at < 1500 && last.href === base;
+          var icId = repeat ? last.id : "ic_" + uuid();
+          last = { at: now, id: icId, href: base };
+
+          var placement = placementOf(a);
+          a.href = decorate(info, icId, placement);
+
+          var newTab = ev.type === "auxclick" || ev.metaKey || ev.ctrlKey || ev.shiftKey;
+          if (!newTab && a.target === "_blank") a.target = "_self";
+          if (/\bnoreferrer\b/i.test(a.rel)) a.rel = a.rel.replace(/\bnoreferrer\b/gi, "").trim() || "noopener";
+
+          if (repeat) return;
+          var o = info.offering;
+          var params = {
+            content_ids: [info.id],
+            content_type: "product",
+            num_items: 1,
+            currency: "INR",
+            cta_placement: placement
+          };
+          if (o) {
+            params.content_category = "Masterclass";
+            params.content_name = o.name;
+            params.contents = [{ id: o.id, quantity: 1 }];
+            params.value = o.price;
+          }
+          try { W.fbq && W.fbq("track", "InitiateCheckout", params, { eventID: icId }); } catch (e) {}
+          if (o) {
+            try { W.gtag && W.gtag("event", "begin_checkout", { currency: "INR", value: o.price, items: [itemOf(o)] }); } catch (e) {}
+          }
+          try {
+            if (W.clarity) {
+              W.clarity("set", "initiate_checkout", (o ? o.slug : info.id) + " | INR " + (o ? o.price : 0));
+              W.clarity("set", "cta_placement", placement);
+              W.clarity("event", "initiate_checkout");
+            }
+          } catch (e) {}
+        }
+        D.addEventListener("click", onActivate, true);
+        D.addEventListener("auxclick", onActivate, true);
+
+        // Open the connection to the checkout as soon as a finger or pointer
+        // lands on a buy button, about 100 ms before the click.
+        var warmed = false;
+        function warm(ev) {
+          if (warmed) return;
+          var a = ev.target && ev.target.closest ? ev.target.closest("a[href]") : null;
+          if (!a || !checkoutInfo(a)) return;
+          warmed = true;
+          var l = D.createElement("link");
+          l.rel = "preconnect";
+          l.href = "https://" + checkoutHost;
+          D.head.appendChild(l);
+        }
+        D.addEventListener("pointerdown", warm, { capture: true, passive: true });
+        D.addEventListener("mouseover", warm, { capture: true, passive: true });
+      })();
+    </script>
+  </head>
+
+  <body class={bodyClass}>
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        style="display:none"
+        src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
+      />
+    </noscript>
+
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:px-4 focus:py-2 focus:rounded-md focus:bg-primary focus:text-primary-foreground focus:font-sans focus:text-sm"
+    >
+      Skip to main content
+    </a>
+
+    <slot />
+
+    {isMasterclass && <div id="mc-page-end" aria-hidden="true" style="height:1px;margin-top:-1px"></div>}
+
+    {/* Floating WhatsApp button. Position rules live in .mc-fab above. */}
+    <a
+      href="https://api.whatsapp.com/send?phone=919791520177&text=Hi"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat with us on WhatsApp"
+      id="mc-wa-fab"
+      class="mc-fab fixed right-5 md:right-7 z-50 inline-flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#25D366] shadow-[0_10px_30px_-6px_rgba(37,211,102,0.55),0_0_0_4px_rgba(37,211,102,0.18)] hover:scale-105 hover:shadow-[0_14px_36px_-6px_rgba(37,211,102,0.7),0_0_0_6px_rgba(37,211,102,0.22)]"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 32 32"
+        class="w-7 h-7 md:w-8 md:h-8"
+        fill="#FFFFFF"
+        aria-hidden="true"
+      >
+        <path d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.49 0-.143-.73-2.09-.832-2.335-.143-.372-.214-.487-.6-.487-.187 0-.36-.043-.53-.043-.302 0-.53.115-.746.315-.688.645-1.032 1.318-1.06 2.264v.114c-.015.99.472 1.977 1.017 2.78 1.23 1.82 2.506 3.41 4.554 4.34.616.287 2.035.917 2.722.917.317 0 1.033-.072 1.36-.18.487-.157 1.41-.886 1.41-1.398 0-.46-1.733-1.462-1.756-1.462zm-3.74 5.825c-3.86 0-7.025-3.165-7.025-7.025 0-3.86 3.165-7.025 7.025-7.025 3.86 0 7.025 3.165 7.025 7.025 0 3.86-3.165 7.025-7.025 7.025zM15.37 4C8.732 4 3.346 9.39 3.346 16.024c0 2.272.643 4.475 1.85 6.348L3.4 28l5.736-1.78a12.04 12.04 0 0 0 6.234 1.764c6.638 0 12.024-5.39 12.024-12.024S22.008 4 15.37 4z" />
+      </svg>
+    </a>
+
+    {/* Field speed data (LCP, INP, CLS by page). The adapter option in
+        astro.config.mjs never loaded it (PF-12). */}
+    <SpeedInsights />
+  </body>
+</html>
