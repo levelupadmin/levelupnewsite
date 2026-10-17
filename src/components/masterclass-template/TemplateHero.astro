@@ -1,0 +1,132 @@
+---
+/**
+ * First screen of a template masterclass page. Everything is server HTML:
+ * the name, the h1, the buy button and the facts are readable before any
+ * script runs. The craft motif (viewfinder, edit timeline or drafting
+ * lines) is drawn in CSS from the page's data.
+ */
+import "./template.css";
+import CtaButton from "@/components/masterclass/CtaButton.astro";
+import RefundLine from "@/components/masterclass/RefundLine.astro";
+import { OFFERINGS, formatRuntime } from "@/data/masterclass/shared";
+import { totalSeconds } from "@/data/masterclass/template";
+import type { MasterclassPageData } from "@/data/masterclass/types";
+
+interface Props {
+  data: MasterclassPageData;
+}
+
+const { data: d } = Astro.props;
+const o = OFFERINGS[d.slug];
+const img = d.hero.image;
+const sizes = "(min-width: 960px) 56vw, 100vw";
+const facts = [`${o.lessons} lessons`, formatRuntime(o.runtimeMinutes), o.language];
+
+const secs = totalSeconds(d.lessons);
+const h = Math.floor(secs / 3600);
+const m = Math.floor((secs % 3600) / 60);
+const s = secs % 60;
+const timecode = `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+const motif = d.theme.motif;
+const focus = { x: 50, y: 50, dx: 50, dy: 45, ...d.hero.focus };
+const focusStyle = `--tpl-fx:${focus.x}%;--tpl-fy:${focus.y}%;--tpl-fx-d:${focus.dx}%;--tpl-fy-d:${focus.dy}%`;
+---
+
+<section class="tpl-hero" data-motif={motif} aria-labelledby="tpl-h1">
+  <div class="tpl-hero__media">
+    <picture>
+      <source type="image/avif" srcset={`${img}-480.avif 480w, ${img}-660.avif 660w`} sizes={sizes} />
+      <source type="image/webp" srcset={`${img}-480.webp 480w, ${img}-660.webp 660w`} sizes={sizes} />
+      <img
+        src={`${img}-660.jpg`}
+        srcset={`${img}-480.jpg 480w, ${img}-660.jpg 660w`}
+        sizes={sizes}
+        width="660"
+        height="759"
+        alt={d.hero.imageAlt}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        style={d.hero.mobilePosition ? `--tpl-pos-m:${d.hero.mobilePosition}` : undefined}
+      />
+    </picture>
+    <div class="tpl-hero__shade" aria-hidden="true"></div>
+
+    {motif === "lens" && (
+      <div class="tpl-motif" aria-hidden="true">
+        <div class="tpl-lens__frame">
+          <span class="tpl-lens__thirds"></span>
+          <span class="tpl-lens__corner tpl-lens__corner--tl"></span>
+          <span class="tpl-lens__corner tpl-lens__corner--tr"></span>
+          <span class="tpl-lens__corner tpl-lens__corner--bl"></span>
+          <span class="tpl-lens__corner tpl-lens__corner--br"></span>
+        </div>
+        <span class="tpl-lens__focus" style={focusStyle}></span>
+        <div class="tpl-readout">
+          <span style="display:inline-flex;align-items:center;gap:10px"><span class="tpl-readout__dot"></span>{o.lessons} lessons</span>
+          <span>{timecode}</span>
+        </div>
+      </div>
+    )}
+
+    {motif === "timeline" && (
+      <div class="tpl-motif" aria-hidden="true">
+        <div class="tpl-tl">
+          <div class="tpl-tl__ruler"></div>
+          <div class="tpl-tl__track">
+            {d.lessons.map((l) => <span class="tpl-tl__clip" style={`flex:${l.seconds} 1 0`}></span>)}
+          </div>
+          <div class="tpl-tl__track tpl-tl__track--a">
+            {d.lessons.map((l) => <span class="tpl-tl__clip" style={`flex:${l.seconds} 1 0`}></span>)}
+          </div>
+          <div class="tpl-tl__rail"><span class="tpl-tl__head"></span></div>
+        </div>
+        <div class="tpl-readout">
+          <span style="display:inline-flex;align-items:center;gap:10px"><span class="tpl-readout__dot"></span>{o.lessons} lessons</span>
+          <span>{timecode}</span>
+        </div>
+      </div>
+    )}
+
+    {motif === "blueprint" && (
+      <div class="tpl-motif" aria-hidden="true">
+        <span class="tpl-bp__grid"></span>
+        <span class="tpl-bp__dim tpl-bp__dim--h"><span class="tpl-bp__label">{o.lessons} lessons · {formatRuntime(o.runtimeMinutes)}</span></span>
+        <span class="tpl-bp__dim tpl-bp__dim--v"></span>
+      </div>
+    )}
+  </div>
+
+  <div class="tpl-hero__copy">
+    <p class="tpl-hero__name" style={`--tpl-name-len:${d.name.length}`}>{d.name}</p>
+    <p class="tpl-hero__craft">{d.title}</p>
+    <h1 id="tpl-h1" class="tpl-hero__h1">{d.hero.headline}</h1>
+    <ul class="tpl-hero__facts" aria-label="Course facts">
+      {facts.map((f) => <li>{f}</li>)}
+    </ul>
+
+    {d.hero.lines.length > 0 && (
+      <ul class="tpl-hero__lines">
+        {d.hero.lines.map((line) => <li>{line}</li>)}
+      </ul>
+    )}
+
+    <div class="tpl-hero__actions">
+      <CtaButton href={o.checkoutUrl} label={d.ctaLabel} price={o.price} placement="hero" course={d.slug} hero size="lg" class="tpl-hero__buy" />
+      <a class="tpl-hero__trailer" href="#trailer">
+        <span class="tpl-hero__trailer-icon" aria-hidden="true">
+          <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor"><path d="M0 0l10 6-10 6z" /></svg>
+        </span>
+        Watch the trailer
+      </a>
+    </div>
+    <RefundLine class="tpl-hero__refund" />
+
+    <p class="tpl-hero__proof">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+      </svg>
+      {d.proofLine}
+    </p>
+  </div>
+</section>
