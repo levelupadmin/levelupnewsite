@@ -304,6 +304,19 @@
   .mck-cta { padding-inline: 18px; font-size: 15.5px; }
   .mck-cta--lg { font-size: 16px; }
 }
+/* Inside the price card and the 7-day card the column is 278 to 330 px on a
+   phone, and "Buy the masterclass · ₹2,499" broke onto two lines. Smaller
+   text and padding keep it on one line, 58 px tall like every other button.
+   Three classes, so a page's own .x .mck-cta--lg size does not undo it. */
+@media (max-width: 430px) {
+  .mck-offer .mck-cta.mck-cta--block,
+  .mck-try .mck-cta.mck-cta--block { padding-inline: 12px; font-size: 15px; gap: 6px; }
+}
+/* 360 px phones: room for the arrow too (Nelson's price card). */
+@media (max-width: 380px) {
+  .mck-offer .mck-cta.mck-cta--block,
+  .mck-try .mck-cta.mck-cta--block { padding-inline: 10px; font-size: 14.5px; }
+}
 .mck-cta--ghost {
   background: rgba(255, 255, 255, 0.025);
   color: var(--mck-gold-1);
