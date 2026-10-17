@@ -1,8 +1,28 @@
 ---
 import "@/styles/globals.css";
 import Seo from "@/components/Seo.astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/structuredData";
 import { META_PIXEL_ID } from "@/lib/constants";
+import { statSync } from "node:fs";
+import { join } from "node:path";
+
+/**
+ * An image to preload. Give the exact file the page paints first (usually
+ * the LCP image), ideally AVIF or WebP. `media` lets a page preload a
+ * different file per breakpoint; `imagesrcset`/`imagesizes` match an <img
+ * srcset>.
+ */
+export interface PreloadImage {
+  href: string;
+  type?: string;
+  media?: string;
+  imagesrcset?: string;
+  imagesizes?: string;
+  fetchpriority?: "high" | "low" | "auto";
+}
+
+type FontKey = "sora" | "funnel-display";
 
 export interface Props {
   title: string;
@@ -13,7 +33,19 @@ export interface Props {
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   noIndex?: boolean;
   bodyClass?: string;
-  preloadImage?: string;
+  /**
+   * String: an .avif or .webp URL is preloaded as given. A PNG or JPG URL is
+   * rewritten to its .avif sibling (written by scripts/optimize-images.mjs)
+   * when that sibling exists (source of 8 KB or more), which suits the
+   * homepage, whose hero paints the sibling; a smaller file is preloaded as
+   * itself. On /masterclass/ pages a PNG or JPG string is ignored: a page
+   * that paints the original would download the hero twice (audit PF-02).
+   * There, pass the .avif URL when the hero is a <picture> with siblings
+   * (KitPicture, Picture), or the object form with the exact file painted.
+   */
+  preloadImage?: string | PreloadImage | PreloadImage[];
+  /** Self-hosted fonts to preload. Defaults: Sora only on /masterclass/ pages, Sora and Funnel Display elsewhere. */
+  preloadFonts?: FontKey[];
 }
 
 const {
@@ -26,12 +58,62 @@ const {
   noIndex = false,
   bodyClass = "",
   preloadImage,
+  preloadFonts,
 } = Astro.props;
 
 const siteJsonLd = [organizationJsonLd, websiteJsonLd];
 const allJsonLd = jsonLd
   ? [...siteJsonLd, ...(Array.isArray(jsonLd) ? jsonLd : [jsonLd])]
   : siteJsonLd;
+
+const isMasterclass = path.startsWith("/masterclass/");
+
+const FONT_FILES: Record<FontKey, string> = {
+  sora: "/fonts/sora-var.woff2",
+  "funnel-display": "/fonts/funnel-display-var.woff2",
+};
+// Funnel Display is used by one page (LiveVE). No masterclass page uses it.
+const fonts: FontKey[] = preloadFonts ?? (isMasterclass ? ["sora"] : ["sora", "funnel-display"]);
+
+function imageType(href: string): string | undefined {
+  const ext = href.split("?")[0].split(".").pop()?.toLowerCase();
+  if (ext === "avif") return "image/avif";
+  if (ext === "webp") return "image/webp";
+  return undefined;
+}
+
+// scripts/optimize-images.mjs writes .avif and .webp siblings after the
+// build, but only for PNG and JPG files of 8 KB or more. Check the source in
+// public/ so a smaller file is preloaded as itself, not as a sibling that
+// does not exist.
+const SIBLING_MIN_BYTES = 8 * 1024;
+function hasAvifSibling(href: string): boolean {
+  const clean = href.split("?")[0];
+  if (!clean.startsWith("/") || clean.startsWith("//")) return false;
+  try {
+    return statSync(join(process.cwd(), "public", decodeURIComponent(clean))).size >= SIBLING_MIN_BYTES;
+  } catch {
+    // Not in public/ (a hashed /_astro/ import): the optimizer covers dist/
+    // as a whole, so assume the sibling exists, as before.
+    return clean.startsWith("/_astro/");
+  }
+}
+
+const preloads: PreloadImage[] = (() => {
+  if (!preloadImage) return [];
+  if (typeof preloadImage === "string") {
+    const t = imageType(preloadImage);
+    if (t) return [{ href: preloadImage, type: t }];
+    if (isMasterclass) return [];
+    if (!/\.(jpe?g|png)(\?.*)?$/i.test(preloadImage) || !hasAvifSibling(preloadImage)) {
+      return [{ href: preloadImage }];
+    }
+    return [{ href: preloadImage.replace(/\.(jpe?g|png)(\?.*)?$/i, ".avif"), type: "image/avif" }];
+  }
+  const list = Array.isArray(preloadImage) ? preloadImage : [preloadImage];
+  return list.map((p) => ({ ...p, type: p.type ?? imageType(p.href) }));
+})();
+
 ---
 
 <!doctype html>
@@ -41,9 +123,11 @@ const allJsonLd = jsonLd
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/favicon.png" type="image/png" />
 
-    <link rel="preconnect" href="https://www.clarity.ms" crossorigin />
-    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
-    <link rel="preconnect" href="https://connect.facebook.net" crossorigin />
+    {/* The Meta Pixel script loads in the first second, so it is the only
+        third-party origin worth a preconnect. The Google tag and Clarity
+        load after the page is idle (below), so they get none. Events are
+        sent to www.facebook.com. */}
+    <link rel="preconnect" href="https://connect.facebook.net" />
     <link rel="dns-prefetch" href="https://www.facebook.com" />
 
     <Seo
@@ -56,58 +140,33 @@ const allJsonLd = jsonLd
       noIndex={noIndex}
     />
 
-    <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/sora-var.woff2" />
-    <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/funnel-display-var.woff2" />
+    {fonts.map((f) => (
+      <link rel="preload" as="font" type="font/woff2" crossorigin href={FONT_FILES[f]} />
+    ))}
 
-    {preloadImage && (
+    {preloads.map((p) => (
       <link
         rel="preload"
         as="image"
-        href={preloadImage.replace(/\.(jpe?g|png)(\?.*)?$/i, ".avif")}
-        type="image/avif"
-        fetchpriority="high"
+        href={p.href}
+        type={p.type}
+        media={p.media}
+        imagesrcset={p.imagesrcset}
+        imagesizes={p.imagesizes}
+        fetchpriority={p.fetchpriority ?? "high"}
       />
-    )}
+    ))}
+
+    <slot name="head" />
 
     <style is:inline>
       html, body { margin: 0; padding: 0; }
       body { background-color: hsl(22, 14%, 6%); color: hsl(0, 0%, 93%); }
     </style>
 
-    <script is:inline>
-      (function (c, l, a, r, i, t, y) {
-        c[a] =
-          c[a] ||
-          function () {
-            (c[a].q = c[a].q || []).push(arguments);
-          };
-        t = l.createElement(r);
-        t.async = 1;
-        t.src = "https://www.clarity.ms/tag/" + i;
-        y = l.getElementsByTagName(r)[0];
-        y.parentNode.insertBefore(t, y);
-      })(window, document, "clarity", "script", "vtl0nas964");
-    </script>
-
-    <!-- Google Ads (gtag.js) -->
-    <script
-      is:inline
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=AW-336295558"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "AW-336295558");
-    </script>
-
-    <script
-      is:inline
-      type="text/javascript"
-      define:vars={{ pixelId: META_PIXEL_ID }}
-    >
+    {/* Meta Pixel. Loads early (async) so PageView and ViewContent reach Meta
+        for every ad click, including visitors who leave in two seconds. */}
+    <script is:inline define:vars={{ pixelId: META_PIXEL_ID }}>
       !(function (f, b, e, v, n, t, s) {
         if (f.fbq) return;
         n = f.fbq = function () {
@@ -133,6 +192,58 @@ const allJsonLd = jsonLd
       );
       window.fbq("init", pixelId);
       window.fbq("track", "PageView");
+    </script>
+
+    {/* Microsoft Clarity and the Google tag (Google Ads AW-336295558, which
+        also feeds GA4 G-6WP0M4T6CJ). Together they cost about 0.5 s of main
+        thread on a mid-range phone (audit PF-11), so they load once the page
+        is idle, on the first tap, key or scroll, or after 5 s, whichever
+        comes first. Calls made before that are queued by these stubs and
+        sent when the scripts arrive. */}
+    <script is:inline>
+      (function (w, d) {
+        w.clarity =
+          w.clarity ||
+          function () {
+            (w.clarity.q = w.clarity.q || []).push(arguments);
+          };
+        w.dataLayer = w.dataLayer || [];
+        w.gtag =
+          w.gtag ||
+          function () {
+            w.dataLayer.push(arguments);
+          };
+        w.gtag("js", new Date());
+        w.gtag("config", "AW-336295558");
+
+        var started = false;
+        var EVENTS = ["pointerdown", "keydown", "touchstart", "scroll"];
+        function add(src) {
+          var s = d.createElement("script");
+          s.async = true;
+          s.src = src;
+          d.head.appendChild(s);
+        }
+        function start() {
+          if (started) return;
+          started = true;
+          for (var i = 0; i < EVENTS.length; i++) {
+            w.removeEventListener(EVENTS[i], start, true);
+          }
+          add("https://www.clarity.ms/tag/vtl0nas964");
+          add("https://www.googletagmanager.com/gtag/js?id=AW-336295558");
+        }
+        for (var i = 0; i < EVENTS.length; i++) {
+          w.addEventListener(EVENTS[i], start, { capture: true, passive: true });
+        }
+        function idle() {
+          if (w.requestIdleCallback) w.requestIdleCallback(start, { timeout: 2000 });
+          else setTimeout(start, 200);
+        }
+        if (d.readyState === "complete") idle();
+        else w.addEventListener("load", idle);
+        setTimeout(start, 5000);
+      })(window, document);
     </script>
 
     <!--
@@ -310,5 +421,9 @@ const allJsonLd = jsonLd
         <path d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.49 0-.143-.73-2.09-.832-2.335-.143-.372-.214-.487-.6-.487-.187 0-.36-.043-.53-.043-.302 0-.53.115-.746.315-.688.645-1.032 1.318-1.06 2.264v.114c-.015.99.472 1.977 1.017 2.78 1.23 1.82 2.506 3.41 4.554 4.34.616.287 2.035.917 2.722.917.317 0 1.033-.072 1.36-.18.487-.157 1.41-.886 1.41-1.398 0-.46-1.733-1.462-1.756-1.462zm-3.74 5.825c-3.86 0-7.025-3.165-7.025-7.025 0-3.86 3.165-7.025 7.025-7.025 3.86 0 7.025 3.165 7.025 7.025 0 3.86-3.165 7.025-7.025 7.025zM15.37 4C8.732 4 3.346 9.39 3.346 16.024c0 2.272.643 4.475 1.85 6.348L3.4 28l5.736-1.78a12.04 12.04 0 0 0 6.234 1.764c6.638 0 12.024-5.39 12.024-12.024S22.008 4 15.37 4z" />
       </svg>
     </a>
+
+    {/* Field speed data (LCP, INP, CLS by page). The adapter option in
+        astro.config.mjs never loaded it (PF-12). */}
+    <SpeedInsights />
   </body>
 </html>
