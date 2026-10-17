@@ -1,0 +1,66 @@
+---
+/**
+ * "What you'll know how to do": each skill names the lesson that teaches it,
+ * so every line points at something the buyer can watch.
+ *
+ *   <SkillsYouGain
+ *     items={[
+ *       { skill: "Lock a film idea in five lines.", lesson: 13 },
+ *       { skill: "Build a character the audience remembers.", lesson: [14, 17] },
+ *     ]}
+ *   />
+ */
+import SectionShell from "./SectionShell.astro";
+import CtaRow from "./CtaRow.astro";
+import { lessonLabel, type CtaProps, type SkillItem } from "./types";
+
+interface Props {
+  items: SkillItem[];
+  eyebrow?: string | false;
+  heading?: string;
+  body?: string;
+  cta?: CtaProps;
+  id?: string;
+  tone?: "plain" | "raised";
+  class?: string;
+  style?: string;
+}
+
+const {
+  items,
+  eyebrow = "What you learn",
+  heading = "What you'll know how to do",
+  body,
+  cta,
+  id = "what-youll-know",
+  tone,
+  class: className,
+  style,
+} = Astro.props;
+---
+
+<SectionShell eyebrow={eyebrow} heading={heading} body={body} id={id} tone={tone} class={className} style={style}>
+  <ol class="mck-skills">
+    {items.map((item, i) => {
+      const label = lessonLabel(item.lesson);
+      return (
+        <li class="mck-card mck-card--lift mck-skill mck-reveal" style={`--mck-delay:${(i % 2) * 90}ms`}>
+          <span class="mck-skill__num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+          <div>
+            <p class="mck-skill__text">{item.skill}</p>
+            {item.detail && <p class="mck-skill__detail">{item.detail}</p>}
+            {label && (
+              <p class="mck-skill__meta">
+                <span class="mck-chip">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+                  {label}
+                </span>
+              </p>
+            )}
+          </div>
+        </li>
+      );
+    })}
+  </ol>
+  {cta && <CtaRow {...cta} />}
+</SectionShell>

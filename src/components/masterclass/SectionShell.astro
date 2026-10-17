@@ -1,0 +1,81 @@
+---
+/**
+ * Section frame every kit section uses: eyebrow, heading, body, then the
+ * section's own content in the default slot.
+ *
+ *   <SectionShell eyebrow="Before you buy" heading="Is this *for you*?" body="One line.">
+ *     ...content...
+ *   </SectionShell>
+ *
+ * Wrap words in *asterisks* to set them in the gold gradient.
+ */
+import "@/styles/masterclass.css";
+import RevealScript from "./RevealScript.astro";
+import { headingParts, headingId } from "./headingParts";
+
+interface Props {
+  /** Small caps line above the heading. Pass false or "" to hide. */
+  eyebrow?: string | false;
+  heading?: string;
+  /** One paragraph, or several. */
+  body?: string | string[];
+  /** Heading level. Default 2. */
+  level?: 2 | 3;
+  id?: string;
+  align?: "center" | "left";
+  width?: "narrow" | "default" | "wide";
+  /** "raised" adds a faint gold wash and a hairline on top. */
+  tone?: "plain" | "raised";
+  /** Less vertical padding. */
+  tight?: boolean;
+  class?: string;
+  style?: string;
+}
+
+const {
+  eyebrow,
+  heading,
+  body,
+  level = 2,
+  id,
+  align = "center",
+  width = "default",
+  tone = "plain",
+  tight = false,
+  class: className,
+  style,
+} = Astro.props;
+
+const H = level === 3 ? "h3" : "h2";
+const hid = heading ? headingId(id, heading, "section") : undefined;
+const paragraphs = body ? (Array.isArray(body) ? body : [body]) : [];
+const hasHead = Boolean(eyebrow || heading || paragraphs.length || Astro.slots.has("head"));
+---
+
+<section
+  id={id}
+  class:list={["mck", "mck-section", tone === "raised" && "mck-section--raised", tight && "mck-section--tight", className]}
+  style={style}
+  aria-labelledby={hid}
+>
+  <div class:list={["mck-wrap", width === "narrow" && "mck-wrap--narrow", width === "wide" && "mck-wrap--wide"]}>
+    {hasHead && (
+      <header class:list={["mck-head", "mck-reveal", align === "left" && "mck-head--left"]}>
+        {eyebrow && <p class="mck-eyebrow">{eyebrow}</p>}
+        {heading && (
+          <H id={hid} class="mck-h2">
+            {headingParts(heading).map((p) => (p.gold ? <em>{p.text}</em> : p.text))}
+          </H>
+        )}
+        {paragraphs.length > 0 && (
+          <div class="mck-body">
+            {paragraphs.map((p) => <p>{p}</p>)}
+          </div>
+        )}
+        <slot name="head" />
+      </header>
+    )}
+    <slot />
+  </div>
+</section>
+<RevealScript />

@@ -1,0 +1,19 @@
+---
+/** A buy button with the refund line under it. Used inside kit sections. */
+import CtaButton from "./CtaButton.astro";
+import RefundLine from "./RefundLine.astro";
+import type { CtaProps } from "./types";
+
+interface Props extends CtaProps {
+  align?: "center" | "left";
+  block?: boolean;
+  size?: "md" | "lg";
+}
+
+const { href, label, price, placement, course, refund = true, align = "center", block = false, size = "lg" } = Astro.props;
+---
+
+<div class:list={["mck-cta-block", "mck-reveal", align === "left" && "mck-cta-block--left"]}>
+  <CtaButton href={href} label={label} price={price} placement={placement} course={course} block={block} size={size} />
+  {refund && <RefundLine />}
+</div>

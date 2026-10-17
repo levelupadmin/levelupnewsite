@@ -1,0 +1,112 @@
+---
+/**
+ * Real reviews, quoted as written. Pass the output of reviewsForMasterclass():
+ * the page's own course reviews come first and carry a "This masterclass"
+ * tag; every card names the programme it reviews. Extra reviews sit in a
+ * native <details> ("Show N more"), so there is no JS. Renders nothing when
+ * there are no reviews.
+ *
+ *   ---
+ *   import { reviewsForMasterclass } from "@/components/masterclass/reviewPicks";
+ *   const reviews = reviewsForMasterclass("nelson-dilipkumar");
+ *   ---
+ *   <ReviewWall reviews={reviews} />
+ */
+import SectionShell from "./SectionShell.astro";
+import ReviewCard from "./ReviewCard.astro";
+import type { ReviewCardData } from "./reviewPicks";
+
+interface Props {
+  reviews: ReviewCardData[];
+  /** Cards shown before "Show more". Default 6. */
+  initial?: number;
+  eyebrow?: string | false;
+  heading?: string;
+  body?: string;
+  /** Tag on reviews of this page's own course. */
+  ownLabel?: string;
+  /** Line above the "all reviews" link, e.g. how many buyers wrote in. */
+  note?: string;
+  allHref?: string;
+  allLabel?: string;
+  id?: string;
+  tone?: "plain" | "raised";
+  class?: string;
+  style?: string;
+}
+
+const {
+  reviews,
+  initial = 6,
+  eyebrow = "Reviews",
+  heading = "What learners *wrote*",
+  body = "Quoted as written in our feedback form. Each card names the course it reviews.",
+  ownLabel = "This masterclass",
+  note,
+  allHref = "/reviews/",
+  allLabel = "Read all reviews",
+  id = "reviews",
+  tone,
+  class: className,
+  style,
+} = Astro.props;
+
+const shown = reviews.slice(0, initial);
+const more = reviews.slice(initial);
+
+// Desktop shows three columns filled left to right (card 1, 2, 3 across the
+// top row). Each card also carries its reading position as `order`, which
+// puts the cards back in sequence when the columns dissolve on phones and
+// tablets.
+const COLS = 3;
+function columns(list: ReviewCardData[]) {
+  const cols: { r: ReviewCardData; i: number }[][] = Array.from({ length: COLS }, () => []);
+  list.forEach((r, i) => cols[i % COLS].push({ r, i }));
+  return cols.filter((c) => c.length > 0);
+}
+---
+
+{reviews.length > 0 && (
+  <SectionShell eyebrow={eyebrow} heading={heading} body={body} id={id} tone={tone} width="wide" class={className} style={style}>
+    <div class="mck-rw">
+      {columns(shown).map((col) => (
+        <div class="mck-rw__col">
+          {col.map(({ r, i }) => (
+            <div class="mck-rw__cell" style={`order:${i}`}>
+              <ReviewCard review={r} ownLabel={ownLabel} reveal delay={(i % COLS) * 90} />
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+    {more.length > 0 && (
+      <details class="mck-more">
+        <summary>
+          <span class="mck-more__btn">
+            <span class="mck-more__label">Show {more.length} more {more.length === 1 ? "review" : "reviews"}</span>
+            <span class="mck-more__less">Show fewer reviews</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+          </span>
+        </summary>
+        <div class="mck-more__body mck-rw" style="margin-top:18px">
+          {columns(more).map((col) => (
+            <div class="mck-rw__col">
+              {col.map(({ r, i }) => (
+                <div class="mck-rw__cell" style={`order:${i}`}>
+                  <ReviewCard review={r} ownLabel={ownLabel} />
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </details>
+    )}
+    <div class="mck-reviews-foot mck-reveal">
+      {note && <p class="mck-small" style="margin:0;max-width:60ch">{note}</p>}
+      <a class="mck-textbtn" href={allHref}>
+        {allLabel}
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+      </a>
+    </div>
+  </SectionShell>
+)}
