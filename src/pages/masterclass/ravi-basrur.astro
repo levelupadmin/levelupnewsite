@@ -1,446 +1,739 @@
 ---
+/**
+ * Ravi Basrur masterclass, the landing page for Meta ads.
+ *
+ * The course is taught in Kannada with English subtitles; the first screen,
+ * FAQ, meta description and schema all say so. Lesson count and runtime come
+ * from the content file (15 lessons, 5 h 12 min), price and checkout from
+ * OFFERINGS. Only the site navbar, footer and the trailer button hydrate.
+ */
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import EpisodeAccordion from "@/components/lokesh/EpisodeAccordion";
-import FAQAccordion from "@/components/lokesh/FAQAccordion";
-import TestimonialCarousel from "@/components/lokesh/TestimonialCarousel";
-import PosterMarquee from "@/components/lokesh/PosterMarquee";
-import IntersectionPlayVideo from "@/components/lokesh/IntersectionPlayVideo";
-import HeroPlayer from "@/components/lokesh/HeroPlayer";
-import LokeshTrailer from "@/components/lokesh/LokeshTrailer";
+import { SiteNavbar, SiteFooter } from "@/components/SiteChrome";
 import StickyMobileCta from "@/components/lokesh/StickyMobileCta.astro";
-import CountdownTimer from "@/components/lokesh/CountdownTimer";
-import PageInteractions from "@/components/lokesh/PageInteractions";
+import LokeshTrailer from "@/components/lokesh/LokeshTrailer";
+import {
+  SectionShell,
+  CtaButton,
+  RefundLine,
+  CourseFacts,
+  IsThisForYou,
+  SkillsYouGain,
+  InHisWords,
+  TryItFor7Days,
+  ValueAgainstPrice,
+  WhatYouGetToday,
+  ReviewWall,
+  FaqList,
+  CrossSell,
+  RevealScript,
+} from "@/components/masterclass";
+import { OFFERINGS, REFUND, formatPrice, formatRuntime, isoDuration, courseSchemaFields } from "@/data/masterclass/shared";
 import { courseJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/structuredData";
+import {
+  ASSET,
+  TRAILER_ID,
+  LESSONS,
+  RUNTIME_MINUTES,
+  lessons,
+  skills,
+  forYou,
+  notForYou,
+  films,
+  faqs,
+  quotes,
+  reviews,
+} from "@/data/masterclass/content/ravi-basrur";
 
-const ASSET = "/masterclass/ravi";
-const SHARED = "/masterclass/lokesh";
+const o = OFFERINGS["ravi-basrur"];
+const runtime = formatRuntime(RUNTIME_MINUTES);
+const LANGUAGE = "Kannada, with English subtitles";
+const BUY_LABEL = "Buy the masterclass";
+const cta = { href: o.checkoutUrl, label: BUY_LABEL, price: o.price, course: o.slug };
+const FIRST_LESSONS = 6;
 
-const episodes = [
-  { number: 1, title: "From Basrur to Blockbusters: Discovering Musical Passions", description: "Dive into Ravi Basrur's inspiring journey from his humble beginnings in Basrur to creating chart-topping hits. Learn how his early passions ignited a trailblazing career in music composition and production." },
-  { number: 2, title: "The Foundations: Unveiling the Magic of Music & Sound", description: "Master the foundational layers of music, from raw sound to organized composition, through Ravi's lens." },
-  { number: 3, title: "Navigating Logic Pro X: Your Gateway to Composition", description: "Learn the workflow Ravi uses inside Logic Pro X to set up sessions, organize tracks, and start composing efficiently." },
-  { number: 4, title: "Decoding Music Theory: Notes, Keys & The Art of Reverb", description: "Notes, keys, scales, and the surprisingly emotional weight of reverb. Theory made practical, the Basrur way." },
-  { number: 5, title: "Frequency Fundamentals: Shaping the Soundscape", description: "Understand frequency ranges and how to shape them: what to cut, what to lift, how to make space in a mix." },
-  { number: 6, title: "Elevating Audio: Mastering Plugins & Sound Design", description: "The plugin chain Ravi uses, and the sound-design philosophy behind picking each one." },
-  { number: 7, title: "Crafting Epic Scores: Orchestration & Sound Mixing", description: "How Ravi layers orchestration with cinematic mixing decisions to land an emotional punch in films like KGF." },
-  { number: 8, title: "Inside KGF: Mastering Transitions & Vocal Solos", description: "Walk through the iconic KGF transitions and vocal-solo moments: what worked, what was scrapped, and why." },
-  { number: 9, title: "Precision in Pitch: Advanced Techniques & Essential Plugins", description: "Pitch-shifting, tuning, and the plugins that turn rough takes into polished moments without killing emotion." },
-  { number: 10, title: "Symphonic Synergy: Voices & Live Instruments in Sound Design", description: "How to weave voices and live instruments into electronic textures so the whole feels organic, not stitched." },
-  { number: 11, title: "Organizing for Success: Optimizing Your Music Library", description: "The library structure Ravi uses to find any sample in seconds: naming, tagging, and folder hygiene." },
-  { number: 12, title: "Narrative through Notes: The Art of Musical Storytelling", description: "Music as story: motifs, callbacks, and the way Ravi shapes a film's emotion through repeated melodic ideas." },
-  { number: 13, title: "Bonus Episode: The Musical Journey, Overcoming Struggles to Success", description: "Personal struggles, near-failures, and the inflection points that turned Ravi from village musician into India's most-watched composer." },
-  { number: 14, title: "Turning Points: Embracing a New Identity in Music", description: "The mindset shifts behind a successful re-invention, and how to find your own next phase." },
-  { number: 15, title: "From Jingles to Albums: Crafting Music for All Mediums", description: "Why every medium has its own grammar (jingles, scores, albums) and how to switch fluently between them." },
-  { number: 16, title: "Live Case Studies & Q&A", description: "Live walk-throughs of selected film score moments with Q&A on every choice. The closest you'll get to sitting in Ravi's studio." },
-];
+const HERO = `${ASSET}/hero`;
+const srcset = (stem: string, widths: number[], ext: string) =>
+  widths.map((w) => `${stem}-${w}.${ext} ${w}w`).join(", ");
 
-// All Ravi Basrur film posters available in /public/masterclass/ravi/.
-// Includes KGF, Salaar, Mufti, Ugramm, Marco, Pailwaan, Hebbuli, plus
-// other notable scores. The 5 entries below the original 8 are added
-// from previously-unused JPGs in the assets folder. Please verify each
-// is actually a Ravi-Basrur film poster (and not a Framer chrome
-// asset) and drop any that aren't.
-const blockbusterFilms = [
-  `${ASSET}/gy5ZUwVDsh5DmL62fuECONTPer4.jpg`,
-  `${ASSET}/tgFOH8jiflFh4LVxQEfkicZBYN0.jpg`,
-  `${ASSET}/rwAOA0eLNkLWVydIJRAKj7W6vc.jpg`,
-  `${ASSET}/D4KluUHGAVOfzb8YZnMtZerko.jpg`,
-  `${ASSET}/84SBoHO3pso5uCkalOBtBhFCII.jpg`,
-  `${ASSET}/fRkyaqzCVbqgsByfhLEhQJDYCA.jpg`,
-  `${ASSET}/qcYjx7nLO25XAdIqO44V8nWg9o.jpg`,
-  `${ASSET}/GJkSCN3Qx9AOYyfB46Nfu7t62Kc.jpg`,
-  `${ASSET}/aJuNFM3yrWoaK8mS5UDkiWKvZMU.jpg`,
-  `${ASSET}/ePirkCFciEHXunwJqziiB4axuRg.jpg`,
-  `${ASSET}/RfVCRR3DN4gBmYKOoGeAzUrkk.jpg`,
-  `${ASSET}/zFmHfnlQkxKB4uCVGAzeSMu8.jpg`,
-  `${ASSET}/84vqMJpjPxiDxqgs8idjMvDlaBc.jpg`,
-];
-
-// Split into two rows so each marquee shows a different set instead of
-// the same posters duplicated.
-const filmsRowA = blockbusterFilms.slice(0, 7);
-const filmsRowB = blockbusterFilms.slice(7);
-
-const whyPoints = [
-  { text: "Learn how to score impactful background scores along with live case-study examples from his movies", media: `${ASSET}/HpvAYfNv0ZspXfBBvnAgr7J4s.mp4` },
-  { text: "Gain deep insights into rhythm, orchestra, sound design, and music software like Logic Pro X, plugins, and pitch correction techniques.", media: `${ASSET}/GNoqdoWaGsDBtAWE8gYgRW7slh8.mp4` },
-  { text: "Master the art of audio production through exploring every aspect of music theory, orchestration, composition, sound mixing", media: `${ASSET}/eku81B8IYyORWwizqslYPVYP0GM.mp4` },
-];
-
-const testimonials = [
-  { name: "Swetha", role: "Keyboard Artist", quote: "Ravi Basrur's masterclass has been a transformative journey into the heart of music composition. His ability to share insights from his illustrious career, coupled with live case studies, is unparalleled. As an aspiring composer, I found his teachings not only enlightening but also immensely practical.", image: `${SHARED}/7hJXjAnFQFhrHeIHhWAx3PQ17E.png` },
-  { name: "Prem Kumar", role: "Music Director", quote: "Ravi Basrur's masterclass goes beyond the ordinary, offering a profound exploration of music that transcends boundaries. As an intermediate musician, I was pleasantly surprised by the depth of knowledge shared. The downloadable resources and case studies have proven to be invaluable tools for refining my craft.", image: `${SHARED}/c6YH9xoHd2ETCvdfslf2Fh2ak.jpg` },
-  { name: "Gokulnath", role: "Aspiring Music Director", quote: "Enrolling in Ravi Basrur's masterclass was like unlocking the secrets of a musical maestro. Even as a professional in the industry, I gained fresh perspectives on composition and witnessed the genius behind chart-topping hits. The class is a treasure trove of practical tips.", image: `${SHARED}/vtsct4yeHdQKJcFLxyEhRk40iKk.jpg` },
-];
-
-const whatYouGet = [
-  { num: "01", title: "Learn from the Best", description: "Hands-On Insights from Ravi Basrur." },
-  { num: "02", title: "Creative Techniques", description: "Secrets of Music Theory, Orchestration & Sound Design." },
-  { num: "03", title: "Case Studies", description: "Real life examples from Ravi Basrur's blockbuster hits." },
-  { num: "04", title: "File Management", description: "Understand the concepts behind organizing music libraries & files." },
-  { num: "05", title: "Tools & Pro Tips", description: "Demonstration of industry-standard tools & hacks." },
-  { num: "06", title: "Personal Tips", description: "Gain knowledge from Ravi's personal experiences & success stories." },
-];
-
-// Outcome strip (CRO P2 from the audit). Frames transformation rather
-// than features. Pulled from the episode content: scoring, Logic Pro X
-// workflow, orchestration with electronic textures, library hygiene.
-const outcomes = [
-  { title: "Score cinematic moments", description: "Build film scores that drive emotion the way KGF, Mufti, and Salaar do." },
-  { title: "Run Logic Pro X end-to-end", description: "Compose, layer, mix, and master inside Logic with Ravi's exact session setup." },
-  { title: "Layer orchestra + electronic", description: "Blend live instruments and electronic textures so they feel organic, not stitched." },
-  { title: "Build a sustainable library", description: "Organise samples, plugins, and presets so you can find anything in seconds." },
-];
-
-// FAQs repositioned for a general audience. The class isn't only for
-// musicians, it's for anyone curious about how music shapes a film.
-// Beginner-first question goes first.
-const faqs = [
-  { question: "I don't know anything about music. Would I benefit from this?", answer: "Absolutely. This masterclass was designed for anyone curious about how music shapes the films and stories we love. You don't need to read sheet music or own a keyboard. Ravi walks through how he thinks about emotion, rhythm, and storytelling in plain language. If you're a filmmaker, an aspiring composer, or just someone who feels something when a great score hits, you'll find a lot to take home." },
-  { question: "Who is this class for?", answer: "Filmmakers, aspiring filmmakers, aspiring music directors, sound designers, musicians at any level, and anyone fascinated by the role music plays in cinema. The class is intentionally accessible: you'll go deep on Ravi's process whether or not you can play an instrument." },
-  { question: "I'm an intermediate or professional musician. Will I still learn something?", answer: "Yes. Ravi shares his real-world process (orchestration choices, sound-design tricks, and case studies from KGF, Mufti, Ugramm, Salaar, and Marco) that aren't usually taught anywhere. Even seasoned music directors have found new perspectives here." },
-  { question: "What will I learn from this class?", answer: "How Ravi thinks about score and emotion, plus the practical craft: music theory in everyday terms, orchestration, composition, sound mixing and design, working with Logic Pro X, building a personal music library, and his end-to-end approach to scoring films from first idea to final mix. You'll see live case studies from his most-watched scores." },
-  { question: "Will Ravi Basrur be teaching the class?", answer: "Yes. Every lesson is taught directly by Ravi himself, with examples drawn from his own work and explained in his natural voice." },
-  { question: "Which language is the course in?", answer: "The lessons are in Kannada with English subtitles." },
-  { question: "Are there any recurring costs to access the videos?", answer: "No. You pay once, ₹2,499, and get lifetime access. No subscription, no hidden charges, no renewals." },
-  { question: "How long is the class?", answer: "16 video lessons, around 5 hours 10 minutes of content total. Watch at your own pace, revisit any time." },
-  { question: "When do I get the signed certificate?", answer: "After you complete the course, you'll receive a personalized Certificate of Completion signed by Ravi Basrur, available to download and share." },
-  { question: "Where can I watch these classes?", answer: "On any device (laptop, tablet, or phone) through the LevelUp Learning platform. Accessible 24/7 once you enroll." },
-  { question: "Will I get a certificate for this masterclass?", answer: "Yes. A personalized Certificate of Completion signed by Ravi Basrur, downloadable as a PDF and shareable on social media or LinkedIn." },
-];
-
-const CTA_HREF = "https://app.leveluplearning.in/checkout/c95d0a25-b6a4-479c-a213-2c99cc2a57be";
-const HERO_VIDEO = `${ASSET}/RBZ2T3tLoAhwvU5naq6vEJ6nM.mp4`;
-const HERO_POSTER = `${ASSET}/h07QdqFzIWViBosJtyraHk8k1JI.png`;
-const CERT_IMG = `${ASSET}/JnhTooO5upgRqxjjjelgU1IPHA.jpg`;
-// youtu.be/r04WqxmwZZI — Ravi Basrur masterclass trailer.
-const YT_TRAILER_ID = "r04WqxmwZZI";
+const pageTitle = "Ravi Basrur Music Masterclass | LevelUp Learning";
+const pageDescription = `Ravi Basrur, composer of KGF and Salaar, teaches film scoring in Logic Pro X. ${LESSONS} lessons, ${runtime}, in Kannada with English subtitles. ${formatPrice(o.price)}.`;
 
 const course = courseJsonLd({
-  name: "Ravi Basrur Music Masterclass",
-  description: "First-ever online masterclass with Ravi Basrur, the music director behind KGF, Mufti, Ugramm, and Salaar. 16 lessons covering composition, orchestration, sound design, and film scoring. In Kannada with English subtitles. Signed Certificate. ₹2,499.",
-  path: "/masterclass/ravi-basrur",
-  instructorName: "Ravi Basrur",
-  image: HERO_POSTER,
-  courseMode: "online",
+  name: o.courseName,
+  description: `Ravi Basrur, the composer of KGF and Salaar, teaches film scoring in Logic Pro X. ${LESSONS} video lessons, ${runtime} in all, taught in Kannada with English subtitles. Certificate signed by Ravi Basrur. ${formatPrice(o.price)}, paid once.`,
+  path: `/masterclass/${o.slug}`,
+  image: `${HERO}/poster-d-1440.jpg`,
+  ...courseSchemaFields(o.slug),
+  inLanguage: ["kn", "en"],
+  courseWorkload: isoDuration(RUNTIME_MINUTES),
 });
 const breadcrumb = breadcrumbJsonLd([
   { name: "Home", path: "/" },
   { name: "Masterclasses", path: "/" },
-  { name: "Ravi Basrur", path: "/masterclass/ravi-basrur" },
+  { name: "Ravi Basrur", path: `/masterclass/${o.slug}` },
 ]);
-const faq = faqJsonLd(faqs);
+const faq = faqJsonLd(faqs.map(({ question, answer }) => ({ question, answer })));
 ---
 
 <BaseLayout
-  title="Ravi Basrur Music Masterclass | LevelUp Learning"
-  description="Learn film scoring with Ravi Basrur, music director of KGF, Mufti, Ugramm, Salaar. 16 video lessons. In Kannada with English subtitles. Signed Certificate. ₹2,499 lifetime access."
-  path="/masterclass/ravi-basrur"
+  title={pageTitle}
+  description={pageDescription}
+  path={`/masterclass/${o.slug}`}
   type="course"
   ogImage="/og/mc-ravi-basrur.jpg"
-  preloadImage={HERO_POSTER}
   jsonLd={[course, breadcrumb, faq]}
 >
-  <link rel="preconnect" href="https://fonts.googleapis.com" slot="head" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin slot="head" />
+  <SiteNavbar client:idle />
 
-  <style is:global>
-    @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap");
-    .lokesh-page {
-      --bg: #050505; --bg-card: #0e0e0e; --gold-text-on-pill: #401b00;
-      background: var(--bg); color: white;
-      font-family: "Inter", sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
-    .font-cinzel { font-family: "Cinzel", serif; }
-    .font-poppins { font-family: "Poppins", sans-serif; }
-    .font-dm { font-family: "DM Sans", sans-serif; }
-    .text-gold { background: linear-gradient(180deg, #f5d59a 0%, #d4a36c 50%, #8a5d2c 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .lokesh-page .buy-pill {
-      background: radial-gradient(120% 100% at 50% 0%, #ffe5b8 0%, #e3b671 30%, #c8924d 60%, #8c5e2e 100%);
-      color: var(--gold-text-on-pill);
-      box-shadow: 0 14px 24px -8px rgba(200,146,77,0.6), inset 0 1px 0 rgba(255,230,190,0.85);
-      font-weight: 700; transition: filter 0.25s, transform 0.25s;
-    }
-    .lokesh-page .buy-pill:hover { filter: brightness(1.08); transform: translateY(-1px); }
-    .lokesh-page .star-bg { background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 36px 36px, 88px 88px; }
-    .lokesh-page .reveal { opacity: 1; transform: none; transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
-    html.mc-js-on .lokesh-page .reveal { opacity: 0; transform: translateY(28px); }
-    html.mc-js-on .lokesh-page .reveal.mc-in { opacity: 1; transform: translateY(0); }
-    @media (prefers-reduced-motion: reduce) { html.mc-js-on .lokesh-page .reveal { opacity: 1 !important; transform: none !important; } }
-    .lokesh-page .lift { transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease; will-change: transform; }
-    .lokesh-page .lift:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -16px rgba(212, 163, 108, 0.25), 0 8px 24px -8px rgba(0, 0, 0, 0.7); border-color: rgba(212, 163, 108, 0.25); }
-    .lokesh-page .mc-hero-video { transform: scale(1.05); will-change: transform; }
-    .lokesh-page .tilt { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); will-change: transform; }
-    html { scroll-behavior: smooth; }
-    .lokesh-page .section-tick { display: inline-block; width: 1px; height: 24px; background: linear-gradient(180deg, transparent, #d4a36c, transparent); margin: 0 auto; }
-  </style>
+  <main id="main-content" class="bp bp--ravi">
+    <StickyMobileCta href={o.checkoutUrl} price={o.price} label={`${BUY_LABEL} · ${formatPrice(o.price)}`} course={o.slug} />
 
-  <main id="main-content" class="lokesh-page">
-    <StickyMobileCta href={CTA_HREF} price={2499} course="ravi-basrur" />
-
-    <header class="relative z-30 px-5 md:px-12 pt-5 md:pt-7 flex items-center justify-between gap-4">
-      <a href="/" aria-label="LevelUp Learning home"><img src="/levelup-logo-mark.svg" alt="LevelUp" class="h-7 md:h-8 w-auto" /></a>
-      <a href={CTA_HREF} target="_blank" rel="noopener noreferrer" class="hidden md:inline-flex buy-pill px-5 py-2.5 rounded-full text-[13px]">Buy now at ₹2,499</a>
-    </header>
-
-    <section class="relative overflow-hidden">
-      <div class="star-bg absolute inset-0 pointer-events-none opacity-60"></div>
-      <div class="relative max-w-[1320px] mx-auto px-4 md:px-8 pt-3 md:pt-4">
-        <div class="relative aspect-[16/9] md:aspect-[16/7.8] rounded-[10px] overflow-hidden bg-black ring-1 ring-white/[0.06]">
-          <HeroPlayer src={HERO_VIDEO} poster={HERO_POSTER} ariaLabel="Play Ravi Basrur masterclass hero" client:load />
-          <div class="absolute inset-x-0 bottom-0 h-[35%] bg-gradient-to-t from-black/55 to-transparent"></div>
-        </div>
-        <div class="relative mt-5 md:mt-7 text-center max-w-3xl mx-auto pb-2 md:pb-4">
-          <h1 class="font-cinzel text-gold text-[28px] md:text-[40px] lg:text-[52px] leading-[1.05] tracking-[-0.04em] font-semibold">
-            LEARN MUSIC COMPOSITION WITH RAVI BASRUR
-          </h1>
-          <p class="mt-5 md:mt-6 text-[15px] md:text-[17px] lg:text-[19px] leading-[1.5] tracking-[-0.02em] text-[#dfdee2]/85 max-w-[680px] mx-auto font-medium">
-            From a village in Basrur to scoring KGF, Salaar, Mufti, Ugramm, and Marco. The music director behind India's biggest film soundscapes walks through his entire process.
-          </p>
-          <p class="mt-3 md:mt-4 text-[13px] md:text-[15px] leading-[1.55] tracking-[-0.01em] text-[#dfdee2]/65 max-w-[620px] mx-auto">
-            16 lessons. 5 hours 10 minutes. Whether you're a filmmaker, an aspiring composer, or just someone who loves how a great score makes you feel, this is the room you want to be in.
-          </p>
-
-          {/* Trust strip: social proof above the fold. (CRO P1 from audit) */}
-          <div class="mt-5 md:mt-6 text-[12px] md:text-[13px] text-white/70 leading-[1.6]">
-            <span class="text-amber-300/95 tracking-tight align-middle mr-1.5" aria-hidden="true">★★★★★</span>
-            <span class="font-semibold text-white align-middle">Rated 4.8 out of 5</span>
-            <span class="align-middle"> · <span class="font-semibold text-white">15,000+ enrolled</span> · Lifetime access</span>
-            <span class="block mt-1 text-[11px] md:text-[12px] tracking-[0.18em] uppercase text-white/55">KGF · Salaar · Mufti · Marco</span>
-          </div>
-
-          <div class="mt-6 md:mt-7 flex flex-col items-center gap-2">
-            <a href={CTA_HREF} target="_blank" rel="noopener noreferrer" data-mc-hero-cta="true" class="buy-pill inline-flex items-center justify-center px-7 py-3 md:px-8 md:py-3.5 rounded-full text-[14px] md:text-[15px]">
-              Buy now at ₹2,499
-            </a>
-            <p class="text-[12px] md:text-[13px] text-white/60">
-              <span class="line-through decoration-[1.5px] decoration-white/40 mr-1.5">₹4,999</span>
-              <span class="text-amber-300/95 font-semibold">Save ₹2,500</span>
-              <span class="text-white/40 mx-1.5">·</span>
-              <span>One-time payment, no subscription</span>
-            </p>
-          </div>
-        </div>
+    {/* ── Hero ── */}
+    <section class="bp-hero" aria-labelledby="bp-h1">
+      <div class="bp-hero__media" data-hero-video data-src-m={`${HERO}/intro-m.mp4`} data-src-d={`${HERO}/intro-d.mp4`}>
+        <picture>
+          <source media="(max-width: 767px)" type="image/avif" srcset={srcset(`${HERO}/poster-m`, [520, 780], "avif")} sizes="100vw" />
+          <source media="(max-width: 767px)" type="image/webp" srcset={srcset(`${HERO}/poster-m`, [520, 780], "webp")} sizes="100vw" />
+          <source media="(max-width: 767px)" srcset={srcset(`${HERO}/poster-m`, [520, 780], "jpg")} sizes="100vw" />
+          <source type="image/avif" srcset={srcset(`${HERO}/poster-d`, [960, 1440], "avif")} sizes="(min-width: 1024px) 60vw, 100vw" />
+          <source type="image/webp" srcset={srcset(`${HERO}/poster-d`, [960, 1440], "webp")} sizes="(min-width: 1024px) 60vw, 100vw" />
+          <img
+            src={`${HERO}/poster-d-1440.jpg`}
+            srcset={srcset(`${HERO}/poster-d`, [960, 1440], "jpg")}
+            sizes="(min-width: 1024px) 60vw, 100vw"
+            width="1440"
+            height="690"
+            alt="Ravi Basrur with a cello, in front of characters from KGF and Salaar"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </picture>
+        <video muted playsinline preload="none" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
+        <div class="bp-hero__veil" aria-hidden="true"></div>
       </div>
-      <div class="h-10 md:h-16"></div>
-    </section>
 
-    {/* Trailer: YouTube embed. Replace YT_TRAILER_ID at the top of the
-        page with the actual Ravi Basrur masterclass YouTube ID. */}
-    <section class="relative px-5 md:px-12 pb-12 md:pb-20">
-      <div class="max-w-[996px] mx-auto">
-        <div class="relative rounded-[14px] overflow-hidden ring-1 ring-white/[0.07] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)]">
-          <LokeshTrailer ytId={YT_TRAILER_ID} client:load />
-        </div>
-      </div>
-    </section>
-
-    {/* Class Info + Episodes. Dropped the duplicate "Class Info" eyebrow
-        that repeated the H2 directly underneath. */}
-    <section class="relative px-5 md:px-12 py-14 md:py-24">
-      <div class="max-w-[1180px] mx-auto">
-        <div class="text-center mb-10 md:mb-14">
-          <h2 class="font-cinzel text-gold text-[36px] md:text-[48px] lg:text-[60px] leading-[1] tracking-[-0.02em] font-semibold">Class Info</h2>
-          <p class="mt-3 text-[12px] md:text-[14px] tracking-[0.32em] uppercase text-[#dfdee2]/60">16 video lessons · 5h 10mins</p>
-        </div>
-        <div class="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-6 md:gap-8">
-          <aside class="rounded-2xl border border-amber-200/15 bg-[#0E0E0E] p-7 md:p-8 h-fit lg:sticky lg:top-6">
-            <p class="font-dm text-[16px] md:text-[18px] font-medium text-white/85 tracking-[-0.02em]">Start your journey for just</p>
-            <div class="mt-3 flex items-baseline gap-3">
-              <span class="font-poppins text-[44px] md:text-[56px] font-bold text-white tracking-[-0.04em] leading-none">₹2,499</span>
-              <span class="text-[20px] md:text-[24px] text-white/40 line-through decoration-amber-300/70 decoration-2 tracking-[-0.04em]">₹4,999</span>
-            </div>
-            <p class="mt-2 inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-amber-300/12 border border-amber-300/25 text-[11px] md:text-[12px] font-semibold tracking-tight text-amber-300/95">
-              SAVE ₹2,500 · 50% OFF
-            </p>
-            <a href={CTA_HREF} target="_blank" rel="noopener noreferrer" class="buy-pill mt-5 inline-flex w-full items-center justify-center px-5 py-3.5 rounded-full text-[14px] md:text-[15px]">
-              Buy now at ₹2,499
-            </a>
-            <div class="mt-3 flex justify-center">
-              <CountdownTimer storageKey="ravi-countdown-v1" tone="alert" client:load />
-            </div>
-            <p class="mt-3 text-center text-[12px] text-white/55">One-time payment. No subscription, no renewal.</p>
-            <hr class="my-6 border-white/[0.08]" />
-            <p class="text-[18px] md:text-[20px] font-medium text-[#dfdee2] tracking-[-0.04em]">What You'll Get</p>
-            <ul class="mt-4 space-y-3 text-[14px] md:text-[15px] text-white/85">
-              <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>16 video lessons (5h 10mins)</span></li>
-              <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>Certificate signed by Ravi Basrur</span></li>
-              <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>Free access to Cine Circle community</span></li>
-              <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>100% money-back guarantee</span></li>
-              <li class="flex items-start gap-3"><span class="text-[#d4a36c]">▸</span><span>No prior experience required</span></li>
-            </ul>
-          </aside>
-          <div><EpisodeAccordion episodes={episodes} initialVisible={5} client:visible /></div>
-        </div>
-      </div>
-    </section>
-
-    {/* Films section: 2-row marquee carousel.
-        Each row uses a unique subset (filmsRowA / filmsRowB) so the
-        same poster never appears on both rows. The carousels scroll in
-        opposite directions to suggest motion + depth. */}
-    <section class="relative py-14 md:py-24 overflow-hidden">
-      <div class="max-w-[1280px] mx-auto px-5 md:px-12 mb-10 md:mb-14">
-        <h2 class="font-cinzel text-gold text-[28px] md:text-[36px] lg:text-[45px] leading-[1.05] tracking-[-0.06em] font-semibold">Learn from the</h2>
-        <p class="text-white text-[28px] md:text-[40px] lg:text-[55px] leading-[1.05] tracking-[-0.06em] font-semibold mt-1 max-w-[900px]">Music Director Behind these Blockbuster Films</p>
-        <p class="mt-5 md:mt-6 text-[14px] md:text-[16px] leading-[1.55] text-[#dfdee2]/75 max-w-[640px]">
-          KGF Chapter 1 &amp; 2 · Salaar · Mufti · Ugramm · Marco · Pailwaan · Hebbuli · and more. A career spent writing the sound behind India's biggest films.
+      <div class="bp-hero__copy">
+        <p class="bp-kicker">Masterclass · Film music</p>
+        <h1 id="bp-h1" class="bp-h1">
+          <span class="bp-h1__name">Ravi Basrur</span>
+          scores a film scene in front of you, in Logic Pro X.
+        </h1>
+        <p class="bp-lead">The composer of KGF and Salaar builds a score bar by bar.</p>
+        <p class="bp-lang" data-first-screen-lang>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h12M9 3v2m1.05 9.5A18 18 0 0 1 6.4 9m6.6 11 5-10 5 10m-8.6-3h7.2M11.5 5C10.7 9.9 7.9 14 4 16.6" /></svg>
+          <span>Taught in Kannada, with English subtitles.</span>
         </p>
-        <a href={CTA_HREF} target="_blank" rel="noopener noreferrer" class="buy-pill mt-6 md:mt-7 inline-flex items-center justify-center px-6 py-2.5 md:px-7 md:py-3 rounded-full text-[14px] md:text-[15px]">Enrol at ₹2,499</a>
-      </div>
-      <div class="space-y-3 md:space-y-4">
-        <PosterMarquee posters={filmsRowA} dir="left" speed={42} client:visible />
-        <PosterMarquee posters={filmsRowB} dir="right" speed={48} client:visible />
-      </div>
-    </section>
-
-    <section class="relative px-5 md:px-12 py-16 md:py-28">
-      <div class="max-w-3xl mx-auto text-center mb-14 md:mb-20">
-        <p class="font-cinzel text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Why is this</p>
-        <div class="my-4 section-tick"></div>
-        <h2 class="font-cinzel text-gold text-[32px] md:text-[42px] lg:text-[55px] leading-[1.05] tracking-[-0.05em] font-semibold">MASTERCLASS FOR YOU?</h2>
-      </div>
-      <div class="max-w-[1080px] mx-auto relative">
-        <div class="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/15 to-transparent hidden md:block"></div>
-        <div class="space-y-12 md:space-y-20">
-          {whyPoints.map((p, i) => (
-            <div class={`grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center ${i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""}`}>
-              <div class="relative aspect-[16/9] rounded-xl overflow-hidden ring-1 ring-white/10 bg-[#0a0a0a] shadow-[0_20px_50px_-20px_rgba(0,0,0,0.7)]">
-                {/* IntersectionPlayVideo autoplays muted-loop the moment the
-                    video scrolls into view, then pauses when out of view.
-                    Replaces HoverPlayVideo which required a desktop hover
-                    that mobile users could never trigger. */}
-                <IntersectionPlayVideo src={p.media} className="absolute inset-0 w-full h-full" client:visible />
-              </div>
-              <p class="text-[20px] md:text-[24px] leading-[1.5] tracking-[-0.06em] text-[#dfdee2] md:px-4">{p.text}</p>
-            </div>
-          ))}
+        <ul class="bp-facts" aria-label="Course facts">
+          <li>{LESSONS} lessons</li>
+          <li>{runtime}</li>
+          <li>Logic Pro X</li>
+        </ul>
+        <p class="bp-proof">
+          <span class="bp-proof__stars" aria-hidden="true">★★★★★</span>
+          <span><strong>Rated 4.8 out of 5</strong> · <strong>15,000+ enrolled</strong> · Lifetime access</span>
+        </p>
+        <div class="bp-hero__cta">
+          <CtaButton href={o.checkoutUrl} label={BUY_LABEL} price={o.price} placement="hero" course={o.slug} hero size="lg" />
+          <RefundLine />
         </div>
       </div>
     </section>
 
-    <!-- Outcomes (CRO P2 from audit). Outcome framing > feature framing.
-         Lists what the buyer will BE ABLE TO DO after the course. -->
-    <section class="relative px-5 md:px-12 py-14 md:py-20">
-      <div class="max-w-[1180px] mx-auto">
-        <div class="text-center mb-10 md:mb-12">
-          <p class="font-cinzel text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Outcomes</p>
-          <div class="my-4 section-tick"></div>
-          <h2 class="font-cinzel text-gold text-[28px] md:text-[38px] lg:text-[46px] leading-[1.1] tracking-[-0.04em] font-semibold">
-            BY THE END, YOU'LL BE ABLE TO
-          </h2>
-        </div>
-        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-w-[1085px] mx-auto">
-          {outcomes.map((o, i) => (
-            <li class="rounded-xl border border-white/[0.10] bg-[#0E0E0E] p-5 md:p-6 lift flex gap-4 md:gap-5">
-              <span class="font-cinzel text-[28px] md:text-[34px] text-gold leading-none shrink-0">0{i + 1}</span>
-              <div>
-                <h3 class="text-[17px] md:text-[20px] font-semibold text-white leading-[1.25] tracking-[-0.02em]">{o.title}</h3>
-                <p class="mt-1.5 text-[14px] md:text-[15px] text-[#a3a3a3] leading-[1.5]">{o.description}</p>
-              </div>
+    <div class="bp-wrap bp-facts-strip">
+      <CourseFacts
+        items={[
+          { label: "Lessons", value: String(LESSONS) },
+          { label: "Runtime", value: runtime },
+          { label: "Language", value: LANGUAGE },
+          { label: "Price", value: `${formatPrice(o.price)} once` },
+          { label: "Refund", value: `Within ${REFUND.days} days` },
+        ]}
+      />
+    </div>
+
+    {/* ── Trailer ── */}
+    <SectionShell eyebrow="Trailer" heading="See how he *teaches*" tight width="default">
+      <div class="bp-frame mck-reveal" data-reveal="scale">
+        <LokeshTrailer
+          ytId={TRAILER_ID}
+          title="Ravi Basrur Teaches Music Composition, official trailer"
+          alt="Ravi Basrur at the keyboard in his studio"
+          poster={`${ASSET}/trailer/cover-960.webp`}
+          client:visible
+        />
+      </div>
+    </SectionShell>
+
+    <IsThisForYou forYou={forYou} notForYou={notForYou} />
+
+    <SkillsYouGain
+      items={skills}
+      heading="What you'll know *how to do*"
+      body="Lesson numbers follow the course outline below."
+      tone="raised"
+    />
+
+    {/* ── Lessons ── */}
+    <SectionShell
+      id="lessons"
+      eyebrow="The lessons"
+      heading={`${LESSONS} lessons, *${runtime}*`}
+      body="Recorded lessons in Kannada with English subtitles. Watch them in order or jump to the one you need."
+      width="narrow"
+    >
+      <ol class="bp-lessons">
+        {lessons.slice(0, FIRST_LESSONS).map((l, i) => (
+          <li class="bp-lesson mck-reveal" style={`--mck-delay:${Math.min(i, 4) * 50}ms`}>
+            <details>
+              <summary>
+                <span class="bp-lesson__num">{String(l.number).padStart(2, "0")}</span>
+                <span class="bp-lesson__title">{l.title}</span>
+                <span class="bp-lesson__icon" aria-hidden="true"></span>
+              </summary>
+              <p class="bp-lesson__body">{l.description}</p>
+            </details>
+          </li>
+        ))}
+      </ol>
+      <details class="bp-more">
+        <summary>
+          <span class="bp-more__open">Show all {LESSONS} lessons</span>
+          <span class="bp-more__close">Show fewer lessons</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+        </summary>
+        <ol class="bp-lessons" start={FIRST_LESSONS + 1}>
+          {lessons.slice(FIRST_LESSONS).map((l) => (
+            <li class="bp-lesson">
+              <details>
+                <summary>
+                  <span class="bp-lesson__num">{String(l.number).padStart(2, "0")}</span>
+                  <span class="bp-lesson__title">{l.title}</span>
+                  <span class="bp-lesson__icon" aria-hidden="true"></span>
+                </summary>
+                <p class="bp-lesson__body">{l.description}</p>
+              </details>
             </li>
           ))}
-        </ul>
+        </ol>
+      </details>
+      <div class="bp-cta-row mck-reveal">
+        <CtaButton href={o.checkoutUrl} label={BUY_LABEL} price={o.price} placement="lessons" course={o.slug} size="lg" />
+        <RefundLine />
       </div>
-    </section>
+    </SectionShell>
 
-    <!-- Certificate -->
-    <section class="relative px-5 md:px-12 py-12 md:py-20">
-      <div class="max-w-[1085px] mx-auto rounded-2xl overflow-hidden ring-1 ring-amber-200/15 shadow-[0_30px_80px_-20px_rgba(212,163,108,0.18)]">
-        <img src={CERT_IMG} alt="Certificate of Completion signed by Ravi Basrur" class="block w-full h-auto" loading="lazy" />
-      </div>
-      <ul class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-[1085px] mx-auto">
-        {[
-          "Download or Print out as PDF to share with others",
-          "Showcase on your Certificate on social media",
-          "Share as image online to demonstrate your skill",
-        ].map((t, i) => (
-          <li class="rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 lift flex gap-4">
-            <span class="font-cinzel text-[28px] text-gold leading-none">0{i + 1}</span>
-            <span class="text-[15px] md:text-[19px] text-[#f2f2f2] leading-[1.45] tracking-[-0.02em] font-medium">{t}</span>
+    {/* ── Films ── */}
+    <SectionShell
+      id="films"
+      eyebrow="His films"
+      heading="Films he has *scored*"
+      body="From Ugramm in 2014 to Toxic and Blast in 2026. The lessons use KGF as their worked example."
+      width="wide"
+      tone="raised"
+    >
+      <ul class="bp-films bp-films--many mck-reveal" aria-label="Films Ravi Basrur has worked on">
+        {films.map((f, i) => (
+          <li class="bp-film" style={`--bp-i:${Math.min(i, 10)}`}>
+            <div class="bp-film__poster">
+              <picture>
+                <source type="image/avif" srcset={srcset(`${ASSET}/films/${f.slug}`, [300, 460], "avif")} sizes="(min-width: 900px) 210px, 44vw" />
+                <source type="image/webp" srcset={srcset(`${ASSET}/films/${f.slug}`, [300, 460], "webp")} sizes="(min-width: 900px) 210px, 44vw" />
+                <img
+                  src={`${ASSET}/films/${f.slug}-300.jpg`}
+                  srcset={srcset(`${ASSET}/films/${f.slug}`, [300, 460], "jpg")}
+                  sizes="(min-width: 900px) 210px, 44vw"
+                  width="300"
+                  height="450"
+                  alt={`${f.title} poster`}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+            </div>
+            <p class="bp-film__title">{f.title} <span>{f.year}</span></p>
+            <p class="bp-film__role">{f.role}</p>
           </li>
         ))}
       </ul>
-    </section>
+    </SectionShell>
 
-    <section class="relative px-5 md:px-12 py-16 md:py-24 overflow-hidden">
-      <div class="max-w-[1100px] mx-auto text-center mb-12 md:mb-16">
-        <p class="font-cinzel text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Reviews</p>
-        <div class="my-4 section-tick"></div>
-        <h2 class="font-cinzel text-gold text-[24px] md:text-[34px] lg:text-[42px] leading-[1.1] tracking-[-0.04em] font-semibold">THIS MAKES OUR HEART BEAT FASTER EVERYDAY</h2>
-      </div>
-      <TestimonialCarousel items={testimonials} client:visible />
-    </section>
+    <InHisWords
+      speaker="Ravi Basrur"
+      quotes={quotes}
+      body="From the masterclass, English subtitles."
+    />
 
-    {/* "What you'll get": six course-asset cards. Dropped the placeholder
-        "[Workflow]" eyebrow that looked like an unset template variable. */}
-    <section class="relative px-5 md:px-12 py-16 md:py-24">
-      <div class="max-w-[1180px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
-        <div>
-          <h2 class="font-cinzel text-gold text-[36px] md:text-[48px] lg:text-[60px] leading-[1.05] tracking-[-0.04em] font-semibold">What you'll get</h2>
-          <p class="mt-6 text-[18px] md:text-[22px] lg:text-[24px] leading-[1.45] tracking-[-0.04em] text-white max-w-[480px] font-medium">Everything in the course, mapped at a glance.</p>
-          <a href={CTA_HREF} target="_blank" rel="noopener noreferrer" class="buy-pill mt-8 inline-flex items-center justify-center px-7 py-3 rounded-full text-[14px] md:text-[15px]">Enrol at ₹2,499</a>
-        </div>
-        <div class="space-y-3 md:space-y-4">
-          {whatYouGet.map((g) => (
-            <div class="rounded-xl border border-white/[0.08] bg-[#0E0E0E] p-5 md:p-6 lift flex gap-4 md:gap-5">
-              <span class="font-cinzel text-[32px] md:text-[40px] text-gold leading-none shrink-0">{g.num}</span>
-              <div>
-                <h3 class="text-[18px] md:text-[22px] font-semibold text-white leading-[1.25] tracking-[-0.04em]">{g.title}</h3>
-                <p class="mt-1.5 text-[14px] md:text-[16px] text-[#a3a3a3] leading-[1.45]">{g.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+    <ReviewWall
+      reviews={reviews}
+      heading="What LevelUp learners *wrote*"
+      body="From LevelUp's sound, music and filmmaking programmes, quoted as written. Each card names the course it reviews."
+    />
 
-    {/* Closing pitch: copy only, no marquee. The films marquee earlier
-        on the page already shows the catalogue; repeating it here was
-        redundant. Headline punched up; CTA varied to break repetition. */}
-    <section class="relative py-16 md:py-24">
-      <div class="max-w-[1180px] mx-auto px-5 md:px-12">
-        <h2 class="font-cinzel text-gold text-[24px] md:text-[34px] lg:text-[40px] leading-[1.1] tracking-[-0.06em] font-semibold max-w-[820px]">
-          The stories you love. Now learn the sound behind them.
-        </h2>
-        <p class="mt-6 text-[14px] md:text-[16px] leading-[1.6] tracking-[-0.02em] text-[#dfdee2] max-w-[600px]">
-          Ravi shares the workflow, instincts, and craft behind India's biggest film soundscapes. From the first idea to the final mix, in plain language, on your time.
-        </p>
-        <a href={CTA_HREF} target="_blank" rel="noopener noreferrer" class="buy-pill mt-8 inline-flex items-center justify-center px-7 py-3 rounded-full text-[14px] md:text-[15px]">Start the masterclass · ₹2,499</a>
-      </div>
-    </section>
+    <ValueAgainstPrice
+      price={o.price}
+      lessons={LESSONS}
+      runtimeMinutes={RUNTIME_MINUTES}
+      comparisons={[
+        { label: "Language", value: "Kannada, English subtitles" },
+        { label: "Software shown", value: "Logic Pro X" },
+        { label: "Certificate", value: "Signed by Ravi Basrur" },
+        { label: "Access", value: "For life", highlight: true },
+      ]}
+      cta={{ ...cta, placement: "value" }}
+    />
 
-    <section class="relative px-5 md:px-12 py-16 md:py-28">
-      <div class="max-w-5xl mx-auto text-center mb-12 md:mb-16">
-        <p class="font-cinzel text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-[#dfdee2]/55">Questions?</p>
-        <div class="my-4 section-tick"></div>
-        <h2 class="font-cinzel text-gold text-[36px] md:text-[48px] lg:text-[60px] leading-[1] tracking-[-0.06em] font-semibold">WE'VE GOT YOU COVERED!</h2>
-      </div>
-      <div class="max-w-5xl mx-auto"><FAQAccordion faqs={faqs} courseName="Ravi Basrur Music Masterclass" client:visible /></div>
-    </section>
+    <TryItFor7Days cta={{ ...cta, placement: "try" }} />
 
-    <footer class="relative bg-[#181818] mt-12 md:mt-20 px-5 md:px-12 py-12 md:py-16">
-      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 md:gap-12 items-center">
-        <div class="text-center md:text-left">
-          <p class="text-[14px] text-[#dfdee2] max-w-2xl leading-[1.6] tracking-[-0.02em]">
-            LevelUp Learning is an e-learning platform focused on creative arts like music, science, sports, film-making and other such skill development disciplines. Students can access pre-recorded lectures or tutorials by experts in various fields.
-          </p>
-          <div class="mt-6 flex justify-center md:justify-start gap-5 text-white/70">
-            <a href="https://www.instagram.com/levelup_filmmaking/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="hover:text-white transition-colors"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.43.36 1.06.41 2.23.07 1.25.07 1.65.07 4.85s0 3.6-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.43.16-1.06.36-2.23.41-1.25.07-1.65.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.43-.36-1.06-.41-2.23C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.43-.16 1.06-.36 2.23-.41C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.52 0-4.76.06-1.07.05-1.65.23-2.04.38-.51.2-.88.44-1.27.83-.39.39-.63.76-.83 1.27-.15.39-.33.97-.38 2.04C2.66 8.48 2.66 8.85 2.66 12s0 3.52.06 4.76c.05 1.07.23 1.65.38 2.04.2.51.44.88.83 1.27.39.39.76.63 1.27.83.39.15.97.33 2.04.38 1.24.06 1.61.06 4.76.06s3.52 0 4.76-.06c1.07-.05 1.65-.23 2.04-.38.51-.2.88-.44 1.27-.83.39-.39.63-.76.83-1.27.15-.39.33-.97.38-2.04.06-1.24.06-1.61.06-4.76s0-3.52-.06-4.76c-.05-1.07-.23-1.65-.38-2.04a3.4 3.4 0 0 0-.83-1.27 3.4 3.4 0 0 0-1.27-.83c-.39-.15-.97-.33-2.04-.38C15.52 4 15.15 4 12 4zm0 3.07a4.93 4.93 0 1 1 0 9.86 4.93 4.93 0 0 1 0-9.86zm0 1.8a3.13 3.13 0 1 0 0 6.26 3.13 3.13 0 0 0 0-6.26zm5.13-2.27a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3z"/></svg></a>
-            <a href="https://www.linkedin.com/company/levelup-learning/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="hover:text-white transition-colors"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14C2.24 0 0 2.24 0 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5V5c0-2.76-2.24-5-5-5zM7.5 19h-3v-9h3v9zM6 8.7a1.7 1.7 0 1 1 0-3.4 1.7 1.7 0 0 1 0 3.4zM20 19h-3v-4.7c0-1.1-.4-1.9-1.4-1.9-.8 0-1.3.5-1.5 1-.1.2-.1.5-.1.7V19h-3s.04-7.6 0-9h3v1.3c.4-.6 1.1-1.5 2.7-1.5 2 0 3.5 1.3 3.5 4V19z"/></svg></a>
-            <a href="https://x.com/LevelUp_edu" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" class="hover:text-white transition-colors"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-          </div>
-        </div>
-        <div class="text-center md:text-right text-[14px] text-[#dfdee2] space-y-2">
-          <p class="font-medium tracking-[-0.02em]">Copyright © 2025 LevelUp Learning · All Rights Reserved</p>
-          <p class="space-x-4 tracking-[-0.04em]">
-            <a href="/privacy-policy" class="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="/terms" class="hover:text-white transition-colors">Terms Of Service</a>
-          </p>
-        </div>
-      </div>
-    </footer>
-    <PageInteractions course="ravi-basrur" courseName="Ravi Basrur Music Masterclass" price={2499} client:idle />
+    <WhatYouGetToday
+      price={o.price}
+      items={[
+        { title: `${LESSONS} video lessons`, detail: `${runtime} in all` },
+        { title: LANGUAGE },
+        { title: "Certificate signed by Ravi Basrur" },
+        { title: "Lifetime access", detail: "On your phone, tablet or laptop" },
+      ]}
+      bonusHeading="Bonus, for every buyer"
+      bonuses={[{ title: "LevelUp community access", detail: "Talk with other learners" }]}
+      cta={{ ...cta, placement: "price-card" }}
+    />
+
+    <SectionShell id="faq" eyebrow="FAQ" heading="Questions buyers *ask*" width="narrow">
+      <FaqList faqs={faqs} courseName={o.courseName} />
+    </SectionShell>
+
+    <CrossSell current={o.slug} order={["nelson-dilipkumar", "lokesh-kanagaraj", "karthik-subbaraj"]} />
+    <RevealScript />
   </main>
+
+  <SiteFooter client:visible />
 </BaseLayout>
+
+<style is:global>
+  /* Page tokens. Warm near-black and the Lokesh gold, read by the kit too. */
+  .bp {
+    --bp-bg: #080604;
+    --bp-ink: #f6f1ea;
+    --bp-ink-2: rgba(246, 241, 234, 0.8);
+    --bp-ink-3: rgba(246, 241, 234, 0.62);
+    --bp-gold-1: #f5d59a;
+    --bp-gold-2: #d4a36c;
+    --bp-gold-3: #a06a36;
+    --bp-display: "Funnel Display", "Sora", system-ui, sans-serif;
+    --bp-name-gradient: linear-gradient(100deg, #b98149 0%, #f5d59a 34%, #fff1d6 50%, #d4a36c 72%, #f0bb7a 100%);
+    --bp-gutter: 20px;
+    --mck-bg: var(--bp-bg);
+    --mck-font-body: "Sora", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mck-font-display: "Sora", system-ui, sans-serif;
+    --mck-pill-gradient: radial-gradient(120% 100% at 50% 0%, #ffe5b8 0%, #e3b671 30%, #c8924d 60%, #a87545 100%);
+    position: relative;
+    background: var(--bp-bg);
+    color: var(--bp-ink);
+    font-family: var(--mck-font-body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  @media (max-width: 767px) {
+    /* Room for the sticky buy bar, so it never covers the last block. */
+    .bp { padding-bottom: 84px; }
+  }
+  .bp :focus-visible { outline: 2px solid var(--bp-gold-1); outline-offset: 3px; border-radius: 6px; }
+  .bp-wrap { width: 100%; max-width: 1120px; margin-inline: auto; padding-inline: var(--bp-gutter); }
+
+  /* ── Hero ── */
+  .bp-hero { position: relative; isolation: isolate; }
+  .bp-hero__media {
+    position: relative;
+    height: clamp(300px, 50svh, 470px);
+    overflow: hidden;
+    background: #000;
+  }
+  .bp-hero__media picture,
+  .bp-hero__media img,
+  .bp-hero__media video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--bp-pos, 50% 18%);
+  }
+  .bp-hero__media img { animation: bp-settle 2.2s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .bp-hero__media video { z-index: 1; opacity: 0; transition: opacity 0.7s ease; }
+  .bp-hero__media.is-playing video { opacity: 1; }
+  .bp-hero__veil {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(8, 6, 4, 0.7) 0%, rgba(8, 6, 4, 0) 22%),
+      linear-gradient(0deg, var(--bp-bg) 0%, rgba(8, 6, 4, 0.75) 16%, rgba(8, 6, 4, 0) 46%);
+  }
+  .bp-hero__copy {
+    position: relative;
+    z-index: 3;
+    margin-top: -56px;
+    padding: 0 var(--bp-gutter) 8px;
+  }
+  .bp-hero__copy > * { animation: bp-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .bp-hero__copy > :nth-child(2) { animation-delay: 60ms; }
+  .bp-hero__copy > :nth-child(3) { animation-delay: 120ms; }
+  .bp-hero__copy > :nth-child(4) { animation-delay: 180ms; }
+  .bp-hero__copy > :nth-child(5) { animation-delay: 240ms; }
+  .bp-hero__copy > :nth-child(6) { animation-delay: 300ms; }
+  .bp-kicker {
+    margin: 0 0 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--bp-gold-1);
+  }
+  .bp-h1 {
+    margin: 0;
+    font-family: var(--bp-display);
+    font-size: clamp(27px, 7.3vw, 56px);
+    font-weight: 600;
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+    color: var(--bp-ink);
+    text-wrap: balance;
+  }
+  .bp-h1__name {
+    display: block;
+    padding-bottom: 0.04em;
+    background-image: var(--bp-name-gradient);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: bp-shine 6s ease-in-out 1.2s infinite alternate;
+  }
+  .bp-lead {
+    margin: 14px 0 0;
+    max-width: 44ch;
+    font-size: clamp(15px, 4vw, 18px);
+    line-height: 1.5;
+    color: var(--bp-ink-2);
+  }
+  .bp-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .bp-facts li {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(245, 213, 154, 0.28);
+    background: rgba(245, 213, 154, 0.06);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--bp-ink);
+    white-space: nowrap;
+  }
+  .bp-hero__cta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .bp-hero__cta .mck-cta { width: 100%; }
+  .bp-proof {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 8px;
+    margin: 16px 0 0;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--bp-ink-3);
+  }
+  .bp-proof strong { color: var(--bp-ink); font-weight: 600; }
+  .bp-proof__stars { color: #f4c36a; letter-spacing: 1px; }
+
+  @media (min-width: 480px) {
+    .bp-hero__cta .mck-cta { width: auto; }
+  }
+  @media (max-width: 419px) {
+    /* Keep "Buy the masterclass · ₹1,499" on one line on narrow phones. */
+    .bp .mck-cta__arrow { display: none; }
+  }
+  @media (max-width: 399px) {
+    .bp .mck-cta--lg { font-size: 16px; padding-inline: 18px; }
+  }
+  @media (min-width: 768px) {
+    .bp-hero__media { height: auto; aspect-ratio: 16 / 9; }
+    .bp-hero__copy { max-width: 760px; margin-inline: auto; margin-top: -80px; }
+  }
+  @media (min-width: 1024px) {
+    .bp-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+      align-items: center;
+      min-height: min(90vh, 820px);
+      padding-top: 88px;
+    }
+    .bp-hero__media {
+      grid-column: 2;
+      grid-row: 1;
+      align-self: stretch;
+      aspect-ratio: auto;
+      min-height: 520px;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 24%);
+      mask-image: linear-gradient(90deg, transparent 0%, #000 24%);
+    }
+    .bp-hero__veil {
+      background:
+        linear-gradient(0deg, var(--bp-bg) 0%, rgba(8, 6, 4, 0) 22%),
+        linear-gradient(180deg, var(--bp-bg) 0%, rgba(8, 6, 4, 0) 18%);
+    }
+    .bp-hero__copy {
+      grid-column: 1;
+      grid-row: 1;
+      margin: 0;
+      max-width: none;
+      padding: 40px 0 40px max(48px, calc((100vw - 1240px) / 2 + 20px));
+    }
+    .bp-h1 { font-size: clamp(40px, 3.5vw, 52px); }
+  }
+
+  .bp-facts-strip { margin-top: 28px; }
+  @media (min-width: 1024px) { .bp-facts-strip { margin-top: 0; } }
+
+  /* Framed media (trailer, certificate). */
+  .bp-frame {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    border: 1px solid rgba(245, 213, 154, 0.18);
+    box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.03);
+    background: #000;
+  }
+
+  /* ── Lessons ── */
+  .bp-lessons { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .bp-lesson details {
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+  .bp-lesson details[open] { border-color: rgba(245, 213, 154, 0.3); background-color: rgba(245, 213, 154, 0.03); }
+  .bp-lesson summary {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr) 22px;
+    align-items: center;
+    gap: 12px;
+    min-height: 60px;
+    padding: 14px 16px;
+    cursor: pointer;
+    list-style: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .bp-lesson summary::-webkit-details-marker { display: none; }
+  .bp-lesson__num {
+    font-family: var(--bp-display);
+    font-size: 15px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--bp-gold-2);
+  }
+  .bp-lesson__title { font-size: 15.5px; font-weight: 600; line-height: 1.35; color: var(--bp-ink); }
+  .bp-lesson__icon { position: relative; width: 22px; height: 22px; }
+  .bp-lesson__icon::before,
+  .bp-lesson__icon::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    right: 5px;
+    top: 10px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--bp-gold-1);
+    transition: transform 0.3s ease;
+  }
+  .bp-lesson__icon::after { transform: rotate(90deg); }
+  .bp-lesson details[open] .bp-lesson__icon::after { transform: rotate(0deg); }
+  .bp-lesson__body { margin: 0; padding: 0 16px 16px 62px; font-size: 15px; line-height: 1.6; color: var(--bp-ink-2); }
+  @media (max-width: 479px) { .bp-lesson__body { padding-left: 16px; } }
+
+  .bp-more { margin-top: 10px; }
+  .bp-more > summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 52px;
+    margin: 4px auto 0;
+    padding: 12px 22px;
+    max-width: 320px;
+    border-radius: 999px;
+    border: 1px solid rgba(245, 213, 154, 0.3);
+    color: var(--bp-gold-1);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+  }
+  .bp-more > summary::-webkit-details-marker { display: none; }
+  .bp-more > summary svg { transition: transform 0.3s ease; }
+  .bp-more[open] > summary svg { transform: rotate(180deg); }
+  .bp-more__close { display: none; }
+  .bp-more[open] .bp-more__open { display: none; }
+  .bp-more[open] .bp-more__close { display: inline; }
+  .bp-more[open] > summary { margin-bottom: 10px; }
+
+  .bp-cta-row { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 32px; text-align: center; }
+
+  /* ── Films ── */
+  .bp-films {
+    list-style: none;
+    margin: 0 calc(var(--mck-gutter, 20px) * -1);
+    padding: 6px var(--mck-gutter, 20px) 18px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(140px, 42%);
+    gap: 14px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--mck-gutter, 20px);
+    scrollbar-width: none;
+  }
+  .bp-films::-webkit-scrollbar { display: none; }
+  .bp-film { scroll-snap-align: start; transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--bp-i, 0) * 70ms); }
+  html.mck-js .bp-films.mck-pending .bp-film { transform: translate3d(0, 28px, 0); }
+  .bp-film__poster {
+    position: relative;
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #15110c;
+    box-shadow: 0 24px 50px -24px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 255, 255, 0.06);
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
+  }
+  .bp-film__poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .bp-film__title { margin: 12px 0 0; font-size: 15px; font-weight: 600; color: var(--bp-ink); }
+  .bp-film__title span { margin-left: 4px; font-weight: 500; color: var(--bp-ink-3); }
+  @media (min-width: 900px) {
+    .bp-films {
+      margin: 0;
+      padding: 0;
+      grid-auto-flow: row;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      overflow: visible;
+      gap: 18px;
+    }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .bp-film:hover .bp-film__poster {
+      transform: translate3d(0, -6px, 0) rotate(-0.6deg);
+      box-shadow: 0 34px 60px -26px rgba(212, 163, 108, 0.35), 0 0 0 1px rgba(245, 213, 154, 0.25);
+    }
+  }
+
+  /* ── Certificate ── */
+  .bp-cert {
+    position: relative;
+    max-width: 1000px;
+    margin-inline: auto;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(245, 213, 154, 0.32);
+    box-shadow: 0 50px 100px -50px rgba(212, 163, 108, 0.45);
+  }
+  .bp-cert img { display: block; width: 100%; height: auto; }
+  .bp-cert::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(105deg, transparent 35%, rgba(255, 236, 200, 0.22) 50%, transparent 65%);
+    transform: translate3d(-120%, 0, 0);
+  }
+  .bp-cert.mck-in::after { animation: bp-sweep 2.4s cubic-bezier(0.22, 1, 0.36, 1) 0.4s 1 both; }
+
+  @keyframes bp-settle { from { transform: scale(1.06); } to { transform: scale(1); } }
+  @keyframes bp-rise { from { transform: translate3d(0, 12px, 0); } to { transform: none; } }
+  @keyframes bp-shine { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+  @keyframes bp-sweep { from { transform: translate3d(-120%, 0, 0); } to { transform: translate3d(120%, 0, 0); } }
+  @media (prefers-reduced-motion: reduce) {
+    .bp-hero__media img,
+    .bp-hero__copy > *,
+    .bp-h1__name,
+    .bp-cert.mck-in::after { animation: none !important; }
+    .bp-hero__media video { display: none; }
+  }
+</style>
+
+<script>
+  /*
+   * Hero intro: the poster is the first paint. After the page has loaded,
+   * the light intro cut for this screen size plays once and holds on its
+   * last frame. Skipped for reduced motion, Save-Data and 2G links.
+   */
+  const box = document.querySelector<HTMLElement>("[data-hero-video]");
+  const video = box?.querySelector("video");
+  if (box && video) {
+    const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+    const skip =
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      Boolean(conn?.saveData) ||
+      /(^|-)2g$/.test(conn?.effectiveType ?? "");
+    const start = () => {
+      const src = window.matchMedia("(max-width: 767px)").matches ? box.dataset.srcM : box.dataset.srcD;
+      if (!src) return;
+      video.src = src;
+      video.muted = true;
+      video.addEventListener("playing", () => box.classList.add("is-playing"), { once: true });
+      video.play()?.catch(() => {});
+    };
+    if (!skip) {
+      if (document.readyState === "complete") window.setTimeout(start, 300);
+      else window.addEventListener("load", () => window.setTimeout(start, 300), { once: true });
+    }
+  }
+</script>
+
+<style is:global>
+  /* Ravi: ember gold, taken from his artwork. */
+  .bp.bp--ravi {
+    --bp-gold-1: #ffd39a;
+    --bp-gold-2: #e39a5c;
+    --bp-gold-3: #b8662f;
+    --bp-name-gradient: linear-gradient(100deg, #c2703a 0%, #ffd39a 34%, #fff0dc 50%, #e8a160 72%, #f5b678 100%);
+    --bp-pos: 50% 26%;
+    --mck-gold-1: #ffd39a;
+    --mck-gold-2: #e39a5c;
+    --mck-accent: #e39a5c;
+    --mck-line-gold: rgba(227, 154, 92, 0.32);
+    --mck-gold-gradient: var(--bp-name-gradient);
+  }
+  .bp-lang {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0 0;
+    font-size: 14.5px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--bp-gold-1);
+  }
+  .bp-lang svg { flex: none; }
+  @media (max-width: 767px) {
+    /* A shorter frame, so the button stays on the first screen. */
+    .bp--ravi .bp-hero__media { height: clamp(260px, 42svh, 400px); }
+  }
+  @media (max-width: 374px) { .bp-lang { font-size: 13.5px; } }
+  .bp-film__role { margin: 4px 0 0; font-size: 13px; line-height: 1.4; color: var(--bp-ink-3); }
+  @media (min-width: 900px) {
+    .bp-films.bp-films--many { grid-template-columns: repeat(5, minmax(0, 1fr)); row-gap: 28px; }
+  }
+</style>
