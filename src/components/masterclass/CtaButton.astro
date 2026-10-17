@@ -2,7 +2,8 @@
 /**
  * Buy button. A plain <a> to the checkout so the site-wide tracking script
  * in BaseLayout sees every tap (it listens for clicks on links to
- * app.leveluplearning.in). Opens in the same tab.
+ * app.leveluplearning.in). Opens in the same tab. Links to a checkout carry
+ * data-mc-buy; the ghost variant can also link to an anchor on the page.
  *
  *   <CtaButton href={offer.checkoutUrl} label="Get the masterclass" price={2499} placement="price-card" />
  *
@@ -50,6 +51,15 @@ const {
   style,
   ariaLabel,
 } = Astro.props;
+
+// The last word travels with the price and the arrow, so a narrow phone
+// never leaves the arrow or "· ₹2,499" alone on a line.
+const words = label.trim().split(/\s+/);
+const last = words.pop() ?? "";
+const head = words.join(" ");
+// Only checkout links count as buy buttons (the sticky bar hides while one
+// is on screen); a ghost "See the lessons" link to an anchor does not.
+const isBuy = /\/checkout\//.test(href);
 ---
 
 <a
@@ -64,21 +74,26 @@ const {
   ]}
   style={style}
   aria-label={ariaLabel}
-  data-mc-buy=""
+  data-mc-buy={isBuy ? "" : undefined}
   data-mc-cta={placement}
   data-mc-course={course}
   data-mc-hero-cta={hero ? "true" : undefined}
 >
-  <span>{label}</span>
-  {typeof price === "number" && (
-    <>
-      <span class="mck-cta__sep" aria-hidden="true">·</span>
-      <span class="mck-cta__price">{formatPrice(price)}</span>
-    </>
-  )}
-  {arrow && (
-    <svg class="mck-cta__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M5 12h14M13 5l7 7-7 7" />
-    </svg>
-  )}
+  <span class="mck-cta__text">
+    {head && <>{head}{" "}</>}
+    <span class="mck-cta__tail">
+      {last}
+      {typeof price === "number" && (
+        <>
+          <span class="mck-cta__sep" aria-hidden="true">·</span>
+          <span class="mck-cta__price">{formatPrice(price)}</span>
+        </>
+      )}
+      {arrow && (
+        <svg class="mck-cta__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14M13 5l7 7-7 7" />
+        </svg>
+      )}
+    </span>
+  </span>
 </a>

@@ -4,6 +4,9 @@
  * lines from the course transcripts or subtitles; renders nothing when
  * `quotes` is empty, so a page with no source simply omits it.
  *
+ * The first quote is drawn as a frame from the lesson with the line set as
+ * a subtitle, since the quotes are the course's English subtitles.
+ *
  *   <InHisWords
  *     speaker="Nelson Dilipkumar"
  *     note="From the English subtitles. Nelson speaks Tamil."
@@ -50,12 +53,20 @@ const {
     <div class="mck-quotes">
       {quotes.map((q, i) => {
         const lesson = typeof q.lesson === "number" ? lessonLabel(q.lesson) : q.lesson;
-        return (
-          <figure
-            class:list={["mck-card", "mck-quote", "mck-reveal", featureFirst && i === 0 && "mck-quote--feature mck-card--gold"]}
-            style={`--mck-delay:${(i % 3) * 80}ms`}
-            data-reveal={featureFirst && i === 0 ? "scale" : undefined}
-          >
+        const feature = featureFirst && i === 0;
+        return feature ? (
+          <figure class="mck-card mck-card--gold mck-quote mck-quote--feature mck-reveal" data-reveal="scale">
+            <div class="mck-frame">
+              {lesson && <span class="mck-frame__slate">{lesson}</span>}
+              <blockquote class="mck-frame__sub"><span>{q.text}</span></blockquote>
+            </div>
+            <figcaption class="mck-quote__cite">
+              <span class="mck-quote__who">{speaker}</span>
+              {q.note && <span>{q.note}</span>}
+            </figcaption>
+          </figure>
+        ) : (
+          <figure class="mck-card mck-quote mck-reveal" style={`--mck-delay:${((featureFirst ? i - 1 : i) % 3) * 90}ms`}>
             <blockquote class="mck-quote__text">{q.text}</blockquote>
             <figcaption class="mck-quote__cite">
               <span class="mck-quote__who">{speaker}</span>

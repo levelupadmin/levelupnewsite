@@ -53,12 +53,31 @@ const {
 
 const shown = reviews.slice(0, initial);
 const more = reviews.slice(initial);
+
+// Desktop shows three columns filled left to right (card 1, 2, 3 across the
+// top row). Each card also carries its reading position as `order`, which
+// puts the cards back in sequence when the columns dissolve on phones and
+// tablets.
+const COLS = 3;
+function columns(list: ReviewCardData[]) {
+  const cols: { r: ReviewCardData; i: number }[][] = Array.from({ length: COLS }, () => []);
+  list.forEach((r, i) => cols[i % COLS].push({ r, i }));
+  return cols.filter((c) => c.length > 0);
+}
 ---
 
 {reviews.length > 0 && (
   <SectionShell eyebrow={eyebrow} heading={heading} body={body} id={id} tone={tone} width="wide" class={className} style={style}>
-    <div class="mck-reviews">
-      {shown.map((r, i) => <ReviewCard review={r} ownLabel={ownLabel} reveal delay={(i % 3) * 80} />)}
+    <div class="mck-rw">
+      {columns(shown).map((col) => (
+        <div class="mck-rw__col">
+          {col.map(({ r, i }) => (
+            <div class="mck-rw__cell" style={`order:${i}`}>
+              <ReviewCard review={r} ownLabel={ownLabel} reveal delay={(i % COLS) * 90} />
+            </div>
+          ))}
+        </div>
+      ))}
     </div>
     {more.length > 0 && (
       <details class="mck-more">
@@ -69,14 +88,25 @@ const more = reviews.slice(initial);
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
           </span>
         </summary>
-        <div class="mck-more__body mck-reviews" style="margin-top:16px">
-          {more.map((r) => <ReviewCard review={r} ownLabel={ownLabel} />)}
+        <div class="mck-more__body mck-rw" style="margin-top:18px">
+          {columns(more).map((col) => (
+            <div class="mck-rw__col">
+              {col.map(({ r, i }) => (
+                <div class="mck-rw__cell" style={`order:${i}`}>
+                  <ReviewCard review={r} ownLabel={ownLabel} />
+                </div>
+              ))}
+            </div>
+          ))}
         </div>
       </details>
     )}
     <div class="mck-reviews-foot mck-reveal">
       {note && <p class="mck-small" style="margin:0;max-width:60ch">{note}</p>}
-      <a class="mck-link" href={allHref} style="font-size:15px;font-weight:600">{allLabel}</a>
+      <a class="mck-textbtn" href={allHref}>
+        {allLabel}
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+      </a>
     </div>
   </SectionShell>
 )}
