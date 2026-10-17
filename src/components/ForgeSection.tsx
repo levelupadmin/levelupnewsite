@@ -74,24 +74,24 @@ const forgeCards = [
   subtitle:
   "A 6-day scenic retreat where writers unplug, immerse deeply, and learn from bestselling storytellers.",
   image: forgeWriting,
-  cta: "https://tally.so/r/nPJydd",
-  locations: ["Coorg, June 2026"],
+  cta: "https://creators.forgebylevelup.com/writing",
+  locations: ["18–23 Oct", "30 Oct – 4 Nov 2026"],
 },
 {
   title: "Filmmaking Bootcamp",
   subtitle:
   "An intensive 15-day bootcamp where filmmakers write, direct, and shoot short films with top mentors.",
   image: forgeFilmmaking,
-  cta: "https://www.forgebylevelup.com/",
-  locations: ["Goa, April 2026"],
+  cta: "https://creators.forgebylevelup.com/filmmaking",
+  locations: ["21 Nov – 11 Dec 2026"],
 },
 {
   title: "Creator Residency",
   subtitle:
-  "An invite-only 12-day residency where founders build personal brands through daily content and creator mentorship.",
+  "An invite-only residency where founders build personal brands through daily content and creator mentorship.",
   image: forgeCreators,
   cta: "https://creators.forgebylevelup.com/",
-  locations: ["Goa, May 2026", "Bali, June 2026"],
+  locations: ["Goa, 24–30 Oct 2026"],
 }];
 
 
