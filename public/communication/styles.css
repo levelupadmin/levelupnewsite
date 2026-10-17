@@ -694,19 +694,45 @@ h1 br.mo{display:none}
 
 
 
-/* ── Imagery inside the cohort cards and the problem card ─────── */
+/* ── Imagery inside the cohort cards ──────────────────────────── */
 .feat__img{
   border-radius:14px;overflow:hidden;aspect-ratio:4/3;margin-bottom:20px;
   background:rgba(0,0,0,.05);
 }
 .feat__img img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
 .feat__card:hover .feat__img img{transform:scale(1.06)}
-.problem__img{
-  margin:32px 0 4px;border-radius:var(--r-panel);overflow:hidden;
-  aspect-ratio:16/9;background:rgba(255,255,255,.06);
+
+/* ── Cohort preview: the thumbnail becomes the YouTube player on tap ──
+   The headline and play button are in the image itself, so this is
+   only a frame. Nothing from YouTube loads until someone presses play. */
+.trailer{
+  position:relative;max-width:1040px;margin:0 auto;aspect-ratio:16/9;
+  border-radius:var(--r-card);overflow:hidden;background:var(--ink-deep);
+  box-shadow:var(--shadow-float);
 }
-.problem__img picture{display:block;width:100%;height:100%}
-.problem__img img{width:100%;height:100%;object-fit:cover;opacity:.92}
+.trailer__btn{display:block;width:100%;height:100%;padding:0;border:0;background:none;cursor:pointer}
+.trailer__btn img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+.trailer__btn:hover img{transform:scale(1.025)}
+.trailer__btn:focus-visible{outline:3px solid #fff;outline-offset:-6px}
+.trailer iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+/* the written summary follows the video for people who would rather read */
+.trailer + .cohort-lede{margin-top:52px}
+
+/* Hero: a quieter second way in, so nobody has to scroll to find the video */
+.hero__watch{
+  display:inline-flex;align-items:center;gap:11px;padding:8px 6px;
+  color:rgba(255,255,255,.88);font-size:15px;font-weight:500;letter-spacing:-.02em;
+  transition:color .25s var(--ease);
+}
+.hero__watch i{
+  width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(255,255,255,.55);
+  display:grid;place-items:center;transition:background .25s var(--ease),border-color .25s var(--ease);
+}
+.hero__watch svg{width:12px;height:12px;margin-left:2px;fill:currentColor;transition:fill .25s var(--ease)}
+.hero__watch span{color:rgba(255,255,255,.5);font-size:13px}
+.hero__watch:hover{color:#fff}
+.hero__watch:hover i{background:#fff;border-color:#fff}
+.hero__watch:hover svg{fill:var(--ink)}
 
 /* ── Rings: the arc is scrubbed by scroll, not fired once ─────── */
 .rings.scrub .ring__arc{transition:stroke-dashoffset .12s linear}
@@ -1067,7 +1093,9 @@ h1 br.mo{display:none}
 
 
   .feat__img{aspect-ratio:16/10;margin-bottom:16px;border-radius:12px}
-  .problem__img{margin:24px 0 2px;aspect-ratio:4/3;border-radius:14px}
+  .trailer{border-radius:14px}
+  .trailer + .cohort-lede{margin-top:28px}
+  .hero__watch{flex-basis:100%;justify-content:center;font-size:14px}
 
   /* the pillars stack, each leaving its heading on screen */
   .pstack{padding-bottom:250px}

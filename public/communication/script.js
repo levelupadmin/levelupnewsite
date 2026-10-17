@@ -389,6 +389,33 @@
     vid.parentNode.replaceChild(img, vid);
   }
 
+  /* ──────────────── Cohort preview: thumbnail → YouTube on tap ────────────────
+     The player is only created on click, so the page pays nothing for
+     YouTube until someone asks for the video. */
+  var trailerBtn = document.querySelector('.trailer__btn');
+  function playPreview(source) {
+    if (!trailerBtn || !trailerBtn.parentNode) return;
+    var f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/' + trailerBtn.dataset.yt +
+      // Captions are burned into the video, so keep YouTube's own off.
+      '?autoplay=1&rel=0&modestbranding=1&playsinline=1&cc_load_policy=0&iv_load_policy=3';
+    f.title = 'Executive Presence cohort preview';
+    f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    f.allowFullscreen = true;
+    trailerBtn.parentNode.replaceChild(f, trailerBtn);
+    try {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'preview_play', programme: 'executive-presence', source: source });
+    } catch (e) {}
+  }
+  if (trailerBtn) {
+    trailerBtn.addEventListener('click', function () { playPreview('thumbnail'); });
+    // The hero link starts the player inside the tap, so autoplay is allowed,
+    // and the smooth anchor scroll above carries the visitor down to it.
+    var watchLink = document.querySelector('.js-watch');
+    if (watchLink) watchLink.addEventListener('click', function () { playPreview('hero'); });
+  }
+
   /* ──────────────── Mobile interaction layer ────────────────
      Swipe rails, sticky CTA, hero drift. All of it is transform/
      opacity only and shares the one rAF scroll loop already here.
