@@ -1,0 +1,38 @@
+---
+/**
+ * Films or shoots the mentor worked on. Rows that are not full are
+ * centred, and a landscape image can take two cells, so any count lays out
+ * cleanly at two and four columns.
+ */
+import "./template.css";
+import KitPicture from "@/components/masterclass/KitPicture.astro";
+import type { Credit } from "@/data/masterclass/types";
+
+interface Props {
+  items: Credit[];
+}
+
+const { items } = Astro.props;
+---
+
+<ul class="tpl-credits">
+  {items.map((c, i) => (
+    <li class:list={["tpl-credit", "mck-reveal", c.wide && "tpl-credit--wide"]} style={`--mck-delay:${(i % 4) * 70}ms`}>
+      <div class="tpl-credit__frame">
+        <div class="tpl-credit__img">
+          <KitPicture
+            src={c.image}
+            alt={c.alt}
+            width={c.wide ? 800 : 400}
+            height={c.wide ? 574 : 600}
+            sizes={c.wide ? "(min-width: 760px) 540px, 92vw" : "(min-width: 760px) 260px, 45vw"}
+          />
+        </div>
+      </div>
+      <div>
+        <p class="tpl-credit__title">{c.title}</p>
+        {c.note && <p class="tpl-credit__note">{c.note}</p>}
+      </div>
+    </li>
+  ))}
+</ul>
