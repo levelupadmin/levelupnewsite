@@ -1,14 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>/* lp-attr v2: click_ts stamp, 7-day param memory, _fbp, tap-time carry onto tally.so links (2026-09-09) */
+(function(){
+  /* lp-attr v2 (2026-09-09): attribution must not wait for hydration and must survive a return visit.
+     - stamp click_ts (ms) the moment an fbclid lands
+     - remember the ad params in localStorage for 7 days (Meta's click window); a later visit on a bare URL still carries them
+     - at TAP time (capture phase, from first paint) put stored+current params and the _fbp cookie onto any tally.so link,
+       and open it in the same tab (in-app browsers mishandle _blank). No DOM is touched before the tap. */
+  var LP_KEY='lu_params',LP_TTL=7*864e5;
+  function lpStore(){try{var s=JSON.parse(localStorage.getItem(LP_KEY)||'null');if(s&&s._ts&&Date.now()-s._ts<LP_TTL)return s;}catch(e){}return null;}
+  try{var ap=new URLSearchParams(location.search);if(ap.get('fbclid')&&!ap.get('click_ts')){ap.set('click_ts',String(Date.now()));try{history.replaceState({},'',location.pathname+'?'+ap.toString()+location.hash);}catch(e){}}
+    var cur={};ap.forEach(function(v,k){if(v&&k!=='r')cur[k]=v;});
+    if(cur.utm_source||cur.utm_campaign||cur.fbclid||cur.gclid){cur._ts=Date.now();try{localStorage.setItem(LP_KEY,JSON.stringify(cur));}catch(e){}}}catch(e){}
+  function lpFbp(){try{var m=document.cookie.match(/(?:^|; )_fbp=([^;]+)/);return m?decodeURIComponent(m[1]):'';}catch(e){return '';}}
+  function lpParams(){var out={},s=lpStore();if(s){for(var k in s){if(k!=='_ts')out[k]=s[k];}}try{new URLSearchParams(location.search).forEach(function(v,k){if(v&&k!=='r')out[k]=v;});}catch(e){}var f=lpFbp();if(f)out.fbp=f;if(out.fbclid&&!out.click_ts)out.click_ts=String(Date.now());return out;}
+  function lpCarry(a){try{var u=new URL(a.getAttribute('href')||a.href,location.origin);if(!/(^|\.)tally\.so$/.test(u.hostname))return;var p=lpParams(),ch=false;for(var k in p){if(!u.searchParams.has(k)){u.searchParams.set(k,p[k]);ch=true;}}if(ch)a.setAttribute('href',u.toString());if(a.getAttribute('target')==='_blank')a.setAttribute('target','_self');}catch(e){}}
+  function lpOnAct(e){var t=e.target;while(t&&t.nodeType===1&&t.tagName!=='A')t=t.parentNode;if(t&&t.tagName==='A')lpCarry(t);}
+  ['pointerdown','touchstart','mousedown','click','auxclick'].forEach(function(ev){document.addEventListener(ev,lpOnAct,true);});
+  window.__lpParams=lpParams;window.__lpCarry=lpCarry;
+  /* v2 (2026-10-19): no analytics fire from a local preview or a ?preview=1 review link, so reviews never pollute the pixel or GA. */
+  window.__LU_PREVIEW = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname) || /[?&]preview=1/.test(location.search);
+})();</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Own Every Room | LevelUp Executive Presence Cohort</title>
-<meta name="description" content="The LevelUp Executive Presence Cohort. Twelve weeks, live, for senior professionals, founders and leaders. Think clearly under pressure, structure what you want to say, and get it across. Forty seats. Fluent English not required.">
+<title>Executive Presence Cohort | LevelUp</title>
+<meta name="description" content="Become the leader people listen to. 12 live weeks to speak with confidence and clarity in meetings, presentations and reviews. 40 seats.">
 <link rel="canonical" href="https://www.leveluplearning.in/communication">
 <meta name="theme-color" content="#12100E">
-<meta property="og:title" content="Own Every Room | LevelUp Executive Presence Cohort">
-<meta property="og:description" content="Twelve weeks, live, for senior professionals, founders and leaders. Forty seats. Five hours a week. Fluent English not required.">
+<meta property="og:title" content="Executive Presence Cohort | LevelUp">
+<meta property="og:description" content="Become the leader people listen to. 12 live weeks to speak with confidence and clarity.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.leveluplearning.in/communication">
 <meta property="og:site_name" content="LevelUp Learning">
@@ -17,10 +38,10 @@
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Own Every Room: the LevelUp Executive Presence Cohort. Twelve weeks, live, forty seats.">
+<meta property="og:image:alt" content="The LevelUp Executive Presence Cohort. 12 weeks, live, 40 seats.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Own Every Room | LevelUp Executive Presence Cohort">
-<meta name="twitter:description" content="Twelve weeks, live, for senior professionals, founders and leaders. Forty seats. Five hours a week. Fluent English not required.">
+<meta name="twitter:title" content="Executive Presence Cohort | LevelUp">
+<meta name="twitter:description" content="Become the leader people listen to. 12 live weeks to speak with confidence and clarity.">
 <meta name="twitter:image" content="https://www.leveluplearning.in/communication/og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,11 +50,9 @@
 <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
 <link rel="preconnect" href="https://www.clarity.ms" crossorigin>
 <link rel="dns-prefetch" href="https://www.facebook.com">
-<!-- Rokkitt dresses one below-the-fold element (.tl__note). Blocking first
-     paint on a third-party stylesheet for that is not a trade worth making. -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rokkitt:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rokkitt:wght@400;500;700&display=swap"></noscript>
-<link rel="preload" as="image" href="https://cdn.leveluplearning.in/live-hub/communication/img/hero-dark.webp" fetchpriority="high">
+<link rel="preload" as="image" href="https://cdn.leveluplearning.in/live-hub/communication/img/hero-v2-poster.webp" fetchpriority="high">
 <link rel="preload" href="/communication/fonts/Gilroy-ExtraBold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/communication/fonts/Gilroy-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/communication/fonts/Euclid-Light.woff2" as="font" type="font/woff2" crossorigin>
@@ -41,16 +60,83 @@
 <link rel="icon" type="image/png" href="https://cdn.leveluplearning.in/live-hub/communication/img/brand/favicon-dark.png" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" href="https://cdn.leveluplearning.in/live-hub/communication/img/brand/favicon-light.png">
 <link rel="stylesheet" href="/communication/styles.css">
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+
+<!-- ═════════ v2 components (2026-10-19) ═════════
+     New blocks only. Everything else on the page still uses styles.css as it is live. -->
+<style id="v2">
+.hero h1.h1--long{font-size:clamp(36px,6.2vw,78px);line-height:1}
+.hero__scrim{background:radial-gradient(60% 46% at 50% 40%, rgba(0,0,0,.34) 0%, rgba(0,0,0,0) 100%),linear-gradient(180deg, rgba(17,18,19,.62) 0%, rgba(17,18,19,.10) 24%, rgba(17,18,19,.16) 62%, #111213 100%)}
+.hero h1,.hero__sub,.hero__note,.badge{text-shadow:0 2px 18px rgba(0,0,0,.55),0 1px 3px rgba(0,0,0,.35)}
+.hero__sub{color:rgba(255,255,255,.9)}
+.hero__note{color:rgba(255,255,255,.72)}
+.final h2 + .btn{margin-top:30px}
+.tbd{background:#fff3b0;color:#5a4a00;border-radius:4px;padding:0 5px;font-weight:500;white-space:nowrap}
+.band-dark .tbd,.problem .tbd,.hero .tbd{background:#fde68a;color:#3b2f00}
+
+/* Does this sound like you? */
+.pains{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:960px;margin:0 auto}
+.pain{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:20px 22px 20px 54px;position:relative;font-size:17px;line-height:1.5;color:var(--ink);font-weight:400;box-shadow:var(--shadow-card)}
+.pain::before{content:"";position:absolute;left:22px;top:24px;width:16px;height:16px;border-radius:50%;border:1.5px solid var(--ink);background:radial-gradient(circle,var(--ink) 0 3px,transparent 3.5px)}
+.pains__close{text-align:center;max-width:720px;margin:34px auto 0;font-size:18px;line-height:1.6;color:var(--muted)}
+.pains__close q{display:block;margin-top:10px;font-family:var(--font-display);font-weight:600;font-size:clamp(20px,2.4vw,26px);color:var(--ink);letter-spacing:-.03em;quotes:"\201C" "\201D"}
+
+/* Data visuals: 100-dot grid + big number */
+.dotstat{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center;max-width:880px;margin:52px auto 0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);padding:34px 38px;box-shadow:var(--shadow-card)}
+.dots{display:grid;grid-template-columns:repeat(10,14px);gap:7px}
+.dots i{width:14px;height:14px;border-radius:50%;background:var(--ink);transition:background .5s var(--ease),transform .5s var(--ease)}
+.dots i.off{background:transparent;box-shadow:inset 0 0 0 1.5px #c9c9c9}
+.dotstat__n{font-family:var(--font-display);font-weight:800;font-size:clamp(52px,7vw,84px);line-height:.9;letter-spacing:-.05em}
+.dotstat__t{margin-top:12px;font-size:19px;line-height:1.45;font-weight:400;max-width:420px}
+.src{margin-top:14px;font-size:12.5px;line-height:1.5;color:var(--muted-2,#8a8f93)}
+.src a{text-decoration:underline;text-underline-offset:2px}
+.band-dark .dotstat,.dotstat--dark{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.14);box-shadow:none;color:#fff}
+.dotstat--dark .dots i{background:#fff}
+.dotstat--dark .dots i.off{background:transparent;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.28)}
+.dotstat--dark .src{color:rgba(255,255,255,.45)}
+.bigstat{max-width:700px;margin:38px auto 0;border:1px solid rgba(255,255,255,.14);border-radius:var(--r-md);padding:26px 28px;display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center;text-align:left}
+.bigstat__n{font-family:var(--font-display);font-weight:800;font-size:clamp(46px,6vw,68px);line-height:.9;letter-spacing:-.05em;color:#fff}
+.bigstat__t{color:rgba(255,255,255,.8);font-size:16.5px;line-height:1.5}
+.bigstat .src{color:rgba(255,255,255,.42)}
+.problem__good{margin:36px auto 0;max-width:640px;font-size:18px;line-height:1.65;color:rgba(255,255,255,.82)}
+.problem__good b{color:#fff;font-weight:500}
+
+/* Counselling call */
+.callx2{max-width:820px;margin:0 auto;background:var(--ink-deep);color:#fff;border-radius:var(--r-card);padding:40px 44px;box-shadow:var(--shadow-float)}
+.callx2 h3{font-size:clamp(22px,2.4vw,28px);letter-spacing:-.03em;color:#fff}
+.callx2__list{list-style:none;margin:26px 0 0;padding:0;counter-reset:c;display:grid;gap:18px}
+.callx2__list li{counter-increment:c;position:relative;padding:0 0 18px 56px;font-size:16.5px;line-height:1.6;color:rgba(255,255,255,.74);border-bottom:1px solid rgba(255,255,255,.1)}
+.callx2__list li:last-child{border-bottom:0;padding-bottom:0}
+.callx2__list li::before{content:counter(c,decimal-leading-zero);position:absolute;left:0;top:1px;font-family:var(--font-display);font-weight:700;font-size:15px;color:rgba(255,255,255,.45);letter-spacing:.02em}
+.callx2__list b{display:block;color:#fff;font-weight:600;font-size:18px;margin-bottom:3px;letter-spacing:-.02em}
+.callx2__note{margin-top:26px;padding-top:20px;border-top:1px solid rgba(255,255,255,.14);font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.55)}
+.callx2__cta{margin-top:28px}
+
+
+@media (max-width:720px){
+  .pains{grid-template-columns:1fr;gap:10px}
+  .pain{font-size:16px;padding:16px 18px 16px 48px}
+  .pain::before{left:18px;top:19px}
+  .dotstat{grid-template-columns:1fr;gap:24px;padding:26px 22px;justify-items:start}
+  .dots{grid-template-columns:repeat(10,12px);gap:6px}
+  .dots i{width:12px;height:12px}
+  .bigstat{grid-template-columns:1fr;gap:10px}
+  .callx2{padding:30px 22px}
+  .callx2__list li{padding-left:42px}
+  .problem__display{font-size:clamp(28px,9.2vw,92px)}
+}
+</style>
+
+<!-- Google Tag Manager · skipped on local previews and ?preview=1 -->
+<script>if(!window.__LU_PREVIEW){(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-5K3TBFBH');</script>
+})(window,document,'script','dataLayer','GTM-5K3TBFBH');}</script>
 <!-- End Google Tag Manager -->
 
-<!-- Meta Pixel -->
+<!-- Meta Pixel · skipped on local previews and ?preview=1 -->
 <script>
+if(!window.__LU_PREVIEW){
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
 n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
@@ -58,29 +144,32 @@ t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
 document,'script','https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '662214098433203');
 fbq('track', 'PageView');
+}
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=662214098433203&ev=PageView&noscript=1"/></noscript>
 <!-- End Meta Pixel -->
 
-<!-- Microsoft Clarity — same project the rest of leveluplearning.in reports into -->
+<!-- Microsoft Clarity · skipped on local previews and ?preview=1 -->
 <script>
+if(!window.__LU_PREVIEW){
 (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
 t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","vtl0nas964");
+}
 </script>
 <!-- End Microsoft Clarity -->
 
 <!-- FAQ structured data -->
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"I get nervous on calls. Will the counselling call be a problem?","acceptedAnswer":{"@type":"Answer","text":"Most people who apply feel the same. The counsellor won't judge how you speak, and they do most of the talking. You can reschedule up to 2 hours before if you need to."}},
+{"@type":"Question","name":"Can I reschedule the call?","acceptedAnswer":{"@type":"Answer","text":"Yes, any time up to 2 hours before. No penalty."}},
 {"@type":"Question","name":"I'd rather learn at my own pace.","acceptedAnswer":{"@type":"Answer","text":"Speaking doesn't improve on 2x playback. It improves in front of people. Every session is live and every session puts you on your feet."}},
-{"@type":"Question","name":"Will this fit a working schedule?","acceptedAnswer":{"@type":"Answer","text":"It is built for one. Live sessions on Saturday and Sunday, two 45-minute practice labs on weekday evenings, one assignment, and a short pre-watch before the live sessions. Roughly five hours a week."}},
-{"@type":"Question","name":"Is it live or recorded?","acceptedAnswer":{"@type":"Answer","text":"Every session that matters is live. There is a fifteen-minute recorded lesson before each Saturday so the live time is spent with you on your feet rather than watching a slide."}},
-{"@type":"Question","name":"Do I need prior experience?","acceptedAnswer":{"@type":"Answer","text":"No training experience. You do need about five years of working life and real rooms to practise on, because every assignment maps to something live in your job."}},
-{"@type":"Question","name":"How big is the cohort?","acceptedAnswer":{"@type":"Answer","text":"Forty seats, ten practice groups of four. Past that the Saturday practice minutes get diluted and the written feedback degrades into templates."}},
-{"@type":"Question","name":"Is the application fee refundable?","acceptedAnswer":{"@type":"Answer","text":"Yes, fully. It exists to filter out the casual, not to make money."}},
-{"@type":"Question","name":"Can I pay in instalments?","acceptedAnswer":{"@type":"Answer","text":"Yes. No-cost EMI and staged payment plans are available."}},
-{"@type":"Question","name":"When does the next cohort start?","acceptedAnswer":{"@type":"Answer","text":"Applications are open now. The next cohort starts December 12, 2026."}}
+{"@type":"Question","name":"Is my English good enough?","acceptedAnswer":{"@type":"Answer","text":"If you can manage a work meeting in English, yes. This is about clarity and confidence, not accent or vocabulary."}},
+{"@type":"Question","name":"How big is the cohort?","acceptedAnswer":{"@type":"Answer","text":"40 seats. Any bigger and the feedback stops being personal."}},
+{"@type":"Question","name":"Is the application fee refundable?","acceptedAnswer":{"@type":"Answer","text":"Yes. If we don't offer you a seat after the counselling call, the ₹400 comes back in full."}},
+{"@type":"Question","name":"Can I pay in instalments?","acceptedAnswer":{"@type":"Answer","text":"Yes. No-cost EMI from ₹4,583 a month over 12 months."}},
+{"@type":"Question","name":"When does the next cohort start?","acceptedAnswer":{"@type":"Answer","text":"The next cohort starts 12 December 2026."}}
 ]}
 </script>
 </head>
@@ -104,13 +193,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="nav__links" id="navLinks">
       <a href="#cohort">The cohort</a>
       <a href="#week">The week</a>
-      <a href="#workon">What you work on</a>
+      <a href="#call">Counselling call</a>
       <a href="#curriculum">Curriculum</a>
       <a href="#fee">Fee</a>
     </div>
     <div class="nav__cta">
       <a href="#curriculum" class="btn btn--ghostlight btn--sm nav-syllabus">Syllabus</a>
-      <a href="https://tally.so/r/ZjXOxe" target="_blank" rel="noopener" data-cta="nav" class="btn btn--light btn--sm nav-invite js-apply">Request Invite</a>
+      <a href="https://tally.so/r/ZjXOxe" target="_self" rel="noopener" data-cta="nav" class="btn btn--light btn--sm nav-invite js-apply">Apply for a seat</a>
       <button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
     </div>
   </div>
@@ -119,37 +208,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ═════════ HERO ═════════ -->
 <header class="hero" id="top">
   <div class="hero__bg">
-    <video id="heroVid" autoplay muted loop playsinline preload="auto" poster="/communication/hero-dark.webp">
-      <source src="https://cdn.leveluplearning.in/live-hub/communication/img/hero.mp4" type="video/mp4">
+    <!-- v2 hero loop (19 Oct 2026): hero-v2.mp4 + hero-v2-poster.webp on R2 (bucket live, live-hub/communication/img/) -->
+    <video id="heroVid" autoplay muted loop playsinline preload="auto" poster="https://cdn.leveluplearning.in/live-hub/communication/img/hero-v2-poster.webp">
+      <source src="https://cdn.leveluplearning.in/live-hub/communication/img/hero-v2.mp4" type="video/mp4">
     </video>
   </div>
   <div class="hero__scrim"></div>
   <div class="wrap hero__in" id="heroIn">
     <div class="hero__copy">
-      <span class="badge rv"><i></i> For senior professionals, founders and leaders</span>
-      <h1><span class="rl"><span>Own <br class="mo">every <br class="mo">room</span></span></h1>
-      <p class="hero__sub rv">Nobody ever taught you how to lead in a room. <b>Twelve weeks, live, to fix that.</b> Think clearly under pressure, structure what you want to say, and get it across.</p>
+      <span class="badge rv"><i></i> For senior professionals, team leads and founders</span>
+      <h1 class="h1--long"><span class="rl"><span>Become the leader</span></span><span class="rl"><span>people listen to.</span></span></h1>
+      <p class="hero__sub rv"><b>12 live weeks</b> to speak with confidence, think clearly under pressure and lead with presence, in the meetings, reviews and presentations where careers are decided.</p>
       <div class="hero__cta rv">
-        <a href="https://tally.so/r/ZjXOxe" target="_blank" rel="noopener" data-cta="hero" class="btn btn--light js-apply">Request Invite <em>&rarr;</em></a>
-        <a href="#preview" class="hero__watch js-watch" data-cta="hero_watch"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l15 8-15 8z"/></svg></i>Watch the preview <span>8 min</span></a>
+        <a href="https://tally.so/r/ZjXOxe" target="_self" rel="noopener" data-cta="hero" class="btn btn--light js-apply">Apply for a seat <em>&rarr;</em></a>
+        <a href="#preview" class="hero__watch js-watch" data-cta="hero_watch"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l15 8-15 8z"/></svg></i>Watch the preview</a>
       </div>
       <p class="hero__note rv">Fluent English not required.</p>
     </div>
 
     <div class="hero__logos rv">
-      <p class="logos-cap">Where our students work at</p>
+      <p class="logos-cap">Where our learners work</p>
       <div class="logos" id="logos" aria-label="Companies where LevelUp learners work"></div>
     </div>
   </div>
 </header>
 
 <!-- ═════════ STATS ═════════ -->
-<section class="section--tight" style="padding-top:76px;padding-bottom:58px">
+<section class="section--tight" style="padding-top:64px;padding-bottom:40px">
   <div class="wrap">
     <div class="stats">
       <div class="rv"><div class="stat__n" data-count="12">12</div><div class="stat__l">Weeks, live</div></div>
       <div class="rv"><div class="stat__n" data-count="40">40</div><div class="stat__l">Seats in the cohort</div></div>
-      <div class="rv"><div class="stat__n" data-count="5">5</div><div class="stat__l">Hours a week</div></div>
+      <div class="rv"><div class="stat__n" data-count="6">6</div><div class="stat__l">Hours a week</div></div>
     </div>
   </div>
 </section>
@@ -162,16 +252,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h2>The best person at the job isn&rsquo;t always the one who moves up.</h2>
       <div class="problem__display">
         <span class="rl"><span>The best</span></span>
-        <span class="rl"><span>explainer is.</span></span>
+        <span class="rl"><span>communicator is.</span></span>
       </div>
-      <p class="problem__lede">Your work happens at your desk. Your career happens in rooms.</p>
+      <p class="problem__lede">Your work happens at your desk. But people judge you in meetings.</p>
       <div class="problem__rows">
         <div class="problem__row"><b>Appraisals</b> are one conversation a whole year rests on.</div>
-        <div class="problem__row"><b>Interviews</b> are performances with one take.</div>
-        <div class="problem__row"><b>Meetings</b> are auditions you didn&rsquo;t know you were in.</div>
+        <div class="problem__row"><b>Presentations</b> decide whether senior leaders trust your idea.</div>
+        <div class="problem__row"><b>Meetings</b> are where people decide who sounds like a leader.</div>
       </div>
-      <p class="problem__foot">Every step of your career runs through a conversation. Nobody trained you for a single one of them.</p>
-      <p class="problem__hi rv">That&rsquo;s exactly why we built this.</p>
+      <div class="bigstat rv">
+        <div class="bigstat__n">#1</div>
+        <div>
+          <p class="bigstat__t">Communication is the top hiring priority for employers in India. 37% picked it first, and 39% when hiring senior managers.</p>
+          <p class="src">Source: <a href="https://www.michaelpage.co.in/advice/management-advice/staff-development/most-in-demand-skills" target="_blank" rel="noopener">Michael Page India Talent Trends 2025</a>, 1,383 hiring leaders.</p>
+        </div>
+      </div>
+      <p class="problem__good"><b>The good news: communication is a skill, not a personality.</b> You don&rsquo;t need to become someone else. You need to know exactly what to fix, and practise it until it feels natural.</p>
     </div>
   </div>
 </section>
@@ -181,32 +277,83 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="wrap">
     <div class="sec-head rv">
       <span class="eyebrow">The cohort</span>
-      <h2>Twelve weeks to become the person a room listens to.</h2>
+      <h2>12 live weeks to speak with confidence and lead with clarity.</h2>
+      <p>Watch the preview before you apply.</p>
     </div>
     <div class="trailer rv" id="preview">
-      <button type="button" class="trailer__btn" data-yt="I0s15j5Qz-I" aria-label="Play the cohort preview: watch before you apply, 8 minutes 37 seconds">
-        <img src="https://cdn.leveluplearning.in/live-hub/communication/img/preview-thumb-v1.webp" srcset="https://cdn.leveluplearning.in/live-hub/communication/img/preview-thumb-v1-960.webp 960w, https://cdn.leveluplearning.in/live-hub/communication/img/preview-thumb-v1.webp 1920w" sizes="(max-width:720px) 100vw, 1040px" alt="Watch before you apply: the cohort preview, 8 minutes 37 seconds" width="1920" height="1080" loading="lazy">
+      <button type="button" class="trailer__btn" data-yt="I0s15j5Qz-I" aria-label="Play the cohort preview">
+        <img src="https://cdn.leveluplearning.in/live-hub/communication/img/preview-thumb-v1.webp" srcset="https://cdn.leveluplearning.in/live-hub/communication/img/preview-thumb-v1-960.webp 960w, https://cdn.leveluplearning.in/live-hub/communication/img/preview-thumb-v1.webp 1920w" sizes="(max-width:720px) 100vw, 1040px" alt="Watch before you apply: the cohort preview" width="1920" height="1080" loading="lazy">
       </button>
     </div>
-    <p class="cohort-lede">A live online cohort for <span class="cl-b">senior professionals, founders and leaders</span> where you build <span class="cl-b">structured thinking, clarity under pressure</span> and the <span class="cl-b">executive presence</span> that decides how you are read, practising on your own high-stakes conversations and getting feedback that names exactly what to change, until leadership presence stops being something you read about and <span class="cl-b">becomes something you do.</span></p>
-    <h3 class="cohort__kicker rv">Nothing here is a lecture you can nod through.</h3>
+    <p class="cohort-lede">A live online cohort for <span class="cl-b">senior professionals, team leads and founders</span>. You build <span class="cl-b">structured thinking, clarity under pressure</span> and the <span class="cl-b">executive presence</span> that decides how you are seen, by practising on your own real meetings and presentations and getting <span class="cl-b">feedback that tells you exactly what to change.</span></p>
+    <h3 class="cohort__kicker rv">Built around you, not a lecture you sit through.</h3>
     <div class="feat">
-      <article class="feat__card feat__card--blue rv"><div class="feat__img"><img src="https://cdn.leveluplearning.in/live-hub/communication/img/how-capstone-v3.webp" alt="Marked-up assessment scorecards on a desk" loading="lazy"></div><span class="feat__n">01</span><h3>You get scored, not complimented</h3><p>Recorded and graded in week 1, week 6 and week 12 on the same sheet. So you can watch yourself get better.</p></article>
-      <article class="feat__card feat__card--green rv"><div class="feat__img"><img src="https://cdn.leveluplearning.in/live-hub/communication/img/how-pod-v2.webp" alt="A small practice group of four" loading="lazy"></div><span class="feat__n">02</span><h3>A practice group of four</h3><p>The same four people, twice a week, for twelve weeks. Nowhere to hide.</p></article>
-      <article class="feat__card feat__card--red rv"><div class="feat__img"><img src="https://cdn.leveluplearning.in/live-hub/communication/img/how-masterclass-v2.webp" alt="A live session in progress" loading="lazy"></div><span class="feat__n">03</span><h3>Your rooms, not case studies</h3><p>Every assignment is something happening in your week. The proposal you have to land, or the conversation you have been avoiding.</p></article>
-      <article class="feat__card feat__card--yellow rv"><div class="feat__img"><img src="https://cdn.leveluplearning.in/live-hub/communication/img/how-feedback-v3.webp" alt="A professional reading written feedback at her desk" loading="lazy"></div><span class="feat__n">04</span><h3>Clear feedback, every week</h3><p>Twelve submissions, twelve sets of notes naming exactly what to fix. Plain language, nothing to decode.</p></article>
+      <article class="feat__card feat__card--blue rv"><div class="feat__img"><img src="https://cdn.leveluplearning.in/live-hub/communication/img/how-capstone-v3.webp" alt="Progress notes on a desk" loading="lazy"></div><span class="feat__n">01</span><h3>Know where you stand</h3><p>A 2-minute video in week 1 gives you a clear starting point. Private progress reviews in weeks 1, 6 and 12, one to one.</p></article>
+      <article class="feat__card feat__card--green rv"><div class="feat__img"><img src="https://cdn.leveluplearning.in/live-hub/communication/img/how-masterclass-v2.webp" alt="A live session in progress" loading="lazy"></div><span class="feat__n">02</span><h3>Learn live, practise right there</h3><p>Weekend live sessions teach one skill at a time. Two short practice labs in the week help you repeat it until it sticks.</p></article>
+      <article class="feat__card feat__card--red rv"><div class="feat__img"><img src="https://cdn.leveluplearning.in/live-hub/communication/img/how-pod-v2.webp" alt="A professional presenting at work" loading="lazy"></div><span class="feat__n">03</span><h3>Your real work, not case studies</h3><p>Every assignment is something from your job: the update, the presentation, the conversation you&rsquo;ve been avoiding.</p></article>
+      <article class="feat__card feat__card--yellow rv"><div class="feat__img"><img src="https://cdn.leveluplearning.in/live-hub/communication/img/how-feedback-v3.webp" alt="A professional reading written feedback at her desk" loading="lazy"></div><span class="feat__n">04</span><h3>Personal feedback, every assignment</h3><p>Plain notes on exactly what to change. In week 12, your filmed talk sits next to your week 1 video. You see the change yourself.</p></article>
     </div>
-    <div class="cohort__cta rv"><a href="https://tally.so/r/ZjXOxe" target="_blank" rel="noopener" data-cta="cohort" class="btn btn--dark js-apply">Request Invite <em>&rarr;</em></a></div>
+    <div class="cohort__cta rv"><a href="https://tally.so/r/ZjXOxe" target="_self" rel="noopener" data-cta="cohort" class="btn btn--dark js-apply">Apply for a seat <em>&rarr;</em></a></div>
   </div>
 </section>
 
-<!-- ═════════ THE FRAMEWORK — RINGS ═════════ -->
+<!-- ═════════ DOES THIS SOUND LIKE YOU? (new) ═════════ -->
+<section class="section" id="you" style="padding-top:24px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Sound familiar?</span>
+      <h2>Does this sound like you?</h2>
+    </div>
+    <div class="pains">
+      <div class="pain rv">You work hard, but your work doesn&rsquo;t get noticed.</div>
+      <div class="pain rv">You know your subject, but when senior people are listening, the words don&rsquo;t come out right.</div>
+      <div class="pain rv">Stage fear. You go blank the moment you have to present or answer on the spot.</div>
+      <div class="pain rv">Someone else says your idea louder in the meeting, and gets the credit.</div>
+      <div class="pain rv">You&rsquo;ve been told to &ldquo;work on your communication&rdquo;, but nobody has told you exactly what to fix.</div>
+      <div class="pain rv">You&rsquo;ve watched opportunities go to people who simply speak better.</div>
+    </div>
+
+    <div class="dotstat rv">
+      <div class="dots" data-dots="100" data-on="55" role="img" aria-label="100 dots, 55 filled and 45 empty"></div>
+      <div>
+        <div class="dotstat__n">45 of 100</div>
+        <p class="dotstat__t">professionals in India don&rsquo;t feel truly recognised for their work.</p>
+        <p class="src">Source: Great Place To Work India with Vantage Circle, <a href="https://www.vantagecircle.com/in-the-news/only-55-of-employees-feel-truly-recognised-at-work-new-study-reveals/" target="_blank" rel="noopener">The Recognition Effect</a>, 2025. Only 55% feel truly recognised.</p>
+      </div>
+    </div>
+
+    <p class="pains__close rv">You&rsquo;re not alone. Professionals tell us:<q>The only thing holding me back in my work is the communication skill.</q></p>
+  </div>
+</section>
+
+<!-- ═════════ THE CHANGE — TIMELINE ═════════ -->
+<section class="section" id="change" style="padding-top:24px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">The change</span>
+      <h2>The leader you become.</h2>
+      <p>Here&rsquo;s what that looks like at work.</p>
+    </div>
+    <div class="tl" id="tl">
+      <span class="tl__line" aria-hidden="true"><i class="tl__fill" id="tlFill"></i></span>
+      <div class="tl__item"><span class="tl__node" aria-hidden="true"></span><div class="tl__note"><h4>Get to the point in 30 seconds</h4><p>Answer first, then explain. No long build-up while people lose interest.</p></div></div>
+      <div class="tl__item"><span class="tl__node" aria-hidden="true"></span><div class="tl__note"><h4>Speak up in meetings</h4><p>Share your idea early and clearly, so it stays yours.</p></div></div>
+      <div class="tl__item"><span class="tl__node" aria-hidden="true"></span><div class="tl__note"><h4>Present with confidence</h4><p>To your team, to senior leaders, or on a video call.</p></div></div>
+      <div class="tl__item"><span class="tl__node" aria-hidden="true"></span><div class="tl__note"><h4>Handle tough questions</h4><p>Stay calm, think on your feet, and say &ldquo;I don&rsquo;t know&rdquo; without losing respect.</p></div></div>
+      <div class="tl__item"><span class="tl__node" aria-hidden="true"></span><div class="tl__note"><h4>Have the difficult conversation</h4><p>Give feedback, disagree with your boss, and still keep the relationship.</p></div></div>
+      <div class="tl__item"><span class="tl__node" aria-hidden="true"></span><div class="tl__note"><h4>Make your own case</h4><p>In appraisals and interviews, show the value of your work with facts.</p></div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═════════ THE WEEK — RINGS ═════════ -->
 <section class="section" id="week">
   <div class="wrap">
     <div class="sec-head rv">
-      <span class="eyebrow">The framework that makes it work</span>
-      <h2>How one week actually works.</h2>
-      <p>About five hours, built around a full time job.</p>
+      <span class="eyebrow">How it works</span>
+      <h2>How the 12 weeks work.</h2>
+      <p>Learn on weekends. Practise twice a week. Use it at work. About 6 hours a week, built around a full-time job.</p>
     </div>
     <div class="rings">
       <div class="ring">
@@ -218,8 +365,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="ring__label">Learn</div>
         </div>
         <span class="ring__dash" aria-hidden="true"></span>
-        <div class="ring__when">Weekend sessions</div>
-        <p>Live sessions with specialists across Saturday and Sunday. Teaching first, then you on your feet using it while it is still fresh.</p>
+        <div class="ring__when">Saturday &amp; Sunday, live</div>
+        <p>Live sessions with specialists. One skill at a time, and you practise it right there while it&rsquo;s fresh.</p>
       </div>
       <div class="ring">
         <div class="ring__svg">
@@ -231,7 +378,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <span class="ring__dash" aria-hidden="true"></span>
         <div class="ring__when">Tuesday &amp; Thursday</div>
-        <p>Forty five minutes with your group of four, run off a structured feedback card so it never turns into polite applause.</p>
+        <p>Two 45-minute practice labs. You repeat the week&rsquo;s skill until it starts to feel natural.</p>
       </div>
       <div class="ring">
         <div class="ring__svg">
@@ -242,9 +389,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="ring__label">Apply</div>
         </div>
         <span class="ring__dash" aria-hidden="true"></span>
-        <div class="ring__when">Through your week</div>
-        <p>You use it on something real at work and record it. Your work goes up, and you get personal feedback naming exactly what to change before the next week starts.</p>
+        <div class="ring__when">At work, through the week</div>
+        <p>Use it on something real at work and record it. You get personal feedback on exactly what to change before the next week starts.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ BEFORE YOU JOIN: COUNSELLING CALL ═════════ -->
+<section class="section" id="call" style="background:var(--surface-alt)">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Before you join</span>
+      <h2>Every seat starts with a conversation.</h2>
+      <p>We speak to every applicant before we offer a seat. 30 minutes on Zoom with a senior counsellor from our team.</p>
+    </div>
+    <div class="callx2 rv">
+      <h3>What we cover in 30 minutes</h3>
+      <ol class="callx2__list">
+        <li><b>Where you&rsquo;re stuck.</b> The meetings, reviews or conversations where you&rsquo;re not being heard, and the gaps you want to close.</li>
+        <li><b>How the programme fits.</b> Which weeks and skills work on exactly those gaps.</li>
+        <li><b>An honest answer.</b> If it fits, we offer you a seat. If it doesn&rsquo;t, we tell you clearly, and your &#8377;400 comes back.</li>
+        <li><b>Your questions.</b> Schedule, format, fees, EMI, anything.</li>
+      </ol>
+      <p class="callx2__note">We keep a record of your starting point from this call, so your coaches know where you begin in week 1.</p>
+      <div class="callx2__cta"><a href="https://tally.so/r/ZjXOxe" target="_self" rel="noopener" data-cta="call" class="btn btn--light js-apply">Apply for a seat <em>&rarr;</em></a></div>
     </div>
   </div>
 </section>
@@ -253,17 +422,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="section band-dark" id="workon">
   <div class="wrap">
     <div class="sec-head rv">
-      <span class="eyebrow">The pillars</span>
-      <h2>What we actually work on.</h2>
-      <p>Every one of them taught live, practised weekly, and built around the rooms you are already in.</p>
+      <span class="eyebrow">The skills</span>
+      <h2>What you&rsquo;ll work on.</h2>
+      <p>Six skills, each taught live, practised every week, and used in your real work.</p>
     </div>
     <div class="pstack">
-      <article class="pcard"><span class="pcard__n">01</span><h3>Fast, structured thinking</h3><p>Get the point out first and the support after. Most communication problems are unstructured thinking wearing a disguise.</p></article>
-      <article class="pcard"><span class="pcard__n">02</span><h3>Communication and public speaking</h3><p>Say it once, clearly, to four people or four hundred, without the four minute run up.</p></article>
-      <article class="pcard"><span class="pcard__n">03</span><h3>Executive presence</h3><p>How you sound and how you stand decide whether the same sentence gets believed.</p></article>
-      <article class="pcard"><span class="pcard__n">04</span><h3>Storytelling and presentations</h3><p>Turn your own experience into stories that land, and narrate data so the room remembers the change and not the number.</p></article>
+      <article class="pcard"><span class="pcard__n">01</span><h3>Fast, structured thinking</h3><p>Get the point out first and the support after. Most communication problems are unstructured thinking in disguise.</p></article>
+      <article class="pcard"><span class="pcard__n">02</span><h3>Communication and public speaking</h3><p>Say it once, clearly, to four people or four hundred, without the long build-up.</p></article>
+      <article class="pcard"><span class="pcard__n">03</span><h3>Executive presence</h3><p>How you sound and how you carry yourself decide whether people believe what you say.</p></article>
+      <article class="pcard"><span class="pcard__n">04</span><h3>Storytelling and presentations</h3><p>Turn your own experience into stories that land, and present data so people remember the point, not just the number.</p></article>
       <article class="pcard"><span class="pcard__n">05</span><h3>Influence, persuasion and negotiation</h3><p>Getting a yes from stakeholders who don&rsquo;t report to you, and holding it when they push back.</p></article>
-      <article class="pcard"><span class="pcard__n">06</span><h3>Leadership and difficult conversations</h3><p>The conversation you have been avoiding, the disagreement upward, and the room that ends in a decision.</p></article>
+      <article class="pcard"><span class="pcard__n">06</span><h3>Leadership and difficult conversations</h3><p>The conversation you have been avoiding, the disagreement with your boss, and the meeting that ends in a decision.</p></article>
     </div>
   </div>
 </section>
@@ -273,161 +442,112 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="wrap">
     <div class="sec-head rv">
       <span class="eyebrow">Curriculum</span>
-      <h2>Twelve weeks, four acts.</h2>
-      <p>The full syllabus, in public. Every week has one live session, two practice labs and one assignment taken from your own work.</p>
+      <h2>Twelve weeks, four parts.</h2>
+      <p>The full syllabus, in public. Every week has live weekend sessions, two practice labs and one assignment from your own work.</p>
     </div>
 
     <div class="act rv">
-      <div class="act__head"><span class="act__tag">Act I</span><span class="act__name">Think clearly</span><span class="act__weeks">Weeks 1 to 3</span></div>
-      <div class="mod"><button class="mod__btn"><span class="mod__w">W1</span><span class="mod__t">The reset</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>Why capable professionals go quiet in the rooms that matter, and the fear mechanics behind it. You record a two minute introduction as your baseline and sit for a one to one call that maps the three rooms you want changed by week twelve.</p><div class="mod__meta"><span>Assignment &middot; the baseline recording</span><span>Also &middot; goal mapping call</span></div></div></div></div>
-      <div class="mod"><button class="mod__btn"><span class="mod__w">W2</span><span class="mod__t">Think in structures</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>Structured thinking as the root skill. Frameworks that turn a messy thought into a clear answer in sixty seconds, and hold that answer when someone interrupts.</p><div class="mod__meta"><span>Assignment &middot; restructure a real work update</span><span>You keep &middot; your structure card</span></div></div></div></div>
-      <div class="mod"><button class="mod__btn"><span class="mod__w">W3</span><span class="mod__t">Voice, body, camera</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>Pace, pause, posture and eye contact, plus executive presence on the video calls where most of your career now happens. You re-record your week one introduction and watch the difference.</p><div class="mod__meta"><span>Assignment &middot; the re-record</span><span>You keep &middot; your locked camera setup</span></div></div></div></div>
+      <div class="act__head"><span class="act__tag">Part 1</span><span class="act__name">Think clearly</span><span class="act__weeks">Weeks 1 to 3</span></div>
+      <div class="mod"><button class="mod__btn"><span class="mod__w">W1</span><span class="mod__t">The reset</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>Why capable professionals go quiet in the meetings that matter, and what&rsquo;s really behind the fear. You record a two-minute introduction as your starting point and have a one-to-one call that maps the three situations at work you most want to handle better.</p><div class="mod__meta"><span>Assignment &middot; your starting-point video</span><span>Also &middot; goal-mapping call</span></div></div></div></div>
+      <div class="mod"><button class="mod__btn"><span class="mod__w">W2</span><span class="mod__t">Think in structures</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>Structured thinking as the root skill. Simple frameworks that turn a messy thought into a clear answer in sixty seconds, and help you hold it when someone interrupts.</p><div class="mod__meta"><span>Assignment &middot; restructure a real work update</span><span>You keep &middot; your structure card</span></div></div></div></div>
+      <div class="mod"><button class="mod__btn"><span class="mod__w">W3</span><span class="mod__t">Voice, body, camera</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>Pace, pause, posture and eye contact, plus presence on the video calls where most of your career now happens. You re-record your week one introduction and see the difference.</p><div class="mod__meta"><span>Assignment &middot; the re-record</span><span>You keep &middot; your camera setup</span></div></div></div></div>
     </div>
 
     <div class="act rv">
-      <div class="act__head"><span class="act__tag">Act II</span><span class="act__name">Speak so it lands</span><span class="act__weeks">Weeks 4 to 7</span></div>
-      <div class="mod"><button class="mod__btn"><span class="mod__w">W4</span><span class="mod__t">Storytelling that moves people</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>The psychology of storytelling applied to business, and how to turn your own experience into story capital you can use in a pitch, a panel or a one to one.</p><div class="mod__meta"><span>Assignment &middot; five stories, written and recorded</span><span>You keep &middot; your story bank</span></div></div></div></div>
-      <div class="mod"><button class="mod__btn"><span class="mod__w">W5</span><span class="mod__t">The persuasive case</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>Claim, evidence, concession, ask. Influence without authority, and how to pre-wire a room before you walk into it. You pitch a real idea from your workplace while your group plays the sceptical panel.</p><div class="mod__meta"><span>Assignment &middot; a real proposal, pitched</span><span>Rule &middot; it has to be genuinely live at work</span></div></div></div></div>
-      <div class="mod"><button class="mod__btn"><span class="mod__w">W6</span><span class="mod__t">Meetings, updates and executive presence</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>The daily arena. Status updates that build your standing, speaking up early, running meetings people thank you for, and recovering after an interruption. Plus written and async communication that reads senior.</p><div class="mod__meta"><span>Assignment &middot; midpoint diagnostic</span><span>Also &middot; your second score, in a one to one</span></div></div></div></div>
-      <div class="mod"><button class="mod__btn"><span class="mod__w">W7</span><span class="mod__t">Data, slides and Q&amp;A under fire</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>The number is not the point, the change is. Slide narration, one chart one message, and hostile questions handled with composure. The questions come from mentors, not peers, because peers go easy.</p><div class="mod__meta"><span>Assignment &middot; three slides from your real data</span></div></div></div></div>
+      <div class="act__head"><span class="act__tag">Part 2</span><span class="act__name">Speak so it lands</span><span class="act__weeks">Weeks 4 to 7</span></div>
+      <div class="mod"><button class="mod__btn"><span class="mod__w">W4</span><span class="mod__t">Storytelling that moves people</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>Storytelling applied to business, and how to turn your own experience into stories you can use in a pitch, a panel or a one-to-one.</p><div class="mod__meta"><span>Assignment &middot; five stories, written and recorded</span><span>You keep &middot; your story bank</span></div></div></div></div>
+      <div class="mod"><button class="mod__btn"><span class="mod__w">W5</span><span class="mod__t">The persuasive case</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>Claim, evidence, concession, ask. Influence without authority, and how to get people on your side before the meeting starts. You pitch a real idea from your workplace in front of a sceptical panel of mentors.</p><div class="mod__meta"><span>Assignment &middot; a real proposal, pitched</span><span>Rule &middot; it has to be genuinely live at work</span></div></div></div></div>
+      <div class="mod"><button class="mod__btn"><span class="mod__w">W6</span><span class="mod__t">Meetings, updates and presence</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>Where it happens every day. Status updates that build your standing, speaking up early, running meetings people thank you for, and recovering after an interruption. Plus emails and messages that read senior.</p><div class="mod__meta"><span>Assignment &middot; midpoint check</span><span>Also &middot; your second progress review, one to one</span></div></div></div></div>
+      <div class="mod"><button class="mod__btn"><span class="mod__w">W7</span><span class="mod__t">Data, slides and tough questions</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>The number is not the point, the change is. Presenting slides, one chart one message, and handling tough questions calmly. The tough questions come from mentors.</p><div class="mod__meta"><span>Assignment &middot; three slides from your real data</span></div></div></div></div>
     </div>
 
     <div class="act rv">
-      <div class="act__head"><span class="act__tag">Act III</span><span class="act__name">Lead the hard rooms</span><span class="act__weeks">Weeks 8 to 10</span></div>
-      <div class="mod"><button class="mod__btn"><span class="mod__w">W8</span><span class="mod__t">Difficult conversations and conflict</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>Feedback that lands, and feedback received without armour. Disagreeing upward safely, negotiating, and staying composed when the stakes are visible to everyone. A one to one checkpoint locks your final talk topic.</p><div class="mod__meta"><span>Assignment &middot; the conversation you have been avoiding</span></div></div></div></div>
-      <div class="mod"><button class="mod__btn"><span class="mod__w">W9</span><span class="mod__t">Interviews, appraisals and making your own case</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>Interview narratives built off the story bank from week four. Appraisal and salary conversations argued on evidence instead of hope. A twenty minute mock panel, recorded and graded.</p><div class="mod__meta"><span>Assignment &middot; your evidence doc, written and spoken</span></div></div></div></div>
-      <div class="mod"><button class="mod__btn"><span class="mod__w">W10</span><span class="mod__t">Lead the room</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>Communicating vision and expectations. Delegation that empowers instead of dumps. Leading without authority, and running the rooms you used to sit silent in.</p><div class="mod__meta"><span>Assignment &middot; a vision brief for a real team</span><span>You keep &middot; your room playbook</span></div></div></div></div>
+      <div class="act__head"><span class="act__tag">Part 3</span><span class="act__name">Lead the hard conversations</span><span class="act__weeks">Weeks 8 to 10</span></div>
+      <div class="mod"><button class="mod__btn"><span class="mod__w">W8</span><span class="mod__t">Difficult conversations and conflict</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>Giving feedback that lands, and taking it without getting defensive. Disagreeing with your boss safely, negotiating, and staying calm when everyone is watching. A one-to-one check-in locks your final talk topic.</p><div class="mod__meta"><span>Assignment &middot; the conversation you have been avoiding</span></div></div></div></div>
+      <div class="mod"><button class="mod__btn"><span class="mod__w">W9</span><span class="mod__t">Interviews, appraisals and making your own case</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>Interview answers built from your week 4 stories. Appraisal and salary conversations argued on evidence instead of hope. A twenty-minute mock panel, recorded, with feedback.</p><div class="mod__meta"><span>Assignment &middot; your evidence doc, written and spoken</span></div></div></div></div>
+      <div class="mod"><button class="mod__btn"><span class="mod__w">W10</span><span class="mod__t">Lead your team</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>Communicating vision and expectations. Delegation that empowers instead of dumps. Leading without authority, and running the meetings you used to sit silent in.</p><div class="mod__meta"><span>Assignment &middot; a vision brief for a real team</span><span>You keep &middot; your leadership playbook</span></div></div></div></div>
     </div>
 
     <div class="act rv">
-      <div class="act__head"><span class="act__tag">Act IV</span><span class="act__name">The signature talk</span><span class="act__weeks">Weeks 11 to 12</span></div>
-      <div class="mod"><button class="mod__btn"><span class="mod__w">W11</span><span class="mod__t">Write and rehearse it</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>Openings that earn attention and closings that stick. Two separate rehearsal passes, a table read where the notes are only about structure, then a dress rehearsal where the notes are only about delivery. Mixing the two is why most rehearsals fail.</p><div class="mod__meta"><span>Assignment &middot; final script plus two rehearsal recordings</span></div></div></div></div>
-      <div class="mod"><button class="mod__btn"><span class="mod__w">W12</span><span class="mod__t">Deliver it. Own it.</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>Your five to seven minute talk on a real topic from your own work, delivered to a panel and your cohort. Your third and final score on the same scorecard.</p></div></div></div>
+      <div class="act__head"><span class="act__tag">Part 4</span><span class="act__name">Your signature talk</span><span class="act__weeks">Weeks 11 to 12</span></div>
+      <div class="mod"><button class="mod__btn"><span class="mod__w">W11</span><span class="mod__t">Write and rehearse it</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>Openings that get attention and closings that stick. Two separate rehearsals: one where the notes are only about structure, then one where the notes are only about delivery. Mixing the two is why most rehearsals fail.</p><div class="mod__meta"><span>Assignment &middot; final script plus two rehearsal recordings</span></div></div></div></div>
+      <div class="mod"><button class="mod__btn"><span class="mod__w">W12</span><span class="mod__t">Deliver it</span><span class="mod__ico"></span></button><div class="mod__panel"><div class="mod__inner"><p>Your five to seven minute talk on a real topic from your own work, delivered to a panel and professionally filmed. Your final progress review, next to your week 1 video.</p></div></div></div>
     </div>
   </div>
 </section>
 
 <!-- ═════════ WHO THIS IS FOR ═════════ -->
-<section class="section" id="who" style="background:var(--surface-alt)">
+<section class="section" id="who" style="background:var(--surface-alt);padding-top:24px">
   <div class="wrap">
     <div class="sec-head rv">
       <span class="eyebrow">Who this is for</span>
       <h2>Built for people who already have something worth hearing.</h2>
     </div>
     <div class="who">
-      <article class="who__card rv"><div class="who__img"><img src="https://cdn.leveluplearning.in/live-hub/communication/img/who-specialist-v3.webp" alt="A senior specialist arriving at the office" loading="lazy"></div><div class="who__body"><h3>Senior specialists</h3><p>Years of expertise. Time the room knew about it.</p></div></article>
+      <article class="who__card rv"><div class="who__img"><img src="https://cdn.leveluplearning.in/live-hub/communication/img/who-specialist-v3.webp" alt="A senior specialist arriving at the office" loading="lazy"></div><div class="who__body"><h3>Senior specialists</h3><p>Years of expertise. Time people noticed it.</p></div></article>
       <article class="who__card rv"><div class="who__img"><img src="https://cdn.leveluplearning.in/live-hub/communication/img/who-manager-v2.webp" alt="A team manager" loading="lazy"></div><div class="who__body"><h3>Team leads and managers</h3><p>You were promoted for the work. The job is now mostly talking.</p></div></article>
-      <article class="who__card rv"><div class="who__img"><img src="https://cdn.leveluplearning.in/live-hub/communication/img/who-founder-v2.webp" alt="A founder" loading="lazy"></div><div class="who__body"><h3>Founders and business owners</h3><p>You sell the vision every day, to investors, to clients and to the people you are trying to hire.</p></div></article>
+      <article class="who__card rv"><div class="who__img"><img src="https://cdn.leveluplearning.in/live-hub/communication/img/who-founder-v2.webp" alt="A founder" loading="lazy"></div><div class="who__body"><h3>Founders and business owners</h3><p>You sell the vision every day, to investors, to clients and to the people you want to hire.</p></div></article>
       <article class="who__card rv"><div class="who__img"><img src="https://cdn.leveluplearning.in/live-hub/communication/img/who-global-v2.webp" alt="A global delivery leader" loading="lazy"></div><div class="who__body"><h3>Global and GCC leaders</h3><p>Your best thinking should not stop at the India call.</p></div></article>
     </div>
     <div class="notfor rv">
       <h3>And who it isn&rsquo;t for.</h3>
-      <p>If you want a certificate rather than a change, if you cannot make the live sessions, or if you would rather watch than speak, this will frustrate you. Every applicant is interviewed and we say no often. Seats are capped at forty so the practice groups stay at four.</p>
-    </div>
-  </div>
-</section>
-<!-- ═════════ THE CHANGE — TIMELINE ═════════ -->
-<section class="section" id="change">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <span class="eyebrow">The change</span>
-      <h2>The leader you become.</h2>
-      <p>Here is what that change looks like in practice.</p>
-    </div>
-    <div class="tl" id="tl">
-      <span class="tl__line" aria-hidden="true"><i class="tl__fill" id="tlFill"></i></span>
-      <div class="tl__item" style="--note:var(--tint-blue)"><span class="tl__node" aria-hidden="true"></span><div class="tl__note"><h4>Say it in thirty seconds</h4><p>Answer first, evidence after. The clarity to articulate a position in one breath instead of a four minute run up while the room drifts.</p></div></div>
-      <div class="tl__item" style="--note:var(--tint-green)"><span class="tl__node" aria-hidden="true"></span><div class="tl__note"><h4>Lead the meeting, not just attend it</h4><p>Speak up early, carry executive presence on the global call and in the room, and recover after an interruption instead of losing the thread.</p></div></div>
-      <div class="tl__item" style="--note:var(--tint-yellow)"><span class="tl__node" aria-hidden="true"></span><div class="tl__note"><h4>Get a yes without the title</h4><p>Build the case, pre-wire your stakeholders, and hold your position with conviction when the pushback starts.</p></div></div>
-      <div class="tl__item" style="--note:var(--tint-indigo)"><span class="tl__node" aria-hidden="true"></span><div class="tl__note"><h4>Handle the hard question</h4><p>Composure in high-stakes questioning, and the judgement to say I don&rsquo;t know without losing credibility.</p></div></div>
-      <div class="tl__item" style="--note:var(--tint-green)"><span class="tl__node" aria-hidden="true"></span><div class="tl__note"><h4>Have the difficult conversation</h4><p>Give feedback that lands, disagree upward without losing trust, and finish the conversation you have been rehearsing for a month.</p></div></div>
-      <div class="tl__item" style="--note:var(--tint-blue)"><span class="tl__node" aria-hidden="true"></span><div class="tl__note"><h4>Negotiate your own case</h4><p>Your appraisal, your next offer, and the resources your team needs, argued on evidence and negotiated instead of hoped for.</p></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ═════════ COMMUNITY ═════════ -->
-<section class="section band-dark" id="community">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <span class="eyebrow">The community</span>
-      <h2>Your network is your net worth</h2>
-    </div>
-
-    <div class="comm__hero rv rv--scale">
-      <img src="https://cdn.leveluplearning.in/live-hub/communication/img/community/grid.webp" alt="A live LevelUp community session with hundreds of participants" loading="lazy">
-      <div class="comm__copy">
-        <h3>You don&rsquo;t graduate.<br>You become part of<br>the network.</h3>
-        <div class="comm__who">
-          <div class="comm__avatars">
-            <img src="https://cdn.leveluplearning.in/live-hub/communication/img/community/av1.webp" alt="" loading="lazy">
-            <img src="https://cdn.leveluplearning.in/live-hub/communication/img/community/av2.webp" alt="" loading="lazy">
-            <img src="https://cdn.leveluplearning.in/live-hub/communication/img/community/av3.webp" alt="" loading="lazy">
-            <img src="https://cdn.leveluplearning.in/live-hub/communication/img/community/av4.webp" alt="" loading="lazy">
-            <img src="https://cdn.leveluplearning.in/live-hub/communication/img/community/av5.webp" alt="" loading="lazy">
-          </div>
-          <span class="comm__count">300K+</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="comm__stats">
-      <div class="rv"><div class="stat__n">3 lakh+</div><div class="stat__l">In the community</div></div>
-      <div class="rv"><div class="stat__n">67,746+</div><div class="stat__l">Learners</div></div>
-      <div class="rv"><div class="stat__n">821+</div><div class="stat__l">Cities</div></div>
-      <div class="rv"><div class="stat__n">3,000+</div><div class="stat__l">Collaborations</div></div>
-    </div>
-
-    <div class="comm__mosaic rv">
-      <div class="tile"><img src="https://cdn.leveluplearning.in/live-hub/communication/img/community/real-offline.webp" alt="LevelUp members at an offline meetup" loading="lazy"><span>Offline meetups</span></div>
-      <div class="tile"><img src="https://cdn.leveluplearning.in/live-hub/communication/img/community/real-workshop.webp" alt="A live LevelUp workshop in progress" loading="lazy"><span>Live workshops</span></div>
-      <div class="tile"><img src="https://cdn.leveluplearning.in/live-hub/communication/img/community/real-alumni.webp" alt="A LevelUp alumni meetup" loading="lazy"><span>Alumni meetups</span></div>
-      <div class="tile"><img src="https://cdn.leveluplearning.in/live-hub/communication/img/community/tall4.webp" alt="Members on an online channel" loading="lazy"><span>Active online channels</span></div>
+      <p>If you want a certificate rather than real change. If you can&rsquo;t attend the live weekend sessions. If you&rsquo;d rather watch than speak. Every application is read by a person, and we&rsquo;ll tell you honestly if it isn&rsquo;t the right fit. Only 40 seats, so you get personal feedback on every assignment.</p>
     </div>
   </div>
 </section>
 
 <!--
   REAL feedback from real LevelUp students, pulled from Tally 2026-07-27 via
-  _scripts/build_alumni_testimonials.py (feedback forms joined to onboarding
-  forms on name, because feedback forms only capture "What is your name?").
-
-  Every quote below is:
-   - from a named person who answered the "Wall of Love ... be featured on our
-     website and social media" question, i.e. consent was given at source;
-   - from a DIFFERENT LevelUp programme, which the section states plainly;
-   - edited only to cut craft-specific detail and length. No sentiment added.
-
-  Source sheet: outputs/alumni_testimonial_candidates.md (53 consented quotes
-  from working professionals). Do NOT add a quote that is not in that file.
+  _scripts/build_alumni_testimonials.py. Every quote is consented and from a
+  DIFFERENT LevelUp programme; v2 says so in the heading and the note.
+  Do NOT add a quote that is not in outputs/alumni_testimonial_candidates.md.
 -->
-<section class="section" id="voices">
+<section class="section" id="voices" style="padding-top:12px">
   <div class="wrap">
     <div class="sec-head rv">
-      <span class="eyebrow">The LevelUp experience</span>
-      <h2>Listen to what our students say.</h2>
+      <span class="eyebrow">Our learners</span>
+      <h2>What our learners say about us.</h2>
     </div>
   </div>
 
-  <div class="tmar rv" aria-label="What LevelUp learners say">
+  <div class="tmar rv" aria-label="What our learners say">
     <div class="tmar__row" data-tmar>
       <figure class="tcard"><blockquote>The biggest takeaway? You don&rsquo;t need to become someone else to grow. You need to become clearer about who you already are. Direction instead of noise. Community instead of comparison. I walked in with questions. I walked out with conviction.</blockquote><figcaption><span class="tcard__n">Krishna Atram</span><span class="tcard__r">Software Engineer</span></figcaption></figure>
         <figure class="tcard"><blockquote>Having attended your workshop, I can genuinely say it was a transformative experience. The way of communication and the teaching style is very good.</blockquote><figcaption><span class="tcard__n">Suraj</span><span class="tcard__r">Engineer, corporate</span></figcaption></figure>
-        <figure class="tcard"><blockquote>A great experience overall. The community was honestly one of the best parts, everyone was so supportive and fun to be around. The insights from the mentors were valuable and made the whole journey inspiring.</blockquote><figcaption><span class="tcard__n">Sharon Priyanka</span><span class="tcard__r">Counselling Psychologist &middot; Founder, Just Bee</span></figcaption></figure>
         <figure class="tcard"><blockquote>The workshop was amazing. Great instructors, and the reference-based approach made the learning come alive.</blockquote><figcaption><span class="tcard__n">Ashwin S</span><span class="tcard__r">Key Accounts Manager, Billdesk</span></figcaption></figure>
         <figure class="tcard"><blockquote>A perfectly planned programme. Good atmosphere to learn and apply it live. Hands-on experience and great guidance. A lovely opportunity to meet people who have the same drive as yours and get connected. Must-have experience.</blockquote><figcaption><span class="tcard__n">Ganesh Natarajan</span><span class="tcard__r">Programme Manager</span></figcaption></figure>
-        <figure class="tcard"><blockquote>I came in with a single thought in mind, that I would gain more knowledge than I already have. Turns out I was wrong. I not only got the knowledge, I made friends who helped me make my dream come true.</blockquote><figcaption><span class="tcard__n">Yogesh Dighe</span><span class="tcard__r">Creative Lead</span></figcaption></figure>
     </div>
     <div class="tmar__row tmar__row--rev" data-tmar>
       <figure class="tcard"><blockquote>I loved everything. The topic, the pace, the content on screen, the knowledge of the trainer, and the simple way of addressing the subject.</blockquote><figcaption><span class="tcard__n">Jayesh Paniker</span><span class="tcard__r">Media Consultant to Infosys</span></figcaption></figure>
-        <figure class="tcard"><blockquote>The overall experience was amazing. I found my team and made some new best friends. I gained confidence, and I learnt the theory as well as the practical.</blockquote><figcaption><span class="tcard__n">Talin Navani</span><span class="tcard__r">Dentist &middot; French teacher</span></figcaption></figure>
         <figure class="tcard"><blockquote>It was such a great experience. I truly enjoyed every bit of it. I made new friends and learned so many new things. The programme was really motivating and gave me a more technical and structured approach.</blockquote><figcaption><span class="tcard__n">Bhanuja Nair</span><span class="tcard__r">Founder, Mystical Genesis Ayurveda</span></figcaption></figure>
         <figure class="tcard"><blockquote>The way the class was structured was beautiful. As Rahul kept reiterating, it is not the story, it is the storyteller. Look forward to learning from and contributing to the community.</blockquote><figcaption><span class="tcard__n">Sreekar G</span><span class="tcard__r">Software Engineer</span></figcaption></figure>
-        <figure class="tcard"><blockquote>I loved that the cohort was diverse, a mix of newcomers, emerging talent and a few industry professionals. The setting, people, content, mentorship and the time management stood out for me.</blockquote><figcaption><span class="tcard__n">Rakshana</span><span class="tcard__r">Software Engineer</span></figcaption></figure>
         <figure class="tcard"><blockquote>Loved the people, loved the process. Overall perfect for people struggling to just go for it.</blockquote><figcaption><span class="tcard__n">Prithvik Aniketh</span><span class="tcard__r">Real estate</span></figcaption></figure>
     </div>
   </div>
+</section>
 
+<!-- ═════════ FEE ═════════ -->
+<section class="section" id="fee">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="eyebrow">Fee</span><h2>&#8377;55,000, or &#8377;4,583 a month</h2></div>
+    <div class="fee rv">
+      <div>
+        <div class="fee__price">&#8377;55,000</div>
+        <p class="fee__sub">All-inclusive. Or &#8377;4,583 a month on no-cost EMI over 12 months.</p>
+        <div style="margin-top:26px"><a href="https://tally.so/r/ZjXOxe" target="_self" rel="noopener" data-cta="fee" class="btn btn--dark js-apply">Apply for a seat</a></div>
+      </div>
+      <ul class="fee__list">
+        <li>Live weekend sessions for 12 weeks</li>
+        <li>Two live practice labs every week</li>
+        <li>12 assignments from your own work, with personal feedback</li>
+        <li>Three private progress reviews, one to one</li>
+        <li>Three one-to-one check-in calls</li>
+        <li>Your week 12 talk, professionally filmed, next to your week 1 video</li>
+        <li>Lifetime access to the LevelUp community</li>
+        <li>Certificate on completing all 12 weeks</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
 <!-- ═════════ APPLY ═════════ -->
@@ -435,62 +555,39 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="wrap">
     <div class="sec-head rv">
       <span class="eyebrow">The process</span>
-      <h2>How to apply?</h2>
+      <h2>How to apply</h2>
     </div>
     <div class="applyx">
-      <div class="applyx__card rv"><span class="applyx__pill">Request your invite</span><h3>Fill the application form.<span>We read every word.</span></h3></div>
-      <div class="applyx__card rv"><span class="applyx__pill">Pay &#8377;400 (refundable)</span><h3>Filters out the casual.<span>You get it back if we say no.</span></h3></div>
-      <div class="applyx__card rv"><span class="applyx__pill">Sit for the interview</span><h3>Fifteen minutes.<span>We check fit, commitment, and whether you have real rooms to practise on.</span></h3></div>
-      <div class="applyx__card rv"><span class="applyx__pill">Decision in 12 to 48 hours</span><h3>Either you&rsquo;re in.<span>Or we tell you why not.</span></h3></div>
-      <div class="applyx__card rv"><span class="applyx__pill">Confirm your seat</span><h3>Complete your onboarding.<span>You&rsquo;re locked in for the cohort.</span></h3></div>
+      <div class="applyx__card rv"><span class="applyx__pill">1 &middot; Apply</span><h3>5 minutes.<span>Every application is read by a person.</span></h3></div>
+      <div class="applyx__card rv"><span class="applyx__pill">2 &middot; Book your counselling call</span><h3>&#8377;400, refunded if we don&rsquo;t offer you a seat.<span>Pick a slot that suits you.</span></h3></div>
+      <div class="applyx__card rv"><span class="applyx__pill">3 &middot; Have the call</span><h3>30 minutes on Zoom.<span>With a senior counsellor from our team.</span></h3></div>
+      <div class="applyx__card rv"><span class="applyx__pill">4 &middot; Hear back from us</span><h3>A decision within 12 to 48 hours.<span>If you&rsquo;re in, we send your invite.</span></h3></div>
     </div>
-    <div class="applyx__cta rv" style="margin-top:34px;text-align:center"><a href="https://tally.so/r/ZjXOxe" target="_blank" rel="noopener" data-cta="apply_section" class="btn btn--light js-apply">Start your application <em>&rarr;</em></a></div>
-    <p class="applyx__foot rv">Not everyone gets in. That&rsquo;s the point. The cohort works because everyone in it chose the same twelve weeks you did.</p>
-  </div>
-</section>
-
-<!-- ═════════ FEE ═════════ -->
-<section class="section" id="fee">
-  <div class="wrap">
-    <div class="sec-head rv"><span class="eyebrow">Fee</span><h2>Your investment</h2></div>
-    <div class="fee rv">
-      <div>
-        <div class="fee__price">&#8377;55,000</div>
-        <p class="fee__sub">All-inclusive &middot; twelve weeks &middot; no-cost EMI available</p>
-        <div style="margin-top:26px"><a href="https://tally.so/r/ZjXOxe" target="_blank" rel="noopener" data-cta="fee" class="btn btn--dark js-apply">Request invite</a></div>
-      </div>
-      <ul class="fee__list">
-        <li>Twelve weeks of live weekend sessions, Saturday and Sunday</li>
-        <li>A practice group of four, twice a week</li>
-        <li>Twelve graded assignments with written feedback</li>
-        <li>Three scorecard diagnostics and your score sheet</li>
-        <li>Three one-to-one checkpoint calls</li>
-        <li>Daily AI practice partner between sessions</li>
-        <li>Your week 12 talk, recorded, beside your week 1 tape</li>
-        <li>Lifetime access to the LevelUp community</li>
-        <li>Certificate on completing all twelve weeks</li>
-      </ul>
-    </div>
+    <div class="applyx__cta rv" style="margin-top:34px;text-align:center"><a href="https://tally.so/r/ZjXOxe" target="_self" rel="noopener" data-cta="apply_section" class="btn btn--light js-apply">Start your application <em>&rarr;</em></a></div>
+    <p class="applyx__foot rv">Only 40 seats.</p>
   </div>
 </section>
 
 <!-- ═════════ FAQ ═════════ -->
-<section class="section" style="padding-top:56px">
+<section class="section" id="faq" style="padding-top:56px">
   <div class="wrap">
     <div class="sec-head rv"><span class="eyebrow">FAQs</span><h2>Questions we get asked</h2></div>
     <div class="faq">
+      <div class="faq__item"><button class="faq__q">I get nervous on calls. Will the counselling call be a problem?<span></span></button><div class="faq__a"><p>Most people who apply feel the same. The counsellor won&rsquo;t judge how you speak, and they do most of the talking. You can reschedule up to 2 hours before if you need to.</p></div></div>
+      <div class="faq__item"><button class="faq__q">Can I reschedule the call?<span></span></button><div class="faq__a"><p>Yes, any time up to 2 hours before. No penalty.</p></div></div>
+      <div class="faq__item"><button class="faq__q">Do I need my manager&rsquo;s or family&rsquo;s approval first?<span></span></button><div class="faq__a"><p>Many people do. Bring them on the call, or we&rsquo;ll set up a short follow-up call with them.</p></div></div>
+      <div class="faq__item"><button class="faq__q">Can my company pay for it?<span></span></button><div class="faq__a"><p>Yes. We issue an invoice in your company&rsquo;s name.</p></div></div>
+      <div class="faq__item"><button class="faq__q">Is my English good enough?<span></span></button><div class="faq__a"><p>If you can manage a work meeting in English, yes. This is about clarity and confidence, not accent or vocabulary.</p></div></div>
+      <div class="faq__item"><button class="faq__q">Will this fit a working schedule?<span></span></button><div class="faq__a"><p>It&rsquo;s built for one. Live sessions on Saturday and Sunday, two 45-minute practice labs on weekday evenings, and one assignment. About 6 hours a week.</p></div></div>
       <div class="faq__item"><button class="faq__q">I&rsquo;d rather learn at my own pace.<span></span></button><div class="faq__a"><p>Speaking doesn&rsquo;t improve on 2x playback. It improves in front of people. Every session is live and every session puts you on your feet. If you want something you can watch on a commute, this is the wrong programme and we would rather you knew that now.</p></div></div>
-      <div class="faq__item"><button class="faq__q">Will this fit a working schedule?<span></span></button><div class="faq__a"><p>It is built for one. Live sessions on Saturday and Sunday, two 45-minute practice labs on weekday evenings, one assignment, and a short pre-watch before the live sessions. Roughly five hours a week.</p></div></div>
-      <div class="faq__item"><button class="faq__q">Is it live or recorded?<span></span></button><div class="faq__a"><p>Every session that matters is live. There is a fifteen-minute recorded lesson before each Saturday so that the theory is out of the way and the live time can be spent with you on your feet rather than watching a slide. No lecture is ever the deliverable.</p></div></div>
-      <div class="faq__item"><button class="faq__q">I freeze on camera.<span></span></button><div class="faq__a"><p>So does most of the room in week one. On-camera work starts in week three inside a group of four, long before anything is public. The week 12 talk is the end of a twelve-week ramp, not the start of one.</p></div></div>
-      <div class="faq__item"><button class="faq__q">Do I need prior experience?<span></span></button><div class="faq__a"><p>No training experience, no. But you do need about five years of working life and real rooms to practise on. Every assignment maps to something live in your job, so a fresher would have nothing to bring to the exercises.</p></div></div>
-      <div class="faq__item"><button class="faq__q">What if I miss a week?<span></span></button><div class="faq__a"><p>The programme is built around showing up live. Miss one and your practice group plus the weekly assignment keep you moving. Miss several and the certificate and refund guarantee conditions will not be met.</p></div></div>
-      <div class="faq__item"><button class="faq__q">Who teaches this?<span></span></button><div class="faq__a"><p>Specialists rather than generalists: a structured-thinking practitioner from a consulting background, a voice and presence practitioner from theatre or broadcast, a credentialed executive coach, and a senior operator who has sat on the other side of promotion panels. Named faculty will be published on this page before applications close for the founding cohort.</p></div></div>
-      <div class="faq__item"><button class="faq__q">How big is the cohort?<span></span></button><div class="faq__a"><p>Forty seats, ten practice groups of four. The cap is arithmetic, not scarcity marketing: past this the Saturday practice minutes get diluted, the written feedback degrades into templates, and the one-to-one calls quietly stop happening.</p></div></div>
-      <div class="faq__item"><button class="faq__q">Is the application fee refundable?<span></span></button><div class="faq__a"><p>Yes, fully. It exists to filter out the casual, not to make money.</p></div></div>
-      <div class="faq__item"><button class="faq__q">Can I pay in instalments?<span></span></button><div class="faq__a"><p>Yes. No-cost EMI and staged payment plans are available.</p></div></div>
-      <div class="faq__item"><button class="faq__q">Will it get me promoted?<span></span></button><div class="faq__a"><p>We will not claim that, and you should be sceptical of anyone who does. Your promotion depends on your organisation, your timing and your work. What we can promise is that you will be measured three times on the same scorecard, you will get the tape, and you will see for yourself what changed.</p></div></div>
-      <div class="faq__item"><button class="faq__q">When does the next cohort start?<span></span></button><div class="faq__a"><p>Applications are open now. The next cohort starts December 12, 2026.</p></div></div>
+      <div class="faq__item"><button class="faq__q">I freeze on camera.<span></span></button><div class="faq__a"><p>You&rsquo;re far from alone: in a national US survey, 29% of adults said they were afraid of public speaking (Chapman University Survey of American Fears, 2024). Camera work starts in week three, in a small private lab, long before anything is public. The week 12 talk is the end of a twelve-week ramp, not the start of one.</p></div></div>
+      <div class="faq__item"><button class="faq__q">Who teaches this?<span></span></button><div class="faq__a"><p>Specialists rather than generalists: a structured-thinking practitioner from a consulting background, a voice and presence practitioner from theatre or broadcast, a credentialed executive coach, and a senior operator who has sat on the other side of promotion panels.</p></div></div>
+      <div class="faq__item"><button class="faq__q">How big is the cohort?<span></span></button><div class="faq__a"><p>40 seats. Any bigger and the feedback stops being personal.</p></div></div>
+      <div class="faq__item"><button class="faq__q">What if I miss a week?<span></span></button><div class="faq__a"><p>The programme is built around showing up live. Miss one and the weekly assignment keeps you moving. Miss several and the certificate and refund guarantee conditions will not be met.</p></div></div>
+      <div class="faq__item"><button class="faq__q">Is the application fee refundable?<span></span></button><div class="faq__a"><p>Yes. If we don&rsquo;t offer you a seat after the counselling call, the &#8377;400 comes back in full.</p></div></div>
+      <div class="faq__item"><button class="faq__q">Can I pay in instalments?<span></span></button><div class="faq__a"><p>Yes. No-cost EMI from &#8377;4,583 a month over 12 months.</p></div></div>
+      <div class="faq__item"><button class="faq__q">Will it get me promoted?<span></span></button><div class="faq__a"><p>We will not claim that, and you should be sceptical of anyone who does. Your promotion depends on your organisation, your timing and your work. What we can promise is three private progress reviews, your week 1 and week 12 videos side by side, and the chance to see for yourself what changed.</p></div></div>
+      <div class="faq__item"><button class="faq__q">When does the next cohort start?<span></span></button><div class="faq__a"><p>12 December 2026.</p></div></div>
     </div>
   </div>
 </section>
@@ -501,13 +598,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="final rv">
       <span class="final__eyebrow">Applications open &middot; 40 seats</span>
       <h2>
-        <span class="rl"><span>Own</span></span>
-        <span class="rl"><span>every</span></span>
-        <span class="rl"><span>room</span></span>
+        <span class="rl"><span>Be the one</span></span>
+        <span class="rl"><span>they listen to.</span></span>
       </h2>
-      <p>A short application. A fifteen-minute interview. Then twelve weeks that change how every meeting, pitch and appraisal goes for the rest of your career.</p>
-      <a href="https://tally.so/r/ZjXOxe" target="_blank" rel="noopener" data-cta="final" class="btn btn--light js-apply">Request Invite <em>&rarr;</em></a>
-      <span class="final__note">Every applicant is interviewed. We say no often.</span>
+      <a href="https://tally.so/r/ZjXOxe" target="_self" rel="noopener" data-cta="final" class="btn btn--light js-apply">Apply for a seat <em>&rarr;</em></a>
+      <span class="final__note">Every application is read by a person.</span>
     </div>
   </div>
 </section>
@@ -518,11 +613,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="foot__top">
       <div class="foot__brand">
         <img src="https://cdn.leveluplearning.in/live-hub/communication/img/brand/levelup-ink.webp" alt="LevelUp Learning" width="560" height="264">
-        <div class="foot__tag">The live cohort for the rooms that decide your career.</div>
+        <div class="foot__tag">Own every room.</div>
       </div>
       <div class="foot__links">
-        <div class="foot__col"><h4>Programme</h4><a href="#curriculum">Curriculum</a><a href="#week">The week</a><a href="#workon">The pillars</a></div>
-        <div class="foot__col"><h4>Admissions</h4><a href="#apply">How to apply</a><a href="#fee">Fee and EMI</a><a href="https://www.leveluplearning.in/refund-policy">Refund policy</a></div>
+        <div class="foot__col"><h4>Programme</h4><a href="#curriculum">Curriculum</a><a href="#week">How it works</a><a href="#workon">The skills</a></div>
+        <div class="foot__col"><h4>Admissions</h4><a href="#call">Counselling call</a><a href="#fee">Fee and EMI</a><a href="https://www.leveluplearning.in/refund-policy">Refund policy</a></div>
         <div class="foot__col"><h4>LevelUp</h4><a href="https://www.leveluplearning.in">About LevelUp</a><a href="#top">Other programmes</a></div>
       </div>
     </div>
@@ -537,11 +632,44 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="stickycta" id="stickyCta">
   <div class="stickycta__in">
     <span class="stickycta__t"><i></i>Applications open &middot; 40 seats</span>
-    <a href="https://tally.so/r/ZjXOxe" target="_blank" rel="noopener" data-cta="sticky" class="stickycta__btn js-apply">Request invite</a>
+    <a href="https://tally.so/r/ZjXOxe" target="_self" rel="noopener" data-cta="sticky" class="stickycta__btn js-apply">Apply for a seat</a>
   </div>
 </div>
 
 <script src="/communication/script.js"></script>
+
+<!-- v2: draw the 100-dot grids, filling dots in when the block scrolls into view -->
+<script>
+(function () {
+  var grids = [].slice.call(document.querySelectorAll('[data-dots]'));
+  grids.forEach(function (g) {
+    var n = parseInt(g.getAttribute('data-dots'), 10) || 100;
+    var on = parseInt(g.getAttribute('data-on'), 10) || 0;
+    var html = '';
+    for (var i = 0; i < n; i++) { html += '<i class="off" data-i="' + i + '"></i>'; }
+    g.innerHTML = html;
+    g._on = on;
+  });
+  function fill(g) {
+    if (g._done) { return; }
+    g._done = true;
+    var dots = g.querySelectorAll('i');
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    for (var i = 0; i < g._on; i++) {
+      (function (d, k) {
+        if (reduce) { d.classList.remove('off'); }
+        else { setTimeout(function () { d.classList.remove('off'); }, 12 * k); }
+      })(dots[i], i);
+    }
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { fill(e.target); io.unobserve(e.target); } });
+    }, { threshold: 0.35 });
+    grids.forEach(function (g) { io.observe(g); });
+  } else { grids.forEach(fill); }
+})();
+</script>
 
 <!-- ═════════ CONVERSION TRACKING ═════════
      One place for every analytics side effect on this page.
@@ -552,7 +680,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
        container can be pointed at them without another code change.
      - Clarity: tags the session so apply-clickers can be filtered in replays.
      - Ad params (utm_*, fbclid, gclid) ride along to the Tally form, so a
-       submission can be traced back to the ad that produced it. -->
+       submission can be traced back to the ad that produced it.
+     - v2: none of the pixel/GTM/Clarity calls fire on a local preview or ?preview=1 (window.__LU_PREVIEW). -->
 <script>
 (function () {
   var AD_PARAMS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid','wbraid','gbraid'];
@@ -564,9 +693,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   // remember them for the session so a click three scrolls later still carries
   // attribution even though the querystring is long gone from view.
   var landed = new URLSearchParams(window.location.search);
+  // 2026-09-09: stamp click_ts (ms) the moment an ad click lands, so n8n can build Meta's fbc
+  // (fb.1.<click_ts>.<fbclid>) for CAPI. Same rule as /ve, /creator-academy and /bfp-2.
+  if (landed.get('fbclid') && !landed.get('click_ts')) {
+    landed.set('click_ts', String(Date.now()));
+    try { history.replaceState({}, '', window.location.pathname + '?' + landed.toString() + window.location.hash); } catch (e) {}
+  }
   var carried = {};
-  AD_PARAMS.forEach(function (k) {
-    var v = landed.get(k);
+  // Carry EVERY landing param (utm_*, fbclid, click_ts, ad_name, campaign, ad_id, gclid...), not just AD_PARAMS,
+  // so whatever the ad URL template sends reaches Tally's hidden fields unchanged.
+  landed.forEach(function (v, k) {
     if (v) { carried[k] = v; }
   });
   try {
@@ -581,7 +717,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   function tallyUrl(base, location) {
     var u;
     try { u = new URL(base); } catch (e) { return base; }
+    var lp = (window.__lpParams ? window.__lpParams() : {});
     Object.keys(carried).forEach(function (k) { u.searchParams.set(k, carried[k]); });
+    Object.keys(lp).forEach(function (k) { if (!u.searchParams.has(k)) { u.searchParams.set(k, lp[k]); } });
     u.searchParams.set('ref', 'communication_' + location);
     return u.toString();
   }
