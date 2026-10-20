@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>/* lp-attr v2: click_ts stamp, 7-day param memory, _fbp, tap-time carry onto tally.so links (2026-09-09) */
+<script>/* lp-attr v2: click_ts stamp, 7-day param memory, _fbp, tap-time carry onto tally.so links (2026-09-09); 2026-10-21: also apply.leveluplearning.live links + visitor id (vid) */
 (function(){
   /* lp-attr v2 (2026-09-09): attribution must not wait for hydration and must survive a return visit.
      - stamp click_ts (ms) the moment an fbclid lands
@@ -14,8 +14,10 @@
     var cur={};ap.forEach(function(v,k){if(v&&k!=='r')cur[k]=v;});
     if(cur.utm_source||cur.utm_campaign||cur.fbclid||cur.gclid){cur._ts=Date.now();try{localStorage.setItem(LP_KEY,JSON.stringify(cur));}catch(e){}}}catch(e){}
   function lpFbp(){try{var m=document.cookie.match(/(?:^|; )_fbp=([^;]+)/);return m?decodeURIComponent(m[1]):'';}catch(e){return '';}}
-  function lpParams(){var out={},s=lpStore();if(s){for(var k in s){if(k!=='_ts')out[k]=s[k];}}try{new URLSearchParams(location.search).forEach(function(v,k){if(v&&k!=='r')out[k]=v;});}catch(e){}var f=lpFbp();if(f)out.fbp=f;if(out.fbclid&&!out.click_ts)out.click_ts=String(Date.now());return out;}
-  function lpCarry(a){try{var u=new URL(a.getAttribute('href')||a.href,location.origin);if(!/(^|\.)tally\.so$/.test(u.hostname))return;var p=lpParams(),ch=false;for(var k in p){if(!u.searchParams.has(k)){u.searchParams.set(k,p[k]);ch=true;}}if(ch)a.setAttribute('href',u.toString());if(a.getAttribute('target')==='_blank')a.setAttribute('target','_self');}catch(e){}}
+  function lpVid(){try{var v=localStorage.getItem('lu_vid');if(!v){var a=new Uint8Array(9);crypto.getRandomValues(a);v='w_'+Array.prototype.map.call(a,function(b){return('0'+b.toString(16)).slice(-2)}).join('');localStorage.setItem('lu_vid',v);}return v;}catch(e){return '';}}
+  setTimeout(function(){try{var v=lpVid();if(v&&window.clarity)window.clarity('set','vid',v);}catch(e){}},1500);
+  function lpParams(){var out={},s=lpStore();if(s){for(var k in s){if(k!=='_ts')out[k]=s[k];}}try{new URLSearchParams(location.search).forEach(function(v,k){if(v&&k!=='r')out[k]=v;});}catch(e){}var f=lpFbp();if(f)out.fbp=f;if(out.fbclid&&!out.click_ts)out.click_ts=String(Date.now());var vd=lpVid();if(vd&&!out.vid)out.vid=vd;return out;}
+  function lpCarry(a){try{var u=new URL(a.getAttribute('href')||a.href,location.origin);if(!/(^|\.)tally\.so$|^apply\.leveluplearning\.live$/.test(u.hostname))return;var p=lpParams(),ch=false;if(u.hostname==='tally.so'&&u.pathname==='/r/ZjXOxe'){u=new URL('https://apply.leveluplearning.live/communication'+u.search);ch=true;}for(var k in p){if(!u.searchParams.has(k)){u.searchParams.set(k,p[k]);ch=true;}}if(ch)a.setAttribute('href',u.toString());if(a.getAttribute('target')==='_blank')a.setAttribute('target','_self');}catch(e){}}
   function lpOnAct(e){var t=e.target;while(t&&t.nodeType===1&&t.tagName!=='A')t=t.parentNode;if(t&&t.tagName==='A')lpCarry(t);}
   ['pointerdown','touchstart','mousedown','click','auxclick'].forEach(function(ev){document.addEventListener(ev,lpOnAct,true);});
   window.__lpParams=lpParams;window.__lpCarry=lpCarry;
@@ -226,7 +228,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="nav__cta">
       <a href="#curriculum" class="btn btn--ghostlight btn--sm nav-syllabus">Syllabus</a>
-      <a href="https://tally.so/r/ZjXOxe" target="_self" rel="noopener" data-cta="nav" class="btn btn--light btn--sm nav-invite js-apply">Apply for a seat</a>
+      <a href="https://apply.leveluplearning.live/communication" target="_self" rel="noopener" data-cta="nav" class="btn btn--light btn--sm nav-invite js-apply">Apply for a seat</a>
       <button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
     </div>
   </div>
@@ -247,7 +249,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h1 class="h1--long"><span class="rl"><span>Become the leader</span></span><span class="rl"><span>people listen to.</span></span></h1>
       <p class="hero__sub rv"><b>12 live weeks</b> to speak with confidence, think clearly under pressure and lead with presence, in the meetings, reviews and presentations where careers are decided.</p>
       <div class="hero__cta rv">
-        <a href="https://tally.so/r/ZjXOxe" target="_self" rel="noopener" data-cta="hero" class="btn btn--light js-apply">Apply for a seat <em>&rarr;</em></a>
+        <a href="https://apply.leveluplearning.live/communication" target="_self" rel="noopener" data-cta="hero" class="btn btn--light js-apply">Apply for a seat <em>&rarr;</em></a>
       </div>
       <p class="hero__note rv">Fluent English not required.</p>
     </div>
@@ -319,7 +321,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <article class="feat__card feat__card--red rv"><div class="feat__img"><img src="https://cdn.leveluplearning.in/live-hub/communication/img/how-pod-v2.webp" alt="A professional presenting at work" loading="lazy"></div><span class="feat__n">03</span><h3>Your real work, not case studies</h3><p>Every assignment is something from your job: the update, the presentation, the conversation you&rsquo;ve been avoiding.</p></article>
       <article class="feat__card feat__card--yellow rv"><div class="feat__img"><img src="https://cdn.leveluplearning.in/live-hub/communication/img/how-feedback-v3.webp" alt="A professional reading written feedback at her desk" loading="lazy"></div><span class="feat__n">04</span><h3>Personal feedback, every assignment</h3><p>Plain notes on exactly what to change. In week 12, your filmed talk sits next to your week 1 video. You see the change yourself.</p></article>
     </div>
-    <div class="cohort__cta rv"><a href="https://tally.so/r/ZjXOxe" target="_self" rel="noopener" data-cta="cohort" class="btn btn--dark js-apply">Apply for a seat <em>&rarr;</em></a></div>
+    <div class="cohort__cta rv"><a href="https://apply.leveluplearning.live/communication" target="_self" rel="noopener" data-cta="cohort" class="btn btn--dark js-apply">Apply for a seat <em>&rarr;</em></a></div>
   </div>
 </section>
 
@@ -439,7 +441,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li><b>Your questions.</b> Schedule, format, fees, EMI, anything.</li>
       </ol>
       <p class="callx2__note">We keep a record of your starting point from this call, so your coaches know where you begin in week 1.</p>
-      <div class="callx2__cta"><a href="https://tally.so/r/ZjXOxe" target="_self" rel="noopener" data-cta="call" class="btn btn--light js-apply">Apply for a seat <em>&rarr;</em></a></div>
+      <div class="callx2__cta"><a href="https://apply.leveluplearning.live/communication" target="_self" rel="noopener" data-cta="call" class="btn btn--light js-apply">Apply for a seat <em>&rarr;</em></a></div>
     </div>
   </div>
 </section>
@@ -560,7 +562,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div>
         <div class="fee__price">&#8377;55,000</div>
         <p class="fee__sub">All-inclusive. Or &#8377;4,583 a month on no-cost EMI over 12 months.</p>
-        <div style="margin-top:26px"><a href="https://tally.so/r/ZjXOxe" target="_self" rel="noopener" data-cta="fee" class="btn btn--dark js-apply">Apply for a seat</a></div>
+        <div style="margin-top:26px"><a href="https://apply.leveluplearning.live/communication" target="_self" rel="noopener" data-cta="fee" class="btn btn--dark js-apply">Apply for a seat</a></div>
       </div>
       <ul class="fee__list">
         <li>Live weekend sessions for 12 weeks</li>
@@ -589,7 +591,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="applyx__card rv"><span class="applyx__pill">3 &middot; Have the call</span><h3>30 minutes on Zoom.<span>With a senior counsellor from our team.</span></h3></div>
       <div class="applyx__card rv"><span class="applyx__pill">4 &middot; Hear back from us</span><h3>A decision within 12 to 48 hours.<span>If you&rsquo;re in, we send your invite.</span></h3></div>
     </div>
-    <div class="applyx__cta rv" style="margin-top:34px;text-align:center"><a href="https://tally.so/r/ZjXOxe" target="_self" rel="noopener" data-cta="apply_section" class="btn btn--light js-apply">Start your application <em>&rarr;</em></a></div>
+    <div class="applyx__cta rv" style="margin-top:34px;text-align:center"><a href="https://apply.leveluplearning.live/communication" target="_self" rel="noopener" data-cta="apply_section" class="btn btn--light js-apply">Start your application <em>&rarr;</em></a></div>
     <p class="applyx__foot rv">Only 40 seats.</p>
   </div>
 </section>
@@ -627,7 +629,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="rl"><span>Be the one</span></span>
         <span class="rl"><span>they listen to.</span></span>
       </h2>
-      <a href="https://tally.so/r/ZjXOxe" target="_self" rel="noopener" data-cta="final" class="btn btn--light js-apply">Apply for a seat <em>&rarr;</em></a>
+      <a href="https://apply.leveluplearning.live/communication" target="_self" rel="noopener" data-cta="final" class="btn btn--light js-apply">Apply for a seat <em>&rarr;</em></a>
       <span class="final__note">Every application is read by a person.</span>
     </div>
   </div>
@@ -658,7 +660,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="stickycta" id="stickyCta">
   <div class="stickycta__in">
     <span class="stickycta__t"><i></i>Applications open &middot; 40 seats</span>
-    <a href="https://tally.so/r/ZjXOxe" target="_self" rel="noopener" data-cta="sticky" class="stickycta__btn js-apply">Apply for a seat</a>
+    <a href="https://apply.leveluplearning.live/communication" target="_self" rel="noopener" data-cta="sticky" class="stickycta__btn js-apply">Apply for a seat</a>
   </div>
 </div>
 
