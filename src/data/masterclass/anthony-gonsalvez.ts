@@ -36,7 +36,7 @@ const data: MasterclassPageData = {
     "In his first-ever online editing class, the Award winning Film Editor teaches his approach, in an all out practical experience. Watch him edit an entire short film right in front of you as he explains the complexities and the basics. Most importantly, his tips, tricks and techniques on how to edit like a pro.",
   courseDetails: {
     chapters: 19,
-    duration: "4h 2m",
+    duration: "3h 3m",
     level: "All Levels",
     language: "English",
     access: "Lifetime Access",
@@ -122,7 +122,7 @@ const data: MasterclassPageData = {
   ],
   benefits: [
     { title: "PDF workbook for every class" },
-    { title: "4+ hours of course content" },
+    { title: "3h 3m of course content" },
     { title: "Exclusive workshops and events" },
     { title: "Signed certificate from the Instructor" },
   ],
@@ -149,7 +149,7 @@ const data: MasterclassPageData = {
     { question: "Will Anthony Gonsalvez be teaching the Class?", answer: "Yes, Anthony Gonsalvez will be teaching all the lessons in the Class. However, the lessons will be recorded & will not have or involve any live sessions/interactions." },
     { question: "Which Language is the course in?", answer: "This course is in English with English Subtitles." },
     { question: "Are there any recurring costs that I need to pay to access the videos?", answer: "There are no recurring costs or any additional charge that you need to pay after purchasing the Learning experience." },
-    { question: "How long is the Class?", answer: "The Class is approximately 240 minutes long and is divided into 19 Video Lessons." },
+    { question: "How long is the Class?", answer: "The Class is approximately 183 minutes long and is divided into 19 Video Lessons." },
     { question: "When do I get to download the customised signed certificate?", answer: "You get to access the certificate once you complete watching all the lessons in the course." },
     { question: "Where can I watch these classes?", answer: "You can access LevelUp Learning across various devices - Mobiles, Tablets, Desktops or Laptops. You can access classes on mobile by downloading the LevelUp Learning App for Android and iOS devices." },
   ],
