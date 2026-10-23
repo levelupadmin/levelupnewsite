@@ -75,7 +75,7 @@ const forgeCards = [
   "A 6-day scenic retreat where writers unplug, immerse deeply, and learn from bestselling storytellers.",
   image: forgeWriting,
   cta: "https://creators.forgebylevelup.com/writing",
-  locations: ["30 Oct – 4 Nov 2026"],
+  locations: ["30 Oct – 4 Nov", "29 Nov – 4 Dec 2026"],
 },
 {
   title: "Filmmaking Bootcamp",
@@ -88,10 +88,10 @@ const forgeCards = [
 {
   title: "Creator Residency",
   subtitle:
-  "An invite-only residency where founders build personal brands through daily content and creator mentorship.",
+  "An invite-only 12-day residency where founders build personal brands through daily content and creator mentorship.",
   image: forgeCreators,
   cta: "https://creators.forgebylevelup.com/",
-  locations: ["Goa, 24–30 Oct 2026"],
+  locations: ["Goa · 24–30 Oct", "16–22 Jan 2027"],
 }];
 
 

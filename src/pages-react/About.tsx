@@ -16,7 +16,7 @@ import usePageSeo from "@/hooks/usePageSeo";
 const About = () => {
   usePageSeo({
     title: "About LevelUp Learning — India's Creative Education Ecosystem",
-    description: "LevelUp Learning is India's largest creative education platform. Learn filmmaking, editing, writing & design from 40+ industry mentors. 18,000+ creators trained.",
+    description: "LevelUp Learning is India's largest creative education platform. Learn filmmaking, editing, writing & design from 40+ industry mentors. 75,000+ learners.",
     path: "/about",
   });
 

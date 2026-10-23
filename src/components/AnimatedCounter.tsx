@@ -159,7 +159,7 @@ export const AnimatedCounter = ({
     >
       {/* One expression, so React emits a single text node. Rendered as two
           children it would separate them with a <!-- --> marker and naive
-          text extractors read "67,746 +" instead of "67,746+". */}
+          text extractors read "75,000 +" instead of "75,000+". */}
       {formatNumber(value, hasComma, decimals) + suffix}
     </span>
   );
