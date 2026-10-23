@@ -4,12 +4,12 @@ description: "FTII, Whistling Woods, SRFTI, online diplomas and short retreats c
 type: "decision"
 category: "screenwriting"
 publishDate: 2026-09-22
-updatedDate: 2026-09-22
+updatedDate: 2026-10-23
 targetQuery: "screenwriting course india"
 programme: "forge-writing"
 featured: true
 draft: true
-answer: "The best screenwriting courses in India in 2026 split by how much time you can give. FTII Pune's two-year MFA in Screenwriting costs about ₹1.9 lakh in tuition, takes 16 students a year, and needs a degree and an entrance test. Whistling Woods in Mumbai charges ₹5.5 lakh for a one-year diploma and ₹8.5 lakh for the two-year MA, plus GST. If you have a job, FTII's own ten-weekend online foundation course is ₹20,000, and a short residential retreat like LevelUp's Forge Writing runs six days at ₹75,000 to ₹95,000."
+answer: "The best screenwriting courses in India in 2026 split by how much time you can give. FTII Pune's two-year MFA in Screenwriting costs about ₹1.9 lakh in tuition, takes 16 students a year, and needs a degree and an entrance test. Whistling Woods in Mumbai charges ₹5.5 lakh for a one-year diploma and ₹8.5 lakh for the two-year MA, plus GST. If you have a job, FTII's own ten-weekend online foundation course is ₹20,000, and a short residential retreat like LevelUp's Forge Writing runs six days, with a fee that depends on the edition: ₹90,000 to ₹1,10,000 for the October 2026 runs."
 sources:
   - label: "FTII admission prospectus, FTII-ET 2025-26 (fees, seats, eligibility)"
     url: "https://ftii.ac.in/api/serve/2026/04/09/Admission_Prospectus_FTII-ET-2025-26_1775711367_d6832d9b.pdf"
@@ -57,8 +57,10 @@ sources:
      say so in the text. Worth a call to their admissions office.
   3. SRFTI lists "12" seats, and its two pages do not make clear whether that
      is per specialisation or for the whole MFA. Stated as 12 with that caveat.
-  4. Forge Writing lists two fees, ₹75,000 for the first edition and ₹95,000
-     for the second, and no venue. Confirm which applies to the October run.
+  4. Rahul, 23 Oct: Writing fees differ by edition, season and country on
+     purpose; cohorts are 20 to 32. This page now quotes the two October
+     2026 editions with their own fees. Recheck the dates before publishing:
+     the 18 to 23 October run has ended.
   5. FTII figures come from the prospectus labelled 2025-26 whose calendar is
      2026. The 2026-27 prospectus, when it appears, may move the numbers.
 -->
@@ -80,7 +82,7 @@ We run two of the programmes on this list. They are included on the same terms a
 | **Mindscreen**, Screenwriting Certificate | ₹65,000 plus GST | 6 months, online weekends | 18+ | Limited | Tamil industry contacts, part-time |
 | **AAFT Online**, Diploma in Screenwriting | ₹75,000 | 6 months, online | Not stated | Not stated | A recorded-plus-live course on a fixed schedule |
 | **LevelUp**, Screenwriting and Storytelling Program | Not listed | 8 weeks, live Sundays | None, selective | Not listed | Working people who want weekly feedback |
-| **Forge Writing** (LevelUp) | ₹75,000 to ₹95,000 | 6 days, residential | None | 20 | Finishing a draft with mentors in the room |
+| **Forge Writing** (LevelUp) | Varies by edition; ₹90,000 to ₹1,10,000 in Oct 2026 | 6 days, residential | None | 20 to 32 | Finishing a draft with mentors in the room |
 
 Fees are as stated on each institute's own page or prospectus, checked 19 September 2026. FTII and SRFTI charge hostel rent and refundable deposits on top of tuition; Whistling Woods adds 18% GST and a security deposit. Verify against the current prospectus before you apply, because every one of these institutes revises fees between cycles.
 
@@ -140,7 +142,7 @@ The category we are in.
 
 LevelUp's Screenwriting and Storytelling Program runs eight weeks of live sessions every Sunday, with recordings kept for life. There is no eligibility requirement, though the page says it accepts a small share of applicants. The fee is not listed on the page; you apply and are told. That is a weakness of our own page, and we say so here rather than pretend otherwise.
 
-The Forge Writing retreat is six days in one place with 20 writers and two or three mentors. The page lists ₹75,000 for its first edition and ₹95,000 for the second, and the next run is 3 to 8 October 2026. The point of it is the draft you leave with, not a certificate.
+The Forge Writing retreat is six days in one place with 20 to 32 writers and two or three mentors. The fee changes with the edition, the season and the country: the page lists ₹1,10,000 for 18 to 23 October 2026 and ₹90,000 for 30 October to 4 November 2026. The point of it is the draft you leave with, not a certificate.
 
 **Pick a short programme if** you have a job, you have been writing on your own, and what you lack is feedback and a deadline.
 

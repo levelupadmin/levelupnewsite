@@ -22,7 +22,7 @@ const Index = () => {
   useSectionViewTracking();
   usePageSeo({
     title: "LevelUp Learning — Online Filmmaking & Creative Courses India",
-    description: "Learn filmmaking, screenwriting, editing & design from India's top directors. Masterclasses by Lokesh Kanagaraj & Nelson DilipKumar. Join 18,000+ creators.",
+    description: "Learn filmmaking, screenwriting, editing & design from India's top directors. Masterclasses by Lokesh Kanagaraj & Nelson DilipKumar. Join 75,000+ creators.",
     path: "/",
   });
 

@@ -6,7 +6,7 @@ import levelupLogo from "@/assets/levelup-logo.svg";
 
 const footerLinks = {
   Learn: [
-    { label: "Masterclasses", href: "/#masterclasses" },
+    { label: "Masterclasses", href: "/masterclass" },
     { label: "LevelUp Live", href: "/#live-programs" },
     { label: "The Forge", href: "/#forge" },
     { label: "Reviews", href: "/reviews" },

@@ -4,12 +4,12 @@ description: "An honest comparison of FTII, Whistling Woods, regional film schoo
 type: "decision"
 category: "filmmaking"
 publishDate: 2026-09-01
-updatedDate: 2026-09-01
+updatedDate: 2026-10-23
 targetQuery: "best filmmaking course in india"
 programme: "forge-filmmaking"
 featured: true
 draft: false
-answer: "The strongest filmmaking options in India in 2026 fall into three groups. FTII Pune is the best value for a full-time qualification, at roughly ₹1.58L to ₹2.99L, but it takes one to three years and admits around 40 students a year nationally. Whistling Woods International offers the deepest industry network in Mumbai, at ₹22L to ₹28.5L across two to three years. Short residential intensives like LevelUp's Forge Filmmaking, at ₹85,000 to ₹95,000, suit working professionals who cannot leave a job. The right answer depends almost entirely on whether you can stop earning for a year or more."
+answer: "The strongest filmmaking options in India in 2026 fall into three groups. FTII Pune is the best value for a full-time qualification, at roughly ₹1.58L to ₹2.99L, but it takes one to three years and admits around 40 students a year nationally. Whistling Woods International offers the deepest industry network in Mumbai, at ₹22L to ₹28.5L across two to three years. Short intensives like LevelUp's 15-day Forge Filmmaking, at roughly ₹85,000 to ₹1,05,000, suit working professionals who cannot leave a job. The right answer depends almost entirely on whether you can stop earning for a year or more."
 sources:
   - label: "FTII Pune courses and fees, Collegedunia"
     url: "https://collegedunia.com/college/5483-film-and-television-institute-of-india-ftii-pune/courses-fees"
@@ -31,7 +31,7 @@ We run one of the programmes on this list. It is included on the same terms as e
 | **FTII Pune**, PG Diploma | ₹2.99 L | 2 years | Graduation | ~40 across specialisations | Direction and screenwriting, or cinematography, taught deeply |
 | **Whistling Woods**, BFA Filmmaking | ₹28.5 L | 3 years | 10+2 | 200 | School leavers who want the Mumbai industry network |
 | **Whistling Woods**, MFA Filmmaking | ₹22 L – ₹27.5 L | 2 years | Graduation | 15 per specialisation | Specialising after a first degree |
-| **Forge Filmmaking** (LevelUp) | ₹85 K – ₹95 K | Short residential | None | Capped per edition | Working professionals who cannot stop earning |
+| **Forge Filmmaking** (LevelUp) | ₹85 K – ₹1.05 L | 15 days, online then in person | None | 20 to 32 | Working professionals who cannot stop earning |
 | **Regional film schools** | Varies widely | 1–3 years | Varies | Varies | Lower cost, entry into a regional industry |
 
 Fees for FTII and Whistling Woods are as listed on Collegedunia and CollegeDekho respectively, checked 25 August 2026. Verify against the current prospectus before you apply, because institutes revise fees between admission cycles.
@@ -56,7 +56,7 @@ The most expensive option here and the most industry-connected. A three-year BFA
 
 ## Short residential intensives
 
-A newer category, and the one we are in. Forge Filmmaking costs ₹85,000 to ₹95,000, runs as a short residential intensive, and has no eligibility requirement. Its whole design assumption is that you have a job you cannot leave.
+A newer category, and the one we are in. Forge Filmmaking costs roughly ₹85,000 to ₹1,05,000 depending on the edition and season. It runs for 15 days, starting online and finishing in person, takes 20 to 32 people per edition, and has no eligibility requirement. Its whole design assumption is that you have a job you cannot leave.
 
 **Pick a short intensive if** you are working, you want to find out whether you can actually do this before restructuring your life around it, and you learn better by making something than by studying it for two years.
 
