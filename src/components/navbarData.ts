@@ -135,13 +135,13 @@ export const navLinks: NavLink[] = [
       {
         image: navForgeFilmmaking,
         title: "Filmmaking Residency",
-        subtitle: "15 days · 24 filmmakers · 24 short films",
+        subtitle: "15 days · 20 to 32 filmmakers",
         href: "https://creators.forgebylevelup.com/filmmaking",
       },
       {
         image: navForgeWriting,
         title: "Writing Retreat",
-        subtitle: "20 writers · 6 days · 1 beautiful location",
+        subtitle: "6 days · 20 to 32 writers",
         href: "https://creators.forgebylevelup.com/writing",
       },
       {

@@ -75,7 +75,7 @@ const forgeCards = [
   "A 6-day scenic retreat where writers unplug, immerse deeply, and learn from bestselling storytellers.",
   image: forgeWriting,
   cta: "https://creators.forgebylevelup.com/writing",
-  locations: ["18–23 Oct", "30 Oct – 4 Nov 2026"],
+  locations: ["30 Oct – 4 Nov 2026"],
 },
 {
   title: "Filmmaking Bootcamp",
