@@ -4,7 +4,7 @@ description: "ISB, the IIMs, Toastmasters, Coursera and live cohorts compared on
 type: "decision"
 category: "communication"
 publishDate: 2026-09-25
-updatedDate: 2026-09-25
+updatedDate: 2026-10-18
 targetQuery: "executive presence course india"
 programme: "executive-presence"
 featured: true
@@ -121,7 +121,7 @@ Coursera Plus is ₹2,099 a month, or ₹7,499 a year on the promotion running w
 
 ## Live cohorts with practice groups
 
-The category we are in. LevelUp's Executive Presence Cohort is twelve weeks at ₹55,000, all-inclusive, with no-cost EMI. Live sessions with specialists run on Saturday and Sunday, and twice a week, Tuesday and Thursday, you meet for 45 minutes with a practice group of four. The page says to budget about five hours a week around a full-time job. Forty seats, ten groups of four, a certificate on finishing all twelve weeks. It is aimed at senior specialists, team leads, founders and leaders in global teams with around five years' experience and real rooms to practise on. The next cohort starts 24 October 2026. Our page does not say whether ₹55,000 includes GST; it should, and we will fix that.
+The category we are in. LevelUp's Executive Presence Cohort is twelve weeks at ₹55,000, all-inclusive, with no-cost EMI. Live sessions with specialists run on Saturday and Sunday, and twice a week, Tuesday and Thursday, you meet for 45 minutes with a practice group of four. The page says to budget about five hours a week around a full-time job. Forty seats, ten groups of four, a certificate on finishing all twelve weeks. It is aimed at senior specialists, team leads, founders and leaders in global teams with around five years' experience and real rooms to practise on. The next cohort starts 12 December 2026. Our page does not say whether ₹55,000 includes GST; it should, and we will fix that.
 
 Dale Carnegie India runs the well-known Dale Carnegie Course and High Impact Presentations, live online and in person, but publishes no fee that we could find, so it is not in the table.
 

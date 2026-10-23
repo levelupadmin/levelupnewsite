@@ -390,19 +390,52 @@
   }
 
   /* ──────────────── Cohort preview: thumbnail → YouTube on tap ────────────────
-     The player is only created on click, so the page pays nothing for
-     YouTube until someone asks for the video. */
+     Nothing from YouTube loads until someone taps. iOS Safari and Android
+     Chrome ignore autoplay on an iframe added after a tap, which left a black
+     box on phones. So the player is built with YouTube's IFrame API and told
+     to play once ready; if the API can't load, a plain embed goes in instead. */
   var trailerBtn = document.querySelector('.trailer__btn');
+  var ytWait = null;
+  function loadYTApi(cb) {
+    if (window.YT && window.YT.Player) { cb(true); return; }
+    if (ytWait) { ytWait.push(cb); return; }
+    ytWait = [cb];
+    function done(ok) { var c = ytWait || []; ytWait = []; c.forEach(function (f) { f(ok); }); }
+    var prev = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = function () { if (prev) { try { prev(); } catch (e) {} } done(true); };
+    var s = document.createElement('script');
+    s.src = 'https://www.youtube.com/iframe_api';
+    s.async = true;
+    s.onerror = function () { done(false); };
+    document.head.appendChild(s);
+    setTimeout(function () { if (!(window.YT && window.YT.Player)) done(false); }, 6000);
+  }
   function playPreview(source) {
     if (!trailerBtn || !trailerBtn.parentNode) return;
-    var f = document.createElement('iframe');
-    f.src = 'https://www.youtube-nocookie.com/embed/' + trailerBtn.dataset.yt +
-      // Captions are burned into the video, so keep YouTube's own off.
-      '?autoplay=1&rel=0&modestbranding=1&playsinline=1&cc_load_policy=0&iv_load_policy=3';
-    f.title = 'Executive Presence cohort preview';
-    f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
-    f.allowFullscreen = true;
-    trailerBtn.parentNode.replaceChild(f, trailerBtn);
+    var box = trailerBtn.parentNode, id = trailerBtn.dataset.yt;
+    var holder = document.createElement('div');
+    holder.className = 'trailer__player';
+    box.replaceChild(holder, trailerBtn);
+    box.classList.add('is-playing');
+    // Captions are burned into the video, so keep YouTube's own off.
+    var vars = { autoplay: 1, playsinline: 1, rel: 0, modestbranding: 1, cc_load_policy: 0, iv_load_policy: 3 };
+    loadYTApi(function (ok) {
+      if (!holder.parentNode) return;
+      if (ok) {
+        new window.YT.Player(holder, {
+          videoId: id, width: '100%', height: '100%', playerVars: vars,
+          events: { onReady: function (e) { try { e.target.playVideo(); } catch (err) {} } }
+        });
+      } else {
+        var f = document.createElement('iframe');
+        f.src = 'https://www.youtube.com/embed/' + id + '?' +
+          Object.keys(vars).map(function (k) { return k + '=' + vars[k]; }).join('&');
+        f.title = 'Executive Presence cohort preview';
+        f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+        f.allowFullscreen = true;
+        holder.parentNode.replaceChild(f, holder);
+      }
+    });
     try {
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({ event: 'preview_play', programme: 'executive-presence', source: source });
