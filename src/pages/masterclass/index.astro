@@ -11,6 +11,7 @@ import {
   lowestPrice,
   type Craft,
 } from "@/data/masterclassIndex";
+import { OFFERINGS, formatRuntime } from "@/data/masterclass/shared";
 import { breadcrumbJsonLd, faqJsonLd, ORGANIZATION_ID } from "@/lib/structuredData";
 import { SITE_URL } from "@/lib/constants";
 
@@ -42,7 +43,7 @@ const faqs = [
   },
   {
     question: "Which masterclass should I start with?",
-    answer: "Start with the craft you want to work in. For directing, Lokesh Kanagaraj's class is the shortest, at 1h 34m, and Karthik Subbaraj's is the longest, at 3h 4m. Anthony Gonsalvez teaches editing, Ravi Basrur film scoring, DRK Kiran art direction and G Venket Ram photography.",
+    answer: `Start with the craft you want to work in. For directing, Lokesh Kanagaraj's class is the shortest, at ${formatRuntime(OFFERINGS["lokesh-kanagaraj"].runtimeMinutes)}, and Karthik Subbaraj's is the longest, at ${formatRuntime(OFFERINGS["karthik-subbaraj"].runtimeMinutes)}. Anthony Gonsalvez teaches editing, Ravi Basrur film scoring, DRK Kiran art direction and G Venket Ram photography.`,
   },
   {
     question: "What language are the masterclasses in?",
@@ -187,9 +188,7 @@ const jsonLd = [
                   <p class="summary">{m.summary}</p>
                   <p class="credits"><span>{m.creditsLabel}</span> {m.credits.join(" · ")}</p>
                   <dl class="slate">
-                    {m.lessons !== null && (
-                      <div><dt>Lessons</dt><dd>{m.lessons}</dd></div>
-                    )}
+                    <div><dt>Lessons</dt><dd>{m.lessons}</dd></div>
                     <div><dt>Runtime</dt><dd>{m.runtime}</dd></div>
                     <div class="lang"><dt>Language</dt><dd>{m.language}</dd></div>
                   </dl>
@@ -223,7 +222,7 @@ const jsonLd = [
                 <tr>
                   <th scope="row"><a href={`/masterclass/${m.slug}`}>{m.name}</a></th>
                   <td>{CRAFT_LABEL[m.craft]}</td>
-                  <td class="num">{m.lessons ?? "See class page"}</td>
+                  <td class="num">{m.lessons}</td>
                   <td class="num">{m.runtime}</td>
                   <td>{m.language}</td>
                   <td class="num">{formatRupees(m.price)}</td>

@@ -44,12 +44,16 @@ async function loadTs(file) {
 }
 
 async function main() {
-  const [storiesMod, ag, dk, gvr] = await Promise.all([
+  const [storiesMod, ag, dk, gvr, shared] = await Promise.all([
     loadTs("src/data/studentStories.ts"),
     loadTs("src/data/masterclass/anthony-gonsalvez.ts"),
     loadTs("src/data/masterclass/drk-kiran.ts"),
     loadTs("src/data/masterclass/g-venket-ram.ts"),
+    loadTs("src/data/masterclass/shared.ts"),
   ]);
+  // Lessons, runtime and price for every masterclass come from the same
+  // OFFERINGS the pages read, so llms.txt cannot drift from them.
+  const OFF = shared.OFFERINGS;
 
   const stories = storiesMod.studentStories;
   const masterclasses = [ag.default, dk.default, gvr.default];
@@ -75,9 +79,6 @@ async function main() {
       seoDescription: "Learn filmmaking with award-winning director Karthik Subbaraj, behind Jigarthanda, Petta, Pizza, Mahaan and Jagame Thandhiram. 24 video lessons. Tamil with English subtitles. Signed Certificate. ₹2,499 lifetime access.",
       audience: "Dialogue writers, screenplay writers, filmmakers, film enthusiasts, aspiring directors, cinema aspirants.",
       films: ["Pizza", "Jigarthanda", "Iraivi", "Petta", "Jagame Thandhiram", "Mahaan"],
-      lessons: 24,
-      durationMin: 184,
-      price: 2499,
     },
     {
       slug: "lokesh-kanagaraj",
@@ -86,9 +87,6 @@ async function main() {
       seoDescription: "Master the craft of filmmaking with Lokesh Kanagaraj — director of Kaithi, Master, Vikram, and Leo. 15 cinematic lessons. Tamil with English subtitles. Signed Certificate. ₹1,499.",
       audience: "Aspiring filmmakers, dialogue writers, story architects, visionary directors, future directors, cinema lovers, film dreamers.",
       films: ["Kaithi", "Master", "Vikram", "Leo", "Maanagaram"],
-      lessons: 15,
-      durationMin: 94,
-      price: 1499,
     },
     {
       slug: "nelson-dilipkumar",
@@ -97,22 +95,21 @@ async function main() {
       seoDescription: "Master storytelling and direction with Nelson Dilipkumar — director of Kolamaavu Kokila, Doctor, Beast, Jailer. 29 video lessons. Tamil with English subtitles. Signed Certificate. ₹2,499.",
       audience: "Filmmakers, screenwriters, assistant directors, mass-comm students, story-driven creators who admire Nelson's tone-balancing approach.",
       films: ["Kolamaavu Kokila", "Doctor", "Beast", "Jailer"],
-      lessons: 29,
-      durationMin: 140,
-      price: 2499,
     },
     {
       slug: "ravi-basrur",
       name: "Ravi Basrur",
       discipline: "Music Composition",
-      seoDescription: "Learn film scoring with Ravi Basrur, music director of KGF, Mufti, Ugramm, Salaar. 16 video lessons. In Kannada with English subtitles. Signed Certificate. ₹2,499 lifetime access.",
+      seoDescription: `Learn film scoring with Ravi Basrur, music director of KGF, Mufti, Ugramm, Salaar. ${OFF["ravi-basrur"].lessons} video lessons. In Kannada with English subtitles. Signed Certificate. ₹2,499 lifetime access.`,
       audience: "Aspiring composers, intermediate musicians, sound designers, music directors, film-music enthusiasts.",
       films: ["KGF Chapter 1", "KGF Chapter 2", "Mufti", "Ugramm", "Salaar"],
-      lessons: 16,
-      durationMin: 310,
-      price: 2499,
     },
-  ];
+  ].map((m) => ({
+    ...m,
+    lessons: OFF[m.slug].lessons,
+    durationMin: OFF[m.slug].runtimeMinutes,
+    price: OFF[m.slug].price,
+  }));
 
   const llmsTxt = `# LevelUp Learning
 
