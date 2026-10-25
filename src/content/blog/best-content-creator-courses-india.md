@@ -4,7 +4,7 @@ description: "Creator courses in India compared on real 2026 fees: free platform
 type: "decision"
 category: "creator"
 publishDate: 2026-09-24
-updatedDate: 2026-09-24
+updatedDate: 2026-10-23
 targetQuery: "content creation course india"
 programme: "forge-creators"
 featured: true
@@ -58,10 +58,8 @@ sources:
   1. Our Creator Academy page publishes no next cohort date, no batch size
      and no refund text (the FAQ question is there, the answer is not in the
      page). The table says "not listed" where it must.
-  2. The Forge Creators page says "7-day offline residency" in one place and
-     "12-day hybrid residency" in another, and lists two fees (Goa ₹85,000,
-     Sri Lanka ₹1,30,000) with two October dates. This page says "6 to 12
-     days" and gives both fees. Fix the Forge page.
+  2. Rahul, 23 Oct: the Creator Residency is 12 days (online and in
+     person), ₹85,000, 24 creators. No edition dates on the blog.
   3. No Indian university publishes a creator course with a fee on its own
      site. Whistling Woods' "YouTube Educator Lab" exists only in third-party
      snippets, so it is left out. IICS lists a 3-year degree with no tuition.
@@ -94,7 +92,7 @@ We run two of the programmes on this list. They are included on the same terms a
 | **SourceKode**, Content Creator Program | ₹15,000, labelled introductory | 14 weeks | Live online | Batches of 25, personal mentor | A cheap live cohort with a refund window |
 | **Morph Academy**, Digital Content Creation | ₹45,000 | 3 months | Hybrid, Chandigarh | Not stated | A physical classroom in the north |
 | **LevelUp Creator Academy** | ₹45,000 | 12 weeks | Live weekends | Every post mentor-reviewed before it goes out | Founders and professionals building a brand around a job |
-| **Forge Creator Bootcamp** (LevelUp) | ₹85,000 Goa; ₹1.3 L Sri Lanka | 6 to 12 days | Residential | 24 creators, mentors on site | Making a body of content in one intense week |
+| **Forge Creator Bootcamp** (LevelUp) | ₹85,000 | 12 days, online and in person | Residential | 24 creators, mentors on site | Making a body of content in one intense week |
 
 Fees are as stated on each provider's own page, checked 19 September 2026. Several show a strike-through price and call the lower one introductory; the introductory figure is what is listed here. Verify on the day you pay.
 
@@ -130,7 +128,7 @@ LevelUp's Creator Academy is twelve weeks of live weekend classes at ₹45,000, 
 
 ## Residencies
 
-The Forge Creator Bootcamp is the in-person version: 24 creators, mentors on site, and a body of content made in one place over a week or so. The page lists ₹85,000 for the Goa edition and ₹1,30,000 for Sri Lanka, with runs in October 2026 in both. The page describes the format as both seven days offline and twelve days hybrid, which we need to fix; treat it as one intense week plus follow-up.
+The Forge Creator Bootcamp is the in-person version: 24 creators, mentors on site, and a body of content made in one place. It runs 12 days, part online and part in person, for ₹85,000.
 
 **Pick a residency if** you can take a week off, you learn by doing rather than by watching, and you want thirty pieces of content made under supervision rather than one lecture about how to make them.
 

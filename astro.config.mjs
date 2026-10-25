@@ -13,6 +13,18 @@ export default defineConfig({
     // /privacy is an alias some external references (incl. Play Console history)
     // expect; the canonical policy lives at /privacy-policy.
     '/privacy': '/privacy-policy',
+    // Old masterclass URLs that Meta ads and the Framer site linked to.
+    '/anthony': '/masterclass/anthony-gonsalvez',
+    '/g-venket-ram-1': '/masterclass/g-venket-ram',
+    '/karthik-subbaraj': '/masterclass/karthik-subbaraj',
+    '/lokesh-kanagaraj': '/masterclass/lokesh-kanagaraj',
+    '/nelson-dilipkumar': '/masterclass/nelson-dilipkumar',
+    '/ravi-basrur': '/masterclass/ravi-basrur',
+    '/drk-kiran': '/masterclass/drk-kiran',
+    // Live programmes live on leveluplearning.live; these paths 404'd here.
+    '/bfp-2': 'https://www.leveluplearning.live/bfp-2',
+    '/ve': 'https://www.leveluplearning.live/ve',
+    '/creator-academy': 'https://www.leveluplearning.live/creator-academy',
     // Student stories that have moved to /blog. Derived from the collection, so
     // the 301 appears the moment a story publishes and never before. The same
     // pairing drops the old page from getStaticPaths, so the two URLs are never

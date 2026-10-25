@@ -4,12 +4,12 @@ description: "FTII, Whistling Woods, SRFTI, online diplomas and short retreats c
 type: "decision"
 category: "screenwriting"
 publishDate: 2026-09-22
-updatedDate: 2026-09-22
+updatedDate: 2026-10-23
 targetQuery: "screenwriting course india"
 programme: "forge-writing"
 featured: true
 draft: true
-answer: "The best screenwriting courses in India in 2026 split by how much time you can give. FTII Pune's two-year MFA in Screenwriting costs about ₹1.9 lakh in tuition, takes 16 students a year, and needs a degree and an entrance test. Whistling Woods in Mumbai charges ₹5.5 lakh for a one-year diploma and ₹8.5 lakh for the two-year MA, plus GST. If you have a job, FTII's own ten-weekend online foundation course is ₹20,000, and a short residential retreat like LevelUp's Forge Writing runs six days at ₹75,000 to ₹95,000."
+answer: "The best screenwriting courses in India in 2026 split by how much time you can give. FTII Pune's two-year MFA in Screenwriting costs about ₹1.9 lakh in tuition, takes 16 students a year, and needs a degree and an entrance test. Whistling Woods in Mumbai charges ₹5.5 lakh for a one-year diploma and ₹8.5 lakh for the two-year MA, plus GST. If you have a job, FTII's own ten-weekend online foundation course is ₹20,000, and a short residential retreat like LevelUp's Forge Writing runs six days, with a fee that depends on the edition."
 sources:
   - label: "FTII admission prospectus, FTII-ET 2025-26 (fees, seats, eligibility)"
     url: "https://ftii.ac.in/api/serve/2026/04/09/Admission_Prospectus_FTII-ET-2025-26_1775711367_d6832d9b.pdf"
@@ -57,8 +57,8 @@ sources:
      say so in the text. Worth a call to their admissions office.
   3. SRFTI lists "12" seats, and its two pages do not make clear whether that
      is per specialisation or for the whole MFA. Stated as 12 with that caveat.
-  4. Forge Writing lists two fees, ₹75,000 for the first edition and ₹95,000
-     for the second, and no venue. Confirm which applies to the October run.
+  4. Rahul, 23 Oct: Writing fees differ by edition, season and country on
+     purpose, so this page states no single fee and no edition dates.
   5. FTII figures come from the prospectus labelled 2025-26 whose calendar is
      2026. The 2026-27 prospectus, when it appears, may move the numbers.
 -->
@@ -80,7 +80,7 @@ We run two of the programmes on this list. They are included on the same terms a
 | **Mindscreen**, Screenwriting Certificate | ₹65,000 plus GST | 6 months, online weekends | 18+ | Limited | Tamil industry contacts, part-time |
 | **AAFT Online**, Diploma in Screenwriting | ₹75,000 | 6 months, online | Not stated | Not stated | A recorded-plus-live course on a fixed schedule |
 | **LevelUp**, Screenwriting and Storytelling Program | Not listed | 8 weeks, live Sundays | None, selective | Not listed | Working people who want weekly feedback |
-| **Forge Writing** (LevelUp) | ₹75,000 to ₹95,000 | 6 days, residential | None | 20 | Finishing a draft with mentors in the room |
+| **Forge Writing** (LevelUp) | Varies by edition | 6 days, residential | None | About 20 | Finishing a draft with mentors in the room |
 
 Fees are as stated on each institute's own page or prospectus, checked 19 September 2026. FTII and SRFTI charge hostel rent and refundable deposits on top of tuition; Whistling Woods adds 18% GST and a security deposit. Verify against the current prospectus before you apply, because every one of these institutes revises fees between cycles.
 
@@ -92,7 +92,7 @@ FTII runs two long courses that teach screenwriting. The two-year MFA in Cinema 
 
 The three-year MFA in Direction and Screenplay Writing takes 11 students and costs about ₹2.81 lakh in tuition over six semesters. Both need a bachelor's degree in any discipline and the two-stage FTII entrance test: a written paper, then an assessment at the institute in Pune. The 2026 window has closed. Classes begin around September.
 
-FTII also runs a very different thing: a Foundation Course in Screenplay Writing from its writers' academy, online, on ten weekends, for ₹20,000. It takes 24 people, needs only a 10th pass and an age of 15 or more, and admits on a first-come basis. The next batch runs 24 October 2026 to 3 January 2027, Saturdays and Sundays. The fee is non-refundable. A sibling Basic Course in the Art of Screenwriting runs on the same pattern for ₹22,000.
+FTII also runs a very different thing: a Foundation Course in Screenplay Writing from its writers' academy, online, on ten weekends, for ₹20,000. It takes 24 people, needs only a 10th pass and an age of 15 or more, and admits on a first-come basis. Batches run on Saturdays and Sundays. The fee is non-refundable. A sibling Basic Course in the Art of Screenwriting runs on the same pattern for ₹22,000.
 
 **Pick the FTII MFA if** you can commit two or three years full-time, you can clear a competitive entrance, and a recognised qualification matters to you.
 
@@ -104,7 +104,7 @@ FTII also runs a very different thing: a Foundation Course in Screenplay Writing
 
 The most expensive option here and the most connected to Mumbai.
 
-The one-year Diploma in Screenwriting is ₹5.5 lakh including a ₹50,000 security deposit, with 18% GST on top. It takes 30 students, needs only a 10+2, and prefers graduates and working professionals. Admission is through Whistling Woods' own entrance test, a creative test, a statement of purpose and an interview. The 2027 intake's entrance exam is on 8 December 2026. The page's own instalment schedule adds up to ₹6 lakh rather than ₹5.5 lakh, so ask admissions which figure you will pay.
+The one-year Diploma in Screenwriting is ₹5.5 lakh including a ₹50,000 security deposit, with 18% GST on top. It takes 30 students, needs only a 10+2, and prefers graduates and working professionals. Admission is through Whistling Woods' own entrance test, a creative test, a statement of purpose and an interview. The page's own instalment schedule adds up to ₹6 lakh rather than ₹5.5 lakh, so ask admissions which figure you will pay.
 
 The two-year MA in Screenwriting is ₹8.5 lakh, or ₹9.5 lakh with the security deposit, plus GST. It needs a degree and takes 30.
 
@@ -128,7 +128,7 @@ Two Indian options publish a fee and a schedule.
 
 Mindscreen Film Institute in Chennai runs a six-month screenwriting certificate online, on weekends over Zoom, for ₹65,000 plus GST with a ₹1,000 registration fee. Applicants need to be 18 or over and write a one-page story idea and a statement of purpose. Its faculty and contacts are in the Tamil industry, which is the reason to choose it.
 
-AAFT Online runs a six-month Diploma in Screenwriting for ₹75,000, with live classes and recordings available for a year. The next batch starts on 10 October 2026, and the application deadline is 20 September, so check whether you have missed it.
+AAFT Online runs a six-month Diploma in Screenwriting for ₹75,000, with live classes and recordings available for a year.
 
 **Pick an online diploma if** you need structure and a deadline more than you need a room, and you cannot travel.
 
@@ -140,7 +140,7 @@ The category we are in.
 
 LevelUp's Screenwriting and Storytelling Program runs eight weeks of live sessions every Sunday, with recordings kept for life. There is no eligibility requirement, though the page says it accepts a small share of applicants. The fee is not listed on the page; you apply and are told. That is a weakness of our own page, and we say so here rather than pretend otherwise.
 
-The Forge Writing retreat is six days in one place with 20 writers and two or three mentors. The page lists ₹75,000 for its first edition and ₹95,000 for the second, and the next run is 3 to 8 October 2026. The point of it is the draft you leave with, not a certificate.
+The Forge Writing retreat is six days in one place with about 20 writers and two or three mentors. The fee changes with the edition, the season and the country, so check the current edition on the Forge page. The point of it is the draft you leave with, not a certificate.
 
 **Pick a short programme if** you have a job, you have been writing on your own, and what you lack is feedback and a deadline.
 

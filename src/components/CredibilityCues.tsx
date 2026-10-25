@@ -10,7 +10,7 @@ import reviewStats from "@/data/reviewStats.json";
  * is the sort of claim an answer engine calls out.
  */
 const cues = [
-  { value: "67,746+", numericValue: 67746, label: "Learners", suffix: "+", hasComma: true },
+  { value: "75,000+", numericValue: 75000, label: "Learners", suffix: "+", hasComma: true },
   {
     value: reviewStats.average.toFixed(1),
     numericValue: reviewStats.average,

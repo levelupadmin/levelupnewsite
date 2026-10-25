@@ -108,8 +108,8 @@ const course = courseJsonLd({
 });
 const breadcrumb = breadcrumbJsonLd([
   { name: "Home", path: "/" },
-  { name: "Masterclasses", path: "/masterclass/" },
-  { name: "Nelson Dilipkumar", path: `/masterclass/${SLUG}/` },
+  { name: "Masterclasses", path: "/masterclass" },
+  { name: "Nelson Dilipkumar", path: `/masterclass/${SLUG}` },
 ]);
 const faqSchema = faqJsonLd(faqs);
 
@@ -204,10 +204,11 @@ const ytWatch = `https://www.youtube.com/watch?v=${TRAILER.ytId}`;
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" /></svg>
             {HERO_COPY.proof}
           </p>
-          {/* Founder's decision 9: this line stays exactly as it was. */}
+          {/* Founder's decision 9 keeps this line. The learner figure follows
+               his 23 Oct count (75,000+); 18,000+ is out of date. */}
           <p class="nl-proof__rating">
             <span class="nl-stars" aria-hidden="true">★★★★★</span>
-            <strong>4.86/5</strong> · Trusted by <strong>18,000+ creators</strong> on LevelUp
+            <strong>4.86/5</strong> · Trusted by <strong>75,000+ learners</strong> on LevelUp
           </p>
         </div>
       </div>

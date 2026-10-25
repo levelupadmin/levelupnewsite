@@ -65,7 +65,7 @@ const course = courseJsonLd({
 });
 const breadcrumb = breadcrumbJsonLd([
   { name: "Home", path: "/" },
-  { name: "Masterclasses", path: "/" },
+  { name: "Masterclasses", path: "/masterclass" },
   { name: "Lokesh Kanagaraj", path: `/masterclass/${o.slug}` },
 ]);
 const faq = faqJsonLd(faqs.map(({ question, answer }) => ({ question, answer })));
@@ -123,7 +123,7 @@ const faq = faqJsonLd(faqs.map(({ question, answer }) => ({ question, answer }))
         </ul>
         <p class="bp-proof">
           <span class="bp-proof__stars" aria-hidden="true">★★★★★</span>
-          <span><strong>4.86/5</strong> · Trusted by <strong>18,000+ creators</strong> on LevelUp</span>
+          <span><strong>4.86/5</strong> · Trusted by <strong>75,000+ learners</strong> on LevelUp</span>
         </p>
         <div class="bp-hero__cta">
           <CtaButton href={o.checkoutUrl} label={BUY_LABEL} price={o.price} placement="hero" course={o.slug} hero size="lg" />

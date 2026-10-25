@@ -102,7 +102,7 @@ The three-year MFA in Cinema with specialisation in Editing is the deeper versio
 
 ## Whistling Woods International
 
-Whistling Woods has no standalone editing course. Editing is a specialisation inside the two-year MFA in Filmmaking, and the fee reflects the whole film school: ₹8.5 lakh in tuition plus ₹17.5 lakh in infrastructure, equipment and project fees, plus a ₹50,000 deposit, which the institute's fee policy rounds to ₹26 lakh. GST at 18% is on top, as is an Adobe Creative Cloud licence you must buy yourself. You need a degree. There are 150 seats across all the MFA specialisations, not 150 for editing. The 2027 entrance exam is on 8 December 2026.
+Whistling Woods has no standalone editing course. Editing is a specialisation inside the two-year MFA in Filmmaking, and the fee reflects the whole film school: ₹8.5 lakh in tuition plus ₹17.5 lakh in infrastructure, equipment and project fees, plus a ₹50,000 deposit, which the institute's fee policy rounds to ₹26 lakh. GST at 18% is on top, as is an Adobe Creative Cloud licence you must buy yourself. You need a degree. There are 150 seats across all the MFA specialisations, not 150 for editing.
 
 **Pick Whistling Woods if** you want to edit Hindi film and streaming, you want the network from day one, and ₹30 lakh all-in is genuinely affordable.
 
@@ -128,7 +128,7 @@ Arena's Delhi and Noida centres list video editing at ₹1 lakh to ₹5 lakh dep
 
 ## Live online cohorts
 
-The category we are in. LevelUp's Video Editing Academy runs twelve weeks of live sessions on weekends, with recordings kept for life, at ₹40,000, with EMI and no-cost EMI available. It teaches Premiere Pro, After Effects, DaVinci Resolve and the current generative tools, and the page says to expect five to six hours a week. The next cohort starts 3 October 2026. There is no eligibility requirement. The application fee is refundable, though the page does not state the amount, and it does not state the batch size. Both are things we should fix on that page.
+The category we are in. LevelUp's Video Editing Academy runs twelve weeks of live sessions on weekends, with recordings kept for life, at ₹40,000, with EMI and no-cost EMI available. It teaches Premiere Pro, After Effects, DaVinci Resolve and the current generative tools, and the page says to expect five to six hours a week. There is no eligibility requirement. The application fee is refundable, though the page does not state the amount, and it does not state the batch size. Both are things we should fix on that page.
 
 **Pick a live cohort if** you have a job, you already know what a timeline is, and what you lack is someone experienced looking at your cuts every week and telling you what is wrong.
 

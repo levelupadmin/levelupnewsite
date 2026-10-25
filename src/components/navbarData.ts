@@ -1,8 +1,5 @@
 import navBfp from "@/assets/nav-bfp.png";
 import navVe from "@/assets/nav-ve.png";
-import navUiux from "@/assets/nav-uiux.png";
-import navSw from "@/assets/nav-sw.png";
-import navAcp from "@/assets/live-acp.png";
 import navCreator from "@/assets/live-creator-logo.jpg";
 import navForgeFilmmaking from "@/assets/nav-forge-filmmaking.jpg";
 import navForgeWriting from "@/assets/nav-forge-writing.jpg";
@@ -39,7 +36,7 @@ export interface NavLink {
 export const navLinks: NavLink[] = [
   {
     label: "Masterclasses",
-    href: "#masterclasses",
+    href: "/masterclass",
     description: "High quality pre-recorded courses taught by India's finest.",
     accent: "hsl(38 75% 55%)",
     formatBadge: "On-demand",
@@ -107,24 +104,6 @@ export const navLinks: NavLink[] = [
         subtitle: "12-week cohort",
         href: "https://www.leveluplearning.live/ve",
         objectPosition: "center 30%",
-      },
-      {
-        image: navUiux,
-        title: "UI/UX Design Academy",
-        subtitle: "12-week accelerator",
-        href: "https://www.leveluplearning.live/uiux-academy",
-      },
-      {
-        image: navSw,
-        title: "Screenwriting Workshop",
-        subtitle: "8-week program",
-        href: "https://www.leveluplearning.live/sw",
-      },
-      {
-        image: navAcp,
-        title: "Advanced Cinematography Program",
-        subtitle: "4-week intensive",
-        href: "https://www.leveluplearning.in/acp-2",
       },
       {
         image: navCreator,

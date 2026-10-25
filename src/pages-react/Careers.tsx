@@ -28,7 +28,7 @@ const teamCards = [
 const faqs = [
   {
     q: "What is LevelUp Learning?",
-    a: `We're India's largest creative education ecosystem, designed around one simple principle:\n\n"If it doesn't help creators level up, we don't build it."\n\nThe result? 70,000+ learners, 300K+ community members, and a generation of creators discovering their creative calling.`,
+    a: `We're India's largest creative education ecosystem, designed around one simple principle:\n\n"If it doesn't help creators level up, we don't build it."\n\nThe result? 75,000+ learners, 300K+ community members, and a generation of creators discovering their creative calling.`,
   },
   {
     q: "What's the culture like?",
@@ -175,7 +175,7 @@ const founderLetterParagraphs = [
   `"If this person started a company would we join them?"`,
   `This made our first call easy. We found people who were obsessed with the intersection of creativity and education — people who believed India's creative talent deserved world-class learning.`,
   `That first year, we assembled a small crew of brilliant misfits. And that group of misfits built India's largest creative education ecosystem.`,
-  `Fast forward to today. 70,000+ learners. 300K+ community. 100+ masterclasses with India's best creative minds.`,
+  `Fast forward to today. 75,000+ learners. 300K+ community. 100+ masterclasses with India's best creative minds.`,
   `We didn't get here by hiring "normal" people.`,
   `You'll be given too much responsibility. You'll never be bored.`,
   `You'll be pushed to do the best work of your career — at the fastest pace of your career.`,
@@ -345,7 +345,7 @@ const Careers = () => {
               {[...Array(3)].map((_, repeat) => (
                 <div key={repeat} className="flex shrink-0 items-center">
                   {[
-                    "67,746+ Learners",
+                    "75,000+ Learners",
                     `${reviewStats.average.toFixed(1)} Rating (${reviewStats.count.toLocaleString("en-US")} published reviews)`,
                     "821+ Cities",
                     "3,000+ Collaborations enabled",

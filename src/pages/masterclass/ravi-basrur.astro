@@ -69,7 +69,7 @@ const course = courseJsonLd({
 });
 const breadcrumb = breadcrumbJsonLd([
   { name: "Home", path: "/" },
-  { name: "Masterclasses", path: "/" },
+  { name: "Masterclasses", path: "/masterclass" },
   { name: "Ravi Basrur", path: `/masterclass/${o.slug}` },
 ]);
 const faq = faqJsonLd(faqs.map(({ question, answer }) => ({ question, answer })));
