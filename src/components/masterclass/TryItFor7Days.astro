@@ -1,0 +1,77 @@
+---
+/**
+ * "Try it for 7 days": the refund promise as the reason to start today.
+ * Wording comes from REFUND and TRY_IT_STEPS in src/data/masterclass/shared.ts.
+ *
+ *   <TryItFor7Days cta={{ href, label: "Start watching", price: 2499, placement: "try" }} />
+ */
+import SectionShell from "./SectionShell.astro";
+import CtaButton from "./CtaButton.astro";
+import { REFUND, TRY_IT_STEPS } from "@/data/masterclass/shared";
+import type { CtaProps } from "./types";
+
+interface Step {
+  title: string;
+  body: string;
+}
+
+interface Props {
+  eyebrow?: string | false;
+  heading?: string;
+  body?: string;
+  steps?: readonly Step[];
+  /** Show the 7-day bar. Default true. */
+  showDays?: boolean;
+  cta?: CtaProps;
+  id?: string;
+  tone?: "plain" | "raised";
+  class?: string;
+  style?: string;
+}
+
+const {
+  eyebrow = "No risk",
+  heading = "Try it for *7 days*",
+  body,
+  steps = TRY_IT_STEPS,
+  showDays = true,
+  cta,
+  id = "try-it-for-7-days",
+  tone,
+  class: className,
+  style,
+} = Astro.props;
+---
+
+<SectionShell eyebrow={eyebrow} heading={heading} body={body} id={id} tone={tone} class={className} style={style}>
+  <div class="mck-card mck-card--gold mck-try mck-reveal">
+    {showDays && (
+      <ol class="mck-days" aria-label={`${REFUND.days} days to ask for a refund`}>
+        {Array.from({ length: REFUND.days }, (_, i) => (
+          <li class:list={["mck-day", i === REFUND.days - 1 && "mck-day--last"]} style={`--mck-i:${i}`}>
+            <span class="mck-day__bar" aria-hidden="true"></span>
+            <span>Day {i + 1}</span>
+          </li>
+        ))}
+      </ol>
+    )}
+    <ol class="mck-steps">
+      {steps.map((s, i) => (
+        <li class="mck-step">
+          <span class="mck-step__num" aria-hidden="true">{i + 1}</span>
+          <p class="mck-step__title">{s.title}</p>
+          <p class="mck-step__body">{s.body}</p>
+        </li>
+      ))}
+    </ol>
+    <p class="mck-try__rule">
+      {REFUND.sentence}{" "}
+      <a class="mck-link" href={REFUND.href}>{REFUND.linkLabel}</a>
+    </p>
+    {cta && (
+      <div class="mck-cta-block" style="margin-top:26px">
+        <CtaButton href={cta.href} label={cta.label} price={cta.price} placement={cta.placement ?? "try-7-days"} course={cta.course} size="lg" block />
+      </div>
+    )}
+  </div>
+</SectionShell>

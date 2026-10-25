@@ -1,0 +1,60 @@
+---
+/** One review card. Every field is printed exactly as stored. */
+import type { ReviewCardData } from "./reviewPicks";
+
+interface Props {
+  review: ReviewCardData;
+  ownLabel?: string;
+  reveal?: boolean;
+  delay?: number;
+}
+
+const { review: r, ownLabel = "This masterclass", reveal = false, delay = 0 } = Astro.props;
+
+function initials(name: string): string {
+  const parts = name
+    .replace(/[^\p{L}\p{N}\s]/gu, " ")
+    .split(/\s+/)
+    .filter(Boolean);
+  return parts.slice(0, 2).map((p) => p[0]).join("").toUpperCase() || "?";
+}
+
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+function monthYear(iso: string): string {
+  // Submission time in India, so a review sent late on the 31st keeps its month.
+  const d = new Date(new Date(iso).getTime() + 330 * 60 * 1000);
+  return `${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+}
+
+const score = Number.isInteger(r.score) ? `${r.score}/5` : `${r.score.toFixed(1)}/5`;
+---
+
+<article
+  class:list={["mck-card", "mck-review", reveal && "mck-reveal", r.ownCourse && "mck-review--own"]}
+  style={delay ? `--mck-delay:${delay}ms` : undefined}
+  aria-label={`Review by ${r.name}`}
+>
+  <div class="mck-review__top">
+    <span>
+      <span class="mck-stars" role="img" aria-label={`Rated ${score}`}>
+        <span aria-hidden="true">★★★★★</span>
+        <span class="mck-stars__fill" aria-hidden="true" style={`--mck-stars:${(r.score / 5) * 100}%`}>★★★★★</span>
+      </span>
+      <span class="mck-review__score" aria-hidden="true">{score}</span>
+    </span>
+    {r.ownCourse && <span class="mck-chip">{ownLabel}</span>}
+  </div>
+  <p class="mck-review__text">{r.text}</p>
+  <div class="mck-review__by">
+    <span class="mck-avatar" aria-hidden="true">{initials(r.name)}</span>
+    <div class="mck-review__who">
+      <p class="mck-review__name">{r.name}</p>
+      {r.role && <p class="mck-review__role">{r.role}</p>}
+    </div>
+  </div>
+  <p class="mck-review__meta">
+    <span class="mck-review__program">{r.program}</span>
+    <span aria-hidden="true">·</span>
+    <time datetime={r.submittedAt}>{monthYear(r.submittedAt)}</time>
+  </p>
+</article>

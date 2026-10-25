@@ -103,14 +103,44 @@ export const articleJsonLd = ({
   },
 });
 
+export interface CourseOffer {
+  /** Price in the currency's main unit, e.g. 2499. */
+  price: number;
+  /** ISO 4217. Default "INR". */
+  priceCurrency?: string;
+  /** Checkout URL. */
+  url?: string;
+  /** schema.org availability URL. Default InStock. */
+  availability?: string;
+  /** "Paid", "Free", "Partially Free" or "Subscription". Default "Paid". */
+  category?: string;
+}
+
 export interface CourseParams {
   name: string;
   description: string;
   path: string;
+  /** Provider name. Default LevelUp Learning, linked to the Organization node. */
   provider?: string;
+  /** Provider site, when the provider is not LevelUp Learning. */
+  providerUrl?: string;
   image?: string;
   instructorName?: string;
   courseMode?: "online" | "blended" | "onsite";
+  /** One or more of the `offers` fields Google needs for a course result. */
+  offers?: CourseOffer;
+  /** BCP 47 code(s), e.g. "ta" or ["ta", "en"]. */
+  inLanguage?: string | string[];
+  /** ISO 8601 duration of all lessons, e.g. "PT2H20M". Set on the
+   *  CourseInstance as courseWorkload and on the Course as timeRequired. */
+  courseWorkload?: string;
+}
+
+/** Canonical URLs on this site end in a slash (see Seo.astro). */
+function canonicalUrl(path: string): string {
+  if (path === "/" || path === "") return `${SITE_URL}/`;
+  const clean = path.startsWith("/") ? path : `/${path}`;
+  return `${SITE_URL}${clean.endsWith("/") ? clean : `${clean}/`}`;
 }
 
 export const courseJsonLd = ({
@@ -118,21 +148,24 @@ export const courseJsonLd = ({
   description,
   path,
   provider = "LevelUp Learning",
+  providerUrl,
   image,
   instructorName,
   courseMode = "online",
+  offers,
+  inLanguage,
+  courseWorkload,
 }: CourseParams) => {
+  const isLevelUp = provider === "LevelUp Learning";
   const data: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Course",
     name,
     description,
-    url: `${SITE_URL}${path}`,
-    provider: {
-      "@type": "Organization",
-      name: provider,
-      sameAs: SITE_URL,
-    },
+    url: canonicalUrl(path),
+    provider: isLevelUp
+      ? { "@type": "Organization", "@id": ORGANIZATION_ID, name: provider, sameAs: SITE_URL }
+      : { "@type": "Organization", name: provider, ...(providerUrl ? { sameAs: providerUrl } : {}) },
   };
   if (image) {
     data.image = image.startsWith("http")
@@ -145,9 +178,23 @@ export const courseJsonLd = ({
       name: instructorName,
     };
   }
+  if (inLanguage) data.inLanguage = inLanguage;
+  if (courseWorkload) data.timeRequired = courseWorkload;
+  if (offers) {
+    data.offers = {
+      "@type": "Offer",
+      category: offers.category ?? "Paid",
+      price: offers.price,
+      priceCurrency: offers.priceCurrency ?? "INR",
+      availability: offers.availability ?? "https://schema.org/InStock",
+      ...(offers.url ? { url: offers.url } : {}),
+    };
+  }
   data.hasCourseInstance = {
     "@type": "CourseInstance",
     courseMode,
+    ...(courseWorkload ? { courseWorkload } : {}),
+    ...(instructorName ? { instructor: { "@type": "Person", name: instructorName } } : {}),
   };
   return data;
 };

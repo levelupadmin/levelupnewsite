@@ -33,7 +33,8 @@ export default defineConfig({
   },
   adapter: vercel({
     webAnalytics: { enabled: true },
-    speedInsights: { enabled: true },
+    // Speed Insights is mounted as a component in BaseLayout.astro. This
+    // adapter version has no speedInsights option; the old flag did nothing.
     imageService: true,
   }),
   integrations: [

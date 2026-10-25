@@ -1,0 +1,54 @@
+---
+/**
+ * Course facts strip: lessons, runtime, language, price and refund in one
+ * row, read from OFFERINGS so it cannot disagree with the schema. Put it
+ * right under the hero button.
+ *
+ *   <CourseFacts slug="ravi-basrur" />
+ *   <CourseFacts slug="nelson-dilipkumar" items={[{ label: "Lessons", value: "29" }]} />
+ */
+import "@/styles/masterclass.css";
+import { OFFERINGS, formatPrice, formatRuntime, type MasterclassSlug } from "@/data/masterclass/shared";
+
+interface Fact {
+  label: string;
+  value: string;
+}
+
+interface Props {
+  slug?: MasterclassSlug;
+  /** Replaces the facts read from `slug`. */
+  items?: Fact[];
+  class?: string;
+  style?: string;
+}
+
+const { slug, items, class: className, style } = Astro.props;
+const o = slug ? OFFERINGS[slug] : undefined;
+
+const facts: Fact[] =
+  items ??
+  (o
+    ? [
+        { label: "Lessons", value: String(o.lessons) },
+        { label: "Runtime", value: formatRuntime(o.runtimeMinutes) },
+        { label: "Language", value: o.language },
+        { label: "Price", value: `${formatPrice(o.price)} once` },
+        { label: "Refund", value: "Within 7 days" },
+      ]
+    : []);
+---
+
+{facts.length > 0 && (
+  <dl
+    class:list={["mck", "mck-facts", className]}
+    style={[`--mck-facts-cols:${facts.length}`, style].filter(Boolean).join(";")}
+  >
+    {facts.map((f, i) => (
+      <div class:list={["mck-fact", facts.length % 2 === 1 && i === facts.length - 1 && "mck-fact--wide"]}>
+        <dt>{f.label}</dt>
+        <dd>{f.value}</dd>
+      </div>
+    ))}
+  </dl>
+)}

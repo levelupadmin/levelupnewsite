@@ -1,0 +1,110 @@
+---
+/**
+ * "What you get": the price card. What is included, the bonuses every
+ * buyer gets, the price, the button and the refund line.
+ *
+ *   <WhatYouGetToday
+ *     price={2499}
+ *     items={[{ title: "29 video lessons", detail: "2 h 20 min in all" }, { title: "Tamil, with English subtitles" }]}
+ *     bonuses={[{ title: "PDF workbook for every lesson" }, { title: "LevelUp community access" }]}
+ *     cta={{ href, label: "Get the masterclass", placement: "price-card" }}
+ *   />
+ */
+import SectionShell from "./SectionShell.astro";
+import CtaButton from "./CtaButton.astro";
+import RefundLine from "./RefundLine.astro";
+import { formatPrice, priceNote as defaultPriceNote } from "@/data/masterclass/shared";
+import type { BonusItem, CtaProps, IncludedItem } from "./types";
+
+interface Props {
+  price: number;
+  items: IncludedItem[];
+  bonuses?: BonusItem[];
+  /** Heading over the bonus list. */
+  bonusHeading?: string;
+  /** Line under the price. Default "One payment of ₹X. GST included." */
+  priceNote?: string;
+  /** Small line under the button, e.g. accepted payment methods. */
+  payNote?: string;
+  cta: CtaProps;
+  eyebrow?: string | false;
+  heading?: string;
+  body?: string;
+  id?: string;
+  tone?: "plain" | "raised";
+  class?: string;
+  style?: string;
+}
+
+const {
+  price,
+  items,
+  bonuses = [],
+  bonusHeading = "Bonuses, for every buyer",
+  priceNote,
+  payNote,
+  cta,
+  eyebrow = "Your order",
+  heading = "What you *get*",
+  body,
+  id = "what-you-get-today",
+  tone = "raised",
+  class: className,
+  style,
+} = Astro.props;
+
+const check = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`;
+const gift = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>`;
+---
+
+<SectionShell eyebrow={eyebrow} heading={heading} body={body} id={id} tone={tone} class={className} style={style}>
+  <div class="mck-card mck-card--gold mck-offer mck-reveal">
+    <div class="mck-offer__main">
+      <p class="mck-offer__title">Included</p>
+      <ul class="mck-list">
+        {items.map((it) => (
+          <li>
+            <span class="mck-icon mck-icon--yes" aria-hidden="true" style="width:22px;height:22px;margin-top:1px" set:html={check} />
+            <span>
+              <strong>{it.title}</strong>
+              {it.detail && <span class="mck-offer__detail">{it.detail}</span>}
+            </span>
+          </li>
+        ))}
+      </ul>
+      {bonuses.length > 0 && (
+        <div class="mck-offer__bonus">
+          <p class="mck-offer__title">{bonusHeading}</p>
+          <ul class="mck-list">
+            {bonuses.map((b) => (
+              <li>
+                <span class="mck-icon mck-icon--yes" aria-hidden="true" style="width:22px;height:22px;margin-top:1px" set:html={gift} />
+                <span>
+                  <strong>{b.title}</strong>
+                  {b.detail && <span class="mck-offer__detail">{b.detail}</span>}
+                  {b.value && <span class="mck-offer__value">{b.value}</span>}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+    <div class="mck-offer__side">
+      <p class="mck-value__label">Price</p>
+      <p class="mck-price" style="margin:0">{formatPrice(price)}</p>
+      <p class="mck-offer__price-note">{priceNote ?? defaultPriceNote(price)}</p>
+      <CtaButton
+        href={cta.href}
+        label={cta.label}
+        price={cta.price}
+        placement={cta.placement ?? "price-card"}
+        course={cta.course}
+        size="lg"
+        block
+      />
+      {cta.refund !== false && <RefundLine full />}
+      {payNote && <p class="mck-offer__pay">{payNote}</p>}
+    </div>
+  </div>
+</SectionShell>

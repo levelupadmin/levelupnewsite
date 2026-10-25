@@ -1,0 +1,48 @@
+---
+/**
+ * The whole course as one bar: each block is a lesson, drawn to its real
+ * VdoCipher length. Decorative (aria-hidden); the lesson list below it is
+ * the readable version.
+ */
+import "./template.css";
+import { lessonLength, totalSeconds } from "@/data/masterclass/template";
+import type { Lesson, Theme } from "@/data/masterclass/types";
+
+interface Props {
+  lessons: Lesson[];
+  motif: Theme["motif"];
+}
+
+const { lessons, motif } = Astro.props;
+const total = totalSeconds(lessons);
+const longest = lessons.reduce((a, b) => (b.seconds > a.seconds ? b : a), lessons[0]);
+const shortest = lessons.reduce((a, b) => (b.seconds < a.seconds ? b : a), lessons[0]);
+const minutes = Math.round(total / 60);
+const hours = Math.floor(minutes / 60);
+const mins = minutes % 60;
+const labelled = new Set(lessons.filter((l) => l.seconds / total >= 0.055).map((l) => l.number));
+---
+
+<div class="tpl-strip mck-reveal" data-motif={motif}>
+  <div class="tpl-strip__stats">
+    <p class="tpl-strip__stat"><strong>{lessons.length}</strong> lessons</p>
+    <p class="tpl-strip__stat">
+      {hours !== 0 && <Fragment><strong>{hours}</strong> h</Fragment>}
+      <strong>{mins}</strong> min of teaching
+    </p>
+  </div>
+  <div class="tpl-strip__bar" aria-hidden="true">
+    {lessons.map((l, i) => (
+      <span
+        class:list={["tpl-strip__seg", l.number === longest.number && "tpl-strip__seg--long"]}
+        style={`flex:${l.seconds} 1 0;--i:${i}`}
+        title={`Lesson ${l.number}: ${l.title} (${lessonLength(l.seconds)})`}
+      >
+        {labelled.has(l.number) && <span class="tpl-strip__num">{l.number}</span>}
+      </span>
+    ))}
+  </div>
+  <p class="tpl-strip__caption">
+    Each block is one lesson, drawn to its real length. The longest is lesson {longest.number}, {lessonLength(longest.seconds)}; the shortest is lesson {shortest.number}, {lessonLength(shortest.seconds)}.
+  </p>
+</div>

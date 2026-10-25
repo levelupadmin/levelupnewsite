@@ -114,7 +114,7 @@ const RefundPolicy = () => {
             <div className="bg-muted/50 border-l-2 border-primary p-4 rounded">
               <p className="text-foreground font-medium mb-3">At a glance:</p>
               <ul className="list-disc pl-6 space-y-2 text-sm">
-                <li><strong className="text-foreground">Masterclasses:</strong> 7 days from purchase, full refund, no questions asked — provided you've watched under 25% of the content.</li>
+                <li><strong className="text-foreground">Masterclasses:</strong> full refund within 7 days of buying, if you have watched less than a quarter of the course.</li>
                 <li><strong className="text-foreground">Live programs &amp; the Forge:</strong> governed by their own dedicated Refund &amp; Cancellation Policies — see <a href="#live-cohorts" className="text-primary hover:underline">Section 3</a>.</li>
                 <li><strong className="text-foreground">Workshops:</strong> full refund up to 48 hours before the start time. No refund after.</li>
                 <li><strong className="text-foreground">Free events:</strong> nothing to refund.</li>

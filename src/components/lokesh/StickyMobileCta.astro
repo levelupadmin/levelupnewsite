@@ -1,99 +1,396 @@
 ---
 /**
- * Sticky mobile bottom CTA — gold pill anchored to the bottom of the
- * viewport on mobile. Sits to the LEFT of the global floating WhatsApp
- * button (which lives at bottom-5 right-5, occupying ~68px on the
- * right). Hides while a CTA marked `[data-mc-hero-cta]` is on screen
- * so the user doesn't see two identical buttons at once. Falls back to
- * always-visible if no hero CTA is marked, so existing pages keep
- * working unchanged.
+ * Sticky buy bar for phones (under 768 px).
+ *
+ * When it shows:
+ * - only after the hero buy button has scrolled off the top of the screen
+ *   (the first `[data-mc-hero-cta]`, else the first buy button on the page);
+ * - never while any other buy button (`[data-mc-buy]` from the masterclass
+ *   kit, or any checkout link) is on screen or about to scroll in from
+ *   below, so the visitor never sees two at once; that covers the price
+ *   card and the final CTA;
+ * - never near the footer, so it does not cover the legal links.
+ * React islands that render buy buttons late (the template pages) are picked
+ * up when they mount.
+ *
+ * While it shows, html.mc-dock-on is set and the floating WhatsApp button
+ * shows in the 80 px the bar leaves free on its right (see BaseLayout). On
+ * phones that button shows only while the bar does.
+ * It clears the iPhone home indicator (safe-area inset), its button is 48 px
+ * tall, and it moves with transform and opacity only, so it causes no
+ * layout shift.
+ *
+ * Props: pass `course` (the masterclass slug) and the price, link and caption
+ * come from src/data/masterclass/offerings.ts. `href`, `price`, `label` and
+ * `caption` override them. `label` is the button text without the price; the
+ * price shows on the left. A label that already contains "₹" hides the
+ * separate price.
  */
+import { getOffering, formatInr } from "@/data/masterclass/offerings";
+
 interface Props {
-  href: string;
-  price: number;
-  label?: string;
+  /** Masterclass slug, e.g. "nelson-dilipkumar" */
   course?: string;
+  /** Checkout URL. Defaults to the offering's checkout URL. */
+  href?: string;
+  /** Price in INR. Defaults to the offering's price. */
+  price?: number;
+  /** Button text. Default "Sign Up Now". */
+  label?: string;
+  /** Small line under the price. Default: the instructor's name. */
+  caption?: string;
 }
 
-const { href, price, label, course = "" } = Astro.props;
-const ctaText = label || `Sign Up Now ₹${price.toLocaleString("en-IN")}`;
+const { course = "", href, price, label, caption } = Astro.props;
+const offering = getOffering(course);
+const link = href ?? offering?.checkoutUrl ?? "#";
+const amount = price ?? offering?.price;
+const buttonText = label ?? "Sign Up Now";
+const showPrice = amount != null && !buttonText.includes("₹");
+const captionText = caption ?? offering?.instructor ?? "";
 ---
 
-{/* Bottom-aligned with the global WhatsApp FAB at bottom-5 right-5
-    (BaseLayout). Both pill bottom and FAB bottom sit at 20px from
-    viewport edge so they read as a single bottom-aligned bar. The pill
-    ends at right-[76px] which leaves a 20px gap between its right edge
-    and the FAB's left edge (FAB is 48px wide at right-5). */}
-<div
-  id="mc-sticky-cta"
-  class="md:hidden fixed bottom-5 left-3 right-[76px] z-[55] pointer-events-none transition-[opacity,transform] duration-200 ease-out"
->
-  <a
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    data-cta="sticky-mobile-bottom"
-    data-mc-course={course}
-    class="relative pointer-events-auto flex items-center justify-center gap-2 w-full py-3 px-5 rounded-full text-center font-semibold text-[15px] tracking-[0.01em] text-[#3a1a00] active:scale-[0.99] transition-transform duration-150"
-    style="background: radial-gradient(120% 100% at 50% 0%, #ffe5b8 0%, #e3b671 30%, #c8924d 60%, #8c5e2e 100%); box-shadow: 0 14px 28px -8px rgba(200, 146, 77, 0.6), inset 0 1px 0 rgba(255, 230, 190, 0.85), inset 0 -1px 0 rgba(80, 35, 0, 0.4); touch-action: manipulation; height: 48px;"
-  >
-    {ctaText}
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M5 12h14M13 5l7 7-7 7" />
-    </svg>
-  </a>
+<div id="mc-sticky-cta" class="mc-dock" aria-hidden="true" inert>
+  <div class:list={["mc-dock__inner", { "mc-dock__inner--full": !showPrice }]}>
+    {showPrice && (
+      <div class="mc-dock__price">
+        <span class="mc-dock__amount">{formatInr(amount!)}</span>
+        {captionText && <span class="mc-dock__caption">{captionText}</span>}
+      </div>
+    )}
+    <a
+      href={link}
+      data-mc-buy
+      data-mc-cta="sticky"
+      data-mc-course={course || undefined}
+      class:list={["mc-dock__btn", { "mc-dock__btn--full": !showPrice }]}
+    >
+      <span class="mc-dock__shine" aria-hidden="true"></span>
+      <span class="mc-dock__label">{buttonText}</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 12h14M13 5l7 7-7 7" />
+      </svg>
+    </a>
+  </div>
 </div>
+
+<style>
+  .mc-dock {
+    position: fixed;
+    z-index: 55;
+    left: max(10px, env(safe-area-inset-left, 0px));
+    /* Room for the WhatsApp button (48 px at right 20 px) beside the bar. */
+    right: calc(80px + env(safe-area-inset-right, 0px));
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translate3d(0, calc(100% + 16px), 0);
+    transition:
+      transform 0.22s cubic-bezier(0.4, 0, 1, 1),
+      opacity 0.18s ease,
+      visibility 0s linear 0.22s;
+  }
+  .mc-dock.is-on {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate3d(0, 0, 0);
+    transition:
+      transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.25s ease,
+      visibility 0s;
+  }
+  @media (min-width: 768px) {
+    .mc-dock { display: none; }
+  }
+
+  .mc-dock__inner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 64px;
+    padding: 8px 8px 8px 16px;
+    border-radius: 20px;
+    background:
+      radial-gradient(120% 140% at 0% 0%, rgba(227, 182, 113, 0.12) 0%, rgba(227, 182, 113, 0) 55%),
+      linear-gradient(180deg, rgba(30, 24, 19, 0.95) 0%, rgba(15, 12, 10, 0.97) 100%);
+    border: 1px solid rgba(227, 182, 113, 0.24);
+    box-shadow:
+      0 18px 40px -14px rgba(0, 0, 0, 0.85),
+      0 2px 8px rgba(0, 0, 0, 0.35),
+      inset 0 1px 0 rgba(255, 236, 200, 0.08);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    backdrop-filter: blur(14px) saturate(140%);
+    font-family: "Inter", "Sora", system-ui, sans-serif;
+  }
+
+  .mc-dock__price {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .mc-dock__amount {
+    color: #f7e7cc;
+    font-size: 20px;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .mc-dock__caption {
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 10.5px;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mc-dock__btn {
+    position: relative;
+    overflow: hidden;
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 0 20px;
+    border-radius: 14px;
+    color: #3a1a00;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.005em;
+    text-decoration: none;
+    white-space: nowrap;
+    background: radial-gradient(120% 100% at 50% 0%, #ffe5b8 0%, #e3b671 30%, #c8924d 62%, #9a6733 100%);
+    box-shadow:
+      0 10px 22px -10px rgba(200, 146, 77, 0.75),
+      inset 0 1px 0 rgba(255, 236, 200, 0.9),
+      inset 0 -1px 0 rgba(80, 35, 0, 0.35);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.15s ease, filter 0.2s ease;
+  }
+  /* The label carries the price, so the button fills the bar. The bar
+     leaves 80 px for the WhatsApp button, so a thinner rim, smaller padding
+     and text that scales with the screen keep "Buy the masterclass ·
+     ₹2,499" and the arrow on one line from 360 px. On a narrower screen the
+     label ends in an ellipsis and the arrow stays. */
+  .mc-dock__inner--full { padding: 5px; }
+  .mc-dock__btn--full {
+    flex: 1 1 auto;
+    min-width: 0;
+    gap: 6px;
+    padding: 0 12px;
+    font-size: clamp(13.5px, 3.9vw, 15px);
+  }
+  .mc-dock__btn--full .mc-dock__label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+  .mc-dock__btn svg { flex: none; }
+  .mc-dock__btn:active { transform: scale(0.97); filter: brightness(0.96); }
+  .mc-dock__btn:focus-visible { outline: 2px solid #ffe5b8; outline-offset: 3px; }
+  .mc-dock__label, .mc-dock__btn svg { position: relative; z-index: 1; }
+  .mc-dock__btn svg { transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+  .mc-dock.is-on .mc-dock__btn svg { animation: mc-dock-nudge 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.35s 1 both; }
+
+  /* A light sweep across the button a moment after the bar arrives, then
+     every 6 s. Transform only. */
+  .mc-dock__shine {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(105deg, transparent 30%, rgba(255, 248, 230, 0.55) 48%, transparent 66%);
+    transform: translate3d(-120%, 0, 0);
+  }
+  .mc-dock.is-on .mc-dock__shine { animation: mc-dock-shine 6s ease-in-out 0.6s infinite; }
+
+  @keyframes mc-dock-shine {
+    0% { transform: translate3d(-120%, 0, 0); }
+    18%, 100% { transform: translate3d(120%, 0, 0); }
+  }
+  @keyframes mc-dock-nudge {
+    0% { transform: translate3d(-4px, 0, 0); }
+    100% { transform: translate3d(0, 0, 0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mc-dock, .mc-dock.is-on { transform: none; transition: opacity 0.15s linear, visibility 0s; }
+    .mc-dock.is-on .mc-dock__shine, .mc-dock.is-on .mc-dock__btn svg { animation: none; }
+  }
+</style>
 
 <script is:inline>
   (function () {
-    function init() {
-      var bar = document.getElementById("mc-sticky-cta");
-      if (!bar) return;
-      var heroCta = document.querySelector("[data-mc-hero-cta]");
-      var visible = null;
-      function set(v) {
-        if (v === visible) return;
-        visible = v;
-        if (v) {
-          bar.style.opacity = "1";
-          bar.style.transform = "translateY(0)";
-          bar.style.pointerEvents = "auto";
-        } else {
-          bar.style.opacity = "0";
-          bar.style.transform = "translateY(12px)";
-          bar.style.pointerEvents = "none";
+    var bar = document.getElementById("mc-sticky-cta");
+    if (!bar || bar.__mcInit) return;
+    bar.__mcInit = 1;
+    var root = document.documentElement;
+    var own = bar.querySelector("a");
+
+    var shown = null;
+    var heroEl = null;
+    var heroPassed = false;
+    var ctaOn = new Map(); // button -> time it came into view
+    var footOn = new Set();
+    var watched = new Set();
+    var noHeroScroll = false;
+
+    function set(v) {
+      if (v === shown) return;
+      shown = v;
+      bar.classList.toggle("is-on", v);
+      bar.setAttribute("aria-hidden", v ? "false" : "true");
+      if (v) bar.removeAttribute("inert");
+      else bar.setAttribute("inert", "");
+      if (own) own.tabIndex = v ? 0 : -1;
+      root.classList.toggle("mc-dock-on", v);
+    }
+    // The bar only exists below 768 px (CSS hides it above).
+    var phone = window.matchMedia ? window.matchMedia("(max-width: 767px)") : { matches: true };
+
+    // A button counts only if the visitor can see it. Template pages render
+    // their hero button at opacity 0 until React loads; until then the bar
+    // is the only visible way to buy, so it must show. Buttons inside
+    // scroll-reveal blocks also start at opacity 0 for a moment, so a button
+    // only counts as hidden once it has stayed invisible for 1.2 s.
+    function seen(el) {
+      for (var n = el; n && n !== document.body; n = n.parentElement) {
+        var cs = getComputedStyle(n);
+        if (cs.visibility === "hidden" || parseFloat(cs.opacity) < 0.1) return false;
+      }
+      return true;
+    }
+    var GRACE = 1200;
+    var raf = 0;
+    var poll = 0;
+    function apply() {
+      if (raf) return;
+      raf = requestAnimationFrame(function () {
+        raf = 0;
+        if (noHeroScroll) heroPassed = window.scrollY > window.innerHeight * 0.9;
+        var now = Date.now();
+        var visibleCtas = 0, hiddenCtas = 0, heroHidden = false;
+        ctaOn.forEach(function (since, el) {
+          if (seen(el)) { visibleCtas++; return; }
+          hiddenCtas++;
+          if (now - since < GRACE) visibleCtas++;
+          else if (el === heroEl) heroHidden = true;
+        });
+        // Before the hero button scrolls away the bar stays down, unless
+        // that button is on screen but invisible.
+        var heroBlocks = !heroPassed && !heroHidden;
+        set(phone.matches && !heroBlocks && visibleCtas === 0 && footOn.size === 0);
+        // An invisible button may fade in without any scroll: look again soon.
+        clearTimeout(poll);
+        if (hiddenCtas) poll = setTimeout(apply, 400);
+      });
+    }
+    if (phone.addEventListener) phone.addEventListener("change", apply);
+
+    if (!("IntersectionObserver" in window)) {
+      set(true);
+      return;
+    }
+
+    function rendered(el) {
+      return el.isConnected && el.getClientRects().length > 0;
+    }
+
+    // Buy buttons: "on" while on screen or within 96 px below it.
+    var ctaIO = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        var e = entries[i];
+        if (e.isIntersecting) { if (!ctaOn.has(e.target)) ctaOn.set(e.target, Date.now()); }
+        else ctaOn.delete(e.target);
+        if (e.target === heroEl) heroPassed = !e.isIntersecting && e.boundingClientRect.bottom <= 0;
+      }
+      apply();
+    }, { rootMargin: "0px 0px 96px 0px" });
+
+    // Footer: "on" from 140 px before it scrolls into view.
+    var footIO = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) footOn.add(entries[i].target);
+        else footOn.delete(entries[i].target);
+      }
+      apply();
+    }, { rootMargin: "0px 0px 140px 0px" });
+
+    function onScrollNoHero() { apply(); }
+
+    function scan() {
+      // Forget elements a React island has thrown away.
+      watched.forEach(function (el) {
+        if (!el.isConnected) {
+          ctaIO.unobserve(el);
+          footIO.unobserve(el);
+          watched.delete(el);
+          ctaOn.delete(el);
+          footOn.delete(el);
+        }
+      });
+
+      var links = [];
+      var all = document.querySelectorAll('a[href*="/checkout/"], [data-mc-buy]');
+      for (var i = 0; i < all.length; i++) {
+        var a = all[i];
+        if (bar.contains(a) || a.closest("header, nav, [data-mc-no-dock]")) continue;
+        links.push(a);
+        if (!watched.has(a)) { watched.add(a); ctaIO.observe(a); }
+      }
+      var feet = document.querySelectorAll("footer");
+      for (var j = 0; j < feet.length; j++) {
+        if (!watched.has(feet[j])) { watched.add(feet[j]); footIO.observe(feet[j]); }
+      }
+
+      var hero = null;
+      var marked = document.querySelectorAll("[data-mc-hero-cta]");
+      for (var m = 0; m < marked.length; m++) {
+        if (!bar.contains(marked[m]) && rendered(marked[m])) { hero = marked[m]; break; }
+      }
+      if (!hero) {
+        for (var n = 0; n < links.length; n++) {
+          if (rendered(links[n])) { hero = links[n]; break; }
         }
       }
-      // No hero CTA marked? Just show the sticky always (legacy pages).
-      if (!heroCta) {
-        set(true);
-        return;
+      if (hero !== heroEl) {
+        heroEl = hero;
+        if (hero) {
+          if (!watched.has(hero)) { watched.add(hero); ctaIO.observe(hero); }
+          heroPassed = hero.getBoundingClientRect().bottom <= 0;
+        }
       }
-      function update() {
-        var r = heroCta.getBoundingClientRect();
-        var vh = window.innerHeight || document.documentElement.clientHeight;
-        var heroVisible = r.top < vh && r.bottom > 0;
-        set(!heroVisible);
+      var needScroll = !hero;
+      if (needScroll !== noHeroScroll) {
+        noHeroScroll = needScroll;
+        if (needScroll) window.addEventListener("scroll", onScrollNoHero, { passive: true });
+        else window.removeEventListener("scroll", onScrollNoHero);
       }
-      update();
-      // Lightweight throttle: at most once per ~16ms via setTimeout (rAF
-      // would be nicer but isn't always reliable in headless test envs).
-      var pending = false;
-      function onScroll() {
-        if (pending) return;
-        pending = true;
-        setTimeout(function () {
-          update();
-          pending = false;
-        }, 16);
-      }
-      window.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("resize", onScroll, { passive: true });
+      apply();
     }
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", init);
-    } else {
-      init();
+
+    var pending = 0;
+    function rescan() {
+      if (pending) return;
+      pending = setTimeout(function () { pending = 0; scan(); }, 150);
     }
+
+    function init() {
+      scan();
+      if ("MutationObserver" in window) {
+        new MutationObserver(rescan).observe(document.body, { childList: true, subtree: true });
+      }
+      window.addEventListener("load", rescan);
+      window.addEventListener("resize", rescan, { passive: true });
+    }
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+    else init();
   })();
 </script>

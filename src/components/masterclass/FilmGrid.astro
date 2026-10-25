@@ -1,0 +1,48 @@
+---
+/**
+ * Static poster grid: no scroll runway, no JS. Each film can carry a note,
+ * such as the lessons that cover it or the instructor's role.
+ *
+ *   <FilmGrid films={[
+ *     { src: "/masterclass/nelson/jailer.jpg", title: "Jailer", year: 2023, note: "Lesson 18" },
+ *   ]} />
+ */
+import "@/styles/masterclass.css";
+import RevealScript from "./RevealScript.astro";
+import KitPicture from "./KitPicture.astro";
+import type { FilmItem } from "./types";
+
+interface Props {
+  films: FilmItem[];
+  /** Columns from 760 px up. Default 4. Phones always get 2. */
+  cols?: number;
+  class?: string;
+}
+
+const { films, cols = 4, class: className } = Astro.props;
+---
+
+<ul class:list={["mck", "mck-films", className]} style={`--mck-film-cols:${cols}`}>
+  {films.map((f, i) => (
+    <li class="mck-film mck-reveal" style={`--mck-delay:${(i % cols) * 70}ms`}>
+      <div class="mck-film__poster">
+        <KitPicture
+          src={f.src}
+          alt={f.alt ?? `${f.title} poster`}
+          width={400}
+          height={600}
+          sizes="(min-width: 760px) 260px, 45vw"
+          siblings={f.siblings ?? true}
+        />
+      </div>
+      <div>
+        <p class="mck-film__title">
+          {f.title}
+          {f.year && <span class="mck-film__year"> ({f.year})</span>}
+        </p>
+        {f.note && <p class="mck-film__note">{f.note}</p>}
+      </div>
+    </li>
+  ))}
+</ul>
+<RevealScript />

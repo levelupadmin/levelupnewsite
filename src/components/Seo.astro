@@ -34,6 +34,9 @@ const resolvedOgImage = ogImage
     : `${SITE_URL}${ogImage.startsWith("/") ? ogImage : `/${ogImage}`}`
   : `${SITE_URL}/og-image.jpg`;
 const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+// Open Graph has no "course" type; Facebook reports it as invalid. Courses
+// and every other page are "website"; only articles keep "article".
+const ogType = type === "article" ? "article" : "website";
 ---
 
 <title>{title}</title>
@@ -44,7 +47,7 @@ const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:type" content={type} />
+<meta property="og:type" content={ogType} />
 <meta property="og:url" content={url} />
 <meta property="og:image" content={resolvedOgImage} />
 <meta property="og:image:width" content="1200" />
@@ -52,7 +55,7 @@ const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 <meta property="og:site_name" content="LevelUp Learning" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:site" content="@LevelUpLearning" />
+<meta name="twitter:site" content="@LevelUp_edu" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={resolvedOgImage} />

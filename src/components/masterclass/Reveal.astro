@@ -1,0 +1,39 @@
+---
+/**
+ * Fades and lifts its content in when it scrolls into view.
+ *
+ * Content is visible in the server HTML. The script hides only blocks that
+ * start below the fold, so above-the-fold content never flashes and a page
+ * with no JS shows everything.
+ *
+ *   <Reveal delay={120} variant="scale">...</Reveal>
+ */
+import "@/styles/masterclass.css";
+import RevealScript from "./RevealScript.astro";
+
+interface Props {
+  /** Element to render. Default "div". */
+  as?: string;
+  /** Delay in ms, for staggering siblings. */
+  delay?: number;
+  /** Entrance: lift up (default), plain fade, scale, or slide from a side. */
+  variant?: "up" | "fade" | "scale" | "left" | "right";
+  class?: string;
+  style?: string;
+  id?: string;
+  [key: string]: unknown;
+}
+
+const { as: Tag = "div", delay = 0, variant = "up", class: className, style, ...rest } = Astro.props;
+const styleAttr = [delay ? `--mck-delay:${delay}ms` : "", style ?? ""].filter(Boolean).join(";") || undefined;
+---
+
+<Tag
+  class:list={["mck-reveal", className]}
+  data-reveal={variant === "up" ? undefined : variant}
+  style={styleAttr}
+  {...rest}
+>
+  <slot />
+</Tag>
+<RevealScript />
