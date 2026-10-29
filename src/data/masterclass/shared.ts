@@ -83,9 +83,8 @@ function offering(o: Omit<Offering, "checkoutUrl">): Offering {
 }
 
 /**
- * Lessons and runtimes are the real figures from PR #29 (VdoCipher), except
- * Nelson, which is sold as 29 lessons and 2 h 20 min (founder's decision,
- * 17 Oct 2026).
+ * Lessons and runtimes are the real figures from VdoCipher (PR #29). Nelson's
+ * 153 min counts all 29 lessons; lessons 25 to 29 went live on 30 Oct 2026.
  */
 export const OFFERINGS: Record<MasterclassSlug, Offering> = {
   "nelson-dilipkumar": offering({
@@ -98,7 +97,7 @@ export const OFFERINGS: Record<MasterclassSlug, Offering> = {
     language: "Tamil, with English subtitles",
     inLanguage: ["ta", "en"],
     lessons: 29,
-    runtimeMinutes: 140,
+    runtimeMinutes: 153,
   }),
   "lokesh-kanagaraj": offering({
     slug: "lokesh-kanagaraj",

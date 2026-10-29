@@ -16,7 +16,8 @@
  * - Reviews and quotes: nelson-dilipkumar.reviews.json and
  *   nelson-dilipkumar.quotes.json in this folder, copied verbatim.
  *
- * Founder's decisions, 17 Oct 2026: sell 29 lessons and 2 h 20 min, list
+ * Founder's decisions, 17 Oct 2026: sell 29 lessons (2 h 33 min since all 29
+ * went live on 30 Oct 2026), list
  * all 29, keep the certificate claim, bonuses go to every buyer, no timer,
  * no strike price.
  */
@@ -208,7 +209,7 @@ export const LESSONS_SHOWN = 6;
 /* ------------------------------------------------------------------ */
 
 export const INCLUDED: IncludedItem[] = [
-  { title: "29 video lessons", detail: "2 h 20 min in all. Most run 2 to 6 minutes." },
+  { title: "29 video lessons", detail: "2 h 33 min in all. Most run 2 to 6 minutes." },
   { title: "Tamil, with English subtitles", detail: "Nelson speaks Tamil. Every lesson has English subtitles." },
   { title: "Watch on phone, tablet or laptop", detail: "In the LevelUp app or website." },
   { title: "Access for life", detail: "Pay once. No subscription." },
@@ -352,7 +353,7 @@ export const FAQ_LANGUAGE: FaqItem = {
 };
 export const FAQ_LENGTH: FaqItem = {
   question: "How long is it?",
-  answer: "29 lessons, 2 h 20 min in all. Most run 2 to 6 minutes. The longest, on Doctor's interval block, runs 17 minutes.",
+  answer: "29 lessons, 2 h 33 min in all. Most run 2 to 6 minutes. The longest, on Doctor's interval block, runs 17 minutes.",
 };
 export const FAQ_WHO: FaqItem = {
   question: "Who is it for?",

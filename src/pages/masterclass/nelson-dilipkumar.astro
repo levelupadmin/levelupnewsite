@@ -12,7 +12,7 @@
  * site navbar is the one React island, hydrated when the browser is idle.
  *
  * Copy and page data: src/data/masterclass/content/nelson-dilipkumar.ts.
- * Shared facts (price, checkout, 29 lessons, 2 h 20 min, refund rule):
+ * Shared facts (price, checkout, 29 lessons, 2 h 33 min, refund rule):
  * src/data/masterclass/shared.ts.
  */
 import BaseLayout from "@/layouts/BaseLayout.astro";
@@ -75,7 +75,7 @@ import {
 
 const o = OFFERINGS[SLUG];
 const runtime = formatRuntime(o.runtimeMinutes);
-/** Same runtime with no-break spaces, so "2 h 20 min" never splits across lines. */
+/** Same runtime with no-break spaces, so "2 h 33 min" never splits across lines. */
 const runtimeNb = runtime.replace(/ /g, "\u00a0");
 const cta = { href: o.checkoutUrl, price: o.price, course: o.slug };
 
