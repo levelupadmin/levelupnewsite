@@ -28,6 +28,15 @@ export const organizationJsonLd = {
     "https://x.com/LevelUp_edu",
     "https://www.linkedin.com/company/levelup-learning/",
   ],
+  // LevelUp Young Leaders, the programme for ages 8–18, runs on its own
+  // subdomain and names this node as its parentOrganization. Pointing back at
+  // its @id makes the link two-way, so assistants read it as ours.
+  subOrganization: {
+    "@type": "EducationalOrganization",
+    "@id": "https://youngleaders.leveluplearning.in/#org",
+    name: "LevelUp Young Leaders",
+    url: "https://youngleaders.leveluplearning.in/",
+  },
 };
 
 export const websiteJsonLd = {

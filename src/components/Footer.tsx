@@ -9,6 +9,7 @@ const footerLinks = {
     { label: "Masterclasses", href: "/masterclass" },
     { label: "LevelUp Live", href: "/#live-programs" },
     { label: "The Forge", href: "/#forge" },
+    { label: "Young Leaders (ages 8–18)", href: "https://youngleaders.leveluplearning.in" },
     { label: "Reviews", href: "/reviews" },
     { label: "Student Stories", href: "/student-stories" },
   ],
