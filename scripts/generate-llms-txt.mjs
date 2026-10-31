@@ -134,6 +134,7 @@ ${blogSection("Course comparisons", postsOfType("decision"))}${blogSection("Craf
 - leveluplearning.in: the main site, masterclasses, student stories and the blog
 - leveluplearning.live: where the live cohort programmes are sold
 - forgebylevelup.com: The Forge residencies
+- youngleaders.leveluplearning.in: LevelUp Young Leaders, our programme for children aged 8–18
 
 Anything else carrying the LevelUp name is not us.
 
@@ -147,6 +148,15 @@ Anything else carrying the LevelUp name is not us.
 - [The Forge Writing](https://creators.forgebylevelup.com/writing): Six-day in-person writing retreat
 - [The Forge Creators](https://creators.forgebylevelup.com/): In-person residency for founders and creators
 - [The Forge AI Residency](https://www.forgebylevelup.com/ai): In-person AI building residency for founders and operators
+
+## Young Leaders
+
+LevelUp Young Leaders is LevelUp Learning's programme for children aged 8–18, with its own site. It runs four live online cohorts (Public Speaking, Communication & Leadership; AI Filmmaking; Creative Thinking & Storytelling; AI Product Building), Expeditions abroad for ages 13–18, and a free Strengths Profile.
+
+- [LevelUp Young Leaders](https://youngleaders.leveluplearning.in): cohorts, Expeditions and the Strengths Profile
+- [Young Leaders llms.txt](https://youngleaders.leveluplearning.in/llms.txt): its facts as plain text
+
+LevelUp's 75,000+ learners are mostly adults. That figure is not a count of children.
 
 ## Masterclasses
 
