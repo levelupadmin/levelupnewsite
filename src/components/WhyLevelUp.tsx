@@ -129,14 +129,19 @@ const WhyLevelUp = () => {
               <div
                 key={index}
                 ref={(el) => { cardRefs.current[index] = el; }}
+                data-expanded={isExpanded ? "true" : "false"}
                 className={`flex flex-col overflow-hidden ${isExpanded ? "" : "cursor-pointer"}`}
                 style={{
                   width: cardWidth,
                   minWidth: cardWidth,
                   transition: TRANSITION,
                   willChange: "width",
+                  // Mobile expanded: let the card grow naturally so the
+                  // description + bullets + stat are visible without a
+                  // nested scroll. Previous `minHeight: 560` clipped
+                  // those out, leaving only the title + illustration.
                   minHeight: isMobile
-                    ? isExpanded ? 560 : 500
+                    ? isExpanded ? undefined : 500
                     : 528,
                   flexShrink: 0,
                 }}
@@ -181,33 +186,43 @@ const WhyLevelUp = () => {
                     </div>
                   </div>
 
-                  {/* EXPANDED STATE */}
+                  {/* EXPANDED STATE.
+                      Desktop: 2-column grid (illustration on left, text on
+                      right) — unchanged.
+                      Mobile: stacked, illustration first, then title +
+                      description + bullets + stat. Earlier this section
+                      was clipped because the card had `minHeight: 560`;
+                      we removed that so the card grows to fit, and we
+                      also dropped the inner overflow-y-auto so the user
+                      doesn't have to scroll inside a card. */}
                   <div
-                    className="absolute inset-0 flex flex-col overflow-hidden transition-opacity duration-400 ease-out"
+                    className={`${isMobile ? "relative" : "absolute"} inset-0 flex flex-col transition-opacity duration-400 ease-out`}
                     style={{
                       opacity: isExpanded ? 1 : 0,
                       transitionDelay: isExpanded ? "200ms" : "0ms",
                       pointerEvents: isExpanded ? "auto" : "none",
+                      // Mobile: when not expanded, collapse this whole
+                      // block so it doesn't reserve any height behind the
+                      // compressed view. Otherwise the compressed card
+                      // would inherit the expanded layout's tall sizing.
+                      display: isMobile && !isExpanded ? "none" : undefined,
                     }}
                     onClick={(e) => e.stopPropagation()}
                   >
-                    {/* 2-column layout — scrollable on mobile */}
-                    <div className={`flex-1 p-7 md:p-10 ${isMobile ? "flex flex-col gap-5 overflow-y-auto" : "grid grid-cols-[2fr_3fr] gap-8"}`}>
-                      {/* Left column: Title, Illustration, Stat */}
+                    <div className={`flex-1 p-7 md:p-10 ${isMobile ? "flex flex-col gap-5" : "grid grid-cols-[2fr_3fr] gap-8"}`}>
+                      {/* Left / mobile-top: title + illustration */}
                       <div className="flex flex-col">
-                        <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-2 whitespace-pre-line">
+                        <h3 className="font-serif-display text-xl md:text-2xl font-medium text-foreground leading-tight mb-3 md:mb-2 whitespace-pre-line">
                           {feature.title}
                         </h3>
-                        <div className="flex items-start min-h-0 pb-4 overflow-hidden">
+                        <div className={`flex items-start ${isMobile ? "h-[260px]" : "min-h-0 pb-4 overflow-hidden"}`}>
                           <Illustration />
                         </div>
-
-
                       </div>
 
-                      {/* Right column: Description, Bullets */}
-                      <div className="flex flex-col justify-start pt-4 md:pt-6">
-                        <p className="font-sans-body text-sm text-muted-foreground leading-relaxed mb-4">
+                      {/* Right / mobile-bottom: description + bullets + stat */}
+                      <div className="flex flex-col justify-start pt-2 md:pt-6">
+                        <p className="font-sans-body text-sm md:text-sm text-muted-foreground leading-relaxed mb-4">
                           {feature.expandedDescription}
                         </p>
                         <div className="space-y-3.5">
@@ -221,7 +236,7 @@ const WhyLevelUp = () => {
                           ))}
                         </div>
                         {feature.stat && (
-                          <div className="flex-1 flex flex-col items-center justify-center p-4">
+                          <div className="mt-5 md:mt-0 md:flex-1 flex flex-col items-center justify-center p-4">
                             <span className="font-serif-display text-4xl md:text-5xl font-bold text-gradient-amber">
                               {feature.stat}
                             </span>
