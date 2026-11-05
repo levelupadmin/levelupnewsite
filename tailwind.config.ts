@@ -133,6 +133,23 @@ export default {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
         },
+        "draw-line": {
+          "0%": { strokeDashoffset: "100%" },
+          "100%": { strokeDashoffset: "0%" },
+        },
+        "scramble": {
+          "0%": { opacity: "0.4", transform: "translateY(2px)" },
+          "50%": { opacity: "0.7", transform: "translateY(-1px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "breathe": {
+          "0%, 100%": { letterSpacing: "0", fontWeight: "400" },
+          "50%": { letterSpacing: "0.02em", fontWeight: "500" },
+        },
+        "tilt-marquee": {
+          "0%": { transform: "rotate(-3deg) translateX(0)" },
+          "100%": { transform: "rotate(-3deg) translateX(-50%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -152,6 +169,10 @@ export default {
         "orbit-cw-slow": "orbit-cw 120s linear infinite",
         "orbit-ccw-slow": "orbit-ccw 120s linear infinite",
         "ticker": "ticker 30s linear infinite",
+        "draw-line": "draw-line 1.6s ease-out forwards",
+        "scramble": "scramble 0.6s ease-out forwards",
+        "breathe": "breathe 8s ease-in-out infinite",
+        "tilt-marquee": "tilt-marquee 30s linear infinite",
       },
     },
   },
