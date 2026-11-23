@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>(function(){try{var t=localStorage.getItem('ail-theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches)?'dark':'light';}if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<script>(function(){try{var t=localStorage.getItem('ail-theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LevelUp AI Library — 14,465 AI skills, tools, MCP servers, LLMs & more (free)</title>
-<meta name="description" content="A free, searchable library of 14,465 AI resources — agent skills, tools, MCP servers, LLMs, agents and design systems. Built for LevelUp AI students. No signup, nothing locked.">
-<meta property="og:title" content="LevelUp AI Library — 14,465 AI resources, free">
-<meta property="og:description" content="Search 7,748 agent skills, 3,537 tools, 1,725 MCP servers, 585 LLMs, 800 agents and 70 design systems. Free for students.">
+<title>LevelUp AI Library — 14,715 AI skills, tools, MCP servers, LLMs & more (free)</title>
+<meta name="description" content="A free, searchable library of 14,715 AI resources — agent skills, tools, MCP servers, LLMs, agents and design systems. Built for LevelUp AI students. No signup, nothing locked.">
+<meta property="og:title" content="LevelUp AI Library — 14,715 AI resources, free">
+<meta property="og:description" content="Search 7,854 agent skills, 3,537 tools, 1,795 MCP servers, 660 LLMs, 800 agents and 69 design systems. Free for students.">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://www.leveluplearning.in/aivault">
 <link rel="icon" type="image/png" href="/aivault/favicon.png">
@@ -766,6 +766,97 @@ a.ail-det-cat:hover{text-decoration:underline}
   .ail-grid .ail-card,.ail-pairs-grid .ail-card,.ail-save.is-saved .ail-save-ic{animation:none!important}
 }
 
+
+/* ==========================================================================
+   NOV 2026 REFRESH — warm paper light theme (default), ink dark theme,
+   new hero, stat chips, "New this month" grid. Layered over the base styles.
+   ========================================================================== */
+:root{
+  --bg:#f7f5f0;--bg-nav:247,245,240;--surface:#fff;--surface-2:#f0ede6;--surface-3:#ece9f9;--surface-4:#f0ede6;
+  --text:#14130f;--text-2:#3a3833;--muted:#625e55;--muted-2:#7d796f;--muted-3:#97928a;--muted-4:#827d73;
+  --border:#e4dfd4;--border-2:#ebe7de;--border-3:#e7e2d8;--border-4:#e4dfd4;--border-hover:#cfc8b9;--border-strong:#bdb5a4;--divider:#d9d3c6;
+  --sh-card:rgba(40,32,15,.05);--sh-card2:rgba(40,32,15,.07);--sh-hover:rgba(40,32,15,.16);--sh-hover-sm:rgba(40,32,15,.09);--sh-hover-md:rgba(40,32,15,.16);
+  --sk-1:#efebe3;--sk-2:#f6f3ed;--grad-card:#fff;--grad-tool:#fbfaf7;
+  --hot:#ff5b2e;--hot-soft:rgba(255,91,46,.10);--hot-line:rgba(255,91,46,.28);
+  --grid-line:rgba(20,19,15,.045);
+  --radius-lg:18px;
+}
+[data-theme='dark']{
+  --bg:#0e0f12;--bg-nav:14,15,18;--surface:#16181d;--surface-2:#1d2026;--surface-3:#1a2236;--surface-4:#1d2026;
+  --text:#f2f1ed;--text-2:#cfccc4;--muted:#a19d94;--muted-2:#8a867d;--muted-3:#7d7a72;--muted-4:#8f8b82;
+  --border:#272a31;--border-2:#23262c;--border-3:#212329;--border-4:#272a31;--border-hover:#3a3e47;--border-strong:#454a54;--divider:#2c2f36;
+  --sk-1:#1b1e23;--sk-2:#23262d;--grad-card:#16181d;--grad-tool:#16181d;
+  --hot:#ff7a52;--hot-soft:rgba(255,122,82,.14);--hot-line:rgba(255,122,82,.34);
+  --grid-line:rgba(255,255,255,.035);
+}
+body{font-feature-settings:"ss01" 1,"cv11" 1}
+::selection{background:rgba(26,106,255,.18)}
+
+/* nav: floating bar */
+.ailnav{margin:10px auto 0;max-width:min(1180px,calc(100vw - 20px));top:10px;border:1px solid var(--border-3);border-radius:16px;padding:9px 12px 9px 18px;box-shadow:0 8px 30px -18px var(--sh-hover)}
+.ailnav-links{align-items:center;gap:14px}
+.ailnav-links a{font-weight:600;color:var(--text-2)}
+.ailnav-theme{border-radius:10px}
+@media(max-width:640px){.ailnav{border-radius:14px;padding:8px 10px 8px 14px;flex-wrap:wrap;row-gap:4px}.ailnav-links{width:100%;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;gap:10px;justify-content:flex-start}.ailnav-links::-webkit-scrollbar{display:none}.ail-eyebrow{letter-spacing:1.2px}}
+
+/* hero: graph paper instead of aurora */
+.ail-hero{padding:72px 0 24px}
+.ail-hero::before{background:none}
+.ail-hero::after{height:520px;background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);background-size:40px 40px;
+  -webkit-mask-image:radial-gradient(80% 70% at 30% 20%,#000 20%,transparent 75%);mask-image:radial-gradient(80% 70% at 30% 20%,#000 20%,transparent 75%)}
+.ail-hero-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.ail-live{display:inline-flex;align-items:center;gap:8px;font:500 13px/1 'DM Sans';color:var(--text-2);text-decoration:none;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:8px 13px 8px 11px;box-shadow:0 1px 2px var(--sh-card);transition:border-color .15s,transform .15s}
+.ail-live b{color:var(--hot);font-weight:700}
+.ail-live:hover{border-color:var(--hot-line);transform:translateY(-1px)}
+.ail-live-dot{width:8px;height:8px;border-radius:50%;background:var(--hot);box-shadow:0 0 0 0 var(--hot-line);animation:ailPulse 2.2s ease-out infinite}
+@keyframes ailPulse{0%{box-shadow:0 0 0 0 var(--hot-line)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
+@media (prefers-reduced-motion:reduce){.ail-live-dot{animation:none}}
+.ail-h1{font-size:clamp(38px,6vw,76px);line-height:.98;letter-spacing:-.045em;margin-top:22px;max-width:15ch}
+.ail-h1 em{background:none;-webkit-text-fill-color:currentColor;color:var(--forge-blue);position:relative;white-space:nowrap}
+.ail-h1 em::after{content:'';position:absolute;left:2%;right:4%;bottom:.02em;height:.09em;border-radius:99px;background:var(--hot);opacity:.9}
+.ail-lede{font-size:18px;color:var(--muted);max-width:58ch}
+.ail-statrow{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
+.ail-stat{display:inline-flex;align-items:baseline;gap:7px;text-decoration:none;border:1px solid var(--border);background:var(--surface);border-radius:12px;padding:9px 13px;transition:border-color .15s,transform .15s,box-shadow .15s}
+.ail-stat b{font:700 15px/1 'JetBrains Mono',monospace;color:var(--text);letter-spacing:-.02em}
+.ail-stat span{font:500 13px/1 'DM Sans';color:var(--muted)}
+.ail-stat:hover{border-color:var(--accent-line);transform:translateY(-1px);box-shadow:0 8px 20px -12px var(--sh-hover)}
+.ail-hero .ail-search input{border-width:1px;border-color:var(--border-strong);border-radius:14px;box-shadow:0 1px 0 var(--hairline) inset,0 12px 32px -18px var(--sh-hover)}
+.ail-hero .ail-search input:focus{border-color:var(--forge-blue);box-shadow:0 0 0 4px var(--ring)}
+.ail-exq-chip{background:var(--surface);border-width:1px;border-color:var(--border)}
+
+/* New this month */
+.ail-new{margin:46px 0 8px;scroll-margin-top:90px}
+.ail-new-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:0 0 16px}
+.ail-new-title{font:700 clamp(26px,3vw,34px)/1.05 'DM Sans';letter-spacing:-.03em;margin:0;color:var(--text)}
+.ail-new-title em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--hot)}
+.ail-new-sub{margin:6px 0 0;font-size:14.5px;color:var(--muted);max-width:60ch}
+.ail-new-tabs{display:flex;gap:6px;flex-wrap:wrap;background:var(--surface-2);border:1px solid var(--border-2);border-radius:12px;padding:4px}
+.ail-new-tab{font:600 13px/1 'DM Sans';color:var(--muted);background:transparent;border:0;border-radius:9px;padding:9px 12px;cursor:pointer;min-height:36px}
+.ail-new-tab span{font:600 11px/1 'JetBrains Mono',monospace;color:var(--muted-3);margin-left:3px}
+.ail-new-tab[aria-selected='true']{background:var(--surface);color:var(--text);box-shadow:0 1px 3px var(--sh-card2),0 0 0 1px var(--border-2)}
+.ail-new-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.ail-ncard{display:flex;flex-direction:column;gap:8px;min-width:0;text-decoration:none;color:inherit;background:var(--surface);border:1px solid var(--border-2);border-radius:16px;padding:16px 16px 14px;transition:transform .18s cubic-bezier(.2,.7,.3,1),box-shadow .18s,border-color .18s}
+.ail-ncard:hover{transform:translateY(-3px);border-color:var(--border-hover);box-shadow:0 18px 40px -20px var(--sh-hover)}
+.ail-ncard-top{display:flex;align-items:center;gap:9px}
+.ail-ncard-badge{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font:400 18px/1 'Instrument Serif',serif;flex:none}
+.ail-ncard-cat{font:600 11px/1 'JetBrains Mono',monospace;letter-spacing:.8px;text-transform:uppercase;color:var(--muted-3)}
+.ail-ncard-new{margin-left:auto;font:700 10.5px/1 'JetBrains Mono',monospace;letter-spacing:.6px;text-transform:uppercase;color:var(--hot);background:var(--hot-soft);border:1px solid var(--hot-line);border-radius:999px;padding:4px 8px}
+.ail-ncard-name{font:700 16px/1.25 'DM Sans';letter-spacing:-.01em;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ail-ncard-desc{margin:0;font-size:13.5px;line-height:1.45;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ail-ncard-meta{margin-top:auto;display:flex;gap:12px;flex-wrap:wrap;font:500 12px/1.4 'DM Sans';color:var(--muted-2)}
+.ail-ncard-stars{color:var(--text-2);font-weight:600}
+.ail-new-more{display:block;margin:16px auto 0;font:600 14px/1 'DM Sans';color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 20px;cursor:pointer;min-height:44px}
+.ail-new-more:hover{border-color:var(--border-hover)}
+@media(max-width:900px){.ail-new-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.ail-new-grid{grid-template-columns:1fr}.ail-new-tabs{width:100%;overflow-x:auto;flex-wrap:nowrap}}
+
+/* calmer, flatter cards site-wide */
+.ail-goal,.ail-tcard,.ail-tile,.ail-card,.ail-col{border-width:1px!important;border-radius:16px}
+.ail-goal-ico{background:var(--surface-2)}
+.ail-trend-title em,.ail-cols-title em,.ail-goals-title em{color:var(--hot)}
+.ail-goals-title{font:700 22px/1.1 'DM Sans';letter-spacing:-.02em}
+.ail-goals-title em{font-family:'Instrument Serif',serif;font-weight:400}
+.ailfoot{color:var(--muted-2)}
 </style>
 </head>
 <body>
@@ -786,7 +877,7 @@ a.ail-det-cat:hover{text-decoration:underline}
 </nav>
 <div class="page active" id="page-aivault"><div id="aivaultHost"></div></div>
 <div class="page" id="page-resource"><div id="resourceHost"></div></div>
-<footer class="ailfoot">© 2026 LevelUp Learning · <strong>LevelUp AI Library</strong> · Free for LevelUp AI students<br>14,465 AI resources · Free, no signup · Updated June 2026</footer>
+<footer class="ailfoot">© 2026 LevelUp Learning · <strong>LevelUp AI Library</strong> · Free for LevelUp AI students<br>14,715 AI resources · Free, no signup · Updated 23 Nov 2026</footer>
 <script>
 (function(){
   'use strict';
@@ -834,13 +925,13 @@ a.ail-det-cat:hover{text-decoration:underline}
   }
 
   var CATS = [
-    {key:'skill',      label:'Skills',      icon:'⚡', count:7748, blurb:'Install-ready agent skills for Claude Code, Cursor, Codex & 23 more tools.',
+    {key:'skill',      label:'Skills',      icon:'⚡', count:7854, blurb:'Install-ready agent skills for Claude Code, Cursor, Codex & 23 more tools.',
       facets:[{f:'skill_category',label:'Category',top:14}]},
     {key:'tool',       label:'Tools',       icon:'🛠️', count:3537, blurb:'AI tools for every task — many with a matching credit perk.',
       facets:[{f:'task_category',label:'Task',top:18}]},
-    {key:'mcp_server', label:'MCP Servers', icon:'🔌', count:1725, blurb:'Connect your agents to databases, APIs & services.',
+    {key:'mcp_server', label:'MCP Servers', icon:'🔌', count:1795, blurb:'Connect your agents to databases, APIs & services.',
       facets:[{f:'categories',label:'Category',split:/[;,]/,top:16}]},
-    {key:'llm',        label:'LLMs',        icon:'🧠', count:585,  blurb:'Compare models by provider, size, context & open/closed weights.',
+    {key:'llm',        label:'LLMs',        icon:'🧠', count:660,  blurb:'Compare models by provider, size, context & open/closed weights.',
       facets:[{f:'weights',label:'Weights'},{f:'kind',label:'Type',top:10},{f:'provider',label:'Provider',top:12}]},
     {key:'agent',      label:'Agents',      icon:'🤖', count:800,  blurb:'Prebuilt agents & automation templates.',
       facets:[{f:'agent_category',label:'Category',top:16}]},
@@ -975,10 +1066,11 @@ a.ail-det-cat:hover{text-decoration:underline}
     var host=$('#aivaultHost'); if(!host) return;
     host.innerHTML =
       '<div class="ail-wrap"><div class="ail-hero">'+
-        '<div class="ail-eyebrow">LevelUp AI Library · Free for students</div>'+
-        '<h1 class="ail-h1">14,465 AI <em>resources</em>, in one place.</h1>'+
+        '<div class="ail-hero-top"><div class="ail-eyebrow">LevelUp AI Library · Free for students</div>'+
+        '<a class="ail-live" href="#ailNew"><span class="ail-live-dot"></span>Updated 23 Nov 2026 · <b>251 new</b> this month</a></div>'+
+        '<h1 class="ail-h1">14,715 AI <em>resources</em>, in one place.</h1>'+
         '<p class="ail-lede">Every agent skill, AI tool, MCP server, LLM, agent and design system — searchable, categorized, and free. No signup, nothing locked. Built for LevelUp AI students.</p>'+
-        '<div class="ail-stats">7,748 skills · 3,537 tools · 1,725 MCP servers · 585 LLMs · 800 agents · 70 designs</div>'+
+        '<div class="ail-statrow">'+CATS.map(function(c){return '<a class="ail-stat" href="#/c/'+c.key+'"><b>'+c.count.toLocaleString()+'</b><span>'+c.label+'</span></a>';}).join('')+'</div>'+
         '<div class="ail-search">'+ICON_SEARCH+'<input id="ailGlobal" type="text" placeholder="Try “postgres mcp”, “summarize youtube”, “resume builder”…" autocomplete="off" aria-label="Search the AI Library"></div>'+
         '<div class="ail-exq" id="ailExq" aria-label="Example searches">'+
           '<span class="ail-exq-label">Try</span>'+
@@ -986,6 +1078,7 @@ a.ail-det-cat:hover{text-decoration:underline}
             .map(function(x){return '<button type="button" class="ail-exq-chip" data-q="'+esc(x)+'">'+esc(x)+'</button>';}).join('')+
         '</div>'+
         '<div class="ail-gres" id="ailGlobalRes"></div>'+
+        newSectionHTML()+
         goalsSectionHTML()+
         trendingSectionHTML()+
         onbBannerHTML()+
@@ -1032,6 +1125,7 @@ a.ail-det-cat:hover{text-decoration:underline}
     if('requestIdleCallback' in window) requestIdleCallback(warm,{timeout:2500});
     else setTimeout(warm,1200);
     hydrateTrending();
+    hydrateNew();
     hydrateCollections();
   }
 
@@ -1073,7 +1167,7 @@ a.ail-det-cat:hover{text-decoration:underline}
     else if(mode==='name') a.sort(function(x,y){return String(x.name).localeCompare(String(y.name));});
     return a; }
   function fmtStars(n){ if(n>=1000) return (n/1000).toFixed(n<10000?1:0)+'k'; return ''+n; }
-  var FRESH_CUTOFF='2025-07';   // TODAY 2026-07 minus 12 months; string compare vs "YYYY-MM..." is exact
+  var FRESH_CUTOFF=(function(){var d=new Date();d.setMonth(d.getMonth()-12);var m=d.getMonth()+1;return d.getFullYear()+'-'+(m<10?'0':'')+m;})(); // 12 months before today
   var MON_ABBR=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var ICON_FRESH_OK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
   var ICON_FRESH_STALE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
@@ -1906,6 +2000,49 @@ a.ail-det-cat:hover{text-decoration:underline}
           '<div class="ail-goal-go">Explore →</div></a>';
       }).join('') +'</div></div>';
   }
+
+  // ===== New this month (filled from trending.json -> recent) =====
+  function newSectionHTML(){
+    return '<section class="ail-new" id="ailNew" hidden>'+
+      '<div class="ail-new-head"><div><h2 class="ail-new-title">New <em>this month</em></h2>'+
+      '<p class="ail-new-sub">Added 23 Nov 2026. The newest skills, models and MCP servers worth knowing, ranked by GitHub stars.</p></div>'+
+      '<div class="ail-new-tabs" id="ailNewTabs" role="tablist"></div></div>'+
+      '<div class="ail-new-grid" id="ailNewGrid"></div>'+
+      '<button type="button" class="ail-new-more" id="ailNewMore" hidden>Show more</button></section>';
+  }
+  function hydrateNew(){
+    var wrap=$('#ailNew'), grid=$('#ailNewGrid'), tabs=$('#ailNewTabs'), more=$('#ailNewMore'); if(!wrap||!grid) return;
+    loadTrending().then(function(data){
+      if(!grid.isConnected) return;
+      var items=(data&&Array.isArray(data.recent))?data.recent:[]; if(!items.length) return;
+      var cats=[{k:'all',l:'All'}]; ['skill','llm','mcp_server','tool','agent'].forEach(function(k){ var n=items.filter(function(t){return t.category===k;}).length; if(n) cats.push({k:k,l:(CAT_BY[k]||{label:k}).label,n:n}); });
+      var cur='all', shown=9;
+      function draw(){
+        var list=items.filter(function(t){return cur==='all'||t.category===cur;});
+        grid.innerHTML=list.slice(0,shown).map(function(t){
+          var cc=CAT_BY[t.category]||{label:t.category||''}, m=mono(t.name);
+          var meta=[];
+          if(typeof t.stars==='number'&&t.stars>0) meta.push('<span class="ail-ncard-stars">★ '+fmtStars(t.stars)+'</span>');
+          if(t.provider) meta.push('<span>'+esc(t.provider)+'</span>');
+          if(t.created && t.created>=FRESH_NEW) meta.push('<span>Since '+esc(fmtMonth(t.created))+'</span>');
+          return '<a class="ail-ncard" href="#/r/'+esc(t.slug)+'">'+
+            '<div class="ail-ncard-top"><span class="ail-ncard-badge" style="background:'+m.bg+';color:'+m.fg+'">'+esc((t.name||'?').charAt(0).toUpperCase())+'</span>'+
+            '<span class="ail-ncard-cat">'+esc(cc.label)+'</span><span class="ail-ncard-new">New</span></div>'+
+            '<div class="ail-ncard-name">'+esc(t.name)+'</div>'+
+            '<p class="ail-ncard-desc">'+esc(t.description||'')+'</p>'+
+            '<div class="ail-ncard-meta">'+meta.join('')+'</div></a>';
+        }).join('');
+        more.hidden=list.length<=shown;
+        Array.prototype.forEach.call(tabs.children,function(b){ b.setAttribute('aria-selected', b.getAttribute('data-k')===cur?'true':'false'); });
+      }
+      tabs.innerHTML=cats.map(function(c){return '<button type="button" role="tab" class="ail-new-tab" data-k="'+c.k+'">'+esc(c.l)+(c.n?' <span>'+c.n+'</span>':'')+'</button>';}).join('');
+      tabs.addEventListener('click',function(e){ var b=e.target.closest('[data-k]'); if(!b) return; cur=b.getAttribute('data-k'); shown=9; draw(); });
+      more.addEventListener('click',function(){ shown+=9; draw(); });
+      draw(); wrap.hidden=false;
+    });
+  }
+  var FRESH_NEW=(function(){var d=new Date();d.setMonth(d.getMonth()-5);return d.toISOString().slice(0,7);})(); // only say 'Since' for projects under ~5 months old
+  function fmtMonth(p){ p=String(p||''); var mo=parseInt(p.slice(5,7),10); return (MON_ABBR[mo-1]||'')+' '+p.slice(0,4); }
   var trendingP=null;
   function loadTrending(){ return trendingP || (trendingP = fetch(DATA_BASE+'trending.json').then(function(r){return r.ok?r.json():{};}).catch(function(){return {};})); }
 
@@ -1914,7 +2051,7 @@ a.ail-det-cat:hover{text-decoration:underline}
     return '<div class="ail-trend" id="ailTrend" hidden>'+
       '<div class="ail-trend-head"><div>'+
         '<h2 class="ail-trend-title">Trending <em>now</em></h2>'+
-        '<p class="ail-trend-sub">The resources students are opening most this week.</p>'+
+        '<p class="ail-trend-sub">Most-starred projects with new commits in the last 60 days. Star counts from GitHub, Nov 2026.</p>'+
       '</div></div>'+
       '<div class="ail-trend-row" id="ailTrendRow"></div>'+
       '<div class="ail-fresh" id="ailFresh" hidden>'+
@@ -1950,7 +2087,7 @@ a.ail-det-cat:hover{text-decoration:underline}
       } else { row.hidden=true; }
       // ---- Recently added strip ----
       var freshWrap=$('#ailFresh'), freshRow=$('#ailFreshRow');
-      if(freshWrap && freshRow && recent.length){
+      if(false && freshWrap && freshRow && recent.length){
         freshRow.innerHTML=recent.slice(0,12).map(function(t){
           var cc=CAT_BY[t.category]||{label:t.category||''};
           var m=mono(t.name);
@@ -2186,7 +2323,7 @@ a.ail-det-cat:hover{text-decoration:underline}
         '<div class="ailcmd" role="combobox" aria-expanded="true" aria-haspopup="listbox" aria-owns="ailCmdList">'+
           '<div class="ailcmd-top">'+ICON_SEARCH+
             '<input class="ailcmd-input" id="ailCmdInput" type="text" autocomplete="off" spellcheck="false" '+
-              'placeholder="Search 14,465 resources…" aria-label="Search all resources" '+
+              'placeholder="Search 14,715 resources…" aria-label="Search all resources" '+
               'aria-controls="ailCmdList" aria-autocomplete="list">'+
             '<span class="ailcmd-esc">ESC</span>'+
           '</div>'+
@@ -2290,7 +2427,7 @@ a.ail-det-cat:hover{text-decoration:underline}
       '<div class="ail-onb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 7v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V7z"/><path d="m9 12 2 2 4-4"/></svg></div>'+
       '<div class="ail-onb-body">'+
         '<h2 class="ail-onb-h">New here? Start with the basics.</h2>'+
-        '<p class="ail-onb-p">14,465 free AI resources — agent skills, tools, MCP servers, LLMs and more. Not sure where to begin? The 5-minute Start Guide walks you through your first skill.</p>'+
+        '<p class="ail-onb-p">14,715 free AI resources — agent skills, tools, MCP servers, LLMs and more. Not sure where to begin? The 5-minute Start Guide walks you through your first skill.</p>'+
         '<div class="ail-onb-acts">'+
           '<a class="is-primary" href="#/guide">Start guide →</a>'+
           '<a class="is-ghost" href="#/c/skill">Browse skills</a>'+
@@ -2317,7 +2454,7 @@ a.ail-det-cat:hover{text-decoration:underline}
         links:[['#/c/skill','Set my tool →']]},
       {h:'Install your first skill',p:'Every skill ships a one-line install. Open any skill and copy the <code>npx skills add …</code> command, or use the universal installer: <code>npx skills init</code> then add the repo. No signup, nothing locked.',
         links:[['#/c/skill','Find a skill']]},
-      {h:'Save a stack & keep going',p:'Tap the bookmark on any card to save it to <b>My Stack</b> — your personal shortlist, stored on this device. Press <kbd>⌘K</kbd> anytime to jump-search all 14,465 resources.',
+      {h:'Save a stack & keep going',p:'Tap the bookmark on any card to save it to <b>My Stack</b> — your personal shortlist, stored on this device. Press <kbd>⌘K</kbd> anytime to jump-search all 14,715 resources.',
         links:[['#/stack','My Stack'],['#/','All resources']]}
     ];
     var paths=[
@@ -2331,7 +2468,7 @@ a.ail-det-cat:hover{text-decoration:underline}
         '<a class="ail-back" href="#/">'+ICON_BACK+' AI Library</a>'+
         '<div class="ail-eyebrow">Start here · 5 minutes</div>'+
         '<h1 class="ail-h1">How to use the <em>AI Library</em>.</h1>'+
-        '<p class="ail-guide-lede">14,465 free resources can be a lot. This quick guide gets you from zero to your first installed skill — and shows you how to find anything fast.</p>'+
+        '<p class="ail-guide-lede">14,715 free resources can be a lot. This quick guide gets you from zero to your first installed skill — and shows you how to find anything fast.</p>'+
         steps.map(function(s,i){
           return '<div class="ail-step">'+
             '<div class="ail-step-n">'+(i+1)+'</div>'+
@@ -2499,8 +2636,7 @@ a.ail-det-cat:hover{text-decoration:underline}
     function apply(t){ if(t==='dark') document.documentElement.setAttribute('data-theme','dark'); else document.documentElement.removeAttribute('data-theme'); btn.setAttribute('aria-pressed', t==='dark'?'true':'false'); }
     apply(cur());
     btn.addEventListener('click',function(){ var t=cur()==='dark'?'light':'dark'; apply(t); try{localStorage.setItem('ail-theme',t);}catch(e){} });
-    // follow OS changes only if user hasn't explicitly chosen
-    if(window.matchMedia){ var mq=window.matchMedia('(prefers-color-scheme:dark)'); var on=function(e){ var saved; try{saved=localStorage.getItem('ail-theme');}catch(_){ } if(!saved) apply(e.matches?'dark':'light'); }; if(mq.addEventListener) mq.addEventListener('change',on); else if(mq.addListener) mq.addListener(on); }
+    // light is the default; dark only when the visitor picks it (choice is remembered)
   })();
 })();
 </script>
